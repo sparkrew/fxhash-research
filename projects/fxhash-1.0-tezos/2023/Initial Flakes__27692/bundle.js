@@ -1,0 +1,1 @@
+$fx.params([{id:"string_id",name:"Text",type:"string",default:"aa",options:{minLength:2,maxLength:2}}]);

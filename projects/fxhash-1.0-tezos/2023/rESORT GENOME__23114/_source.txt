@@ -1,0 +1,4 @@
+id: 23114
+name: rESORT GENOME
+mint_opens_at: 2023-01-03T19:17:29+00:00
+generative_uri: ipfs://QmWWm6hxJSakhuc3jRDzRvwVme5gy5VupokJZMcoGWxduf

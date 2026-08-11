@@ -1,0 +1,4 @@
+id: 25914
+name: Portrait of the Token as The Code Ran
+mint_opens_at: 2023-03-13T11:38:14+00:00
+generative_uri: ipfs://QmQTpT7VWuHNtQJAVzFSQDeRmoYBctTj3r7s7JT6YTnAaQ

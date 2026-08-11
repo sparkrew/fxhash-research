@@ -1,0 +1,4 @@
+id: 23413
+name: splash paint
+mint_opens_at: 2023-01-09T08:29:59+00:00
+generative_uri: ipfs://QmW88W8wvmFDW6Pzbdn8MHrV18acpcxdgTmeP8YzTQBvQH

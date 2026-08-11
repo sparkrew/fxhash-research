@@ -1,0 +1,4 @@
+id: 28580
+name: Mystery
+mint_opens_at: 2023-08-23T16:56:00+00:00
+generative_uri: ipfs://QmPTLArADeCJgzDPt6mSi9v7YK6MoUj78BjhiYe3f5wuxM

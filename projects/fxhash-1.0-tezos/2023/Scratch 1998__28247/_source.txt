@@ -1,0 +1,4 @@
+id: 28247
+name: Scratch 1998
+mint_opens_at: 2023-07-25T21:01:58+00:00
+generative_uri: ipfs://QmVm9C1RcYP5gPvudwMQW3tCn3e6QGMWEnAXGBsT9gbTTn

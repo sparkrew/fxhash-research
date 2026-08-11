@@ -1,0 +1,4 @@
+id: 28050
+name: NFT FORTUNE TELLING
+mint_opens_at: 2023-07-12T23:52:02+00:00
+generative_uri: ipfs://Qmck3ANVbRA2R2RnY2BV7JQ2br5hVqc8SDEvip42AaKuzQ

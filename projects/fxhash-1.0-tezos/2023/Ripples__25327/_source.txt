@@ -1,0 +1,4 @@
+id: 25327
+name: Ripples
+mint_opens_at: 2023-02-21T20:02:29+00:00
+generative_uri: ipfs://QmcDmt3p21F4s6CWqvBY3yty4HMpZXKpPcACpeHys7E71x

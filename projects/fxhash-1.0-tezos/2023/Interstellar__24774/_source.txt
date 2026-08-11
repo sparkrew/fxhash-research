@@ -1,0 +1,4 @@
+id: 24774
+name: Interstellar
+mint_opens_at: 2023-02-08T18:00:00+00:00
+generative_uri: ipfs://QmebBtLpAuQEpkt1Ut7y2V3cfUz9ykQcMCpCNhsLCMrFuR

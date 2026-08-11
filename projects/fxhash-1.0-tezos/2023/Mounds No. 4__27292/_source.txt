@@ -1,0 +1,4 @@
+id: 27292
+name: Mounds No. 4
+mint_opens_at: 2023-05-22T20:50:05+00:00
+generative_uri: ipfs://QmahfQ5oVW8nL51m7rt1NoGkT898vjTw7PskvaXDERtHjY

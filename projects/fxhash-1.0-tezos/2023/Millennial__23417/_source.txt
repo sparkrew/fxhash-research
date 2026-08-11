@@ -1,0 +1,4 @@
+id: 23417
+name: Millennial
+mint_opens_at: 2023-01-09T09:42:29+00:00
+generative_uri: ipfs://QmRqPxb7SbTkFocFjxA8W2Um6wkbDurMZkCS1MU6wJMHVb

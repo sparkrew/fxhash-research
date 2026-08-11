@@ -1,0 +1,4 @@
+id: 26898
+name: Lines & Dots [minimal]
+mint_opens_at: 2023-04-27T16:58:20+00:00
+generative_uri: ipfs://Qmdy3iiB83jAojFNzESQSFKJVXUruMEppx9Yics1viBCCE

@@ -1,0 +1,4 @@
+id: 25800
+name: The Cosmic Soup
+mint_opens_at: 2023-03-08T20:00:00+00:00
+generative_uri: ipfs://QmTNGDTqL7VidKfErxw3zbKU4AnNf9xWi2gMNGpTGKs3mj

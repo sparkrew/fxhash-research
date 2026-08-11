@@ -1,0 +1,4 @@
+id: 29897
+name: Out of Frame (fxhash)
+mint_opens_at: 2023-12-30T16:56:00+00:00
+generative_uri: ipfs://QmNbGwaryP9JvFG9BtVP7YHTg1RZpgFeJNw2HY4q7A1ySZ

@@ -1,0 +1,1 @@
+(()=>{console.log(fxhash),console.log(fxrand());const e=document.createElement("div");e.innerText="\n\n",document.body.prepend(e)})();

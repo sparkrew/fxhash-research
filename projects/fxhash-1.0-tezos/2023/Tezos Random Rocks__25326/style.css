@@ -1,0 +1,17 @@
+body {
+  background-color: lightblue;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+.canvas {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

@@ -1,0 +1,4 @@
+id: 26052
+name: pico_punk_generator_generator.p8
+mint_opens_at: 2023-03-20T13:00:00+00:00
+generative_uri: ipfs://QmdaEhotLYzPMuKXqbjpk6EzB5oLgUUic45o8i277foPfG

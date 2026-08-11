@@ -1,0 +1,4 @@
+id: 28367
+name: Sπral
+mint_opens_at: 2023-08-03T23:02:09+00:00
+generative_uri: ipfs://QmTBkZTtqosZMLqaiN7Ssk86K4pNRNVzQj2yMLJDbexZ4w

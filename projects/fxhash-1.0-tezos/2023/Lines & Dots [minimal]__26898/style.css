@@ -1,0 +1,13 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+canvas#defaultCanvas0 {
+  height: 100% !important;
+  width: auto !important;
+}
+
+html, body, main {
+  height: 100%;
+}

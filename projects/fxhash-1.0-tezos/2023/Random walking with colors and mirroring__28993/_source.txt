@@ -1,0 +1,4 @@
+id: 28993
+name: Random walking with colors and mirroring
+mint_opens_at: 2023-09-24T18:42:03+00:00
+generative_uri: ipfs://Qmc5hKPvk1bq2ES6zrWTvPTAf47V44cCfRSJi7SR89XE9z

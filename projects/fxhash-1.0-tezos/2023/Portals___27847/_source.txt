@@ -1,0 +1,4 @@
+id: 27847
+name: Portals/
+mint_opens_at: 2023-06-29T03:49:14+00:00
+generative_uri: ipfs://QmaqUiA9Wy3a8JX7ExU27CZwj941oRA26WZ13iKgMMZ4Ct

@@ -1,0 +1,4 @@
+id: 27890
+name: Softly
+mint_opens_at: 2023-07-04T12:42:00+00:00
+generative_uri: ipfs://QmNhcQMwowXRZnUBbqcJ8TPGECfJjsnh3ZdSfoQshSnqN7

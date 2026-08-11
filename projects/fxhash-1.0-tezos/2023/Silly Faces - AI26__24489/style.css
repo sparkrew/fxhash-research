@@ -1,0 +1,13 @@
+html, body, div {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: black;
+}
+
+canvas {
+	position: absolute;
+	height: 100% !important;
+	width: 100% !important;
+	object-fit: contain;
+}

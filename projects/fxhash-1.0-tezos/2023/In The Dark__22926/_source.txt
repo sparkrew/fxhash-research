@@ -1,0 +1,4 @@
+id: 22926
+name: In The Dark
+mint_opens_at: 2023-01-01T03:41:44+00:00
+generative_uri: ipfs://QmXSRHdgAtyngqRLpHnu9JSfuygsxEWEyJ8m3yPzvVQ7z4

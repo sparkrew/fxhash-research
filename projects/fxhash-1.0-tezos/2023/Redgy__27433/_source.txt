@@ -1,0 +1,4 @@
+id: 27433
+name: Redgy
+mint_opens_at: 2023-06-02T17:30:00+00:00
+generative_uri: ipfs://QmZNw67VQVnX8d6yZVxhmabCLHDxowtiR5gxHyx1TUueTU

@@ -1,0 +1,4 @@
+id: 22986
+name: Textures
+mint_opens_at: 2023-01-04T16:30:00+00:00
+generative_uri: ipfs://QmaixzouB4jdRrP2zd4sip52AZ2NFwgEXfAH25yCPBk9sb

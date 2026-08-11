@@ -1,0 +1,4 @@
+id: 23623
+name: Let Me Paint
+mint_opens_at: 2023-01-18T15:00:00+00:00
+generative_uri: ipfs://QmQfQUn8xMkNt8eyF2cMSQDFtedhpFcjtYmDbhh2kR5Dqu

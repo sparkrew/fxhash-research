@@ -1,0 +1,4 @@
+id: 27824
+name: The Future of Us /
+mint_opens_at: 2023-06-28T01:15:27+00:00
+generative_uri: ipfs://QmY8xgnpvFWLfJZMzFBwkhc72avh2hiZhhggqF45qjGKmc

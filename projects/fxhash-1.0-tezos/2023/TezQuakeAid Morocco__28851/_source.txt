@@ -1,0 +1,4 @@
+id: 28851
+name: TezQuakeAid Morocco
+mint_opens_at: 2023-09-12T10:00:00+00:00
+generative_uri: ipfs://QmXuJSFzhUHXsjp1CSosmvu9ZdR6AT1jPBtK94dC1jGSRJ

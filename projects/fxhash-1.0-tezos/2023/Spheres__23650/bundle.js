@@ -1,0 +1,1 @@
+(()=>{console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={spacer};const e=document.createElement("div");e.innerText=`\n  random hash: ${fxhash}\n\n  sspacer: ${$fxhashFeatures.spacer},\n\n`,document.body.prepend(e)})();

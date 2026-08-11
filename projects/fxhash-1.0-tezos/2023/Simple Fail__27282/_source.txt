@@ -1,0 +1,4 @@
+id: 27282
+name: Simple Fail
+mint_opens_at: 2023-06-01T12:00:00+00:00
+generative_uri: ipfs://QmPTnwCGeZAC7PeotW2AMJ9zsKditXT7BZuwXJ1micZodg

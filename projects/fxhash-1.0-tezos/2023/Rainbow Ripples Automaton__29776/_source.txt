@@ -1,0 +1,4 @@
+id: 29776
+name: Rainbow Ripples Automaton
+mint_opens_at: 2023-12-17T19:00:00+00:00
+generative_uri: ipfs://QmRKXuhJqXv3Y2r9BAVcdnnBDFy2B2HSEXaut5QKvKFmDo

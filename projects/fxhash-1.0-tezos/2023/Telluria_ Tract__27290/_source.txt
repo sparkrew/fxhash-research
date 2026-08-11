@@ -1,0 +1,4 @@
+id: 27290
+name: Telluria: Tract
+mint_opens_at: 2023-06-08T17:15:00+00:00
+generative_uri: ipfs://QmNcdhDQCjVh9mERnSavcir2qeR8LDToxxC1kxFrzptEvY

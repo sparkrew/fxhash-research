@@ -1,0 +1,4 @@
+id: 25780
+name: The Love Gun
+mint_opens_at: 2023-03-08T19:00:00+00:00
+generative_uri: ipfs://QmPyUYAFuCSRw1GWxXdw3ktjpD7wxHkLRjE9DPCFUWTbaQ

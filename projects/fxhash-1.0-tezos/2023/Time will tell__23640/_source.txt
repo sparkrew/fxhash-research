@@ -1,0 +1,4 @@
+id: 23640
+name: Time will tell
+mint_opens_at: 2023-01-14T03:00:00+00:00
+generative_uri: ipfs://QmSdHbpAiL3496ZLnNJPumVHoz7XxkZJw67gwjX4rYXB5C

@@ -1,0 +1,4 @@
+id: 29341
+name: Puzzled guy that rest in pieces
+mint_opens_at: 2023-10-31T17:13:00+00:00
+generative_uri: ipfs://QmU3sDbPHerzEscHZGDBazVz8hTHH6dQb2XMCGfgagC3d7

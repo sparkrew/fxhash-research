@@ -1,0 +1,4 @@
+id: 27072
+name: Rectmatic
+mint_opens_at: 2023-05-15T17:45:00+00:00
+generative_uri: ipfs://Qmb4nJ9EADtvTX1m7f2nBNGRjFuEjJ95YfC14A3rKU5mGi

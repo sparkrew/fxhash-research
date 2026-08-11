@@ -1,0 +1,4 @@
+id: 27693
+name: key bumps
+mint_opens_at: 2023-06-19T12:53:46+00:00
+generative_uri: ipfs://QmPAX7by4RQvB4gADcchLS4u7ddV74YW4Y2HpU6ZNUUnjc

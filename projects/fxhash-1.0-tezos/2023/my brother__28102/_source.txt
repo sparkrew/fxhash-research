@@ -1,0 +1,4 @@
+id: 28102
+name: my brother
+mint_opens_at: 2023-07-18T17:00:00+00:00
+generative_uri: ipfs://QmRndhtVkwcCqdfYoSakXLXpWzamhU2tsrJ63Z9dd3tsfy

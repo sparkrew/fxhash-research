@@ -1,0 +1,4 @@
+id: 25808
+name: Minimalist Women / Artificial Realism
+mint_opens_at: 2023-03-09T03:05:44+00:00
+generative_uri: ipfs://QmVnU3o8ftG5J3Ykppv6eEcJRMsDg58jERLh1BWshkgVyr

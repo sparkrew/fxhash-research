@@ -1,0 +1,4 @@
+id: 23965
+name: stained glass
+mint_opens_at: 2023-01-19T23:57:14+00:00
+generative_uri: ipfs://QmPHAEuwLUfNVRJ5jedzUHTquLL1abWXkPQxEW1qFHsdhL

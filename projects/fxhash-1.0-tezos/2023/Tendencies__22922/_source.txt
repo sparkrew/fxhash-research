@@ -1,0 +1,4 @@
+id: 22922
+name: Tendencies
+mint_opens_at: 2023-01-01T02:48:29+00:00
+generative_uri: ipfs://Qmcp159iVHAY6j3NGbxBjQyoyr9eBtFqRGrTFKtqpsdGHk

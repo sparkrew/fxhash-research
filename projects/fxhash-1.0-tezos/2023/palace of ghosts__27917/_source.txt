@@ -1,0 +1,4 @@
+id: 27917
+name: palace of ghosts
+mint_opens_at: 2023-07-04T13:30:00+00:00
+generative_uri: ipfs://QmXm3pzwgXPPEQ8BgRHXL6JQJC2vS7C8LEoXbXhGnUJtzF

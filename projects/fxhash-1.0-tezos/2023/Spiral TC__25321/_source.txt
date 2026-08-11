@@ -1,0 +1,4 @@
+id: 25321
+name: Spiral TC
+mint_opens_at: 2023-02-21T18:39:44+00:00
+generative_uri: ipfs://QmT4JpvsDJBi3m498R4mLxWbziNSxpWckQv8GYzjfr9EUc

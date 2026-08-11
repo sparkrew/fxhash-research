@@ -1,0 +1,28 @@
+{
+  "name": "Richter",
+  "short_name": "Richter",
+  "lang": "en-CH",
+  "start_url": "./",
+  "description": "Richard Nadler X Leander Herzog",
+  "icons": [
+    {
+      "src": "icons/icon.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "icons/icon.jpg",
+      "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshot.jpg",
+      "sizes": "1200x1200",
+      "type": "image/jpg"
+    }
+  ],
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "display": "fullscreen"
+}

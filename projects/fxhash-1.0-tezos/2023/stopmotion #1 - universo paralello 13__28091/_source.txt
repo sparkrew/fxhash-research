@@ -1,0 +1,4 @@
+id: 28091
+name: stopmotion #1 - universo paralello 13 
+mint_opens_at: 2023-07-18T17:00:00+00:00
+generative_uri: ipfs://QmV18pgyF8bkRxX8Sqv6q1kQ41vCJHiGKyvqAtcy9VGZj6

@@ -1,0 +1,4 @@
+id: 28139
+name: Strange-machines
+mint_opens_at: 2023-07-18T15:40:46+00:00
+generative_uri: ipfs://QmSYGgguZGNXnrV46v8BYt2VpqqTdqNZHhJ3Kv9EhFX9DG

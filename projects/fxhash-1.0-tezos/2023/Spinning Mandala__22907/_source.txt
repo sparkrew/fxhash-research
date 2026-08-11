@@ -1,0 +1,4 @@
+id: 22907
+name: Spinning Mandala
+mint_opens_at: 2023-01-01T02:09:44+00:00
+generative_uri: ipfs://QmW6La4s37c3V2tRfffp5wT9zHYi1hQUbuzDsWpxtiAzg8

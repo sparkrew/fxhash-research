@@ -1,0 +1,4 @@
+id: 28963
+name: Mushroom
+mint_opens_at: 2023-09-22T00:34:00+00:00
+generative_uri: ipfs://QmX9pNiutB8ta5ZQEVi5cdKnz4NDPexzy4aUWa4CJz7QEy

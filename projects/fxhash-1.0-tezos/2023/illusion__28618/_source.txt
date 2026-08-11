@@ -1,0 +1,4 @@
+id: 28618
+name: illusion
+mint_opens_at: 2023-08-26T16:23:00+00:00
+generative_uri: ipfs://QmTHpZ7wg5xfHx8DjegFa3PTt49j7e9K9yVaEoWAQs1TkR

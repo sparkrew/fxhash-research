@@ -1,0 +1,4 @@
+id: 26945
+name: Improbable Drafts
+mint_opens_at: 2023-05-03T18:00:00+00:00
+generative_uri: ipfs://QmZftAUJ47hrqCF12cnXumeF68FHjDAfnXAHCkpdkRuPvo

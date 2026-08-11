@@ -1,0 +1,4 @@
+id: 27303
+name: Inspirational
+mint_opens_at: 2023-05-23T19:30:00+00:00
+generative_uri: ipfs://QmPJubuE7LyikJ763QuGhtnrpvHnWHqfmoqovSdqqQvBtB

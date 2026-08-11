@@ -1,0 +1,11 @@
+Sketchy Delight
+
+Sketchy Delight consists of intricate three point perspective drawings made in the style of chalk on a blackboard. Some editions have green chalkboard backgrounds or a whiteboard style.
+
+
+Copyright 2022 Jeff Clark
+--------------------------
+100% generative
+
+All drawing and geometric code created by Jeff Clark using standard javascript
+

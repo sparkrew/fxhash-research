@@ -1,0 +1,4 @@
+id: 27448
+name: Origin
+mint_opens_at: 2023-06-02T16:30:00+00:00
+generative_uri: ipfs://QmW4nRoaQUYLK4gPjhFPUTNkoYpofcVJT7ZeBCQ4gaKxd8

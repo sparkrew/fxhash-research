@@ -1,0 +1,4 @@
+id: 23040
+name: Nouns Code: 563
+mint_opens_at: 2023-01-03T13:00:00+00:00
+generative_uri: ipfs://QmUhSeKV2xp49xxrsR4DtkkBxJ4d5f5m4kFH7WLdNDvsry

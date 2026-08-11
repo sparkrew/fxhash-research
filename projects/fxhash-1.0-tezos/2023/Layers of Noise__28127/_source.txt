@@ -1,0 +1,4 @@
+id: 28127
+name: Layers of Noise
+mint_opens_at: 2023-07-18T13:00:00+00:00
+generative_uri: ipfs://QmcMvjafGVmJDinLTveMeX7F3gMvBLuatfYLLTTGCXoxQS

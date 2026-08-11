@@ -1,0 +1,4 @@
+id: 26676
+name: Morixels Donkey
+mint_opens_at: 2023-04-20T18:30:00+00:00
+generative_uri: ipfs://QmYAT7eHXE771tLWiRMvBJ89PJKVU8wzZj9HfyrMuA6xnK

@@ -1,0 +1,4 @@
+id: 28533
+name: No Aozora
+mint_opens_at: 2023-08-18T16:00:00+00:00
+generative_uri: ipfs://QmYNP1uXAGFgPfguC1NeJB8UmedEwTGWY2Hy6snwFsfSXF

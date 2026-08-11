@@ -1,0 +1,4 @@
+id: 28099
+name: The Odds
+mint_opens_at: 2023-07-18T17:30:00+00:00
+generative_uri: ipfs://QmPtTGxBVYxXA23jzR5tvjb6nocjwwwrXdsjjotjSDK9Ly

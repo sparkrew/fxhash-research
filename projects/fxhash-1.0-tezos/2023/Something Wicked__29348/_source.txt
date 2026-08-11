@@ -1,0 +1,4 @@
+id: 29348
+name: Something Wicked
+mint_opens_at: 2023-10-31T19:00:00+00:00
+generative_uri: ipfs://QmcxcLsNmxhnjx1drvQir8fSBR2omoSocrideMqHSixbzH

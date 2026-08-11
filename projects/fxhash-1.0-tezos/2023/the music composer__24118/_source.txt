@@ -1,0 +1,4 @@
+id: 24118
+name: the music composer
+mint_opens_at: 2023-01-23T00:36:29+00:00
+generative_uri: ipfs://QmP3zEwB23mzY9NUGwcao45Ys5rVX3Fob7WYNH2vNFqwEA

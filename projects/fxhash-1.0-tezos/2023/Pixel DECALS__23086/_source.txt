@@ -1,0 +1,4 @@
+id: 23086
+name: Pixel DECALS
+mint_opens_at: 2023-01-03T04:33:44+00:00
+generative_uri: ipfs://Qmasq2z3mBjEt4UqqAPKkiEGb47dFKQy6Kqd4kWmg7NXb9

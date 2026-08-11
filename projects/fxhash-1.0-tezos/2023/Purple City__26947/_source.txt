@@ -1,0 +1,4 @@
+id: 26947
+name: Purple City
+mint_opens_at: 2023-05-01T17:10:00+00:00
+generative_uri: ipfs://QmbEvweZYHFodbhX7c6J8jwn3oF751Z67iAggPSCSXNvHo

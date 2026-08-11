@@ -1,0 +1,4 @@
+id: 24214
+name: Silkroad
+mint_opens_at: 2023-01-25T00:37:14+00:00
+generative_uri: ipfs://QmTURz7gUAe6MhyEjobaL35gArjvkz14yenhJFPLeQxADN

@@ -1,0 +1,15 @@
+body{
+  width: 100vw;
+  height: auto;
+  background-color: hsl(0, 0%, 0%);
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+}

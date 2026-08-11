@@ -1,0 +1,4 @@
+id: 26276
+name: Polygon Soup
+mint_opens_at: 2023-03-27T16:30:29+00:00
+generative_uri: ipfs://QmZAvtFqGCQiRBYYPzsmzvypfmTb3UWScra9Z3ad2KVZLx

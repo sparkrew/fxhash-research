@@ -1,0 +1,4 @@
+id: 27162
+name: Mr. Whiskers’ Generative Synthwave Odyssey
+mint_opens_at: 2023-05-18T17:10:00+00:00
+generative_uri: ipfs://QmQFGJCdyArrPUontQ7otXbTqVKDCwHxt8eyUGMWKiHs19

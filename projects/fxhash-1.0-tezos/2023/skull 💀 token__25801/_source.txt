@@ -1,0 +1,4 @@
+id: 25801
+name: skull 💀 token
+mint_opens_at: 2023-03-08T19:02:59+00:00
+generative_uri: ipfs://QmQPQrqRUciQXhWBZkwJKmVKAFfZxNhNwTTWxi4zcvrZJr

@@ -1,0 +1,4 @@
+id: 27437
+name: Plexus
+mint_opens_at: 2023-06-01T20:28:13+00:00
+generative_uri: ipfs://QmQ63w2LjFA8yYjjz3KnZ5MEH4HLse2ba9XPh96rz486iB

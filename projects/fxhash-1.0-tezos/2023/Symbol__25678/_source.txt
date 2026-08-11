@@ -1,0 +1,4 @@
+id: 25678
+name: Symbol
+mint_opens_at: 2023-03-05T04:30:00+00:00
+generative_uri: ipfs://QmVg8fuFSeFeoZzhoPugyjp3fdGj56QwvhGLSKmWZhPv8S

@@ -1,0 +1,59 @@
+body {
+  background-color: #090909;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+}
+
+canvas {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+main {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #090909;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* I noticed this simple css in Andreas Rau's Elevation and it saved me a struggle on trying to show a loading animation
+while simultaneously building the flow and birthing fields.  I struggled with that as draw just stops when I would call the build functions.
+
+I couldn't figure out exacty where to put the code for adding/removing the hidden tag (is it called a tag in css?)
+but I think it's ok if I just through the canvas on top of this title.....:fingers_crossed: */
+p#loading {
+  position: absolute;
+  font-weight: 450;
+  top: auto;
+  bottom:  auto;
+  left:  auto;
+  right:  auto;
+  line-height: 25px;
+  text-align: center;
+  vertical-align: middle;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.2em;
+  font-size: 20px;
+}
+
+p#loading.hidden {
+  display: none;
+}

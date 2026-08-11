@@ -1,0 +1,4 @@
+id: 23166
+name: RED
+mint_opens_at: 2023-01-04T16:30:00+00:00
+generative_uri: ipfs://QmT6GEFzrSNi9dfuH3uPEUjdzugKJtLm3rnw4wRNMVkf3z

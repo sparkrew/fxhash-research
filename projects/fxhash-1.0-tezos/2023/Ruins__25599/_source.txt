@@ -1,0 +1,4 @@
+id: 25599
+name: Ruins
+mint_opens_at: 2023-03-06T19:00:00+00:00
+generative_uri: ipfs://QmXEYipxg33NRHaDSw4tDEgZ7ASfNZwXJpU4gEioVejqzA

@@ -1,0 +1,100 @@
+/*body {
+  background-color: grey;
+  overflow: hidden;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+*/
+/* style.css */
+
+/*
+body {
+  margin: 0;
+  padding: 0;
+  /*display: block;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #ffffff;
+  object-fit: contain;
+
+  /* leave it to hide the scrollbars 
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+main {
+  text-align: center;
+  width: 100%;
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  object-fit: contain;
+
+  filter: drop-shadow(0 0 1.5rem #252525);
+}
+
+
+main {
+align-items: center;
+display: flex;
+height: 100vh; /* Fallback for browsers that do not support Custom Properties 
+justify-content: center;
+}
+main canvas { 
+height: auto !important;
+width: auto !important;
+max-width: 100%;
+max-height: 100%;
+display: inline-block; /* Instead of display: block; 
+margin: 0 auto;
+vertical-align: middle;
+touch-action: none;
+}*/
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  object-fit: contain;
+  filter: drop-shadow(0 0 1.0rem #252525);
+}
+
+.title-text {
+  font-weight: 100;
+  font-size: 2.8vh
+}
+
+.subtitle-text {
+  font-weight: 100;
+  font-size: 1.8vh
+}

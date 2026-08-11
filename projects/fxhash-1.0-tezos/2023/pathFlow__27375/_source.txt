@@ -1,0 +1,4 @@
+id: 27375
+name: pathFlow
+mint_opens_at: 2023-05-28T14:30:29+00:00
+generative_uri: ipfs://QmVHC5WTdgkkJvCfRKitscLf9v5YHDMJovuHZHrtttV9h3

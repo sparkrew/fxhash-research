@@ -1,0 +1,4 @@
+id: 24493
+name: Simplicity
+mint_opens_at: 2023-01-31T18:15:44+00:00
+generative_uri: ipfs://QmP53j8uDJZufwBM1pdgmddbuWZA2UL7mtzifymE5oJH8X

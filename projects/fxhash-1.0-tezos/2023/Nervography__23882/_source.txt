@@ -1,0 +1,4 @@
+id: 23882
+name: Nervography
+mint_opens_at: 2023-01-18T15:48:44+00:00
+generative_uri: ipfs://QmULoxDnbZEZERvmREDDeyqn82Ja8S1qJADJqeJvJkzkmy

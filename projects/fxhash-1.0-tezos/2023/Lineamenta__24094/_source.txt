@@ -1,0 +1,4 @@
+id: 24094
+name: Lineamenta
+mint_opens_at: 2023-01-23T18:00:00+00:00
+generative_uri: ipfs://QmXQeSZsExJgC8v7cCgma1v2QHwhCHmdvXR6tZ4sd5kQp2

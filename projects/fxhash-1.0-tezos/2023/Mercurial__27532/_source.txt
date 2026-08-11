@@ -1,0 +1,4 @@
+id: 27532
+name: Mercurial
+mint_opens_at: 2023-06-08T18:00:00+00:00
+generative_uri: ipfs://QmUne8ro6NRPX5keuEwg9mdPovNZtdL9qpN9D9N7F8Ugsr

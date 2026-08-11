@@ -1,0 +1,4 @@
+id: 27357
+name: Polarization
+mint_opens_at: 2023-05-30T17:30:00+00:00
+generative_uri: ipfs://QmdAkSQTQEhJHji9jDwm9xszdwTKTWuLs84JrCiiEPyP4y

@@ -1,0 +1,4 @@
+id: 23178
+name: Potface
+mint_opens_at: 2023-01-04T18:30:00+00:00
+generative_uri: ipfs://QmWdVvfDggaCNrrGEvzSY8KwYTvfipEGRVkqmaG6z6U52e

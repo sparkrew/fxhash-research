@@ -1,0 +1,4 @@
+id: 25723
+name: ink painting
+mint_opens_at: 2023-03-06T12:58:14+00:00
+generative_uri: ipfs://QmNr8XQ4jcPxMKYCpBhDf5bm88Pur4XT1uvc3sqqjTgFbR

@@ -1,0 +1,4 @@
+id: 26112
+name: Map
+mint_opens_at: 2023-03-21T00:20:14+00:00
+generative_uri: ipfs://Qmd6EQZraECN5Lw9uxNmafYhYPH8VBDNx2ZSfkVKgtjkFB

@@ -1,0 +1,4 @@
+id: 24000
+name: Richter
+mint_opens_at: 2023-01-20T17:00:00+00:00
+generative_uri: ipfs://QmQzbsQM9hd6vc821LmpHCkLXv18fZfhbJf6ygyVhqWB5a

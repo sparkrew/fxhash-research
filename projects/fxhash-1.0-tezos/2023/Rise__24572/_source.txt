@@ -1,0 +1,4 @@
+id: 24572
+name: Rise
+mint_opens_at: 2023-02-02T02:49:59+00:00
+generative_uri: ipfs://QmWZo95zSeZEtCLi3pVuF4styhQEtEfNCXDNW3yFTMFH3N

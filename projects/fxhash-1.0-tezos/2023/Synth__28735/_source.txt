@@ -1,0 +1,4 @@
+id: 28735
+name: Synth
+mint_opens_at: 2023-09-01T11:00:00+00:00
+generative_uri: ipfs://QmdK3WD2LRDA7xwxkKXGJiqwgZSWEpja6huhUTRccQUsEg

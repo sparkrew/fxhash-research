@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en">
+  <head>
+    <title>FXHASH project</title>
+    <script src="./P5/p5.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" >
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+  </head>
+  <body>
+    
+    <span id="p5_loading" class="loader"><style>
+      body {
+        font-size:22px;
+        background-color: #f5f5f5;
+        display: flex;
+        align-items: center;
+        font-family: Tahoma ;
+        color: #4d4c47;
+        letter-spacing: 1px;
+        font-weight: 200;
+        font-stretch: condensed;
+        
+      }
+      </style></span>
+      
+
+          <meta charset="utf-8">
+          <style>
+            body { 
+            background: #f5f5f5; }
+            canvas { 
+            max-width: 100%;
+            max-height: 100%;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            overflow: auto;
+            position: fixed;
+            -o-object-fit: contain;
+            object-fit: contain; 
+            filter:drop-shadow(0px 0px 4px #76726d);
+            display: block;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+          }
+
+
+
+          </style>
+
+
+  <script src="./index.js"></script>
+  <script src="segment.js"></script>
+  <script src="tentacle.js"></script>
+</body>
+
+</html>

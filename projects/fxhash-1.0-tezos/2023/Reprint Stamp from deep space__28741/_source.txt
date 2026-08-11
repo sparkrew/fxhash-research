@@ -1,0 +1,4 @@
+id: 28741
+name: Reprint Stamp from deep space
+mint_opens_at: 2023-09-02T18:00:00+00:00
+generative_uri: ipfs://QmYNxUai3eAJqyaqfqP4N4AzgZAqVqAievHWxGMT7e4jLd

@@ -1,0 +1,4 @@
+id: 22992
+name: Terraced
+mint_opens_at: 2023-01-04T17:00:00+00:00
+generative_uri: ipfs://QmZPfbF248JU9ReDqW8sLQGS8JJoTApAY56syZH5qb5u4d

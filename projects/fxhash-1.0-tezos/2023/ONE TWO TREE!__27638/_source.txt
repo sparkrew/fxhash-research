@@ -1,0 +1,4 @@
+id: 27638
+name: ONE TWO TREE!
+mint_opens_at: 2023-06-15T21:10:33+00:00
+generative_uri: ipfs://QmU13rVm2HyXyg7RQhywco7LjPn97TY6bdhBDypvT73Kfs

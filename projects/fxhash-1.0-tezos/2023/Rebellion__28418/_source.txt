@@ -1,0 +1,4 @@
+id: 28418
+name: Rebellion
+mint_opens_at: 2023-08-07T23:59:45+00:00
+generative_uri: ipfs://QmaT43uLbGm9zXYX6END1Zo8DXuxCuJEaNCVbit9qpyC86

@@ -1,0 +1,4 @@
+id: 24242
+name: koke
+mint_opens_at: 2023-01-28T15:00:00+00:00
+generative_uri: ipfs://QmPzzTceiM6rEWuePvTp3GM2mQxD5Z1VYH2BjK8K58E5j3

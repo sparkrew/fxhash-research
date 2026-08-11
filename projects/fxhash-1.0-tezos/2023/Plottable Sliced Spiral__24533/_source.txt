@@ -1,0 +1,4 @@
+id: 24533
+name: Plottable Sliced Spiral
+mint_opens_at: 2023-02-02T17:30:00+00:00
+generative_uri: ipfs://QmYAzyn5XQpVZK4GXvyEZmFSnAXfCpx8bkKgojecPepJFm

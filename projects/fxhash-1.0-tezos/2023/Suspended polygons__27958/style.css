@@ -1,0 +1,50 @@
+html {
+	background: white;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	max-width: 100vw;
+	max-height: 100vh;
+	overflow: hidden;
+
+	display: flex;
+	align-items: center;
+	justify-content: center; /* flex-start; */
+	background-color: #f1f1f1;
+	font-family: sans-serif;
+}
+
+svg,
+canvas {
+	max-width: 99.5%;
+	max-height: 99.5%;
+}
+
+p {
+	margin: 0;
+}
+
+div.contextual-menu {
+	position: absolute;
+	display: none;
+	padding: 0.25em;
+	background: #eeeded;
+	box-shadow: 0 0.25rem 0.5rem #00000033;
+}
+
+div.contextual-menu button {
+	border: none;
+	padding: 0.5em;
+	margin: 0.25em;
+	background-color: #ffffff;
+	cursor: pointer;
+}
+
+div.contextual-menu.is-open {
+	display: block;
+}

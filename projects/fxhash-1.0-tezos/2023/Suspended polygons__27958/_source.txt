@@ -1,0 +1,4 @@
+id: 27958
+name: Suspended polygons
+mint_opens_at: 2023-07-10T18:00:00+00:00
+generative_uri: ipfs://QmW8qi9EDksaAQQDmtU92vfKgKEg6DAKPA9M4XzJGQw2JW

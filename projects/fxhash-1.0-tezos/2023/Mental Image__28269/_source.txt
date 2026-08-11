@@ -1,0 +1,4 @@
+id: 28269
+name: Mental Image
+mint_opens_at: 2023-07-28T11:07:26+00:00
+generative_uri: ipfs://QmVXPHk1iqe86CJ5R7J9tTRsCTtDKESfcaxDYR5EHT3AmU

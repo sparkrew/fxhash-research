@@ -1,0 +1,4 @@
+id: 29227
+name: personam_data [🎧]
+mint_opens_at: 2023-10-18T14:00:00+00:00
+generative_uri: ipfs://QmePrzocn12XY9pBKXLksbLByti2LMWJrAbfqnEs1uGfBm

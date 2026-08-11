@@ -1,0 +1,4 @@
+id: 28486
+name: Manifold
+mint_opens_at: 2023-08-14T15:00:00+00:00
+generative_uri: ipfs://QmQkdxvdc5i97ZNiz67gwXiDUGj9UNs6y7hfy3v3R5yCnE

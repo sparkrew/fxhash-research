@@ -1,0 +1,4 @@
+id: 27079
+name: Sketch 41
+mint_opens_at: 2023-08-23T21:00:00+00:00
+generative_uri: ipfs://Qmf9GAWWXvPafrrbhmJh8RGwb7mXo86iVdB4PoSthKYCi1

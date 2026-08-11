@@ -1,0 +1,4 @@
+id: 27639
+name: Lichen
+mint_opens_at: 2023-06-19T16:00:00+00:00
+generative_uri: ipfs://QmTQwekBTr14dAfG5VyzxySgtRCU45yMVHyVTTV3NHFbBs

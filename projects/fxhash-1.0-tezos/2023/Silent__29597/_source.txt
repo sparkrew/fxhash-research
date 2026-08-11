@@ -1,0 +1,4 @@
+id: 29597
+name: Silent
+mint_opens_at: 2023-12-02T14:57:32+00:00
+generative_uri: ipfs://QmYGdWEDFz6AVqwmBW5E8Q4fNqY7c5YJdCW4XMEsvWJZSb

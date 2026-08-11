@@ -1,0 +1,4 @@
+id: 23408
+name: Lonely Graves
+mint_opens_at: 2023-01-09T04:01:59+00:00
+generative_uri: ipfs://QmTdcGsS6qKQwiJth6FYFAcgg1xwZo7QFXqBzQP7DHMWRr

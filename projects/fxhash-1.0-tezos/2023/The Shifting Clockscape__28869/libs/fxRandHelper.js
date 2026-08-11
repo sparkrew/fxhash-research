@@ -1,0 +1,1 @@
+function fxrandInt(){return Math.round(64e3*fxrand())}function fxrandIntMax(n){return fxrandInt()%n}function fxrandBool(){return 0==fxrandIntMax(2)}

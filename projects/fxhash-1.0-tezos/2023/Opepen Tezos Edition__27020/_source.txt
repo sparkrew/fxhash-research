@@ -1,0 +1,4 @@
+id: 27020
+name: Opepen Tezos Edition
+mint_opens_at: 2023-05-05T13:00:00+00:00
+generative_uri: ipfs://QmSEAWrddyqKtmjJQiW1UWZJWfAS9swtTJiHY2tSDYabp8

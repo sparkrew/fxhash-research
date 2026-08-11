@@ -1,0 +1,4 @@
+id: 24215
+name: Successful Waves
+mint_opens_at: 2023-01-26T20:45:00+00:00
+generative_uri: ipfs://QmTjt23LD2RT4PE1XoayrvDjo1z8TM1bJHvzCzT7LD5aTY

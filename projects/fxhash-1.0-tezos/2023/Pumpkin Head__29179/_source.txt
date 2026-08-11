@@ -1,0 +1,4 @@
+id: 29179
+name: Pumpkin Head
+mint_opens_at: 2023-10-30T18:30:00+00:00
+generative_uri: ipfs://QmR9YDQWUYwJBKjk5nVZ1vCXc9h2dCPG45sU7QpJV9sbUr

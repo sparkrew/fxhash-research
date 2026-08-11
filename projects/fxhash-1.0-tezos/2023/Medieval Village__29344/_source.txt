@@ -1,0 +1,4 @@
+id: 29344
+name: Medieval Village
+mint_opens_at: 2023-10-31T14:00:00+00:00
+generative_uri: ipfs://QmZGiAfRJ7rCQHz4wQzq3gz1ywj5CgdG5GPjhNvfQDKrEp

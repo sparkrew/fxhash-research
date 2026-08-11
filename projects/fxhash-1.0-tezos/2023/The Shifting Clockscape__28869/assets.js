@@ -1,0 +1,1 @@
+const tilesImagePath="./images/",assetManager=new AssetManager;

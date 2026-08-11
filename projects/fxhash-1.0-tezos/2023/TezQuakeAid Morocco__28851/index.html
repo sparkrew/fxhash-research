@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="p5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" >
+
+  </head>
+  <script id="fxhash-snippet">
+    //---- do not edit the following code (you can indent as you wish)
+    let search = new URLSearchParams(window.location.search)
+    let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+    let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+    let sfc32 = (a, b, c, d) => {
+      return () => {
+        a |= 0; b |= 0; c |= 0; d |= 0
+        var t = (a + b | 0) + d | 0
+        d = d + 1 | 0
+        a = b ^ b >>> 9
+        b = c + (c << 3) | 0
+        c = c << 21 | c >>> 11
+        c = c + t | 0
+        return (t >>> 0) / 4294967296
+      }
+    }
+    let rndHash = (n) => Array(n).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join("")
+    let matcher = (str, start) => str.slice(start).match(new RegExp(".{"+((str.length-start)>>2)+"}","g")).map(b58dec)
+    // make fxrand from hash
+    var fxhash = search.get("fxhash") || "oo" + rndHash(49)
+    var fxrand = sfc32(...matcher(fxhash, 2))
+    // make fxrandminter from minter address
+    var fxminter = search.get("fxminter") || "tz1" + rndHash(33)
+    var fxrandminter = sfc32(...matcher(fxminter, 3))
+    // true if preview mode active, false otherwise
+    // you can append preview=1 to the URL to simulate preview active
+    var isFxpreview = search.get('preview') === "1"
+    // call this method to trigger the preview
+    function fxpreview() {
+      window.dispatchEvent(new Event("fxhash-preview"))
+      setTimeout(() => fxpreview(), 500)
+    }
+    // get the byte params from the URL
+    const searchParams = window.location.hash
+    let initialInputBytes = searchParams?.replace("#0x", "")
+    const throttle = (func, delay) => {
+      let isThrottled = false
+
+      return function (...args) {
+        if (!isThrottled) {
+          func.apply(this, args)
+          isThrottled = true
+          
+          setTimeout(() => {
+            isThrottled = false
+          }, delay)
+        }
+      }
+    }
+
+    const stringToHex = (s) => {
+      let rtn = ""
+      for (let i = 0; i < s.length; i++) {
+        rtn += s.charCodeAt(i).toString(16).padStart(4, "0")
+      }
+      return rtn
+    }
+
+    const completeHexColor = (hexCode) => {
+      let hex = hexCode.replace("#", "")
+      if (hex.length === 6) {
+        hex = `${hex}ff`
+      }
+      if (hex.length === 3) {
+        hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}ff`
+      }
+      return hex
+    }
+
+    // the parameter processor, used to parse fxparams
+    const processors = {
+      number: {
+        serialize: (input) => {
+          const view = new DataView(new ArrayBuffer(8))
+          view.setFloat64(0, input)
+          return view.getBigUint64(0).toString(16).padStart(16, "0")
+        },
+        deserialize: (input) => {
+          const view = new DataView(new ArrayBuffer(8))
+          for (let i = 0; i < 8; i++) {
+            view.setUint8(i, parseInt(input.substring(i * 2, i * 2 + 2), 16))
+          }
+          return view.getFloat64(0)
+        },
+        bytesLength: () => 8,
+        constrain: (value, definition) => {
+          let min = Number.MIN_SAFE_INTEGER
+          if (typeof definition.options?.min !== "undefined")
+            min = Number(definition.options.min)
+          let max = Number.MAX_SAFE_INTEGER
+          if (typeof definition.options?.max !== "undefined")
+            max = Number(definition.options.max)
+          max = Math.min(max, Number.MAX_SAFE_INTEGER)
+          min = Math.max(min, Number.MIN_SAFE_INTEGER)
+          const v = Math.min(Math.max(value, min), max)
+          if (definition?.options?.step) {
+            const t = 1.0 / definition?.options?.step
+            return Math.round(v * t) / t
+          }
+          return v
+        },
+        random: (definition) => {
+          let min = Number.MIN_SAFE_INTEGER
+          if (typeof definition.options?.min !== "undefined")
+            min = Number(definition.options.min)
+          let max = Number.MAX_SAFE_INTEGER
+          if (typeof definition.options?.max !== "undefined")
+            max = Number(definition.options.max)
+          max = Math.min(max, Number.MAX_SAFE_INTEGER)
+          min = Math.max(min, Number.MIN_SAFE_INTEGER)
+          const v = Math.random() * (max - min) + min
+          if (definition?.options?.step) {
+            const t = 1.0 / definition?.options?.step
+            return Math.round(v * t) / t
+          }
+          return v
+        },
+      },
+      bigint: {
+        serialize: (input) => {
+          const view = new DataView(new ArrayBuffer(8))
+          view.setBigInt64(0, BigInt(input))
+          return view.getBigUint64(0).toString(16).padStart(16, "0")
+        },
+        deserialize: (input) => {
+          const view = new DataView(new ArrayBuffer(8))
+          for (let i = 0; i < 8; i++) {
+            view.setUint8(i, parseInt(input.substring(i * 2, i * 2 + 2), 16))
+          }
+          return view.getBigInt64(0)
+        },
+        bytesLength: () => 8,
+        random: (definition) => {
+          const MIN_SAFE_INT64 = -9223372036854775808n
+          const MAX_SAFE_INT64 = 9223372036854775807n
+          let min = MIN_SAFE_INT64
+          let max = MAX_SAFE_INT64
+          if (typeof definition.options?.min !== "undefined")
+            min = BigInt(definition.options.min)
+          if (typeof definition.options?.max !== "undefined")
+            max = BigInt(definition.options.max)
+          const range = max - min
+          const bits = range.toString(2).length
+          let random
+          do {
+            random = BigInt(
+              "0b" +
+                Array.from(
+                  crypto.getRandomValues(new Uint8Array(Math.ceil(bits / 8)))
+                )
+                  .map((b) => b.toString(2).padStart(8, "0"))
+                  .join("")
+            )
+          } while (random > range)
+          return random + min
+        },
+      },
+      boolean: {
+        serialize: (input) =>
+          (typeof input === "boolean" && input) ||
+          (typeof input === "string" && input === "true")
+            ? "01"
+            : "00",
+        // if value is "00" -> 0 -> false, otherwise we consider it's 1
+        deserialize: (input) => {
+          return input === "00" ? false : true
+        },
+        bytesLength: () => 1,
+        random: () => Math.random() < 0.5,
+      },
+      color: {
+        serialize: (input) => {
+          return completeHexColor(input)
+        },
+        deserialize: (input) => input,
+        bytesLength: () => 4,
+        transform: (input) => {
+          const r = parseInt(input.slice(0, 2), 16)
+          const g = parseInt(input.slice(2, 4), 16)
+          const b = parseInt(input.slice(4, 6), 16)
+          const a = parseInt(input.slice(6, 8), 16)
+          return {
+            hex: {
+              rgb: "#" + input.slice(0, 6),
+              rgba: "#" + input,
+            },
+            obj: {
+              rgb: { r, g, b },
+              rgba: { r, g, b, a },
+            },
+            arr: {
+              rgb: [r, g, b],
+              rgba: [r, g, b, a],
+            },
+          }
+        },
+        constrain: (value, definition) => {
+          const hex = value.replace("#", "")
+          return hex.slice(0, 8).padEnd(8, "f")
+        },
+        random: () =>
+          `${[...Array(8)]
+            .map(() => Math.floor(Math.random() * 16).toString(16))
+            .join("")}`,
+      },
+      string: {
+        serialize: (input, def) => {
+          let max = 64
+          if (typeof def.options?.maxLength !== "undefined")
+            max = Number(def.options.maxLength)
+          let hex = stringToHex(input.substring(0, max))
+          hex = hex.padEnd(max * 4, "0")
+          return hex
+        },
+        deserialize: (input) => {
+          const hx = input.match(/.{1,4}/g) || []
+          let rtn = ""
+          for (let i = 0; i < hx.length; i++) {
+            const int = parseInt(hx[i], 16)
+            if (int === 0) break
+            rtn += String.fromCharCode(int)
+          }
+          return rtn
+        },
+        bytesLength: (options) => {
+          if (typeof options?.maxLength !== "undefined")
+            return Number(options.maxLength) * 2
+          return 64 * 2
+        },
+        constrain: (value, definition) => {
+          let min = 0
+          if (typeof definition.options?.minLength !== "undefined")
+            min = definition.options.minLength
+          let max = 64
+          if (typeof definition.options?.maxLength !== "undefined")
+            max = definition.options.maxLength
+          let v = value.slice(0, max)
+          if (v.length < min) {
+            return v.padEnd(min)
+          }
+          return v
+        },
+        random: (definition) => {
+          let min = 0
+          if (typeof definition.options?.minLength !== "undefined")
+            min = definition.options.minLength
+          let max = 64
+          if (typeof definition.options?.maxLength !== "undefined")
+            max = definition.options.maxLength
+          const length = Math.round(Math.random() * (max - min) + min)
+          return [...Array(length)]
+            .map((i) => (~~(Math.random() * 36)).toString(36))
+            .join("")
+        },
+      },
+      bytes: {
+        serialize: (input, def) => {
+          const out = Array.from(input)
+            .map((i) => i.toString(16).padStart(2, '0'))
+            .join('')
+          return out
+        },
+        deserialize: (input, def) => {
+          const len = input.length / 2
+          const uint8 = new Uint8Array(len)
+          let idx
+          for (let i = 0; i < len; i++) {
+            idx = i*2
+            uint8[i] = parseInt(`${input[idx]}${input[idx + 1]}`, 16)
+          }
+          return uint8
+        },
+        bytesLength: opt => opt.length,
+        constain: (value, def) => {
+          return value
+        },
+        random: (def) => {
+          const len = def.options?.length || 0
+          const uint8 = new Uint8Array(len)
+          for (let i = 0; i < len; i++) {
+            uint8[i] = (Math.random() * 255) | 0
+          }
+          return uint8
+        },
+      },
+      select: {
+        serialize: (input, def) => {
+          // find the index of the input in the array of options
+          return Math.min(255, def.options?.options?.indexOf(input) || 0)
+            .toString(16)
+            .padStart(2, "0")
+        },
+        deserialize: (input, definition) => {
+          return (
+            definition.options.options[parseInt(input, 16)] ||
+            definition.default
+          )
+        },
+        bytesLength: () => 1,
+        constrain: (value, definition) => {
+          if (definition.options.options.includes(value)) {
+            return value
+          }
+          return definition.options.options[0]
+        },
+        random: (definition) => {
+          const index = Math.round(
+            Math.random() * (definition?.options?.options?.length - 1) + 0
+          )
+          return definition?.options?.options[index]
+        },
+      },
+    }
+
+    // Utility function to get parameter value, default value, or a random value
+    const getParamValue = (param, def, processor) => {
+      if (typeof param !== "undefined") return param
+      if (typeof def.default !== "undefined") return def.default
+      return processor.random(def)
+    }
+
+    // params are injected into the piece using the binary representation of the
+    // numbers, to keep precision
+    const serializeParams = (params, definition) => {
+      // Initialization of the hex string for parameters
+      let hexString = ""
+      // If definition is not provided, return an empty hex string
+      if (!definition) return hexString
+      // Iterating over the definitions
+      for (const def of definition) {
+        const { id, type } = def
+        // Get the processor for the given type
+        const processor = processors[type]
+        // Get the param value, fall back to default or a random value
+        const paramValue = getParamValue(params[id], def, processor)
+        // Serialize the param value
+        const serializedParam = processor.serialize(paramValue, def)
+        // Concatenate serialized params
+        hexString += serializedParam
+      }
+      return hexString
+    }
+
+    // takes the parameters as bytes and outputs an object with the
+    // deserialized parameters, identified by their id in an object
+    const deserializeParams = (bytes, definition) => {
+      const params = {}
+      for (const def of definition) {
+        const processor = processors[def.type]
+        // if we don't have any parameters defined in the URL, set the
+        // default value and move on
+        if (!bytes) {
+          let v
+          if (typeof def.default === "undefined") v = processor.random(def)
+          else v = def.default
+          params[def.id] = processor.constrain?.(v, def) || v
+          continue
+        }
+        // extract the length from the bytes & shift the initial bytes string
+        const valueBytes = bytes.substring(
+          0,
+          processor.bytesLength(def?.options) * 2
+        )
+        bytes = bytes.substring(processor.bytesLength(def?.options) * 2)
+        // deserialize the bytes into the params
+        const value = processor.deserialize(valueBytes, def)
+        params[def.id] = processor.constrain?.(value, def) || value
+      }
+      return params
+    }
+
+    const processParam = (paramId, value, definitions, transformer) => {
+      const definition = definitions.find((d) => d.id === paramId)
+      const processor = processors[definition.type]
+      return processor[transformer]?.(value, definition) || value
+    }
+
+    const processParams = (values, definitions, transformer) => {
+      const paramValues = {}
+      for (const definition of definitions) {
+        const processor = processors[definition.type]
+        const value = values[definition.id]
+        // deserialize the bytes into the params
+        paramValues[definition.id] =
+          processor[transformer]?.(value, definition) || value
+      }
+      return paramValues
+    }
+
+    window.$fx = {
+      _version: "3.3.0",
+      _processors: processors,
+      // where params def & features will be stored
+      _params: undefined,
+      _features: undefined,
+      // where the parameter values are stored
+      _paramValues: {},
+      _listeners: {},
+      _receiveUpdateParams: async function (newRawValues, onDefault) {
+        const handlers = await this.propagateEvent(
+          "params:update",
+          newRawValues
+        )
+        handlers.forEach(([optInDefault, onDone]) => {
+          if (!(typeof optInDefault == "boolean" && !optInDefault)) {
+            this._updateParams(newRawValues)
+            onDefault?.()
+          }
+          onDone?.(optInDefault, newRawValues)
+        })
+        if (handlers.length === 0) {
+          this._updateParams(newRawValues)
+          onDefault?.()
+        }
+      },
+      _updateParams: function (newRawValues) {
+        const constrained = processParams(
+          { ...this._rawValues, ...newRawValues },
+          this._params,
+          "constrain"
+        )
+        Object.keys(constrained).forEach((paramId) => {
+          this._rawValues[paramId] = constrained[paramId]
+        })
+        this._paramValues = processParams(
+          this._rawValues,
+          this._params,
+          "transform"
+        )
+        this._updateInputBytes()
+      },
+      _updateInputBytes: function () {
+        const bytes = serializeParams(this._rawValues, this._params)
+        this.inputBytes = bytes
+      },
+      _emitParams: function (newRawValues) {
+        const constrainedValues = Object.keys(newRawValues).reduce(
+            (acc, paramId) => {
+              acc[paramId] = processParam(
+                paramId,
+                newRawValues[paramId],
+                this._params,
+                "constrain"
+              )
+              return acc
+            },
+            {}
+          )
+        this._receiveUpdateParams(constrainedValues, () => {
+          parent.postMessage(
+            {
+              id: "fxhash_emit:params:update",
+              data: {
+                params: constrainedValues,
+              },
+            },
+            "*"
+          )
+        })
+      },
+      hash: fxhash,
+      rand: fxrand,
+      minter: fxminter,
+      randminter: fxrandminter,
+      iteration: Number(search.get('fxiteration')) || 1,
+      context: search.get("fxcontext") || "standalone",
+
+      preview: fxpreview,
+      isPreview: isFxpreview,
+      params: function(definition) {
+        this._params = definition
+        this._rawValues = deserializeParams(initialInputBytes, definition)
+        this._paramValues = processParams(
+          this._rawValues,
+          definition,
+          "transform"
+        )
+        this._updateInputBytes()
+      },
+      features: function(features) {
+        this._features = features
+      },
+      getFeature: function(id) {
+        return this._features[id]
+      },
+      getFeatures: function() {
+        return this._features
+      },
+      getParam: function(id) {
+        return this._paramValues[id]
+      },
+      getParams: function() {
+        return this._paramValues
+      },
+      getRawParam: function(id) {
+        return this._rawValues[id]
+      },
+      getRawParams: function() {
+        return this._rawValues
+      },
+      getRandomParam: function(id) {
+        const definition = this._params.find(d => d.id === id)
+        const processor = processors[definition.type]
+        return processor.random(definition)
+      },
+      getDefinitions: function() {
+        return this._params
+      },
+      stringifyParams: function(params) {
+        return JSON.stringify(
+          params || this._rawValues,
+          (key, value) => {
+            if (typeof value === "bigint") return value.toString()
+            return value
+          }, 
+          2,
+        )
+      },
+      on: function (name, callback, onDone) {
+        if (!this._listeners[name]) {
+          this._listeners[name] = []
+        }
+        this._listeners[name].push([callback, onDone])
+        return () => {
+          const index = this._listeners[name].findIndex(
+            ([c]) => c === callback
+          )
+          if (index > -1) {
+            this._listeners[name].splice(index, 1)
+          }
+        }
+      },
+      propagateEvent: async function (name, data) {
+        const results = []
+        if (this._listeners?.[name]) {
+          for (const [callback, onDone] of this._listeners[name]) {
+            const result = callback(data)
+            results.push([
+              result instanceof Promise ? (await result) : result,
+              onDone
+            ])
+          }
+        }
+        return results
+      },
+      emit: function (id, data) {
+        switch (id) {
+          case "params:update":
+            this._emitParams(data)
+            break
+          default:
+            console.log("$fx.emit called with unknown id:", id)
+            break
+        }
+      },
+    }
+    const resetFxRand = () => {
+      fxrand = sfc32(...matcher(fxhash, 2))
+      $fx.rand = fxrand
+      fxrand.reset = resetFxRand
+    }
+    fxrand.reset = resetFxRand
+    const resetFxRandMinter = () => {
+      fxrandminter = sfc32(...matcher(fxminter, 3))
+      $fx.randminter = fxrandminter
+      fxrandminter.reset = resetFxRandMinter
+    }
+    fxrandminter.reset = resetFxRandMinter
+    window.addEventListener("message", (event) => {
+      if (event.data === "fxhash_getInfo") {
+        parent.postMessage({
+          id: "fxhash_getInfo",
+          data: { 
+            version: window.$fx._version,
+            hash: window.$fx.hash,
+            iteration: window.$fx.iteration,
+            features: window.$fx.getFeatures(),
+            params: {
+              definitions: window.$fx.getDefinitions(),
+              values: window.$fx.getRawParams(),
+            },
+            minter: window.$fx.minter,
+          },
+        }, "*")
+      }
+      if (event.data?.id === "fxhash_params:update") {
+        const { params } = event.data.data
+        if (params) window.$fx._receiveUpdateParams(params)
+      }
+    })
+    // END NEW
+
+    //---- /do not edit the following code
+
+</script>
+  <body>
+    <main>
+				
+    </main>
+    <script>
+		
+	// TezQuakeAid Morocco
+// By Nicu P
+///https://twitter.com/nicu_p_ [santaclaws.tez / nicup.tez / nicup.eth]
+// 11/09/2023
+
+let crack = [];
+let crackxy = [];
+let loopu = 1
+let count = 0;
+let stop = 0;
+
+let step = 0;
+let runs = 0;
+
+let cell_factor = 8*8*2;
+let magnify = 1;
+
+let frames = 232;
+
+//NEW AH ++++++++INITIAL+++++++++
+
+let border = 0;
+let ww = (cell_factor-2*10);
+
+let ran = 0;
+
+let ran_rotatea = []
+let ran_rotateb = []
+let tilt;
+
+let mountain,ran_translate;
+
+let ran0 = 0
+
+let rulesets = []
+let isin = 0
+
+//let rulesets_man = [[0,0,0,0,0,1,0,0,1],[0,0,0,1,0,0,1,1,0],[0,1,0,0,0,1,1,1,0],[0,0,1,0,0,0,0,0,0],[1,0,0,0,1,1,1,0,0],[1,0,1,0,1,1,0,0,0],[0,1,1,1,1,1,0,1,1]] 
+let rulesets_man = [[0,1,0,0,0,1,1,1,0],[0,1,0,0,0,1,1,1,0],[1, 0, 0, 1, 0, 1, 1, 1, 0],[1, 0, 1, 0, 0, 0, 1, 1, 1],[1, 1, 1, 0, 0, 0, 1, 1, 1],[1, 0, 0, 0, 0, 1, 0, 1, 1],[1, 0, 1, 1, 0, 1, 1, 0, 1],[0, 1, 0, 1, 0, 0, 0, 1, 1],[0, 1, 0, 1, 0, 0, 1, 1, 0],[0, 1, 0, 0, 1, 1, 0, 1, 1],[0, 1, 1, 0, 1, 1, 1, 1, 1],[0, 0, 1, 1, 1, 0, 1, 1, 1],[1, 1, 0, 0, 0, 0, 0, 1, 1],[0, 0, 1, 0, 0, 0, 0, 1, 1],[0, 0, 1, 1, 0, 0, 1, 1, 1]]
+// +++++++++++++++++++ DO NOT CHANGE +++++++++++++++++
+// PREPARE VARIABLE TO CONTROL PRNG FUNCTIONALITY
+let seed = 0; // to hold random seed
+//++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// PRE-LOAD
+function preload()  {
+  // +++++++++++++++++++ DO NOT CHANGE +++++++++++++++++
+  // SET SEED TO CONTROL PRNG FUNCTION
+//  seed = int(fxrand() * 999999);//232864/
+	seed = int(fxrand() * 987654321);//809284395//556658798//175047993//
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++
+  // Initialize color system
+  colorMode(RGB,255,255,255,100);
+  // colorMode(HSB, 360, 100, 100, 100);
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++
+  
+  
+}  
+
+
+// SET-UP
+function setup() {
+  frameRate(120)
+	
+	randomSeed(seed);
+  noiseSeed(seed);
+  generate_randoms()
+	
+pixelDensity(2)	
+  setupGrid(1);       
+  createCanvas(g,g);
+  
+  background(255);//(29,161,242);
+  // background(70,143,234) // morocco blue
+  // background(213,70,91);
+  // background(193, 39, 45)
+  
+  noStroke();
+  
+  // fill(0);
+  // fill(193, 39, 45)
+  // rect(border-cell_size,border-cell_size,(ww+2)*cell_size,(ww+2)*cell_size)
+}
+
+// +++++++++++++++GENERATE RANDOMS+++++++++++++++++++++++++++++++++++++  
+
+function generate_randoms(){
+  if (ran == 0) {
+    
+    tilt = random(-10,10)
+    ran_rotatea = Array(114); 
+    ran_rotateb = Array(40); 
+    for (var t=0; t < 114; t++){      
+      ran_rotatea[t] = random(PI/5,PI / 4)  
+      ran_rotateb[t] = random(PI/3,PI / 2)  
+    }
+    
+    ran = Array(ww);    
+    for (let t=0; t <= ww-1; t++){      
+      ran[t] = floor(random(2));      
+    }
+  
+  for (let j=0; j < 7;j++ ){
+      rulesets.push(Array(9))
+  
+      for (let i=0;i<9;i++){     
+        rulesets[j][i]=floor(random(2))      
+       }
+  }
+  
+    ruleset0 = [0, 1, 1, 0, 1, 0, 0, 1, 0]// medina rulesets[0] 
+  print(ruleset0)
+    
+  ran_translate = Array(ww);
+  wran = Array(ww);
+  for (let t=0; t < (ww); t++){
+      ran_translate[t] = floor(random(-ran0,ran0));
+      wran[t] = floor(random(2));
+  }
+  
+  }    
+}// +++++++++++++++GENERATE RANDOMS+++++++++++++++++++++++++++++++++++++
+
+
+function draw() {  // +++++++++++++++DRAW+++++++++++++++++++++++++++++++
+  // ++++++++++++ DO NOT CHANGE ++++++++++++++++++++++++++
+
+  if (runs ==0){
+    //let a = createVector(g / 2+tilt, g);
+    //let b = createVector(g / 2-tilt/2, g - g*0.2-border); 
+    let a = createVector((ww / 2+tilt), ww);
+    let b = createVector((ww / 2-tilt/2), 0.8*ww); 
+    let root = new Crack(a, b);
+    crack[0] = root;
+       
+  }
+  
+  
+  crackf()
+  
+  mountain.start()
+  
+  
+  // +++++++++++++++DRAW SKY+++++++++++++++++++++++++++++++++++++
+  if (!mountain.finished()){
+      if (mountain.generation>0){
+      mountain.render();
+      }
+      mountain.generate(); 
+
+   
+  }
+  
+  step++;// +++++++++++++++LOOP++++++++++++++++++++++++++++++++
+  // +++++++++++++++SAVE IMG+++++++++++++++++++++++++++++++++++++
+  //if (step > totalSteps) {
+  if (mountain.finished()) {
+    print('FINISHED',frameCount)
+       
+    // +++++++++++++++++++ DO NOT CHANGE +++++++++++++++++
+    // call fxpreview once confirmation that preview is ready
+    i = 0;
+    while (i != 1) 
+      {
+        if ((isFxpreview = true)) {fxpreview(); i = 1;}
+      }
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++
+      
+    if (key == 's'){
+      print('SAVING')
+      saveCanvas('TezQuakeAid_Morocco_'+ seed +' nicup.tez .png');
+      print('saved!!!') 
+      noLoop();
+    }
+	  
+    noLoop()
+  }// +++++++++++++++SAVE IMG+++++++++++++++++++++++++++++++++++++
+  
+
+}// ++++++++++++++++++END DRAW+++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++
+function setupGrid(magnify){
+  border = 0;
+  
+  g = min(windowWidth, windowHeight) * magnify;   
+  cell_size = floor(g/cell_factor)
+ 
+  
+  g = cell_size*cell_factor;  
+  border = 10*cell_size;
+
+  mountain = new Texture(rulesets_man[2]);
+  
+
+}
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+function keyPressed(){  
+  if (key == 's' || key == 'S') {
+    runs = 1;
+    mountain.generation = 0
+    print('s PRESSED');
+    
+    
+    magnify = 3;
+    setupGrid(magnify);
+    
+    resizeCanvas(g,g);
+    // background(193, 39, 45)//29,161,242);
+    // background(0)
+    background(255)
+    // fill(193, 39, 45)
+    // fill(193, 39, 45);
+    // fill(0)
+    // rect(border-cell_size,border-cell_size,(ww+2)*cell_size,(ww+2)*cell_size)
+    // print('save crack',crackxy) 
+    
+    
+  }
+  
+	
+	if (key == 't'){
+      let fs = fullscreen();
+    	fullscreen(!fs);
+	  }
+	if (key ==' '){
+		
+        location.reload();
+	}
+	if (key == 'w'){
+		if (loopu){noLoop()}
+	  	else(loop())
+	  loopu = !loopu;
+	}
+      
+}
+
+
+function crackf() {
+  
+  if (count < 5 && runs == 0) {
+    for (let i = crack.length - 1; i >= 0; i--) {
+      if (!crack[i].finished) {
+        crack.push(crack[i].crackA(i));
+        crack.push(crack[i].crackB(i));
+      }
+      crack[i].finished = true;
+    }  
+    count++;
+  print(crackxy)  
+  }
+}
+		
+class Texture {
+  constructor(ruleset) {
+    this.ruleset = ruleset
+    this.rset = ruleset
+    this.R = 1;
+    this.rset =0;
+    this.negative_color = 1;
+    this.generation = 0;
+    this.cells = Array(ww)
+    
+    for (let i = 0; i < this.cells.length; i++) {
+      this.cells[i] = 0;
+    }
+}
+  
+  start(){
+    if (this.generation==0){      
+      for (let i=0;i<this.cells.length-1;i++){
+        this.cells[i] = wran[i]
+      }
+      //this.cells[0] = 0
+      this.cells[1] = 1
+      this.cells[2] = 0
+    }
+  }
+
+  
+  generate() {  
+    this.nextgen = Array(this.cells.length);
+    
+    for (let i = 0; i < this.cells.length; i++) {
+      this.left   = this.cells[i-1];   
+      this.me     = this.cells[i];    
+      this.right  = this.cells[i+1]; 
+      
+      let rexc = 0;
+      let rexl = 0
+    if(runs>0){ // && this.generation > 0){
+      for (let z=0; z< crackxy.length; z++){       
+          var cra = crackxy[z]
+         
+          if(pointOnLine([i, (ww-this.generation)], cra,z,i)){
+                      
+              rexc++
+              this.rset = [0,0,1,0,0,0,0,0,0]//rulesets_man[3];         
+              this.nextgen[i] = this.rules(this.left, this.me, this.right,this.rset)  
+            
+              if (this.cells[i] == 0){           
+                 fill(0)//(3*dist(i,this.generation,ww/2,ww/2))        
+              }  else {
+				  fill(70,143,234)
+                // fill(14,100,100)        
+              }
+            
+            if(z < 100 && this.generation > 0){
+              rect(i*cell_size+border, (ww-this.generation)*cell_size+border, cell_size*2, cell_size)
+            }
+            
+          }
+        
+        else if (rexc == 0){          
+            this.rset = ruleset0;   //rulesets_man[2];               
+            this.nextgen[i] = this.rules(this.left, this.me, this.right,this.rset);         
+        }
+
+      
+      
+    }
+      } else {
+          this.rset = ruleset0;   //rulesets_man[2]
+          this.nextgen[i] = this.rules(this.left, this.me, this.right,this.rset);
+      }
+      
+    }
+    
+      let left_right = floor(ran_translate[this.generation]*this.R);
+      let tail = this.nextgen.splice(left_right);
+      tail.push(...this.nextgen);
+      this.cells = tail;    
+   
+      this.generation++;
+   
+  }
+  
+  render(){
+  noStroke();
+    
+    
+    for (let i = 0; i < this.cells.length; i++) {
+        
+        if (this.cells[i] == 1) {
+          //print('111111')
+          // fill(193, 39, 45 )  //morocco red
+          // fill(15,78,103) //morocco blue
+          if (runs == 0){
+            fill(70,143,234) //morocco blue
+          }
+//           else(fill(70,143,234,random(50,255)))
+          else{fill(70,143,234)}
+        } else {      
+          fill(255)//-runs*255)
+          }  
+        
+      
+        push()
+        translate(border,border)   
+        rect((i)* cell_size*(1),(ww-this.generation)*cell_size, cell_size, cell_size);
+
+        pop()  
+      
+      }      
+    }
+  
+
+  finished(){
+    
+    if (this.generation >=this.cells.length){
+      print('RUNS',runs)
+      runs++;
+      this.generation=0;
+      if(runs == 2){ 
+        return true}
+    }
+  }
+  
+  
+  rules(a, b, c,rset) {
+    if (a == 1 && b == 1 && c == 1) return this.rset[0];
+    if (a == 1 && b == 1 && c == 0) return this.rset[1];
+    if (a == 1 && b == 0 && c == 1) return this.rset[2];
+    if (a == 1 && b == 0 && c == 0) return this.rset[3];
+    if (a == 0 && b == 1 && c == 1) return this.rset[4];
+    if (a == 0 && b == 1 && c == 0) return this.rset[5];
+    if (a == 0 && b == 0 && c == 1) return this.rset[6];
+    if (a == 0 && b == 0 && c == 0) return this.rset[7];
+    return 0;
+  }
+}
+  
+function pointOnLine(p,polygon,z,i) {
+  x = p[0]; y = p[1];
+  x1 = polygon[0]; y1 = polygon[1]
+  x2 = polygon[2]; y2 = polygon[3]
+  /*
+  stroke(10,100,10)
+  push()
+  translate(border,border)
+  line(x1*cell_size,y1*cell_size,x2*cell_size,y2*cell_size)
+  pop()
+  noStroke()
+   */
+  var slope = (y2 - y1) / (x2 - x1);
+  var yIntercept = y1 - slope * x1;
+  var yOnLine = slope * x + yIntercept;
+  
+  if (x >= Math.min(x1, x2) && x <= Math.max(x1, x2) && abs(y-yOnLine)<(3-ran[i])){   
+    //fill(20,100,100)
+    //noStroke()
+    //ellipse(p[0]*cell_size,p[1]*cell_size,cell_size,cell_size)
+    return true;
+  } else {
+    return false;
+  }
+}
+		
+	
+class Crack {
+
+  constructor(begin, end) {
+    this.begin = begin;
+    this.end = end;
+    this.finished = false;
+    
+  }
+
+
+  crackA(i) {
+    let dir = p5.Vector.sub(this.end, this.begin);
+    dir.rotate(ran_rotatea[i]);
+    dir.mult(1.3*ran_rotateb[i])//random(0.7,1.2));///1.2)//
+    let newEnd = p5.Vector.add(this.end, dir);
+    let b = new Crack(this.end, newEnd);
+    
+    crackxy.push([this.begin.x, this.begin.y, this.end.x, this.end.y])
+   
+    return b;
+  }
+
+  crackB(i) {
+    let dir = p5.Vector.sub(this.end, this.begin);
+    dir.rotate(-ran_rotateb[i]);
+    dir.mult(1*ran_rotateb[i]/2)//dir.mult(0.67);
+    let newEnd = p5.Vector.add(this.end, dir);
+    let b = new Crack(this.end, newEnd);
+    //crackxy.push([this.begin.x, this.begin.y, this.end.x, this.end.y])
+    
+    return b;
+  }
+}
+		
+		</script>
+  </body>
+</html>
+
+		
+		
+    

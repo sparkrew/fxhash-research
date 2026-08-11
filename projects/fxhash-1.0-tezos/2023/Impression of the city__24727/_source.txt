@@ -1,0 +1,4 @@
+id: 24727
+name: Impression of the city
+mint_opens_at: 2023-02-05T15:30:00+00:00
+generative_uri: ipfs://QmRFKbDScNiPW8jmbPQxjXc4SkgUfyw1b8X1nHfN5gYW1v

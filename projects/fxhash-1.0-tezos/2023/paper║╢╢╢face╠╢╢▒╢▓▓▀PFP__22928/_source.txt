@@ -1,0 +1,4 @@
+id: 22928
+name: paper║╢╢╢face╠╢╢▒╢▓▓▀PFP
+mint_opens_at: 2023-01-01T00:52:14+00:00
+generative_uri: ipfs://QmNx26kGmh6tFCfRnFwUzqAVxTCAK6hYR9uPtmsUwYyfHS

@@ -1,0 +1,7 @@
+osc(200,0)
+.mult(osc(4,0.1,1))
+    .color(fxrand()*9, 0.3)
+    .colorama(fxrand()*0.9)
+.pixelate(200,20)
+.modulateKaleid(osc(fxrand()*5).kaleid(999),1)
+.out()

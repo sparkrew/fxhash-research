@@ -1,0 +1,4 @@
+id: 29093
+name: Red Monsters 
+mint_opens_at: 2023-10-04T15:49:59+00:00
+generative_uri: ipfs://Qmbg8coWP1sFzouQBVL218LVAkDK61eQXhyVNXzAb1K84a

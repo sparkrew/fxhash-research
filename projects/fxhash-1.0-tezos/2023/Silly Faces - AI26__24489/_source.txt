@@ -1,0 +1,4 @@
+id: 24489
+name: Silly Faces - AI26
+mint_opens_at: 2023-01-31T20:23:44+00:00
+generative_uri: ipfs://QmaG2aJ8Ekg5i6iWVfx7d9HB7EmWjshzf7MspX8DwHFcEt

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Out-Run</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta itemprop="name" content="Out-Run">
+    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let search = new URLSearchParams(window.location.search)
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      // make fxrand from hash
+      var fxhash = search.get('fxhash') || "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // make fxrandminter from minter address
+      var fxminter = search.get('fxminter') || "tz1" + Array(33).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let fxminterTrunc = fxminter.slice(3)
+      regex = new RegExp(".{" + ((fxminterTrunc.length/4)|0) + "}", 'g')
+      hashes = fxminterTrunc.match(regex).map(h => b58dec(h))
+      var fxrandminter = sfc32(...hashes)
+
+      // true if preview mode active, false otherwise
+      // you can append preview=1 to the URL to simulate preview active
+      var isFxpreview = search.get('preview') === "1"
+      // call this method to trigger the preview
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+      //
+      // NEW: v2 of the fxhash SDK lol
+      //
+      // get the byte params from the URL
+      let fxparams = search.get('fxparams')
+      fxparams = fxparams ? fxparams.replace("0x", "") : fxparams
+
+      // the parameter processor, used to parse fxparams
+      const processors = {
+        number: {
+          deserialize: (input) => {
+            const view = new DataView(new ArrayBuffer(8))
+            for (let i = 0; i < 8; i++) {
+              view.setUint8(i, parseInt(input.substring(i * 2, i * 2 + 2), 16))
+            }
+            return view.getFloat64(0)
+          },
+          bytesLength: () => 8,
+          constrain: (value, definition) =>  {
+            let min = Number.MIN_SAFE_INTEGER
+            if (typeof definition.options?.min !== "undefined")
+              min = Number(definition.options.min)
+            let max = Number.MAX_SAFE_INTEGER
+            if (typeof definition.options?.max !== "undefined")
+              max = Number(definition.options.max)
+            max = Math.min(max, Number.MAX_SAFE_INTEGER)
+            min = Math.max(min, Number.MIN_SAFE_INTEGER)
+            const v = Math.min(Math.max(value, min), max)
+            return v;
+          },
+          random: (definition) => {
+            let min = Number.MIN_SAFE_INTEGER
+            if (typeof definition.options?.min !== "undefined")
+              min = Number(definition.options.min)
+            let max = Number.MAX_SAFE_INTEGER
+            if (typeof definition.options?.max !== "undefined")
+              max = Number(definition.options.max)
+            max = Math.min(max, Number.MAX_SAFE_INTEGER)
+            min = Math.max(min, Number.MIN_SAFE_INTEGER)
+            const v = Math.random() * (max - min) + min
+            if (definition?.options?.step) {
+              const t = 1.0 / definition?.options?.step
+              return Math.round(v * t) / t
+            }
+            return v; 
+          },
+        },
+        bigint: {
+          deserialize: (input) => {
+            const view = new DataView(new ArrayBuffer(8))
+            for (let i = 0; i < 8; i++) {
+              view.setUint8(i, parseInt(input.substring(i * 2, i * 2 + 2), 16))
+            }
+            return view.getBigInt64(0)
+          },
+          bytesLength: () => 8,
+          random: (definition) => {
+            const MIN_SAFE_INT64 = -9223372036854775808n
+            const MAX_SAFE_INT64 = 9223372036854775807n
+            let min = MIN_SAFE_INT64
+            let max = MAX_SAFE_INT64
+            if (typeof definition.options?.min !== "undefined")
+              min = BigInt(definition.options.min)
+            if (typeof definition.options?.max !== "undefined")
+              max = BigInt(definition.options.max)
+            const range = max - min
+            const bits = range.toString(2).length
+            let random
+            do {
+              random = BigInt(
+                "0b" +
+                  Array.from(
+                    crypto.getRandomValues(new Uint8Array(Math.ceil(bits / 8)))
+                  )
+                    .map((b) => b.toString(2).padStart(8, "0"))
+                    .join("")
+              )
+            } while (random > range)
+            return random + min
+          },
+        },
+        boolean: {
+          // if value is "00" -> 0 -> false, otherwise we consider it's 1
+          deserialize: (input) => {
+            return input === "00" ? false : true
+          },
+          bytesLength: () => 1,
+          random: () => Math.random() < 0.5,
+        },
+        color: {
+          deserialize: (input) => input,
+          bytesLength: () => 4,
+          transform: (input) => {
+            const r = parseInt(input.slice(0,2), 16)
+            const g = parseInt(input.slice(2,4), 16)
+            const b = parseInt(input.slice(4,6), 16)
+            const a = parseInt(input.slice(6,8), 16)
+            return {
+              hex: {
+                rgb: '#' + input.slice(0,6),
+                rgba: '#' + input,
+              },
+              obj: {
+                rgb: { r, g, b},
+                rgba: { r, g, b, a},
+              },
+              arr: {
+                rgb: [r,g,b],
+                rgba: [r,g,b,a],
+              }
+            }
+          },
+          constrain: (value, definition) => {
+            const hex = value.replace("#", "")
+            return hex.slice(0, 8).padEnd(8, "f")
+          },
+          random: () =>
+            `${[...Array(8)]
+              .map(() => Math.floor(Math.random() * 16).toString(16))
+              .join("")}`,
+          },
+        string: {
+          deserialize: (input) => {
+            const hx = input.match(/.{1,4}/g) || []
+            let rtn = ""
+            for (let i = 0; i < hx.length; i++) {
+              const int = parseInt(hx[i], 16)
+              if (int === 0) break
+              rtn += String.fromCharCode(int)
+            }
+            return rtn
+          },
+          bytesLength: (options) => {
+            if (typeof options?.maxLength !== "undefined")
+                return Number(options.maxLength) * 2
+            return 64 * 2
+          },
+          constrain: (value, definition) => {
+            let min = 0
+            if (typeof definition.options?.minLength !== "undefined")
+              min = definition.options.minLength
+            let max = 64
+            if (typeof definition.options?.maxLength !== "undefined")
+              max = definition.options.maxLength
+            let v = value.slice(0, max);
+            if (v.length < min) {
+              return v.padEnd(min)
+            }
+            return v;
+          },
+          random: (definition) => {
+            let min = 0
+            if (typeof definition.options?.minLength !== "undefined")
+              min = definition.options.minLength
+            let max = 64
+            if (typeof definition.options?.maxLength !== "undefined")
+              max = definition.options.maxLength
+            const length = Math.round(Math.random() * (max - min) + min)
+            return [...Array(length)]
+              .map((i) => (~~(Math.random() * 36)).toString(36))
+              .join("")
+          },
+        },
+        select: {
+          deserialize: (input, definition) => {
+            return definition.options.options[parseInt(input, 16)] || definition.default
+          },
+          bytesLength: () => 1,
+          constrain: (value, definition) => {
+            if(definition.options.options.includes(value)) {
+              return value;
+            }
+            return definition.options.options[0]
+          },
+          random: (definition) => {
+            const index = Math.round(
+              Math.random() * (definition?.options?.options?.length - 1) + 0
+            )
+            return definition?.options?.options[index]
+          },
+        }
+      }
+
+      // takes the parameters as bytes and outputs an object with the
+      // deserialized parameters, identified by their id in an object
+      const deserializeParams = (bytes, definition) => {
+        const params = {}
+        for (const def of definition) {
+          const processor = processors[def.type]
+          // if we don't have any parameters defined in the URL, set the 
+          // default value and move on
+          if (!bytes) {
+            let v
+            if (typeof def.default === "undefined") v = processor.random(def)
+            else v = def.default
+            params[def.id] = processor.constrain?.(v, def) || v;
+            continue
+          }
+          // extract the length from the bytes & shift the initial bytes string
+          const valueBytes = bytes.substring(0, processor.bytesLength(def?.options) * 2)
+          bytes = bytes.substring(processor.bytesLength(def?.options) * 2)
+          // deserialize the bytes into the params
+          const value =  processor.deserialize(valueBytes, def)
+          params[def.id] = processor.constrain?.(value, def) || value;
+        }
+        return params
+      }
+
+      const transformParamValues = (values, definitions) => {
+        const paramValues = {}
+        for (const def of definitions) {
+          const processor = processors[def.type]
+          const value = values[def.id]
+          // deserialize the bytes into the params
+          paramValues[def.id] = processor.transform ? processor.transform(value) : value;
+        }
+        return paramValues; 
+      }
+
+      window.$fx = {
+        _version: "3.0.1",
+        _processors: processors,
+        // where params def & features will be stored
+        _params: undefined,
+        _features: undefined,
+        // where the parameter values are stored
+        _paramValues: {},
+
+        hash: fxhash,
+        rand: fxrand,
+
+        minter: fxminter,
+        randminter: fxrandminter,
+
+        preview: fxpreview,
+        isPreview: isFxpreview,
+        params: function(definition) {
+          this._params = definition
+          this._rawValues = deserializeParams(fxparams, definition)
+          this._paramValues = transformParamValues(this._rawValues, definition)
+        },
+        features: function(features) {
+          this._features = features
+        },
+        getFeature: function(id) {
+          return this._features[id]
+        },
+        getFeatures: function() {
+          return this._features
+        },
+        getParam: function(id) {
+          return this._paramValues[id]
+        },
+        getParams: function() {
+          return this._paramValues
+        },
+        getRawParam: function(id) {
+          return this._rawValues[id]
+        },
+        getRawParams: function() {
+          return this._rawValues
+        },
+        getDefinitions: function() {
+          return this._params;
+        },
+        stringifyParams: function(params) {
+          return JSON.stringify(
+            params,
+            (key, value) => {
+              if (typeof value === "bigint") return value.toString()
+              return value
+            }, 
+            2,
+          )
+        }
+        
+      }
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getInfo") {
+          parent.postMessage({
+            id: "fxhash_getInfo",
+            data: { 
+              version: window.$fx._version,
+              hash: window.$fx.hash,
+              features: window.$fx.getFeatures(),
+              params: {
+                definitions: window.$fx.getDefinitions(),
+                values: window.$fx.getRawParams(),
+              },
+            },
+          }, "*")
+        }
+      })
+      // END NEW
+
+      //---- /do not edit the following code
+</script>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: Helvetica, Arial, sans-serif;
+            overflow: hidden; /* disable scrolling / rubberband effect on mobile */
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            outline:0;
+        }
+
+        * {
+            /* disable on touch highlights of html elements, especially on mobile! */
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <canvas id="glcanvas" width="100vw" height="100vh" tabindex="1"></canvas>
+    <script type="text/javascript" src="patch.js" async></script>
+    <script>
+		console.log($fx.hash)
+		// Visual
+		var visualStyle = Math.round(fxrand()*3)
+		var visualStyleInvert = Math.round(fxrand())
+		var visualStyleList = ["Bold","Light","Gris","Contrast"]
+		// Sky
+		var skyTypeList = ["FBM","Pixel","Worley"]
+		var sky0 = round(6 + (fxrand() * 10))
+		var sky1 = Math.round(fxrand()*2)
+		var sky2 = round(0.5 + (fxrand() * 0.5))
+		var sky3 = Math.round(10 + (fxrand() * 240))
+		var sky4 = Math.round(10 + (fxrand() * 240))
+		var sky5 = Math.round(fxrand() * 10000)
+		var sky6 = round(1 + (fxrand() * 9))
+		var sky7 = Math.round(fxrand()*4)
+		var sky8 = Math.round(fxrand())
+		// Floating object
+		var floatingObject0 = Math.round(fxrand())
+		var floatingObject1 = round(-1.5 + (fxrand() * 2.5))
+		var floatingObject2 = round(2 + fxrand())
+		var floatingObject3 = [0,3][Math.round(fxrand())]
+		var floatingObject4 = [0,2][Math.round(fxrand())]
+		var floatingObject5 = round(fxrand())
+		var floatingObject6 = [0,0.1,0.2,0.3,0.7,0.8,0.9,1][Math.round(fxrand() * 7)]
+		var floatingObject7 = round(0.5 + (fxrand() * 0.25))
+		var floatingObject8 = [1,2,3,4,5,6,7,8,16][Math.round(fxrand() * 8)]
+		var floatingObject9 = floatingObject8 == 16 ? 16 : 1
+		// Road
+		var road0 = Math.round(fxrand())
+		var road1 = Math.round(1 + (fxrand() * 4))
+		var road2 = Math.round(10 + (fxrand() * 90))
+		var road3 = 1//Math.round(fxrand()) // Tunnel
+		var road4 = [3,4,6,8,128][Math.round(fxrand()*4)]
+		var road5
+		switch(road4) {
+			case 3:
+				road5 = 0
+				break
+			case 4:
+				road5 = [0,45][Math.round(fxrand())]
+				break
+			case 6:
+				road5 = 0
+				break
+			case 8:
+				road5 = 45
+				break
+			case 64:
+				road5 = 0
+				break
+		}
+		// Location
+		var locationArea = Math.round(fxrand() * 4)
+		var locationList = ["City","Town","Hills","Mountains","Bridge"]
+		var locationDisplaceRange0 = round(0.35 + (fxrand() * 0.45))
+		var locationDisplaceRange1 = round(0.15 + (fxrand() * 0.2))
+		var locationDisplaceRange2 = round(0.2 + (fxrand() * 0.30))
+		var locationDisplaceRange3 = round(0.5 + (fxrand() * 0.5))
+		var locationDisplaceRange4 = round(-0.05 + (fxrand() * -0.15))
+		var locationDisplace
+		switch (locationArea) {
+			case 0:
+				locationDisplace = locationDisplaceRange0
+				floatingObject1 = round(-0.25 + (fxrand() * 0.5))
+				break
+			case 1:
+				locationDisplace = locationDisplaceRange1
+				break
+			case 2:
+				locationDisplace = locationDisplaceRange2
+				break
+			case 3:
+				locationDisplace = locationDisplaceRange3
+				floatingObject1 = round(-0.35 + (fxrand() * 0.5))
+				break
+			case 4:
+				locationDisplace = locationDisplaceRange4
+				break
+		}
+		var locationPNSeed = round(fxrand() * 100000)
+		var locationPNScale = round(5 + (fxrand() * 15))
+		var locationPNCentered = Math.round(fxrand())
+		var locationFBScale = locationArea == 4 ? round(1 + (fxrand() * 3)) : round(1 + (fxrand() * 5))
+		var locationFBy = round(fxrand() * 100000)
+		var locationPw = round(0.125 + (fxrand() * 0.075))
+		var locationCA = 2//[0,2][Math.round(fxrand())]
+		var locationCAi = Math.round(fxrand())
+		// Backdrop
+		var backdropArea = Math.round(fxrand() * 2)
+		var backdropList = ["Buildings","Mountains","None"]
+		var backdropDisplace = backdropArea == 0 ? round(0.80 + (fxrand() * 0.45)) : round(0.75 + (fxrand()))
+		var backdropPNx = Math.round(10 + (fxrand() * 10))
+		var backdropPNy = Math.round(10 + (fxrand() * 10))
+		var backdropPNLx = Math.round(fxrand() * 100)
+		var backdropPNLy = Math.round(fxrand() * 100)
+		var backdropFBs = round(1 + (fxrand() * 4))
+		var backdropVDc = Math.round(fxrand())
+		// Weather
+		var weatherType = Math.round(fxrand() * 2)
+		var weatherTypeList = ["Rain","Snow","None"]
+		// Vehicle
+		var vehicleType = Math.round(fxrand() * 9)
+		var vehicleTypeList = ["Hatchback","Monster Truck","Muscle Car","Pickup","Roadster","Sedan","Sports Car","SUV","Truck","Van"]
+		var vehicleCA = [0,3][Math.round(fxrand())]
+		var vehicleCAs = round(4 + (fxrand() * 6))
+		// Steering Wheel
+		var steeringWheel = [6,8,10,12,16][Math.round(fxrand() * 4)]
+		var steeringWheelMiddle = [3,4,6,8,16][Math.round(fxrand() * 4)]
+		// Visualizer
+		var visualizerCA = [0,2][Math.round(fxrand())]
+		
+		$fx.features({
+			"Visual Style": visualStyleList[visualStyle],
+			"Vehicle": vehicleTypeList[vehicleType],
+			"Location": locationList[locationArea],
+			"Backdrop": backdropList[backdropArea],
+			"Weather": weatherTypeList[weatherType],
+			"Sky": skyTypeList[sky1],
+		})
+		console.log("On the road with my " + vehicleTypeList[vehicleType] + " I speed towards my destination, listening to some rad tunes as I enjoy the view of this epic " +  locationList[locationArea] + "!")
+		
+		function round(num) {
+			return Math.round((num + Number.EPSILON) * 100) / 100;
+		}		
+		
+        document.getElementById('glcanvas').addEventListener('touchmove', (e)=>{ e.preventDefault(); }, false);
+        function patchFinishedLoading(patch) {
+            setTimeout(() => fxpreview(), 10000)
+        }
+        document.addEventListener('CABLES.jsLoaded', function (event) {
+            CABLES.patch = new CABLES.Patch({
+                patch: CABLES.exportedPatch,
+                "glCanvasId": "glcanvas",
+                "glCanvasResizeToWindow": true,
+                "canvas":{"alpha":true,"premultipliedAlpha":true},
+				"canvas":{preserveDrawingBuffer:true},
+				"onFinishedLoading": patchFinishedLoading,
+				"allowLocalFileAccess": true
+            });
+			CABLES.patch.setVariable("visualStyle",visualStyle)
+			CABLES.patch.setVariable("visualStyleInvert",visualStyleInvert)
+			CABLES.patch.setVariable("sky0",sky0)
+			CABLES.patch.setVariable("sky1",sky1)
+			CABLES.patch.setVariable("sky2",sky2)
+			CABLES.patch.setVariable("sky3",sky3)
+			CABLES.patch.setVariable("sky4",sky4)
+			CABLES.patch.setVariable("sky5",sky5)
+			CABLES.patch.setVariable("sky6",sky6)
+			CABLES.patch.setVariable("sky7",sky7)
+			CABLES.patch.setVariable("sky8",sky8)
+			CABLES.patch.setVariable("floatingObject0",floatingObject0)
+			CABLES.patch.setVariable("floatingObject1",floatingObject1)
+			CABLES.patch.setVariable("floatingObject2",floatingObject2)
+			CABLES.patch.setVariable("floatingObject3",floatingObject3)
+			CABLES.patch.setVariable("floatingObject4",floatingObject4)
+			CABLES.patch.setVariable("floatingObject5",floatingObject5)
+			CABLES.patch.setVariable("floatingObject6",floatingObject6)
+			CABLES.patch.setVariable("floatingObject7",floatingObject7)
+			CABLES.patch.setVariable("floatingObject8",floatingObject8)
+			CABLES.patch.setVariable("floatingObject9",floatingObject9)
+			CABLES.patch.setVariable("road0",road0)
+			CABLES.patch.setVariable("road1",road1)
+			CABLES.patch.setVariable("road2",road2)
+			CABLES.patch.setVariable("road3",road3)
+			CABLES.patch.setVariable("road4",road4)
+			CABLES.patch.setVariable("road5",road5)
+			CABLES.patch.setVariable("locationArea",locationArea)
+			CABLES.patch.setVariable("locationDisplace",locationDisplace)
+			CABLES.patch.setVariable("locationPNSeed",locationPNSeed)
+			CABLES.patch.setVariable("locationPNScale",locationPNScale)
+			CABLES.patch.setVariable("locationPNCentered",locationPNCentered)
+			CABLES.patch.setVariable("locationFBScale",locationFBScale)
+			CABLES.patch.setVariable("locationFBy",locationFBy)
+			CABLES.patch.setVariable("locationPw",locationPw)
+			CABLES.patch.setVariable("locationCA",locationCA)
+			CABLES.patch.setVariable("locationCAi",locationCAi)
+			CABLES.patch.setVariable("backdropArea",backdropArea)
+			CABLES.patch.setVariable("backdropDisplace",backdropDisplace)
+			CABLES.patch.setVariable("backdropPNx",backdropPNx)
+			CABLES.patch.setVariable("backdropPNy",backdropPNy)
+			CABLES.patch.setVariable("backdropPNLx",backdropPNLx)
+			CABLES.patch.setVariable("backdropPNLy",backdropPNLy)
+			CABLES.patch.setVariable("backdropFBs",backdropFBs)
+			CABLES.patch.setVariable("backdropVDc",backdropVDc)
+			CABLES.patch.setVariable("weatherType",weatherType)
+			CABLES.patch.setVariable("steeringWheel",steeringWheel)
+			CABLES.patch.setVariable("steeringWheelMiddle",steeringWheelMiddle)
+			CABLES.patch.setVariable("vehicleType",vehicleType)
+			CABLES.patch.setVariable("vehicleCA",vehicleCA)
+			CABLES.patch.setVariable("vehicleCAs",vehicleCAs)
+        });
+    </script>
+</body>
+
+</html>

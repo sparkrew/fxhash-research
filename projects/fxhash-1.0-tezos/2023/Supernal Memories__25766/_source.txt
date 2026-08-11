@@ -1,0 +1,4 @@
+id: 25766
+name: Supernal Memories
+mint_opens_at: 2023-03-09T15:00:00+00:00
+generative_uri: ipfs://QmSENjPx1M5GRFgYVeC3iJ5gFsmc6dQY4LbAbaQpQ92phr

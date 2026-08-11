@@ -1,0 +1,4 @@
+id: 23454
+name: Magma
+mint_opens_at: 2023-01-13T19:00:00+00:00
+generative_uri: ipfs://QmYmKSpxAtG8Hs8cCK8otSJ3SNNFbWyPic5cFfMaJKB1sD

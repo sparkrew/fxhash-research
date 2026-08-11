@@ -1,0 +1,4 @@
+id: 23679
+name: Porta
+mint_opens_at: 2023-01-14T15:06:59+00:00
+generative_uri: ipfs://QmWcMAxtz6osfuJECPvGYwygD1z4Lb4LKoTdzP26pcixY3

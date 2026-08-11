@@ -1,0 +1,4 @@
+id: 25493
+name: Long hair
+mint_opens_at: 2023-02-26T16:30:00+00:00
+generative_uri: ipfs://QmRnNTgtkmfVt49QZ98K2RGSifTNMefXpxmLcuKkmerJPf

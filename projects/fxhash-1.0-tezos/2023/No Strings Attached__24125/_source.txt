@@ -1,0 +1,4 @@
+id: 24125
+name: No Strings Attached
+mint_opens_at: 2023-01-23T03:43:29+00:00
+generative_uri: ipfs://QmZP5AdwJLV8a6apvSrLvmwsnQ9WpARzpzUbTbXQ3QJ62m

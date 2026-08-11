@@ -1,0 +1,4 @@
+id: 25527
+name: MINISYNTH
+mint_opens_at: 2023-03-03T13:00:00+00:00
+generative_uri: ipfs://QmYoVQDSEPB4gmjZiQKQtbejUr783kqs5wuyueYefa58pa

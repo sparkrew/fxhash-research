@@ -1,0 +1,4 @@
+id: 23884
+name: portal
+mint_opens_at: 2023-01-18T16:25:44+00:00
+generative_uri: ipfs://QmYLUuXHBhCnjoJNwgzu3bytUuFwgzRZ7GrCdhsfUrhVNd

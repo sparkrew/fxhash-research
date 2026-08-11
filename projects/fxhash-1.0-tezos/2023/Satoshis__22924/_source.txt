@@ -1,0 +1,4 @@
+id: 22924
+name: Satoshis
+mint_opens_at: 2023-01-01T03:10:59+00:00
+generative_uri: ipfs://QmQ2ZQVhV4UyjN28eRWoP2uaZR58B3ucosdJnaAhVs17SJ

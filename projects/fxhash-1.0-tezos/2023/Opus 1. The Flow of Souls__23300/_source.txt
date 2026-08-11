@@ -1,0 +1,4 @@
+id: 23300
+name: Opus 1. The Flow of Souls
+mint_opens_at: 2023-01-07T15:30:00+00:00
+generative_uri: ipfs://QmNxwN6MTWsauHLUWbeact4w1YmxaokwigpDqbqzqcJL71

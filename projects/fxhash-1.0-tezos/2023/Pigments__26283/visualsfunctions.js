@@ -1,0 +1,1 @@
+function wigglyLine(e,t,n,o,r,i,a=2,g=8){e.noFill();const h=o-t,l=r-n,d=Math.sqrt(h*h+l*l)/i;let s=t,m=n,c=t,f=n;e.strokeWeight(a),e.beginShape();for(let t=0;t<i;t++)s+=h/i,m+=l/i,s+=random(-d/g,d/g),m+=random(-d/g,d/g),e.strokeWeight(random(a-.25,a+.25)),e.vertex(c,f),e.vertex(s,m),c=s,f=m;e.endShape()}

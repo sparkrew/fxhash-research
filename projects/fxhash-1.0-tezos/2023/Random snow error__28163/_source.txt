@@ -1,0 +1,4 @@
+id: 28163
+name: Random snow error
+mint_opens_at: 2023-07-19T23:30:11+00:00
+generative_uri: ipfs://QmXi2Sj4aVdLync7pyXBEQVouoLoJ9ECzRcMwmzB58ueHz

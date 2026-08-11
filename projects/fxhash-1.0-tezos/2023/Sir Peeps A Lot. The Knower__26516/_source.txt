@@ -1,0 +1,4 @@
+id: 26516
+name: Sir Peeps A Lot. The Knower.
+mint_opens_at: 2023-04-07T21:12:14+00:00
+generative_uri: ipfs://QmTZqiyLrigPNkiqd4WtkC6VXRS2MyYPMbejYoHRBYZjMY

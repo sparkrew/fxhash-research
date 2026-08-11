@@ -1,0 +1,4 @@
+id: 24399
+name: Livro
+mint_opens_at: 2023-01-31T15:00:00+00:00
+generative_uri: ipfs://QmTFTiQF3ZBMJK38No4F9RMG6PKvxD9mgbwQQZaxvmMz2N

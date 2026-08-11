@@ -1,0 +1,4 @@
+id: 25087
+name: shimmr
+mint_opens_at: 2023-02-14T11:30:00+00:00
+generative_uri: ipfs://QmdPrQZcNAEBcsA7qnNXEso12KXU1ZPt1YA9mmVTJ3Fjuo

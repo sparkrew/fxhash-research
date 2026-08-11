@@ -1,0 +1,4 @@
+id: 24111
+name: swamp or light
+mint_opens_at: 2023-01-22T23:07:29+00:00
+generative_uri: ipfs://Qma24tHocXdJ1EwLd96KXgJGMSQ8dCRSsbVrcJg1oZ4M6e

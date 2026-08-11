@@ -1,0 +1,4 @@
+id: 27691
+name: Paper salad with colored cardboard
+mint_opens_at: 2023-06-19T05:39:04+00:00
+generative_uri: ipfs://QmdjuiiKcUwrWtx7W4p3Djic9x7hDL9TqqhmkjhXK4p5Ct

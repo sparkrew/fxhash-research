@@ -1,0 +1,4 @@
+id: 28138
+name: Popsicles
+mint_opens_at: 2023-07-18T14:37:53+00:00
+generative_uri: ipfs://QmctH4eRGMGnCv7dz3MDCHBTLkXdmF7k1bjWu1PKoAmb25

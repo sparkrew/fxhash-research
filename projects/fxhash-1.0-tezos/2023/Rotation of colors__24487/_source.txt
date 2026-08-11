@@ -1,0 +1,4 @@
+id: 24487
+name: Rotation of colors
+mint_opens_at: 2023-02-02T18:30:00+00:00
+generative_uri: ipfs://QmPx5PvCgUexNj649KS6ek6Wb68bHuVXe6Gq9qz5Tp8nQ2

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <title>Ripple</title>
+    <script src="./p5.min.js"></script>
+    <script src="./p5.svg.min.js"></script>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    <script>
+        // *********************************************************
+        // LICENSE info: CC BY-NC-SA-4.0 (more info in ./LICENSE.md)
+        // *********************************************************
+        const pageHeight = 2048;
+        let pageWidth = pageHeight;
+        let saveAsSvg = false;
+        let saveAsPng = false;
+        let saveAsPngWide = false;
+
+        const lineGaps = [
+            { v: { value: 0.5, name: 0.5 }, p: 0.1 },
+            { v: { value: 0.75, name: 0.75 }, p: 0.15 },
+            { v: { value: 0.95, name: 0.95 }, p: 0.2 },
+            { v: { value: 1.33, name: 1.33 }, p: 0.25 },
+            { v: { value: 1.5, name: 1.5 }, p: 0.2 },
+            { v: { value: 3, name: 3 }, p: 0.1 },
+        ];
+
+        const weights = [
+            { v: { value: 2, name: 2 }, p: 0.15 },
+            { v: { value: 4, name: 4 }, p: 0.35 },
+            { v: { value: 6, name: 6 }, p: 0.3 },
+            { v: { value: 8, name: 8 }, p: 0.2 },
+        ];
+
+        const densities = [
+            { v: { value: 20, name: 20 }, p: 0.2 },
+            { v: { value: 30, name: 30 }, p: 0.35 },
+            { v: { value: 40, name: 40 }, p: 0.3 },
+            { v: { value: 60, name: 60 }, p: 0.1 },
+            { v: { value: 80, name: 80 }, p: 0.05 },
+        ];
+
+        const wavelengths = [
+            { v: { value: 0, name: '0%' }, p: 0.04 },
+            { v: { value: 0.2, name: '20%' }, p: 0.15 },
+            { v: { value: 0.33, name: '33%' }, p: 0.26 },
+            { v: { value: 0.5, name: '50%' }, p: 0.3 },
+            { v: { value: 0.66, name: '66%' }, p: 0.1 },
+            { v: { value: 0.8, name: '80%' }, p: 0.15 },
+        ];
+
+        const stepCounts = [
+            { v: { value: 3, name: 3 }, p: 0.15 },
+            { v: { value: 5, name: 5 }, p: 0.3 },
+            { v: { value: 8, name: 8 }, p: 0.25 },
+            { v: { value: 10, name: 10 }, p: 0.15 },
+            { v: { value: 12, name: 12 }, p: 0.05 },
+        ];
+
+        const palettes = [
+            {
+                v: {
+                    name: 'Blue ink',
+                    background: '#f0f0f0',
+                    colors: ['#000066', '#000066', '#000066', '#000066', '#000066', '#000066'],
+                },
+                p: 0.03,
+            },
+            {
+                v: {
+                    name: 'Ocean',
+                    background: '#000066',
+                    colors: ['#f0f0f0', '#f0f0f0', '#f0f0f0', '#f0f0f0', '#f0f0f0', '#f0f0f0'],
+                },
+                p: 0.08,
+            },
+            {
+                v: {
+                    name: 'Milk',
+                    background: '#222',
+                    colors: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+                },
+                p: 0.11,
+            },
+            {
+                v: {
+                    name: 'Charcoal',
+                    background: '#f0f0e0',
+                    colors: ['#222222', '#222222', '#222222', '#222222', '#222222', '#222222'],
+                },
+                p: 0.08,
+            },
+            {
+                v: {
+                    name: 'Elektrik',
+                    background: '#000',
+                    colors: ['#ff0000', '#ff0000', '#ff0000', '#00ffff', '#00ffff', '#00ffff'],
+                },
+                p: 0.09,
+            },
+            {
+                v: {
+                    name: 'Elektrik inverse',
+                    background: '#000',
+                    colors: ['#00ffff', '#00ffff', '#00ffff', '#ff0000', '#ff0000', '#ff0000'],
+                },
+                p: 0.06,
+            },
+            {
+                v: {
+                    name: 'Marine',
+                    background: '#01fab7',
+                    colors: ['#4000ff', '#4000ff', '#4000ff', '#4000ff', '#4000ff', '#4000ff'],
+                },
+                p: 0.08,
+            },
+            {
+                v: {
+                    name: 'Marine inverse',
+                    background: '#4000ff',
+                    colors: ['#01fab7', '#01fab7', '#01fab7', '#01fab7', '#01fab7', '#01fab7'],
+                },
+                p: 0.05,
+            },
+            {
+                v: {
+                    name: 'Midnight blue',
+                    background: '#333333',
+                    colors: ['#4000ff', '#4000ff', '#4000ff', '#4000ff', '#4000ff', '#4000ff'],
+                },
+                p: 0.1,
+            },
+            {
+                v: {
+                    name: 'Midnight black',
+                    background: '#4000ff',
+                    colors: ['#333333', '#333333', '#333333', '#333333', '#333333', '#333333'],
+                },
+                p: 0.05,
+            },
+            {
+                v: {
+                    name: 'Pop dark',
+                    background: '#222222',
+                    colors: ['#ffff00', '#ffff00', '#ff3300', '#ff3300', '#4000ff', '#4000ff'],
+                },
+                p: 0.05,
+            },
+            {
+                v: {
+                    name: 'Pop',
+                    background: '#f0f0e0',
+                    colors: ['#ffff00', '#ffff00', '#ff3300', '#ff3300', '#4000ff', '#4000ff'],
+                },
+                p: 0.1,
+            },
+            {
+                v: {
+                    name: 'Licorice',
+                    background: '#f0f0e0',
+                    colors: ['#111111', '#ffff00', '#ff00ff', '#111111', '#111111', '#111111'],
+                },
+                p: 0.04,
+            },
+            {
+                v: {
+                    name: '1992',
+                    background: '#aa00aa',
+                    colors: ['#111111', '#ffff00', '#111111', '#111111', '#111111', '#111111'],
+                },
+                p: 0.03,
+            },
+            {
+                v: {
+                    name: 'Punk',
+                    background: '#222222',
+                    colors: ['#ff00ff', '#ff00ff', '#ff00ff', '#ff00ff', '#ff00ff', '#ff00ff'],
+                },
+                p: 0.05,
+            },
+        ];
+
+        const directions = [
+            {
+                v: {
+                    value: 'rg',
+                    name: 'Regular',
+                },
+                p: 0.1,
+            },
+            {
+                v: {
+                    value: 'io',
+                    name: 'Inside out',
+                },
+                p: 0.3,
+            },
+            {
+                v: {
+                    value: 'oi',
+                    name: 'Outside in',
+                },
+                p: 0.1,
+            },
+            {
+                v: {
+                    value: 'pr',
+                    name: 'Progressive',
+                },
+                p: 0.1,
+            },
+            {
+                v: {
+                    value: 'fo',
+                    name: 'Fade out',
+                },
+                p: 0.15,
+            },
+            {
+                v: {
+                    value: 'fi',
+                    name: 'Fade in',
+                },
+                p: 0.15,
+            },
+            {
+                v: {
+                    value: 'sd',
+                    name: 'Sloping down',
+                },
+                p: 0.05,
+            },
+            {
+                v: {
+                    value: 'su',
+                    name: 'Sloping up',
+                },
+                p: 0.05,
+            },
+        ];
+
+        const shapes = [
+            { v: { value: 'Square', name: 'Square' }, p: 0.6 },
+            { v: { value: 'Circular', name: 'Circular' }, p: 0.4 },
+        ];
+
+        const styles = [
+            { v: { value: 'Wavy', name: 'Wavy' }, p: 0.8 },
+            { v: { value: 'Sharp', name: 'Sharp' }, p: 0.2 },
+        ];
+
+        const expressions = [
+            { v: { value: 'Linear', name: 'Linear' }, p: 0.65 },
+            { v: { value: 'Solid', name: 'Solid' }, p: 0.35 },
+        ];
+
+        const model = [];
+        const props = {};
+        const offsetY = Math.round(0.1 * pageHeight);
+        const height = pageHeight - 2 * offsetY;
+        let offsetX = Math.round(0.1 * pageWidth);
+        const width = pageWidth - 2 * offsetX;
+
+        function getSkewedValue(values) {
+            let total = 0.0;
+            const p = fxrand();
+
+            for (let i=0;i<values.length;i++) {
+                total += values[i].p;
+                if (p <= total) {
+                    return values[i].v;
+                }
+            }
+
+            return values[values.length-1].v;
+        }
+
+        function attributes() {
+            window.$fxhashFeatures = {};
+
+            props.palette = getSkewedValue(palettes);
+            window.$fxhashFeatures.Palette = props.palette.name;
+
+            const shape = getSkewedValue(shapes);
+            props.shape = shape.value;
+            window.$fxhashFeatures.Shape = shape.name;
+
+            const weight = getSkewedValue(weights);
+            props.weight = weight.value;
+            window.$fxhashFeatures.Weight = weight.name;
+
+            const density = getSkewedValue(densities);
+            props.density = density.value;
+            window.$fxhashFeatures.Density = density.name;
+            const lineGap = getSkewedValue(lineGaps.filter((lg) => !(props.density >= 60 && lg.v.value >= 3)));
+            props.lineGap = lineGap.value;
+            window.$fxhashFeatures['Line gap'] = lineGap.name;
+
+            const steps = getSkewedValue(stepCounts);
+            props.steps = steps.value;
+            window.$fxhashFeatures.Steps = steps.name;
+
+            const direction = getSkewedValue(directions);
+            props.direction = direction.value;
+            window.$fxhashFeatures.Direction = direction.name;
+
+            const wlengths = [...wavelengths];
+            if (props.density === densities[densities.length - 1].v.value || props.direction === 'rg') {
+                wlengths.shift();
+            }
+            if (props.steps === stepCounts[stepCounts.length - 1].v.value) {
+                wlengths.pop();
+            }
+            const wavelength = getSkewedValue(wlengths);
+            props.wavelength = wavelength.value;
+            window.$fxhashFeatures.Wavelength = wavelength.name;
+
+            const style = getSkewedValue(styles);
+            props.style = style.value;
+            window.$fxhashFeatures.Style = style.name;
+
+            const expression = props.wavelength > 0 ? getSkewedValue(expressions) : expressions[0].v;
+            props.expression = expression.value;
+            window.$fxhashFeatures.Expression = expression.name;
+
+            Object.keys(window.$fxhashFeatures).forEach((k) => console.log(`${k} = ${window.$fxhashFeatures[k]}`));
+        }
+
+        function insideOut(y, maxY, x, maxX) {
+            return Math.abs(0.5 * maxX - x) / (0.5 * maxX);
+        }
+
+        function progressive(y, maxY, x, maxX) {
+            return 0.5 * (x  / maxX + y / maxY);
+        }
+
+        function fadeIn(y, maxY, x, maxX) {
+            return y / maxY;
+        }
+
+        function fadeOut(y, maxY, x, maxX) {
+            return (maxY - y) / maxY;
+        }
+
+        function slopeUp(y, maxY, x, maxX) {
+            return (maxX - x) / maxX;
+        }
+
+        function slopeDown(y, maxY, x, maxX) {
+            return x / maxX;
+        }
+
+        function outsideIn(y, maxY, x, maxX) {
+            return 1 - insideOut(y, maxY, x, maxX);
+        }
+
+        function generate() {
+            let offsetFn = () => 1;
+            switch (props.direction) {
+                case 'io':
+                    offsetFn = insideOut;
+                    break;
+                case 'oi':
+                    offsetFn = outsideIn;
+                    break;
+                case 'pr':
+                    offsetFn = progressive;
+                    break;
+                case 'fi':
+                    offsetFn = fadeIn;
+                    break;
+                case 'fo':
+                    offsetFn = fadeOut;
+                    break;
+                case 'su':
+                    offsetFn = slopeUp;
+                    break;
+                case 'sd':
+                    offsetFn = slopeDown;
+                    break;
+            }
+
+            props.palette.colors.forEach((c, index) => {
+                model[index] = [];
+            });
+
+            const scalars = [];
+
+            const stepSize = height / props.density;
+            const stepWavelengthMax = stepSize * props.wavelength;
+
+            for (let i=0;i<props.density;i++) {
+                const lineScalars = [];
+                for (let j = 0; j <= props.steps; j++) {
+                    lineScalars.push(2 * fxrand() * stepWavelengthMax - stepWavelengthMax);
+                }
+                scalars.push(lineScalars);
+            }
+
+            props.palette.colors.forEach((color, index) => {
+                const r = 0.5 * height;
+                const x = 0.5 * width;
+                const y = 0.5 * height;
+
+                for (let i=1;i<props.density;i++) {
+                    const dy = i * stepSize - r;
+                    const wx = props.shape === 'Square' ? r : Math.sqrt(Math.abs(r * r - dy * dy));
+                    const xStep = 2 * wx / props.steps;
+
+                    const line = [];
+                    for (let j = 0; j <= props.steps; j++) {
+                        line.push(
+                            {
+                                x: x + Math.round(-wx + j * xStep),
+                                y: y + Math.round(dy + scalars[i][j] + props.lineGap * index * props.weight * offsetFn(i, props.density, j, props.steps)),
+                            },
+                        );
+                    }
+                    model[index].push([line[0], ...line, line[line.length - 1]]);
+                }
+            });
+        }
+
+        const sketch = (p) => {
+            p.setup = () => {
+                if (p.type === 'SVG') {
+                    p.createCanvas(pageWidth, pageHeight, p.SVG);
+                } else {
+                    p.createCanvas(pageWidth, pageHeight);
+                }
+                p.noLoop();
+                p.angleMode(p.DEGREES);
+                p.noFill();
+                p.strokeCap(p.SQUARE);
+            }
+
+            p.draw = () => {
+                p.background(props.palette.background);
+                p.strokeWeight(props.weight);
+
+                model.forEach((lines, index) => {
+                    if (props.expression === 'Linear') {
+                        p.stroke(p.color(props.palette.colors[index] + 'ff'));
+                        p.noFill();
+                    } else {
+                        p.fill(p.color(props.palette.colors[index] + '80'));
+                        p.noStroke();
+                    }
+                    lines.forEach((points) => {
+                        p.beginShape();
+                        points.forEach((pt) => {
+                            if (props.style === 'Wavy') {
+                                p.curveVertex(offsetX + pt.x, offsetY + pt.y);
+                            } else {
+                                p.vertex(offsetX + pt.x, offsetY + pt.y);
+                            }
+                        });
+                        p.endShape();
+                    });
+                });
+                fxpreview();
+            }
+        }
+
+        function savePng(filename) {
+            const png = new p5(sketch, 'png');
+            png.saveCanvas(filename);
+        }
+
+        function keyPressed() {
+            if (svg.keyCode === 83) {
+                svg.saveSVG('ripple.svg');
+                saveAsSvg = true;
+            } else if (svg.keyCode === 80 && !saveAsPng) {
+                pageWidth = pageHeight;
+                offsetX = offsetY;
+                savePng('ripple.png');
+                saveAsPng = true;
+            } else if (svg.keyCode === 87 && !saveAsPngWide) {
+                pageWidth = Math.round(16 * pageHeight / 9);
+                offsetX = Math.round(0.5 * (pageWidth - width));
+                savePng('ripple-wide.png');
+                saveAsPngWide = true;
+            }
+        }
+
+        attributes();
+        generate(props);
+
+        const svg = new p5(sketch, 'svg');
+        svg.type = 'SVG';
+    </script>
+    <style>
+        body {
+            background-color: #222;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        div {
+            max-width: 100vmin;
+            max-height: 100vmin;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        #png {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<main>
+</main>
+<div id="png"></div>
+<div id="svg"></div>
+</body>
+</html>

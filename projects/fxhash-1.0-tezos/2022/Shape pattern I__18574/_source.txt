@@ -1,0 +1,4 @@
+id: 18574
+name: Shape pattern I
+mint_opens_at: 2022-08-25T15:18:14+00:00
+generative_uri: ipfs://QmVdMLCoKSmYegC77vSaBHuywX9vEiC9AviP9iGEzDCXz7

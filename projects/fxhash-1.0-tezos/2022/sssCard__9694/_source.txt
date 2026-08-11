@@ -1,0 +1,4 @@
+id: 9694
+name: sssCard
+mint_opens_at: 2022-02-20T15:08:00+00:00
+generative_uri: ipfs://QmYy7hfxnJgHcfhd3Apky1BmN1U51puvBPuoweCiN3NRub

@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+  body {
+  background-color: #000;
+  overflow: hidden;
+  }
+  canvas {
+      width: 100%;
+      height: auto;
+      max-height: 100vh;
+      max-height: -webkit-fill-available;
+      max-width: 750px;
+      z-index: 10000;
+      margin: 0 auto;
+      padding: 0;
+      border: none;
+      display: block;
+  }

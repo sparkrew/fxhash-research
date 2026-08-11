@@ -1,0 +1,4 @@
+id: 21812
+name: Roots - v2
+mint_opens_at: 2022-11-26T15:00:00+00:00
+generative_uri: ipfs://QmY5rQdrhBwgv4YzvZrVfZ9rTuHh7CrZPygBB5NuSaEHsc

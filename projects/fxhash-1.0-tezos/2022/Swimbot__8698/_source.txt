@@ -1,0 +1,4 @@
+id: 8698
+name: Swimbot
+mint_opens_at: 2022-02-06T21:23:44+00:00
+generative_uri: ipfs://QmVFn7qHHqeHnujUQwn8vXrvDJhwA8yAHyMK1ppA8eTuMT

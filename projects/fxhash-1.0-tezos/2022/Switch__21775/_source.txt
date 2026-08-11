@@ -1,0 +1,4 @@
+id: 21775
+name: Switch
+mint_opens_at: 2022-11-24T15:23:00+00:00
+generative_uri: ipfs://QmSWFZE4j4ndWiYreJZrPBcD6AwmX9XRKUxij4zCw1LUUw

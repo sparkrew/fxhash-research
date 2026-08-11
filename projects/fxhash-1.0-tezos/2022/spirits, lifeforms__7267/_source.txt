@@ -1,0 +1,4 @@
+id: 7267
+name: spirits, lifeforms...
+mint_opens_at: 2022-01-18T15:19:30+00:00
+generative_uri: ipfs://QmUJuAEC2dKshan8PLkVg1FaEbJ11kKNwxBVyeLS2Aymxq

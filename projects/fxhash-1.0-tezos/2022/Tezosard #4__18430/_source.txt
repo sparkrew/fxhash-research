@@ -1,0 +1,4 @@
+id: 18430
+name: Tezosard #4
+mint_opens_at: 2022-08-21T18:29:29+00:00
+generative_uri: ipfs://QmUGAPC1mKQdDDPZiNqbu8V7Pp3VVpJYMGzzxZiZsCJwpM

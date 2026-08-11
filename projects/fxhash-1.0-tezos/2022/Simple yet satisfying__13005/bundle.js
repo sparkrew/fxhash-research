@@ -1,0 +1,1 @@
+(()=>{var a;console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={dTheta:(a=fxrand(),a<.05?"low":a<.09?"medium":"high")},canvas.getContext("2d"),document.body.appendChild(canvas)})();

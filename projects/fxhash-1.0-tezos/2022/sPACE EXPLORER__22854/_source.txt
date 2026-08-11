@@ -1,0 +1,4 @@
+id: 22854
+name: sPACE EXPLORER
+mint_opens_at: 2022-12-24T10:00:00+00:00
+generative_uri: ipfs://QmcGXchQkRppJbP6iTtdvjdDBX2YCS97ahunPAY3jSedmF

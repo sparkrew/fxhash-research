@@ -1,0 +1,4 @@
+id: 14417
+name: SAM SAM
+mint_opens_at: 2022-06-09T13:55:44+00:00
+generative_uri: ipfs://QmNa7a2pHzPWSwTSfUGxJaPDMCfm9wtjc1f18bGum98kfr

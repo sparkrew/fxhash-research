@@ -1,0 +1,4 @@
+id: 20929
+name: Self-assembly
+mint_opens_at: 2022-11-04T03:10:44+00:00
+generative_uri: ipfs://QmPqSD85wjMSnb9mfpLRe9XTysu79shmurJxCpHMNvx3zp

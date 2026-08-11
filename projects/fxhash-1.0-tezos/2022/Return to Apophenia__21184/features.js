@@ -1,0 +1,279 @@
+var features = {},h=[],s=[],dd=[],co=[],cl=[],cm=[],cd=[],hexcount=[],hexcoord=[],hxch=[],tlq=[],trq=[],blq=[],brq=[],shch=[],scentre=[],schorr=[],schorl=[],scvertt=[],scvertb=[],ccc=[],cch=[],ccv=[],ctl=[],vct=[],hct=[],cccvh=[],cchvh=[],ccvvh=[],ctlvh=[],vtcvh=[],hctvh=[];
+var pal=fxrand();
+var fhexnum=fxrand();
+if(fhexnum>=0.8){(features.hexnum=1);features.hexagons="All";}
+if(fhexnum<0.8){(features.hexnum=2);features.hexagons="Cogs, Arcs and Triangles";}
+if(fhexnum<0.7){(features.hexnum=3);features.hexagons="Quite Pointy";}
+if(fhexnum<0.6){(features.hexnum=4);features.hexagons="Stars and Points";}
+if(fhexnum<0.5){(features.hexnum=5);features.hexagons="Maybe Dinosaurs";}
+if(fhexnum<0.41){(features.hexnum=6);features.hexagons="Definitely Wibbly";}
+if(fhexnum<0.32){(features.hexnum=7);features.hexagons="Strings";}
+if(fhexnum<0.26){(features.hexnum=8);features.hexagons="Turning";}
+if(fhexnum<0.2){(features.hexnum=9);features.hexagons="Friendly Little Aliens";}
+if(fhexnum<0.12){(features.hexnum=10);features.hexagons="Tree Frog";}
+if(pal>=0.95)features.palette=1;
+if(pal<0.95)features.palette=2;
+if(pal<0.9)features.palette=3;
+if(pal<0.87)features.palette=4;
+if(pal<0.84)features.palette=5;
+if(pal<0.79)features.palette=6;
+if(pal<0.76)features.palette=7;
+if(pal<0.71)features.palette=8;
+if(pal<0.68)features.palette=9;
+if(pal<0.65)features.palette=10;
+if(pal<0.615)features.palette=11;
+if(pal<0.58)features.palette=12;
+if(pal<0.55)features.palette=13;
+if(pal<0.515)features.palette=14;
+if(pal<0.46)features.palette=15;
+if(pal<0.41)features.palette=16;
+if(pal<0.375)features.palette=17;
+if(pal<0.34)features.palette=18;
+if(pal<0.305)features.palette=19;
+if(pal<0.27)features.palette=20;
+if(pal<0.22)features.palette=21;
+if(pal<0.185)features.palette=22;
+if(pal<0.155)features.palette=23;
+if(pal<0.12)features.palette=24;
+if(pal<0.07)features.palette=25;
+if(pal<0.03)features.palette=26;
+function choosecolors() {
+if(pal>=0.95){
+  hcol1="#002427";
+  hcol2="#00A1A1";
+  hcol3="#014F68";
+  hcol4="#FFE695";
+  hcol5="#FFFBF0";
+}
+if(pal<0.95){
+  hcol1="#000E2E";
+  hcol4="#0C3C49";
+  hcol3="#FF8006";
+  hcol2="#FEB63B";
+  hcol5="#124D6C";
+}
+if(pal<0.9){
+  hcol1="#F8EAE5";
+  hcol2="#F9CE69";
+  hcol3="#3C212A";
+  hcol4="#A2545A";
+  hcol5="#E5847E";
+}
+if(pal<0.87){
+  hcol1="#E88B59";
+  hcol2="#923d38";
+  hcol3="#1775a6";
+  hcol4="#122035";
+  hcol5="#121119";
+}
+if(pal<0.84){
+  hcol1="#0A101F";
+  hcol2="#FCE1B4";
+  hcol3="#FFB02C";
+  hcol4="#3C7382";
+  hcol5="#69C9E4";
+}
+if(pal<0.79){
+  hcol1="#0f0d24";
+  hcol4="#9381a7";
+  hcol5="#58b2b6";
+  hcol2="#f7e3c3";
+  hcol3="#0168ba";
+}
+if(pal<0.76){
+  hcol1="#73236E";
+  hcol2="#329D89";
+  hcol3="#25123D";
+  hcol4="#C6F9E8";
+  hcol5="#E2D2B6";
+}
+if(pal<0.71){
+  hcol1="#090806";
+  hcol2="#6e6d75";
+  hcol3="#244964";
+  hcol4="#e8c37f";
+  hcol5="#ffcda8";
+}
+if(pal<0.68){
+  hcol1="#7DB1C1";
+  hcol2="#2B1C4B";
+  hcol3="#7B4759";
+  hcol4="#F0D99A";
+  hcol5="#f6f6f8";
+}
+if(pal<0.65){
+  hcol1="#409390";
+  hcol2="#FFF7E5";
+  hcol3="#C4D36E";
+  hcol4="#585E23";
+  hcol5="#043331";
+}
+if(pal<0.615){
+  hcol1="#FECBB1";
+  hcol4="#FF7A8D";
+  hcol5="#AD4465";
+  hcol2="#653383";
+  hcol3="#012344";
+}
+if(pal<0.58){
+  hcol1="#000E22";
+  hcol2="#01367A";
+  hcol3="#156ECD";
+  hcol4="#D6E496";
+  hcol5="#FFDCCD";
+}
+if(pal<0.55){
+  hcol1="#9FCFCA";
+  hcol2="#eef3dc";
+  hcol3="#FF8883";
+  hcol4="#8F5553";
+  hcol5="#4f6467";
+}
+if(pal<0.515){
+  hcol1="#f2d682";
+  hcol4="#de6e53";
+  hcol5="#c83a53";
+  hcol2="#622a3f";
+  hcol3="#78B4B8";
+}
+if(pal<0.46){
+  hcol1="#3d606b";
+  hcol2="#7BBFD5";
+  hcol3="#FEECBB";
+  hcol4="#fcb67d";
+  hcol5="#DF7354";
+}
+if(pal<0.41){
+  hcol1="#714F56";
+  hcol2="#47232C";
+  hcol3="#CF818B";
+  hcol4="#FECFD7";
+  hcol5="#FFFAF4";
+}
+if(pal<0.375){
+  hcol1="#792774";
+  hcol2="#429D8C";
+  hcol3="#1B0135";
+  hcol4="#B1E3D3";
+  hcol5="#FAD69B";
+}
+if(pal<0.34){
+  hcol1="#401F45";
+  hcol2="#9E4A7A";
+  hcol3="#021E25";
+  hcol4="#C8EABE";
+  hcol5="#BECDF0";
+}
+if(pal<0.305){
+  hcol1="#CD9D84";
+  hcol2="#E4D3CE";
+  hcol4="#2F505D";
+  hcol3="#541625";
+  hcol5="#19153C";
+}
+if(pal<0.27){
+  hcol1="#FAF2BB";
+  hcol2="#EDA680";
+  hcol5="#C96C8D";
+  hcol4="#7B4381";
+  hcol3="#1C1335";
+}
+if(pal<0.22){
+  hcol1="#0f1f12";
+  hcol2="#7A9A2C";
+  hcol3="#014972";
+  hcol4="#fffde9";
+  hcol5="#F0D484";
+}
+if(pal<0.185){
+  hcol1="#FBE5C1";
+  hcol2="#271002";
+  hcol3="#ae3b04";
+  hcol4="#F9AB27";
+  hcol5="#FF932D";
+}
+if(pal<0.155){
+  hcol1="#FDFFFA";
+  hcol4="#AADC70";
+  hcol5="#5C8830";
+  hcol2="#1D601A";
+  hcol3="#073301";
+}
+if(pal<0.12){
+  hcol1="#08070d";
+  hcol2="#234565";
+  hcol3="#e3b289";
+  hcol4="#f3e8e4";
+  hcol5="#7f7e7c";
+}
+if(pal<0.07){
+  hcol1="#FBA332";
+  hcol2="#2b0d0f";
+  hcol3="#822746";
+  hcol4="#6b7b88";
+  hcol5="#957874";
+}
+if(pal<0.03){
+  hcol1="#000000";
+  hcol2="#AFADAD";
+  hcol3="#FFFFFF";
+  hcol4="#116776";
+  hcol5="#8E2A94";
+}
+  hc4=[hcol4,hcol5];
+  hco4=shuffle(hc4);
+  hcol4=hco4[0];
+  colch=[hcol1,hcol2,hcol3,hcol4];
+  if(colrotate==0){
+  colchoice=shuffle(colch);
+  col1=colchoice[0];        
+  col2=colchoice[1];         
+  col3=colchoice[2];         
+  col4=colchoice[3];}     
+  if(colrotate==1){  
+  colchoice=shuffle(colch);
+  col1=colchoice[1];        
+  col2=colchoice[2];         
+  col3=colchoice[3];         
+  col4=colchoice[0];}       
+  if(colrotate==2){  
+  colchoice=shuffle(colch);
+  col1=colchoice[2];        
+  col2=colchoice[3];         
+  col3=colchoice[0];         
+  col4=colchoice[1];}        
+  if(colrotate==3){  
+  colchoice=shuffle(colch);
+  col1=colchoice[3];        
+  col2=colchoice[0];         
+  col3=colchoice[1];         
+  col4=colchoice[2];}           
+  if(colrotate==4){  
+  colchoice=shuffle(colch);
+  col1=colchoice[0];        
+  col2=colchoice[2];         
+  col3=colchoice[1];         
+  col4=colchoice[3];}            
+  if(colrotate==5){  
+  colchoice=shuffle(colch);
+  col1=colchoice[3];        
+  col2=colchoice[0];         
+  col3=colchoice[2];         
+  col4=colchoice[1];}           
+  if(colrotate==6){  
+  colchoice=shuffle(colch);
+  col1=colchoice[1];        
+  col2=colchoice[3];         
+  col3=colchoice[0];         
+  col4=colchoice[2];}           
+  if(colrotate==7){  
+  colchoice=shuffle(colch);
+  col1=colchoice[2];        
+  col2=colchoice[1];         
+  col3=colchoice[3];         
+  col4=colchoice[0];}         
+  }
+window.$fxhashFeatures = {
+  Palette:features.palette,
+  Style:features.hexagons
+}

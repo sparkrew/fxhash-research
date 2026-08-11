@@ -1,0 +1,4 @@
+id: 9932
+name: Shadow Blocks - RGBSL
+mint_opens_at: 2022-02-23T14:21:30+00:00
+generative_uri: ipfs://QmfAuG7hD9Yitcz1Q1Tx2ckuXNhysSGTorZFMxyRJp6W4L

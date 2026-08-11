@@ -1,0 +1,4 @@
+id: 17544
+name: The voxel house #N1
+mint_opens_at: 2022-08-03T16:30:00+00:00
+generative_uri: ipfs://QmdNznJjJJMayE4FRFqVP9sFyoyFpAMVTQS6TFtc5AAXts

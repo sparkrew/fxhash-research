@@ -1,0 +1,4 @@
+id: 7317
+name: Space(gen3);
+mint_opens_at: 2022-01-18T16:11:00+00:00
+generative_uri: ipfs://Qmcp8vS3ShfXmd3NwqBh42j1gkWPHczuxXR48GrbvaUUgC

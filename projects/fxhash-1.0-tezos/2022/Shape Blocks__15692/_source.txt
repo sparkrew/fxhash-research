@@ -1,0 +1,4 @@
+id: 15692
+name: Shape Blocks
+mint_opens_at: 2022-07-01T13:18:44+00:00
+generative_uri: ipfs://QmNNff3hLz1HRuTn5NK4HCSg1h3HNSr1DQZJSMaYkvekqZ

@@ -1,0 +1,167 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+
+
+		    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+	</head>
+	<body>
+
+
+
+
+
+		<script src="3.js"></script>
+		<script>
+			// Our Javascript will go here.
+
+var clrChance = fxrand();
+var clrW = 0xffffff;
+var clrR = 0xff0000;
+var clrB = 0x0000FF;
+var clrG = 0x00ff00;
+
+if (clrChance < 0.5) {
+
+
+	clr = clrW;
+}
+
+
+if (clrChance > 0.5 && clrChance < 0.8) {
+
+
+	clr = clrR;
+}
+
+if (clrChance > 0.8 && clrChance < 0.99) {
+
+
+	clr = clrB;
+}
+
+if (clrChance > 0.99  ) {
+
+
+	clr = clrG;
+}
+
+var point1 = fxrand()*30;
+var point2 = fxrand()*30;
+var point3 = -point1;
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
+camera.position.set( 0, 0, 100 );
+camera.lookAt( 0, 0, 0 );
+
+const scene = new THREE.Scene();
+
+
+const material = new THREE.LineBasicMaterial( { color: clr,
+
+linewidth: 4,
+	linecap: 'round', //ignored by WebGLRenderer
+	linejoin:  'round' //ignored by WebGLRenderer
+
+ } );
+cars = 8
+for (let i = 0; i < cars.length; i++) { 
+}
+
+const points = [];
+points.push( new THREE.Vector3( point1, point2, point2 ) );
+points.push( new THREE.Vector3( point2, point3, point2 ) );
+points.push( new THREE.Vector3( point3, point2, point2) );
+points.push( new THREE.Vector3( point2, point2, point3 ) );
+points.push( new THREE.Vector3( point2, point3, point3 ) );
+
+points.push( new THREE.Vector3( point3, point3, point2 ) );
+points.push( new THREE.Vector3( point1, point2, point2 ) );
+const geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+
+
+const points2 = [];
+points2.push( new THREE.Vector3( -point1, -point2, -point2 ) );
+points2.push( new THREE.Vector3( -point2, -point3, -point2 ) );
+points2.push( new THREE.Vector3( -point3, -point2, -point2) );
+points2.push( new THREE.Vector3( -point2, -point2, -point3 ) );
+points2.push( new THREE.Vector3( -point2, -point3, -point3 ) );
+
+points2.push( new THREE.Vector3( -point3, -point3, -point2 ) );
+points2.push( new THREE.Vector3( -point1, -point2, -point2 ) );
+const geometry2 = new THREE.BufferGeometry().setFromPoints( points2 );
+
+const line2 = new THREE.Line( geometry2, material );
+
+const line = new THREE.Line( geometry, material );
+
+
+scene.add( line );
+scene.add( line2 );
+
+renderer.render( scene, camera );
+
+
+
+
+		function animate() {
+				requestAnimationFrame( animate );
+
+				line.rotation.x += 0.01;
+				line.rotation.y += 0.01;
+
+				line2.rotation.x -= 0.01;
+				line2.rotation.y -= 0.01;
+
+
+				renderer.render( scene, camera );
+			};
+
+
+				animate();
+		</script>
+	</body>
+</html>

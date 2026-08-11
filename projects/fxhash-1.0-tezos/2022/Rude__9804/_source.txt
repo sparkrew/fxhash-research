@@ -1,0 +1,4 @@
+id: 9804
+name: Rude
+mint_opens_at: 2022-02-21T21:22:30+00:00
+generative_uri: ipfs://QmQZXHpy2N49Wa3obUUobHg1wpkeUa2j3u8x4aP57vLaLM

@@ -1,0 +1,4 @@
+id: 18906
+name: Sunjars
+mint_opens_at: 2022-09-02T20:55:29+00:00
+generative_uri: ipfs://QmWS3JghV1ToEowc7hYwo1xvU3BrtJMr8qgNkuLeEVWiY1

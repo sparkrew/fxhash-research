@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={"Color #1":colorArray[colorPicker].color1name,"Color #2":colorArray[colorPicker].color2name};

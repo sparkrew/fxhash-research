@@ -1,0 +1,1 @@
+(()=>{const e=document.createElement("div");document.body.prepend(e)})();

@@ -1,0 +1,70 @@
+Exporter version: 2.93.4, Blender version: 2.93.3
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		Inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		Keep Z-up r-handed  :  no
+		Texture directory   :  C:\00 TRABAJO\fxhash\S4NT1\S4NTI\models\
+	Python World class constructor completed
+	WARNING: No active camera has been assigned, or is not in a currently enabled collection
+	processing begun of mesh:  t1
+		processing begun of material:  PIEDRA
+		processing begun of material:  em1
+		processing begun of multimaterial:  top.Multimaterial#0
+		num positions      :  3359
+		num normals        :  3359
+		num tangents       :  0
+		num uvs            :  6718
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  4946
+	processing begun of mesh:  t2
+		processing begun of material:  PIEDRA
+		processing begun of material:  em2
+		registered as also a user of material:  PIEDRA
+		processing begun of multimaterial:  top.Multimaterial#1
+		num positions      :  2797
+		num normals        :  2797
+		num tangents       :  0
+		num uvs            :  5594
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  5000
+	processing begun of mesh:  t3
+		processing begun of material:  em3
+		processing begun of material:  PIEDRA
+		registered as also a user of material:  PIEDRA
+		processing begun of multimaterial:  top.Multimaterial#2
+		num positions      :  11110
+		num normals        :  11110
+		num tangents       :  0
+		num uvs            :  22220
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  18424
+		WARNING: # of 0 area faces found:  12
+	processing begun of mesh:  t4
+		processing begun of material:  em4
+		processing begun of material:  PIEDRA
+		registered as also a user of material:  PIEDRA
+		processing begun of multimaterial:  top.Multimaterial#3
+		num positions      :  12937
+		num normals        :  12937
+		num tangents       :  0
+		num uvs            :  25874
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  20274
+========= Writing of JSON file started =========
+	writing mesh:  t1
+	writing mesh:  t2
+	writing mesh:  t3
+	writing mesh:  t4
+========= Writing of JSON file completed =========
+========= end of processing =========
+elapsed time:  0 min, 2.7118 secs

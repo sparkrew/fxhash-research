@@ -1,0 +1,4 @@
+id: 8726
+name: Tezzle
+mint_opens_at: 2022-02-07T01:07:04+00:00
+generative_uri: ipfs://QmbuSF8SASF3wxFe1u1NmFxTQDGdX4EiyvQLqqQbsRX1wC

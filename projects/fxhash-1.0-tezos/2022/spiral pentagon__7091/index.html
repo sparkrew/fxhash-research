@@ -1,0 +1,233 @@
+<html>
+<head>
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+
+      /* This centers our sketch horizontally. */
+      justify-content: center;
+
+      /* This centers our sketch vertically. */
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+<script src="./p5.min.js"></script>
+<script>
+
+//fxhash
+//hash example: ooj2fDRaAwUswRJv33hd79Q9g1PsyzEwxBNeFEh2cZyiHyRofXG
+window.$fxhashFeatures = {
+  "hue": 360*fxrand(),
+  "sat": 100*fxrand()+50,
+  "bright": 100*fxrand()+90,
+  "alpha": 100*fxrand(),
+  "fill": fxrand() < 0.5
+}
+
+var isFill = false;
+
+function setup() {
+  // Create the canvas
+  createCanvas(windowWidth, windowHeight);
+
+  frameRate(30);
+  radiusL = width > height ? height : width;
+  radiusL = radiusL + 100;
+  //radiusL = width + 100;
+ 
+  console.log(window.$fxhashFeatures);
+  isFill = window.$fxhashFeatures["fill"];
+
+  //define color GT
+  colorMode(HSB, window.$fxhashFeatures["hue"],
+                 window.$fxhashFeatures["sat"],
+                 window.$fxhashFeatures["bright"],
+                 window.$fxhashFeatures["alpha"]);
+  background(0);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  background(0);
+  radiusL = width > height ? height : width;
+  radiusL = radiusL + 100;
+}
+
+var center = 0;
+var rotateVal = 10.0;
+var nPoints = 5;
+var radiusL = 1300;
+var angle = 0;
+var auxCount = 0;
+
+var i = 0;
+var angleFE = 180.0;
+var t = 1;
+var posPolX = 0;
+var posPolY = 0;
+var invert = 0;
+var change = 0;
+
+var h = 0;
+var s = 0;
+var b = 0;
+var a = 0;
+var backgroundAlpha = 0.077;
+
+function draw(){
+  //start drawing
+  push();
+
+  //translate and rotate
+  translate(width/2, height/2);
+  rotate(frameCount / rotateVal);
+
+  //redraw polygon
+  makePoly();
+
+  //count something TODO
+  if (i >= 100) {
+    i = 0;
+  } else {
+    i++;
+  }
+ 
+  stroke(map(i % 10, 0, 10, 0, 100), 100, 100, 30);
+  if(isFill)
+    fill(map(i % 10, 0, 10, 0, 100), 100, 100, 30);
+  else
+    noFill();
+  
+
+  // posPolX = width;
+  // posPolY = height;
+  polygon(posPolX/2, posPolY/2, radiusL, nPoints);  // Triangle
+  pop();
+
+  smoothScreen();
+}
+
+function smoothScreen(){
+  //apagando lentamente
+  if(frameCount % 3 == 0){    
+    noStroke();
+    fill(360, 0, 100, backgroundAlpha);
+    rect(0, 0, width, height);
+  }
+  
+}
+
+function makePoly(){
+  if(invert >= 50){
+    if (radiusL <= 0){
+      //flip coin for try to change (color, direction, rotation, speed)
+      change = random(100);
+      if(change >= 50){
+        defPolyChanges();
+      }else{
+        invert = 0;
+      }
+    } else {
+      if (radiusL > 300) radiusL = radiusL - random(0, 5);
+      else if (radiusL > 150) radiusL = radiusL - random(0, 2);
+      else if (radiusL > 75) radiusL = radiusL - random(0, 1);
+      else radiusL = radiusL - 0.1;
+    }
+  } else {
+    if (radiusL >= width-200) {
+      change = random(100);
+      if(change >= 50){
+        defPolyChanges();
+      } else {
+        invert = 100;
+      }
+      background(0);
+    } else {
+      radiusL = radiusL + random(0, 1);
+    }
+  }
+}
+
+function resetFrameRate(){
+  frameRate(60)
+}
+
+function defPolyChanges(){
+  radiusL = random(width);
+  nPoints = random(3, 8);
+
+  //defColor();
+
+  posPolX = random(width);
+  posPolY = random(height);
+
+  rotateVal = random(0, 200);
+
+  invert = random(0, 100);
+}
+
+function polygon(x, y, radius, npoints){
+  let angle = TWO_PI / 5;
+
+  beginShape();
+
+  for (let i = 0; i < TWO_PI; i += angle){
+    let sx = x + cos(i) * radius;
+    let sy = y + sin(i) * radius;
+    
+    vertex(sx, sy);
+  }
+  //last trace
+  vertex(x + cos(0) * radius, y + sin(0) * radius);
+
+  endShape(close);
+}
+</script>
+
+
+  </body>
+</html>
+<style></style>

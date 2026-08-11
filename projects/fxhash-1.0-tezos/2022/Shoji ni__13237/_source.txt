@@ -1,0 +1,4 @@
+id: 13237
+name: Shoji ni
+mint_opens_at: 2022-05-22T09:30:00+00:00
+generative_uri: ipfs://QmYZZw9QS1gMnz4qsemMrvueZMRj5vb4gYCZPjGb9h73aw

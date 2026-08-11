@@ -1,0 +1,4 @@
+id: 19791
+name: The Inverted
+mint_opens_at: 2022-09-26T15:46:29+00:00
+generative_uri: ipfs://QmauSCVptXnGWqNn2PqSBKZVLGDxDobxCo761bPCjqMjhr

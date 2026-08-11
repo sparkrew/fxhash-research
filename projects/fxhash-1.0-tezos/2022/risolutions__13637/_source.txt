@@ -1,0 +1,4 @@
+id: 13637
+name: risolutions
+mint_opens_at: 2022-05-28T16:00:00+00:00
+generative_uri: ipfs://QmWRghtShJYD2zuHy1KqVoHd8sMeZyM3PySw9n1St9wEFK

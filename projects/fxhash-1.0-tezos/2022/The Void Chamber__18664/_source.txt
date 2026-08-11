@@ -1,0 +1,4 @@
+id: 18664
+name: The Void Chamber
+mint_opens_at: 2022-08-27T19:00:00+00:00
+generative_uri: ipfs://QmTmn52RjESq5gDcyUPhxZKN51tQ1kX5asUDbox6o9QJaG

@@ -1,0 +1,4 @@
+id: 20734
+name: Towers of Power
+mint_opens_at: 2022-10-28T14:01:14+00:00
+generative_uri: ipfs://QmXzs6UxdqPhUEjcstvU94gM5mbbwXWtXS2gj5fwfNmmKn

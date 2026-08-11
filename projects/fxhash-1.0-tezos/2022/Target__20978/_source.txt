@@ -1,0 +1,4 @@
+id: 20978
+name: Target
+mint_opens_at: 2022-11-05T01:28:59+00:00
+generative_uri: ipfs://QmSzYuUtnUxRrwfkhuL5LNxhzN1x6NuCHsPsDYsrCjDNDa

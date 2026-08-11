@@ -1,0 +1,4 @@
+id: 10557
+name: Solar system model
+mint_opens_at: 2022-03-11T08:25:14+00:00
+generative_uri: ipfs://QmWwpuL8uMvCnBAJZxKVumJ9WtZZ2PZJvV9HLDHH9nadgP

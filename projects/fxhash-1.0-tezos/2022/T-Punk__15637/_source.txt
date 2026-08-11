@@ -1,0 +1,4 @@
+id: 15637
+name: T-Punk
+mint_opens_at: 2022-06-30T18:26:59+00:00
+generative_uri: ipfs://Qmeec7N73m22jaTuMtnv9mTsepEokmrUzhXHz9zgabA8wv

@@ -1,0 +1,4 @@
+id: 15071
+name: Star Power UP
+mint_opens_at: 2022-06-17T21:55:14+00:00
+generative_uri: ipfs://QmPxD2nqEDGWtNJ5hoiPvdUcvS7EDXNLPkbMUqzY9QGkjJ

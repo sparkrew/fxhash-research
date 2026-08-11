@@ -1,0 +1,4 @@
+id: 19458
+name: Rising perspective
+mint_opens_at: 2022-09-19T16:10:00+00:00
+generative_uri: ipfs://QmWvN9NmUXXbBHzKt3Jgsq4rEHgnaYtpY3UtsvTJWuTUqR

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <title>Ripped</title>
+ <script src="./p5.min.js"></script>
+ <link href="./zfonts">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+ <meta charset="utf-8" >
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>    
+  </head>
+  <body>
+    <script src="sketch.js"></script>
+    <script src="babrick.js"></script>
+    <script src="brickover.js"></script>
+    <script src="features.js"></script>
+    <script src="arrays.js"></script>
+    <script src="choosefont.js"></script>
+    <script src="words.js"></script>
+    <script src="rips.js"></script>
+    <script src="wood.js"></script>
+    <script src="sticker.js"></script>
+    <script src="paposter.js"></script>
+    <script src="pbposter.js"></script>
+    <script src="pcposter.js"></script>
+    <script src="pdposter.js"></script>
+    <script src="peposter.js"></script>
+    <script src="pfposter.js"></script>
+    <script src="pgposter.js"></script>
+    <script src="phposter.js"></script>
+    <script src="piposter.js"></script>
+    <script src="pjposter.js"></script>
+    <script src="pkposter.js"></script>
+    <script src="plposter.js"></script>
+    <script src="pmposter.js"></script>
+    <script src="pnposter.js"></script>
+    <script src="pqposter.js"></script>
+    <script src="pwposter.js"></script>
+  
+
+</body></html>

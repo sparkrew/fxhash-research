@@ -1,0 +1,4 @@
+id: 5674
+name: Ross Generator
+mint_opens_at: 2022-01-05T16:15:30+00:00
+generative_uri: ipfs://QmckuKquEjp3GeTu1ZRXNZLA7V8dU3epAGhvPMFLFyqtuw

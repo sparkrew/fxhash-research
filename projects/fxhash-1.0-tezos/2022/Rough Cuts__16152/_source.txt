@@ -1,0 +1,4 @@
+id: 16152
+name: Rough Cuts
+mint_opens_at: 2022-07-09T15:00:00+00:00
+generative_uri: ipfs://QmbicvBxjTTGEDLMGvBjtr3ViPrPQnhEPnzQKp8hEom38Q

@@ -1,0 +1,4 @@
+id: 16275
+name: Standing in fog
+mint_opens_at: 2022-07-12T14:31:44+00:00
+generative_uri: ipfs://QmbXNMVDnTEU5TKP58Q7bPwN2ZEBEqweoU6gyLbUdLZbA5

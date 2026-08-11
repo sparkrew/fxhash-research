@@ -1,0 +1,4 @@
+id: 16446
+name: Square Bubble
+mint_opens_at: 2022-07-14T16:50:59+00:00
+generative_uri: ipfs://QmadEB4TEUoXPDQfp666ikndSE5tyiKeE3H67WJJdmwB8P

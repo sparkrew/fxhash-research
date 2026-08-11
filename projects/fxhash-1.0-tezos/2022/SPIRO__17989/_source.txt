@@ -1,0 +1,4 @@
+id: 17989
+name: SPIRO
+mint_opens_at: 2022-08-12T21:53:14+00:00
+generative_uri: ipfs://QmSANg2ESBoYC1LMcuqCXHtobbSvmBBa5cn8162DuWFNFg

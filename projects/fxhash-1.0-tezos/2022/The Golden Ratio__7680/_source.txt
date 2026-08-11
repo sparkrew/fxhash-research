@@ -1,0 +1,4 @@
+id: 7680
+name: The Golden Ratio
+mint_opens_at: 2022-01-21T15:17:10+00:00
+generative_uri: ipfs://QmcxxRDnx8cKqdR3ZdD7vqT3814bUQyiC2eciHNThVWb62

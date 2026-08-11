@@ -1,0 +1,4 @@
+id: 16832
+name: The Open License Quests
+mint_opens_at: 2022-07-22T17:00:00+00:00
+generative_uri: ipfs://Qmbmu8ijLPiGQ3jWK3PEevd2Ra8ty9JHAvL32nJX9aD49o

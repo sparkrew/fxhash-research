@@ -1,0 +1,4 @@
+id: 20092
+name: shadow golden blocks
+mint_opens_at: 2022-10-05T19:27:29+00:00
+generative_uri: ipfs://QmPNiuKyT41o6L4wGbVGpzM88yp3wJwFzc4Tm6oXsfQSVR

@@ -1,0 +1,4 @@
+id: 6086
+name: THE PUNK 
+mint_opens_at: 2022-01-07T14:46:00+00:00
+generative_uri: ipfs://QmcJbhrr2qG6dzpyF2eRXdwi3g89ngYNXSjAkoARrE5NYV

@@ -1,0 +1,4 @@
+id: 12933
+name: SMOLSKULL-PATTERN
+mint_opens_at: 2022-05-14T21:30:29+00:00
+generative_uri: ipfs://QmbSFAYsowKTkNQAqKgi4qm2fCS4kY6W6KsiMrqftCU51w

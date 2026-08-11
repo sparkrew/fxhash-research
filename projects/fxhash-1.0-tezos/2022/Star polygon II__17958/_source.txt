@@ -1,0 +1,4 @@
+id: 17958
+name: Star polygon II
+mint_opens_at: 2022-08-18T14:00:00+00:00
+generative_uri: ipfs://QmVJpm1jX4jwNT7uTaFyp3cp5nTmKEdhpnKkXwxAgaRrZU

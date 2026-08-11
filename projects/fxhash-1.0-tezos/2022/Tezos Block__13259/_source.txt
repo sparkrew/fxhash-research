@@ -1,0 +1,4 @@
+id: 13259
+name: Tezos Block
+mint_opens_at: 2022-05-21T13:15:29+00:00
+generative_uri: ipfs://QmPiHDMkG5W5P4AzrG8Nanb94qq9siDm1aBygBmL4oJvnw

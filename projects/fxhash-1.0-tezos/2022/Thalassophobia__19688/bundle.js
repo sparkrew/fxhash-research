@@ -1,0 +1,1 @@
+window.$fxhashFeatures={"Color Gradient":cgnam,"Circle Size":cszname,Crossings:tswtch},document.createElement("div");

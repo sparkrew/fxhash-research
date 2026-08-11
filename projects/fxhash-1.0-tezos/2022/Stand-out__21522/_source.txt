@@ -1,0 +1,4 @@
+id: 21522
+name: Stand-out
+mint_opens_at: 2022-11-17T21:17:14+00:00
+generative_uri: ipfs://QmXAZqAmfnXF723mJHKX4xnkL9Eb8U8s7zXDXq9Mahyeqz

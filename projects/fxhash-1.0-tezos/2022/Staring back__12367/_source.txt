@@ -1,0 +1,4 @@
+id: 12367
+name: Staring back
+mint_opens_at: 2022-09-14T14:00:00+00:00
+generative_uri: ipfs://Qmafwgc29zBBjsuLYVKcZ46Bx2ZdRUuh7me99QecJAjTP6

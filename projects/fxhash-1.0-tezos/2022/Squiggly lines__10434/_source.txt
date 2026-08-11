@@ -1,0 +1,4 @@
+id: 10434
+name: Squiggly lines
+mint_opens_at: 2022-03-07T13:52:14+00:00
+generative_uri: ipfs://QmRm6BQYujjiCyLrqMuSV5aMwizWbui4jigzSSEmm9eC2K

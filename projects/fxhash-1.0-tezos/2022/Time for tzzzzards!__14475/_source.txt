@@ -1,0 +1,4 @@
+id: 14475
+name: Time for tzzzzards!
+mint_opens_at: 2022-06-09T17:17:59+00:00
+generative_uri: ipfs://QmZfbbHi22NWY6BoVn4142TjbXnmad5N5nCWbsfuLL81V8

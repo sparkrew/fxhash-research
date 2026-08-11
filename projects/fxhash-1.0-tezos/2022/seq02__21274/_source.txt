@@ -1,0 +1,4 @@
+id: 21274
+name: seq02
+mint_opens_at: 2022-11-16T13:00:00+00:00
+generative_uri: ipfs://QmeMfpStnbHc76eZow1ETQDsijKqMw1oGA2d4UG44vfDys

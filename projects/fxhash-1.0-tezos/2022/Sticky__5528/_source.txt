@@ -1,0 +1,4 @@
+id: 5528
+name: Sticky
+mint_opens_at: 2022-01-05T12:17:40+00:00
+generative_uri: ipfs://QmYQbKUrgeajs6xZSdHxP6yWKS71qLG86dGAUxSQDYTw83

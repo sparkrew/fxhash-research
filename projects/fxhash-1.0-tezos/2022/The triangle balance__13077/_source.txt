@@ -1,0 +1,4 @@
+id: 13077
+name: The triangle balance
+mint_opens_at: 2022-05-22T18:00:00+00:00
+generative_uri: ipfs://QmW3BwXvqY4tSRn7oqt5syek8gF42zuXYXWX9HXZaHschC

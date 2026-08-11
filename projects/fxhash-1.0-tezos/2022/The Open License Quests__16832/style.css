@@ -1,0 +1,52 @@
+/*body {
+  /*background-color: gray;*/
+
+  /*background-color: #000;
+
+  /* leave it to hide the scrollbars */
+  /*overflow: hidden;
+  
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+#defaultCanvas0 {
+  /*width: 600px !important;
+  height: 800px !important;*/
+/*}
+
+#defaultCanvas0 {
+  /*width: 100% !important;
+  height: 100% !important;*/
+/*}*/
+
+html{
+  height: 100%; 
+  width: 100%;
+}
+
+body{
+  
+  height: 100%; 
+  width: 100%; 
+  margin: 0; 
+  padding: 0; 
+  background-color: #000;
+}
+
+canvas{
+  display: block; 
+  max-width: 100%; 
+  max-height: 100%; 
+  padding: 0; 
+  margin: auto; 
+  display: block; 
+  position: absolute; 
+  top: 0; 
+  bottom: 0; 
+  left: 0; 
+  right: 0; 
+  object-fit: contain;
+}

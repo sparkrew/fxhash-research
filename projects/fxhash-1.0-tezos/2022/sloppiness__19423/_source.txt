@@ -1,0 +1,4 @@
+id: 19423
+name: sloppiness
+mint_opens_at: 2022-09-15T14:30:00+00:00
+generative_uri: ipfs://QmRN8mJ4Z8q7MePoZcPM5K63yQDXrHm51GpAxtJWw1UUqa

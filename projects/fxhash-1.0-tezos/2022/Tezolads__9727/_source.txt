@@ -1,0 +1,4 @@
+id: 9727
+name: Tezolads
+mint_opens_at: 2022-02-20T20:54:40+00:00
+generative_uri: ipfs://QmTnmWdHH1hKgUggebAv2pTTVqtHVAqqBE5AuRgnWCDfxz

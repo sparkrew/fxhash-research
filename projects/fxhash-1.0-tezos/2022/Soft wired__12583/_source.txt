@@ -1,0 +1,4 @@
+id: 12583
+name: Soft wired
+mint_opens_at: 2022-05-08T17:00:00+00:00
+generative_uri: ipfs://QmQLvuBB9ELeXJqMMAuBdooy548mE1MC6LiRKa72KwAB1v

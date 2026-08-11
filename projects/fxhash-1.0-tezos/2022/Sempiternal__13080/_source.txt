@@ -1,0 +1,4 @@
+id: 13080
+name: Sempiternal
+mint_opens_at: 2022-05-17T18:33:59+00:00
+generative_uri: ipfs://QmdZj5UWJasMaKG4hvcnhCepSk5KxRqsaF1VrR8CGQCtUt

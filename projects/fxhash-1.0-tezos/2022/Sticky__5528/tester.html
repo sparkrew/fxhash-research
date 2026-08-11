@@ -1,0 +1,40 @@
+<script>
+const total = 5; // total frames
+const interval = 500; // ms
+const src = "./index.html";
+window.onload = () => { 
+	for(let i=0;i<total;i++) document.body.innerHTML += `<div><iframe id="frame${i}"></iframe></div>`;
+	reloadFrames();
+}
+const reloadFrames = () => { for(let i=0;i<total;i++) setTimeout(() => window[`frame${i}`].setAttribute("src", src), i * interval); }
+window.onclick = () => reloadFrames();
+</script>
+<style>
+body {
+	background:#111;
+	margin: 0 auto;
+	padding: 0;
+	max-width: 1800px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 5px;
+}
+div {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+}
+div:nth-child(10n + 3) {
+	grid-row: span 2;
+	grid-column: span 2;
+}
+div:nth-child(10n + 6) {
+	grid-row:span 2;
+	grid-column: span 2;
+}
+iframe { 
+	border: 0;
+	height: 100%;
+	width: 100%;
+	background:#000;
+} 
+</style>

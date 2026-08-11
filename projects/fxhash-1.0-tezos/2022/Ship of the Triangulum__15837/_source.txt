@@ -1,0 +1,4 @@
+id: 15837
+name: Ship of the Triangulum
+mint_opens_at: 2022-07-04T13:15:00+00:00
+generative_uri: ipfs://QmYynZ7tc27tWb4Ceq1hbKqfJiYNknjgpFCi8T9N4ULuZV

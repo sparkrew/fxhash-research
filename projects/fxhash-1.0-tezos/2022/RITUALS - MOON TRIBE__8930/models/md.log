@@ -1,0 +1,80 @@
+Exporter version: 2.93.4, Blender version: 2.93.3
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		Inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		Keep Z-up r-handed  :  no
+		Texture directory   :  C:\00 TRABAJO\fxhash\S4NT1\S4NTI\models\
+	Python World class constructor completed
+	WARNING: No active camera has been assigned, or is not in a currently enabled collection
+	processing begun of mesh:  md5
+		processing begun of material:  PIEDRA
+		processing begun of material:  emd5
+		processing begun of multimaterial:  md.Multimaterial#0
+		num positions      :  3753
+		num normals        :  3753
+		num tangents       :  0
+		num uvs            :  7506
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  6834
+	processing begun of mesh:  md4
+		processing begun of material:  emd4
+		processing begun of material:  PIEDRA
+		registered as also a user of material:  PIEDRA
+		processing begun of multimaterial:  md.Multimaterial#1
+		num positions      :  11784
+		num normals        :  11784
+		num tangents       :  0
+		num uvs            :  23568
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  20580
+		WARNING: # of 0 area faces found:  8
+	processing begun of mesh:  md3
+		processing begun of material:  PIEDRA
+		processing begun of material:  emd3
+		registered as also a user of material:  PIEDRA
+		processing begun of multimaterial:  md.Multimaterial#2
+		num positions      :  3823
+		num normals        :  3823
+		num tangents       :  0
+		num uvs            :  7646
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  4960
+	processing begun of mesh:  md2
+		processing begun of material:  emd2
+		processing begun of material:  PIEDRA
+		registered as also a user of material:  PIEDRA
+		processing begun of multimaterial:  md.Multimaterial#3
+		num positions      :  2269
+		num normals        :  2269
+		num tangents       :  0
+		num uvs            :  4538
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  3226
+	processing begun of mesh:  md1
+		processing begun of material:  emd1
+		num positions      :  11564
+		num normals        :  11564
+		num tangents       :  0
+		num uvs            :  23128
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  20274
+========= Writing of JSON file started =========
+	writing mesh:  md5
+	writing mesh:  md4
+	writing mesh:  md3
+	writing mesh:  md2
+	writing mesh:  md1
+========= Writing of JSON file completed =========
+========= end of processing =========
+elapsed time:  0 min, 2.4496 secs

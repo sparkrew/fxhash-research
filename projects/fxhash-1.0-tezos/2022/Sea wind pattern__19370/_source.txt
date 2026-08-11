@@ -1,0 +1,4 @@
+id: 19370
+name: Sea wind pattern
+mint_opens_at: 2022-09-14T02:07:44+00:00
+generative_uri: ipfs://QmcDSiuFQ34GDLEeDMStEnsnPCshjmLCV7VK7eJXecC7r3

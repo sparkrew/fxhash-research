@@ -1,0 +1,4 @@
+id: 14808
+name: scitli
+mint_opens_at: 2022-06-15T23:03:44+00:00
+generative_uri: ipfs://Qmc843Rw7kndFfiVq5x96f7TJoVugKhPVmtEeXdWi13gZg

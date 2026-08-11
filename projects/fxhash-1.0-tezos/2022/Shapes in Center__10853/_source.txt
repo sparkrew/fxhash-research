@@ -1,0 +1,4 @@
+id: 10853
+name: Shapes in Center
+mint_opens_at: 2022-03-18T11:52:24+00:00
+generative_uri: ipfs://QmUhgt4uiA28FoXLVLnVmjkPp1pavsdhbHZB15UgfZpqeb

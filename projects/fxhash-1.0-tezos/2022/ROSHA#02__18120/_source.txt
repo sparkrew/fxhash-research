@@ -1,0 +1,4 @@
+id: 18120
+name: ROSHA#02
+mint_opens_at: 2022-08-15T15:30:00+00:00
+generative_uri: ipfs://QmYTHYMipMGQHcvTr9TVhBNvDKAYaWnpZf743inbA9PoXr

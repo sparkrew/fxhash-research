@@ -1,0 +1,4 @@
+id: 16855
+name: The Structure 
+mint_opens_at: 2022-07-25T18:00:00+00:00
+generative_uri: ipfs://QmeX6ujGvge7EqqkzwPh7a3ox1Hc8joHtkc8UdeG5qREBD

@@ -1,0 +1,4 @@
+id: 7239
+name: Sketches of the Departure
+mint_opens_at: 2022-01-18T15:02:00+00:00
+generative_uri: ipfs://QmUtRR3pnNsY8zKufAv8MKUKdQkHtoKa71nyvFpaYtJ1Ry

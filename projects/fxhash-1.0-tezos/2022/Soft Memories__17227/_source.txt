@@ -1,0 +1,4 @@
+id: 17227
+name: Soft Memories
+mint_opens_at: 2022-07-28T07:22:59+00:00
+generative_uri: ipfs://QmT15JTjpBaZzRPh1VRoPtb7F4AujGkg8rj9qviEJXuQr3

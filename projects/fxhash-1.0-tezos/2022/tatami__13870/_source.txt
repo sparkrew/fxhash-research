@@ -1,0 +1,4 @@
+id: 13870
+name: tatami
+mint_opens_at: 2022-05-30T15:30:59+00:00
+generative_uri: ipfs://QmPEpp1L6DS83ub6t9uVAyumjZYLzXJuRbeNkBDL5CcbD5

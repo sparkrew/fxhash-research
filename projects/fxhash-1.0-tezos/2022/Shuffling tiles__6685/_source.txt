@@ -1,0 +1,4 @@
+id: 6685
+name: Shuffling tiles
+mint_opens_at: 2022-01-12T06:01:40+00:00
+generative_uri: ipfs://QmczTjUHJNaA1qp2M9H3UvcK2K5Ei6rwZ6hSafHGBsuNBQ

@@ -1,0 +1,4 @@
+id: 11034
+name: The Last Days of Fire and Steel
+mint_opens_at: 2022-04-16T18:00:00+00:00
+generative_uri: ipfs://QmTKHN6c6djmeuB65jFgV6fVdLRNDC7ME2DF1L64DdZgHd

@@ -1,0 +1,4 @@
+id: 13114
+name: Still Life #9
+mint_opens_at: 2022-05-17T19:46:44+00:00
+generative_uri: ipfs://QmSTU27Ja5TC2hCBWD2N7N9p5H6fvGKEGzXciGm4j7BgrZ

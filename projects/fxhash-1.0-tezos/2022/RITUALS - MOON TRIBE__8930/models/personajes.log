@@ -1,0 +1,101 @@
+Exporter version: 2.93.4, Blender version: 2.93.3
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		Inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		Keep Z-up r-handed  :  no
+		Texture directory   :  C:\00 TRABAJO\fxhash\S4NT1\S4NTI\models\
+	Python World class constructor completed
+	WARNING: No active camera has been assigned, or is not in a currently enabled collection
+	processing begun of mesh:  personajes
+		processing begun of material:  hombre
+		Custom split normals with tangents being used
+		num positions      :  62421
+		num normals        :  62421
+		num tangents       :  249684
+		num uvs            :  124842
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  64518
+	processing begun of mesh:  sol
+		processing begun of material:  hombre
+		registered as also a user of material:  hombre
+		Custom split normals with tangents being used
+		num positions      :  2330
+		num normals        :  2330
+		num tangents       :  9320
+		num uvs            :  4660
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  2150
+	processing begun of mesh:  resadores
+		processing begun of material:  hombre
+		registered as also a user of material:  hombre
+		Custom split normals with tangents being used
+		num positions      :  8730
+		num normals        :  8730
+		num tangents       :  34920
+		num uvs            :  17460
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  8222
+	processing begun of mesh:  roca1
+		processing begun of material:  hombre
+		registered as also a user of material:  hombre
+		Custom split normals with tangents being used
+		num positions      :  214
+		num normals        :  214
+		num tangents       :  856
+		num uvs            :  428
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  104
+	processing begun of mesh:  roca2
+		processing begun of material:  hombre
+		registered as also a user of material:  hombre
+		Custom split normals with tangents being used
+		num positions      :  214
+		num normals        :  214
+		num tangents       :  856
+		num uvs            :  428
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  104
+	processing begun of mesh:  roca3
+		processing begun of material:  hombre
+		registered as also a user of material:  hombre
+		Custom split normals with tangents being used
+		num positions      :  214
+		num normals        :  214
+		num tangents       :  856
+		num uvs            :  428
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  104
+	processing begun of mesh:  roca4
+		processing begun of material:  hombre
+		registered as also a user of material:  hombre
+		Custom split normals with tangents being used
+		num positions      :  214
+		num normals        :  214
+		num tangents       :  856
+		num uvs            :  428
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  104
+========= Writing of JSON file started =========
+	writing mesh:  personajes
+	writing mesh:  sol
+	writing mesh:  resadores
+	writing mesh:  roca1
+	writing mesh:  roca2
+	writing mesh:  roca3
+	writing mesh:  roca4
+========= Writing of JSON file completed =========
+========= end of processing =========
+elapsed time:  0 min, 9.2439 secs

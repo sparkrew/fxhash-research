@@ -1,0 +1,4 @@
+id: 6707
+name: specture square
+mint_opens_at: 2022-01-12T08:12:10+00:00
+generative_uri: ipfs://QmNRMgqbXdNSKcrWCJY44W7VF3vVt9UmUMUo4o7JpPdSxH

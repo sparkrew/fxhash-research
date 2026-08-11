@@ -1,0 +1,4 @@
+id: 7664
+name: Shift
+mint_opens_at: 2022-01-21T13:02:10+00:00
+generative_uri: ipfs://QmfYgUnH1kpRmYcSQ4qEf6TWE6spAR2e9EbTHFXaqZLd9U

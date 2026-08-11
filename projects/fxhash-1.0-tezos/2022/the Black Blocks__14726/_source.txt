@@ -1,0 +1,4 @@
+id: 14726
+name: the Black Blocks
+mint_opens_at: 2022-06-12T14:07:59+00:00
+generative_uri: ipfs://QmYX4pCYrHXQVSakLdmd7vzYbnJXKKEPnSgxyg3rzc6zAP

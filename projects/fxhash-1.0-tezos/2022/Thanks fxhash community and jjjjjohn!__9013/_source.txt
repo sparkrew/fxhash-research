@@ -1,0 +1,4 @@
+id: 9013
+name: Thanks fxhash community and jjjjjohn!
+mint_opens_at: 2022-02-09T18:07:44+00:00
+generative_uri: ipfs://QmQ9oNxstjTU72R61obxT6HU68mLcYbHBcPSJjvLCTmnNf

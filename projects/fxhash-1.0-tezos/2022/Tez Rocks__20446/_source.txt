@@ -1,0 +1,4 @@
+id: 20446
+name: Tez Rocks
+mint_opens_at: 2022-10-17T17:39:14+00:00
+generative_uri: ipfs://QmZMwDaVxbDQmPoTY4idwPVT9DtTRLcS9auXEL4EeYSyPP

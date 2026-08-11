@@ -1,0 +1,4 @@
+id: 16307
+name: sistemas.15
+mint_opens_at: 2022-07-12T17:15:00+00:00
+generative_uri: ipfs://Qmajs1RMTgjTZZqg5MxEzVx2Rybxtv8X9vDVrt4gccD6cs

@@ -1,0 +1,4 @@
+id: 13005
+name: Simple yet satisfying
+mint_opens_at: 2022-05-16T17:27:14+00:00
+generative_uri: ipfs://QmVgQHGuD4h9nCW2cBNzht1ngWBpUMcKBszq6ddvvHB63h

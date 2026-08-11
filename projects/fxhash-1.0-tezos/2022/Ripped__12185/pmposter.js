@@ -1,0 +1,56 @@
+var pmca1=[];var pmca2=[];var pmcch1=[];var pmcch2=[];var pmach=[];var pma=[];
+var pmyb;
+function pmposter() {
+  noiseSeed(10000);
+  pmcsw=cs*0.7;
+  pmcsh=cs;
+  pm = createGraphics(pmcsw, pmcsh);
+  choosecolor();
+  pmca1=[features.pc0,features.pc1,features.pc2,features.pc3,features.pc4];
+  pmca2=[features.pc10,features.pc11,features.pc12,features.pc13,features.pc14];
+  pmall=[features.pc0,features.pc1,features.pc2,features.pc3,features.pc4,features.pc10,features.pc11,features.pc12,features.pc13,features.pc14];
+  pma= [features.apc0,features.apc1,features.apc2,features.apc3,features.apc4,features.apc10,features.apc11,features.apc12,features.apc13,features.apc14,features.apc0,features.apc1,features.apc2,features.apc3,features.apc4,features.apc10,features.apc11,features.apc12,features.apc13,features.apc14];
+  pmcch1=shuffleArray(pmca1);
+  pmcch2=shuffleArray(pmca2);
+  pmallch=shuffleArray(pmall);
+  pmach=shuffleArray(pma);
+  pm.background(pmcch1[0]);
+  pm.noStroke();
+  pm.fill(pmcch1[0]);
+  pm.rect(h[50],h[200],h[300],h[300]);
+  pm.fill(pmcch2[3]);
+  pm.rect(h[350],h[200],h[300],h[300]);
+  pm.rect(h[50],h[500],h[300],h[300]);
+  pm.fill(pmcch2[1]);
+  pm.rect(h[350],h[500],h[300],h[300]);
+  pm.arc(h[200],h[200],h[300],h[300],0,PI);
+  pm.arc(h[200],h[500],h[300],h[300],PI,PI*2);
+  pm.arc(h[50],h[650],h[300],h[300],PI*3/2,PI*2);
+  pm.fill(pmcch2[2]);
+  pm.arc(h[50],h[800],h[300],h[300],PI*3/2,PI*2);
+  pm.arc(h[350],h[350],h[300],h[300],PI*3/2,PI*5/2);
+  pm.arc(h[500],h[500],h[300],h[300],0,PI);
+  pm.fill(pmcch2[3]);
+  pm.arc(h[500],h[650],h[300],h[300],0,PI);
+  pm.fill(pmcch1[0]);
+  pm.arc(h[350],h[650],h[300],h[300],PI/2,PI*3/2);
+  pm.arc(h[650],h[350],h[300],h[300],PI/2,PI*3/2);
+  choosefont();
+  pm.fill(features.dcol);
+  pm.textWrap(CHAR);
+  pm.textAlign(LEFT);
+  pm.textFont(tfont);
+  pm.textSize(h[130]);
+  title(1);
+  pm.text(tt, h[50], h[20], h[600],h[40]);
+  pm.textSize(h[70]);
+  pm.textAlign(LEFT);
+  title(2);
+  pm.text(tt, h[50], h[900], h[600],h[40]);
+  pm.textAlign(RIGHT);
+  n3(6);
+  pm.text(tn3, h[50], h[900], h[600],h[40]);
+  pmvripleft();  pmvripright();  pmvriptop();  pmvripbottom();
+}
+
+

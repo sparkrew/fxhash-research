@@ -1,0 +1,4 @@
+id: 5735
+name: Tezoolors2.0
+mint_opens_at: 2022-01-05T19:31:20+00:00
+generative_uri: ipfs://QmeVrqCYwnrkPYuSZ5cRAM2LdYkjo2WT3ToKRKj9y7JfCZ

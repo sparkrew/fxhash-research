@@ -1,0 +1,7 @@
+html, body, canvas {
+  margin: 0px;
+  padding: 0px;
+  background: #000000;
+  margin: auto;
+  overflow: hidden;
+}

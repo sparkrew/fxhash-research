@@ -1,0 +1,4 @@
+id: 11203
+name: shoot
+mint_opens_at: 2022-04-16T21:26:14+00:00
+generative_uri: ipfs://QmejMB9BXgnQM14uTABTGeTRkAn62hL1F4EWHnGjfPpUWb

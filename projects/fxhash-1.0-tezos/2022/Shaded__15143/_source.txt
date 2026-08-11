@@ -1,0 +1,4 @@
+id: 15143
+name: Shaded
+mint_opens_at: 2022-06-18T22:01:59+00:00
+generative_uri: ipfs://Qmd9SyagSWmGGAtQ1eNMe21dYoADUjFWwRTeGkVGNPzPuk

@@ -1,0 +1,4889 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<title> 2022 - elout de kok</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+
+<style type="text/css">
+body{margin:	0;padding: 0; background-color: #000;
+font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #ffffff; }
+A:link		{ color:#fff; text-decoration: underline;}
+A:visited	{ color:#fff; text-decoration: underline;}
+A:hover		{ color:#fff; text-decoration: underline;}
+A:active	{ color:#fff; text-decoration: underline;}
+
+.infobot{
+top: 0px;left: 0px; background-color: #558; font-size: 12px;
+border-style:none; border-width:0px; margin:0px 0px 0px 0px; 
+padding:2px 2px 2px 2px;color: #fff;  z-index:21;border-width:4px;
+position: fixed;}
+
+.img1{top: 20px; left:20px; position: absolute; z-index:20; border-style:solid; border-width:0px;margin:0px 0px 0px 0px; 
+padding:0px 0px 0px 0px; 
+/* cursor: crosshair;  cursor: url(../pix/cursor.cur),auto.*/
+image-rendering:optimizeSpeed;             /* Legal fallback */
+image-rendering:-moz-crisp-edges;          /* Firefox        */
+image-rendering:-o-crisp-edges;            /* Opera          */
+image-rendering:-webkit-optimize-contrast; /* Safari / chrome just fixed this in chrome canary 42+>?! */
+image-rendering:optimize-contrast;         /* CSS3 Proposed  */
+image-rendering:crisp-edges;               /* CSS4 Proposed  */
+image-rendering:pixelated;                 /* CSS4 Proposed  */
+-ms-interpolation-mode:nearest-neighbor;   /* IE8+           */
+}
+</style>
+
+
+ <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+
+<script type="text/javascript">
+
+
+// Elout de Kok  2022
+// this is how my messy-sketchy script looks like - source  not cleaned   - 
+// but also a backup: some usefull functions not used and nice to play with in the future.
+//
+
+var cversion="deze dus";
+var lastupdate=" - XXX [Apr 26/27, 2022]";
+document.title =cversion+lastupdate;
+
+// globale variabelen
+var fullscreen=false;// true;
+var im_scale= 1;//16; // image scale
+
+var show_fps=  false;//true; //false;
+
+var win_w, win_h;
+var center_w, center_h;
+
+
+// what anim?
+var img_fx=2;
+var max_fx=5;
+
+
+//image - width/ height
+var im_w=  4000;//1920;//1024;//480;//640;//
+var im_h=  4000;//1080;//768;//320;//480;//
+
+// pixel buffer screen
+var pix_r = new Uint8ClampedArray(im_w*im_h); 
+var pix_g = new Uint8ClampedArray(im_w*im_h); 
+var pix_b = new Uint8ClampedArray(im_w*im_h);
+//var pix_a = new Uint8ClampedArray(im_w*im_h);
+var pix_z = new Array(im_w*im_h);
+
+
+var pix_screen_r = new Uint8ClampedArray(); 
+var pix_screen_g = new Uint8ClampedArray(); 
+var pix_screen_b = new Uint8ClampedArray();
+
+var pix_screen_w = 0;
+var pix_screen_h = 0;
+var pix_screen_top=0;
+var pix_screen_left=0;
+
+
+var pix_zcheck = new Uint8ClampedArray(im_w*im_h);
+var pix_check1 = new Uint8ClampedArray(im_w*im_h);
+var pix_check2 = new Uint8ClampedArray(im_w*im_h);
+var pix_check3 = new Uint8ClampedArray(im_w*im_h);
+ 
+
+var ytable_im_w = new Array(im_h);
+
+// half image - for smaller sprites/scaling/filtering
+var imh_w=im_w/2; // 200
+var imh_h=im_h/2; // 120;
+var pix_hr = new Uint8ClampedArray(imh_w*imh_h); 
+var pix_hg = new Uint8ClampedArray(imh_w*imh_h);
+var pix_hb = new Uint8ClampedArray(imh_w*imh_h);
+var pix_ha = new Uint8ClampedArray(imh_w*imh_h);
+
+var pix_hz = new Array(imh_w*imh_h);
+
+var ytable_imh_w = new Array(imh_h);
+
+
+// texture
+var tex_w=64;//32;
+var tex_h=64;//32;
+var tex_r = new Uint8ClampedArray(tex_w*tex_h); 
+var tex_g = new Uint8ClampedArray(tex_w*tex_h); //new Array();
+var tex_b = new Uint8ClampedArray(tex_w*tex_h);
+var tex_a = new Uint8ClampedArray(tex_w*tex_h);
+
+// on-screen rotation
+var rotx=4.1; var roty=2.2; var rotz=2.3;
+
+
+// muis
+var xOffset,yOffset
+var mx, my;
+var sx, sy;
+var mid_x, mid_y;
+
+//----------- show fps------------
+var my_timer=setInterval(function(){timer_fps()},1000);//1000
+var data_fps=0;
+var counter_fps=0;
+var timeCurrent, timeLast = Date.now();
+
+//-------------math------------ 
+// pre-calculated random buffer
+var	rnd_bufsize=10000;
+var	rnd_buf = new Uint8ClampedArray(rnd_bufsize);
+var	rnd_pos=0;
+var	rnd_step=1;
+
+
+var light_x=0; var light_y=0; var light_z=0;
+var light_step=0;
+
+// pre-calculated sin & cos buffer. 
+var p_cbuf=96;
+
+var p_ccos=new Array();
+var p_csin=new Array();
+
+
+// now setup data for (multiple) 3D models
+var sc_m = 1; // 1 scene models;
+var sc_p = 0; // # scene points ?!
+
+var sc_x = new Array(); // scene points x, y ,z (all models)
+var sc_y = new Array();
+var sc_z = new Array();
+var sc_w = new Array();
+
+var triz=0;
+var sc_tri = new Array(); // triangle list
+var sc_triline = new Array(); // tri-show line list
+
+var sc_tri_r = new Array(); // tri rgb list
+var sc_tri_g = new Array();
+var sc_tri_b = new Array();
+
+var sc_trinorm = new Array(); // tri normals
+var sc_tri_u = new Array(); // tri U texture
+var sc_tri_v = new Array(); // tri V texture
+
+var my_cam = vector3(0,  20, 5);
+
+var test='1 2 3';
+
+
+// 1st cubbie
+
+var wview= get_view_matrix2(); /// final matrix
+var min_max_xy = [im_w,0,im_h, 0]; // for area check smaller sprite // what gets drawn.
+
+//
+var myanim=0;
+
+
+//cube pos-sca-rot
+var cub_pos_xyz = [0,-2,0,2,0,-1]; // pos xyz, step xyz
+var cub_sca_xyz = [0.6,0.4,0.3,0,0,0]; // scale xyz, step xyz
+var cub_rot_xyz = [0,0,0,0,0,0]; // scale xyz, step xyz
+
+// screen rendering
+var x_step = new Array();
+var y_step = new Array();
+var renderstepper=0;
+var yline_pos=0;
+ 
+
+// palet
+var pal_num=3;
+var pal_r = new Array();  
+var pal_g = new Array();
+var pal_b = new Array();
+
+
+/// parti particles
+
+var c_num=16;
+var c_step=0; // render step
+
+var c_x=new Array(c_num); // position
+var c_y=new Array(c_num);
+var c_z=new Array(c_num);
+
+var c_rx=new Array(c_num); // rotation
+var c_ry=new Array(c_num);
+var c_rz=new Array(c_num);
+
+var c_sx=new Array(c_num); // scale
+var c_sy=new Array(c_num);
+var c_sz=new Array(c_num);
+
+var c_speed_x=new Array(c_num); // speed
+var c_speed_y=new Array(c_num);
+var c_speed_z=new Array(c_num);
+
+var c_r=new Array(c_num); // rgb
+var c_g=new Array(c_num);
+var c_b=new Array(c_num);
+
+
+var c_type=new Array(c_num); //0 xy  1xz  2yz
+
+var c_type_p1a = new Array(c_num); 
+var c_type_p1b = new Array(c_num); 
+var c_type_p2a = new Array(c_num); 
+var c_type_p2b = new Array(c_num); 
+
+var c_type_pos = new Array(c_num);
+var c_type_pos = new Array(c_num); 
+var c_type_life = new Array(c_num); 
+
+var c_type_model  = new Array(c_num);
+
+var c_type_pos  = new Array(c_num); ///!!!!!!
+var c_type_pos2 = new Array(c_num); //!!!!!!
+	
+var c_rotator= new Array(c_num);
+	
+	
+var c_trans=new Array(c_num);
+
+var c_screen_x=0;
+var c_screen_z=0;
+
+var c_multi=0;
+
+var c_rendermode=0;
+
+var c_timesrendered=0;
+
+
+var circ_num=1;
+var circ_size=1;
+
+var circ_x=new Array();
+var circ_y=new Array();
+var circ_z=new Array();
+
+var circ_cpos=new Array();
+
+
+
+for (var i = 0; i < circ_num; i++)
+{
+	circ_x[i] = new Array();
+	circ_y[i] = new Array();
+	circ_z[i] = new Array();
+	circ_cpos[i] = new Array();
+}
+
+var g1=0;
+
+
+var cg_step1=new Array();
+var cg_step2=new Array();
+
+var	cg_rota_x1=0.001;
+var	cg_rota_y1=0.001;
+var	cg_rota_z1=0.001;
+
+
+var linecircs=10;
+var c_step2=0;
+var c_x1 = new Array();
+var c_y1 = new Array();
+var c_z1 = new Array();
+	
+var c_x2 = new Array();
+var c_y2 = new Array();
+var c_z2 = new Array();
+
+var cc_r = new Array();
+var cc_g = new Array();
+var cc_b = new Array();
+
+var dodrawline=0;
+var line_timeout=0;
+var render_timeout=0;
+
+var cc_th1 = new Array();
+var cc_th2 = new Array();
+
+var cc_sprite = new Array();
+
+var cc_sprite_size = new Array();
+
+var time_out=0;
+var do_once= 0;
+
+
+//plasma sprites - precalc single sprite dif. sizes
+var dsprites=26;
+var dsprite_01 = new Array();
+for (var i = 0; i < dsprites; i++)
+{
+	dsprite_01[i] = new Array();
+}
+var sprite_cbuf=960;
+var p_ccos2=new Array();
+var p_csin2=new Array();
+
+
+//-----------------------------------------------
+if ( !window.requestAnimationFrame ) 
+{
+	window.requestAnimationFrame = ( function() {
+		return window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function(callback, element ) {window.setTimeout( callback, 1000 / 60 );};
+	} )();
+}
+
+function init()
+{
+
+	set_msg('infoblock', "");
+	
+	math_init_rnd(rnd_buf); // random buffer
+	
+	//set_cossinbuffer(p_cbuf,p_ccos,p_csin); // cos/sin buffer
+	
+	
+	
+	set_cossinbuffer(sprite_cbuf,p_ccos2,p_csin2);
+	init_dsprites(1);//type
+	
+	
+	
+	// precalculated: y table for im_w
+	for (var j= 0; j< im_h; j++){  ytable_im_w[j] = (j*im_w);}
+	for (var j= 0; j< imh_h; j++){ ytable_imh_w[j] = (j*imh_w);}
+		
+
+	
+	//---mouse gedeelte
+	var c=document.getElementById('my_image');
+	c.addEventListener("mousemove", function (evt) 
+	{
+	/*
+		if (fullscreen==true)
+		{
+			mx=( (im_w/win_w)* evt.clientX )<<0;
+			my=( (im_h/win_h)* evt.clientY )<<0;
+		}
+		else
+		{		
+			xOffset=Math.max(document.documentElement.scrollLeft,document.body.scrollLeft);
+			yOffset=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+			mx=Math.round((evt.clientX-center_w+xOffset )/ im_scale);//-16;
+			my=Math.round((evt.clientY-center_h+yOffset )/ im_scale);//-16;
+		}*/
+	}, false);
+	c.addEventListener("mouseup", function (evt) 
+	{
+	/*
+		if (fullscreen==true)
+		{
+			mx=( (im_w/win_w)* evt.clientX )<<0;
+			my=( (im_h/win_h)* evt.clientY )<<0;
+		}
+		else
+		{		
+			xOffset=Math.max(document.documentElement.scrollLeft,document.body.scrollLeft);
+			yOffset=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+			mx=Math.round((evt.clientX-center_w+xOffset )/ im_scale);//-16;
+			my=Math.round((evt.clientY-center_h+yOffset )/ im_scale);//-16;
+		}*/
+		if(c_rendermode==0){c_rendermode=1;}else{c_rendermode=0;}
+		
+	}, false);
+	c.addEventListener("mousedown", function (evt) 
+	{
+	/*
+		if (fullscreen==true)
+		{
+			mx=( (im_w/win_w)* evt.clientX )<<0;
+			my=( (im_h/win_h)* evt.clientY )<<0;
+		}
+		else
+		{		
+			xOffset=Math.max(document.documentElement.scrollLeft,document.body.scrollLeft);
+			yOffset=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+			mx=Math.round((evt.clientX-center_w+xOffset )/ im_scale);//-16;
+			my=Math.round((evt.clientY-center_h+yOffset )/ im_scale);//-16;
+		}
+		
+		//img_fx++;
+		//if(img_fx>max_fx){img_fx=0;}
+		
+		// init models after mouse click
+		//if(img_fx==0){sc_p=8;  triz=12;  init_model_uvcube();} // init 3D scene
+		//if(img_fx==1){sc_p=8;  triz=12;  init_model_uvcube();}
+		if(img_fx==2){sc_p=8;  triz=12;  init_model_uvcube();}
+		//if(img_fx==3){sc_p=8;  triz=12;  init_model_uvcube();}
+		
+		//if(img_fx==4){sc_p=24; triz=44;  init_model_uvcube();}
+		//if(img_fx==5){sc_p=8;  triz=12;  init_model_texmap();}
+		
+		//if(img_fx==6){sc_p=8;  triz=12;  init_model_uvcube2(2);}
+		*/
+		
+	}, false);
+	
+	// init models at start
+	//if(img_fx==0){sc_p=8;  triz=12;  init_model_uvcube();} // init 3D scene
+	//if(img_fx==1){sc_p=8;  triz=12;  init_model_uvcube();}
+	if(img_fx==2){sc_p=8;  triz=12;  init_model_uvcube();}
+	//if(img_fx==3){sc_p=8;  triz=12;  init_model_uvcube();}	
+	
+	//if(img_fx==4){sc_p=24; triz=44;  init_model_uvcube();} // init_model_cube54(); 
+	//if(img_fx==5){sc_p=8;  triz=12;  init_model_texmap();}
+	//if(img_fx==6){sc_p=8;  triz=12;  init_model_uvcube2(2);}
+	
+	
+	//windows
+	window.addEventListener( 'resize', onWindowResize, false );
+	win_w=window.innerWidth;
+	win_h=window.innerHeight;
+	
+	if (fullscreen==true)
+	{
+		document.getElementById('my_image').style.width=pix_screen_w+'px'; 
+		document.getElementById('my_image').style.height=pix_screen_h+'px';	
+		document.getElementById('my_image').style.left=0+'px';; 
+		document.getElementById('my_image').style.top=0+'px';; 	
+	}
+	else 
+	{
+		//if (win_w >= im_w*im_scale ){ center_w = Math.round((win_w - (im_w * im_scale))/2); }
+		////else { center_w=0;}
+		//if (win_h >= im_h*im_scale ){ center_h = Math.round((win_h - (im_h * im_scale))/2); }
+		//else { center_h=0;}
+		//document.getElementById('my_image').style.width=(im_w * im_scale )+'px'; 
+		//document.getElementById('my_image').style.height=(im_h * im_scale)+'px';	
+		//document.getElementById('my_image').style.left=center_w+"px"; 
+		//document.getElementById('my_image').style.top=center_h+"px"; 
+	}
+	
+		
+	if (win_h<win_w) 
+	{
+		pix_screen_w=win_h; 
+		pix_screen_h=win_h;
+		pix_screen_top=0;
+		pix_screen_left=((win_w-win_h)/2)<<0;
+	}
+	else
+	{
+		pix_screen_w=win_w;  
+		pix_screen_h=win_w;
+		pix_screen_top=((win_h-win_w)/2)<<0;
+		pix_screen_left=0;
+	}
+	
+	pix_screen_r = new Uint8ClampedArray(pix_screen_w*pix_screen_h); 
+	pix_screen_g = new Uint8ClampedArray(pix_screen_w*pix_screen_h); 
+	pix_screen_b = new Uint8ClampedArray(pix_screen_w*pix_screen_h);
+	
+	
+	
+	if(show_fps==false){document.getElementById('infoblock').style.visibility = "hidden";}
+	else {document.getElementById('infoblock').style.visibility = "visible";}
+	
+	animate();
+	
+	//alert(sc_trirgb.length);
+}
+
+function animate() 
+{
+	requestAnimationFrame( animate );
+	if (show_fps==true){counter_fps++;}
+	draw();
+}
+
+function draw()
+{
+
+
+
+	if(myanim==0)
+	{	
+		//clear screen / zbuffer
+		//fill_array(pix_r, im_h*im_w,0);
+		//fill_array(pix_g, im_h*im_w,0);
+		//fill_array(pix_b, im_h*im_w,0);
+		//fill_array(pix_a, im_h*im_w,0);
+	
+		
+	}
+	
+	//mouse
+	/*
+	mid_x= (im_w/2)<<0;
+	mid_y= (im_h/2)<<0;
+	if ( mx > mid_x ){sx =0-((mid_x-mx)/2)<<0;}
+	else{sx=((mx-mid_x)/2)<<0;}
+	if ( my > mid_y ){sy=0-((mid_y-my)/2)<<0;}
+	else{sy=((my-mid_y)/2)<<0;}
+	// rotation based on mouse position
+	rotx+= (sx/1000);
+	roty+= (sy/1000);
+	rotz+= ((sx+sy)/1000);
+	*/
+	//rotating light
+	//light_x=p_ccos[light_step];
+	//light_y=p_csin[light_step];
+	//light_z=p_ccos[light_step]+p_csin[light_step];
+	//light_step++;
+	
+	//if(light_step>=p_cbuf){light_step=0;}
+	
+	// show the different animzzz
+	
+	//if(img_fx==0){ model_cube_lines_draw(); }
+	//if(img_fx==1){ model_zbuf_draw();}	
+	if(img_fx==2)
+	{ 
+		go_cubbie01();
+	}
+	
+	
+	
+	
+	if(c_rendermode==0)
+	{
+	
+		var c=document.getElementById('my_image');
+		var ctx=c.getContext("2d");
+	
+		c.width = pix_screen_w; c.height = pix_screen_h;
+	
+		document.getElementById('my_image').style.width=pix_screen_w+'px'; 
+		document.getElementById('my_image').style.height=pix_screen_h+'px';
+		document.getElementById('my_image').style.left=pix_screen_left+'px';
+		document.getElementById('my_image').style.top=pix_screen_top+'px';
+		
+		//update image buffer
+		var img1 = ctx.createImageData(pix_screen_w, pix_screen_h); //var
+		for (var p=0, j = 0; j < pix_screen_w*pix_screen_h; j++)
+		{		
+			img1.data[p++] =  pix_screen_r[j];//pix_r[j];// pix_check1[j];//pix_r2[j];	// r
+			img1.data[p++] =  pix_screen_g[j];//pix_g2[j];	// g
+			img1.data[p++] =  pix_screen_b[j];//pix_b2[j];	// b
+			img1.data[p++] =  255;//pix_check1[j];//255; // alpha 255-
+		}
+		ctx.putImageData(img1, 0, 0);
+	}
+	else
+	{
+	
+		var c=document.getElementById('my_image');
+		var ctx=c.getContext("2d");
+	
+		c.width = im_w; c.height = im_h;
+	
+		document.getElementById('my_image').style.width=im_w+'px'; 
+		document.getElementById('my_image').style.height=im_h+'px';
+		document.getElementById('my_image').style.left=0+'px';
+		document.getElementById('my_image').style.top=0+'px';
+		
+		//update image buffer
+		var img1 = ctx.createImageData(im_w, im_h); //var
+		for (var p=0, j = 0; j <im_w*im_h; j++)
+		{		
+			img1.data[p++] =  pix_r[j];// pix_check1[j];//pix_r2[j];	// r
+			img1.data[p++] =  pix_g[j];	// g
+			img1.data[p++] =  pix_b[j];	// b
+			img1.data[p++] =  255;//pix_check1[j];//255; // alpha 255-
+		}
+		ctx.putImageData(img1, 0, 0);
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+}
+
+
+function set_msg(div, msg){document.getElementById(div).innerHTML=msg;}
+function go_msg(div, msg){document.getElementById(div).innerHTML += msg;}
+
+function timer_fps() // dirty fps counter
+{
+	if (show_fps==true)
+	{
+		timeCurrent = Date.now();
+		var fpsThisFrame = 1000 / (timeCurrent - timeLast);
+		
+
+		var ntxt="";
+		
+		//if(img_fx==0){ntxt ="fx=0: Amsterdam XXX - (youtube: 9jp7nuVwKqY )- Under the Hood! (Chill'in 2021) ! - Draw 'visible' Lines";}
+		//if(img_fx==1){ntxt ="fx=1: Keep it fresh in 2021- inverse drawn Z-buffer - draw 'visible' lines";}
+		
+		if(img_fx==2){ntxt ="xxx -  ";}		
+		//if(img_fx==3){ntxt ="fx=3: - color cube -";}
+		//if(img_fx==4){ntxt ="fx=4: gauraud shading - (posting this more for the techheads e.a. that want to learn from  the code)";}
+		
+		//if(img_fx==5){ntxt ="fx=5: perspective correct texture mapping - If you new into coding graphics: better learn/start with shaders: www.shadertoy.com - (but.. some also love that 'old-skool' pixel-engine stuff) - Peace Out !";}
+		
+		//if(img_fx==6){ntxt ="fx=6: WIP 2020 - Screen-Triangle Clipping";}
+		
+		//if(img_fx==10){ntxt ="fx=10: x / x / x ";}
+		
+		set_msg('infoblock', ntxt +' -- fps:' + counter_fps +' w: '+win_w+' h:'+win_h+' test: '+test);//+' win w: '+ win_w+' win h: '+ win_h );
+
+		if(timeCurrent > timeLast) 
+		{
+			timeLast = timeCurrent;
+			counter_fps=0;
+		}
+	}	
+}
+
+function onWindowResize() 
+{
+	win_w=window.innerWidth;
+	win_h=window.innerHeight;
+	
+		 
+	
+	renderstepper=0; // refresh render lines
+	
+	/*
+	if (fullscreen==true)
+	{
+		document.getElementById('my_image').style.width=win_w+'px'; 
+		document.getElementById('my_image').style.height=win_h+'px';	
+		document.getElementById('my_image').style.left=0+'px';; 
+		document.getElementById('my_image').style.top=0+'px';; 	
+	}
+	else 
+	{
+		if (win_w >= im_w*im_scale ){ center_w = Math.round((win_w - (im_w * im_scale))/2); }
+		else { center_w=0;}
+		if (win_h >= im_h*im_scale ){ center_h = Math.round((win_h - (im_h * im_scale))/2); }
+		else { center_h=0;}
+	
+		document.getElementById('my_image').style.width=(im_w * im_scale )+'px'; 
+		document.getElementById('my_image').style.height=(im_h * im_scale)+'px';	
+		document.getElementById('my_image').style.left=center_w+"px"; 
+		document.getElementById('my_image').style.top=center_h+"px"; 
+	}*/
+	
+	if (win_h<win_w) 
+	{
+		pix_screen_w=win_h; 
+		pix_screen_h=win_h;
+		pix_screen_top=0;
+		pix_screen_left=((win_w-win_h)/2)<<0;
+	}
+	else
+	{
+		pix_screen_w=win_w;  
+		pix_screen_h=win_w;
+		pix_screen_top=((win_h-win_w)/2)<<0;
+		pix_screen_left=0;
+	}
+	
+	pix_screen_r = new Uint8ClampedArray(pix_screen_w*pix_screen_h); 
+	pix_screen_g = new Uint8ClampedArray(pix_screen_w*pix_screen_h); 
+	pix_screen_b = new Uint8ClampedArray(pix_screen_w*pix_screen_h);
+	
+	
+	
+}
+
+
+/// filters
+
+function go_scaling_filter(min_max_xy, hard1,r1,g1,b1, hard2,r2,g2,b2)
+{
+	// scale to 1/2
+	min_x=min_max_xy[0]-8; 
+	max_x=min_max_xy[1]+8;
+	min_y=min_max_xy[2]-8; 
+	max_y=min_max_xy[3]+8;
+	
+	if ((min_x/2)>((min_x/2)<<0) ){min_x--; } //always clean / 2
+	if ((min_y/2)>((min_y/2)<<0) ){min_y--; }
+	if ((max_x/2)>((max_x/2)<<0) ){max_x++;}
+	if ((max_y/2)>((max_y/2)<<0) ){max_y++;}
+	
+
+	// fill half scaled image
+	for (var j = min_y; j <  max_y;  j=j+2)
+	{
+		for (var i = min_x; i <  max_x;  i=i+2)
+		{
+			var p1=ytable_im_w[j]+i;
+			var p2=ytable_im_w[j]+i+1;
+			var p3=ytable_im_w[j+1]+i;
+			var p4=ytable_im_w[j+1]+i+1;
+			
+			var p5=ytable_imh_w[(j/2)]+(i/2);
+			pix_hr[p5]=(pix_r[p1]+pix_r[p2]+pix_r[p3]+pix_r[p4])/4;
+			pix_hg[p5]=(pix_g[p1]+pix_g[p2]+pix_g[p3]+pix_g[p4])/4;
+			pix_hb[p5]=(pix_b[p1]+pix_b[p2]+pix_b[p3]+pix_b[p4])/4;
+			pix_ha[p5]=(pix_a[p1]+pix_a[p2]+pix_a[p3]+pix_a[p4])/4;
+		}
+	}
+	
+	// make a mask
+	var h_min_x = min_x/2;
+	var h_max_x = max_x/2;
+	var h_min_y = min_y/2;
+	var h_max_y = max_y/2;
+	
+	// get mask size now
+	var x_w = h_max_x - h_min_x;
+	var y_h = h_max_y-h_min_y;
+	
+	var pix_mask1 = new Uint8ClampedArray(x_w*y_h);
+	//set mask for whats drawn.. alpha > 0
+	for (var j = h_min_y, q=0; j <  h_max_y;  j++)
+	{
+		for (var i = h_min_x, p=0; i <  h_max_x;  i++)
+		{
+			var p1 = (q*x_w) + p; p++;
+			var p2=ytable_imh_w[j]+i;
+			if(pix_ha[p2]>0)
+			{
+				pix_mask1[p1]=255;
+			}
+		}
+		q++;
+	}
+	
+	var pix_mask2 = new Uint8ClampedArray(x_w*y_h); //extra mask
+	
+	if(hard1==1)
+	{
+		filter_do_grey(0, x_w, y_h, pix_mask1, pix_mask2); 	
+	}
+	else
+	{
+		filter_do_greysoft(0, x_w, y_h, pix_mask1, pix_mask2); 	
+	}
+	if(hard2==1)
+	{
+		filter_do_grey(0, x_w, y_h, pix_mask2,pix_mask1);	 // put new filtered result in mask1
+	}
+	else
+	{
+		filter_do_greysoft(0, x_w, y_h, pix_mask2,pix_mask1); // put new filtered result in mask1
+	}
+	
+	// draw mask (testing) outer layer (filtered 2 times now)
+	var xoff=40;
+	for (var j = h_min_y, q=0; j <  h_max_y;  j++)
+	{
+		for (var i = h_min_x, p=0; i <  h_max_x;  i++)
+		{
+			var p1 = (q*x_w) + p; p++;
+			var p2= ytable_im_w[j]+i-xoff;
+			if(pix_mask1[p1]>0)
+			{
+				pix_r[p2]=r2;
+				pix_g[p2]=g2;
+				pix_b[p2]=b2;
+				pix_a[p2]=pix_mask1[p1];
+			}
+		}
+		q++;
+	}
+	
+	// draw mask (testing) smaller inner mask (filtered 1 times now)
+	var xoff=40;
+	for (var j = h_min_y, q=0; j <  h_max_y;  j++)
+	{
+		for (var i = h_min_x, p=0; i <  h_max_x;  i++)
+		{
+			var p1 = (q*x_w) + p; p++;
+			var p2= ytable_im_w[j]+i-xoff;
+			if(pix_mask2[p1]>0)
+			{
+				pix_r[p2]=r1;
+				pix_g[p2]=g1;
+				pix_b[p2]=b1;
+				pix_a[p2]=pix_mask2[p1];
+			}
+		}
+		q++;
+	}
+	
+	// and also draw back the original scaled/colored sprite!
+	var xoff=40;
+	for (var j = h_min_y; j <  h_max_y;  j++)
+	{
+		for (var i = h_min_x; i <  h_max_x;  i++)
+		{
+			var p1 = ytable_im_w[j]+i-xoff;
+			var p2 = ytable_imh_w[j]+i;
+			if(pix_ha[p2]>0)
+			{
+				pix_r[p1]=pix_hr[p2];
+				pix_g[p1]=pix_hg[p2];
+				pix_b[p1]=pix_hb[p2];
+				pix_a[p1]=255;//pix_ha[p2];
+			}
+		}
+	}
+	
+	
+}
+
+
+function filter_do(whatfilter,tex_w,tex_h, pix_r1 , pix_g1, pix_b1,pix_a1,  pix_r2 ,pix_g2, pix_b2,pix_a2)
+{
+	var my_filter =  new Array();
+	filter_creatematrix(whatfilter,my_filter);
+
+	//screen
+	for (var j = 1; j < tex_h-1; j++)
+	{
+		for (var i = 1; i < tex_w-1; i++)
+		{
+			filters_matrix3(i,j, pix_r1,pix_g1,pix_b1,pix_a1, pix_r2,pix_g2,pix_b2,pix_a2, my_filter,tex_w,tex_h);	//	input output
+		}
+	}
+}
+
+// hard
+function filter_do_grey(whatfilter, tex_w,tex_h, pix_a1, pix_a2)
+{
+	var my_filter =  new Array();
+	filter_creatematrix(whatfilter,my_filter);
+
+	//screen
+	for (var j = 1; j < tex_h-1; j++)
+	{
+		for (var i = 1; i < tex_w-1; i++)
+		{
+			filters_matrix3_grey(i,j, pix_a1,pix_a2, my_filter, tex_w,tex_h);	//	input output
+		}
+	}
+}
+
+
+	
+function filter_do_grey_part(whatfilter, tex_w, tex_h, min_max_xy, pix_a1, pix_a2)
+{
+	var my_filter =  new Array();
+	filter_creatematrix(whatfilter,my_filter);
+	
+	var x1=min_max_xy[0]-1; 
+	var x2=min_max_xy[1]+1;
+	var y1=min_max_xy[2]-1; 
+	var y2=min_max_xy[3]+1;
+	
+	if(x1<1){x1=1;}
+	if(y1<1){y1=1;}
+	if(x2>tex_w-1){x2=tex_w-1;}
+	if(y2>tex_h-1){y2=tex_h-1;}
+	
+
+	//screen
+	for (var j = y1; j < y2; j++)
+	{
+		for (var i = x1; i < x2; i++)
+		{
+			filters_matrix3_grey(i,j, pix_a1,pix_a2, my_filter, tex_w,tex_h);	//	input output
+		}
+	}
+}
+
+
+
+function filters_matrix3_grey(x,y, in_a, out_a,filter, t_w,t_h) 
+{
+	var a=0;
+
+	for (var jj = 0; jj < 3; jj++)
+	{
+		for (var ii = 0; ii < 3; ii++)
+		{
+			var pos=((y+jj-1)*t_w)+(x+ii-1);
+			var xx= filter[(jj*3)+ii];
+			
+			a += (xx * in_a[pos]);
+		}
+	}
+	
+	if(a>0){a=255;}
+	
+	//a = ( a / filter[9]) << 0;
+	
+	var p=(y*t_w)+x;
+	out_a[p]=a;
+}
+
+// soft
+function filter_do_greysoft(whatfilter, tex_w,tex_h, pix_a1, pix_a2)
+{
+	var my_filter =  new Array();
+	filter_creatematrix(whatfilter,my_filter);
+
+	//screen
+	for (var j = 1; j < tex_h-1; j++)
+	{
+		for (var i = 1; i < tex_w-1; i++)
+		{
+			filters_matrix3_greysoft(i,j, pix_a1,pix_a2, my_filter, tex_w,tex_h);	//	input output
+		}
+	}
+}
+
+function filters_matrix3_greysoft(x,y, in_a, out_a,filter, t_w,t_h) 
+{
+	var a=0;
+
+	for (var jj = 0; jj < 3; jj++)
+	{
+		for (var ii = 0; ii < 3; ii++)
+		{
+			var pos=((y+jj-1)*t_w)+(x+ii-1);
+			var xx= filter[(jj*3)+ii];
+			
+			a += (xx * in_a[pos]);
+		}
+	}
+	
+	a = ( a / filter[9]) << 0;
+	
+	var p=(y*t_w)+x;
+	out_a[p]=a;
+}
+
+
+function filters_matrix3(x,y, in_r,in_g,in_b,in_a, out_r,out_g,out_b,out_a,filter,t_w,t_h) 
+{
+	var r=0; var g=0; var b=0; var a=0;
+
+	for (var jj = 0; jj < 3; jj++)
+	{
+		for (var ii = 0; ii < 3; ii++)
+		{
+			var pos=((y+jj-1)*t_w)+(x+ii-1);
+			var xx= filter[(jj*3)+ii];
+			r = r + (xx * in_r[pos]);
+			g = g + (xx * in_g[pos]);
+			b = b + (xx * in_b[pos]);
+			a = a + (xx * in_a[pos]);			
+		}
+	}
+	r = ( r / filter[9]) << 0;
+	g = ( g / filter[9]) << 0;
+	b = ( b / filter[9]) << 0;
+	a = ( a / filter[9]) << 0;	
+
+	var p=(y*t_w)+x;
+	out_r[p]=r;
+	out_g[p]=g;
+	out_b[p]=b;
+	out_a[p]=a;	
+	
+}
+
+
+function  filter_creatematrix(num,m_filter)
+{
+	switch (num)
+	{
+		case 0: filter_gauss01(m_filter); break;
+		case 1: filter_shoufsharp(m_filter); break;
+		case 2: filter_shifter(m_filter); break;
+		case 3: filter_laplace(m_filter); break;		
+		case 4: filter_horshift(m_filter); break;		
+		case 5: filter_hofflight(m_filter); break;		
+		case 6: filter_xhoff(m_filter); break;
+		case 7: filter_laplace2(m_filter); break;	
+		case 8: filter_gridd(m_filter); break;	
+		case 9: filter_gridh(m_filter); break;	
+		case 10: filter_xgrad(m_filter); break;	
+		case 11: filter_huhx(m_filter); break;
+		case 12: filter_moo(m_filter); break;	
+	}
+}
+
+function filter_gauss01(m)
+{
+		m[0]=1;	m[1]=2;	m[2]=1;
+		m[3]=2;	m[4]=4;	m[5]=2;
+		m[6]=1;	m[7]=2;	m[8]=1;
+		m[9]=16;
+}
+
+function filter_shifter(m)
+{
+		m[0]=8; m[1]=4;  m[2]=1;
+		m[3]=4; m[4]=2;  m[5]=-2;
+		m[6]=1; m[7]=-2; m[8]=-4;
+		m[9]=12;
+}
+
+function filter_laplace(m)
+{
+		m[0]=-1; m[1]=-1;  m[2]=-1;
+		m[3]=-1; m[4]=8;  m[5]=-1;
+		m[6]=-1; m[7]=-1; m[8]=-1;
+		m[9]=1;
+}
+
+function filter_shoufsharp(m)
+{
+		m[0]=-1; m[1]=1;  m[2]=-1;
+		m[3]=1; m[4]=3;  m[5]=1;
+		m[6]=-1; m[7]=1; m[8]=-1;
+		m[9]=3;
+}	
+
+function filter_horshift(m)
+{
+		m[0]=2; m[1]=2;  m[2]=2;
+		m[3]=1; m[4]=1;  m[5]=1;
+		m[6]=-1; m[7]=-1; m[8]=-1;
+		m[9]=6;
+}	
+
+function filter_hofflight(m)
+{
+		m[0]=0; m[1]=1;  m[2]=0;
+		m[3]=1; m[4]=4;  m[5]=1;
+		m[6]=0; m[7]=1; m[8]=0;
+		m[9]=7;
+}
+		
+function filter_xhoff(m)
+{
+		m[0]=1; m[1]=0;  m[2]=1
+		m[3]=0; m[4]=4;  m[5]=0;
+		m[6]=1; m[7]=0; m[8]=1;
+		m[9]=7;
+}	
+
+function filter_laplace2(m)
+{
+		m[0]=0; m[1]=-1;  m[2]=0;
+		m[3]=-1; m[4]=8;  m[5]=-1;
+		m[6]=0; m[7]=-1; m[8]=0;
+		m[9]=4;
+}
+
+function filter_gridd(m)
+{
+		m[0]=-1; m[1]=1;  m[2]=-1;
+		m[3]=1; m[4]=4;  m[5]=1;
+		m[6]=-1; m[7]=1; m[8]=-1;
+		m[9]=4;
+}
+
+function filter_gridh(m)
+{
+		m[0]=-1; m[1]=1;  m[2]=-1;
+		m[3]=1; m[4]=4;  m[5]=1;
+		m[6]=-1; m[7]=1; m[8]=-1;
+		m[9]=6;
+}
+
+function filter_xgrad(m)
+{
+		m[0]=1; m[1]=1;  m[2]=1;
+		m[3]=1; m[4]=0;  m[5]=-1;
+		m[6]=-1; m[7]=-1; m[8]=-1;
+		m[9]=1;
+}
+
+function filter_huhx(m)
+{
+		m[0]=-1; m[1]=0;  m[2]=1;
+		m[3]=0; m[4]=4;  m[5]=0;
+		m[6]=1; m[7]=0; m[8]=-1;
+		m[9]=4;
+}
+
+function filter_moo(m)
+{
+		m[0]=-2; m[1]=2;  m[2]=-2;
+		m[3]=2; m[4]=4;  m[5]=2;
+		m[6]=-2; m[7]=2; m[8]=-2;
+		m[9]=4;
+}
+
+
+
+//-------------------------------auto levels
+function color_autolevels(tex_w,tex_h,pix_r1,pix_g1,pix_b1)
+{
+	
+	var mm=new Array();
+	mm[0]=255;	mm[1]=255;	mm[2]=255; //min rgb
+	mm[3]=0;	mm[4]=0;	mm[5]=0;   //max rgb
+	//mm[6]=255; mm[7]=0; //alpha
+	
+	//find min and max rgb
+	for (var i = 0; i < tex_w*tex_h; i++)
+	{
+		//var a1=pix_r1[i];
+		var r1=pix_r1[i];
+		var g1=pix_g1[i];
+		var b1=pix_b1[i];
+		if(mm[0]>r1){mm[0]=r1;} if(mm[3]<r1){mm[3]=r1;}
+		if(mm[1]>g1){mm[1]=g1;} if(mm[4]<g1){mm[4]=g1;}
+		if(mm[2]>b1){mm[2]=b1;} if(mm[5]<b1){mm[5]=b1;}
+		//if(mm[6]>a1){mm[6]=a1;} if(mm[7]<a1){mm[7]=a1;}
+	}
+	
+	var mixr=0;
+	var mixg=0;
+	var mixb=0;	
+	//var mixa=0;	
+	
+	if ((mm[3]-mm[0])!=0) { mixr=255/(mm[3]-mm[0]);}
+	if ((mm[4]-mm[1])!=0) { mixg=255/(mm[4]-mm[1]);}
+	if ((mm[5]-mm[2])!=0) { mixb=255/(mm[5]-mm[2]);}
+	//if ((mm[7]-mm[6])!=0) { mixa=255/(mm[7]-mm[6]);}
+	
+	for (var i = 0; i < tex_w*tex_h; i++)
+	{	
+		//var a1= (input.img[i] >> 24) & 0xff;
+		var r1 = pix_r1[i];
+		var g1 = pix_g1[i];
+		var b1 = pix_b1[i];
+		
+		//a1= Math.floor((( a1 ) - mm[0]) * mixr) ;
+		
+		//if(chan_a==true){a1= Math.floor((a1 - mm[6]) * mixa);}
+		r1= ((r1 - mm[0]) * mixr)<<0;
+		g1= ((g1 - mm[1]) * mixg)<<0;
+		b1= ((b1 - mm[2]) * mixb)<<0;
+		
+		pix_r1[i]=r1;
+		pix_g1[i]=g1;
+		pix_b1[i]=b1;
+	}
+}
+
+
+
+function model_uvcube(xscale,yscale,zscale, pos_x, pos_y, pos_z,arraypos, m_x, m_y, m_z, m_w, tri_start, m_tri, m_triline, m_r,m_g,m_b, m_trinorm, m_tri_u,m_tri_v)  
+{
+	// normal cube with xyz, normals, uv 
+	// based on 3D data from collada file. (just triangles atm) 
+	
+	var points=8;
+	var model_pnt = [1,1,-1, 1,-1,-1, -1,-1,-1, -1,1,-1, 1,1,1, 1,-1,1, -1,-1,1, -1,1,1]; //8 pnt - 24
+	var model_normal = [1,0,0,0,0,1,0,-1,0,-1,0,0,0,1,0,0,0,-1,0,0,1,1,0,0,0,-1,0,-1,0,0,0,1,0,0,0,-1]; // 12 tri normals- 36	
+	var model_uv = [0,0,1,0,1,1,1,0,0,1,0,0,1,0,0,1,0,0,0,0,1,1,0,1,1,0,0,1,0,0,1,0,1,1,0,0,1,0,1,1,0,1,0,1,0,0,1,1,1,0,1,1,0,1,0,0,1,0,1,1,1,0,1,1,0,1,1,1,0,1,0,0]; //36- 72
+	var model_triz = [0,0,0, 4,0,1, 5,0,2, 7,1,3, 5,1,4, 4,1,5, 5,2,6, 2,2,7, 1,2,8, 2,3,9, 7,3,10, 3,3,11, 0,4,12, 7,4,13, 4,4,14, 1,5,15, 2,5,16, 0,5,17, 7,6,18, 6,6,19, 5,6,20, 1,7,21, 0,7,22, 5,7,23, 5,8,24, 6,8,25, 2,8,26, 2,9,27, 6,9,28, 7,9,29, 0,10,30, 3,10,31, 7,10,32, 2,11,33, 3,11,34, 0,11,35]; // pnt, normal, uv - 
+	
+	var model_pnt_rgb =  [ 255,0,0,  0,0,255,  0,255,0,  0,255,255,  0,0,0,  255,0,255,  255,255,255,  255,255,0 ]; // for color cube
+
+	var model_face_lines =  [ 1,1,0, 0,1,1, 0,1,1, 0,1,1, 0,1,1, 1,0,1, 1,1,0, 1,0,1, 1,1,0, 1,1,0, 1,1,0, 1,1,0];
+	// for draw certain face-lines: yes or no
+	
+	//convert to data
+
+	//points
+	for (var i = 0, p=0; i < points; i++)  // points
+	{
+		m_x[i+arraypos] = Number(model_pnt[p]*xscale)+pos_x; p++;
+		m_y[i+arraypos] = Number(model_pnt[p]*yscale)+pos_y; p++;
+		m_z[i+arraypos] = Number(model_pnt[p]*zscale)+pos_z; p++;
+		m_w[i+arraypos] = 1 ; // wide for texmapping
+	}
+	
+	// triangles : tri_start = tris*3
+	var tris=12;
+	for (var i = 0, p=0, t=0;  i < tris;  i++)  // triangle list  
+	{
+			m_tri[t+tri_start] =  model_triz[p] + arraypos;  
+			m_triline[t+tri_start] = model_face_lines[t]; //draw lines?!     
+			var col = model_triz[p]*3 ;//if(col==3){alert("yo");}
+			m_r[t+tri_start] = model_pnt_rgb[col] ; // color atm
+			m_g[t+tri_start] = model_pnt_rgb[col+1];
+			m_b[t+tri_start] = model_pnt_rgb[col+2];	
+			var normal= model_triz[p+1] * 3;
+			m_trinorm[t+tri_start] = model_normal[normal]; // normal x
+			var uv= model_triz[p+2] * 2;
+			m_tri_u[t+tri_start] = model_uv[uv];
+			m_tri_v[t+tri_start] = model_uv[uv+1];
+			t++; p+=3;
+			
+			m_tri[t+tri_start]= model_triz[p]+ arraypos; 
+			m_triline[t+tri_start] = model_face_lines[t];
+			col = model_triz[p]*3; 
+			m_r[t+tri_start] = model_pnt_rgb[col] ; // color atm
+			m_g[t+tri_start] = model_pnt_rgb[col+1] ;
+			m_b[t+tri_start] = model_pnt_rgb[col+2] ;
+			m_trinorm[t+tri_start] = model_normal[normal+1]; // normal y
+			uv= model_triz[p+2] * 2;
+			m_tri_u[t+tri_start] = model_uv[uv];
+			m_tri_v[t+tri_start] = model_uv[uv+1];
+			t++; p+=3;
+			
+			m_tri[t+tri_start]= model_triz[p] + arraypos;
+			m_triline[t+tri_start] = model_face_lines[t];
+			col = model_triz[p]*3;
+			m_r[t+tri_start] = model_pnt_rgb[col] ; // color atm
+			m_g[t+tri_start] = model_pnt_rgb[col+1];
+			m_b[t+tri_start] = model_pnt_rgb[col+2];
+			m_trinorm[t+tri_start] = model_normal[normal+2]; // normal z
+			uv= model_triz[p+2] * 2;
+			m_tri_u[t+tri_start] = model_uv[uv];
+			m_tri_v[t+tri_start] = model_uv[uv+1];
+			t++; p+=3;
+	}
+}
+
+
+function model_cube54_uv(xscale,yscale,zscale, pos_x, pos_y, pos_z,arraypos, m_x, m_y, m_z, m_w, tri_start, m_tri, m_triline,  m_r,m_g,m_b, m_trinorm, m_tri_u,m_tri_v)  
+{
+	
+	var points=24;
+	var model_pnt = [-0.5,-0.4,-0.4,-0.4,-0.4,0.5,-0.4,0.4,-0.5,-0.4,0.4,0.5,0.4,-0.4,-0.5,0.4,-0.4,0.5,0.4,0.5,-0.4,0.4,0.4,0.5,-0.5,0.4,0.4,-0.5,0.4,-0.4,-0.4,0.5,0.4,-0.4,0.5,-0.4,0.5,0.4,0.4,0.4,-0.5,-0.4,0.5,0.4,-0.4,-0.4,-0.5,0.4,-0.4,-0.4,-0.5,-0.4,-0.5,-0.4,-0.5,-0.4,0.4,0.4,0.5,0.4,0.5,-0.4,0.4,0.4,-0.5,0.4,0.4,0.4,-0.5,0.5,-0.4,-0.4]; // pnt - 24
+	var model_normal = [0,0,-1,-0.707,0,0.707,0.577,0.577,-0.577,-0.707,0.707,0,0,1,0,0,0.707,0.707,1,0,0,0.577,-0.577,0.577,0,0.707,-0.707,-0.577,0.577,-0.577,-0.707,0,-0.707,0,-1,0,0.707,-0.707,0,-0.577,-0.577,-0.577,-0.707,-0.707,0,0.707,0,-0.707,-0.577,-0.577,0.577,0.707,0.707,0,-0.577,0.577,0.577,0.577,0.577,0.577,0.577,-0.577,-0.577,0,0,1,-1,0,0,0.707,0,0.707,0,-0.707,-0.707,0,-0.707,0.707,-0.707,0,0.707,-0.707,0.707,0,0,0.707,0.707,0,0.707,-0.707,-0.707,0,-0.707,0.707,-0.707,0,-0.707,-0.707,0,0.707,0,-0.707,0.707,0.707,0,0.707,0,0.707,0,-0.707,-0.707,0,-0.707,0.707]; //  tri normals- 38	
+	var model_uv = [0.375,0.625,0.625,0.375,0.625,0.625,0.9375,0.625,1,0.375,1,0.625,0.3437,0.625,0.375,0.6875,0.3125,0.6875,0.625,0.6875,0.6875,0.9375,0.625,0.9375,0.375,0.6875,0.625,0.9375,0.375,0.9375,0.625,0.9375,0.375,1,0.375,0.9375,0.0625,0.375,0.3125,0.625,0.0625,0.625,0.3125,0.0625,0.3437,0,0.375,0.0625,0.375,0.6875,0.625,0.625,0.625,0.6875,0.6875,0.6875,0.625,0.6875,0.6562,0.625,0.625,0.625,0.6875,0.375,0.6875,0.625,0.625,0.0625,0.375,0.3125,0.375,0.0625,0.375,0.3125,0.3125,0.0625,0.375,0.0625,0.625,0.3125,0.6875,0.3125,0.6562,0.375,0.6875,0.0625,0.625,0.3125,0.625,0.0625,0.375,0.625,0.3125,0.375,0.375,0.375,0.625,0.0625,0.6562,0,0.6875,0.0625,0.3125,0.6875,0.375,0.9375,0.3125,0.9375,0.6562,1,0.625,0.9375,0.6875,0.9375,0.3437,1,0.3125,0.9375,0.375,0.9375,0.3125,0.3125,0.375,0.3125,0.3437,0.375,0.25,0.9375,0,0.6875,0.25,0.6875,0.6875,0.625,0.9375,0.375,0.9375,0.625,0.0625,0.625,0,0.375,0.0625,0.375,0.625,0.375,0.375,0.3125,0.625,0.3125,0.625,0,0.375,0.0625,0.375,0,0.375,0.625,0.375,0.375,0.625,0.375,0.9375,0.625,0.9375,0.375,1,0.375,0.625,0.6875,0.6875,0.6875,0.6875,0.9375,0.375,0.6875,0.625,0.6875,0.625,0.9375,0.625,0.9375,0.625,1,0.375,1,0.0625,0.375,0.3125,0.375,0.3125,0.625,0.375,0.6875,0.375,0.625,0.625,0.625,0.625,0.625,0.625,0.375,0.6875,0.375,0.625,0.0625,0.625,0.3125,0.375,0.3125,0.375,0.3125,0.3125,0.3125,0.3125,0.0625,0.6875,0.0625,0.6875,0.3125,0.625,0.3125,0.375,0.625,0.3125,0.625,0.3125,0.375,0.3125,0.6875,0.375,0.6875,0.375,0.9375,0.25,0.9375,0,0.9375,0,0.6875,0.6875,0.625,0.6875,0.375,0.9375,0.375,0.0625,0.625,0,0.625,0,0.375,0.625,0.375,0.375,0.375,0.375,0.3125,0.625,0,0.625,0.0625,0.375,0.0625]; //132
+	var model_triz = [22,0,0,16,0,1,2,0,2,8,1,3,1,1,4,3,1,5,22,2,6,6,2,7,14,2,8,11,3,9,8,3,10,10,3,11,6,4,12,10,4,13,19,4,14,10,5,15,7,5,16,19,5,17,20,6,18,14,6,19,12,6,20,20,7,21,5,7,22,21,7,23,6,8,24,2,8,25,11,8,26,9,9,27,11,9,28,2,9,29,2,10,30,0,10,31,9,10,32,15,11,33,13,11,34,21,11,35,13,12,36,20,12,37,21,12,38,17,13,39,0,13,40,16,13,41,18,14,42,17,14,43,15,14,44,22,15,45,23,15,46,4,15,47,15,16,48,1,16,49,18,16,50,14,17,51,19,17,52,12,17,53,3,18,54,10,18,55,8,18,56,7,19,57,12,19,58,19,19,59,23,20,60,13,20,61,4,20,62,3,21,63,5,21,64,7,21,65,9,22,66,18,22,67,8,22,68,12,23,69,5,23,70,20,23,71,16,24,72,13,24,73,17,24,74,1,25,75,21,25,76,5,25,77,22,0,78,4,0,79,16,0,80,8,26,81,18,26,82,1,26,83,11,27,84,9,27,85,8,27,86,6,4,87,11,4,88,10,4,89,10,28,90,3,28,91,7,28,92,20,6,93,23,6,94,14,6,95,6,29,96,22,29,97,2,29,98,2,30,99,16,30,100,0,30,101,15,11,102,17,11,103,13,11,104,13,31,105,23,31,106,20,31,107,18,32,108,0,32,109,17,32,110,22,33,111,14,33,112,23,33,113,14,34,114,6,34,115,19,34,116,3,21,117,1,21,118,5,21,119,9,22,120,0,22,121,18,22,122,12,35,123,7,35,124,5,35,125,16,36,126,4,36,127,13,36,128,1,37,129,15,37,130,21,37,131]; // pnt, normal, uv - 
+	
+	//convert to data
+	
+	//points
+	for (var i = 0, p=0; i < points; i++)  // points
+	{
+		m_x[i+arraypos] = Number(model_pnt[p]*xscale)+pos_x; p++;
+		m_y[i+arraypos] = Number(model_pnt[p]*yscale)+pos_y; p++;
+		m_z[i+arraypos] = Number(model_pnt[p]*zscale)+pos_z; p++;
+		m_w[i+arraypos] = 1 ; // wide for texmapping
+	}
+	
+	// triangles : tri_start = tris*3
+	var tris=44;
+	for (var i = 0, p=0, t=0;  i < tris;  i++)  // triangle list  
+	{
+			m_tri[t+tri_start] =  model_triz[p] + arraypos; 
+			m_triline[t+tri_start] = 0; // lines?!     0 for the moment
+			var col = model_triz[p] * 3;
+			m_r[t+tri_start] = math_get_rnd();//model_pnt_rgb[col]; // color atm
+			m_g[t+tri_start] = math_get_rnd();//model_pnt_rgb[col+1];
+			m_b[t+tri_start] = math_get_rnd();//model_pnt_rgb[col+2];
+			var normal= model_triz[p+1] * 3;
+			m_trinorm[t+tri_start] = model_normal[normal]; // normal x
+			var uv= model_triz[p+2] * 2;
+			m_tri_u[t+tri_start] = model_uv[uv];
+			m_tri_v[t+tri_start] = model_uv[uv+1];
+			t++; p+=3;
+			
+			m_tri[t+tri_start]= model_triz[p]+ arraypos; 
+			m_triline[t+tri_start] = 0;
+			col = model_triz[p] * 3;
+			m_r[t+tri_start] = math_get_rnd();//model_pnt_rgb[col]; // color atm
+			m_g[t+tri_start] = math_get_rnd();//model_pnt_rgb[col+1];
+			m_b[t+tri_start] = math_get_rnd();//model_pnt_rgb[col+2];
+			m_trinorm[t+tri_start] = model_normal[normal+1]; // normal y
+			uv= model_triz[p+2] * 2;
+			m_tri_u[t+tri_start] = model_uv[uv];
+			m_tri_v[t+tri_start] = model_uv[uv+1];
+			t++; p+=3;
+			
+			m_tri[t+tri_start]= model_triz[p] + arraypos;
+			m_triline[t+tri_start] = 0;
+			col = model_triz[p] * 3;
+			m_r[t+tri_start] = math_get_rnd();// model_pnt_rgb[col]; // color atm
+			m_g[t+tri_start] = math_get_rnd();// model_pnt_rgb[col+1];
+			m_b[t+tri_start] = math_get_rnd();// model_pnt_rgb[col+2];
+			m_trinorm[t+tri_start] = model_normal[normal+2]; // normal z
+			uv= model_triz[p+2] * 2;
+			m_tri_u[t+tri_start] = model_uv[uv];
+			m_tri_v[t+tri_start] = model_uv[uv+1];
+			t++; p+=3;
+	}
+}
+
+
+// init 3D models used now 
+function init_model_uvcube() 
+{
+	// set / fill 3D model 
+	sc_p = 8; // total scene points ?!
+	sc_triz = 12; // triangles
+	sc_m = 1; // 1 scene model 
+	
+	var r=255; var g=55; var b=55; //color
+	var scale=1;
+	
+	model_uvcube(scale,scale,scale, 0, 0, 0, 0, sc_x,sc_y,sc_z,sc_w, 0, sc_tri, sc_triline, sc_tri_r,sc_tri_g,sc_tri_b, sc_trinorm, sc_tri_u,sc_tri_v);
+
+}
+function init_model_uvcube2(scale) 
+{
+	// set / fill 3D model 
+	sc_p = 8; // total scene points ?!
+	sc_triz = 12; // triangles
+	sc_m = 1; // 1 scene model 
+	
+	var r=255; var g=55; var b=55; //color
+	//var scale=1;
+	
+	model_uvcube(scale,scale,scale, 0, 0, 0, 0, sc_x,sc_y,sc_z,sc_w, 0, sc_tri, sc_triline, sc_tri_r,sc_tri_g,sc_tri_b, sc_trinorm, sc_tri_u,sc_tri_v);
+
+}
+
+function init_model_cube54() 
+{
+	// set / fill 3D model 
+	sc_p = 24; // total scene points ?!
+	sc_triz = 44; // triangles
+	sc_m = 1; // 1 scene model 
+	
+	var r=255; var g=255; var b=255; //color
+	var scale=2;
+	
+	model_cube54_uv(scale,scale,scale, 0, 0, 0, 0, sc_x,sc_y,sc_z,sc_w, 0, sc_tri, sc_triline, sc_tri_r,sc_tri_g,sc_tri_b, sc_trinorm, sc_tri_u,sc_tri_v);
+	
+}
+
+function init_model_texmap() 
+{
+	sc_p = 8; // total scene points 
+	sc_triz = 12; // triangles
+	sc_m = 1; // 1 scene model 
+	
+	var r=255; var g=255; var b=255; // color
+	var scale=1;
+	
+	model_uvcube(scale,scale,scale, 0, 0, 0, 0, sc_x,sc_y,sc_z,sc_w, 0, sc_tri, sc_triline, sc_tri_r,sc_tri_g,sc_tri_b, sc_trinorm, sc_tri_u,sc_tri_v);
+	
+	model_texmap_animtexture(); // init texmap
+}
+
+
+
+
+// fx 0:  just lines
+function model_cube_lines_draw() 
+{
+	// matrix stuff
+	var wview= get_view_matrix(rotx,roty,rotz);
+	
+	var min_max_xy = [im_w,0,im_h, 0];
+	
+	// now do all triangles. 
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+	
+		draw_visilines_draw(3, gpm0, gpm1, gpm2, min_max_xy, dope,20, 220, 255, 255);
+
+	}	
+	
+	 // draw small one // && 1 hard -or- 0 soft r,g,b masks
+	go_scaling_filter(min_max_xy, 1, 0,0,0,  1, 255,255,25);
+	
+	var min_x=min_max_xy[0]-4; 
+	var max_x=min_max_xy[1]+4;
+	var min_y=min_max_xy[2]-4; 
+	var max_y=min_max_xy[3]+4;
+	
+	var g=255; // draw detection area min-max
+	g_drawline(min_x, min_y, max_x, min_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	g_drawline(min_x, max_y, max_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	
+	g_drawline(min_x, min_y, min_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	g_drawline(max_x, min_y, max_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+}
+
+
+
+
+// fx 1:  inverse zbuf
+function model_zbuf_draw() 
+{
+
+	var wview= get_view_matrix(rotx,roty,rotz); /// final matrix
+	
+	var min_max_xy = [im_w,0,im_h, 0]; 
+	
+	// draw zbuffer
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+	
+		draw_tri_zbuf(gpm0, gpm1, gpm2, min_max_xy);
+	}
+	
+	//visible lines #1
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+	
+		//draw_visilines_all_draw(gpm0, gpm1, gpm2, min_max_xy, dope,220,220,240,255);
+		
+		draw_visilines_draw2(3, gpm0, gpm1, gpm2, min_max_xy, dope,220,220,240,255);
+		
+	}
+	
+	
+	// draw small one // && 1 hard -or- 0 soft r,g,b masks
+	go_scaling_filter(min_max_xy, 1, 0,0,0,  0, 55,165,255);
+}
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+// fx 2 light on normals - 3cubes 'cuber' object
+function model_normal_zbuf_draw()
+{
+
+	var min_max_xy = [im_w,0,im_h, 0]; // for area check smaller sprite // what gets drawn.
+	
+	fill_array(pix_zcheck, im_h*im_w,0);
+	
+
+	var wview= get_view_matrix(rotx/4,roty/4,rotz/4); /// final matrix
+	model_mirror_morecopies3( min_max_xy, wview); // cube
+
+	 
+	filter_do_grey(3, im_w,im_h, pix_zcheck, pix_check1);
+	
+	model_cube_lines_draw3(wview,  255,pix_check1);
+	
+	
+	
+	
+	
+	var  x1=min_max_xy[0]-2; 
+	var  x2=min_max_xy[1]+2;
+	var  y1=min_max_xy[2]-2; 
+	var  y2=min_max_xy[3]+2;
+	
+	fill_array_partly(pix_zcheck, x1,y1,x2,y2,im_w,im_h, 0); // clear zcheck
+
+	wview= get_view_matrix(-roty/5,-rotz/5,-rotx/5); /// final matrix
+	model_mirror_morecopies3( min_max_xy,wview); // grey cube
+	
+	filter_do_grey(3, im_w,im_h, pix_zcheck, pix_check2);
+	model_cube_lines_draw3(wview,  255,pix_check2);
+	
+	x1=min_max_xy[0]-2; 
+	x2=min_max_xy[1]+2;
+	y1=min_max_xy[2]-2; 
+	y2=min_max_xy[3]+2;
+	
+	for (var j = y1; j < y2 ; j++)
+	{		
+		for (var i = x1; i < x2 ; i++)
+		{
+			p=(j*im_w)+i;
+			if(pix_zcheck[p]==1) // we can draw 
+			{
+				pix_check1[p]= pix_check2[p];
+			}
+		}	
+	}
+
+ 
+
+	fill_array_partly(pix_zcheck, x1,y1,x2,y2,im_w,im_h, 0); // clear zcheck
+
+	wview= get_view_matrix( roty/3, rotz/4,-rotx/4); /// final matrix
+	model_mirror_morecopies3( min_max_xy,wview); // grey cube
+	
+	filter_do_grey(3, im_w,im_h, pix_zcheck, pix_check2);
+		model_cube_lines_draw3(wview,  255,pix_check2);
+	
+	x1=min_max_xy[0]-2; 
+	x2=min_max_xy[1]+2;
+	y1=min_max_xy[2]-2; 
+	y2=min_max_xy[3]+2;
+	
+	for (var j = y1; j < y2 ; j++)
+	{		
+		for (var i = x1; i < x2 ; i++)
+		{
+			p=(j*im_w)+i;
+			if(pix_zcheck[p]==1) // we can draw 
+			{
+				pix_check1[p]= pix_check2[p];
+			}
+		}	
+	}
+
+
+
+
+
+	var min_x=min_max_xy[0]-2; 
+	var max_x=min_max_xy[1]+2;
+	var min_y=min_max_xy[2]-2; 
+	var max_y=min_max_xy[3]+2;
+	
+	//test=min_x;
+	
+	var col=25; // draw detection area min-max
+	// g_drawline3(x1, y1, x2, y2,col, imw, imh, p_grey)
+	 
+	g_drawline3b(min_x, min_y, max_x, min_y, col, im_w, im_h, pix_check1);
+	g_drawline3b(min_x, max_y, max_x, max_y, col, im_w, im_h, pix_check1);
+	
+	g_drawline3b(min_x, min_y, min_x, max_y, col, im_w, im_h, pix_check1);
+	g_drawline3b(max_x, min_y, max_x, max_y, col, im_w, im_h, pix_check1);
+	
+	// smaller sprite cube // && 1 hard -or- 0 : soft  || r,g,b inner || hard or soft  ||r,g,b outer border
+	//go_scaling_filter(min_max_xy, 1,  0,0,0,  0,  5, 255, 255); //(small sprite cube got a (hard)black / (soft)cyaan border)
+	
+}
+
+
+function model_mirror_morecopies(r,g,b,min_max_xy,wview)
+{
+
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+		
+		// Normals
+		var nx1=sc_trinorm[dope]; var ny1=sc_trinorm[dope+1]; var nz1=sc_trinorm[dope+2];
+		var nnorm = mat_multi_v4(wview, vector4(nx1, ny1, nz1, 0)); // rotate 'normal'
+		var light=vector4(light_x, light_y, light_z);
+		light.normalize();
+		nnorm.normalize();
+		var angl= (nnorm.dot(light)+1) /2; // lightning between 0 and 1 now 
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+		
+		draw_tri_zbuf_norm(gpm0, gpm1, gpm2, min_max_xy, r,g,b, angl);
+	}	
+}
+
+
+function model_mirror_morecopies2(r,g,b,min_max_xy,wview)
+{
+
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+		
+		// Normals
+		var nx1=sc_trinorm[dope]; var ny1=sc_trinorm[dope+1]; var nz1=sc_trinorm[dope+2];
+		var nnorm = mat_multi_v4(wview, vector4(nx1, ny1, nz1, 0)); // rotate 'normal'
+		var light=vector4(light_x, light_y, light_z);
+		light.normalize();
+		nnorm.normalize();
+		var angl= (nnorm.dot(light)+1) /2; // lightning between 0 and 1 now 
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+		
+
+		draw_tri_zbuf_norm2(gpm0, gpm1, gpm2, min_max_xy, r,g,b, angl);
+		//draw_visilines_draw(3, gpm0, gpm1, gpm2, min_max_xy, dope, 20, 200, 200,255,pix_r2,pix_g2, pix_b2, pix_a2);
+			
+			
+	}	
+}
+
+
+function model_mirror_morecopies3( min_max_xy,wview)
+{
+
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+		
+		// Normals
+		//var nx1=sc_trinorm[dope]; var ny1=sc_trinorm[dope+1]; var nz1=sc_trinorm[dope+2];
+		//var nnorm = mat_multi_v4(wview, vector4(nx1, ny1, nz1, 0)); // rotate 'normal'
+		//var light=vector4(light_x, light_y, light_z);
+		//light.normalize();
+		//nnorm.normalize();
+		//var angl= (nnorm.dot(light)+1) /2; // lightning between 0 and 1 now 
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+		
+
+		draw_tri_zbuf_norm3(gpm0, gpm1, gpm2, min_max_xy);
+		//draw_visilines_draw(3, gpm0, gpm1, gpm2, min_max_xy, dope, 20, 200, 200,255,pix_r2,pix_g2, pix_b2, pix_a2);
+			
+			
+	}	
+}
+
+
+
+ // fx 3 color cube?
+ function model_colorcube_draw()
+{
+	var min_max_xy = [im_w,0,im_h, 0]; // for area check smaller sprite // what gets drawn.
+
+	var wview= get_view_matrix(rotx,roty,rotz); /// final matrix
+	
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+		
+		
+		// Colorcube
+		var col0 = vector4(sc_tri_r[dope],   sc_tri_g[dope],   sc_tri_b[dope], 1 );
+		var col1 = vector4(sc_tri_r[dope+1], sc_tri_g[dope+1], sc_tri_b[dope+1], 1);
+		var col2 = vector4(sc_tri_r[dope+2], sc_tri_g[dope+2], sc_tri_b[dope+2], 1);
+		
+		// Normals
+		var nx1=sc_trinorm[dope]; var ny1=sc_trinorm[dope+1]; var nz1=sc_trinorm[dope+2];
+		var nnorm = mat_multi_v4(wview, vector4(nx1, ny1, nz1, 0)); // rotate 'normal'
+		var light=vector4(light_x, light_y, light_z);
+		light.normalize();
+		nnorm.normalize();
+		var angl= (nnorm.dot(light)+1) /2; // lightning between 0 and 1 now 
+		
+		
+		var gp0= vector4(x1, y1, z1, 1);
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+	
+		draw_tri_gau(gpm0, gpm1, gpm2, min_max_xy, col0,col1,col2, angl);
+	}
+	
+	go_scaling_filter(min_max_xy, 1, 0,0,0,  0, 255,255,255);
+	
+}
+
+
+ // fx 3 shading?
+ function model_gau_draw(r,g,b)
+{
+	var min_max_xy = [im_w,0,im_h, 0]; // for area check smaller sprite // what gets drawn.
+
+	var wview= get_view_matrix(rotx,roty,rotz); /// final matrix
+	
+	// do lightning/color for faces
+	var d_col  =new Array(sc_p);   // counting different added +colors for every face
+	var d_col_r=new Array(sc_p); // new color for every point. added up
+	var d_col_g=new Array(sc_p);
+	var d_col_b=new Array(sc_p);
+	
+	fill_array(d_col, sc_p, 0);
+	fill_array(d_col_r, sc_p, 0);
+	fill_array(d_col_g, sc_p, 0);
+	fill_array(d_col_b, sc_p, 0);
+	
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		
+		var pp1 = sc_tri[dope]; 
+		var pp2 = sc_tri[dope+1]; 
+		var pp3 = sc_tri[dope+2];
+				
+		var nx1=sc_trinorm[dope]; var ny1=sc_trinorm[dope+1]; var nz1=sc_trinorm[dope+2];
+		var nnorm = mat_multi_v4(wview, vector4(nx1, ny1, nz1, 0)); // rotate 'normal'
+		var light=vector4(light_x, light_y, light_z);
+		light.normalize();
+		nnorm.normalize();
+		var angl= (nnorm.dot(light)+1) / 2; // lightning between 0 and 1 now 
+		
+		var nr = r * angl; var ng = g * angl; var nb = b * angl;
+		
+		d_col_r[pp1] += nr; d_col_g[pp1] += ng; d_col_b[pp1] += nb;
+		d_col_r[pp2] += nr; d_col_g[pp2] += ng; d_col_b[pp2] += nb;
+		d_col_r[pp3] += nr; d_col_g[pp3] += ng; d_col_b[pp3] += nb;
+		
+		d_col[pp1]+= 1; d_col[pp2]+= 1; d_col[pp3]+= 1; // increase d_col
+	}
+	
+	for (var i = 0; i <  sc_p;  i++)  // get average color for every point
+	{
+		d_col_r[i] = d_col_r[i] / d_col[i];
+		d_col_g[i] = d_col_g[i] / d_col[i];
+		d_col_b[i] = d_col_b[i] / d_col[i];
+	}
+		
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+	
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+		
+		//sc_tri_r[dope]=d_col_r[pp1];
+		
+		var col0 = vector4(d_col_r[pp1],   d_col_g[pp1],   d_col_b[pp1], 1 );
+		var col1 = vector4(d_col_r[pp2],   d_col_g[pp2],   d_col_b[pp2], 1);
+		var col2 = vector4(d_col_r[pp3],   d_col_g[pp3],   d_col_b[pp3], 1);
+		
+		var gp0= vector4(x1, y1, z1, 1);
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+	
+		draw_tri_gau(gpm0, gpm1, gpm2, min_max_xy, col0,col1,col2, angl);
+	}
+	
+	go_scaling_filter(min_max_xy, 1, 45,5,0,  0, 255,25,25);
+	
+}
+
+
+// fx:  init
+
+
+function model_texmap_animtexture() 
+{
+	//anim texture
+	for (var j= 0; j< tex_h; j=j+2)
+	{
+		for (var i= 0; i< tex_w; i++)
+		{
+			var p=(j*tex_w)+i;
+			var g=my_random(255);
+			tex_r[p]=g;
+			tex_g[p]=g;
+			tex_b[p]=g;
+		}
+	}
+	g_drawline( 0, 0, tex_w-1,0, 158, 28, 28, 255, tex_w, tex_h, tex_r, tex_g, tex_b, tex_a);
+	g_drawline( 0, tex_h-1, tex_w-1,tex_h-1, 158, 28, 28, 255, tex_w, tex_h, tex_r, tex_g, tex_b, tex_a);
+	
+	g_drawline( 0, 0, 0,tex_h-1, 158,28, 28, 255, tex_w, tex_h, tex_r, tex_g, tex_b, tex_a);
+	g_drawline( tex_w-1, 0, tex_w-1,tex_h-1, 158, 28, 28, 255, tex_w, tex_h, tex_r, tex_g, tex_b, tex_a);
+}
+
+
+function model_texmap_draw() 
+{
+	
+	var wview= get_view_matrix(rotx,roty,rotz); /// final matrix
+	
+	var min_max_xy = [im_w,0,im_h, 0]; // for area check smaller sprite // what gets drawn.
+	
+	// now do all triangles. textured
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+			
+		// uv for texture mapping
+		var u1 = sc_tri_u[dope];   var v1 = sc_tri_v[dope]; 
+		var u2 = sc_tri_u[dope+1]; var v2 = sc_tri_v[dope+1];		
+		var u3 = sc_tri_u[dope+2]; var v3 = sc_tri_v[dope+2]; 
+			
+		var gp0= vector4(x1, y1, z1, 1); // (x,y,z, w = 1 for perp corr texmapping)
+		var gp1= vector4(x2, y2, z2, 1);
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var guv0= vector2( u1 , v1 );  
+		var guv1= vector2( u2,  v2 );
+		var guv2= vector2( u3,  v3 );
+	
+		var gpm0 = mat_multi_v4(wview,gp0); 
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+	
+		draw_tri_textured(gpm0, gpm1, gpm2, guv0, guv1, guv2, min_max_xy );	
+	}
+	
+	// draw small one // && 1 hard -or- 0 soft r,g,b masks
+	go_scaling_filter(min_max_xy, 1, 0,0,0,  0, 255,255,255);
+
+}
+
+// fx 6:  triangle clipping
+function model_cube_lines_draw2(wview,pix_r2 ,pix_g2, pix_b2,pix_a2) 
+{
+	// matrix stuff
+	//var wview= get_view_matrix(rotx,roty,rotz);
+	
+	var min_max_xy = [im_w,0,im_h, 0];
+	
+	// now do all triangles. 
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+	
+		draw_visilines_draw2(3, gpm0, gpm1, gpm2, min_max_xy, dope, 0,  0,  0, 255,pix_r2 ,pix_g2, pix_b2,pix_a2);
+
+	}	
+	
+	 // draw small one // && 1 hard -or- 0 soft r,g,b masks
+	//go_scaling_filter(min_max_xy, 1, 0,0,0,  1, 255,255,25);
+	
+	//var min_x=min_max_xy[0]-4; 
+	//var max_x=min_max_xy[1]+4;
+	//var min_y=min_max_xy[2]-4; 
+	//var max_y=min_max_xy[3]+4;
+	
+	//var g=255; // draw detection area min-max
+	//g_drawline(min_x, min_y, max_x, min_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	//g_drawline(min_x, max_y, max_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	
+	//g_drawline(min_x, min_y, min_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	//g_drawline(max_x, min_y, max_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+}
+
+
+// fx 6:  triangle clipping
+function model_cube_lines_draw3(wview, col, pix_g) 
+{
+	// matrix stuff
+	//var wview= get_view_matrix(rotx,roty,rotz);
+	
+	var min_max_xy = [im_w,0,im_h, 0];
+	
+	// now do all triangles. 
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+	
+		var gpm0 = mat_multi_v4(wview,gp0); // do matrix; rotation etc.
+		var gpm1 = mat_multi_v4(wview,gp1);
+		var gpm2 = mat_multi_v4(wview,gp2);
+	
+		draw_visilines_draw3b(3, gpm0, gpm1, gpm2, min_max_xy, dope, col,pix_g);
+
+	}	
+
+	//var min_x=min_max_xy[0]-4; 
+	//var max_x=min_max_xy[1]+4;
+	//var min_y=min_max_xy[2]-4; 
+	//var max_y=min_max_xy[3]+4;
+	
+	//var g=255; // draw detection area min-max
+	//g_drawline(min_x, min_y, max_x, min_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	//g_drawline(min_x, max_y, max_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	
+	//g_drawline(min_x, min_y, min_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	//g_drawline(max_x, min_y, max_x, max_y, 20, g, g,25, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+}
+
+// get viewing matrix 
+function get_view_matrix(rx,ry,rz) 
+{
+	// matrix stuff
+	//var mro_x = get_rotx_mat(rx); // do rotation
+	//var mro_y = get_roty_mat(ry);
+	//var mro_z = get_rotz_mat(rz);
+	
+	//var mro_xy = mat_multi(mro_x, mro_y);
+	//var mro_xyz = mat_multi(mro_xy, mro_z);
+	
+	//var myscale=1;
+	//var myscale_mat = get_scale_mat(myscale, myscale, myscale); // do scale
+	
+	//var myrotz_mat=mat_multi(myscale_mat,mro_xyz);
+	
+	var aspect = im_w / im_h;
+	var mypers_mat = get_perspective_mat( degree_to_radian(75.0), aspect, 5.0, 16.0); 
+	var mylookat_mat= get_lookat_mat( my_cam, vector3(0,0,1), vector3(0,1,0));
+	var wview= mat_multi(mypers_mat, mylookat_mat);
+	//var wview= mat_multi(view, myrotz_mat); /// final matrix
+	
+	return new Float32Array(wview);
+}
+
+
+//---- graph-pix
+
+function graph_drawpoint1(x,y, w, h, r,g,b, buf_r,buf_g,buf_b)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+		var p= (y*w)+x;
+		buf_r[p]=r;
+		buf_g[p]=g;
+		buf_b[p]=b;
+	}
+}
+
+function graph_addpoint1(x,y, w, h, r,g,b, buf_r,buf_g,buf_b)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+		var p= (y*w)+x;
+		buf_r[p]+=r;
+		buf_g[p]+=g;
+		buf_b[p]+=b;
+	}
+}
+
+function graph_drawpoint2(x,y, w, h, r,g,b,a, buf_r, buf_g, buf_b, buf_a)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+		if(a>0)
+		{
+			var p= (y*w)+x;
+			buf_r[p]=r;
+			buf_g[p]=g;
+			buf_b[p]=b;		
+			buf_a[p]=a;
+		}
+	}
+}
+
+function graph_drawpoint3(x,y, w, h, col, buf_r)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+			buf_r[(y*w)+x]=col;
+	}	
+}
+// without OOB check! 
+function graph_drawpoint2nooob(p, r,g,b,a, buf_r, buf_g, buf_b, buf_a)
+{
+	buf_r[p]=r;
+	buf_g[p]=g;
+	buf_b[p]=b;		
+	buf_a[p]=a;
+}
+
+function graph_addpoint2(x,y, w, h, r,g,b, a, buf_r,buf_g,buf_b, buf_a)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+		if(a>0)
+		{
+			var p= (y*w)+x;
+			buf_r[p]+=r;
+			buf_g[p]+=g;
+			buf_b[p]+=b;
+			buf_a[p]+=a;
+		}
+	}
+}
+
+function graph_mixpoint(x,y, w, h, r,g,b, a, buf_r,buf_g,buf_b, buf_a)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+		if(a>0)
+		{	
+			var p= (y*w)+x;
+			buf_r[p]=((r+buf_r[p])/2)<<0;
+			buf_g[p]=((g+buf_g[p])/2)<<0;
+			buf_b[p]=((b+buf_b[p])/2)<<0;
+			buf_a[p]=((a+buf_a[p])/2)<<0;
+		}
+	}
+}
+
+// draw line - // Bresenham?  // fast line?!
+function g_drawline(x1, y1, x2, y2,r, g, b,a, imw, imh, p_r, p_g, p_b, p_a)
+{
+	var dx = Math.abs(x2 - x1);
+	var dy = Math.abs(y2 - y1);
+	var sx = (x1 < x2) ? 1 : -1; 
+	var	sy = (y1 < y2) ? 1 : -1; 
+	var er = (dx>dy ? dx : -dy)/2;
+	while (true)
+	{
+		graph_drawpoint2(x1,y1, imw, imh, r,g,b,a, p_r, p_g, p_b,p_a);
+		//graph_addpoint2(x1,y1, imw, imh, r,g,b,a, p_r, p_g, p_b,p_a);
+		if (x1 === x2 && y1 === y2) break;
+		var e2 = er;
+		if (e2 > -dx){er -= dy; x1 += sx;}
+		if (e2 < dy){er += dx; y1 += sy;}
+	}
+}
+
+function g_drawline2(x1, y1, x2, y2,r, g, b,a, imw, imh, p_r, p_g, p_b, p_a)
+{
+	var dx = Math.abs(x2 - x1);
+	var dy = Math.abs(y2 - y1);
+	var sx = (x1 < x2) ? 1 : -1; 
+	var	sy = (y1 < y2) ? 1 : -1; 
+	var er = (dx>dy ? dx : -dy)/2;
+	while (true)
+	{
+		var p=x1+(y1* imw);
+		
+		if(pix_zcheck[p]==1)
+		{
+			graph_drawpoint2(x1,y1, imw, imh, r,g,b,a, p_r, p_g, p_b,p_a);
+		}
+		
+		//graph_addpoint2(x1,y1, imw, imh, r,g,b,a, p_r, p_g, p_b,p_a);
+		if (x1 === x2 && y1 === y2) break;
+		var e2 = er;
+		if (e2 > -dx){er -= dy; x1 += sx;}
+		if (e2 < dy){er += dx; y1 += sy;}
+	}
+}
+
+// zcheck
+function g_drawline3(x1, y1, x2, y2,col, imw, imh, p_grey)
+{
+	var dx = Math.abs(x2 - x1);
+	var dy = Math.abs(y2 - y1);
+	var sx = (x1 < x2) ? 1 : -1; 
+	var	sy = (y1 < y2) ? 1 : -1; 
+	var er = (dx>dy ? dx : -dy)/2;
+	while (true)
+	{
+		var p=x1+(y1* imw);
+		
+		if(pix_zcheck[p]==1)
+		{
+			graph_drawpoint3(x1,y1, imw, imh, col, p_grey);
+		}
+ 
+		if (x1 === x2 && y1 === y2) break;
+		var e2 = er;
+		if (e2 > -dx){er -= dy; x1 += sx;}
+		if (e2 < dy){er += dx; y1 += sy;}
+	}
+}
+
+function g_drawline3b(x1, y1, x2, y2,col, imw, imh, p_grey)
+{
+	var dx = Math.abs(x2 - x1);
+	var dy = Math.abs(y2 - y1);
+	var sx = (x1 < x2) ? 1 : -1; 
+	var	sy = (y1 < y2) ? 1 : -1; 
+	var er = (dx>dy ? dx : -dy)/2;
+	while (true)
+	{
+		var p=x1+(y1* imw);
+		
+		graph_drawpoint3(x1,y1, imw, imh, col, p_grey);
+ 
+		if (x1 === x2 && y1 === y2) break;
+		var e2 = er;
+		if (e2 > -dx){er -= dy; x1 += sx;}
+		if (e2 < dy){er += dx; y1 += sy;}
+	}
+}
+
+
+
+// draw textured + zbuffer
+function draw_tri_textured(pm0, pm1, pm2, uv0,uv1,uv2, min_max) 
+{
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0= pm0.x; var y0= pm0.y;
+	var x1= pm1.x; var y1= pm1.y;
+	var x2= pm2.x; var y2= pm2.y;
+                
+	var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+	var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+	var edgec0= delta_y0 * x0 - delta_x0 * y0; // edge constant
+	var edgec1= delta_y1 * x1 - delta_x1 * y1;
+	var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+	if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+	if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+	if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+	var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+	var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+	var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+	var denominator= delta_x1*delta_y2 - delta_y1*delta_x2 ;
+	
+	for (var y= min_y; y<= max_y; y++)
+	{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+        
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// oob checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5 && x>=0 && x<im_w && y>=0 && y<im_h) 
+			{
+				
+				if (denominator == 0.0){ denominator=1; } // no divide by 0
+
+				var t0= ( delta_y1*(x-x2)-delta_x1*(y-y2) ) / denominator; // barycentric 
+				var t1= ( delta_y2*(x-x2)-delta_x2*(y-y2) ) / denominator;
+				var t2= 1.0 - t0 - t1;
+
+				var new_z = pm0.z * t0 + pm1.z * t1 + pm2.z * t2;
+
+				var pos= ytable_im_w[y]+x;
+				var my_z = new_z * 255;
+			
+				if ( my_z <= pix_z[pos] )
+				{
+					pix_z[pos] = my_z;	// set new z-depth 
+
+					var new_w = pm0.w * t0 + pm1.w * t1 + pm2.w * t2;
+
+					var one_iw= 1.0 / new_w ;
+						
+					var v0= uv0.scale(pm0.w);
+					var v1= uv1.scale(pm1.w);
+					var v2= uv2.scale(pm2.w);
+							
+					var v= v0.scale(t0).add( v1.scale(t1).add( v2.scale(t2) ) ).scale( one_iw );
+							
+					var new_u = Math.round((v.x * tex_w)-0.5);
+					var new_v = Math.round((v.y * tex_h)-0.5);
+					
+					if(new_u<0){new_u=0;} // texture correction
+					if(new_v<0){new_v=0;}
+					if(new_u>=tex_w){new_u=tex_w-1;}
+					if(new_v>=tex_h){new_v=tex_h-1;}					
+					var p1=(new_v * tex_w) + new_u;
+					
+					var colr = tex_r[p1]; // get texture !
+					var colg = tex_g[p1]; 
+					var colb = tex_b[p1]; 
+					//var cola = tex_a[p1];
+
+					graph_drawpoint2nooob( pos, colr,colg,colb,255, pix_r, pix_g, pix_b, pix_a);	
+					
+				}
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+	}
+}
+
+function draw_visilines_draw(mode,pm0, pm1, pm2, min_max, dope,r,g,b,a) 
+{
+	// mode 0: all lines -- mode 1: all visable lines -- mode 2: : all inverse visable lines
+	// 	
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0=pm0.x; var y0=pm0.y; var x1=pm1.x; var y1=pm1.y; var x2=pm2.x; var y2=pm2.y;
+	
+	x0=Math.round(x0);	y0=Math.round(y0);
+	x1=Math.round(x1);	y1=Math.round(y1);
+	x2=Math.round(x2);	y2=Math.round(y2);
+	
+	if (mode==0)
+	{
+		//all triangle lines
+		g_drawline(x0, y0, x1, y1, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+		g_drawline(x1, y1, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+		g_drawline(x0, y0, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+	}
+	else if ( mode == 1 || mode == 2 )
+	{
+		// all triangle 'visible' lines or inverse
+		var domode=1;
+		if( mode == 2){ domode=0;}
+		
+		if(sc_triline[dope]==domode){g_drawline(x0, y0, x1, y1, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		if(sc_triline[dope+1]==domode){g_drawline(x1, y1, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		if(sc_triline[dope+2]==domode){g_drawline(x0, y0, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+	}
+	
+	else if ( mode == 3 || mode == 4 )
+	{
+		// visible faces - and visible lines / inverse visible lines
+		var domode=1;
+		if( mode == 4){ domode=0;}
+		
+		var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+		var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+		var edgec0= delta_y0 * x0 - delta_x0 * y0;
+		var edgec1= delta_y1 * x1 - delta_x1 * y1;
+		var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+		if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+		if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+		if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+		var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+		var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+		var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+		var drawface=false;
+	
+		for (var y= min_y; y<= max_y; y++)
+		{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+		
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5) 
+			{
+				drawface=true; 
+				break;
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		if(drawface==true){break;} // break out of the loop
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+		}
+	
+		if(drawface==true)
+		{	
+		x0=Math.round(x0);	y0=Math.round(y0);
+		x1=Math.round(x1);	y1=Math.round(y1);
+		x2=Math.round(x2);	y2=Math.round(y2);
+	
+		if(sc_triline[dope]==domode){g_drawline(x0, y0, x1, y1, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		if(sc_triline[dope+1]==domode){g_drawline(x1, y1, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		if(sc_triline[dope+2]==domode){g_drawline(x0, y0, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		}
+	
+	} //end else
+		
+	else if ( mode == 5 )
+	{
+		// visible faces -  visible lines & inverse visible lines
+		
+		var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+		var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+		var edgec0= delta_y0 * x0 - delta_x0 * y0;
+		var edgec1= delta_y1 * x1 - delta_x1 * y1;
+		var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+		if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+		if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+		if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+		var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+		var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+		var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+		var drawface=false;
+		//var ccount=0;
+		for (var y= min_y; y<= max_y; y++)
+		{
+			var edge0= edges0; var edge1= edges1; var edge2= edges2;
+			//ccount++;
+			for(var x= min_x; x<= max_x; x++)
+			{
+				// checking
+				//ccount++
+				if (edge0>0.5 && edge1>0.5 && edge2>0.5) 
+				{
+					drawface=true; 
+					break;
+				}
+				edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+			}
+			if(drawface==true){break;} // break out of the loop
+			edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+		}
+	
+		if(drawface==true)
+		{
+				//alert(ccount);
+			x0=Math.round(x0);	y0=Math.round(y0);
+			x1=Math.round(x1);	y1=Math.round(y1);
+			x2=Math.round(x2);	y2=Math.round(y2);
+	
+			g_drawline(x0, y0, x1, y1, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+			g_drawline(x1, y1, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+			g_drawline(x0, y0, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);
+		}
+	
+	} //end else
+		
+}
+
+function draw_visilines_draw2(mode,pm0, pm1, pm2, min_max, dope,r,g,b,a,pix_r,pix_g, pix_b, pix_a) 
+{
+	// mode 0: all lines -- mode 1: all visable lines -- mode 2: : all inverse visable lines
+	// 	
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0=pm0.x; var y0=pm0.y; var x1=pm1.x; var y1=pm1.y; var x2=pm2.x; var y2=pm2.y;
+	
+	x0=Math.round(x0);	y0=Math.round(y0);
+	x1=Math.round(x1);	y1=Math.round(y1);
+	x2=Math.round(x2);	y2=Math.round(y2);
+	
+
+	if ( mode == 3 || mode == 4 )
+	{
+		// visible faces - and visible lines / inverse visible lines
+		var domode=1;
+		if( mode == 4){ domode=0;}
+		
+		var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+		var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+		var edgec0= delta_y0 * x0 - delta_x0 * y0;
+		var edgec1= delta_y1 * x1 - delta_x1 * y1;
+		var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+		if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+		if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+		if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+		var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+		var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+		var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+		var drawface=false;
+	
+		for (var y= min_y; y<= max_y; y++)
+		{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+		
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5) 
+			{
+				drawface=true; 
+				break;
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		if(drawface==true){break;} // break out of the loop
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+		}
+	
+		if(drawface==true)
+		{	
+		x0=Math.round(x0);	y0=Math.round(y0);
+		x1=Math.round(x1);	y1=Math.round(y1);
+		x2=Math.round(x2);	y2=Math.round(y2);
+	
+		if(sc_triline[dope]==domode){g_drawline2(x0, y0, x1, y1, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		if(sc_triline[dope+1]==domode){g_drawline2(x1, y1, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		if(sc_triline[dope+2]==domode){g_drawline2(x0, y0, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		}
+	
+	} //end else
+		
+	
+		
+}
+
+
+function draw_visilines_draw3(mode,pm0, pm1, pm2, min_max, dope,r,g,b,a,pix_r,pix_g, pix_b, pix_a) 
+{
+	// mode 0: all lines -- mode 1: all visable lines -- mode 2: : all inverse visable lines
+	// 	
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0=pm0.x; var y0=pm0.y; var x1=pm1.x; var y1=pm1.y; var x2=pm2.x; var y2=pm2.y;
+	
+	x0=Math.round(x0);	y0=Math.round(y0);
+	x1=Math.round(x1);	y1=Math.round(y1);
+	x2=Math.round(x2);	y2=Math.round(y2);
+	
+
+	if ( mode == 3 || mode == 4 )
+	{
+		// visible faces - and visible lines / inverse visible lines
+		var domode=1;
+		if( mode == 4){ domode=0;}
+		
+		var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+		var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+		var edgec0= delta_y0 * x0 - delta_x0 * y0;
+		var edgec1= delta_y1 * x1 - delta_x1 * y1;
+		var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+		if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+		if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+		if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+		var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+		var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+		var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+		var drawface=false;
+	
+		for (var y= min_y; y<= max_y; y++)
+		{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+		
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5) 
+			{
+				drawface=true; 
+				break;
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		if(drawface==true){break;} // break out of the loop
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+		}
+	
+		if(drawface==true)
+		{	
+		x0=Math.round(x0);	y0=Math.round(y0);
+		x1=Math.round(x1);	y1=Math.round(y1);
+		x2=Math.round(x2);	y2=Math.round(y2);
+	
+		if(sc_triline[dope]==domode){g_drawline2(x0, y0, x1, y1, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		if(sc_triline[dope+1]==domode){g_drawline2(x1, y1, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		if(sc_triline[dope+2]==domode){g_drawline2(x0, y0, x2, y2, r, g, b, a, im_w, im_h, pix_r,pix_g, pix_b, pix_a);}
+		}
+	
+	} //end else
+		
+ 	
+}
+
+
+
+
+function clip_triangle(plane, pnormal ,tri_in, tri_out1, tri_out2)
+{
+	var num_tri=0;
+	
+	return (num_tri);
+}
+
+
+// draw zbuffer inverse
+function draw_tri_zbuf(pm0, pm1, pm2, min_max)
+{
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0=pm0.x; var y0=pm0.y; var x1=pm1.x; var y1=pm1.y; var x2=pm2.x; var y2=pm2.y;
+	
+
+                
+	var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+	var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+	var edgec0= delta_y0 * x0 - delta_x0 * y0; // edge constant
+	var edgec1= delta_y1 * x1 - delta_x1 * y1;
+	var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+	if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+	if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+	if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+	var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+	var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+	var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+	var denominator= delta_x1*delta_y2 - delta_y1*delta_x2 ;
+	
+	for (var y= min_y; y<= max_y; y++)
+	{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+		
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// && oob checking
+			if (edge0<0.5 && edge1<0.5 && edge2<0.5 && x>=0 && x<im_w && y>=0 && y<im_h) 
+			{
+				
+				if (denominator == 0.0){ denominator=1; } // no divide by 0
+				
+				var t0= ( delta_y1*(x-x2)-delta_x1*(y-y2) ) / denominator; // barycentric 
+				var t1= ( delta_y2*(x-x2)-delta_x2*(y-y2) ) / denominator;
+				var t2= 1.0 - t0 - t1;
+
+				var new_z = pm0.z * t0 + pm1.z * t1 + pm2.z * t2;
+
+				var pos= ytable_im_w[y]+x;
+				var my_z = new_z * 255;
+			
+				if ( my_z <= pix_z[pos] )
+				{
+					pix_z[pos] = my_z;	// set new depth 
+
+					graph_drawpoint2nooob( pos, my_z,my_z,my_z,255, pix_r, pix_g, pix_b, pix_a);	
+				}
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+	}
+	
+}
+
+
+// draw zbuffer 'normal' based lightning
+function draw_tri_zbuf_norm(pm0, pm1, pm2, min_max, r,g,b,angle)
+{
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0= pm0.x; var y0= pm0.y; var x1= pm1.x; var y1= pm1.y; var x2= pm2.x; var y2= pm2.y;
+                
+	var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+	var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+	var edgec0= delta_y0 * x0 - delta_x0 * y0; // edge constant
+	var edgec1= delta_y1 * x1 - delta_x1 * y1;
+	var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+	if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+	if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+	if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+	var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+	var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+	var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+	var denominator= delta_x1*delta_y2 - delta_y1*delta_x2 ;
+	
+	for (var y= min_y; y<= max_y; y++)
+	{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+        
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// && oob checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5 && x>=0 && x<im_w && y>=0 && y<im_h) 
+			{
+				
+				if (denominator == 0.0){ denominator=1; } // no divide by 0
+
+				var t0= ( delta_y1*(x-x2)-delta_x1*(y-y2) ) / denominator; // barycentric 
+				var t1= ( delta_y2*(x-x2)-delta_x2*(y-y2) ) / denominator;
+				var t2= 1.0 - t0 - t1;
+
+				var new_z = pm0.z * t0 + pm1.z * t1 + pm2.z * t2;
+
+				var pos= ytable_im_w[y]+x;
+				var my_z = new_z * 255;
+			
+				if ( my_z <= pix_z[pos] )
+				{
+					pix_z[pos] = my_z;	// set new depth 
+					
+					var nr = (r*angle)<<0;//((r + (255-my_z))/2)<<0;
+					var ng = (g*angle)<<0;//((g + (255-my_z))/2)<<0;
+					var nb = (b*angle)<<0;//((b + (255-my_z))/2)<<0;
+					graph_drawpoint2nooob( pos, nr,ng,nb,255, pix_r, pix_g, pix_b, pix_a);	
+				}
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+	}
+}
+// draw zbuffer 'normal' based lightning
+function draw_tri_zbuf_norm2(pm0, pm1, pm2, min_max, r,g,b,angle)
+{
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0= pm0.x; var y0= pm0.y; var x1= pm1.x; var y1= pm1.y; var x2= pm2.x; var y2= pm2.y;
+                
+	var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+	var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+	var edgec0= delta_y0 * x0 - delta_x0 * y0; // edge constant
+	var edgec1= delta_y1 * x1 - delta_x1 * y1;
+	var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+	if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+	if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+	if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+	var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+	var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+	var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+	var denominator= delta_x1*delta_y2 - delta_y1*delta_x2 ;
+	
+	for (var y= min_y; y<= max_y; y++)
+	{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+        
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// && oob checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5 && x>=0 && x<im_w && y>=0 && y<im_h) 
+			{
+				
+				if (denominator == 0.0){ denominator=1; } // no divide by 0
+
+				var t0= ( delta_y1*(x-x2)-delta_x1*(y-y2) ) / denominator; // barycentric 
+				var t1= ( delta_y2*(x-x2)-delta_x2*(y-y2) ) / denominator;
+				var t2= 1.0 - t0 - t1;
+
+				var new_z = pm0.z * t0 + pm1.z * t1 + pm2.z * t2;
+
+				var pos= ytable_im_w[y]+x;
+				var my_z = new_z * 255;
+			
+				if ( my_z <= pix_z[pos] )
+				{
+					pix_z[pos] = my_z;	// set new depth 
+					
+					var nr =255;// (r*angle)<<0;//((r + (255-my_z))/2)<<0;
+					var ng = 255;// (g*angle)<<0;//((g + (255-my_z))/2)<<0;
+					var nb = 255;// (b*angle)<<0;//((b + (255-my_z))/2)<<0;
+					
+					pix_zcheck[pos]=1; // we can draw 
+					
+					graph_drawpoint2nooob( pos, nr,ng,nb,255, pix_r2, pix_g2, pix_b2, pix_a);	
+				}
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+	}
+}
+
+
+// draw zbuffer 'normal' based lightning just z and drawing check
+function draw_tri_zbuf_norm3(pm0, pm1, pm2, min_max)
+{
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0= pm0.x; var y0= pm0.y; var x1= pm1.x; var y1= pm1.y; var x2= pm2.x; var y2= pm2.y;
+                
+	var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+	var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+	var edgec0= delta_y0 * x0 - delta_x0 * y0; // edge constant
+	var edgec1= delta_y1 * x1 - delta_x1 * y1;
+	var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+	if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+	if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+	if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+	var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+	var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+	var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+	var denominator= delta_x1*delta_y2 - delta_y1*delta_x2 ;
+	
+	for (var y= min_y; y<= max_y; y++)
+	{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+        
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// && oob checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5 && x>=0 && x<im_w && y>=0 && y<im_h) 
+			{
+				
+				if (denominator == 0.0){ denominator=1; } // no divide by 0
+
+				var t0= ( delta_y1*(x-x2)-delta_x1*(y-y2) ) / denominator; // barycentric 
+				var t1= ( delta_y2*(x-x2)-delta_x2*(y-y2) ) / denominator;
+				var t2= 1.0 - t0 - t1;
+
+				var new_z = pm0.z * t0 + pm1.z * t1 + pm2.z * t2;
+
+				var pos= ytable_im_w[y]+x;
+				var my_z = new_z * 255;
+			
+				if ( my_z <= pix_z[pos] )
+				{
+					pix_z[pos] = my_z;	// set new depth 
+					
+					//var nr =255;// (r*angle)<<0;//((r + (255-my_z))/2)<<0;
+					//var ng = 255;// (g*angle)<<0;//((g + (255-my_z))/2)<<0;
+					//var nb = 255;// (b*angle)<<0;//((b + (255-my_z))/2)<<0;
+					
+					pix_zcheck[pos]=1; // we can draw 
+					
+					//graph_drawpoint2nooob( pos, nr,ng,nb,255, pix_r2, pix_g2, pix_b2, pix_a);	
+				}
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+	}
+}
+
+
+// gau-shading
+function draw_tri_gau(pm0, pm1, pm2, min_max, col_1,col_2,col_3, angle)
+{
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0= pm0.x; var y0= pm0.y; var x1= pm1.x; var y1= pm1.y; var x2= pm2.x; var y2= pm2.y;
+                
+	var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+	var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+	var edgec0= delta_y0 * x0 - delta_x0 * y0; // edge constant
+	var edgec1= delta_y1 * x1 - delta_x1 * y1;
+	var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+	if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+	if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+	if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+	var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+	var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+	var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+	var denominator= delta_x1*delta_y2 - delta_y1*delta_x2 ;
+	
+	for (var y= min_y; y<= max_y; y++)
+	{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+        
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// && oob checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5 && x>=0 && x<im_w && y>=0 && y<im_h) 
+			{
+				
+				if (denominator == 0.0){ denominator=1; } // no divide by 0
+
+				var t0= ( delta_y1*(x-x2)-delta_x1*(y-y2) ) / denominator; // barycentric 
+				var t1= ( delta_y2*(x-x2)-delta_x2*(y-y2) ) / denominator;
+				var t2= 1.0 - t0 - t1;
+
+				var new_z = pm0.z * t0 + pm1.z * t1 + pm2.z * t2;
+
+				var pos= ytable_im_w[y]+x;
+				var my_z = new_z * 255;
+			
+				if ( my_z <= pix_z[pos] )
+				{
+					pix_z[pos] = my_z;	// set new depth 
+					
+					var new_r =(col_1.x * t0 + col_2.x * t1 + col_3.x * t2);
+					var new_g =(col_1.y * t0 + col_2.y * t1 + col_3.y * t2);
+					var new_b =(col_1.z * t0 + col_2.z * t1 + col_3.z * t2);
+					
+					if(new_r<0){new_r=0;}
+					if(new_r>255){new_r=255;}
+					if(new_g<0){new_g=0;}
+					if(new_g>255){new_g=255;}
+					if(new_b<0){new_b=0;}
+					if(new_b>255){new_b=255;}				
+	
+					var nr = (new_r)<<0;//((r + (255-my_z))/2)<<0; *angle
+					var ng = (new_g)<<0;//((g + (255-my_z))/2)<<0;
+					var nb = (new_b)<<0;//((b + (255-my_z))/2)<<0;
+					graph_drawpoint2nooob( pos, nr,ng,nb,255, pix_r, pix_g, pix_b, pix_a);	
+				}
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+	}
+}
+
+
+// math
+
+
+function fill_array(buf,size,value)
+{	
+	for (var i=0; i < size; i++)
+	{
+		buf[i]=value;
+	}
+}
+
+ 
+
+function fill_array_partly(buf,x1,y1,x2,y2,w,h, value)
+{
+
+	for (var j=y1; j < y2; j++)
+	{	
+		for (var i=x1; i < x2; i++)
+		{
+			buf[(j*w)+i]=value;
+		}
+	}
+	
+}
+
+
+function my_random(nummer){return ( ((fxrand()*nummer) << 0) );}
+function my_random_float(nummer){return (  (fxrand()*nummer)   );}
+function my_random_minplus(nummer){return ( ( ((fxrand()*nummer)-(nummer/2))  << 0) );}
+function my_random_minplus_float(nummer){return (   ((fxrand()*nummer)-(nummer/2))    );}
+
+
+
+
+
+
+//------------ math -------------------
+
+// random noise buffer 256 col
+function math_init_rnd(buf)
+{	
+	for (var i=0; i < rnd_bufsize; i++)
+	{
+		buf[i]=(fxrand()*256)<<0;
+	}
+}
+
+function math_get_rnd()
+{	
+  rnd_pos=rnd_pos+rnd_step;
+  if (rnd_pos>=rnd_bufsize)
+  {
+    rnd_step=((fxrand()*20)<<0)+1;
+    rnd_pos=(fxrand()*20)<<0;
+  }
+  return (rnd_buf[rnd_pos]);
+}
+
+// cos/sin buffer
+function set_cossinbuffer(n,mcos,msin)
+{
+	for(var i=0; i<n; i++) 
+	{
+		mcos[i]=( Math.cos ( i*360/n * Math.PI / 180)); // between -1 and 1
+		msin[i]=( Math.sin ( i*360/n * Math.PI / 180));
+	}
+
+}
+
+function set_path01(n,mcos,msin) //6400  line
+{
+	//var min=0;
+	//var max=0;
+	
+	var n1=(n/4)<<0;
+
+	var sn= (-n1/2);	
+	var gzz=my_random_float(0.5)+0.4;
+	
+	var p=0;
+	for(var i=0; i<n1; i++) 
+	{
+		mcos[p]= ( ( (i+sn)/n1)*1.5)     ;  // -0.75 0.7 
+		msin[p]= -gzz; 
+		p++;
+	}
+	var p1=p-1;
+	for(var i=0; i<n1; i++) 
+	{
+		mcos[p]= mcos[p1]     ;  // -0.75 0.7 
+		msin[p]= ( ( (i+sn)/n1)*1.5); 
+		p++;
+	}
+	p1=p-1;
+	for(var i=0; i<n1; i++) 
+	{
+		mcos[p]= -( ( (i+sn)/n1)*1.5)     ;  // -0.75 0.7 
+		msin[p]= msin[p1]; 
+		p++;
+	}
+	p1=p-1;
+	for(var i=0; i<n1; i++) 
+	{
+		mcos[p]=mcos[p1];  // -0.75 0.7 
+		msin[p]= -( ( (i+sn)/n1)*1.5);  
+		//if(mcos[p]<min){ min= mcos[i];}
+		//if(mcos[p]>max){ max= mcos[i];}	
+		p++;
+	}
+	
+	//test= p;//min;//n;//max;//
+
+}
+
+function set_path02(n,mcos,msin) //6400 line
+{
+	var min=0;
+	var max=0;
+	
+	var sn= (-n/2);	
+	var gzz=my_random_minplus_float(2);
+	
+	for(var i=0; i<n; i++) 
+	{
+		mcos[i]= ( ( (i+sn)/n)*1.5)   ;  // -0.75 0.75
+		msin[i]= gzz;//( ( (en-i)/n)*1.5)   ;
+		if(mcos[i]<min){ min= mcos[i];}
+		if(mcos[i]>max){ max= mcos[i];}	
+	}
+	//test= max;//min;//n;//max;//
+	
+}
+
+//---------------quicksort..
+function zqsort(sort, sort2, low, high)
+{	//	zqsort(backzsort,dpzsort, 0, tri-1);
+	var i = low;
+	var j = high;
+	var x;
+	if (high > low)
+	{	
+		var lh=((low+high) / 2)<<0
+		x = (sort[lh]);
+		do
+		{
+			while (sort[i] < x) i++;
+			while (sort[j] > x) j--;
+			if ( i<=j )
+			{
+				var temp=sort2[i];
+				sort2[i]=sort2[j];
+				sort2[j]=temp;
+				
+				temp=sort[i];
+				sort[i]=sort[j];
+				sort[j]=temp;
+				i++;
+				j--;
+			}
+		} 
+		while (i <= j);
+		if (low < j)  zqsort(sort, sort2, low, j);
+		if (i < high )  zqsort(sort, sort2, i, high);
+	}
+}
+
+
+
+/*---------------new matrix - 3D calcultions
+
+ With my older 'soft' 3D engine; I had some problems doing correct texture mapping
+ example of my older engine:  https://elout.home.xs4all.nl/eloutdekok/citbit5/ (Feb. 2019)
+
+ Learned and used some of the math; matrix and calculations by Simon Yeung
+ softwareRasterizer by Simon Yeung (2012)
+ javascript: 3D engine & perspective correct texture mapping:
+ http://simonstechblog.blogspot.com/2012/04/software-rasterizer-part-2.html
+ simon.yeunglm@gmail.com
+ I e-mailed Simon and he said it was ok that I could use some of his routines and calculations. 
+ If you want to use it yourself, ask him about it, for that part.
+
+If you find other authors in the source; please let me know. I'm setting works aside for people that helped.
+
+
+
+ Added/changed a lot more, and still working on it.
+ 
+ The 3D data format is based on the collada format; that I once deconstructed. 
+ so you can save a 3D model like made in blender; as collada file.
+ then use that data in the engine: points / normals / uv-texture layout 
+ and the data layout for every triangle. (that links to the points/normals/uv's)
+ 
+*/
+
+
+//---------------new matrix
+function get_lookat_mat(pos, lookat, up)
+{
+	var view_direction= lookat.minus(pos);
+	view_direction.normalize();
+	
+	var right= view_direction.cross(up);
+    right.normalize();
+	var up= right.cross(view_direction);
+    up.normalize();
+    
+	return new Float32Array([
+                             right.x, up.x, -view_direction.x,  0,
+                             right.y, up.y, -view_direction.y,  0,
+                             right.z, up.z, -view_direction.z,  0,
+							 
+                             -right.x * pos.x -right.y * pos.y- right.z * pos.z,
+                             -up.x * pos.x -up.y * pos.y- up.z * pos.z,
+                             view_direction.x * pos.x +view_direction.y * pos.y+ view_direction.z * pos.z, 1 ]);
+}
+
+function get_perspective_mat(fov, aspect, near, far)
+{
+	var f= aspect/Math.tan(fov*0.5);
+	var n= 1.0/(near-far); 
+	return new Float32Array([f/aspect	, 0.0	, 0.0			,  0.0,
+                             0.0		, f     , 0.0			,  0.0,
+                             0.0		, 0.0	, (far+near)*n	, -1.0,
+                             0.0		, 0.0   , 2.0*far*near*n,  0.0  ]);
+}
+
+function degree_to_radian(degree) 
+{
+    return degree * Math.PI / 180.0;
+}
+
+function  get_scale_mat(x, y, z)
+{
+	return new Float32Array([  x , 0.0, 0.0, 0.0,
+                              0.0,   y, 0.0, 0.0,
+                              0.0, 0.0,   z, 0.0,
+                              0.0, 0.0, 0.0, 1.0 ]);
+}
+
+function get_trans_mat(x, y, z)
+{
+	return new Float32Array([1.0, 0.0, 0.0, 0.0,
+                             0.0, 1.0, 0.0, 0.0,
+                             0.0, 0.0, 1.0, 0.0,
+                               x, 	y,   z, 1.0 ]);
+}
+
+function get_rotx_mat(rad)
+{
+	var mcos= Math.cos(rad);
+	var msin= Math.sin(rad);
+	return new Float32Array([ 1.0,  0.0,   0.0, 0.0,
+                              0.0, mcos, -msin, 0.0,
+                              0.0, msin,  mcos, 0.0,
+                              0.0,  0.0,   0.0, 1.0 ]);
+}
+function get_roty_mat(rad)
+{
+	var mcos= Math.cos(rad);
+	var msin= Math.sin(rad);
+	return new Float32Array([ mcos, 0.0, msin, 0.0,
+                               0.0, 1.0,  0.0, 0.0,
+                             -msin, 0.0, mcos, 0.0,
+                              0.0,  0.0,  0.0, 1.0 ]);
+}
+function get_rotz_mat(rad)
+{
+	var mcos= Math.cos(rad);
+	var msin= Math.sin(rad);
+	return new Float32Array([ mcos, -msin, 0.0, 0.0,
+                              msin,  mcos, 0.0, 0.0,
+                               0.0,   0.0, 1.0, 0.0,
+                               0.0,   0.0, 0.0, 1.0 ]);
+}
+
+function mat_multi(m1, m2)
+{
+	return new Float32Array([
+	m1[0]*m2[0] + m1[4]*m2[1] + m1[8]*m2[2] + m1[12]*m2[3],
+	m1[1]*m2[0] + m1[5]*m2[1] + m1[9]*m2[2] + m1[13]*m2[3],
+	m1[2]*m2[0] + m1[6]*m2[1] + m1[10]*m2[2] + m1[14]*m2[3],
+	m1[3]*m2[0] + m1[7]*m2[1] + m1[11]*m2[2] + m1[15]*m2[3],
+                             
+	m1[0]*m2[4] + m1[4]*m2[5] + m1[8]*m2[6] + m1[12]*m2[7],
+	m1[1]*m2[4] + m1[5]*m2[5] + m1[9]*m2[6] + m1[13]*m2[7],
+	m1[2]*m2[4] + m1[6]*m2[5] + m1[10]*m2[6] + m1[14]*m2[7],
+	m1[3]*m2[4] + m1[7]*m2[5] + m1[11]*m2[6] + m1[15]*m2[7],
+                             
+	m1[0]*m2[8] + m1[4]*m2[9] + m1[8]*m2[10] + m1[12]*m2[11],
+	m1[1]*m2[8] + m1[5]*m2[9] + m1[9]*m2[10] + m1[13]*m2[11],
+	m1[2]*m2[8] + m1[6]*m2[9] + m1[10]*m2[10] + m1[14]*m2[11],
+	m1[3]*m2[8] + m1[7]*m2[9] + m1[11]*m2[10] + m1[15]*m2[11],
+                             
+	m1[0]*m2[12] + m1[4]*m2[13] + m1[8]*m2[14] + m1[12]*m2[15],
+	m1[1]*m2[12] + m1[5]*m2[13] + m1[9]*m2[14] + m1[13]*m2[15],
+	m1[2]*m2[12] + m1[6]*m2[13] + m1[10]*m2[14] + m1[14]*m2[15],
+	m1[3]*m2[12] + m1[7]*m2[13] + m1[11]*m2[14] + m1[15]*m2[15] ]);
+}
+
+function mat_multi_v4(mat, vec)
+{
+	return vector4( mat[0]*vec.x + mat[4]*vec.y + mat[8]*vec.z  + mat[12]*vec.w,
+                    mat[1]*vec.x + mat[5]*vec.y + mat[9]*vec.z  + mat[13]*vec.w,
+                    mat[2]*vec.x + mat[6]*vec.y + mat[10]*vec.z + mat[14]*vec.w,
+                    mat[3]*vec.x + mat[7]*vec.y + mat[11]*vec.z + mat[15]*vec.w );
+}	
+		   
+// vector 2
+function v2_scale(scale)
+{
+    return vector2(this.x* scale,this.y* scale);
+}
+
+function v2_add(v2)
+{
+    return vector2( this.x + v2.x, this.y + v2.y);
+}
+
+function vector2(x, y)
+{
+    return {
+                x       : x,
+                y       : y,
+                scale   : v2_scale,
+                add     : v2_add
+            };
+}
+
+// vector 3
+function v3_cross(v2)
+{
+    var c_x= this.y * v2.z - this.z * v2.y;
+    var c_y= this.z * v2.x - this.x * v2.z;
+    var c_z= this.x * v2.y - this.y * v2.x;
+    return vector3(c_x, c_y, c_z);
+};
+
+function v3_normalize()
+{
+	var v_length = this.length();
+    if(v_length == 0){ v_length = 1;} // no divide by 0 error
+    var one_norm= 1.0 / v_length;
+    this.x *= one_norm; 
+    this.y *= one_norm;
+    this.z *= one_norm;
+};
+
+function v3_minus(v2)
+{
+    return vector3( this.x - v2.x, this.y - v2.y, this.z - v2.z );
+};
+
+function v3_length()
+{
+    return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+}
+
+function v3_dot(v2)
+{
+    return (this.x * v2.x + this.y * v2.y + this.z * v2.z);
+}
+
+function vector3(x, y, z){
+    return { 
+        x           : x,
+        y           : y,
+        z           : z,
+		dot			: v3_dot,
+        cross       : v3_cross,
+        length      : v3_length,
+        normalize   : v3_normalize,
+        minus       : v3_minus
+    };
+}
+
+// vector 4
+function v4_toscreen_xy(v,imw,imh)
+{
+	var one_w= 1.0 / v.w;	
+	v = v.scale( one_w *0.5).add(vector4(0.5, 0.5, 0.5, 0.5));
+	v.x*= imw;
+    v.y= (1.0 - v.y) * imh;
+    v.w= one_w;
+    return vector4(v.x,v.y,v.z,v.w);
+}
+
+function v4_scale(scale)
+{
+    return vector4( this.x*scale, this.y*scale, this.z*scale, this.w*scale);
+}
+
+function v4_add(v2)
+{
+    return vector4( this.x + v2.x, this.y + v2.y, this.z + v2.z , this.w + v2.w );
+}
+
+function v4_dot(v2)
+{
+    return (this.x * v2.x + this.y * v2.y + this.z * v2.z);
+}
+
+function v4_normalize() // use no -w- now atm
+{
+	var v_length = this.length();
+    if(v_length == 0){ v_length = 1;} // no divide by 0 error
+    var one_norm= 1.0 / v_length;
+    this.x *= one_norm; 
+    this.y *= one_norm;
+    this.z *= one_norm;
+};
+
+function v4_length() // use no -w- now atm
+{
+    return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+}
+
+function v4_cross(v2) // use no -w- now atm
+{
+    var nx = this.y * v2.z - this.z * v2.y;
+    var ny = this.z * v2.x - this.x * v2.z;
+    var nz = this.x * v2.y - this.y * v2.x;
+    return vector4(nx, ny, nz, 1);
+};
+
+function vector4(x, y, z, w)
+{
+    return {
+        x         : x,
+        y         : y,
+        z         : z,
+        w         : w,
+		dot		  : v4_dot,
+		normalize : v4_normalize,
+		length    : v4_length,
+        scale     : v4_scale,
+        add       : v4_add,
+		cross	  : v4_cross,
+		screenxy  : v4_toscreen_xy		
+    };
+}
+
+//now the fun and drawing starts
+
+function go_cubbie01()  
+{
+	if(myanim==0) /// init and reset
+	{
+		fill_array(pix_z, im_h*im_w,30000); // zbuffer
+		
+		fill_array(pix_zcheck, im_h*im_w,0);
+		
+		palet_init(0);
+	
+		var colz= my_random(100);;//my_random(pal_num);
+		
+		fill_array(pix_r, im_h*im_w,colz+150);//nr
+		fill_array(pix_g, im_h*im_w,colz+150);//ng
+		fill_array(pix_b, im_h*im_w,colz+150);//ng
+			
+		var cchoice=my_random(4);
+		if(cchoice==0)
+		{
+			
+			for (var i = 0; i < im_h*im_w; i++) //  
+			{
+				if(my_random(1480)==0)
+				{
+					pix_r[i] =255;
+					pix_g[i] =255;
+					pix_b[i] =255;
+				}
+				if(my_random(280)==0)
+				{
+					var ggz=my_random(255);
+					pix_r[i] =ggz;
+					pix_g[i] =ggz;
+					pix_b[i] =ggz;
+				}			
+			}
+		
+		}
+		
+		else if(cchoice==1)
+		{
+			var colz= my_random(pal_num-15);
+			var nr = pal_r[colz];
+			var ng = pal_g[colz];
+		 	var nb = pal_b[colz];
+			fill_array(pix_r, im_h*im_w,nr); 
+			fill_array(pix_g, im_h*im_w,ng); 
+			fill_array(pix_b, im_h*im_w,nb); 
+		}
+		else if(cchoice==2)
+		{
+			for (var i = 0; i < im_h*im_w; i++) //  
+			{
+				var ggz=my_random_minplus(40);
+				pix_r[i]+=ggz;
+				pix_g[i]+=ggz;
+				pix_b[i]+=ggz;
+			
+			}
+		}
+ 
+		my_cam = vector3(  0,   36, 0);
+		wview= get_view_matrix2();
+
+		light_x=my_random_minplus_float(70)+2;
+		light_y=my_random_minplus_float(70)+2;
+		light_z=my_random_minplus_float(70)+2;
+		
+		
+		///
+		
+		cg_rota_x1=(my_random(100)/4000)+0.01;
+		cg_rota_y1=(my_random(100)/4000)+0.01;
+		cg_rota_z1=(my_random(100)/4000)+0.01;
+
+
+		
+		
+		c_screen_x=40;
+		c_screen_z=40;
+
+
+
+		
+		circ_num=20; // 40 circles
+		
+		p_cbuf=12000;//6400; // circle steps
+		
+		//for (var i = 0; i < circ_num; i++)
+		//{
+
+
+		//test=p_ccos[2000];
+		
+			//var tcoo=0;//my_random(2);
+			//if(tcoo==0){ set_cossinbuffer(p_cbuf,p_ccos[i],p_csin[i]); }			
+			//else if(tcoo==1){ set_cossinbuffer(p_cbuf,p_ccos[i],p_csin[i]); }			
+		//test=i;	
+		//}
+		//test=p_ccos[2000];
+		
+		
+		
+		
+		
+		c_num=60;//70+my_random(150); //cubes
+		for (var i = 0; i < c_num; i++) //  
+		{
+			c_x[i]= 0;
+			c_y[i]= 0; // just a littlebit against possible z-flutter.
+			c_z[i]= 0;
+			
+			c_rx[i]=  my_random_float(360);//degree_to_radian(my_random(5)*22.5);//
+			c_ry[i]=  my_random_float(360);
+			c_rz[i]=  my_random_float(360);
+			
+			
+			c_trans[i]=0;
+			
+			c_type_life[i]=1;
+			
+			c_type[i]=  my_random(circ_num); //0 xy  1xz  2yz
+			
+			c_sx[i]= (my_random_float(800)/300)+0.01;  // scale
+			c_sy[i]= c_sx[i]/48;
+			c_sz[i]= c_sx[i]/32;
+
+			if(c_sx[i]<0.5 &&  my_random(4)==0)
+			{
+				c_sy[i]= c_sx[i]/2;
+				c_sz[i]= c_sx[i]/8;	
+			}		
+				
+			c_r[i]= 255; // rgb
+			c_g[i]= 255;
+			c_b[i]= 255;
+			
+			c_type_pos[i]= my_random(p_cbuf);
+			c_type_pos2[i]= my_random(p_cbuf);
+			
+			c_type_model[i]= -my_random_float(2);
+			cg_step1[i]=my_random(128)+2;
+			cg_step2[i]=my_random(2)+1;
+			
+			c_rotator[i]=my_random(2);
+			
+			
+		}// end cubes init
+		
+		
+
+
+		circ_size=(p_cbuf)<<0; /// shorter!!! also nice
+		for (var i = 0; i < circ_num; i++)
+		{
+			circ_x[i] = new Array(circ_size);
+			circ_y[i] = new Array(circ_size);
+			circ_z[i] = new Array(circ_size);
+			
+			
+			var ddraw=my_random(3);
+			if(ddraw==0)
+			{
+				set_cossinbuffer(p_cbuf,p_ccos,p_csin);
+			}
+			else if(ddraw==1)
+			{
+				set_path01(p_cbuf,p_ccos,p_csin);				
+			}
+			else if(ddraw==2)
+			{
+				set_path02(p_cbuf,p_ccos,p_csin);
+			}
+			
+			for (var ii = 0; ii < circ_size; ii++)
+			{
+				circ_x[i][ii]=p_ccos[ii];
+				circ_y[i][ii]=0;//(p_csin[ii]+p_ccos[ii])/2;
+				circ_z[i][ii]=p_csin[ii];
+			}
+			
+			var rx= degree_to_radian(my_random(360)); // degree_to_radian(my_random(5)*22.5)
+			var ry= degree_to_radian(my_random(180));
+			var rz= degree_to_radian(my_random(90));
+			
+			var ro=go_do_matrix_rot(rx,ry,rz); // rotation matrix
+
+			var myranddzzz= my_random_float(20)
+			for (var ii = 0; ii < circ_size; ii++)
+			{
+				var gp0= vector4(circ_x[i][ii], circ_y[i][ii], circ_z[i][ii], 1); 
+				var gpmm0 = mat_multi_v4(ro,gp0); // do matrix; rotation etc.
+				circ_x[i][ii]=gpmm0.x * (10+myranddzzz); // size
+				circ_y[i][ii]=gpmm0.y * (10+myranddzzz);
+				circ_z[i][ii]=gpmm0.z * (10+myranddzzz);
+			}
+		
+		}
+			
+		linecircs=c_num;//200;
+		for (var i = 0; i < linecircs; i++)
+		{
+			var palz=my_random(pal_num);
+			cc_r[i]=pal_r[palz];
+			cc_g[i]=pal_g[palz];
+			cc_b[i]=pal_b[palz];
+			
+			
+			cc_th1[i] = my_random(16)+1;
+			cc_th2[i] = cc_th1[i] + my_random(64)+4;
+			
+			cc_sprite[i]= my_random(5);
+			cc_sprite_size[i]= my_random(25);
+		}
+		
+		line_timeout=my_random(3)+1;
+		render_timeout=2;//line_timeout + 1 + my_random(3);
+		
+		c_multi=0;
+		
+		myanim=1;
+	} // end init myanim =0
+	
+	
+
+	//g1++;
+	//if(g1>255){g1=0;}
+
+if(time_out==0)
+{
+for (var ii = 0; ii < 140; ii++) //draw faster - more
+{	
+
+
+
+	 
+	c_step++; // render step: what cube?
+	if(c_step >= c_num){c_step=0;}
+	
+ 
+	c_step2++;
+	if(c_step2 >= linecircs){c_step2=0;}
+	
+	
+	c_type_pos[c_step] +=cg_step1[c_step]; ///!!!!!!
+	c_type_pos2[c_step2]+=cg_step2[c_step2]; ///!!!!!!
+
+	//stepper full circ or shorter
+	if(c_type_pos[c_step] >=  ((circ_size-1000)<<0) ){ c_type_pos[c_step]=0; }//-3000 ///!!!!!
+	if(c_type_pos2[c_step2]>=  ((circ_size-1000)<<0) ){ c_type_pos2[c_step2]=0; }
+	
+
+	var cpos=c_type_pos[c_step];//circ_cpos[wcirc][cpos];//my_random(circ_size);
+	var cpos2=c_type_pos2[c_step2];//circ_cpos[wcirc][cpos];//my_random(circ_size);
+	
+	
+	var wcirc=c_type[c_step];
+
+	//circ_cpos[wcirc][cpos]++;
+
+	c_x[c_step] = circ_x[wcirc][cpos];//+my_random_minplus_float(0.1);
+	c_y[c_step] = circ_y[wcirc][cpos];//+my_random_minplus_float(0.1);
+	c_z[c_step] = circ_z[wcirc][cpos];//+my_random_minplus_float(0.1); 			
+	 
+
+
+	if(c_rotator[c_step]==0)
+	{
+		c_rx[c_step]+=cg_rota_x1;// !!!
+		c_ry[c_step]+=cg_rota_y1;
+		c_rz[c_step]+=cg_rota_z1;
+	}
+	
+
+	//sprites
+	var wcirc2=wcirc+1;				
+	if(wcirc2>=circ_num){wcirc2=0;}
+	
+	c_x1[c_step2] = ((circ_x[wcirc][cpos2])*0.05);//+my_random_minplus_float(1)
+	c_y1[c_step2] = ((circ_y[wcirc][cpos2])*0.05);
+	c_z1[c_step2] = ((circ_z[wcirc][cpos2])); 
+	
+
+	var pm0= vector4(c_x1[c_step2], c_y1[c_step2], c_z1[c_step2], 1); 
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	
+	var nx1=(pm0.x)<<0;
+	var ny1=(pm0.y)<<0;
+
+	var zize= cc_sprite_size[c_step2]; 
+	//var zx1=my_random(im_w);
+	//var zy1=my_random(im_h);
+	 
+	//var colzzz= my_random(pal_num);
+	var zr1=cc_r[c_step2];//pal_r[colzzz];
+	var zg1=cc_g[c_step2];//pal_g[colzzz];
+	var zb1=cc_b[c_step2];//pal_b[colzzz];
+	
+	
+
+	draw_dsprite(zize,nx1,ny1, zr1,zg1,zb1, im_w,im_h, pix_r, pix_g, pix_b);//,buf_a) 
+	
+	
+	
+	
+	if(dodrawline<cc_th1[c_step2] && c_timesrendered<line_timeout)
+	{
+
+		var wcirc2=wcirc+1;				
+		if(wcirc2>=circ_num){wcirc2=0;}
+	
+		c_x1[c_step2] = ((circ_x[wcirc][cpos2])*0.05);//+my_random_minplus_float(1)
+		c_y1[c_step2] = ((circ_y[wcirc][cpos2])*0.05);
+		c_z1[c_step2] = ((circ_z[wcirc][cpos2])); 
+	
+		c_x2[c_step2] = ((circ_x[wcirc2][cpos2])*0.05);
+		c_y2[c_step2] = ((circ_y[wcirc2][cpos2])*0.05);
+		c_z2[c_step2] = ((circ_z[wcirc2][cpos2]));
+	
+
+		var dsp= cc_sprite[c_step2];
+		var dspsize = cc_sprite_size[c_step2];
+		
+		//zbuf lines
+		g_drawline_zbuf01(dsp,dspsize, c_x1[c_step2], c_y1[c_step2], c_z1[c_step2],  
+							c_x2[c_step2], c_y2[c_step2], c_z2[c_step2], 
+							cc_r[c_step2], cc_g[c_step2], cc_b[c_step2], 
+							im_w, im_h, pix_r, pix_g,pix_b); 
+		
+	}	
+	
+	dodrawline++;
+	if(dodrawline>cc_th2[c_step2]){dodrawline=0;}
+	
+
+	// now draw the cubes
+	/*
+	//if (c_y[c_step]>-10) // not too close!!
+	//{
+		min_max_xy = [im_w,0,im_h, 0]; 
+
+		go_cub_more(c_x[c_step],c_y[c_step],c_z[c_step], 
+				c_sx[c_step],c_sy[c_step],c_sz[c_step],
+				c_rx[c_step],c_ry[c_step],c_rz[c_step],
+				c_r[c_step],c_g[c_step],c_b[c_step],
+				c_trans[c_step],
+				min_max_xy,wview, c_type_model[c_step]); 
+				
+				
+
+				
+	
+		filter_do_grey_part(3,im_w,im_h, min_max_xy, pix_zcheck, pix_check2);
+	
+		go_cub_drawlines(c_x[c_step],c_y[c_step],c_z[c_step], 
+					 c_sx[c_step],c_sy[c_step],c_sz[c_step],
+					 c_rx[c_step],c_ry[c_step],c_rz[c_step],
+					 wview,  255,pix_check2);
+					 
+					 
+	
+		var x1=min_max_xy[0]-2; 
+		var x2=min_max_xy[1]+2;
+		var y1=min_max_xy[2]-2; 
+		var y2=min_max_xy[3]+2;
+	
+		for (var j = y1; j < y2 ; j++)
+		{		
+			for (var i = x1; i < x2 ; i++)
+			{
+				p=(j*im_w)+i;
+				if(pix_zcheck[p]==1) // we can draw 
+				{
+					if(pix_check2[p]==255)  // outline
+					{
+						pix_r[p]= 0; 
+						pix_g[p]= 0; 
+						pix_b[p]= 0; 
+					}	 
+				}
+			}	
+		}
+
+		*/
+				
+				
+	//}	
+	 
+	 
+	 
+
+		
+
+
+} // end faster
+}
+
+	if(c_rendermode==0)
+	{
+		toscreen_render(); // scale down image
+	}
+
+}
+
+
+
+function go_cub_more(tx,ty,tz, sx,sy,sz, rx,ry,rz, r,g,b, trans, min_max_xy, wview,dd)
+{
+	var pal=my_random(pal_num);
+	
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+		
+		if(z1>dd && z2>dd && z3>dd) // !!! instead of cube also flat
+		{
+		
+
+		// Normals
+		var nx1=sc_trinorm[dope]; var ny1=sc_trinorm[dope+1]; var nz1=sc_trinorm[dope+2];
+		var nnorm = mat_multi_v4(wview, vector4(nx1, ny1, nz1, 0)); // rotate 'normal'
+		var light=vector4(light_x, light_y, light_z);
+		light.normalize();
+		nnorm.normalize();
+		var angl= (nnorm.dot(light)+1) /2; // lightning between 0 and 1 now 
+			
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+		
+		var trascaro=go_do_matrix(tx,ty,tz,  rx,ry,rz, sx,sy,sz); // trans / rot / scale
+		
+		var gpmm0 = mat_multi_v4(trascaro,gp0); // do matrix; rotation etc.
+		var gpmm1 = mat_multi_v4(trascaro,gp1);
+		var gpmm2 = mat_multi_v4(trascaro,gp2);	
+		
+		var gpm0 = mat_multi_v4(wview,gpmm0); // do matrix; rotation etc. add view matrix
+		var gpm1 = mat_multi_v4(wview,gpmm1);
+		var gpm2 = mat_multi_v4(wview,gpmm2);
+		
+		//if(trans==0)
+		//{
+			if(gpm0.z>0 && gpm1.z>0 && gpm2.z>0)
+			{
+				go_cub_draw(gpm0, gpm1, gpm2, min_max_xy,angl, r,g,b);
+			}
+		//}
+		
+		//else {go_cub_draw_trans(gpm0, gpm1, gpm2, min_max_xy,angl, r,g,b);}
+	}	
+	}
+	
+}
+
+
+
+function go_cub_draw(pm0, pm1, pm2, min_max,angle,r,g,b)
+{
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0= pm0.x; var y0= pm0.y; var x1= pm1.x; var y1= pm1.y; var x2= pm2.x; var y2= pm2.y;
+                
+	var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+	var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+	var edgec0= delta_y0 * x0 - delta_x0 * y0; // edge constant
+	var edgec1= delta_y1 * x1 - delta_x1 * y1;
+	var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+	if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+	if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+	if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+	var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+	var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+	var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+	var denominator= delta_x1*delta_y2 - delta_y1*delta_x2 ;
+	
+	for (var y= min_y; y<= max_y; y++)
+	{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+        
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// && oob checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5 && x>-1 && x<im_w && y>-1 && y<im_h) 
+			{
+				
+				if (denominator == 0.0){ denominator=1; } // no divide by 0
+
+				var t0= ( delta_y1*(x-x2)-delta_x1*(y-y2) ) / denominator; // barycentric 
+				var t1= ( delta_y2*(x-x2)-delta_x2*(y-y2) ) / denominator;
+				var t2= 1.0 - t0 - t1;
+
+				var new_z = pm0.z * t0 + pm1.z * t1 + pm2.z * t2;
+
+				var pos= ytable_im_w[y]+x;
+				var my_z = new_z * 255;
+			
+				if ( my_z <= pix_z[pos] )
+				{
+					pix_z[pos] = my_z;	// set new depth 
+					//test=my_z;// 252-230
+
+					pix_zcheck[pos]=1; // we can draw 
+					pix_r[pos]= (r*angle)<<0;
+					pix_g[pos]= (g*angle)<<0;
+					pix_b[pos]= (b*angle)<<0; 
+				}
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+	}
+}
+
+
+function go_cub_draw_trans(pm0, pm1, pm2, min_max,angle,r,g,b)
+{
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0= pm0.x; var y0= pm0.y; var x1= pm1.x; var y1= pm1.y; var x2= pm2.x; var y2= pm2.y;
+                
+	var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+	var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+	var edgec0= delta_y0 * x0 - delta_x0 * y0; // edge constant
+	var edgec1= delta_y1 * x1 - delta_x1 * y1;
+	var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+	if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+	if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+	if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+	var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+	var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+	var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+	var denominator= delta_x1*delta_y2 - delta_y1*delta_x2 ;
+	
+	for (var y= min_y; y<= max_y; y++)
+	{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+        
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// && oob checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5 && x>-1 && x<im_w && y>-1 && y<im_h) 
+			{
+				
+				if (denominator == 0.0){ denominator=1; } // no divide by 0
+
+				var t0= ( delta_y1*(x-x2)-delta_x1*(y-y2) ) / denominator; // barycentric 
+				var t1= ( delta_y2*(x-x2)-delta_x2*(y-y2) ) / denominator;
+				var t2= 1.0 - t0 - t1;
+
+				var new_z = pm0.z * t0 + pm1.z * t1 + pm2.z * t2;
+
+				var pos= ytable_im_w[y]+x;
+				var my_z = new_z * 255;
+			
+				if ( my_z <= pix_z[pos] )
+				{
+					pix_z[pos] = my_z;	// set new depth 
+
+					pix_zcheck[pos]=1; // we can draw 
+					pix_r[pos]=((pix_r[pos]+(r*angle))/2)<<0;
+					pix_g[pos]=((pix_g[pos]+(g*angle))/2)<<0;
+					pix_b[pos]=((pix_b[pos]+(b*angle))/2)<<0; 
+				}
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+	}
+}
+
+
+function go_cub_drawlines(tx,ty,tz, sx,sy,sz, rx,ry,rz, wview, col, pix_g) 
+{
+	
+	var min_max_xy = [im_w,0,im_h, 0];
+	
+	// now do all triangles. 
+	for (var i = 0; i <  sc_triz;  i++)  // triangle list   sc_triz
+	{
+		var dope = i*3;
+		var pp1 = sc_tri[dope]; var pp2 = sc_tri[dope+1]; var pp3 = sc_tri[dope+2];
+				
+		var x1 = sc_x[pp1]; var y1 = sc_y[pp1]; var z1 = sc_z[pp1];	
+		var x2 = sc_x[pp2]; var y2 = sc_y[pp2]; var z2 = sc_z[pp2];
+		var x3 = sc_x[pp3]; var y3 = sc_y[pp3]; var z3 = sc_z[pp3];
+				
+		var gp0= vector4(x1, y1, z1, 1); 
+		var gp1= vector4(x2, y2, z2, 1); 
+		var gp2= vector4(x3, y3, z3, 1);
+			
+		var trascaro=go_do_matrix(tx,ty,tz,  rx,ry,rz, sx,sy,sz); // trans / rot / scale
+		
+		var gpmm0 = mat_multi_v4(trascaro,gp0); // do matrix; rotation etc.
+		var gpmm1 = mat_multi_v4(trascaro,gp1);
+		var gpmm2 = mat_multi_v4(trascaro,gp2);	
+		
+	
+		var gpm0 = mat_multi_v4(wview,gpmm0); // do matrix; rotation etc. view 
+		var gpm1 = mat_multi_v4(wview,gpmm1);
+		var gpm2 = mat_multi_v4(wview,gpmm2);
+	
+		draw_visilines_draw3b(3, gpm0, gpm1, gpm2, min_max_xy, dope, col,pix_g);
+
+	}	
+
+}
+
+
+
+
+function draw_visilines_draw3b(mode,pm0, pm1, pm2, min_max, dope, col,  pix_grey) 
+{
+	// mode 0: all lines -- mode 1: all visable lines -- mode 2: : all inverse visable lines
+	// 	
+	pm0 = pm0.screenxy(pm0,im_w,im_h);
+	pm1 = pm1.screenxy(pm1,im_w,im_h);
+	pm2 = pm2.screenxy(pm2,im_w,im_h);
+	
+	var min_x= Math.round( Math.min( Math.min( pm0.x, pm1.x), pm2.x ) );
+	var max_x= Math.round( Math.max( Math.max( pm0.x, pm1.x), pm2.x ) );
+	var min_y= Math.round( Math.min( Math.min( pm0.y, pm1.y), pm2.y ) );
+	var max_y= Math.round( Math.max( Math.max( pm0.y, pm1.y), pm2.y ) );
+	
+	if (min_x <= min_max[0]){min_max[0]=min_x;}
+	if (max_x >= min_max[1]){min_max[1]=max_x;}
+	if (min_y <= min_max[2]){min_max[2]=min_y;}
+	if (max_y >= min_max[3]){min_max[3]=max_y;}
+	     
+	var x0=pm0.x; var y0=pm0.y; var x1=pm1.x; var y1=pm1.y; var x2=pm2.x; var y2=pm2.y;
+	
+	x0=Math.round(x0);	y0=Math.round(y0);
+	x1=Math.round(x1);	y1=Math.round(y1);
+	x2=Math.round(x2);	y2=Math.round(y2);
+	
+
+	if ( mode == 3   )
+	{
+		// visible faces - and visible lines / inverse visible lines
+		var domode=1;
+		//if( mode == 4){ domode=0;}
+		
+		var delta_x0= x0 - x1; var delta_x1= x1 - x2; var delta_x2= x2 - x0;
+		var delta_y0= y0 - y1; var delta_y1= y1 - y2; var delta_y2= y2 - y0;
+	
+		var edgec0= delta_y0 * x0 - delta_x0 * y0;
+		var edgec1= delta_y1 * x1 - delta_x1 * y1;
+		var edgec2= delta_y2 * x2 - delta_x2 * y2;
+
+		if (delta_y0 < 0.0 || (delta_y0 == 0.0 && delta_x0 > 0.0)) ++edgec0; 
+		if (delta_y1 < 0.0 || (delta_y1 == 0.0 && delta_x1 > 0.0)) ++edgec1;
+		if (delta_y2 < 0.0 || (delta_y2 == 0.0 && delta_x2 > 0.0)) ++edgec2;
+
+		var edges0= edgec0 + delta_x0 * min_y - delta_y0 * min_x; // edge start
+		var edges1= edgec1 + delta_x1 * min_y - delta_y1 * min_x;
+		var edges2= edgec2 + delta_x2 * min_y - delta_y2 * min_x;
+
+		var drawface=false;
+	
+		for (var y= min_y; y<= max_y; y++)
+		{
+		var edge0= edges0; var edge1= edges1; var edge2= edges2;
+		
+		for(var x= min_x; x<= max_x; x++)
+        {
+			// checking
+			if (edge0>0.5 && edge1>0.5 && edge2>0.5) 
+			{
+				drawface=true; 
+				break;
+			}
+			edge0 -= delta_y0; edge1 -= delta_y1; edge2 -= delta_y2;
+		}
+		if(drawface==true){break;} // break out of the loop
+		edges0+= delta_x0; edges1+= delta_x1; edges2+= delta_x2;
+		}
+	
+		if(drawface==true)
+		{	
+		x0=Math.round(x0);	y0=Math.round(y0);
+		x1=Math.round(x1);	y1=Math.round(y1);
+		x2=Math.round(x2);	y2=Math.round(y2);
+	
+		if(sc_triline[dope]==domode)  {g_drawline3(x0, y0, x1, y1, col, im_w, im_h, pix_grey);}
+		if(sc_triline[dope+1]==domode){g_drawline3(x1, y1, x2, y2, col, im_w, im_h, pix_grey);}
+		if(sc_triline[dope+2]==domode){g_drawline3(x0, y0, x2, y2, col, im_w, im_h, pix_grey);}
+		}
+	
+	} //end else
+		
+ 	
+}
+
+//   matrix  // translate  rotate scale 
+function go_do_matrix(tx,ty,tz,rx,ry,rz,sx,sy,sz)
+{
+	var mro_x = get_rotx_mat(rx); // do rotation
+	var mro_y = get_roty_mat(ry);
+	var mro_z = get_rotz_mat(rz);
+	
+	var mro_xy = mat_multi(mro_x, mro_y);
+	var mro_xyz = mat_multi(mro_xy, mro_z);
+
+	var mytrans_mat = get_trans_mat(tx,ty,tz);
+	
+	var myscale_mat = get_scale_mat(sx,sy,sz); // do scale
+
+	var myrotsca_mat=mat_multi(mytrans_mat,mro_xyz); // add the mats different, and you have total different results! 
+	
+	var myrotscatran_mat=mat_multi(myrotsca_mat,myscale_mat); // final matrix
+	
+	return new Float32Array(myrotscatran_mat);
+}
+
+//   matrix  // translate  rotate scale 
+function go_do_matrix_rot(rx,ry,rz)
+{
+	var mro_x = get_rotx_mat(rx); // do rotation
+	var mro_y = get_roty_mat(ry);
+	var mro_z = get_rotz_mat(rz);
+	
+	var mro_xy = mat_multi(mro_x, mro_y);
+	var mro_xyz = mat_multi(mro_xy, mro_z);
+	
+	return new Float32Array(mro_xyz);
+}
+
+// get viewing matrix 
+function get_view_matrix2() 
+{	
+	var aspect = im_w / im_h;
+	var mypers_mat = get_perspective_mat( degree_to_radian(95.0), aspect, 1.0, 126.0); 
+	var mylookat_mat= get_lookat_mat( my_cam, vector3(0,0, 2), vector3( 0, 1,0));
+	var wview= mat_multi(mypers_mat, mylookat_mat);
+	 
+	return new Float32Array(wview);
+}
+
+
+
+function g_drawline_zbuf01(dspriter,dspritersize, x1, y1,z1, x2, y2, z2, r,g,b, imw, imh, buf_r, buf_g,buf_b)
+{
+	
+	var zz1=z1;
+	var zz2=z2;
+
+	var pm0= vector4(x1, y1, z1, 1); 
+	var pm1= vector4(x2, y2, z2, 1);
+	 
+	pm0 = pm0.screenxy(pm0,imw,imh);
+	pm1 = pm1.screenxy(pm1,imw,imh);
+
+
+	var nx1=(pm0.x)<<0;
+	var ny1=(pm0.y)<<0;
+	
+	var nx2=(pm1.x)<<0;
+	var ny2=(pm1.y)<<0;
+	
+	if(dspriter==0)
+	{
+		var zize= dspritersize; 
+		var zx1=nx1;//my_random(im_w);
+		var zy1=ny1;//my_random(im_h);
+	
+		//var colzzz= my_random(pal_num);
+		var zr1=r;//pal_r[colzzz];
+		var zg1=g;//pal_g[colzzz];
+		var zb1=b;//pal_b[colzzz];
+
+		//draw_dsprite(zize,zx1,zy1, zr1,zg1,zb1, im_w,im_h, pix_r, pix_g, pix_b);//,buf_a) 
+	}
+	
+
+	var pixnum=0;
+	
+	var pix_x = new Array();
+	var pix_y = new Array();
+
+	
+	
+	var dx = Math.abs(nx2 - nx1);
+	var dy = Math.abs(ny2 - ny1);
+	
+	var sx = (nx1 < nx2) ? 1 : -1; 
+	var	sy = (ny1 < ny2) ? 1 : -1; 
+
+	var er = (dx>dy ? dx : -dy)/2;
+	
+	
+	while (true)
+	{
+		var p=nx1+(ny1* imw);
+		
+		pix_x[pixnum] = nx1;
+		pix_y[pixnum] = ny1;
+		pixnum++;
+ 
+		if (nx1 === nx2 && ny1 === ny2) break;
+		var e2 = er;
+		if (e2 > -dx){er -= dy; nx1 += sx;}
+		if (e2 <  dy){er += dx; ny1 += sy;}
+	}
+	
+	
+	var zsiz=((zz2-zz1)/pixnum);
+	
+	//if(nx1>-1 && nx2>-1 && nx1<imw && nx2<imw && ny1>-1 && ny2>-1 && ny1<imh && ny2<imh)
+	//{
+		for(var i=0; i< pixnum; i++)
+        {
+			if(pix_x[i]>-1 && pix_x[i]<imw && pix_y[i]>-1 && pix_y[i]<imh)
+			{		
+			var nz=(zsiz*i)+245;
+			
+			//var pos=(pix_y[i]*imw)+pix_x[i];
+			var pos=(ytable_im_w[pix_y[i]])+pix_x[i];
+			
+			if ( nz <  pix_z[pos] )
+			{
+				//test=nz; //-0.9 0.5
+				pix_z[pos] = nz;	// set new depth 					
+					
+				buf_r[pos] = (((r*9)-(buf_r[pos]))/10)<<0;
+				buf_g[pos] = (((g*9)-(buf_g[pos]))/10)<<0;		
+				buf_b[pos] = (((b*9)-(buf_b[pos]))/10)<<0;	
+			}	
+			}
+		}
+	
+	
+}
+
+function graph_drawpoint3xx(x,y, w, h, col, buf_r)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+			buf_r[(y*w)+x]=col;
+	}	
+}
+
+
+
+
+// plasma sprites
+function init_dsprites(mode) 
+{
+
+	var p=2;  
+	
+	for (var k = 0; k < dsprites; k++) // 25
+	{
+		
+		if(mode==0)
+		{
+			for (var i = 0; i < p*p; i++)
+			{	
+				dsprite_01[k][i] = 255;
+			}
+			p+=2;
+		}
+		
+		if(mode==1)
+		{
+			
+			for (var j = 0; j < p; j++)
+			{	
+				for (var i = 0; i < sprite_cbuf; i=i+2)
+				{
+					var x1= Math.round( ((p_ccos2[i]*0.5)*j) + p/2);
+					var y1= Math.round( ((p_csin2[i]*0.5)*j) + p/2); 
+					//test=x1;
+					var pos=(y1*p)+x1;
+					if(x1>-1 && y1>-1 && x1 < p && y1 < p)
+					{
+						var nalp = 255 - ( (((255/p) * j))  <<0);
+						
+						dsprite_01[k][pos] = nalp;
+						
+					}					
+				}
+			}
+			p+=2;
+		}	
+		
+	}
+	
+}
+
+function draw_dsprite(size,x,y,r,g,b, w,h,buf_r,buf_g,buf_b)//,buf_a) 
+{
+	var hle=size+1;
+	var le = (hle)*2; //  2 4 6 8 10 15=32
+	
+	for (var j = 0; j < le; j++)
+	{
+		for (var i = 0; i < le; i++)
+		{	
+			var p1= (j*le) + i;
+			
+			var a = dsprite_01[size][p1];
+			//test=a;
+			var nx = x + i - hle;
+			var ny = y + j - hle;
+			//var tema=buf_a[]
+			if(a>0)
+			{
+				//graph_drawpoint4minz( nx,ny, r,g,b,a, w, h,  buf_r, buf_g, buf_b);//, buf_a);
+				graph_drawpoint4d( nx,ny, r,g,b,a, w, h, buf_r, buf_g, buf_b);//, buf_a);
+				
+				//graph_drawpoint4c( x,y, r,g,b,a, w, h, buf_r, buf_g, buf_b, buf_a)
+				
+				
+				//graph_drawpoint4( nx,ny, r,g,b,a, w, h, ytable_im_w,  buf_r, buf_g, buf_b, buf_a);
+	
+			}
+		}
+	}
+}
+
+function graph_drawpoint4d( x,y, r,g,b,a, w, h, buf_r, buf_g, buf_b)//, buf_a)
+{
+	if(x>-1 && y>-1 && x<w && y<h) // still oob check 
+	{
+		var p= (y*w)+x;
+		//if(r>0 || g>0 || b>0)
+		//{
+		//if(buf_a[p]==0)
+		//{	
+		//	buf_a[p]= buf_a[p] +  a/2 << 0;
+		//}
+		//else
+		//{
+			var tr1=(255-buf_r[p])+1;
+			var tg1=(255-buf_g[p])+1;
+			var tb1=(255-buf_b[p])+1;
+			
+			buf_r[p]= (((r*a)/tr1)+buf_r[p])/2;//(buf_r[p] + ((r*a)/255) )<<0;
+			buf_g[p]=(((g*a)/tg1)+buf_g[p])/2;//(buf_g[p] + ((g*a)/255) )<<0;
+			buf_b[p]=(((b*a)/tb1)+buf_b[p])/2;//(buf_b[p] + ((b*a)/255) )<<0;		
+			//buf_a[p]=(buf_a[p] + a) <<0;			
+		//}
+		
+		//}
+	}
+}
+/*
+function draw_dsprite_min(size,x,y,r,g,b, w,h,buf_r,buf_g,buf_b,buf_a) 
+{
+	var hle=size+1;
+	var le = (hle)*2; //  2 4 6 8 10 15=32
+	
+	for (var j = 0; j < le; j++)
+	{
+		for (var i = 0; i < le; i++)
+		{	
+			var p1= (j*le) + i;
+			
+			var a = dsprite_01[size][p1];
+			
+			var nx = x + i - hle;
+			var ny = y + j - hle;
+			//var tema=buf_a[]
+			if(a>0)
+			{
+				//graph_drawpoint4b( nx,ny, r,g,b,a, w, h, ytable_im_w,  buf_r, buf_g, buf_b, buf_a);
+				graph_drawpoint4minz( nx,ny, r,g,b,a, w, h, buf_r, buf_g, buf_b, buf_a);
+				//graph_drawpoint4( nx,ny, r,g,b,a, w, h, ytable_im_w,  buf_r, buf_g, buf_b, buf_a);
+	
+			}
+		}
+	}
+}
+
+
+
+function graph_drawpoint4minz( x,y, r,g,b,a, w, h, buf_r, buf_g, buf_b, buf_a)
+{
+	if(x>-1 && y>-1 && x<w && y<h) // still oob check 
+	{
+		var p= (y*w)+x;
+		
+		if(buf_a[p]==0)
+		{	
+			buf_a[p]= buf_a[p] +  a/2 << 0;
+		}
+		else
+		{
+			buf_r[p]=(buf_r[p] - ((r*a)/255) )<<0;
+			buf_g[p]=(buf_g[p] - ((g*a)/255) )<<0;
+			buf_b[p]=(buf_b[p] - ((b*a)/255) )<<0;		
+			buf_a[p]=(buf_a[p] + a) <<0;			
+		}	
+	}
+}*/
+
+// -----------------------------------render to screen!----------------------------
+function toscreen_render()
+{	
+	if(renderstepper==0)
+	{
+		var stepr_x =(im_w / pix_screen_w);  
+		var stepr_y =(im_h / pix_screen_h);
+	
+		//sampling org texture
+		x_step = new Array(pix_screen_w*pix_screen_h);
+		y_step = new Array(pix_screen_w*pix_screen_h);
+			
+		for (var j = 0; j < pix_screen_h; j++)  
+		{
+			for (var i = 0; i <pix_screen_w; i++) 
+			{
+				var p1=(j*pix_screen_w)+i;
+
+				var ii =(i*stepr_x)<<0;
+				var ii2=((i+1)*stepr_x)<<0;
+
+				var jj=(j*stepr_y)<<0;
+				var jj2=((j+1)*stepr_y)<<0;
+				
+				x_step[p1] = ii2-ii;
+				y_step[p1] = jj2-jj;	
+			}
+		}
+		renderstepper=1;
+	}	
+	if(renderstepper==1)
+	{	
+			
+		var stepr_x =(im_w/pix_screen_w);
+		var stepr_y =(im_h/pix_screen_h);
+			
+		//yline_pos=0;
+		var newy=yline_pos+4; // render now in steps of 8
+		var lastlines=false;
+		if( newy > pix_screen_h-1)
+		{
+			newy = pix_screen_h;
+			lastlines=true;
+		}
+			
+		for (var j = yline_pos; j < newy; j++) // 
+		{
+			for (var i = 0; i < pix_screen_w; i++) 
+			{
+
+					var p0=(j*pix_screen_w)+i; // step buff			
+					//var p1=(j*pix_screen_w)+i;
+				
+					var ii=(i*stepr_x)<<0;
+					var jj=(j*stepr_y)<<0;
+					var p2=(jj*im_w)+ii;
+				
+					var r1=pix_r[p2];
+					var g1=pix_g[p2];
+					var b1=pix_b[p2];
+					var dc=1;
+
+					for (var cj = 0; cj < (y_step[p0]); cj++) 
+					{				
+						for (var ci = 0; ci < (x_step[p0]); ci++) 
+						{
+							var tpos=(p2+ci) +(cj*im_w);
+							r1 += pix_r[tpos];
+							g1 += pix_g[tpos];
+							b1 += pix_b[tpos];
+							dc++;
+						}
+					}
+				
+					pix_screen_r[p0]= (r1/dc)<<0;
+					pix_screen_g[p0]= (g1/dc)<<0;
+					pix_screen_b[p0]= (b1/dc)<<0;
+
+			}
+		} 
+		if(lastlines==true)	
+		{
+				yline_pos=0;
+				//renderstepper=0;
+				c_timesrendered++;
+				if(c_timesrendered==render_timeout)
+				{
+					time_out=1;
+					//myanim=0;c_timesrendered=0;
+				}
+				if(c_timesrendered>6)//12
+				{
+					if (do_once==0){fxpreview();do_once=1;}
+				}
+				
+				if(c_timesrendered>8)//12
+				{
+					time_out=0;
+					myanim=0;
+					c_timesrendered=0;
+				}				
+				
+				
+		}
+		else{yline_pos=newy;}			
+			
+	}
+}
+
+// --------------palet----------------------------------------------------
+
+function palet_init(go)
+{
+ 
+		go = my_random(3);//  choose a dif palette combi
+		
+		if(go==0)  // 1 col + grey
+		{
+
+			pal_num=0;
+
+			pal_r[pal_num] = my_random(255);
+			pal_g[pal_num] = my_random(255);
+			pal_b[pal_num] = my_random(255);
+			if(pal_g[pal_num]> pal_r[pal_num] && pal_g[pal_num]> pal_b[pal_num])
+			{
+				pal_r[pal_num] = my_random(255);
+				pal_g[pal_num] = my_random(255);
+				pal_b[pal_num] = my_random(255);	
+			}
+			
+			var tt=pal_num;
+			if(pal_r[pal_num]<100 && pal_g[pal_num]<100  && pal_b[pal_num]<100)	
+			{
+				pal_r[pal_num] = 255-pal_r[pal_num];
+				pal_g[pal_num] = 255-pal_g[pal_num];
+				pal_b[pal_num] = 255-pal_b[pal_num];
+			}						
+			pal_num++;
+			
+			for (var i = 1; i < 6; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}	
+						
+			//grey
+			pal_r[pal_num] =  220;
+			pal_g[pal_num] =  pal_r[pal_num];
+			pal_b[pal_num] =  pal_r[pal_num];
+			tt=pal_num;
+			pal_num++;					
+			
+			for (var i = 1; i < 4; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*40);
+				pal_g[pal_num] = pal_g[tt]-(i*40);
+				pal_b[pal_num] = pal_b[tt]-(i*40);
+				pal_num++;	
+			}
+			
+			pal_r[pal_num] =  20;
+			pal_g[pal_num] =  pal_r[pal_num];
+			pal_b[pal_num] =  pal_r[pal_num];
+			tt=pal_num;
+			pal_num++;					
+			
+			for (var i = 1; i < 4; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]+(i*16);
+				pal_g[pal_num] = pal_g[tt]+(i*16);
+				pal_b[pal_num] = pal_b[tt]+(i*16);
+				pal_num++;	
+			}					
+		}
+		
+		if(go==1)  //   2 col + grey // flipped r-g-b
+		{
+			pal_num=0;
+
+			pal_r[pal_num] = my_random(255);
+			pal_g[pal_num] = my_random(255);
+			pal_b[pal_num] = my_random(255);
+			if(pal_g[pal_num]> pal_r[pal_num] && pal_g[pal_num]> pal_b[pal_num])
+			{
+				pal_r[pal_num] = my_random(255);
+				pal_g[pal_num] = my_random(255);
+				pal_b[pal_num] = my_random(255);	
+			}
+			var tt=pal_num;
+			if(pal_r[pal_num]<100 && pal_g[pal_num]<100  && pal_b[pal_num]<100)	
+			{
+				pal_r[pal_num] = 255-pal_r[pal_num];
+				pal_g[pal_num] = 255-pal_g[pal_num];
+				pal_b[pal_num] = 255-pal_b[pal_num];
+			}
+			test+= "go1- r1: "+pal_r[pal_num]+
+			" g1: "+pal_g[pal_num]+" b1: "+pal_b[pal_num]; 
+			
+			pal_num++;
+			
+			for (var i = 1; i < 6; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}
+			
+	 		var ran=my_random(3);
+			if(ran==0) // flip r and g
+			{
+				var temp=pal_r[tt];
+				pal_r[pal_num] = pal_g[tt];
+				pal_g[pal_num] = temp;		
+				pal_b[pal_num] = pal_b[tt];		
+			}
+			else if(ran==1) // flip r and b
+			{
+				var temp=pal_r[tt];
+				pal_r[pal_num] = pal_b[tt];
+				pal_g[pal_num] = pal_g[tt];		
+				pal_b[pal_num] = temp;		
+			}
+			else if(ran==2) // flip g and b
+			{
+				var temp=pal_g[tt];
+				pal_r[pal_num] = pal_r[tt];
+				pal_g[pal_num] = pal_b[tt];		
+				pal_b[pal_num] = temp;		
+			}
+			tt=pal_num; // rgb no 0 and 6
+			
+			test+= " - r2: "+pal_r[pal_num]+
+			" g2: "+pal_g[pal_num]+" b2: "+pal_b[pal_num]; 
+			
+			 
+			
+			pal_num++;
+
+			for (var i = 1; i < 6; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}
+
+			
+			//grey
+			pal_r[pal_num] =  240;
+			pal_g[pal_num] =  pal_r[pal_num];
+			pal_b[pal_num] =  pal_r[pal_num];
+			tt=pal_num;
+			pal_num++;					
+			
+			for (var i = 1; i < 4; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*50);
+				pal_g[pal_num] = pal_g[tt]-(i*50);
+				pal_b[pal_num] = pal_b[tt]-(i*50);
+				pal_num++;	
+			}
+			
+			pal_r[pal_num] =  20;
+			pal_g[pal_num] =  pal_r[pal_num];
+			pal_b[pal_num] =  pal_r[pal_num];
+			tt=pal_num;
+			pal_num++;					
+			
+			for (var i = 1; i < 4; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]+(i*16);
+				pal_g[pal_num] = pal_g[tt]+(i*16);
+				pal_b[pal_num] = pal_b[tt]+(i*16);
+				pal_num++;	
+			}	
+		}
+
+		if(go==2)  //   2 ran col + grey  
+		{
+			pal_num=0;
+
+			pal_r[pal_num] = my_random(255);
+			pal_g[pal_num] = my_random(255);
+			pal_b[pal_num] = my_random(255);
+			if(pal_g[pal_num]> pal_r[pal_num] && pal_g[pal_num]> pal_b[pal_num])
+			{
+				pal_r[pal_num] = my_random(255);
+				pal_g[pal_num] = my_random(255);
+				pal_b[pal_num] = my_random(255);	
+			}			
+			var tt=pal_num;
+			if(pal_r[pal_num]<100 && pal_g[pal_num]<100  && pal_b[pal_num]<100)	
+			{
+				pal_r[pal_num] = 255-pal_r[pal_num];
+				pal_g[pal_num] = 255-pal_g[pal_num];
+				pal_b[pal_num] = 255-pal_b[pal_num];
+			}	
+			test+= "go2- r1: "+pal_r[pal_num]+
+			" g1: "+pal_g[pal_num]+" b1: "+pal_b[pal_num]; 
+			pal_num++;
+			
+			for (var i = 1; i < 6; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}
+			
+			
+			pal_r[pal_num] = my_random(255);
+			pal_g[pal_num] = my_random(255);
+			pal_b[pal_num] = my_random(255);
+			if(pal_g[pal_num]> pal_r[pal_num] && pal_g[pal_num]> pal_b[pal_num])
+			{
+				pal_r[pal_num] = my_random(255);
+				pal_g[pal_num] = my_random(255);
+				pal_b[pal_num] = my_random(255);	
+			}
+			if(pal_r[pal_num]<100 && pal_g[pal_num]<100  && pal_b[pal_num]<100)	
+			{
+				pal_r[pal_num] = 255-pal_r[pal_num];
+				pal_g[pal_num] = 255-pal_g[pal_num];
+				pal_b[pal_num] = 255-pal_b[pal_num];
+			}
+			tt=pal_num;
+			
+			test+= " - r2: "+pal_r[pal_num]+
+			" g2: "+pal_g[pal_num]+" b2: "+pal_b[pal_num]; 
+			
+			//alert('oi: '+tt);
+			pal_num++;
+			
+			for (var i = 1; i < 6; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}			
+			
+
+			//grey
+			pal_r[pal_num] =  210;
+			pal_g[pal_num] =  pal_r[pal_num];
+			pal_b[pal_num] =  pal_r[pal_num];
+			tt=pal_num;
+			pal_num++;					
+			
+			for (var i = 1; i < 4; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}
+			
+			pal_r[pal_num] =  20;
+			pal_g[pal_num] =  pal_r[pal_num];
+			pal_b[pal_num] =  pal_r[pal_num];
+			tt=pal_num;
+			pal_num++;					
+			
+			for (var i = 1; i < 4; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]+(i*16);
+				pal_g[pal_num] = pal_g[tt]+(i*16);
+				pal_b[pal_num] = pal_b[tt]+(i*16);
+				pal_num++;	
+			}	
+		}		
+
+	
+}
+
+</script>
+
+</head>
+
+<body onload="init()">
+
+<div id="infoblock" class="infobot">.__o</div>
+
+<div><canvas class="img1" id="my_image" >the image area - needs a javascript enabled browser to see - best on Chrome atm.</canvas></div>
+
+</body>
+</html>

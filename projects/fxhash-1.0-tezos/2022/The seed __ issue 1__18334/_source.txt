@@ -1,0 +1,4 @@
+id: 18334
+name: The seed :: issue 1
+mint_opens_at: 2022-08-20T12:00:00+00:00
+generative_uri: ipfs://QmRzdh4k1UkMmonWaqhRpVr4aRRUndsNkvfaNvmSLTXEW1

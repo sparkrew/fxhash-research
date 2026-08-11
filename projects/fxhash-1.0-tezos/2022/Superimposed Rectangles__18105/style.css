@@ -1,0 +1,37 @@
+body {
+  background: #000;
+}
+
+/*
+canvas {
+    border: black 1px solid;
+     background: #FFF; // here for the sake of demonstration only 
+}
+*/
+
+body {
+  align-items: center;
+  display: flex;
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  justify-content: center;
+}
+body,
+html {
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+canvas { 
+  max-width: 100%;
+  max-height: 100%;
+  display: inline-block; /* Instead of display: block; */
+  margin: 0 auto;
+  vertical-align: middle;
+  touch-action: none;
+}
+
+div{
+   display:none; 
+}
+

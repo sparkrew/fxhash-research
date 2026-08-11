@@ -1,0 +1,4 @@
+id: 19512
+name: saprophyte
+mint_opens_at: 2022-09-16T19:00:00+00:00
+generative_uri: ipfs://QmcMN1pahJXT9SsnCycnCHLFi6mAuNReZ9jit6qnk3bPni

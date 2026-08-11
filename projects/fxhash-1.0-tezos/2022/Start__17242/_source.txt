@@ -1,0 +1,4 @@
+id: 17242
+name: Start
+mint_opens_at: 2022-07-28T11:30:00+00:00
+generative_uri: ipfs://Qmbw118gZ1hrX9toQZXp9WKctWobrSm1Ek1caBL8tCqy6d

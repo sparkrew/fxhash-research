@@ -1,0 +1,4 @@
+id: 21060
+name: the madness
+mint_opens_at: 2022-12-30T17:00:00+00:00
+generative_uri: ipfs://QmXP6zSMW9xhpBfJUkqwzYSk3sZ2ivXBnM2cwuimdy4aRD

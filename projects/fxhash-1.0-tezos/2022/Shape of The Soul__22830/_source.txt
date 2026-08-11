@@ -1,0 +1,4 @@
+id: 22830
+name: Shape of The Soul
+mint_opens_at: 2022-12-23T23:00:00+00:00
+generative_uri: ipfs://Qma6fDUywPGJxr4iHLmsdYgBBgfe4V4N8vgyxzFqt15tAc

@@ -1,0 +1,4 @@
+id: 10617
+name: Skumoji
+mint_opens_at: 2022-03-12T22:12:54+00:00
+generative_uri: ipfs://QmNfd2n1AK6tizxGtRnraWmqqkwRKbujRd882GhExyBz7c

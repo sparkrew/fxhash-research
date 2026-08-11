@@ -1,0 +1,4 @@
+id: 11556
+name: snowflake
+mint_opens_at: 2022-04-20T05:20:44+00:00
+generative_uri: ipfs://QmSyFaANcZcDYVoK2ycjvZYCPp7HBRAnnGr9aJ7gxXp97f

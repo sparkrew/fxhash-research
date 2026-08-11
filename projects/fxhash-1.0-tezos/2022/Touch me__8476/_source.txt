@@ -1,0 +1,4 @@
+id: 8476
+name: Touch me
+mint_opens_at: 2022-02-02T13:01:26+00:00
+generative_uri: ipfs://QmcMK2Ar5dmcSNARJAmSothyk1RPpw3hxMrrriFiF6bYJj

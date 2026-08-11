@@ -1,0 +1,4 @@
+id: 6931
+name: Tidal
+mint_opens_at: 2022-01-14T02:02:40+00:00
+generative_uri: ipfs://QmcHZiCeM4mcm9UR7WQVoD3ca2X7H44B8DySmCcGV3B1q8

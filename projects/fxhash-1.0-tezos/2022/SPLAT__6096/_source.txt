@@ -1,0 +1,4 @@
+id: 6096
+name: SPLAT
+mint_opens_at: 2022-01-07T15:23:50+00:00
+generative_uri: ipfs://QmULtsHaZXbFY5drhZ3FTRwseqwaaFUemnAvCWNL31miPb

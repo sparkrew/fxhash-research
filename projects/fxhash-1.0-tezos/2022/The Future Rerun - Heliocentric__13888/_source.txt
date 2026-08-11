@@ -1,0 +1,4 @@
+id: 13888
+name: The Future Rerun - Heliocentric
+mint_opens_at: 2022-05-30T15:13:59+00:00
+generative_uri: ipfs://QmeNyV7LS9GKAmfY5z1LMnXPM7BvcfXZpRECdRP88qc69k

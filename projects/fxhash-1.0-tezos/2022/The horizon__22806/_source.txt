@@ -1,0 +1,4 @@
+id: 22806
+name: The horizon
+mint_opens_at: 2022-12-23T13:30:00+00:00
+generative_uri: ipfs://QmNw8fWXVcnMq8LSdrZohmWSRVdzLV4NMLyrybELXu4Tzy

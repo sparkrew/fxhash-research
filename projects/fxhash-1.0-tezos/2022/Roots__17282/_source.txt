@@ -1,0 +1,4 @@
+id: 17282
+name: Roots
+mint_opens_at: 2022-07-30T22:00:00+00:00
+generative_uri: ipfs://QmdkQ7H2cCcA2wuVyWgUgeh83utsdVEi1zCwosbrEJpkQb

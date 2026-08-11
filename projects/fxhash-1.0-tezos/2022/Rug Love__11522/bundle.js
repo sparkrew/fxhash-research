@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Background:"black","Number of lines":10,Inverted:!0},document.createElement("div").innerText=`\n  random hash: ${fxhash}\n\n  some pseudo random values: [ ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()},... ]\n\n  background: ${window.$fxhashFeatures.Background}\n`;

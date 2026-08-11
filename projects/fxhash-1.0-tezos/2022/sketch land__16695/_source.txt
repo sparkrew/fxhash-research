@@ -1,0 +1,4 @@
+id: 16695
+name: sketch land
+mint_opens_at: 2022-07-19T22:27:44+00:00
+generative_uri: ipfs://QmRxv9bhHVqDKiQTc6fncnNv2ncdNafQuG5xFEbA6CbVbX

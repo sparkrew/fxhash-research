@@ -1,0 +1,4 @@
+id: 13481
+name: The Knoot
+mint_opens_at: 2022-05-24T13:19:29+00:00
+generative_uri: ipfs://QmdTAETzr1Db16DMh38LGvGE6c4g3We9DjdXUHLiFF9yZE

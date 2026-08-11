@@ -1,0 +1,4 @@
+id: 20077
+name: SALVAJE
+mint_opens_at: 2022-10-05T16:00:00+00:00
+generative_uri: ipfs://Qmd5EneLDhKodEZB279QoGimLtkUktFEQLutaPAXWxpnyM

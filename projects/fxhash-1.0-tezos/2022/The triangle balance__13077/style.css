@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #131212;
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+#sketch-progress {
+  position: absolute;
+  padding: 12px;
+  right: 0;
+  bottom: 0;
+  font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+  font-size: 10px;
+}

@@ -1,0 +1,4 @@
+id: 8867
+name: Root
+mint_opens_at: 2022-02-07T21:47:34+00:00
+generative_uri: ipfs://QmXHfbWrqzMDk7r7uvPP6rLnFFZtSaYxHjfZCfLrsKPPKH

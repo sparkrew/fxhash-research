@@ -1,0 +1,4 @@
+id: 20790
+name: Spooky Monsters 
+mint_opens_at: 2022-10-29T01:00:00+00:00
+generative_uri: ipfs://QmPfUHXWFVyxwicoBBseKKRrTqrdMtRypQvc33xwd9wS8Z

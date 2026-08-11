@@ -1,0 +1,4 @@
+id: 13836
+name: the rifle’s spiral
+mint_opens_at: 2022-05-29T17:57:29+00:00
+generative_uri: ipfs://QmRPvEMGXbbLtAehAPUpcXiBkZq25MCVNGcLr2JTAaZPUD

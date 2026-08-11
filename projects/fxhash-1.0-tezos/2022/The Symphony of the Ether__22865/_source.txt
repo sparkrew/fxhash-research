@@ -1,0 +1,4 @@
+id: 22865
+name: The Symphony of the Ether
+mint_opens_at: 2022-12-24T16:20:29+00:00
+generative_uri: ipfs://QmSn7TQXABR2yRYwoGzEyFGVnBkX2AWqV3FE7SJtaEsgDR

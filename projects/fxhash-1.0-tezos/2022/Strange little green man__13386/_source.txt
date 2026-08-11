@@ -1,0 +1,4 @@
+id: 13386
+name: Strange little green man
+mint_opens_at: 2022-05-23T08:42:29+00:00
+generative_uri: ipfs://QmbqbGyFDkSpk4rLNXwMjhf27JjxXwqa3MFHSHwVu4t72A

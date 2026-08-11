@@ -1,0 +1,4 @@
+id: 19287
+name: Tapped In
+mint_opens_at: 2022-09-11T16:00:00+00:00
+generative_uri: ipfs://QmbNrjTeNpq5nt3LdJi81im37sPAPgoZHvuxhHcxYiR6z2

@@ -1,0 +1,4 @@
+id: 16058
+name: Swirl
+mint_opens_at: 2022-07-08T00:05:59+00:00
+generative_uri: ipfs://QmZ7xNVEGH6mprgvtdGyNk8KGL4xVQCsbFAJLwTryGx3iA

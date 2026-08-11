@@ -1,0 +1,4 @@
+id: 21706
+name: thanks bag and flowers
+mint_opens_at: 2022-11-23T07:02:44+00:00
+generative_uri: ipfs://QmSwnSRqQfY1fBcLRT6VeCTRwhFGcjRGcoapCQdL3aYS62

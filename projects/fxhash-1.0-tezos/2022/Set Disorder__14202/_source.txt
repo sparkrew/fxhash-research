@@ -1,0 +1,4 @@
+id: 14202
+name: Set Disorder
+mint_opens_at: 2022-06-05T01:04:14+00:00
+generative_uri: ipfs://QmPK7TikfTha3bAA7P8hRp91gsXviEUazYfzsa9dotsbBv

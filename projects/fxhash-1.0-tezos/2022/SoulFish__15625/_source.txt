@@ -1,0 +1,4 @@
+id: 15625
+name: SoulFish
+mint_opens_at: 2022-06-30T16:00:00+00:00
+generative_uri: ipfs://QmWYvkFHPLBkmv1CSCK5vpm3MSBggbALDqRZQXitzPPLJn

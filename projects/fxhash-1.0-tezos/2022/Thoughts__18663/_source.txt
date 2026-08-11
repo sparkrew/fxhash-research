@@ -1,0 +1,4 @@
+id: 18663
+name: Thoughts
+mint_opens_at: 2022-08-27T13:39:59+00:00
+generative_uri: ipfs://QmTWtfmcN96GCMfhs2qPuuedCeMV1X4yg4jE3UaVE9qn61

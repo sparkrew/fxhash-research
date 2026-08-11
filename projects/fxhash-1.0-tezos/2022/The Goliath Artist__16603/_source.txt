@@ -1,0 +1,4 @@
+id: 16603
+name: The Goliath Artist
+mint_opens_at: 2022-07-18T23:02:14+00:00
+generative_uri: ipfs://QmbQhNaEp9cpDPceYnDPaH9EPXkaxpXGLk3W3d17Dcm412

@@ -1,0 +1,4 @@
+id: 22237
+name: Self-Recognition
+mint_opens_at: 2022-12-14T18:01:00+00:00
+generative_uri: ipfs://QmQ7WzEPU4TGhpcGxRUQRVJ3zDAiqKHG3CSob59FZbcEqg

@@ -1,0 +1,4 @@
+id: 5510
+name: Space Voyage to Planet Crypto
+mint_opens_at: 2022-01-05T13:11:40+00:00
+generative_uri: ipfs://QmPBGf7TXQYYBuTF1W3G92hoQjYhwx1baxceBHxoVBdnQk

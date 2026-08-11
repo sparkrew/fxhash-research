@@ -1,0 +1,4 @@
+id: 14569
+name: Tradition vs. Modernity among Female
+mint_opens_at: 2022-06-10T19:00:00+00:00
+generative_uri: ipfs://QmfFNVRLcdMSqhDPpUrjf9Wk5rwCC1HJazqZEgMqGaakEv

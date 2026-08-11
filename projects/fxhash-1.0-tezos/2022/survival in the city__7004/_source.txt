@@ -1,0 +1,4 @@
+id: 7004
+name: survival in the city
+mint_opens_at: 2022-01-14T23:02:50+00:00
+generative_uri: ipfs://QmbWsBPkVJMzt8v9cqj6rENty5qZGpT3cbe1MAczbVsYhE

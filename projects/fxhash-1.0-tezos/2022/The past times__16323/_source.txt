@@ -1,0 +1,4 @@
+id: 16323
+name: The past times
+mint_opens_at: 2022-07-13T11:01:29+00:00
+generative_uri: ipfs://QmR7pNZ3p5VZT1u7PQhwsSTZVBMhkFY9EtMZ1sfuwHBM61

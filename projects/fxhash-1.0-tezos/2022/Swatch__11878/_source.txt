@@ -1,0 +1,4 @@
+id: 11878
+name: Swatch
+mint_opens_at: 2022-04-25T19:00:00+00:00
+generative_uri: ipfs://QmQoycP1hvQKgPFmpTLkG2mLG2Rt9BJp4bXFkagg9iA2QJ

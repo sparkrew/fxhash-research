@@ -1,0 +1,4 @@
+id: 5957
+name: The insight
+mint_opens_at: 2022-01-06T18:39:00+00:00
+generative_uri: ipfs://QmZyomXcVJ5qDaozpr9AJMRySbviPFt5aHfARbrJmKKE2Q

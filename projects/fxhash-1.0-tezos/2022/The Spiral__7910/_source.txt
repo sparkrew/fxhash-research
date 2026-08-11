@@ -1,0 +1,4 @@
+id: 7910
+name: The Spiral
+mint_opens_at: 2022-01-26T02:32:30+00:00
+generative_uri: ipfs://QmWA8Cp7iFZZ7raErvXwq8yeABoNL8aMkTANycup994b3r

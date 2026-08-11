@@ -1,0 +1,4 @@
+id: 11625
+name: Super Scrotoons Collection
+mint_opens_at: 2022-04-21T02:15:44+00:00
+generative_uri: ipfs://QmX6taqqm7sjVQXdhU86ozBWUv9fg5eKUTJLxLdnCQNtE4

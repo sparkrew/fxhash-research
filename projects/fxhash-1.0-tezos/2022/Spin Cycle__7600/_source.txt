@@ -1,0 +1,4 @@
+id: 7600
+name: Spin Cycle
+mint_opens_at: 2022-01-20T16:25:30+00:00
+generative_uri: ipfs://QmaPrpsYw3teXaTpNPsbLpkAftrqG3jAYFMeyDHM8Ppf3B

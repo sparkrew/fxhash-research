@@ -1,0 +1,4 @@
+id: 21184
+name: Return to Apophenia
+mint_opens_at: 2022-11-14T16:00:00+00:00
+generative_uri: ipfs://QmSFko5hjn6q44Z4MjAgUsp1DCG2WrvTYxn4XRhkdno8vX

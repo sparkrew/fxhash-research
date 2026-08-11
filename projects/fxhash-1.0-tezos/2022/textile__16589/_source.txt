@@ -1,0 +1,4 @@
+id: 16589
+name: textile
+mint_opens_at: 2022-07-18T19:30:00+00:00
+generative_uri: ipfs://QmZwM8k1t5rT31gzQayvTrhXhfPQpQ4SwD2HQC22X8XCCA

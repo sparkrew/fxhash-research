@@ -1,0 +1,4 @@
+id: 17663
+name: t1lt
+mint_opens_at: 2022-08-06T11:00:59+00:00
+generative_uri: ipfs://QmV31vuJxeyUqnosszsK78shjd1jXfeFkH6RRPku8WdfhS

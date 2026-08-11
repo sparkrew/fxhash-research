@@ -1,0 +1,4 @@
+id: 22340
+name: The Art of Mathematics
+mint_opens_at: 2022-12-10T03:27:59+00:00
+generative_uri: ipfs://QmX6DKgvkwnyt9yPMAcrzrmErdKy9S8uAqY8qKc117dxNm

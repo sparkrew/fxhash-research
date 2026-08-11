@@ -1,0 +1,4 @@
+id: 5780
+name: Squaruary
+mint_opens_at: 2022-01-05T20:59:10+00:00
+generative_uri: ipfs://Qmb3JCY3CZ26p3e1morRQZEzYGMTdnJxv1C9Ln2bVCjcQf

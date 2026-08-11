@@ -1,0 +1,4 @@
+id: 12329
+name: Steps to the y-index
+mint_opens_at: 2022-05-03T18:05:00+00:00
+generative_uri: ipfs://QmZNvWCULAgGpndw1hzngSDupXWwitYNrvUMi5jibeUimS

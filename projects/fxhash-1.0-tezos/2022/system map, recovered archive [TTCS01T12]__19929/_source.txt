@@ -1,0 +1,4 @@
+id: 19929
+name: system map, recovered archive [TTCS01T12]
+mint_opens_at: 2022-09-29T12:12:44+00:00
+generative_uri: ipfs://QmZEbeBLCb7gmEu5KbfFJ6YzrXUQ4nUanzG2cXeoUa6xhK

@@ -1,0 +1,4 @@
+id: 8651
+name: STRUCTS
+mint_opens_at: 2022-02-04T12:20:06+00:00
+generative_uri: ipfs://QmR1XH9HRw43Htirfw1VTkQRGfwPjosME5VWmfkvyh8YL1

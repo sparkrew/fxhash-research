@@ -1,0 +1,4 @@
+id: 10006
+name: string
+mint_opens_at: 2022-02-26T12:33:14+00:00
+generative_uri: ipfs://QmQwspQmnkWd2ViN3hR2pcvzYWRFpbvFDK7PNLVTnu7YgD

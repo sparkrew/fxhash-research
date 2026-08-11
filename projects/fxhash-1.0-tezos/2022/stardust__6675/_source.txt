@@ -1,0 +1,4 @@
+id: 6675
+name: stardust
+mint_opens_at: 2022-01-12T05:22:00+00:00
+generative_uri: ipfs://QmU91BmhdTa5uRjcMj4LRCRqoGJBMqnFWbCsbVzmbSZh5W

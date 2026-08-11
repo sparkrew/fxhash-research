@@ -1,0 +1,4 @@
+id: 12354
+name: This fucking darkness
+mint_opens_at: 2022-05-03T22:56:00+00:00
+generative_uri: ipfs://QmYwr4mmcsXTTLeZcYLDF71p7PeAXxGn6ZGgZdpmXsnpLJ

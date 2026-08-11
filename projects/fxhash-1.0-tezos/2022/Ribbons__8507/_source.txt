@@ -1,0 +1,4 @@
+id: 8507
+name: Ribbons
+mint_opens_at: 2022-02-02T13:39:26+00:00
+generative_uri: ipfs://QmSkkUUGbbSgSFyi8bNRPwjvnNbbDxHEAgweSuJ9VxYqTH

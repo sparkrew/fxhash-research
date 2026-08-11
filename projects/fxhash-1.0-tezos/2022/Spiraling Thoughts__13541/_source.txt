@@ -1,0 +1,4 @@
+id: 13541
+name: Spiraling Thoughts
+mint_opens_at: 2022-05-24T22:03:59+00:00
+generative_uri: ipfs://QmWNnAnzUuRA94HHByW9PHgXEVXkRxCrN8imQRFofBncnw

@@ -1,0 +1,4 @@
+id: 5821
+name: thick growth of grass02
+mint_opens_at: 2022-01-06T12:09:30+00:00
+generative_uri: ipfs://QmQQjzVmRJ2zp92qoQmqG5vp8J1SUSvKVkg7jATeoqWRm9

@@ -1,0 +1,4 @@
+id: 10321
+name: THE BACTERIA #1
+mint_opens_at: 2022-03-05T15:44:04+00:00
+generative_uri: ipfs://QmYPdyV1bMs2GkCRDQasDmJtEouJ2ZGB6yWGfYiyzaAwuv

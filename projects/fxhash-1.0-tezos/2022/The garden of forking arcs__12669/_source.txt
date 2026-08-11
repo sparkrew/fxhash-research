@@ -1,0 +1,4 @@
+id: 12669
+name: The garden of forking arcs
+mint_opens_at: 2022-05-09T13:00:00+00:00
+generative_uri: ipfs://QmTnT5f9kvVXkp1WQSvpifjByHgcU2Y1EXz6xw4rv6QhtV

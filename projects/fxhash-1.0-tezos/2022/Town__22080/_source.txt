@@ -1,0 +1,4 @@
+id: 22080
+name: Town
+mint_opens_at: 2022-12-03T13:30:00+00:00
+generative_uri: ipfs://QmUwfvENdURv9eNy7wwc8ir2Vi3Wn6kPexiF9XLsy5dEXG

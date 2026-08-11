@@ -1,0 +1,4 @@
+id: 16817
+name: Spiral Type
+mint_opens_at: 2022-07-21T17:30:00+00:00
+generative_uri: ipfs://QmZyLRLZwLQVdm29ZTP15iSvWcPsYF4yRq88qTKPtS89yJ

@@ -1,0 +1,4 @@
+id: 15275
+name: The Power Of The Shadow
+mint_opens_at: 2022-06-22T16:00:00+00:00
+generative_uri: ipfs://QmY51hHKUNPdDJc87YNBYmAkURbc9eWqnWNv9SaaopGBy3

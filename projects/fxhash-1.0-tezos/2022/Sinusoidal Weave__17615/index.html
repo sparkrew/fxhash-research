@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <title>Sinusoidal Weave</title>
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+
+
+  <style>
+  html {height: 100%; width: 100%}
+  canvas[resize] {width: 100%; height: 100%; background-color:#fff8e7; display: inline!important; overflow:hidden;}
+  body {overflow: hidden;display: inline;height: 100%!important; margin: 0px !important; background-color:#fff8e7;}
+  </style>
+
+  <script src="./paper-full.min.js"></script>
+  <script type="text/paperscript" canvas="myCanvas">
+    center = view.bounds.center;
+
+    window.Math.radians = function(degrees) {
+        return degrees * Math.PI / 180;
+    };
+      
+    random = function(num) {
+        return Math.floor(fxrand() * num);
+    }
+    
+    radial = function(incenter, rad, angle) {
+        nx = (Math.cos(Math.radians(angle)) * rad) + incenter.x;
+        ny = (Math.sin(Math.radians(angle)) * rad) + incenter.y;
+        return new Point(nx, ny);
+    }
+    
+    addpline = function(p1, p2) {
+        var linepath = new Path();
+        linepath.add(p1);
+        linepath.add(p2);
+        return linepath;
+    }
+    
+    mapto = function(value, low1, high1, low2, high2) {
+        return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+    }
+    //////////////////////////////////////////////////////////////////////////
+    getrandom = function(inarray) {
+        return(inarray[random(inarray.length)]);
+     }
+     
+     if (random(2) == 0) {
+        circhatchesnum = 3;
+        sinehatchesnum = 4;
+     } else {
+        circhatchesnum = 4;
+        sinehatchesnum = 3;
+     }
+     
+      qArray = [2, 3, 4, 5, 6, 7, 8, 10];
+     
+     amp = 10;
+     pwidth = 6;
+     
+     loopsArray = [8, 10, 12];
+     
+     penwidth = 2;
+     
+     viewScalingFactor = 0.8;
+     ////////////////////////////////////
+     circlesQuantity = getrandom(qArray);
+     
+     if (circlesQuantity == 2) {
+        bigradi = [100, 150];
+        bigradius = getrandom(bigradi);
+        smallradius = 50;
+        loops = 8;
+        rotations = [0, 45, 90, -45];
+        mainRotation = getrandom(rotations);
+    }
+     
+     if (circlesQuantity == 3) {
+        bigradi = [150, 200, 200];
+        bigradius = getrandom(bigradi);
+        smallradius = 50;
+        loops = getrandom(loopsArray);
+        rotations = [30, 210];
+        mainRotation = getrandom(rotations);
+     }
+     
+     if (circlesQuantity == 4) {
+        bigradi = [175, 200, 240];
+        bigradius = getrandom(bigradi);
+        smallradius = 50;
+        loops = getrandom(loopsArray);
+        rotations = [0, 45];
+        mainRotation = getrandom(rotations);
+     }
+     
+     if (circlesQuantity == 5) {
+        bigradi = [175, 200, 240];
+        bigradius = getrandom(bigradi);
+        smallradius = 50;
+        loops = getrandom(loopsArray);
+        rotations = [17, 55];
+        mainRotation = getrandom(rotations);
+    }
+     
+     if (circlesQuantity == 6) {
+        bigradi = [200, 240];
+        bigradius = getrandom(bigradi);
+        smallradius = 50;
+        loops = getrandom(loopsArray);
+        rotations = [0, 30];
+        mainRotation = getrandom(rotations);
+    }
+     
+     if (circlesQuantity == 7) {
+        bigradi = [210, 250];
+        bigradius = getrandom(bigradi);
+        smallradius = 65;
+        loops = getrandom(loopsArray);
+        rotations = [-13, 13];
+        mainRotation = getrandom(rotations);
+     }
+     
+     if (circlesQuantity == 8) {
+        bigradi = [200, 240];
+        bigradius = getrandom(bigradi);
+        smallradius = 60;
+        loops = getrandom(loopsArray);
+        rotations = [0];
+        mainRotation = getrandom(rotations);
+     }
+     
+     if (circlesQuantity == 10) {
+        bigradi = [240, 250];
+        bigradius = getrandom(bigradi);
+        smallradius = 55;
+        loops = getrandom(loopsArray);
+        rotations = [0];
+        mainRotation = getrandom(rotations);
+     }
+     
+     sineColor = "darkgreen";
+     
+     loopsArray = [8, 10, 12];
+     
+     colors = ["darkred", "darkgreen", "darkblue", "darkmagenta", "brown"];
+     
+     sineColor = colors[random(colors.length)];
+     //////////////////////////////////////////////////////////////////
+     makeBackground = function() {
+        bgBlock = new Path.Rectangle(new Point(0, 0), new Point(view.bounds.width, view.bounds.height));
+        //bgBlock.fillColor = "#fff8e7";
+    
+        
+        dots1 = [];
+        for (r = 0; r < 300000; r++) { // change to 200 000
+            dots1.push(new Point(random(view.bounds.width), random(view.bounds.height)));
+        }
+    
+        dots1.forEach(function(dot) {
+            linelength = random(10);
+            p2 = radial(dot, linelength, random(360));
+            b = addpline(dot, p2);
+            alpha = random(13) / 100;
+            camel = new Color(193/255, 154/255, 107/255, alpha);
+            b.strokeColor = camel;
+        });
+    }
+    /////////////////////////////////////////////////////////////////
+    angleStep = (360 / circlesQuantity);
+    
+    createCircles = function() {
+        output = [];
+        for (i = 0; i < circlesQuantity; i++) {
+            p =  radial(center, bigradius, i * angleStep);
+            circle = new Path.Circle(p, smallradius);
+            //circle.rotate(i * angleStep);
+            output.push(circle);
+        }
+        return output;
+    }
+    
+    rotateCircles = function(incircles) {
+        output = [];
+        for (i = 0; i < incircles.length; i++) {
+            myCircle = incircles[i];
+            myCircle.rotate(i * angleStep);
+            output.push(myCircle);
+        }
+        return output;
+    }
+    
+    createArcs = function(incircles) {
+        output = [];
+        rotation = -45;
+        incircles.forEach(function(circle) {
+            p1 = circle.getPointAt((circle.length/4) * 1);
+            p2 = circle.getPointAt((circle.length/4) * 2);
+            p3 = circle.getPointAt((circle.length/4) * 4);
+            arc = new Path.Arc(p1, p2, p3);
+            arc.rotate(rotation);
+            output.push(arc);
+            rotation = rotation + angleStep;
+        });
+        return output;
+    }
+    
+    createSine = function(inline, inloops) {
+        sineline = new Path();
+        for (i = 0; i < inline.length; i++) {
+            sinValue = mapto(i, 0, inline.length, Math.PI, inloops * Math.PI);
+            sinAmp = Math.sin(sinValue) * amp;
+            normal = inline.getNormalAt(i);
+            p = inline.getPointAt(i);
+            newp = p + (normal * sinAmp);
+            sineline.add(newp);
+        }
+        return sineline
+    }
+    
+    lengthen = function(inline) {  // lengthen path on both sides
+        outline = inline.clone();
+        dist = pwidth + 6;
+        outline.reverse();
+        p1 = outline.getPointAt(outline.length);
+        tangent = outline.getTangentAt(outline.length);
+        p2 = p1 + (tangent * dist);
+        outline.add(p2);
+        outline.reverse();
+        p3 = outline.getPointAt(outline.length);
+        tangent = outline.getTangentAt(outline.length);
+        p4 = p3 + (tangent * dist);
+        outline.add(p4);
+        return outline;
+    }
+    
+    lengthen2 = function(inline, lengthenby) {
+        outline = inline.clone();
+        p1 = outline.getPointAt(outline.length);
+        tangent = outline.getTangentAt(outline.length);
+        p2 = p1 + (tangent * lengthenby);
+        outline.add(p2);
+        return outline;
+    }
+    ////////////////////////////////////////////////////////////
+    connector = function(inlyn1, inlyn2, ratio1, ratio2) {
+        lyn1 = inlyn1.clone();
+        lyn2 = inlyn2.clone();
+        lyn2.reverse();
+        /*if (lyn1.getPointAt(0).getDistance(lyn2.getPointAt(0)) <  lyn1.getPointAt(lyn1.length).getDistance(lyn2.getPointAt(0))) {
+            lyn1.reverse();
+        }
+        if (lyn2.getPointAt(0).getDistance(lyn1.getPointAt(0)) <  lyn2.getPointAt(lyn2.length).getDistance(lyn1.getPointAt(0))) {
+            lyn2.reverse();
+        }*/
+    
+        dist = lyn1.getPointAt(lyn1.length).getDistance(lyn2.getPointAt(lyn2.length));
+        mag1 = dist * ratio1;
+        mag2 = dist * ratio2;
+        startp1 = lyn1.getPointAt(0);
+        endp1 = lyn1.getPointAt(lyn1.length);
+        
+        vector1 = lyn1.getTangentAt(lyn1.length);
+    
+        handleout = vector1 * mag1;
+        handleoutp = endp1 + handleout;
+        
+        vector2 = lyn2.getTangentAt(lyn2.length);
+        
+        startp2 = lyn2.getPointAt(0);
+        endp2 = lyn2.getPointAt(lyn2.length);
+        dir2 = (endp2 - startp2).normalize();
+        handlein = vector2 * mag2;
+        handleinp = endp2 + handlein;
+        //apl(endp2, handleinp, 4)
+    
+        spline = new Path({segments: [{ point: endp1, handleOut: handleout}, {point: endp2, handleIn: handlein}]});
+        return spline;
+    }
+    /////////////////////////////////////////////////////////////
+    createHatches = function(inline, inhatches) {
+        outlines = [];
+        for (hlinenum = 0; hlinenum < inhatches; hlinenum++) {
+            hline = new Path();
+            amp = mapto(hlinenum, 0, inhatches, -pwidth, pwidth);
+            for (l = 0; l < inline.length; l++) {
+                normal = inline.getNormalAt(l);
+                p = inline.getPointAt(l);
+                newp = p + (normal * amp);
+                hline.add(newp);
+            }
+            outlines.push(hline);
+        }
+        masks = [outlines[0], outlines[outlines.length - 1]];
+        data = {'masks': masks, 'lines': outlines}
+        return data;
+    }
+    /////////////////////////////////////////////////////////////
+    getIntersections = function(inpath, inmasklines) {  // returns sorted offsets
+        output = [];
+        inmasklines.forEach(function(maskline) {
+            if (inpath.intersects(maskline)) {
+               intersections = inpath.getIntersections(maskline);
+               intersections.forEach(function(intersection) {
+                output.push(intersection.offset);   
+               });
+            }
+        });
+        output = output.sort(function(a,b){return a - b}); // sorteer die offsets
+        return output;
+    }
+    
+    extractcurve = function(incurve, inoffsets, offset1, offset2) {
+        outcurve = new Path();
+        for (c = inoffsets[offset1]; c < inoffsets[offset2]; c++) {
+            outcurve.add(incurve.getPointAt(c));
+        }
+        return outcurve;
+    }
+    
+    
+    weave = function(inpath, inoffsets, firstover) {
+        outcurves = [];
+        count = 0;
+        inoffsets.unshift(0); // sit begin en einde van kurwe by as offsets
+        inoffsets.push(inpath.length);
+        /*inoffsets.forEach(function(offset) {
+            apn(inpath.getPointAt(offset), 3, 0);
+            plabel(inpath.getPointAt(offset), count);
+            count++;
+        });*/
+        lines = [];
+        
+        endreached = false;
+        start = 0;
+        teller = 0;
+        while (!endreached) {
+            if ((teller == 0) && !firstover) {
+                end = start + 1;
+            } else {
+                end = start + 3;
+            }
+            if (end > inoffsets.length) {
+                end = inoffsets.length-1;
+                endreached = true;
+            }
+            extracted = extractcurve(inpath, inoffsets, start, end);
+            outcurves.push(extracted);
+            start = end + 1;
+            teller++;
+        }
+        return outcurves;
+    }
+    //////////////////////////////////////////////////////////////////////////////
+    createHatchLines = function(inline) { //returns an array of lines to be weaved
+        outlines = [];
+        for (l = 0; l < hatchsteps; l++) {
+            amp = mapto(l, 0, hatchsteps-1, -ribbonwidth, ribbonwidth);
+            outline = new Path();
+            for (i = 0; i < inline.length; i++) {
+                p = inline.getPointAt(i);
+                normal = inline.getNormalAt(i);
+                newp = p + (normal * amp);
+                outline.add(newp);
+            }
+            outlines.push(outline);
+        }
+        return outlines;
+    }
+    ///////////////////////////////////////////////////////////////////////////
+    createMain = function() {
+        main = new Group();
+        circles = createCircles();
+        arcs = createArcs(circles);
+        circles = rotateCircles(circles);
+    
+        /*circles.forEach(function(circle) {
+            circle.strokeColor = "black";
+            sp = circle.getPointAt(0);
+            apn(sp, 2, 0);
+        });
+    
+        arcs.forEach(function(arc) {
+            arc.strokeColor = "green";
+            arc.strokeWidth = 1.5;
+        });*/
+        ///////////////////////////////////////////////////////////////
+        sines = [];
+        counter = 0;
+        arcs.forEach(function(arc) {
+            sine = createSine(arc, loops); //!!!!!!!!!!!!!!!!!!!!!
+            sine = lengthen(sine);
+            sines.push(sine);
+            counter++;
+        });
+    
+        longsine = sines[0].clone();
+        for (s = 1; s < sines.length; s++) {
+            connectorline = connector(longsine, sines[s], 0.5, 0.5);
+            longsine.join(connectorline);
+            longsine.join(sines[s]);
+        }
+        lastconnector = connector(longsine, sines[0], 0.5, 0.5);
+        longsine.join(lastconnector);
+    
+        sinehatches = createHatches(longsine, sinehatchesnum);
+    
+        sinehatches.masks.forEach(function(line) {
+            //line.strokeColor = "green";
+        });
+    
+        //////////////////////////////////////////////////////////////////
+        circleMasks = [];
+        circles.forEach(function(circle) {
+            circlehatches = createHatches(circle, circhatchesnum);
+            circleMasks.push(circlehatches.masks[0]);    
+            circleMasks.push(circlehatches.masks[1]);
+        });
+    
+        circleMasks.forEach(function(line) {
+            //line.strokeColor = "red";
+        });
+        //////////////////////////////////////////////////////////////////
+    
+        sinehatches.lines.forEach(function(line) {
+            offsets = getIntersections(line, circleMasks);
+            sineweaved = weave(line, offsets, true);
+            laastelyn = sineweaved[sineweaved.length-1].clone();
+            laastelyn = lengthen2(laastelyn, 3) // map to loops
+            laastelyn.strokeColor = sineColor;
+            main.addChild(laastelyn);
+    
+            for (i = 0; i < sineweaved.length - 1; i++) {
+                sineweaved[i].strokeColor = sineColor;
+                main.addChild(sineweaved[i]);
+            }
+        });
+    
+        circles.forEach(function(circle) {
+            circlehatches = createHatches(circle, circhatchesnum);
+            circlehatches.lines.forEach(function(line) {
+                offsets = getIntersections(line, sinehatches.masks);
+                circleweaved = weave(line, offsets, false);
+    
+                laastelyn = circleweaved[circleweaved.length-2].clone();
+                laastelyn = lengthen2(laastelyn, 3) // map to loops
+                laastelyn.strokeColor = "black";
+                main.addChild(laastelyn);
+    
+                for (i = 0; i < circleweaved.length - 2; i++) {
+                    circleweaved[i].strokeColor = "black";
+                    main.addChild(circleweaved[i]);
+                }
+            });
+        });
+        main.strokeWidth = penwidth;
+        main.rotate(mainRotation);
+        main.position = center;
+        return main;
+    }
+    ////////////////////////////////////////////////////////////
+    makeBackground();
+    main = createMain();
+    
+    smallest = view.bounds.height;
+    if (view.bounds.width < smallest) {
+        smallest = view.bounds.width;
+    }
+    
+    mainbiggest = main.bounds.height;
+    if (main.bounds.width > mainbiggest) {
+        mainbiggest = main.bounds.width;
+    }
+    scalefactor = smallest / mainbiggest;
+    main.scale(scalefactor);
+    main.scale(viewScalingFactor);
+    
+    fxpreview();
+  </script>
+  
+</head>
+
+  <body>
+    <canvas id="myCanvas" resize></canvas> 	
+  </body>
+</html>

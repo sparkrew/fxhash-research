@@ -1,0 +1,4 @@
+id: 16366
+name: Tectonics
+mint_opens_at: 2022-07-13T19:00:00+00:00
+generative_uri: ipfs://QmYxnDFcRGFAsLfCy5Y1JzPTXaExEwY9W2NDrpVbnJVjnt

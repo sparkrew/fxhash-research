@@ -1,0 +1,4 @@
+id: 12185
+name: Ripped
+mint_opens_at: 2022-04-29T08:42:14+00:00
+generative_uri: ipfs://QmTnFC8dXNqxGRvDJ7wJzSSopfv7UFXf2iyh4wPpyFFohu

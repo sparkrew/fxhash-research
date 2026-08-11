@@ -1,0 +1,16 @@
+body {
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+
+#bg
+{
+    position: absolute;
+    width: 100vmax;
+    height: 100vmax;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    image-rendering: pixelated;
+}

@@ -1,0 +1,4 @@
+id: 20694
+name: Roses
+mint_opens_at: 2022-10-25T23:12:14+00:00
+generative_uri: ipfs://QmZ8mAy8eymGEoyXFPXzDoQKnsmWSi1vXqxcKyTBw7vYGx

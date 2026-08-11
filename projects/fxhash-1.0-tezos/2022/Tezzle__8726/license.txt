@@ -1,0 +1,5 @@
+Tezzle is created by Narisa via ZimJS.
+
+Tezzle is licensed under CC-BY. https://creativecommons.org/licenses/by/4.0/
+ZimJS is created by Dr. Abstract. https://zimjs.com/
+CreateJS is bundled with ZimJS and the license for that can be found in scripts/createjs.js.LICENSE.txt

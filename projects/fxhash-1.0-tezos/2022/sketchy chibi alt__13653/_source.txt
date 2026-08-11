@@ -1,0 +1,4 @@
+id: 13653
+name: sketchy chibi alt
+mint_opens_at: 2022-05-27T20:04:14+00:00
+generative_uri: ipfs://QmapZCzZP8XpUnR4chVsFsV91BJ2jGa91Y1RqC2sFvuBD7

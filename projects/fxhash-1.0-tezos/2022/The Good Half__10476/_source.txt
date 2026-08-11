@@ -1,0 +1,4 @@
+id: 10476
+name: The Good Half
+mint_opens_at: 2022-03-08T15:33:04+00:00
+generative_uri: ipfs://QmSM7L4NZTd9XCYsRuJyRvurTFgCfRoMhRhvwXnXansHZF

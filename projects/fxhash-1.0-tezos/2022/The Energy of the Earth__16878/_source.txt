@@ -1,0 +1,4 @@
+id: 16878
+name: The Energy of the Earth
+mint_opens_at: 2022-07-21T23:00:29+00:00
+generative_uri: ipfs://QmeDJ4ehQqFNoVjwdYuRggqZ5PuV53Yu68ybNCW7UXAcqc

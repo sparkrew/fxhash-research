@@ -1,0 +1,4 @@
+id: 11536
+name: Scribble
+mint_opens_at: 2022-04-20T03:24:14+00:00
+generative_uri: ipfs://QmXcLGZYGjzbZue9rbr9UvuiFUgQrscGPeMgcjBobA9wys

@@ -1,0 +1,4 @@
+id: 17245
+name: Spock's Scope
+mint_opens_at: 2022-07-30T19:05:00+00:00
+generative_uri: ipfs://Qmd2yJXUmuPFCPd2rcw4U72scN3ejP32jGXyQ9CQJsMQbh

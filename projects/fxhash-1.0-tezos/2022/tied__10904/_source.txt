@@ -1,0 +1,4 @@
+id: 10904
+name: tied
+mint_opens_at: 2022-03-19T07:13:24+00:00
+generative_uri: ipfs://QmeLri35U8SnSfp6YvAhVkSc2v8ddsz996HHxkpKBzkGWB

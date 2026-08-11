@@ -1,0 +1,4 @@
+id: 21566
+name: The Elementos
+mint_opens_at: 2022-11-18T19:00:00+00:00
+generative_uri: ipfs://QmW4UtxJUkgDFcW2LfxK6FpboXRfpZHcyzorA7oyxfSJAA

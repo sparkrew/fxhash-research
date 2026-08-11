@@ -1,0 +1,4 @@
+id: 9653
+name: Sun
+mint_opens_at: 2022-02-19T22:46:20+00:00
+generative_uri: ipfs://QmYcN7sZd7Ruu2QQTnBTg5HUz5CEMDrmZqY6JdpRoptVSf

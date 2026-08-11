@@ -1,0 +1,24 @@
+.bg {
+    /* background:radial-gradient(circle at 100% 50%, transparent 20%, rgba(255, 255, 255, .3) 21%, rgba(255, 255, 255, .3) 34%, transparent 35%, transparent),
+    radial-gradient(circle at 0% 50%, transparent 20%, rgba(255, 255, 255, .3) 21%, rgba(255, 255, 255, .3) 34%, transparent 35%, transparent) 0 -50px;
+    background-color: slategray;
+    background-size: 75px 100px; */
+    background:
+linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,
+linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,
+linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 7px -15px,
+linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 7px -15px,
+#36c;
+background-size: 15px 30px;
+background:
+radial-gradient(black 15%, transparent 16%) 0 0,
+radial-gradient(black 15%, transparent 16%) 8px 8px,
+radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+background-color:#282828;
+background-size:8px 8px;
+background-color: gray;
+background-image: linear-gradient(180deg, transparent 50%, rgba(255,255,255,.2) 50%);
+background-size: 70px 70px;
+}
+/*# sourceMappingURL=index.79aabc64.css.map */

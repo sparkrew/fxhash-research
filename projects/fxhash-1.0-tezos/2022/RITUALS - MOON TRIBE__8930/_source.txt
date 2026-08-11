@@ -1,0 +1,4 @@
+id: 8930
+name: RITUALS - MOON TRIBE
+mint_opens_at: 2022-02-08T17:57:34+00:00
+generative_uri: ipfs://QmWRHH4ytSxdFGhC4eurS3ZshmnyFRFDuE2CGs5r6SawGr

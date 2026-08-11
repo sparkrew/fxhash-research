@@ -1,0 +1,4 @@
+id: 10415
+name: Shapes on Fabric.
+mint_opens_at: 2022-03-07T11:39:24+00:00
+generative_uri: ipfs://QmW4Df3gbBzgs1xrc8FGMxxJ1Vuz8VqS6e6NhoCdjBWcCd

@@ -1,0 +1,4 @@
+id: 7369
+name: Spiral
+mint_opens_at: 2022-01-18T20:44:20+00:00
+generative_uri: ipfs://QmTupKejNNpn8Vd4HrwJxDQQzWCEsyD9GNHvTcKzU3VV5t

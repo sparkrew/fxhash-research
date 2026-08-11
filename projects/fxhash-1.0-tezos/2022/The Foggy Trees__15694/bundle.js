@@ -1,0 +1,1 @@
+window.$fxhashFeatures={"Trees number":trees_number,"Branch fork rate":fork_rate_base_text,"Background tint":bg_tint_text,"Fiber Material":fiber_material};

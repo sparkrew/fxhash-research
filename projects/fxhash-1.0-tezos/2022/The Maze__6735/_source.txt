@@ -1,0 +1,4 @@
+id: 6735
+name: The Maze
+mint_opens_at: 2022-01-12T13:22:40+00:00
+generative_uri: ipfs://QmYJc1mkrQhReZfxq3DA8EyjTU4RzFU3Pu9UMsxBSV5Z9R

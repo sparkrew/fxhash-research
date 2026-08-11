@@ -1,0 +1,4 @@
+id: 15425
+name: The Question
+mint_opens_at: 2022-06-25T16:00:00+00:00
+generative_uri: ipfs://Qma3aEq8k6RKqbAG93uBrYXP7cPs1n8yqSphgsoPt3LyLf

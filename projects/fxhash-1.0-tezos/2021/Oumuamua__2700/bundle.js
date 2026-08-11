@@ -1,0 +1,1 @@
+window.$fxhashFeatures={Color:getVar(COLOR_NAME),"Star Field":getVar(STARFIELD_IS_VISIBLE),Calligraphic:getVar(CALLIGRAPHIC)};

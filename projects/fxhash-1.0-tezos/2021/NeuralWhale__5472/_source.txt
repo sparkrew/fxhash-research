@@ -1,0 +1,4 @@
+id: 5472
+name: NeuralWhale
+mint_opens_at: 2021-12-29T07:33:50+00:00
+generative_uri: ipfs://QmZwMsuf7R67xKR6ZgqMpXv2E31b2oPmZgvWVgfoTx5gX7

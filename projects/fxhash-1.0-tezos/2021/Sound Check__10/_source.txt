@@ -1,0 +1,4 @@
+id: 10
+name: Sound Check
+mint_opens_at: 2021-11-11T09:57:08+00:00
+generative_uri: ipfs://QmWG1zf55sM6bWo6rZ5N45ck4Wbv3ayDRHQGkp4K2VpRT9

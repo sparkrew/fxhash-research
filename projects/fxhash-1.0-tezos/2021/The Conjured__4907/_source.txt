@@ -1,0 +1,4 @@
+id: 4907
+name: The Conjured
+mint_opens_at: 2021-12-26T23:35:00+00:00
+generative_uri: ipfs://QmRAp8jdxVb2nR9ZEPsYz6TcxLyEsGii99Mvn3Zqo1kZb7

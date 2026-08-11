@@ -1,0 +1,4 @@
+id: 591
+name: City Box 2040
+mint_opens_at: 2021-11-20T11:24:12+00:00
+generative_uri: ipfs://QmXp92cmeGAK4nqyvvk3M6LnE55VCC7R4jf4EKKzDep4dp

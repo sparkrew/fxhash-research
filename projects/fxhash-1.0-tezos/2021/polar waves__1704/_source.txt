@@ -1,0 +1,4 @@
+id: 1704
+name: polar waves
+mint_opens_at: 2021-11-30T02:01:28+00:00
+generative_uri: ipfs://QmXhQLDDmVDRunPQasQu1mZ61XdQ82Mn1vUvNQXYT5K4Kn

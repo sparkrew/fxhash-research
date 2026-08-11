@@ -1,0 +1,4 @@
+id: 3927
+name: Chaos Butterflies
+mint_opens_at: 2021-12-19T10:52:06+00:00
+generative_uri: ipfs://QmPasZAGuk1uYgSbKtdnfBkyx5FX2SFJg8nA9YNa4fHRfB

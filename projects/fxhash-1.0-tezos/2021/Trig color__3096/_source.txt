@@ -1,0 +1,4 @@
+id: 3096
+name: Trig color
+mint_opens_at: 2021-12-11T16:48:46+00:00
+generative_uri: ipfs://QmfV8ndkVuECFEtmwFSS2rfifEby9mTtZ3i6vWp2AKFtm3

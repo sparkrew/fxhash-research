@@ -1,0 +1,4 @@
+id: 19046
+name: "enclosed in a frame"
+mint_opens_at: 2022-09-05T08:30:00+00:00
+generative_uri: ipfs://QmbrUBcjBxaGQSkjqgGB1rFcnyKm3YRMrzzuQRW6qkrA3e

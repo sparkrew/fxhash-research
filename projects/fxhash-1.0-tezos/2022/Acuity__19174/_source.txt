@@ -1,0 +1,4 @@
+id: 19174
+name: Acuity
+mint_opens_at: 2022-09-17T21:44:00+00:00
+generative_uri: ipfs://QmTj2BnW7fts4M2a7Aw5ASneQgES3jV3CmjAmpZTWRpbkq

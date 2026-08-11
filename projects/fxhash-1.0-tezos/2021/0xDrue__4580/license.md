@@ -1,0 +1,2 @@
+p5.js is used under GNU Lesser General Public License v2.1
+all other code is licensed under MIT license by pifragile as long as the generated output is not too similar artistically to the original work.

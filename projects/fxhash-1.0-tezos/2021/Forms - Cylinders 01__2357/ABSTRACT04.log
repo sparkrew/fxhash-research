@@ -1,0 +1,60 @@
+Exporter version: 2.93.4, Blender version: 2.93.4
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		Inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		Keep Z-up r-handed  :  no
+		Texture directory   :  D:\Projet\ProjetGenerativeArt\3DGenerativeProject\Babylon\babylonJs_sample_server-master\babylonJs_sample_server-master\public\
+	Python World class constructor completed
+	processing begun of camera (UniversalCamera):  Camera
+		animation processing begun
+			processing action CameraAction:  in[0 - 502], out[0 - 502]
+	processing begun of mesh:  Cylinder
+		processing begun of material:  Emisive
+		num positions      :  72934
+		num normals        :  72934
+		num tangents       :  0
+		num uvs            :  145868
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  27648
+	processing begun of mesh:  Cylinder.001
+		processing begun of material:  Emisive.001
+		num positions      :  72934
+		num normals        :  72934
+		num tangents       :  0
+		num uvs            :  145868
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  27648
+	processing begun of mesh:  Cylinder.002
+		processing begun of material:  Emisive.002
+		num positions      :  72934
+		num normals        :  72934
+		num tangents       :  0
+		num uvs            :  145868
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  27648
+	processing begun of mesh:  Cylinder.003
+		processing begun of material:  Emisive.003
+		num positions      :  72934
+		num normals        :  72934
+		num tangents       :  0
+		num uvs            :  145868
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  27648
+========= Writing of JSON file started =========
+	writing mesh:  Cylinder
+	writing mesh:  Cylinder.001
+	writing mesh:  Cylinder.002
+	writing mesh:  Cylinder.003
+========= Writing of JSON file completed =========
+========= end of processing =========
+elapsed time:  0 min, 9.9487 secs

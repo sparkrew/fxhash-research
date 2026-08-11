@@ -1,0 +1,24 @@
+{
+  "box0": {
+    "dir": "shaders/generative/feedbackballs.frag",
+    "name": "feedbackballs.frag",
+    "sc1": 0.8933333333333333,
+    "size": 0.28702467893712447,
+    "iterations": 0.9898480138347021,
+    "ite_scale": 0.7221334039954341,
+    "xspeed": 0.47,
+    "yspeed": 0.49333333333333335,
+    "rotangle": 0.8003480415016184,
+    "rotspeed": 0.5386163312700725,
+    "fb_force": 0.8,
+    "e_force": 0.27,
+    "hue1": 0.043333333333333335,
+    "hue2": 0.07666666666666666
+  },
+  "box1": {
+    "dir": "shaders/imageprocessing/displace.frag",
+    "name": "displace.frag",
+    "offsetx": 0.29293516372957784,
+    "offsety": 0.5918086794616031
+  }
+}

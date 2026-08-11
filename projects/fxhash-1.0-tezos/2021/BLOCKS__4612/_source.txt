@@ -1,0 +1,4 @@
+id: 4612
+name: BLOCKS
+mint_opens_at: 2021-12-23T10:49:40+00:00
+generative_uri: ipfs://QmfNUmZJLuHNzUcSKoF6DjPoYYoTXjVQMsfWmHzFa5kCtX

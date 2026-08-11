@@ -1,0 +1,4 @@
+id: 181
+name: obj in grid
+mint_opens_at: 2021-11-15T17:41:48+00:00
+generative_uri: ipfs://QmeKFgsh68J6x2yFztAQq2yHMUbkQekvi8hoBWDxK8DcJj

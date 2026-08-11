@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),document.getElementById("Murillo").innerText=`\n  random hash: ${fxhash}\n\n  some pseudo random values: [ ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()},... ]\n\n`;

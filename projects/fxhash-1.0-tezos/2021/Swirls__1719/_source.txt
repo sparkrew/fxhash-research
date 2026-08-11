@@ -1,0 +1,4 @@
+id: 1719
+name: Swirls
+mint_opens_at: 2021-11-30T02:56:38+00:00
+generative_uri: ipfs://QmRTZxJ76Xa42LwB2QSTrZGrZjLfRXL35uZniNirQZEA3L

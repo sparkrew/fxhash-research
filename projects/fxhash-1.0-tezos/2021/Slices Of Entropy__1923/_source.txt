@@ -1,0 +1,4 @@
+id: 1923
+name: Slices Of Entropy
+mint_opens_at: 2021-12-02T00:07:24+00:00
+generative_uri: ipfs://QmXTW8xYbLdV9FnihRKhEWGfKju7GPWFpF6ksh8QTuurRn

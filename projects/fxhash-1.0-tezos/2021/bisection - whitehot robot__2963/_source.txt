@@ -1,0 +1,4 @@
+id: 2963
+name: bisection - whitehot robot
+mint_opens_at: 2021-12-09T23:09:30+00:00
+generative_uri: ipfs://QmSEbqY323GVsCjy8FEKzYu9Bu2R9GUG1yGWqr4irZqwVD

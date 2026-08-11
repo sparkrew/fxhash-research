@@ -1,0 +1,4 @@
+id: 3626
+name: Col
+mint_opens_at: 2021-12-17T13:37:16+00:00
+generative_uri: ipfs://QmSTnwQeVCWnueCfN5adAS8deDcLWpsMfqa4g574CPBDj5

@@ -1,0 +1,4 @@
+id: 12344
+name: 1888 - Tiles
+mint_opens_at: 2022-05-03T05:26:14+00:00
+generative_uri: ipfs://QmdgDaBJ7QZQtgiqHarTjiuJ99CcQLw66c4gQbcDMfbCWd

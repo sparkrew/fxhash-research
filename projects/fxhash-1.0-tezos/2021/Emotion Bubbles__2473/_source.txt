@@ -1,0 +1,4 @@
+id: 2473
+name: Emotion Bubbles
+mint_opens_at: 2021-12-06T20:44:50+00:00
+generative_uri: ipfs://QmT6i19oHF6x4bNsmnUhRywFCSgWmQwmviNKCrRvvKGkKv

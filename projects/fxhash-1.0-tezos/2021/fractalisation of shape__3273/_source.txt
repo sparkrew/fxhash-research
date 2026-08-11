@@ -1,0 +1,4 @@
+id: 3273
+name: fractalisation of shape
+mint_opens_at: 2021-12-12T20:43:56+00:00
+generative_uri: ipfs://QmNP6C6hzXBdBJAZFEHy1LxXFaQjpz7qc3giVxLD4FktX3

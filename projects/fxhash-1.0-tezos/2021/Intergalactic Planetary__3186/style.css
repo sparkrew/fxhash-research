@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100vh;
+  cursor: pointer;
+  background: var(--bg);
+  /*background: #ece9e4;*/
+  --bg: #ece9e4;
+  --borderc: #202124;
+  /*overflow: hidden;*/
+}
+
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vmin;
+  height: 80vmin;
+}
+
+img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-55%, -55%);
+  z-index: -1;
+}
+
+.style--bgc,
+.style--bgc.isdark {
+  background-image: linear-gradient(to bottom, var(--gs)),
+    linear-gradient(to bottom, var(--g));
+  background-size: 50% calc(100% + 1px),
+    50% calc(100% + 1px);
+  background-repeat: no-repeat;
+  background-position: 0 0,
+    calc(100% - 1px) 0;
+}
+
+.bg {
+  width: 120vw;
+  height: 120vh;
+  display: none;
+
+  background: var(--bg);
+  background: conic-gradient(var(--gs));
+  filter: url(#displacementFilter);
+  background-size: 100% 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+svg {
+  display: none;
+  width: 75vmin;
+  /**/
+  overflow: visible;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+svg circle {
+  /*animation: zoom 10s infinite cubic-bezier(0.3, 0.7, 0, 1);
+  animation-delay: calc(-10s * var(--i));*/
+  transform-origin: center center;
+  stroke-width: 5;
+  stroke-dasharray:  50 50;
+  /*stroke: #000;*/
+  /*transform: translateY(calc(var(--i) * 50%)) scaleX(calc(var(--i) * 1.2));*/
+}
+
+
+@keyframes zoom {
+  90% {
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

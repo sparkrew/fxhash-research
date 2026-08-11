@@ -1,0 +1,4 @@
+id: 355
+name: ASCII-SMOLSKULL
+mint_opens_at: 2021-11-17T21:33:42+00:00
+generative_uri: ipfs://QmTnoPGWFMB8aKVXeCauYwjwhiDs4zq8ZYTDsnYpPGkjPY

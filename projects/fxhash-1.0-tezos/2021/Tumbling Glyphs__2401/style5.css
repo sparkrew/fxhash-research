@@ -1,0 +1,23 @@
+/* 
+
+Style: purp
+Author: nuflark
+contact: https://twitter.com/enuflark
+ 
+
+*/
+
+body {
+	background-color:#FFC20E;
+	overflow:hidden;
+	
+	--color-one:#FFC20E; /* yellow-orangeish */
+	--color-two:#A7228E;  /* pink-purpley */
+	--color-three:#EC008C;  /* pink */
+	--color-four:#000000; /* black */
+	--color-five:#662D91; /* purple */	
+
+}
+
+
+

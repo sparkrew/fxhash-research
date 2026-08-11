@@ -1,0 +1,4 @@
+id: 3069
+name: side b
+mint_opens_at: 2021-12-11T15:36:36+00:00
+generative_uri: ipfs://Qma1xwVjmmbErs3JoCvsgAxJ6yrLg3ZEUCg7qCN9jJtSYR

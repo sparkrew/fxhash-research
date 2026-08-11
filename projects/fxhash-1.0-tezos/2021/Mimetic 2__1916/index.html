@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Mimetic 2</title>
+  
+  <link rel="stylesheet" href="./index.css">
+  <meta property="og:image" content="preview.png">
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+</head>
+<body>
+<script type="text/fragment" id="fragShader">#extension GL_OES_standard_derivatives : enable
+  precision highp float;
+
+uniform vec2 u_resolution;
+uniform float u_time;
+uniform vec2 u_mouse;
+uniform sampler2D s_noise;
+  
+uniform vec2 u_position;
+uniform float u_zoom;
+uniform float u_rotation;
+  
+uniform vec3 u_col_a;
+uniform vec3 u_col_b;
+uniform vec3 u_col_c;
+uniform vec3 u_col_d;
+  
+uniform float u_colourramp;
+uniform float u_colouroffset;
+uniform float u_splitchance;
+uniform float u_maxdepth;
+uniform float u_pattern;
+uniform float u_seed;
+uniform vec3 u_noise;
+  
+uniform bool u_gradient;
+
+uniform sampler2D b_noise;
+  
+#define TAU 6.28318530718
+
+varying vec2 v_uv;
+  
+const vec3 s = vec3(1, 1.7320508, 1.7320508*.3333333333);
+
+vec2 hash2(vec2 p) {
+  vec2 o = texture2D( s_noise, (p+0.5)/256.0, -100.0 ).xy;
+  return o;
+}
+
+float hex(in vec2 p) {
+  p = abs(p);
+  return max(dot(p, s.xy*.5), p.x); 
+}
+vec4 getHex(vec2 p) {
+  vec4 hC = floor(vec4(p, p - vec2(.5, 1))/s.xyxy) + .5;
+  vec4 h = vec4(p - hC.xy*s.xy, p - (hC.zw + .5)*s.xy);
+  return dot(h.xy, h.xy)<dot(h.zw, h.zw) ? vec4(h.xy, hC.xy) : vec4(h.zw, hC.zw + vec2(.5, 1));
+}
+
+
+//	Simplex 3D Noise 
+//	by Ian McEwan, Ashima Arts
+//
+vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
+vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
+float rand(float n){return fract(sin(n) * (4375.5453123+u_seed));}
+float rand(vec2 n) { 
+  return fract(sin(dot(n, vec2(u_seed, 4.1414))) * 43750.5453123);
+}
+float snoise(vec3 v){ 
+  const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+  const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+
+
+  vec3 i  = floor(v + dot(v, C.yyy) );
+  vec3 x0 =   v - i + dot(i, C.xxx) ;
+
+
+  vec3 g = step(x0.yzx, x0.xyz);
+  vec3 l = 1.0 - g;
+  vec3 i1 = min( g.xyz, l.zxy );
+  vec3 i2 = max( g.xyz, l.zxy );
+
+  
+  vec3 x1 = x0 - i1 + 1.0 * C.xxx;
+  vec3 x2 = x0 - i2 + 2.0 * C.xxx;
+  vec3 x3 = x0 - 1. + 3.0 * C.xxx;
+
+
+  i = mod(i, 289.0 ); 
+  vec4 p = permute( permute( permute( 
+              i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+            + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) 
+            + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+
+
+
+  float n_ = 1.0/7.0; 
+  vec3  ns = n_ * D.wyz - D.xzx;
+
+  vec4 j = p - 49.0 * floor(p * ns.z *ns.z);  
+
+  vec4 x_ = floor(j * ns.z);
+  vec4 y_ = floor(j - 7.0 * x_ );    
+
+  vec4 x = x_ *ns.x + ns.yyyy;
+  vec4 y = y_ *ns.x + ns.yyyy;
+  vec4 h = 1.0 - abs(x) - abs(y);
+
+  vec4 b0 = vec4( x.xy, y.xy );
+  vec4 b1 = vec4( x.zw, y.zw );
+
+  vec4 s0 = floor(b0)*2.0 + 1.0;
+  vec4 s1 = floor(b1)*2.0 + 1.0;
+  vec4 sh = -step(h, vec4(0.0));
+
+  vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+  vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+
+  vec3 p0 = vec3(a0.xy,h.x);
+  vec3 p1 = vec3(a0.zw,h.y);
+  vec3 p2 = vec3(a1.xy,h.z);
+  vec3 p3 = vec3(a1.zw,h.w);
+
+
+  vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+  p0 *= norm.x;
+  p1 *= norm.y;
+  p2 *= norm.z;
+  p3 *= norm.w;
+
+
+  vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+  m = m * m;
+  return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), 
+                                dot(p2,x2), dot(p3,x3) ) );
+}
+
+vec2 getScreenSpace() {
+  vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / min(u_resolution.y, u_resolution.x);
+
+  return uv;
+}
+
+
+
+// Hash without sine from Dave hoskins
+// https://www.shadertoy.com/view/4djSRW
+float hash12(vec2 p) {
+	vec3 p3  = fract(vec3(p.xyx) * .01031 * u_seed);
+    p3 += dot(p3, p3.yzx + .533 * u_seed);
+    return fract((p3.x + p3.y) * p3.z);
+}
+vec3 hash33(vec3 p3) {
+	p3 = fract(p3 * vec3(.1031, .2 * u_seed, .0973));
+    p3 += dot(p3, p3.yxz+33.33);
+    return fract((p3.xxy + p3.yxx)*p3.zyx);
+}
+
+
+
+vec2 diagonalhash2(vec2 p) {
+  return fract(vec2(sin((p.x + p.y) * 15.543) * 73964.686, sin((p.x + p.y) * 55.8543)*(2856.986+u_seed)));
+}
+
+
+
+
+// Colour palette function from Inigo Quilez
+// https://iquilezles.org/www/articles/palettes/palettes.htm
+vec3 pal( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d ) {
+  return a + b*cos( 6.28318*(c*t+d) );
+}
+
+
+
+vec3 getColour(float x, vec2 y, float r) {
+  vec3 a = u_col_a;
+  vec3 b = u_col_b;
+  vec3 c = u_col_c;
+  vec3 d = u_col_d;
+  
+  
+  if(u_gradient) {
+    float _y = y.y;
+    if(r < .5) _y = 1. - _y;
+    return mix(
+      pal(x, a, b, c, d),
+      pal(x+1.*u_colourramp, a, b, c, d),
+      y.y
+    );
+    
+  }
+  return pal(x, a, b, c, d);
+}
+float field = 1.;
+void getDetails(inout vec2 uv, inout vec2 fuv, inout vec2 suv, inout vec3 r, inout vec3 r2, inout float zoom) {
+  vec2 _uv = uv;
+  
+  vec4 huv = getHex(uv);
+  
+  _uv = huv.xy;
+  
+  fuv = huv.zw + fuv * 100.;
+  suv = huv.xy;
+  
+  r = hash33(vec3(fuv, 1.));
+  
+  if(u_pattern == 2.) {
+    r.y = snoise(vec3(fuv, 1.) * .04) * 3.;
+  } else if(u_pattern == 3.) {
+    r.xy = diagonalhash2(fuv * .1) * 2. - .5;
+  } else if(u_pattern == 4.) {
+    r.y = max(0., cos(fuv.x * .2));
+  } else if(u_pattern == 5.) {
+    if(field == 1.) {
+      vec2 _fuv = fuv;
+      field = mod(_fuv.x + _fuv.y, 2.);
+    }
+    field += mod(fuv.x * .5 + fuv.y * .5, 2.) * .1;
+    r.y = field;
+  }
+  
+  uv = huv.xy * 2. - vec2(0.,s.z);
+  zoom *= 2.;
+  
+  r2 = hash33(vec3(fuv, 100.) * 16.);
+}
+const float maxdepth = 10.;
+void render(in vec2 uv, inout vec3 colour, inout vec3 r, float zoom) {
+  
+  uv *= .5;
+  
+  vec2 fuv, suv;
+  vec3 r2, c, cumc;
+  
+  for(float i = 0.; i < maxdepth; i++) {
+    if(i > u_maxdepth) break;
+    getDetails(uv, fuv, suv, r, r2, zoom);
+    if(r.y > u_splitchance && i > 0.) break;
+    if(zoom > 600.) break;
+    c = getColour(r.x*u_colourramp+u_colouroffset, suv, r2.x);
+    vec2 fielduv = suv;
+    float aa = fwidth(length(fielduv));
+
+    float d = length(fielduv)-.4;
+    
+    if(r2.z < .5) {
+      d = hex(mod(suv * 4., 1.) - .5);
+    }
+    
+    if(r2.y < .1) {
+      d = hex(suv) - .4;
+    } else if(r2.y < .2) {
+      d = hex(suv - vec2(0, s.z)) - .5;
+    } else if(r2.y < .3) {
+      d = hex(suv + vec2(0, s.z)) - .5;
+    }
+    
+    float z = smoothstep(600., 500., zoom);
+    
+    c = mix(c, getColour(r.z*u_colourramp+u_colouroffset, suv, r2.x), smoothstep(aa, 0., mix(-.1, d, z)));
+    
+    cumc = mix(cumc, c, z);
+  }
+  
+  colour = cumc;
+}
+void main() {
+  vec2 uv = getScreenSpace();
+  
+  vec2 _v = uv;
+  
+  uv *= u_zoom;
+  
+  float s = sin(u_rotation);
+  float c = cos(u_rotation);
+  mat3 transform = mat3(
+    c, s, u_position.x,
+    -s, c, u_position.y,
+    0, 0, 1
+  );
+  uv = (vec3(uv, 1.) * transform).xy;
+  
+  vec3 colour, r;
+  render(uv, colour, r, u_zoom);
+  
+  colour += rand((_v-u_position*.01)*u_zoom + u_time * u_noise.x)*u_noise.y-u_noise.z;
+  
+  gl_FragColor = vec4(colour,1);
+}
+</script>
+<script type="text/fragment" id="fragShaderRender">
+precision highp float;
+
+uniform bool u_dithering;
+uniform bool u_pixelate;
+uniform vec2 u_resolution;
+varying vec2 v_uv;
+uniform sampler2D s_buffer;
+uniform sampler2D s_bayer;
+  
+
+#define FXAA_REDUCE_MIN   (1.0/ 128.0)
+#define FXAA_REDUCE_MUL   (1.0 / 8.0)
+#define FXAA_SPAN_MAX     8.0
+
+void texcoords(vec2 fragCoord, vec2 resolution,
+  out vec2 v_rgbNW, out vec2 v_rgbNE,
+  out vec2 v_rgbSW, out vec2 v_rgbSE,
+  out vec2 v_rgbM) {
+vec2 inverseVP = 1.0 / resolution.xy;
+v_rgbNW = (fragCoord + vec2(-1.0, -1.0)) * inverseVP;
+v_rgbNE = (fragCoord + vec2(1.0, -1.0)) * inverseVP;
+v_rgbSW = (fragCoord + vec2(-1.0, 1.0)) * inverseVP;
+v_rgbSE = (fragCoord + vec2(1.0, 1.0)) * inverseVP;
+v_rgbM = vec2(fragCoord * inverseVP);
+}
+
+//optimized version for mobile, where dependent 
+//texture reads can be a bottleneck
+vec4 fxaa(sampler2D tex, vec2 fragCoord, vec2 resolution,
+        vec2 v_rgbNW, vec2 v_rgbNE, 
+        vec2 v_rgbSW, vec2 v_rgbSE, 
+        vec2 v_rgbM) {
+vec4 color;
+mediump vec2 inverseVP = vec2(1.0 / resolution.x, 1.0 / resolution.y);
+vec3 rgbNW = texture2D(tex, v_rgbNW).xyz;
+vec3 rgbNE = texture2D(tex, v_rgbNE).xyz;
+vec3 rgbSW = texture2D(tex, v_rgbSW).xyz;
+vec3 rgbSE = texture2D(tex, v_rgbSE).xyz;
+vec4 texColor = texture2D(tex, v_rgbM);
+vec3 rgbM  = texColor.xyz;
+vec3 luma = vec3(0.299, 0.587, 0.114);
+float lumaNW = dot(rgbNW, luma);
+float lumaNE = dot(rgbNE, luma);
+float lumaSW = dot(rgbSW, luma);
+float lumaSE = dot(rgbSE, luma);
+float lumaM  = dot(rgbM,  luma);
+float lumaMin = min(lumaM, min(min(lumaNW, lumaNE), min(lumaSW, lumaSE)));
+float lumaMax = max(lumaM, max(max(lumaNW, lumaNE), max(lumaSW, lumaSE)));
+
+mediump vec2 dir;
+dir.x = -((lumaNW + lumaNE) - (lumaSW + lumaSE));
+dir.y =  ((lumaNW + lumaSW) - (lumaNE + lumaSE));
+
+float dirReduce = max((lumaNW + lumaNE + lumaSW + lumaSE) *
+                      (0.25 * FXAA_REDUCE_MUL), FXAA_REDUCE_MIN);
+
+float rcpDirMin = 1.0 / (min(abs(dir.x), abs(dir.y)) + dirReduce);
+dir = min(vec2(FXAA_SPAN_MAX, FXAA_SPAN_MAX),
+          max(vec2(-FXAA_SPAN_MAX, -FXAA_SPAN_MAX),
+          dir * rcpDirMin)) * inverseVP;
+
+vec3 rgbA = 0.5 * (
+    texture2D(tex, fragCoord * inverseVP + dir * (1.0 / 3.0 - 0.5)).xyz +
+    texture2D(tex, fragCoord * inverseVP + dir * (2.0 / 3.0 - 0.5)).xyz);
+vec3 rgbB = rgbA * 0.5 + 0.25 * (
+    texture2D(tex, fragCoord * inverseVP + dir * -0.5).xyz +
+    texture2D(tex, fragCoord * inverseVP + dir * 0.5).xyz);
+
+float lumaB = dot(rgbB, luma);
+if ((lumaB < lumaMin) || (lumaB > lumaMax))
+    color = vec4(rgbA, texColor.a);
+else
+    color = vec4(rgbB, texColor.a);
+return color;
+}
+  
+void main() {
+  vec2 uv = v_uv;
+  
+  vec4 c;
+  if(u_pixelate) {
+    c = texture2D(s_buffer, floor(gl_FragCoord.xy/u_resolution.xy * 128.) / 128.);
+  }
+  if(u_dithering) {
+    if(length(c) == 0.) c = texture2D(s_buffer, gl_FragCoord.xy/u_resolution.xy);
+    /* Dithering code borrowed from Fabrice Neyret https://www.shadertoy.com/view/MllSzj */
+    c = step(texture2D(s_bayer, gl_FragCoord.xy/8.).r, c);
+  } else if(u_pixelate) {
+  } else {
+    vec3 col;
+    mediump vec2 v_rgbNW;
+	mediump vec2 v_rgbNE;
+	mediump vec2 v_rgbSW;
+	mediump vec2 v_rgbSE;
+	mediump vec2 v_rgbM;
+	texcoords(gl_FragCoord.xy, u_resolution.xy, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);
+    c = fxaa( s_buffer, gl_FragCoord.xy, u_resolution.xy, v_rgbNW, v_rgbNE, v_rgbSW, v_rgbSE, v_rgbM);  
+  }
+  
+  gl_FragColor = c;
+}
+</script>
+  
+<script type="module" src="./main.js"></script>
+
+</body>
+</html>

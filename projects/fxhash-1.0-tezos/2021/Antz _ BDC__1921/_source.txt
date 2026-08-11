@@ -1,0 +1,4 @@
+id: 1921
+name: Antz | BDC
+mint_opens_at: 2021-12-02T00:04:24+00:00
+generative_uri: ipfs://Qmbp4Ek7jnEdQvsTjzyyAvpj17G2R2VVP9ZaV8PFoAt3NV

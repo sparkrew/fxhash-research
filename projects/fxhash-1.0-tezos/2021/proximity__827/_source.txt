@@ -1,0 +1,4 @@
+id: 827
+name: proximity
+mint_opens_at: 2021-11-22T17:12:12+00:00
+generative_uri: ipfs://QmSaNYgLe9L2U9sTM23Dxcwn39fpbdDREsady7F3EU3diJ

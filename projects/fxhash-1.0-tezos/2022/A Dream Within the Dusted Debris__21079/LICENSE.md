@@ -1,0 +1,3 @@
+- "A Dream Within the Dusted Debris" visual code Copyright (c) 2022 Rangga Purnama Aji
+- Hydra.js MIT license GNU Affero General Public License v3.0
+- p5.js MIT license GNU Lesser General Public License v2.1

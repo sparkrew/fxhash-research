@@ -1,0 +1,4 @@
+id: 357
+name: Bubbles StarZzzzZ
+mint_opens_at: 2021-11-17T21:35:12+00:00
+generative_uri: ipfs://QmVhjcfnL5uiLh1gZvb5NA1eJ5fbMscMzjRdB88hmYUEqo

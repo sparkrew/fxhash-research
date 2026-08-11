@@ -1,0 +1,4 @@
+id: 5221
+name: aprendizajes
+mint_opens_at: 2021-12-28T20:01:40+00:00
+generative_uri: ipfs://QmTC9o9GBBdb2YiXVcD8PS6oB45i6cy5dyPqAH4qQFxprT

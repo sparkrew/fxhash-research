@@ -1,0 +1,203 @@
+{
+  "url": "http://paletton.com/#uid=b5l160a0kvpQ1jiS-pjRaOhKoLZrY",
+  "colorset": [
+    {
+      "id": "primary",
+      "title": "Primary color",
+      "color": [
+        {
+          "id": "primary-0",
+          "nr": "0",
+          "rgb": "F4055D",
+          "r": "244",
+          "g": "5",
+          "b": "93",
+          "r0": "0.957",
+          "g0": "0.02",
+          "b0": "0.365",
+          "self-closing": "true"
+        },
+        {
+          "id": "primary-1",
+          "nr": "1",
+          "rgb": "F66299",
+          "r": "246",
+          "g": "98",
+          "b": "153",
+          "r0": "0.965",
+          "g0": "0.384",
+          "b0": "0.6",
+          "self-closing": "true"
+        },
+        {
+          "id": "primary-2",
+          "nr": "2",
+          "rgb": "F5337B",
+          "r": "245",
+          "g": "51",
+          "b": "123",
+          "r0": "0.961",
+          "g0": "0.2",
+          "b0": "0.482",
+          "self-closing": "true"
+        },
+        {
+          "id": "primary-3",
+          "nr": "3",
+          "rgb": "EE0058",
+          "r": "238",
+          "g": "0",
+          "b": "88",
+          "r0": "0.933",
+          "g0": "0",
+          "b0": "0.345",
+          "self-closing": "true"
+        },
+        {
+          "id": "primary-4",
+          "nr": "4",
+          "rgb": "C20048",
+          "r": "194",
+          "g": "0",
+          "b": "72",
+          "r0": "0.761",
+          "g0": "0",
+          "b0": "0.282",
+          "self-closing": "true"
+        }
+      ]
+    },
+    {
+      "id": "secondary-1",
+      "title": "Secondary color (1)",
+      "color": [
+        {
+          "id": "secondary-1-0",
+          "nr": "0",
+          "rgb": "FFBA05",
+          "r": "255",
+          "g": "186",
+          "b": "5",
+          "r0": "1",
+          "g0": "0.729",
+          "b0": "0.02",
+          "self-closing": "true"
+        },
+        {
+          "id": "secondary-1-1",
+          "nr": "1",
+          "rgb": "FFD465",
+          "r": "255",
+          "g": "212",
+          "b": "101",
+          "r0": "1",
+          "g0": "0.831",
+          "b0": "0.396",
+          "self-closing": "true"
+        },
+        {
+          "id": "secondary-1-2",
+          "nr": "2",
+          "rgb": "FFC735",
+          "r": "255",
+          "g": "199",
+          "b": "53",
+          "r0": "1",
+          "g0": "0.78",
+          "b0": "0.208",
+          "self-closing": "true"
+        },
+        {
+          "id": "secondary-1-3",
+          "nr": "3",
+          "rgb": "FFB800",
+          "r": "255",
+          "g": "184",
+          "b": "0",
+          "r0": "1",
+          "g0": "0.722",
+          "b0": "0",
+          "self-closing": "true"
+        },
+        {
+          "id": "secondary-1-4",
+          "nr": "4",
+          "rgb": "DFA100",
+          "r": "223",
+          "g": "161",
+          "b": "0",
+          "r0": "0.875",
+          "g0": "0.631",
+          "b0": "0",
+          "self-closing": "true"
+        }
+      ]
+    },
+    {
+      "id": "secondary-2",
+      "title": "Secondary color (2)",
+      "color": [
+        {
+          "id": "secondary-2-0",
+          "nr": "0",
+          "rgb": "FF3905",
+          "r": "255",
+          "g": "57",
+          "b": "5",
+          "r0": "1",
+          "g0": "0.224",
+          "b0": "0.02",
+          "self-closing": "true"
+        },
+        {
+          "id": "secondary-2-1",
+          "nr": "1",
+          "rgb": "FF8565",
+          "r": "255",
+          "g": "133",
+          "b": "101",
+          "r0": "1",
+          "g0": "0.522",
+          "b0": "0.396",
+          "self-closing": "true"
+        },
+        {
+          "id": "secondary-2-2",
+          "nr": "2",
+          "rgb": "FF5F35",
+          "r": "255",
+          "g": "95",
+          "b": "53",
+          "r0": "1",
+          "g0": "0.373",
+          "b0": "0.208",
+          "self-closing": "true"
+        },
+        {
+          "id": "secondary-2-3",
+          "nr": "3",
+          "rgb": "FF3500",
+          "r": "255",
+          "g": "53",
+          "b": "0",
+          "r0": "1",
+          "g0": "0.208",
+          "b0": "0",
+          "self-closing": "true"
+        },
+        {
+          "id": "secondary-2-4",
+          "nr": "4",
+          "rgb": "DF2E00",
+          "r": "223",
+          "g": "46",
+          "b": "0",
+          "r0": "0.875",
+          "g0": "0.18",
+          "b0": "0",
+          "self-closing": "true"
+        }
+      ]
+    }
+  ]
+}

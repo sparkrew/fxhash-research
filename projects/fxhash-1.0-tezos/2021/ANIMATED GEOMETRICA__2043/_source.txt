@@ -1,0 +1,4 @@
+id: 2043
+name: ANIMATED GEOMETRICA
+mint_opens_at: 2021-12-02T23:37:14+00:00
+generative_uri: ipfs://QmXUZWd5qM9QqXPE86JzcHgb6jAXLGCZPoQRNcHBdSDQUn

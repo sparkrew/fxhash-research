@@ -1,0 +1,4 @@
+id: 4650
+name: dot world
+mint_opens_at: 2021-12-23T13:19:50+00:00
+generative_uri: ipfs://QmTaHpYf7jzubyLRiCJ1bZZiQqTibE7VVZegnMe2g9VAnP

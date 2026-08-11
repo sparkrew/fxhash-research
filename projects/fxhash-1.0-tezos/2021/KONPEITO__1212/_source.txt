@@ -1,0 +1,4 @@
+id: 1212
+name: KONPEITO
+mint_opens_at: 2021-11-25T09:09:58+00:00
+generative_uri: ipfs://QmZsatTSpd5twUmbKGPTPYwG2C8NauVPb9T4wTiTCMQxzC

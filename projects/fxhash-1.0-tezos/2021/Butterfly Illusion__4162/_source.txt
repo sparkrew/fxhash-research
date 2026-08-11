@@ -1,0 +1,4 @@
+id: 4162
+name: Butterfly Illusion
+mint_opens_at: 2021-12-21T04:03:36+00:00
+generative_uri: ipfs://QmdjMhCUTxTxb1Exbti5vkoQh8LXTqnwGQiRn5zmTBUpC3

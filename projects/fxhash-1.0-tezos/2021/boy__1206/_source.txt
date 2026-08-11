@@ -1,0 +1,4 @@
+id: 1206
+name: boy
+mint_opens_at: 2021-11-25T08:20:58+00:00
+generative_uri: ipfs://QmUTfvHmwX5dtRZoaDGKyJg9mRsfRX8CUyhCcvnUtoegW9

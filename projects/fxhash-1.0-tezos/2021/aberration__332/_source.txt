@@ -1,0 +1,4 @@
+id: 332
+name: aberration
+mint_opens_at: 2021-11-17T18:47:12+00:00
+generative_uri: ipfs://QmNsK9BYEGnBWAxvuuW1tVKddWnA82pKdwxYCectgXLgQM

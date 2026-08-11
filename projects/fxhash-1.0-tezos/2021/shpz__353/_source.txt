@@ -1,0 +1,4 @@
+id: 353
+name: shpz
+mint_opens_at: 2021-11-17T20:58:52+00:00
+generative_uri: ipfs://QmbAFTTEr325ut8r6wum6TkRBPkB7eALTgJFsJ9MjF7pA8

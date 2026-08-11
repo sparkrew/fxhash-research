@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Psilocybin</title>
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+<style>
+html,
+body {
+background-color: #000000;
+margin: 0px;
+overflow: hidden;
+width: 100%;
+height: 100%;
+}
+canvas {
+width: 100%;
+height: 100%;
+}
+</style>
+</head>
+<body>
+<canvas id="main"></canvas>
+<script>
+function f1(t){return t<.45?"Low":t<.85?"Medium":t<.95?"High":"Uniform"}function f2(){let t=window.$fxhashFeatures.Variation;return"Uniform"===t?1:"Low"===t?3:"Medium"===t?6:18}function f3(t){return t<.6?"Medium":t<.85?"Small":"Large"}function f4(){let t=window.$fxhashFeatures.Size;return"Small"===t?14:"Medium"===t?10:6}function f5(t){return t<.2?"Calm":t<.6?"Pulsating":t<.9?"Vibrating":"Rotating"}function f6(){return"Rotating"===window.$fxhashFeatures.Mode}function f7(){let t=window.$fxhashFeatures.Mode;return"Rotating"===t||"Vibrating"===t}function f8(){return"Calm"!==window.$fxhashFeatures.Mode}window.$fxhashFeatures={Size:f3(fxrand()),Variation:f1(fxrand()),Mode:f5(fxrand())};let cv=document.querySelector("canvas"),cx=cv.getContext("2d");var rd;addEventListener("resize",()=>{cv.width=innerWidth,cv.height=innerHeight}),cv.width=innerWidth,cv.height=innerHeight;var lt=Date.now(),gn=0;function f9(){requestAnimationFrame(f9);let t=Date.now();if(t-lt<100)return;lt=t,rd=g5(g4(fxhash)()),++gn;let e=Math.floor(Math.min(cv.width,cv.height)),n=e/f4(),i=Math.ceil(n/25),a=n+(f8()?i*Math.cos(gn/Math.PI):0),r=a/3+(f8()?i*Math.sin(gn/Math.PI):0),o=Math.PI/6,h=2*a,c=r*Math.sin(o)/Math.cos(o),l=(a-r)*Math.cos(o)+c,u=r*Math.sin(o),f=a-l-Math.sin(o)*c;cx.beginPath(),cx.moveTo(0,0),cx.lineTo(e,0),cx.lineTo(e,e),cx.lineTo(0,e),cx.stroke(),cx.clip();let x=g3(f2());cx.fillStyle=x[0],cx.fillRect(0,0,e,e);let s=[];for(var g=e/2+u;g>-3*a;)g-=2*(a+u);for(var d=e/2+a-f;d>-3*a;)d-=4*a;let M=d;for(;g<e+3*a;){for(d=M;d<e+3*a;)s.push({x:d,y:g,a:Math.PI/2}),s.push({x:d+2*f,y:g+a-u,a:3*Math.PI/2}),d+=2*a,g-=a+u,s.push({x:d,y:g,a:Math.PI/2}),s.push({x:d+2*f,y:g+a-u,a:3*Math.PI/2}),d+=2*a,g+=a+u;g+=2*(a+u)}s.forEach(t=>{var e=t.x,n=t.y,i=t.a;let a=[];for(var r=0;r<3;++r)a.push({x:e,y:n}),e+=h*Math.cos(i),n+=h*Math.sin(i),a.push({x:e,y:n}),i+=Math.PI/2,e+=l*Math.cos(i),n+=l*Math.sin(i),a.push({x:e,y:n}),i+=Math.PI/3,e+=l*Math.cos(i),n+=l*Math.sin(i),a.push({x:e,y:n}),i+=Math.PI/2;t.points=a}),cx.save(),cx.translate(e/2,e/2),cx.rotate(f6()?gn/(2*Math.PI):0),cx.translate(-e/2,-e/2),s.forEach(t=>{g1(t.points,x[s.indexOf(t)%x.length])}),s.forEach(t=>{g2(n,t.points)}),cx.restore()}function g1(t,e){cx.globalAlpha=.5,cx.fillStyle=e,cx.beginPath(),cx.moveTo(t[0].x,t[0].y);for(var n=1;n<t.length;++n)cx.lineTo(t[n].x,t[n].y);cx.fill("evenodd"),cx.globalAlpha=1}function g2(t,e){cx.lineCap="round",cx.lineJoin="round",cx.strokeStyle="#000000",cx.lineWidth=Math.ceil(t/10),cx.beginPath(),cx.moveTo(e[0].x,e[0].y);for(var n=1;n<e.length;++n)cx.lineTo(e[n].x,e[n].y);cx.stroke(),cx.strokeStyle="#ffffff",cx.lineWidth=Math.ceil(cx.lineWidth/2),cx.beginPath(),cx.moveTo(e[0].x,e[0].y);for(n=1;n<e.length;++n)cx.lineTo(e[n].x,e[n].y);cx.stroke()}function g3(t){if(1==t&&rd()<.25)return["#000000"];for(var e=["#aec7e8","#ffbb78","#98df8a","#ff9896","#c5b0d5","#c49c94","#f7b6d2","#dbdb8d","#9edae5","#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#bcbd22","#17becf"],n=e.length-1;n>0;n--){var i=Math.floor((f7()?fxrand():rd())*(n+1)),a=e[n];e[n]=e[i],e[i]=a}return e.slice(0,t)}function g4(t){for(var e=0,n=1779033703^t.length;e<t.length;e++)n=(n=Math.imul(n^t.charCodeAt(e),3432918353))<<13|n>>>19;return function(){return n=Math.imul(n^n>>>16,2246822507),n=Math.imul(n^n>>>13,3266489909),(n^=n>>>16)>>>0}}function g5(t){return function(){var e=t+=1831565813;return e=Math.imul(e^e>>>15,1|e),(((e^=e+Math.imul(e^e>>>7,61|e))^e>>>14)>>>0)/4294967296}}f9();   
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+id: 2472
+name: 雾(fog)
+mint_opens_at: 2021-12-06T20:44:20+00:00
+generative_uri: ipfs://QmZdkyQz5oGtB1C6vJkv4i5EoThxPEKUQcEHNfPJxjFcTk

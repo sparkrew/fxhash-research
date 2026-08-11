@@ -1,0 +1,4 @@
+id: 265
+name: Padang
+mint_opens_at: 2021-11-17T10:56:42+00:00
+generative_uri: ipfs://QmRrtLiC6eUrPBxPLadzDNyJ7K9BwZWCZiU3vLBxLreM6j

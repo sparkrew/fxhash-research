@@ -1,0 +1,4 @@
+id: 2114
+name: Barcodez | BCD
+mint_opens_at: 2021-12-03T10:03:34+00:00
+generative_uri: ipfs://QmdBpEAV1AcVxHLk3pfMdFY2AmLQ9mweCKjpNLE3vULcWq

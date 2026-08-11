@@ -1,0 +1,4 @@
+id: 6982
+name: A collage of collages
+mint_opens_at: 2022-01-14T10:35:50+00:00
+generative_uri: ipfs://QmTwhBMgnK2VoxxkQPb2H5bzYoHiccL2h6g3YoNpuzWiZf

@@ -1,0 +1,4 @@
+id: 2116
+name: empty.rooms
+mint_opens_at: 2021-12-03T10:18:34+00:00
+generative_uri: ipfs://QmUtxxgv5D9dLFbH6ihKymRX6NphuqQLdbg5ryecq1Ucw5

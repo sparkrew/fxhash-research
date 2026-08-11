@@ -1,0 +1,4 @@
+id: 1205
+name: Excursion
+mint_opens_at: 2021-11-25T08:15:58+00:00
+generative_uri: ipfs://QmbXbV3bTP1NqaWmLo5bpttF6HsPc4n2YdN2VrsHAXd5wt

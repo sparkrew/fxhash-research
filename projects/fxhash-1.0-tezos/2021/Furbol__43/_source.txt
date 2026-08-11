@@ -1,0 +1,4 @@
+id: 43
+name: Furbol
+mint_opens_at: 2021-11-13T12:17:48+00:00
+generative_uri: ipfs://QmciArDTkBhEoz9Q3T3CwjmAvhWhVsw6MJwtM58FKTdA6C

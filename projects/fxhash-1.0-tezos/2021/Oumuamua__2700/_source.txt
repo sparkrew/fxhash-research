@@ -1,0 +1,4 @@
+id: 2700
+name: Oumuamua
+mint_opens_at: 2021-12-08T17:24:40+00:00
+generative_uri: ipfs://QmTFpNWK5BRNt85PAz6UHfm3tyLx4imeXECZ4GK1yajBXR

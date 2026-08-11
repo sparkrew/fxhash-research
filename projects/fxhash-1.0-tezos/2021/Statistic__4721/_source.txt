@@ -1,0 +1,4 @@
+id: 4721
+name: Statistic
+mint_opens_at: 2021-12-26T01:01:00+00:00
+generative_uri: ipfs://QmSRUUxpugwKZuyYpv9Msgsrq1jhDiCfCkPqaPw3qsnRHM

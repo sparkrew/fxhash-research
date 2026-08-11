@@ -1,0 +1,4 @@
+id: 4345
+name: Pyramids
+mint_opens_at: 2021-12-22T03:12:56+00:00
+generative_uri: ipfs://QmQR387BNUE6KQgzFU1T61JkR1Gw8sGWXXo4nGYnEMgTUR

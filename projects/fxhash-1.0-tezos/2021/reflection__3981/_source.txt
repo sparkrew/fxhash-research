@@ -1,0 +1,4 @@
+id: 3981
+name: reflection
+mint_opens_at: 2021-12-19T15:11:46+00:00
+generative_uri: ipfs://QmfQfp3XN4Q52uHq5ERhWbDBExqMtGGP6hNtUyGZH9aBEy

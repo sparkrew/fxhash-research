@@ -1,0 +1,4 @@
+id: 4021
+name: Favela
+mint_opens_at: 2021-12-20T05:02:06+00:00
+generative_uri: ipfs://QmeUgk58YPZQetPFEUcoki27oNhGtFmMcqSDmBjJSuYYVk

@@ -1,0 +1,4 @@
+id: 1814
+name: Jacaranda Copaia
+mint_opens_at: 2021-11-30T13:54:08+00:00
+generative_uri: ipfs://Qmb6udwTqxFzH2KXBiVJw3pqpkvxRt83q8oT6ijzBRYZiD

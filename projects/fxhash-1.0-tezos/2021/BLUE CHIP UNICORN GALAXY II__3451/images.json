@@ -1,0 +1,527 @@
+[
+  {
+    "name": "Phenom #16",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/16.png",
+    "dna": "a61e1be1d88398c20b2ce776a88dfa07d996305f",
+    "edition": 16,
+    "date": 1639414114108,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE CITY SQUARE"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "ARCH SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 3"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BURNT"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #17",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/17.png",
+    "dna": "6c727b7ca3dcfcf427961869353c409765f8fb1e",
+    "edition": 17,
+    "date": 1639414114488,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE PHEONIX"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 01"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "BLUE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 6"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP KETTLE"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #18",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/18.png",
+    "dna": "9216e1c04a12da4ded868b457acc1de6002bf437",
+    "edition": 18,
+    "date": 1639414114849,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED SKY COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "BLUE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 5"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BURNT"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #19",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/19.png",
+    "dna": "9969246e133c95779857bdddf34c25010e9c6cbd",
+    "edition": 19,
+    "date": 1639414115163,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE PHEONIX"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 06"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "INFINTE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 4"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "UNICORN"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL DRIP"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #20",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/20.png",
+    "dna": "b508311ee2070f5c897a0cb5f1efd1c47159a7db",
+    "edition": 20,
+    "date": 1639414115507,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE PHEONIX"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 03"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "WAVE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 1"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP TORTILLLA"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #21",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/21.png",
+    "dna": "83045b1cf7dff8f39116d7daeb5c4d11eb82209e",
+    "edition": 21,
+    "date": 1639414115875,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED ORANGE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 06"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "WAVE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 3"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP TORTILLLA"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #22",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/22.png",
+    "dna": "8a2b8697d4583fb1b107b4c36d951e94cdabe857",
+    "edition": 22,
+    "date": 1639414116275,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED ORANGE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "BLUE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 4"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP TORTILLLA"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #23",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/23.png",
+    "dna": "234dfb9219cd226b9aac6741a62353a8643093a7",
+    "edition": 23,
+    "date": 1639414116610,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED GRAPE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 06"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "TANGY SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 6"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP KETTLE"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #24",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/24.png",
+    "dna": "af932d03df92634ebc0def6aeb064ce9d109a775",
+    "edition": 24,
+    "date": 1639414116952,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE CITY SQUARE"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 01"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "MOON SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 3"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "UNICORN"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #25",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/25.png",
+    "dna": "ee2419da521d178192fffb8c49dfd3caab72d606",
+    "edition": 25,
+    "date": 1639414117310,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE CITY SQUARE"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "BLUE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 6"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP ROUND"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #26",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/26.png",
+    "dna": "987d87d9b854f445155a805ce2080c217ed69145",
+    "edition": 26,
+    "date": 1639414117654,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE PHEONIX"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "WAVE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 4"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "UNICORN"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE RAIN"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #27",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/27.png",
+    "dna": "518d8f1b65696e4f30ebebbbc78de39056494e2f",
+    "edition": 27,
+    "date": 1639414117996,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED ORANGE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "WAVE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 6"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP KETTLE"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #28",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/28.png",
+    "dna": "97d82971e017e54602b05f8250ee9248e084eeb9",
+    "edition": 28,
+    "date": 1639414118360,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED CITY COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 05"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "BLUE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 3"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP KETTLE"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE RAIN"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #29",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/29.png",
+    "dna": "4603314c84cb86828d6f8ca118e8e4c7d89b19fe",
+    "edition": 29,
+    "date": 1639414118628,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED SKY COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "ARCH SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 3"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "UNICORN"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #30",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/30.png",
+    "dna": "e342891c2d52b69aaeb1b4c6b3949b11b09c98e2",
+    "edition": 30,
+    "date": 1639414118945,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE CITY SQUARE"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "INFINTE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 4"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP KETTLE"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE RAIN"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  }  
+]

@@ -1,0 +1,36 @@
+
+body {		
+	background-color: #000007;
+	color: #333333;
+	margin:0;
+	
+	font-family: Share Tech Mono;
+	align-items:center;
+	justify-content:center;
+
+	width:100vw;
+	height:100vh;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+	
+}
+
+div.canvas-holder{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+
+	width:100vw;
+	height:100vh;
+}
+
+canvas{
+  position:fixed;
+  z-index:3;
+  height:100vh;	
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}

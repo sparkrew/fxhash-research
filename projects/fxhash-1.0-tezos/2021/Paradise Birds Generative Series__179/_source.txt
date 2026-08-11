@@ -1,0 +1,4 @@
+id: 179
+name: Paradise Birds Generative Series
+mint_opens_at: 2021-11-15T17:31:18+00:00
+generative_uri: ipfs://QmcX4r8VPEvEpzda4qSzJKGxEq7qxtRGbk1skgxXn2XvEi

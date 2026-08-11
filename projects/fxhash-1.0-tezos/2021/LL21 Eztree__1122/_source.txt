@@ -1,0 +1,4 @@
+id: 1122
+name: LL21 Eztree
+mint_opens_at: 2021-11-24T13:11:02+00:00
+generative_uri: ipfs://QmcqkHkQkDLXmfh2StKAvWM1mKLwuGANWb9Y2HzEeBicEo

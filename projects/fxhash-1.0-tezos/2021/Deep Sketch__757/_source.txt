@@ -1,0 +1,4 @@
+id: 757
+name: Deep Sketch
+mint_opens_at: 2021-11-22T13:39:02+00:00
+generative_uri: ipfs://QmPiLgjUuBBHNAo3r4Yvota1sScP9VT53q6oxeU7e5kjWj

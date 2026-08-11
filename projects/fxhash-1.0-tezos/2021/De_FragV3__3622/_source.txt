@@ -1,0 +1,4 @@
+id: 3622
+name: De/FragV3
+mint_opens_at: 2021-12-17T13:34:16+00:00
+generative_uri: ipfs://QmXrD2WYArBSPVLxWr45jzZQ8LpZa8Nk2sPzp9MH6RMSR5

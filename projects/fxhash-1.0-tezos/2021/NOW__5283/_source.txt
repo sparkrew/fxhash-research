@@ -1,0 +1,4 @@
+id: 5283
+name: NOW
+mint_opens_at: 2021-12-28T20:52:00+00:00
+generative_uri: ipfs://QmXuXUcHUibe1h7dTLMR1nadBn5YLig2JJDza1tekxogyP

@@ -1,0 +1,4 @@
+id: 3
+name: Punevyr's face
+mint_opens_at: 2021-11-08T01:13:46+00:00
+generative_uri: ipfs://QmUnhu9r8Xyziq86L4MTNdH5Crg59n6CHcKMBaZUSApCz5

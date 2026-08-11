@@ -1,0 +1,4 @@
+id: 6562
+name: _linea_alt
+mint_opens_at: 2022-01-11T07:16:50+00:00
+generative_uri: ipfs://QmdZg3m4dyQHenCD9niQBvKroxcUtubgVRDJSqPUv6cdk4

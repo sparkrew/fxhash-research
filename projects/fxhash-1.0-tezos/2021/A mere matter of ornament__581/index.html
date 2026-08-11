@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" >
+	<title>A mere matter of ornament | NFT</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" >
+	<meta name="Author" content="Gerard Ferrandez - @ge1doot" >
+	<meta name="Date" content="20 Nov 2021" >
+
+	<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+	<style>
+		html {
+			overflow: hidden;
+			touch-action: none;
+			content-zooming: none;
+		}
+
+		body {
+			position: absolute;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background: #000;
+		}
+
+		canvas {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			user-select: none;
+			background: #000;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+	<canvas id="ge1doot"></canvas>
+
+	<script>
+
+		"use strict";
+
+		console.clear();
+
+		const random = fxrand;
+
+
+		///////////////// vec3 ///////////////////
+
+		const v3 = (vector = [0, 0, 0]) => {
+			vector.set = function (x, y, z) {
+				this[0] = x;
+				this[1] = y;
+				this[2] = z;
+				return this;
+			};
+
+			vector.copy = function (a) {
+				this[0] = a[0];
+				this[1] = a[1];
+				this[2] = a[2];
+				return this;
+			};
+
+			vector.add = function (a) {
+				this[0] += a[0];
+				this[1] += a[1];
+				this[2] += a[2];
+				return this;
+			};
+
+			vector.subtract = function (a) {
+				this[0] -= a[0];
+				this[1] -= a[1];
+				this[2] -= a[2];
+				return this;
+			};
+
+			vector.multiply = function (a) {
+				this[0] *= a[0];
+				this[1] *= a[1];
+				this[2] *= a[2];
+				return this;
+			};
+
+			vector.scale = function (s) {
+				this[0] *= s;
+				this[1] *= s;
+				this[2] *= s;
+				return this;
+			};
+
+			vector.addMult = function (a, s) {
+				this[0] += a[0] * s;
+				this[1] += a[1] * s;
+				this[2] += a[2] * s;
+				return this;
+			};
+
+			vector.negative = function () {
+				this[0] = -this[0];
+				this[1] = -this[1];
+				this[2] = -this[2];
+				return this;
+			};
+
+			vector.unit = function () {
+				const len = Math.sqrt(
+					this[0] * this[0] + this[1] * this[1] + this[2] * this[2]
+				);
+				this[0] /= len;
+				this[1] /= len;
+				this[2] /= len;
+				return this;
+			};
+
+			vector.cross = function (b) {
+				const ax = this[0],
+					ay = this[1],
+					az = this[2];
+				const bx = b[0],
+					by = b[1],
+					bz = b[2];
+				this[0] = ay * bz - az * by;
+				this[1] = az * bx - ax * bz;
+				this[2] = ax * by - ay * bx;
+				return this;
+			};
+
+			vector.randomDirection = function () {
+				const theta = Math.random() * Math.PI * 2;
+				const phi = Math.asin(Math.random() * 2 - 1);
+				this[0] = Math.cos(theta) * Math.cos(phi);
+				this[1] = Math.sin(phi);
+				this[2] = Math.sin(theta) * Math.cos(phi);
+				return this;
+			};
+
+			vector.min = function (v) {
+				if (v[0] < this[0]) this[0] = v[0];
+				if (v[1] < this[1]) this[1] = v[1];
+				if (v[2] < this[2]) this[2] = v[2];
+				return this;
+			};
+
+			vector.max = function (v) {
+				if (v[0] > this[0]) this[0] = v[0];
+				if (v[1] > this[1]) this[1] = v[1];
+				if (v[2] > this[2]) this[2] = v[2];
+				return this;
+			};
+
+			vector.transform = function (m) {
+				const x = this[0],
+					y = this[1],
+					z = this[2];
+				this[0] = x * m[0] + y * m[4] + z * m[8] + m[12];
+				this[1] = x * m[1] + y * m[5] + z * m[9] + m[13];
+				this[2] = x * m[2] + y * m[6] + z * m[10] + m[14];
+				return this;
+			};
+			return vector;
+		};
+
+		// static operations
+
+		v3.dist = (a, b) => {
+			const dx = a[0] - b[0];
+			const dy = a[1] - b[1];
+			const dz = a[2] - b[2];
+			return Math.sqrt(dx * dx + dy * dy + dz * dz);
+		};
+
+		///////////////// mat4 ///////////////////
+
+		const mat4 = () => {
+			const mat = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+
+			mat.identity = function () {
+				this[0] = 1;
+				this[1] = 0;
+				this[2] = 0;
+				this[3] = 0;
+				this[4] = 0;
+				this[5] = 1;
+				this[6] = 0;
+				this[7] = 0;
+				this[8] = 0;
+				this[9] = 0;
+				this[10] = 1;
+				this[11] = 0;
+				this[12] = 0;
+				this[13] = 0;
+				this[14] = 0;
+				this[15] = 1;
+				return this;
+			};
+
+			mat.copy = function (a) {
+				this[0] = a[0];
+				this[1] = a[1];
+				this[2] = a[2];
+				this[3] = a[3];
+				this[4] = a[4];
+				this[5] = a[5];
+				this[6] = a[6];
+				this[7] = a[7];
+				this[8] = a[8];
+				this[9] = a[9];
+				this[10] = a[10];
+				this[11] = a[11];
+				this[12] = a[12];
+				this[13] = a[13];
+				this[14] = a[14];
+				this[15] = a[15];
+				return this;
+			};
+
+			mat.translate = function (x, y, z) {
+				this[12] = this[0] * x + this[4] * y + this[8] * z + this[12];
+				this[13] = this[1] * x + this[5] * y + this[9] * z + this[13];
+				this[14] = this[2] * x + this[6] * y + this[10] * z + this[14];
+				this[15] = this[3] * x + this[7] * y + this[11] * z + this[15];
+				return this;
+			};
+
+			mat.rotate = function (rad, ax, ay, az) {
+				const len = 1 / Math.hypot(ax, ay, az);
+				const x = ax * len;
+				const y = ay * len;
+				const z = az * len;
+				const s = Math.sin(rad);
+				const c = Math.cos(rad);
+				const t = 1 - c;
+				const a00 = this[0];
+				const a01 = this[1];
+				const a02 = this[2];
+				const a03 = this[3];
+				const a10 = this[4];
+				const a11 = this[5];
+				const a12 = this[6];
+				const a13 = this[7];
+				const a20 = this[8];
+				const a21 = this[9];
+				const a22 = this[10];
+				const a23 = this[11];
+				const b00 = x * x * t + c;
+				const b01 = y * x * t + z * s;
+				const b02 = z * x * t - y * s;
+				const b10 = x * y * t - z * s;
+				const b11 = y * y * t + c;
+				const b12 = z * y * t + x * s;
+				const b20 = x * z * t + y * s;
+				const b21 = y * z * t - x * s;
+				const b22 = z * z * t + c;
+				this[0] = a00 * b00 + a10 * b01 + a20 * b02;
+				this[1] = a01 * b00 + a11 * b01 + a21 * b02;
+				this[2] = a02 * b00 + a12 * b01 + a22 * b02;
+				this[3] = a03 * b00 + a13 * b01 + a23 * b02;
+				this[4] = a00 * b10 + a10 * b11 + a20 * b12;
+				this[5] = a01 * b10 + a11 * b11 + a21 * b12;
+				this[6] = a02 * b10 + a12 * b11 + a22 * b12;
+				this[7] = a03 * b10 + a13 * b11 + a23 * b12;
+				this[8] = a00 * b20 + a10 * b21 + a20 * b22;
+				this[9] = a01 * b20 + a11 * b21 + a21 * b22;
+				this[10] = a02 * b20 + a12 * b21 + a22 * b22;
+				this[11] = a03 * b20 + a13 * b21 + a23 * b22;
+				return this;
+			};
+
+			mat.multiply = function (a, b) {
+				const a00 = a[0],
+					a01 = a[1],
+					a02 = a[2],
+					a03 = a[3];
+				const a10 = a[4],
+					a11 = a[5],
+					a12 = a[6],
+					a13 = a[7];
+				const a20 = a[8],
+					a21 = a[9],
+					a22 = a[10],
+					a23 = a[11];
+				const a30 = a[12],
+					a31 = a[13],
+					a32 = a[14],
+					a33 = a[15];
+				let b0 = b[0],
+					b1 = b[1],
+					b2 = b[2],
+					b3 = b[3];
+				this[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+				this[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+				this[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+				this[3] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+				b0 = b[4];
+				b1 = b[5];
+				b2 = b[6];
+				b3 = b[7];
+				this[4] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+				this[5] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+				this[6] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+				this[7] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+				b0 = b[8];
+				b1 = b[9];
+				b2 = b[10];
+				b3 = b[11];
+				this[8] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+				this[9] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+				this[10] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+				this[11] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+				b0 = b[12];
+				b1 = b[13];
+				b2 = b[14];
+				b3 = b[15];
+				this[12] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+				this[13] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+				this[14] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+				this[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+				return this;
+			};
+
+			mat.lookAt = function (eye, center, up) {
+				let x0, x1, x2, y0, y1, y2, z0, z1, z2, len;
+				let eyex = eye[0];
+				let eyey = eye[1];
+				let eyez = eye[2];
+				let upx = up[0];
+				let upy = up[1];
+				let upz = up[2];
+				let centerx = center[0];
+				let centery = center[1];
+				let centerz = center[2];
+				z0 = eyex - centerx;
+				z1 = eyey - centery;
+				z2 = eyez - centerz;
+				len = 1 / Math.hypot(z0, z1, z2);
+				z0 *= len;
+				z1 *= len;
+				z2 *= len;
+				x0 = upy * z2 - upz * z1;
+				x1 = upz * z0 - upx * z2;
+				x2 = upx * z1 - upy * z0;
+				len = Math.hypot(x0, x1, x2);
+				if (!len) {
+					x0 = 0;
+					x1 = 0;
+					x2 = 0;
+				} else {
+					len = 1 / len;
+					x0 *= len;
+					x1 *= len;
+					x2 *= len;
+				}
+				y0 = z1 * x2 - z2 * x1;
+				y1 = z2 * x0 - z0 * x2;
+				y2 = z0 * x1 - z1 * x0;
+				len = Math.hypot(y0, y1, y2);
+				if (!len) {
+					y0 = 0;
+					y1 = 0;
+					y2 = 0;
+				} else {
+					len = 1 / len;
+					y0 *= len;
+					y1 *= len;
+					y2 *= len;
+				}
+				this[0] = x0;
+				this[1] = y0;
+				this[2] = z0;
+				this[3] = 0;
+				this[4] = x1;
+				this[5] = y1;
+				this[6] = z1;
+				this[7] = 0;
+				this[8] = x2;
+				this[9] = y2;
+				this[10] = z2;
+				this[11] = 0;
+				this[12] = -(x0 * eyex + x1 * eyey + x2 * eyez);
+				this[13] = -(y0 * eyex + y1 * eyey + y2 * eyez);
+				this[14] = -(z0 * eyex + z1 * eyey + z2 * eyez);
+				this[15] = 1;
+				return this;
+			};
+
+			mat.perspective = function (fov, aspect, near, far) {
+				const top = near * Math.tan((fov * Math.PI) / 360);
+				const right = top * aspect;
+				const left = -right;
+				const bottom = -top;
+				this[0] = (2 * near) / (right - left);
+				this[5] = (2 * near) / (top - bottom);
+				this[8] = (right + left) / (right - left);
+				this[9] = (top + bottom) / (top - bottom);
+				this[10] = -(far + near) / (far - near);
+				this[11] = -1;
+				this[14] = -(2 * far * near) / (far - near);
+				return this;
+			};
+
+			mat.ortho = function (left, right, bottom, top, near, far) {
+				const lr = 1 / (left - right);
+				const bt = 1 / (bottom - top);
+				const nf = 1 / (near - far);
+				this[0] = -2 * lr;
+				this[1] = 0;
+				this[2] = 0;
+				this[3] = 0;
+				this[4] = 0;
+				this[5] = -2 * bt;
+				this[6] = 0;
+				this[7] = 0;
+				this[8] = 0;
+				this[9] = 0;
+				this[10] = 2 * nf;
+				this[11] = 0;
+				this[12] = (left + right) * lr;
+				this[13] = (top + bottom) * bt;
+				this[14] = (far + near) * nf;
+				this[15] = 1;
+				return this;
+			};
+
+			return mat;
+		};
+
+		///////////////// webGL library ///////////////////
+
+		/*
+		 * This code is based on lightgl.js
+		 * http://github.com/evanw/lightgl.js/
+		 * Copyright 2011 Evan Wallace
+		 * Released under the MIT license
+		 */
+
+		const webGL = (options = {}) => {
+			// ### webgl context Initialization
+
+			const canvas = document.querySelector("canvas");
+			const gl = canvas.getContext("webgl", options);
+			if (!gl) {
+				throw new Error("WebGL not supported");
+				return false;
+			}
+
+			gl.enable(gl.DEPTH_TEST);
+			gl.enable(gl.CULL_FACE);
+
+			let framebuffer = null;
+			let renderbuffer = null;
+
+			const camera = {
+				modelViewProjectionMatrix: mat4(),
+				modelViewMatrix: mat4(),
+				projectionMatrix: mat4(),
+				modelViewMatrixBackup: mat4(),
+				projectionMatrixBackup: mat4(),
+
+				init(options = {}) {
+					this.fov = options.fov || 60;
+					this.camDist = options.camDist || 10;
+					window.addEventListener("resize", () => {
+						this.resize();
+					});
+					this.resize();
+					return this;
+				},
+
+				ortho(left, right, bottom, top, near, far) {
+					this.projectionMatrix.ortho(left, right, bottom, top, near, far);
+					return this;
+				},
+
+				lookAt(eye, center, up) {
+					this.modelViewMatrix.lookAt(eye, center, up);
+					return this;
+				},
+
+				project() {
+					this.modelViewProjectionMatrix.multiply(
+						this.projectionMatrix,
+						this.modelViewMatrix
+					);
+					return this;
+				},
+
+				save() {
+					this.modelViewMatrixBackup.copy(this.modelViewMatrix);
+					this.projectionMatrixBackup.copy(this.projectionMatrix);
+					return this;
+				},
+
+				restore() {
+					this.modelViewMatrix.copy(this.modelViewMatrixBackup);
+					this.projectionMatrix.copy(this.projectionMatrixBackup);
+					return this;
+				},
+
+				resize() {
+					const dpr = Math.min(2, window.devicePixelRatio || 1.0);
+					canvas.width = canvas.offsetWidth * dpr;
+					canvas.height = canvas.offsetHeight * dpr;
+					gl.viewport(0, 0, canvas.width, canvas.height);
+					this.projectionMatrix.perspective(
+						this.fov,
+						canvas.width / canvas.height,
+						0.001,
+						1
+					);
+				},
+
+				rotate(x, y) {
+					this.modelViewMatrix
+						.identity()
+						.translate(0, 0, -this.camDist)
+						.rotate((y * Math.PI) / 180, 1, 0, 0)
+						.rotate((x * Math.PI) / 180, 0, 1, 0);
+				}
+			};
+
+			const canUseExtension = {
+				floatingPointTextures() {
+					return !!gl.getExtension("OES_texture_float");
+				},
+				floatingPointLinearFiltering() {
+					return !!gl.getExtension("OES_texture_float_linear");
+				},
+				halfFloatingPointTextures() {
+					return !!gl.getExtension("OES_texture_half_float");
+				},
+				halfFloatingPointLinearFiltering() {
+					return !!gl.getExtension("OES_texture_half_float_linear");
+				}
+			};
+
+			class Buffer {
+				constructor(name, spacing, data, type = gl.STATIC_DRAW) {
+					this.name = name;
+					this.buffer = gl.createBuffer();
+					this.data = data;
+					this.spacing = spacing;
+					this.length = data.length;
+					this.type = type;
+				}
+
+				load() {
+					this.buffer.length = this.data.length;
+					this.buffer.spacing = this.spacing;
+					gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
+					gl.bufferData(gl.ARRAY_BUFFER, this.data, this.type);
+				}
+			}
+
+			class Mesh {
+				constructor() {
+					this.vertexBuffers = {};
+				}
+
+				addVertexBuffer(name, attribute, spacing, data, type) {
+					this.vertexBuffers[attribute] = new Buffer(name, spacing, data, type);
+					this[name] = data;
+				}
+
+				load() {
+					for (let attribute in this.vertexBuffers) {
+						const buffer = this.vertexBuffers[attribute];
+						buffer.data = this[buffer.name];
+						buffer.load();
+						buffer.data = null;
+					}
+				}
+
+				deleteBuffers() {
+					for (const buffer in this.vertexBuffers) {
+						gl.deleteBuffer(buffer.buffer);
+					}
+				}
+
+				getAABB() {
+					const aabb = {
+						mini: v3().set(+9999, +9999, +9999),
+						maxi: v3().set(-9999, -9999, -9999)
+					};
+					const v = this.vertices;
+					const vect = v3();
+					for (let i = 0; i < v.length; i += 3) {
+						vect.set(v[i], v[i + 1], v[i + 2]);
+						aabb.mini.min(vect);
+						aabb.maxi.max(vect);
+					}
+					return aabb;
+				}
+
+				getBoundingSphere() {
+					const aabb = this.getAABB();
+					const sphere = {
+						center: v3().copy(aabb.mini.add(aabb.maxi).scale(0.5)),
+						radius: 0
+					};
+					const dist = v3();
+					const vect = v3();
+					const v = this.vertices;
+					for (let i = 0; i < v.length; i += 3) {
+						vect.set(v[i], v[i + 1], v[i + 2]);
+						sphere.radius = Math.max(sphere.radius, v3.dist(vect, sphere.center));
+					}
+					return sphere;
+				}
+			}
+
+			class Shader {
+				constructor(vertexSource, fragmentSource) {
+					this.program = gl.createProgram();
+
+					const vertexShader = this.compileSource(gl.VERTEX_SHADER, vertexSource);
+					const fragmentShader = this.compileSource(
+						gl.FRAGMENT_SHADER,
+						fragmentSource
+					);
+
+					gl.attachShader(this.program, vertexShader);
+					gl.attachShader(this.program, fragmentShader);
+
+					gl.linkProgram(this.program);
+					if (!gl.getProgramParameter(this.program, gl.LINK_STATUS)) {
+						throw new Error("link error: " + gl.getProgramInfoLog(this.program));
+					}
+
+					this.attributes = {};
+					this.uniformLocations = {};
+
+					this.uniformSetters = {
+						0x8b50(v) {
+							gl.uniform2fv(this.index, v);
+						},
+						0x8b51(v) {
+							gl.uniform3fv(this.index, v);
+						},
+						0x8b52(v) {
+							gl.uniform4fv(this.index, v);
+						},
+						0x8b53(v) {
+							gl.uniform2iv(this.index, v);
+						},
+						0x8b54(v) {
+							gl.uniform3iv(this.index, v);
+						},
+						0x8b55(v) {
+							gl.uniform4iv(this.index, v);
+						},
+						0x8b56(v) {
+							gl.uniform1i(this.index, v);
+						},
+						0x8b5c(v) {
+							gl.uniformMatrix4fv(this.index, false, v);
+						},
+						0x8b5e(v) {
+							gl.uniform1i(this.index, v);
+						},
+						0x1404(v) {
+							gl.uniform1i(this.index, v);
+						},
+						0x1406(v) {
+							gl.uniform1f(this.index, v);
+						}
+					};
+
+					const num = gl.getProgramParameter(this.program, gl.ACTIVE_UNIFORMS);
+
+					for (let i = 0; i < num; i++) {
+						const u = gl.getActiveUniform(this.program, i);
+						this[u.name] = {
+							index: gl.getUniformLocation(this.program, u.name),
+							set: this.uniformSetters[u.type]
+						};
+					}
+				}
+
+				compileSource(type, source) {
+					const shader = gl.createShader(type);
+					gl.shaderSource(shader, source);
+					gl.compileShader(shader);
+					if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+						throw new Error("compile error: " + gl.getShaderInfoLog(shader));
+					}
+					return shader;
+				}
+
+				uniforms(uniforms) {
+					gl.useProgram(this.program);
+					for (let name in uniforms) {
+						const value = uniforms[name];
+						if (this[name] !== undefined) {
+							this[name].set(value);
+						}
+					}
+					return this;
+				}
+
+				draw(mesh) {
+					this.drawBuffers(mesh.vertexBuffers, gl.TRIANGLES);
+				}
+
+				drawLines(mesh) {
+					this.drawBuffers(mesh.vertexBuffers, gl.LINES);
+				}
+
+				drawBuffers(vertexBuffers, mode) {
+					camera.project();
+					this.uniforms({
+						modelViewProjectionMatrix: camera.modelViewProjectionMatrix
+					});
+
+					// Create and enable attribute pointers as necessary.
+					var length = 0;
+					for (let attribute in vertexBuffers) {
+						var buffer = vertexBuffers[attribute];
+						var location =
+							this.attributes[attribute] ||
+							gl.getAttribLocation(this.program, attribute);
+						if (location === -1 || !buffer.buffer) continue;
+						this.attributes[attribute] = location;
+						gl.bindBuffer(gl.ARRAY_BUFFER, buffer.buffer);
+						gl.enableVertexAttribArray(location);
+						gl.vertexAttribPointer(
+							location,
+							buffer.buffer.spacing,
+							gl.FLOAT,
+							false,
+							0,
+							0
+						);
+						length = buffer.buffer.length / buffer.buffer.spacing;
+					}
+
+					gl.drawArrays(mode, 0, length);
+
+					return this;
+				}
+			}
+
+			class Texture {
+				constructor(width, height, options = {}) {
+					this.id = gl.createTexture();
+					this.width = width;
+					this.height = height;
+					this.format = options.format || gl.RGBA;
+					this.type = options.type || gl.UNSIGNED_BYTE;
+					var magFilter = options.filter || options.magFilter || gl.LINEAR;
+					var minFilter = options.filter || options.minFilter || gl.LINEAR;
+					gl.bindTexture(gl.TEXTURE_2D, this.id);
+					gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+					gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, magFilter);
+					gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, minFilter);
+					gl.texParameteri(
+						gl.TEXTURE_2D,
+						gl.TEXTURE_WRAP_S,
+						options.wrap || options.wrapS || gl.CLAMP_TO_EDGE
+					);
+					gl.texParameteri(
+						gl.TEXTURE_2D,
+						gl.TEXTURE_WRAP_T,
+						options.wrap || options.wrapT || gl.CLAMP_TO_EDGE
+					);
+					gl.texImage2D(
+						gl.TEXTURE_2D,
+						0,
+						this.format,
+						width,
+						height,
+						0,
+						this.format,
+						this.type,
+						options.data || null
+					);
+				}
+
+				bind(unit) {
+					gl.activeTexture(gl.TEXTURE0 + (unit || 0));
+					gl.bindTexture(gl.TEXTURE_2D, this.id);
+				}
+
+				unbind(unit) {
+					gl.activeTexture(gl.TEXTURE0 + (unit || 0));
+					gl.bindTexture(gl.TEXTURE_2D, null);
+				}
+
+				drawTo(callback) {
+					var v = gl.getParameter(gl.VIEWPORT);
+					framebuffer = framebuffer || gl.createFramebuffer();
+					renderbuffer = renderbuffer || gl.createRenderbuffer();
+					gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+					gl.bindRenderbuffer(gl.RENDERBUFFER, renderbuffer);
+
+					if (this.width != renderbuffer.width || this.height != renderbuffer.height) {
+						renderbuffer.width = this.width;
+						renderbuffer.height = this.height;
+						gl.renderbufferStorage(
+							gl.RENDERBUFFER,
+							gl.DEPTH_COMPONENT16,
+							this.width,
+							this.height
+						);
+					}
+
+					gl.framebufferTexture2D(
+						gl.FRAMEBUFFER,
+						gl.COLOR_ATTACHMENT0,
+						gl.TEXTURE_2D,
+						this.id,
+						0
+					);
+
+					gl.framebufferRenderbuffer(
+						gl.FRAMEBUFFER,
+						gl.DEPTH_ATTACHMENT,
+						gl.RENDERBUFFER,
+						renderbuffer
+					);
+
+					gl.viewport(0, 0, this.width, this.height);
+
+					callback();
+
+					gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+					gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+					gl.viewport(v[0], v[1], v[2], v[3]);
+				}
+			}
+
+			// Export all external classes
+
+			return {
+				Buffer: Buffer,
+				Mesh: Mesh,
+				Texture: Texture,
+				Shader: Shader,
+				camera: camera,
+				canUseExtension: canUseExtension,
+				context: gl
+			};
+		};
+
+		///////////////// Ambient Occlusion ///////////////////
+
+		// based on https://github.com/evanw/lightgl.js/blob/master/tests/gpulightmap.html
+
+		const GL = webGL({ antialias: true, alpha: false });
+		const gl = GL.context;
+		const camera = GL.camera.init({ fov: 45, camDist: 10 });
+
+		if (
+			GL.canUseExtension.floatingPointTextures() &&
+			GL.canUseExtension.floatingPointLinearFiltering()
+		) {
+		} else
+			throw new Error(
+				"This demo requires floating point textures support to run."
+			);
+
+		const depthMap = new GL.Texture(2048, 2048, {
+			type: gl.FLOAT,
+			format: gl.RED,
+			filter: gl.LINEAR
+		});
+
+		const depthShader = new GL.Shader(
+			`
+			uniform mat4 modelViewProjectionMatrix;
+			attribute vec4 Vertex; 
+			varying vec4 pos;  
+			void main() {    
+				gl_Position = pos = modelViewProjectionMatrix * Vertex;  
+			}`,
+			`
+			precision highp float;
+			varying vec4 pos;  
+			void main() {    
+				float depth = pos.z / pos.w;    
+				gl_FragColor = vec4(depth * 0.5 + 0.5);  
+			}`
+		);
+
+		const shadowTestShader = new GL.Shader(
+			`
+			attribute vec3 Normal;
+			uniform mat4 shadowMapMatrix;
+			uniform vec3 light;
+			attribute vec2 offsetCoord;
+			attribute vec4 Vertex;
+			varying vec4 coord;
+			varying vec3 normal;
+			void main() {    
+				normal = Normal;    
+				vec4 pos = Vertex;         
+				pos.xyz += normalize(cross(normal, cross(normal, light))) * 0.05;        
+				coord = shadowMapMatrix * pos;    
+				gl_Position = vec4(offsetCoord * 2.0 - 1.0, 0.0, 1.0);
+			}`,
+			`	
+			precision highp float;
+			uniform float sampleCount;
+			uniform sampler2D depthMap;
+			uniform vec3 light;
+			varying vec4 coord;
+			varying vec3 normal;
+			void main() {    
+				/* Run shadow test */    
+				const float bias = -0.0025;    
+				float depth = texture2D(depthMap, coord.xy / coord.w * 0.5 + 0.5).r;    
+				float shadow = (bias + coord.z / coord.w * 0.5 + 0.5 - depth > 0.0) ? 1.0 : 0.0;        
+				/* Points on polygons facing away from the light are always in shadow */    
+				float color = dot(normal, light) > 0.0 ? 1.0 - shadow : 0.0;    
+				gl_FragColor = vec4(vec3(color), 1.0 / (1.0 + sampleCount));  
+			}`
+		);
+
+		const textureMapShader = new GL.Shader(
+			`
+			uniform mat4 modelViewProjectionMatrix;
+			attribute vec4 Vertex;
+			attribute vec4 TexCoord;
+			varying vec2 coord;
+			varying vec4 position;
+			varying vec3 normal;
+			void main() {
+				position = modelViewProjectionMatrix * Vertex;
+				coord = TexCoord.st;    
+				gl_Position = position; 
+			}`,
+			`
+			precision highp float;
+			uniform sampler2D texture;
+			varying vec2 coord;
+			float hash12(vec2 p) {
+				vec3 p3=fract(vec3(p.xyx)*.1031);
+				p3+=dot(p3,p3.yzx+33.33);
+				return fract((p3.x+p3.y)*p3.z);
+			}
+			void main() {
+				vec2 pos = (gl_FragCoord.xy * .152);
+				float a = hash12(pos);
+				gl_FragColor = (1.2 * texture2D(texture, coord)) * (1.25 - a * 0.25);
+			}`
+		);
+
+		class QuadMesh {
+			constructor(matrices) {
+				const numQuads = matrices.length * 6; // cube = 6 faces
+				this.size = Math.ceil(Math.sqrt(numQuads));
+				this.texelsPerSide = Math.floor(1024 / this.size);
+				this.mesh = new GL.Mesh();
+				this.shadowMapMatrix = mat4();
+				this.index = 0;
+				this.lightmapTexture = null;
+				this.bounds = null;
+				this.sampleCount = 0;
+				this.at = v3();
+				this.up = v3();
+				this.ab = v3();
+				this.ac = v3();
+				this.a = v3();
+				this.b = v3();
+				this.c = v3();
+				this.d = v3();
+
+				// buffer arrays
+				this.mesh.addVertexBuffer(
+					"vertices",
+					"Vertex",
+					3,
+					new Float32Array(6 * 3 * numQuads)
+				);
+				this.mesh.addVertexBuffer(
+					"normals",
+					"Normal",
+					3,
+					new Float32Array(6 * 3 * numQuads)
+				);
+				this.mesh.addVertexBuffer(
+					"coords",
+					"TexCoord",
+					2,
+					new Float32Array(6 * 2 * numQuads)
+				);
+				this.mesh.addVertexBuffer(
+					"offsetCoords",
+					"offsetCoord",
+					2,
+					new Float32Array(6 * 2 * numQuads)
+				);
+			}
+
+			addQuad(a, b, c, d) {
+				const i = this.index++;
+				const half = 0.5 / this.texelsPerSide;
+
+				const computeNormal = (a, b, c) => {
+					this.ab.copy(b).subtract(a);
+					this.ac.copy(c).subtract(a);
+					return this.ab.cross(this.ac).unit();
+				};
+
+				this.mesh.vertices.set(
+					[
+						a[0], a[1], a[2], b[0], b[1], b[2], d[0], d[1], d[2],
+						a[0], a[1], a[2], d[0], d[1], d[2], c[0], c[1], c[2]
+					],
+					18 * i
+				);
+
+				const [nx, ny, nz] = computeNormal(a, b, c);
+
+				this.mesh.normals.set(
+					[nx, ny, nz, nx, ny, nz, nx, ny, nz, nx, ny, nz, nx, ny, nz, nx, ny, nz],
+					18 * i
+				);
+
+				// Compute location of texture cell
+				const s = i % this.size;
+				const t = (i - s) / this.size;
+
+				// Coordinates that are in the center of border texels (to avoid leaking)
+				const s0 = (s + half) / this.size;
+				const t0 = (t + half) / this.size;
+				const s1 = (s + 1 - half) / this.size;
+				const t1 = (t + 1 - half) / this.size;
+				this.mesh.coords.set(
+					[s0, t0, s1, t0, s1, t1, s0, t0, s1, t1, s0, t1],
+					12 * i
+				);
+
+				// Coordinates that are on the edge of border texels (to avoid cracks when rendering)
+				const rs0 = s / this.size;
+				const rt0 = t / this.size;
+				const rs1 = (s + 1) / this.size;
+				const rt1 = (t + 1) / this.size;
+				this.mesh.offsetCoords.set(
+					[rs0, rt0, rs1, rt0, rs1, rt1, rs0, rt0, rs1, rt1, rs0, rt1],
+					12 * i
+				);
+			}
+
+			buildCubes(matrices) {
+				const cube = [
+					[-0.5, -0.5, -0.5],
+					[-0.5, +0.5, -0.5],
+					[+0.5, -0.5, -0.5],
+					[+0.5, +0.5, -0.5],
+
+					[+0.5, -0.5, +0.5],
+					[+0.5, +0.5, +0.5],
+					[-0.5, -0.5, +0.5],
+					[-0.5, +0.5, +0.5],
+
+					[-0.5, +0.5, -0.5],
+					[-0.5, +0.5, +0.5],
+					[+0.5, +0.5, -0.5],
+					[+0.5, +0.5, +0.5],
+
+					[-0.5, -0.5, -0.5],
+					[-0.5, -0.5, +0.5],
+					[-0.5, +0.5, -0.5],
+					[-0.5, +0.5, +0.5],
+
+					[+0.5, +0.5, -0.5],
+					[+0.5, +0.5, +0.5],
+					[+0.5, -0.5, -0.5],
+					[+0.5, -0.5, +0.5]
+				];
+
+				const face = (i, m) => {
+					this.a.copy(cube[i + 0]).transform(m);
+					this.b.copy(cube[i + 1]).transform(m);
+					this.c.copy(cube[i + 2]).transform(m);
+					this.d.copy(cube[i + 3]).transform(m);
+					this.addQuad(this.a, this.b, this.c, this.d);
+				};
+
+				// build cube
+				for (let i = 0; i < matrices.length; i++) {
+					for (let j = 0; j < 20; j += 4) face(j, matrices[i]);
+				}
+			}
+
+			drawShadow(dir) {
+				// Construct a camera looking from the light toward the object
+				const r = this.bounds.radius;
+				const c = this.bounds.center;
+
+				camera.save();
+				camera.ortho(-r, r, -r, r, -r, r);
+				camera.lookAt(
+					c,
+					this.at.copy(c).subtract(dir),
+					this.up.set(0, 1, 0).cross(dir)
+				);
+
+				// Render the object viewed from the light using a shader that returns the fragment depth
+				this.shadowMapMatrix.multiply(
+					camera.projectionMatrix,
+					camera.modelViewMatrix
+				);
+
+				depthMap.drawTo(() => {
+					gl.clearColor(1, 1, 1, 1);
+					gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+					depthShader.draw(this.mesh);
+				});
+
+				// Reset the transform
+				camera.restore();
+
+				// Run the shadow test for each texel in the lightmap and
+				// accumulate that onto the existing lightmap contents
+				depthMap.bind();
+
+				this.lightmapTexture.drawTo(() => {
+					gl.enable(gl.BLEND);
+					gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+					shadowTestShader
+						.uniforms({
+							shadowMapMatrix: this.shadowMapMatrix,
+							sampleCount: this.sampleCount++,
+							light: dir
+						})
+						.draw(this.mesh);
+					gl.disable(gl.BLEND);
+				});
+
+				depthMap.unbind();
+			}
+
+			load() {
+				// Finalize mesh
+				this.mesh.load();
+				this.bounds = this.mesh.getBoundingSphere();
+
+				// Create lightmap texture
+				const size = this.size * this.texelsPerSide;
+				this.lightmapTexture = new GL.Texture(size, size, {
+					format: gl.RED,
+					type: gl.FLOAT,
+					filter: gl.LINEAR
+				});
+			}
+		}
+
+		let mesh = null;
+		let running = false;
+		const dir = v3();
+
+		const render = () => {
+			gl.clearColor(0.9, 0.9, 0.9, 1);
+			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+			// shadow from a random point on the sky hemisphere
+			dir.randomDirection();
+			mesh.drawShadow(dir[1] < 0 ? dir.negative() : dir);
+
+			// Draw the mesh with the ambient occlusion so far
+			mesh.lightmapTexture.bind();
+			textureMapShader.draw(mesh.mesh);
+		};
+
+		const animate = () => {
+			render();
+			requestAnimationFrame(animate);
+		};
+
+		const loadCubes = (matrices) => {
+			if (mesh) {
+				mesh.mesh.deleteBuffers();
+			}
+			mesh = new QuadMesh(matrices);
+			mesh.buildCubes(matrices);
+			mesh.load();
+			const ex = random() > 0.5 ? 0 : random() * 10 - 5;
+			camera.rotate(ex, 90);
+			if (!running) {
+				running = true;
+				animate();
+			}
+		};
+
+		///////////////// structure Synth engine ///////////////////
+
+		let CUBE;
+		let rule = {};
+
+		const structure = (setup, rules) => {
+			const shapes = [];
+			const stack = [];
+			const matrices = [];
+
+			const transforms = {
+				x(m, v) {
+					m[12] += m[0] * v;
+					m[13] += m[1] * v;
+					m[14] += m[2] * v;
+					m[15] += m[3] * v;
+				},
+
+				y(m, v) {
+					m[12] += m[4] * v;
+					m[13] += m[5] * v;
+					m[14] += m[6] * v;
+					m[15] += m[7] * v;
+				},
+
+				z(m, v) {
+					m[12] += m[8] * v;
+					m[13] += m[9] * v;
+					m[14] += m[10] * v;
+					m[15] += m[11] * v;
+				},
+
+				s(m, v) {
+					const a = Array.isArray(v);
+					const x = a ? v[0] : v;
+					const y = a ? v[1] : x;
+					const z = a ? v[2] : x;
+					m[0] *= x;
+					m[1] *= x;
+					m[2] *= x;
+					m[3] *= x;
+					m[4] *= y;
+					m[5] *= y;
+					m[6] *= y;
+					m[7] *= y;
+					m[8] *= z;
+					m[9] *= z;
+					m[10] *= z;
+					m[11] *= z;
+				},
+
+				rx(m, v) {
+					const rad = Math.PI * (v / 180);
+					const s = Math.sin(rad);
+					const c = Math.cos(rad);
+					const a10 = m[4];
+					const a11 = m[5];
+					const a12 = m[6];
+					const a13 = m[7];
+					const a20 = m[8];
+					const a21 = m[9];
+					const a22 = m[10];
+					const a23 = m[11];
+					m[4] = a10 * c + a20 * s;
+					m[5] = a11 * c + a21 * s;
+					m[6] = a12 * c + a22 * s;
+					m[7] = a13 * c + a23 * s;
+					m[8] = a10 * -s + a20 * c;
+					m[9] = a11 * -s + a21 * c;
+					m[10] = a12 * -s + a22 * c;
+					m[11] = a13 * -s + a23 * c;
+				},
+
+				ry(m, v) {
+					const rad = Math.PI * (v / 180);
+					const s = Math.sin(rad);
+					const c = Math.cos(rad);
+					const a00 = m[0];
+					const a01 = m[1];
+					const a02 = m[2];
+					const a03 = m[3];
+					const a20 = m[8];
+					const a21 = m[9];
+					const a22 = m[10];
+					const a23 = m[11];
+					m[0] = a00 * c + a20 * -s;
+					m[1] = a01 * c + a21 * -s;
+					m[2] = a02 * c + a22 * -s;
+					m[3] = a03 * c + a23 * -s;
+					m[8] = a00 * s + a20 * c;
+					m[9] = a01 * s + a21 * c;
+					m[10] = a02 * s + a22 * c;
+					m[11] = a03 * s + a23 * c;
+				},
+
+				rz(m, v) {
+					const rad = Math.PI * (v / 180);
+					const s = Math.sin(rad);
+					const c = Math.cos(rad);
+					const a00 = m[0];
+					const a01 = m[1];
+					const a02 = m[2];
+					const a03 = m[3];
+					const a10 = m[4];
+					const a11 = m[5];
+					const a12 = m[6];
+					const a13 = m[7];
+					m[0] = a00 * c + a10 * s;
+					m[1] = a01 * c + a11 * s;
+					m[2] = a02 * c + a12 * s;
+					m[3] = a03 * c + a13 * s;
+					m[4] = a00 * -s + a10 * c;
+					m[5] = a01 * -s + a11 * c;
+					m[6] = a02 * -s + a12 * c;
+					m[7] = a03 * -s + a13 * c;
+				},
+
+				b(m, v) {
+					if (v > 0) {
+						m[16] += v * (1 - m[16]);
+					} else {
+						m[16] += v * m[16];
+					}
+				}
+			};
+
+			const cube = (m, t) => {
+				const s = copy(m);
+				for (const c in t) {
+					transforms[c](s, t[c]);
+				}
+				matrices.push(s);
+			};
+
+			const transform = (s, p) => {
+				const m = copy(s);
+				m[18]++;
+				for (const c in p) {
+					transforms[c](m, p[c]);
+				}
+				return m;
+			};
+
+			const copy = (s) => {
+				return [
+					// 4 x 4 transform matrix
+					s[0],
+					s[1],
+					s[2],
+					s[3],
+					s[4],
+					s[5],
+					s[6],
+					s[7],
+					s[8],
+					s[9],
+					s[10],
+					s[11],
+					s[12],
+					s[13],
+					s[14],
+					s[15],
+					s[16], // brillance
+					s[17], // not used
+					s[18], // recurcivity depth
+					s[19] // function index
+				];
+			};
+
+			const newStructure = (callback) => {
+				matrices.length = 0;
+				runshapes(setup.start, setup.transform || {});
+				callback(matrices);
+			};
+
+			const runshapes = (start, t) => {
+				stack.length = 0;
+				const maxDepth = setup.maxDepth || 100;
+				rule[start]([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0], t);
+				do {
+					const s = stack.shift();
+					if (s[18] <= maxDepth) shapes[s[19]](s);
+				} while (stack.length);
+			};
+
+			const singlerule = (i) => {
+				return (s, t) => {
+					s = transform(s, t);
+					if (!s) return;
+					s[19] = i;
+					stack.push(s);
+				};
+			};
+
+			const randomrule = (totalWeight, weight, index, len) => {
+				return (s, t) => {
+					s = transform(s, t);
+					if (!s) return;
+					let w = 0;
+					const r = random() * totalWeight;
+					for (let i = 0; i < len; i++) {
+						w += weight[i];
+						if (r <= w) {
+							s[19] = index[i];
+							stack.push(s);
+							return;
+						}
+					}
+				};
+			};
+
+			// ---- init ----
+			CUBE = cube;
+			shapes.length = 0;
+
+			for (const namerule in rules) {
+				const r = rules[namerule];
+				if (Array.isArray(r)) {
+					let totalWeight = 0;
+					const weight = [];
+					const index = [];
+					for (let i = 0; i < r.length; i += 2) {
+						totalWeight += r[i];
+						shapes.push(r[i + 1]);
+						weight.push(r[i]);
+						index.push(shapes.length - 1);
+					}
+					rule[namerule] = randomrule(totalWeight, weight, index, index.length);
+				} else {
+					shapes.push(r);
+					rule[namerule] = singlerule(shapes.length - 1);
+				}
+			}
+
+			newStructure(loadCubes);
+
+		};
+
+		///////////////// rules ///////////////////
+
+		const setup = {
+			start: "start",
+			transform: { y: -1, s: 1 },
+			maxDepth: 100
+		};
+
+		const rules = {
+			start(s) {
+				CUBE(s, { y: -0.5, s: [10, 0.01, 10] });
+				const nx = 2;
+				const ny = 2;
+				for (let x = -nx; x <= nx; x++) {
+					for (let z = -ny; z <= ny; z++) {
+						if (x !== 0 || z !== 0) rule.nextcell(s, { x: x, z: z });
+					}
+				}
+			},
+			nextcell: [
+				0.5,
+				(s) => {
+					rule.cell(s);
+					if (s[13] < 10) rule.nextcell(s, { y: 1 });
+				},
+				0.12,
+				(s) => {
+					rule.cell(s);
+				}
+			],
+			cell: [
+				1,
+				(s) => {
+					// frame
+					const w = 0.025 + random() * 0.4;
+					const w2 = w / 2;
+					CUBE(s, { x: -0.5 + w2, s: [w, 1, 1] });
+					CUBE(s, { x: 0.5 - w2, s: [w, 1, 1] });
+					CUBE(s, { z: -0.5 + w2, s: [1, 1, w] });
+					CUBE(s, { z: 0.5 - w2, s: [1, 1, w] });
+				},
+				1,
+				(s) => {
+					// cross front
+					const w = 0.1 + random() * 0.33;
+					CUBE(s, { s: [w, 1, 1] });
+					CUBE(s, { s: [1, 1, w] });
+				},
+				0,
+				(s) => {
+					// rad
+					for (let i = -0.45; i <= 0.45; i += 0.15) {
+						CUBE(s, { x: i, s: [0.1, 1, 1] });
+					}
+				}
+			]
+		};
+
+		structure(setup, rules);
+
+
+	</script>
+</body>
+
+</html>

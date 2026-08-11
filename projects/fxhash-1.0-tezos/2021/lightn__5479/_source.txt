@@ -1,0 +1,4 @@
+id: 5479
+name: lightn
+mint_opens_at: 2021-12-29T07:57:50+00:00
+generative_uri: ipfs://QmYnq2t2ipqQSCJL59AV4xNijvp3hs1XBYPQqko5Lgqiyw

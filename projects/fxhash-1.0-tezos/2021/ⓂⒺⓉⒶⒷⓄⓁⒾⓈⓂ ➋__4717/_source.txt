@@ -1,0 +1,4 @@
+id: 4717
+name: ⓂⒺⓉⒶⒷⓄⓁⒾⓈⓂ ➋
+mint_opens_at: 2021-12-26T00:53:30+00:00
+generative_uri: ipfs://QmYxxwDTzQMLHdNhLeZ8e6GMeLXuQ8DZQL2o6rzH5A4azD

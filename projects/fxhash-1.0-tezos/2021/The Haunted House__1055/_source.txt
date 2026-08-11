@@ -1,0 +1,4 @@
+id: 1055
+name: The Haunted House
+mint_opens_at: 2021-11-24T07:14:22+00:00
+generative_uri: ipfs://QmdUXYMq2EnLbxLmDA1AaKD7Hdy4F9i2Zwtm6Pen1PgUv8

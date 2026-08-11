@@ -1,0 +1,4 @@
+id: 10944
+name: a.lert
+mint_opens_at: 2022-03-19T12:08:04+00:00
+generative_uri: ipfs://Qme6RfEr7nieRiwQmQwPyFqwrwPbLBVB76QaEFnv33pGC9

@@ -1,0 +1,4 @@
+id: 18737
+name: =DMT=
+mint_opens_at: 2022-08-29T15:30:00+00:00
+generative_uri: ipfs://QmSLQANDWyMBd49qh65eNGdykUC7azsWFvo3WL5rvM6B9p

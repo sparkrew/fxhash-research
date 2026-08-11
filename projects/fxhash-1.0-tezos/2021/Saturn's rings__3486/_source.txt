@@ -1,0 +1,4 @@
+id: 3486
+name: Saturn's rings
+mint_opens_at: 2021-12-15T13:24:46+00:00
+generative_uri: ipfs://QmWfaSx7nukgS19WXUapJsSXPpBX3WmoDV2ugyHR8ik3nV

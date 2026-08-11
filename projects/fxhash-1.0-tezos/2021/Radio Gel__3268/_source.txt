@@ -1,0 +1,4 @@
+id: 3268
+name: Radio Gel
+mint_opens_at: 2021-12-12T19:45:56+00:00
+generative_uri: ipfs://Qmf6QquZAXKjHaaMQ2GWq539ukjFD26Jq89jgs52MaS2sR

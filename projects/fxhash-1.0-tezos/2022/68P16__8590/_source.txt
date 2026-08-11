@@ -1,0 +1,4 @@
+id: 8590
+name: 68P16
+mint_opens_at: 2022-02-03T15:32:36+00:00
+generative_uri: ipfs://QmP7qeB2FA9AJJaCHTNCASQt5e7DZayH9jKoGw9JLFm1ZQ

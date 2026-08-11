@@ -1,0 +1,4 @@
+id: 3619
+name: spacious words
+mint_opens_at: 2021-12-17T13:33:46+00:00
+generative_uri: ipfs://QmT86PJXRAz5iTGF2Q8SmAJXcLe1dpkimQyTSfiZXkHhMs

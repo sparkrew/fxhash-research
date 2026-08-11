@@ -1,0 +1,4 @@
+id: 543
+name: Your Fractal Bonsai
+mint_opens_at: 2021-11-19T18:02:52+00:00
+generative_uri: ipfs://QmZJBVRzY9KAWmmCLtdgZE2BXB3EUCLBvKg8R5z8nfPZf6

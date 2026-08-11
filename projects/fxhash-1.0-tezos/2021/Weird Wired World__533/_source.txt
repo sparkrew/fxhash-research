@@ -1,0 +1,4 @@
+id: 533
+name: Weird Wired World
+mint_opens_at: 2021-11-19T17:40:52+00:00
+generative_uri: ipfs://QmRacWKnbRa2rYj9tQWWXaDqiwc6owd1x65rGaY6PBwyNX

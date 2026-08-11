@@ -1,0 +1,4 @@
+id: 12633
+name: "//p.1nk.(lemønade).ø9.(br0ked)\\"
+mint_opens_at: 2022-05-08T14:38:14+00:00
+generative_uri: ipfs://QmNhu8xVFAaHMZjjPkucPrEq8PXQhGC6tXH6ovzFkEJmqf

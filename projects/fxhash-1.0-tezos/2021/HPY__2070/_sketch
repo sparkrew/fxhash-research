@@ -1,0 +1,108 @@
+let offmax = 200;
+let step = 200;
+let angle = 0;
+
+let sound1, sound2, sound3, sound4;
+
+let aFactor = 0;
+let isAPressed = false;
+
+let sFactor = 0;
+let isSPressed = false;
+
+function preload() {
+  soundFormats("wav")
+
+  sound1 = loadSound('audio/01_C')
+  sound2 = loadSound('audio/02_Cmaj')
+  sound3 = loadSound('audio/03_Dmaj')
+  sound4 = loadSound('audio/04_CSharpmaj')
+}
+
+function setup() {
+  let c = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
+
+  noStroke()
+}
+
+function draw() {
+  background(0);
+  translate(0, 0, -offmax)
+  // lights()
+  // console.log(fxrand())
+
+  if (isAPressed) {
+    aFactor = map(sin(angle), -1, 1, 0, 2)
+  }
+
+  if (isSPressed) {
+    sFactor = map(sin(angle), -1, 1, 0, 2)
+  }
+
+  if (aFactor <= 0.01) {
+    isAPressed = false
+    aFactor = 0
+  }
+
+  if (sFactor <= 0.01) {
+    isSPressed = false
+    sFactor = 0
+  }
+
+  let k = map(sFactor, 0, 2, 500, -500)
+  let l = map(aFactor, 0, 2, 0, 10)
+  directionalLight(color(255), 0, 1000, k)
+
+  rotateY(radians(angle + (angle + l)))
+
+  for (let x = -step; x < 4; x += step) {
+    for (let y = -step; y < 4; y += step) {
+      for (let z = -step; z < 4; z += step) {
+
+        let px = x + offmax / 2
+        let py = y + offmax / 2
+        let pz = z + offmax / 2
+
+        let amt1 = map(aFactor, 0, 2, 0, 1)
+        let amt2 = map(sFactor, 0, 2, 0, 1)
+        let fillLerp = lerpColor(color(255), color(255, 0, 0), amt2)
+        let strokeLerp = lerpColor(color(0), color(255), amt1)
+
+        push()
+        fill(fillLerp)
+        stroke(strokeLerp)
+        translate(px, py, pz)
+        sphere(100)
+        pop()
+      }
+    }
+  }
+
+  // console.log(aFactor)
+  // console.log(sFactor)
+
+  angle += 0.2;
+}
+
+function keyPressed() {
+  let isA = key === 'a' || key === 'A'
+  let isS = key === 's' || key === 'S'
+  let isD = key === 'd' || key === 'D'
+  let isF = key === 'f' || key === 'F'
+
+  if (isA) {
+    sound1.play()
+    isAPressed = true
+  }
+  else if (isS) {
+    sound2.play()
+    isSPressed = true
+  }
+  else if (isD) {
+    sound3.play()
+  }
+  else if (isF) {
+    sound4.play()
+  }
+}
+

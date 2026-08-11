@@ -1,0 +1,4 @@
+id: 1121
+name: v0rt3x
+mint_opens_at: 2021-11-24T13:09:32+00:00
+generative_uri: ipfs://QmfMLqMkBn4ugW5mu9MKvhJySiFhjt6HsUwPmuSS52AxRP

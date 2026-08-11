@@ -1,0 +1,4 @@
+id: 1256
+name: Flat Bubbles
+mint_opens_at: 2021-11-25T13:17:38+00:00
+generative_uri: ipfs://QmaNw9LFQwnRJAG7eKejwLxwhya6DivVPp9Vw5wqJdN8dA

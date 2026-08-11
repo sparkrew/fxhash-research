@@ -1,0 +1,4 @@
+id: 13106
+name: 1888 - Quads
+mint_opens_at: 2022-05-17T22:12:44+00:00
+generative_uri: ipfs://QmNtmkCD3fMuNi5sXyJEoNPG3a5vXcNmEy6adtqsM4dcFH

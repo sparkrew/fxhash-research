@@ -1,0 +1,4 @@
+id: 2701
+name: Bubbly 70's TV
+mint_opens_at: 2021-12-08T17:26:10+00:00
+generative_uri: ipfs://QmTyR17WB7QmvUAFQdKdq77uMukm1JPAvyv8AkCYRYYjFc

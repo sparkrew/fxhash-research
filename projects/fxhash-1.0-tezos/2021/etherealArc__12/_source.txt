@@ -1,0 +1,4 @@
+id: 12
+name: etherealArc
+mint_opens_at: 2021-11-11T14:38:18+00:00
+generative_uri: ipfs://QmPHqZWYrTZQGhMd4vrynV7c7JSSS57Md4QAWNzGxgmgnR

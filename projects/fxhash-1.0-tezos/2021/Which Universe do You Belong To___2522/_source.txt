@@ -1,0 +1,4 @@
+id: 2522
+name: Which Universe do You Belong To?
+mint_opens_at: 2021-12-07T06:03:50+00:00
+generative_uri: ipfs://QmRmxwKd1sbVygWapEmqP4w9ZjvAQArKRfb5JS3xWVKdbg

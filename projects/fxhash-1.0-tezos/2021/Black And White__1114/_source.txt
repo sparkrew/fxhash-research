@@ -1,0 +1,4 @@
+id: 1114
+name: Black And White
+mint_opens_at: 2021-11-24T12:42:12+00:00
+generative_uri: ipfs://QmYsf5ETs7koCgogP6fh7gySj7mGuCUuLq2mUUoUcMC5m8

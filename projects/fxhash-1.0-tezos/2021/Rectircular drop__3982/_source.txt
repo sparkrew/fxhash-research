@@ -1,0 +1,4 @@
+id: 3982
+name: Rectircular drop
+mint_opens_at: 2021-12-19T15:16:16+00:00
+generative_uri: ipfs://QmZ1BuPj3LSxrZFcxKFZShqmrpvhj7ZzYSfq7Z9BbF84tB

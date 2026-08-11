@@ -1,0 +1,4 @@
+id: 1462
+name:   Cube Craze
+mint_opens_at: 2021-11-27T12:28:18+00:00
+generative_uri: ipfs://QmWfvF12bzXZpqNSj6dzwGqZjcsNAYUgPk2YcK58CRF9aT

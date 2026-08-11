@@ -1,0 +1,16 @@
+  441  ll
+  442  cd src
+  443  l
+  444  ll
+  445  ll
+  446  wget https://raw.githubusercontent.com/generative-light/p5.scribble.js/master/p5.scribble.js
+  447  gs
+  448  git status
+  449  history
+  450  git log
+  451  git log
+  452  gs
+  453  git history
+  454  history
+  455  history
+  456  history

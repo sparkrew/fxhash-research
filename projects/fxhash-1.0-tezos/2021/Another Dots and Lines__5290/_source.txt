@@ -1,0 +1,4 @@
+id: 5290
+name: Another Dots and Lines
+mint_opens_at: 2021-12-28T21:00:30+00:00
+generative_uri: ipfs://QmY7HG7HxF7v1K6cSbHZYdTNGW1kgYhGhpAm46AKj6rCqE

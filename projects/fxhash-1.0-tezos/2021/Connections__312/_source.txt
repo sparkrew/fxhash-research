@@ -1,0 +1,4 @@
+id: 312
+name: Connections
+mint_opens_at: 2021-11-17T17:07:12+00:00
+generative_uri: ipfs://QmY4SM7yWf2TMHJw8xyojMp1Nip53nxMVhwEA5Pg2aHNtV

@@ -1,0 +1,30 @@
+<!doctype html><html><head><title>Intergalactic Planetary</title><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script><link rel="stylesheet" href="./style.css"></head><body><div class="bg"></div><svg data-svg width="1000" height="1000"><filter id="noise"><feTurbulence type="turbulence" baseFrequency="0.09" numOctaves="2" result="turbulence"></feTurbulence><feDisplacementMap in2="turbulence" in="SourceGraphic" scale="50" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap></filter><filter id="displacementFilter"><feTurbulence data-seed type="turbulence" seed="2" baseFrequency=".007" numOctaves="20" result="turbulence"></feTurbulence><feDisplacementMap in2="turbulence" in="SourceGraphic" scale="250" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap></filter><filter id="noise2" width="2000" height="2000"><feTurbulence baseFrequency="0.1 0.1" result="NOISE" numOctaves="2"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="NOISE" scale="10" xChannelSelector="R" yChannelSelector="R"></feDisplacementMap></filter><g><g data-g filter="url(#displacementFilter)"></g></g></svg> <svg data-svgheight width="1000" height="1000"><g data-gheight filter="url(#displacementFilter)"></g></svg><script defer="defer" src="./bundle.js"></script></body></html>

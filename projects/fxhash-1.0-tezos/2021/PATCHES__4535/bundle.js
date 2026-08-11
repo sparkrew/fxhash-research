@@ -1,0 +1,1 @@
+(()=>{console.log(fxhash),console.log(fxrand());const o=(o,n,a,f,r)=>(o-n)*(r-f)/(a-n)+f,n=o(fxrand(),0,1,0,3),a=o(fxrand(),0,1,0,4);window.$fxhashFeatures={Offset:Math.round(n),"Color Set":Math.round(a)}})();

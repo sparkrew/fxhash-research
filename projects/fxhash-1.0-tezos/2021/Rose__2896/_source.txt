@@ -1,0 +1,4 @@
+id: 2896
+name: Rose
+mint_opens_at: 2021-12-09T17:45:00+00:00
+generative_uri: ipfs://QmU6dS1fAQ2E1yQaU3F9fd39JMpxor3SQUuJP1qPNes4Lb

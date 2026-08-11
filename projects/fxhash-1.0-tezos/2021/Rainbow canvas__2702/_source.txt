@@ -1,0 +1,4 @@
+id: 2702
+name: Rainbow canvas
+mint_opens_at: 2021-12-08T17:26:10+00:00
+generative_uri: ipfs://Qmf6ahigp3tJ3wqEukrBfumFAxAk2CTQTFtYXrCjuiwCQx

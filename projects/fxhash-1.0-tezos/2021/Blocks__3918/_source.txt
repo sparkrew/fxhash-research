@@ -1,0 +1,4 @@
+id: 3918
+name: Blocks
+mint_opens_at: 2021-12-19T10:06:06+00:00
+generative_uri: ipfs://QmQLeQ45hKHQr57jKWjiAxwF6LpY5pw2S3MwkG9om2i5ag

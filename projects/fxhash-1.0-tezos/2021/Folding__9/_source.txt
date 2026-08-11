@@ -1,0 +1,4 @@
+id: 9
+name: Folding
+mint_opens_at: 2021-11-11T03:56:48+00:00
+generative_uri: ipfs://QmQjsawmH71XjM6HRw9GA4ezccnZQo48VE69ShHX2KH2w2

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Ever-evolving multi-scale Truchet tiles</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="Author" content="Reinder Nijhoff">
+    <meta name="License" content="This NFT is released under the NFT License 2.0 - www.nftlicense.org">
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+    <style>
+        body,
+        html {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas {
+            width: 100vw;
+            height: 100vh;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+<script>
+  'use strict';
+
+  function rand() {
+    return fxrand();
+  }
+
+  function lerp(a, b) {
+    const t = rand();
+    return a * t + b * (1 - t);
+  }
+
+
+  const iLine = lerp(0.3, 1); // value=0.85, min=0.3, max=1, step=0.01
+  const iSeed = rand() * 100; // value=0.3, min=0, max=3.14, step=0.01
+  const iColor = .5 * rand(); // value=0.5, min=0, max=1, step=0.01
+
+  const iColorOffset = lerp(0, Math.PI * 2); // value=0, min=0, max=7, step=0.01
+  const iPow = lerp(0.25, 0.85); // value=0.75, min=0.25, max=.8, step=0.01
+  const iMax = 4; // value=7, min=5, max=7, step=1
+  const iMin = Math.floor(lerp(1, 5)); // value=2, min=1, max=6, step=1
+
+  const gradX = lerp(-1, 1);
+  const gradY = lerp(-1, 1);
+
+  const capture = navigator.webdriver;
+
+  const features = {
+    minSubDivision: iMin,
+    subDivFactor: iPow.toFixed(2),
+    curves: iLine.toFixed(2),
+  };
+
+  window.$fxhashFeatures = features;
+  console.log(features);
+
+
+  function webglProgram(canvas, fragmentShader) {
+    const gl = canvas.getContext('webgl', { preserveDrawingBuffer: false, antialias: false });
+
+    const pid = gl.createProgram();
+    shader(`
+    attribute vec2 vertex;
+
+    void main() {
+        gl_Position = vec4(vertex, 0.0, 1.0);
+    }
+`, gl.VERTEX_SHADER);
+
+    shader(fragmentShader, gl.FRAGMENT_SHADER);
+    gl.linkProgram(pid);
+    gl.useProgram(pid);
+    gl.depthFunc(gl.ALWAYS);
+    // gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    // gl.enable(gl.BLEND);
+    const vertex = gl.getAttribLocation(pid, 'vertex');
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 3, -1, -1, 3, -1]), gl.STATIC_DRAW);
+    gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vertex);
+
+    function shader(src, a) {
+      let s = gl.createShader(a);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      gl.attachShader(pid, s);
+    }
+
+    const uniformsLocations = {};
+
+    function uniformLocation(name) {
+      if (!uniformsLocations[name]) {
+        uniformsLocations[name] = gl.getUniformLocation(pid, name);
+      }
+      return uniformsLocations[name];
+    }
+
+    function uf3(name, a, b, c) {
+      gl.uniform3f(uniformLocation(name), a, b, c);
+    }
+
+    function uf2(name, a, b) {
+      gl.uniform2f(uniformLocation(name), a, b);
+    }
+
+    function uf1(name, a) {
+      gl.uniform1f(uniformLocation(name), a);
+    }
+
+    let w, h;
+
+    function resize() {
+      const bb = canvas.getBoundingClientRect();
+      if ((bb.width | 0) === w && (bb.height | 0) === h) {
+        return;
+      }
+      w = canvas.width = (bb.width | 0);
+      h = canvas.height = (bb.height | 0);
+      gl.viewport(0, 0, w, h);
+    }
+
+    function draw() {
+      resize();
+      uf2('iResolution', w, h);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+
+    return { uf1, uf2, uf3, resize, draw };
+  }
+
+  const canvas = document.querySelector('canvas');
+  const fragmentShader = `#extension GL_OES_standard_derivatives : enable
+precision highp float;
+
+// Forked from "Metaballs" by reinder
+// https://oneshader.net/shader/ab59fb7967
+
+
+uniform float iTime;
+uniform vec2  iResolution;
+
+const float iLine = ${iLine.toFixed(4)}; // value=0.85, min=0.3, max=1, step=0.01
+const float iSeed = ${iSeed.toFixed(4)}; // value=0.3, min=0, max=3.14, step=0.01
+const float iColor = ${iColor.toFixed(4)}; // value=0.5, min=0, max=1, step=0.01
+
+const float iColorOffset = ${iColorOffset.toFixed(4)}; // value=0, min=0, max=7, step=0.01
+const float iPow = ${iPow.toFixed(4)}; // value=0.75, min=0.25, max=.8, step=0.01
+const float iMin = ${iMin.toFixed(4)}; // value=2, min=1, max=6, step=1
+const float iMax = ${iMax.toFixed(4)}; // value=7, min=5, max=7, step=1
+
+const vec2 grad = vec2(${gradX.toFixed(4)}, ${gradY.toFixed(4)});
+
+#define MAX_DEPTH 5
+#define AA ${capture ? 2 : 3}
+
+//
+// Hash functions by Dave Hoskins:
+//
+// https://www.shadertoy.com/view/4djSRW
+//
+
+float hash12(vec2 p) {
+    vec3 p3  = fract(vec3(p.xyx) * .1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return fract((p3.x + p3.y) * p3.z);
+}
+
+float hash13(vec3 p3) {
+    p3  = fract(p3 * .1031);
+    p3 += dot(p3, p3.zyx + 31.32);
+    return fract((p3.x + p3.y) * p3.z);
+}
+
+
+vec2 hash22(vec2 p) {
+    vec3 p3 = fract(vec3(p.xyx) * vec3(.1031, .1030, .0973));
+    p3 += dot(p3, p3.yzx+33.33);
+    return fract((p3.xx+p3.yz)*p3.zy);
+
+}
+
+float noise(vec3 x) {
+    vec3 p = floor(x);
+    vec3 f = smoothstep(0., 1., fract(x));
+
+    return mix( mix( mix( hash13(p + vec3(0,0,0)), hash13(p + vec3(1,0,0)), f.x),
+                     mix( hash13(p + vec3(0,1,0)), hash13(p + vec3(1,1,0)), f.x), f.y),
+                mix( mix( hash13(p + vec3(0,0,1)), hash13(p + vec3(1,0,1)), f.x),
+                     mix( hash13(p + vec3(0,1,1)), hash13(p + vec3(1,1,1)), f.x), f.y), f.z);
+}
+
+//
+// rotation matrices
+//
+
+mat2 rot2D(float a) {
+    return mat2(cos(a), sin(a), -sin(a), cos(a));
+}
+
+float pattern(vec2 uv, float d, vec2 h, float f) {
+    if (h.y > .5) {
+        uv = uv.yx;
+    }
+    uv *= sign(hash22(h) - .5);
+    
+    if (h.x > iLine) {
+        return .25 + 0.25 * cos(3.14159265359 * uv.x * 2. * exp2(iMax - d + 1.) );
+    } else {
+        float l0 = length(uv + .5);
+        float l1 = length(uv - .5);
+        
+        float dist0 = .25 + 0.25 * cos(3.14159265359 * 2. * (l0 * exp2(iMax - d + 1.)));
+        float dist1 = .25 + 0.25 * cos(3.14159265359 * 2. * (l1 * exp2(iMax - d + 1.)));
+        
+        float s = .5 * pow(.5-abs(f-.5), 2.); // pow(.5-abs(f-.5), 2.) * (.5 - max(abs(uv.x), abs(uv.y)));
+        
+        return mix(dist0, dist1, smoothstep(1.-s, 1.+s, l0));
+    }
+}
+
+float sminCubic( float a, float b, float k ) {
+    float h = max( k-abs(a-b), 0.0 )/k;
+    return min( a, b ) - h*h*h*k*(1.0/6.0);
+}
+
+vec4 cell(vec2 uv, float d) {
+    float size = exp2(d) * .5;
+    vec2  cell = ceil(uv * size);
+    
+    vec2  h = hash22(cell + iSeed);
+    float n = noise(vec3(cell, iTime * (.1 * 0.1) + h.y));
+    
+    float t = iTime * (.2) * 0.2 + h.x;
+    
+    vec2 p = uv * size - cell + .5;
+  
+    float s = 0.075 - sqrt(max(abs(p.x), abs(p.y))) * 0.075;
+  
+    float f = smoothstep(0.5-s, 0.5+s, fract(t));
+  
+    float dist0 = pattern(p, d, hash22(cell + floor(t)) , f);
+    float dist1 = pattern(p, d, hash22(cell + floor(t+1.)) , f);
+            
+    return vec4(h.x, n, mix(sqrt(dist0), sqrt(dist1), f), size);
+}
+
+vec3 color(float d, float gradient) {
+    return .5 + .5 * sin(d + (iColor*vec3(0,1,2) + iColorOffset) + gradient);
+}
+
+const float T2 = 7.5;
+
+float filmic_reinhard_curve (float x) {
+    float q = (T2*T2 + 1.0)*x*x;
+    return q / (q + x + T2*T2);
+}
+
+vec3 filmic_reinhard(vec3 x) {
+    float w = filmic_reinhard_curve(1.2);
+    return vec3(
+        filmic_reinhard_curve(x.r),
+        filmic_reinhard_curve(x.g),
+        filmic_reinhard_curve(x.b)) / w;
+}
+
+void main() {
+    float pix = 1.1 /  min(iResolution.x, iResolution.y);
+    vec2 p = (gl_FragCoord.xy * 2. - iResolution.xy);
+    vec3 tot = color(-1., dot(p * pix, grad)) * .25;
+    
+    for (int m=0; m<AA; m++) {
+        for (int n=0; n<AA; n++) {
+            vec2 q = p + 2. * vec2(m,n)/float(AA) - 1.;
+            q *= pix;
+            
+            
+            vec3 col = color(0., -dot(.5 * q, grad));
+           
+            if (max(abs(q.x), abs(q.y)) > 1.) {
+                tot += col * .5;
+                continue;
+            }
+
+            float tn = 0., tnprev = 0.;
+           
+            for (int d=0; d<MAX_DEPTH; d++) {
+                vec4 data = cell(q, float(d));
+                
+                tn += pow(data.y, iPow);
+                
+                if ( (tn <= float(d) && float(d) >= iMin) || float(d) >= iMax) {
+                    float m = smoothstep(float(d) - 0.975, float(d) - 1., tnprev);
+                    vec4  mdata = mix(data, cell(q, float(d) - 1.), m * m);
+                    
+
+                    float dist = mdata.z * mdata.z;
+                    float b = 2. * abs(fract(dist * 2.) - .5);
+                    col = mix(color(0., .25 * dot(q, grad)), color(3.14, .25 * dot(q, grad)), smoothstep(0.45, 0.55, b));
+                    col *= .5 + .5 * smoothstep(0.05, 0.1, abs(b-0.5));
+                    break;
+                }
+                tnprev = tn;
+            
+            }
+            tot += col;
+        }
+    }
+    tot *= (1./(float(AA*AA)));
+    
+//    tot = smoothstep(vec3(0.1), vec3(1), tot);
+
+    tot = filmic_reinhard(tot);
+
+//    tot = smoothstep(vec3(0.1), vec3(1), tot);
+
+    tot += hash12(gl_FragCoord.xy) * 0.05;
+    
+    gl_FragColor = vec4(tot, 1.);
+}
+
+
+  `;
+
+
+  const program = webglProgram(canvas, fragmentShader);
+
+  let startTime = -1;
+  let time = 0, frame = 0;
+
+  function draw(t) {
+    requestAnimationFrame((t) => draw(t));
+    const currentTime = performance.now();
+    if (startTime < 0) {
+      startTime = currentTime;
+    }
+
+    time = capture ? 1 : (currentTime - startTime) / 1e3;
+
+    program.uf1('iTime', time * .5);
+    program.uf1('iFrame', frame);
+    program.uf1('iZCorrection', Math.max(1, canvas.height / canvas.width));
+
+    program.draw();
+
+    frame++;
+  };
+  draw(0);
+</script>
+
+
+</body>
+</html>

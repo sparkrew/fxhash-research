@@ -1,0 +1,4 @@
+id: 1722
+name: HELICAL
+mint_opens_at: 2021-11-30T03:02:08+00:00
+generative_uri: ipfs://QmRCtidZF6Kt3nA6waEFc8uknJtq2VQQQZGU99VwGxiQmg

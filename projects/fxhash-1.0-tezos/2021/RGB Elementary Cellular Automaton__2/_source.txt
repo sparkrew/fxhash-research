@@ -1,0 +1,4 @@
+id: 2
+name: RGB Elementary Cellular Automaton
+mint_opens_at: 2021-11-07T20:47:26+00:00
+generative_uri: ipfs://QmZmjHDjbZ1YufMffyisn1hZ5ssiJN4uMGi2wtLqqsbAmw

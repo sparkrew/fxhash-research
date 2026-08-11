@@ -1,0 +1,4 @@
+id: 5478
+name: City of the future
+mint_opens_at: 2021-12-29T07:56:20+00:00
+generative_uri: ipfs://QmTiZkDTCR9QmAr58L2UrrhBnmjYkztex2Vhc82i5LxXNr

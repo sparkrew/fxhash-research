@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+<script src="script-hydra.js"></script>
+
+    <meta charset="utf-8" >
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta property="og:image" content="thumb.png" >
+    <link type="text/css" rel="stylesheet" href="style.css" >
+  </head>
+  <body>
+
+
+
+
+
+    <script type="text/javascript" src="script.js"></script>
+
+
+
+    <script>
+      // Nova instancia Hydra-synth
+      var hydra = new Hydra({
+        canvas: document.getElementById("myCanvas"),
+        detectAudio: false
+      });
+
+//codigo hidra
+
+speed=0.2+fxrand()
+shape(4, 0.1, 0.4)
+//	.kaleid(4)
+	.color(2.83*fxrand(),fxrand(),2*fxrand())
+	.rotate(0.8, 0 )
+	.modulate(o0, () => Math.tan(time))
+
+	.modulate(o0, () => Math.tan(time*2))
+  .modulate(o0, () => Math.tan(fxrand()*time*2))
+.mask(o1)
+//  .modulate(o0, () => mouse.y * 0.0006)
+//	.scale(1.01)
+.saturate(3)
+.add(o2)
+.add(o3)
+
+  	.out(o0)
+
+
+    shape(4, 0.1, 0.4)
+    //	.kaleid(4)
+    	.color(2.83*fxrand(),fxrand(),2*fxrand())
+    	.rotate(0.8, 0 )
+    	.modulate(o0, () => Math.tan(time))
+
+    	.modulate(o0, () => Math.tan(time*2))
+    .blend(o1)
+  //  .blend(o0)
+    //  .modulate(o0, () => mouse.y * 0.0006)
+    //	.scale(1.01)
+
+      	.out(o1)
+
+shape(4,0.01,0.2*fxrand())
+//	.kaleid(4)
+	.color(1.83*fxrand(),fxrand(),2*fxrand())
+	.rotate(0.8, 0 )
+	.modulate(o0, () => Math.tan(time))
+
+	.modulate(o0, () => Math.tan(time*2))
+//	.rotate(0.8, 0 )
+  .out(o2)
+
+shape(4,0.09*fxrand(),0.18*fxrand())
+//.colorama(fxrand())
+.color(2.83*fxrand(),fxrand(),2*fxrand())
+.rotate(0.8, [-0.001,0.001])
+.luma(0.01,0)
+.modulate(o3,0)
+
+.mult(shape(4,0.12*fxrand(),0.25*fxrand())
+//.colorama(fxrand())
+.color(2.83*fxrand(),fxrand(),3*fxrand())
+.rotate(0.8, [-0.001,0.001])
+.luma(0.01,0)
+.modulate(o3,0))
+.out(o3)
+
+.render(o0)
+// fim do codigo hidra
+    </script>
+  </body>
+</html>

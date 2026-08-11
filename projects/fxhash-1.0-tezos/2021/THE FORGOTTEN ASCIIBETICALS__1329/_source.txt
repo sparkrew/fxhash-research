@@ -1,0 +1,4 @@
+id: 1329
+name: THE FORGOTTEN ASCIIBETICALS
+mint_opens_at: 2021-11-26T08:25:08+00:00
+generative_uri: ipfs://QmYV6ZzNxp9kLYfoer953La5ha3AGWV9Fqo1efJT22DGkC

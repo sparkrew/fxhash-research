@@ -1,0 +1,4 @@
+id: 1527
+name: ={-<I>-}=
+mint_opens_at: 2021-11-28T08:11:08+00:00
+generative_uri: ipfs://QmQzzMabuiUv7BydESRfYSzDDLas33kmiwX9sMXX9asaHo

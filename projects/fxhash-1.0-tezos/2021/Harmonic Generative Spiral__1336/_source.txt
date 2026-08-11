@@ -1,0 +1,4 @@
+id: 1336
+name: Harmonic Generative Spiral
+mint_opens_at: 2021-11-26T08:58:38+00:00
+generative_uri: ipfs://QmeAzwZWusm12CA64DVPg2gKjeYdEiUP8LXtG37J73UBgG

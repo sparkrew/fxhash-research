@@ -1,0 +1,4 @@
+id: 3444
+name: marino generativo animato
+mint_opens_at: 2021-12-15T11:43:46+00:00
+generative_uri: ipfs://QmSeAB2pcNarLnVvuPuCFMwZzgpv8znk7ciqh1jEBj9nod

@@ -1,0 +1,28 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html {
+  flex-direction: column;
+}
+
+body {
+  flex-direction: row;
+  overflow: hidden;
+  touch-action: none;
+  background: white;
+}
+
+canvas {
+  margin: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
+}

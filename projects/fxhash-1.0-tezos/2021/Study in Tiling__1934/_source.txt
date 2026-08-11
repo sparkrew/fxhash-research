@@ -1,0 +1,4 @@
+id: 1934
+name: Study in Tiling 
+mint_opens_at: 2021-12-02T00:55:54+00:00
+generative_uri: ipfs://QmSyTK3jKnoyFk6kaV3N4LwSP76nQY3YCyn6FVwYCDE3fd

@@ -1,0 +1,4 @@
+id: 2786
+name: beat
+mint_opens_at: 2021-12-08T20:00:00+00:00
+generative_uri: ipfs://QmSyd5gtDD62twijD3hwufq7hy1xKFcLBxZbzZwoh38Gst

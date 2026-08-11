@@ -1,0 +1,4 @@
+id: 914
+name: Globs
+mint_opens_at: 2021-11-23T09:33:32+00:00
+generative_uri: ipfs://QmTvgNwge3HV1rzpSKLiQfVnZZomqaoCEHdX2Ju9p63fgz

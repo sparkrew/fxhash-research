@@ -1,0 +1,4 @@
+id: 542
+name: Feedback Crystal
+mint_opens_at: 2021-11-19T17:59:52+00:00
+generative_uri: ipfs://QmZydzJeiqtKjQZtPzfVGppCfbMauttP5WRAYYF9VEspYM

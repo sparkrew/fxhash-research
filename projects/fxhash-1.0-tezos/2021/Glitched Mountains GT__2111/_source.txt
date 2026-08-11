@@ -1,0 +1,4 @@
+id: 2111
+name: Glitched Mountains GT
+mint_opens_at: 2021-12-03T09:52:54+00:00
+generative_uri: ipfs://QmXntqdf7GdrVa9Kgs8DYiKKRaKpGSessoRxALnyn8Fp29

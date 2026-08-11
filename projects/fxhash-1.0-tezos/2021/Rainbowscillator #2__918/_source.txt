@@ -1,0 +1,4 @@
+id: 918
+name: Rainbowscillator #2
+mint_opens_at: 2021-11-23T09:43:32+00:00
+generative_uri: ipfs://QmcSDgzhZK27ryLEk1TcLnvrg2BimeXcVMWmmcA4hSqQaS

@@ -1,0 +1,4 @@
+id: 5187
+name: Ugly Robots
+mint_opens_at: 2021-12-28T05:28:40+00:00
+generative_uri: ipfs://QmQ1uqjPzX1zSFMSLFmerGfoMAU4qaf9iCPRyYfikgp1cC

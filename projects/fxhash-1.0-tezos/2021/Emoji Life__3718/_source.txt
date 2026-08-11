@@ -1,0 +1,4 @@
+id: 3718
+name: Emoji Life
+mint_opens_at: 2021-12-17T17:17:36+00:00
+generative_uri: ipfs://QmcwuHu8NPNectehKCcGJR2p9NqDcBxrRw9wSaVp1s9h9J

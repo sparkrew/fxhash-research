@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+  <head>
+    <style>
+      body, html{
+        margin: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background: #000;
+      }
+      #c{
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id=c></canvas>
+<script>
+c=document.querySelector('#c')
+x=c.getContext('2d')
+c.width=c.clientWidth
+c.height=c.clientHeight
+S=Math.sin
+C=Math.cos
+rsz=window.onresize=()=>{
+  c.width=c.clientWidth
+  c.height=c.clientHeight
+}
+rsz()
+
+t=0
+
+Draw=()=>{
+
+  if(!t){
+    bg = new Image()
+    go=false
+    bg.onload=()=>{go=true}
+    bg.src='3HMCW.jpg'
+    Rn=Math.random
+    R=(Rl,Pt,Yw,o)=>{X=S(p=(A=(M=Math).atan2)(X,Y)+Rl)*(d=(H=M.hypot)(X,Y)),Y=C(p)*d,Y=S(p=A(Y,Z)+Pt)*(d=H(Y,Z)),Z=C(p)*d,X=S(p=A(X,Z)+Yw)*(d=H(X,Z)),Z=C(p)*d;if(o)X+=oX,Y+=oY,Z+=oZ}
+    Q=q=>[c.width/2+X/Z*1e3,c.height/2+Y/Z*1e3]
+    for(CUBE=[],j=6;j--;)for(i=4;i--;)CUBE=[...CUBE,[(a=[S(p=Math.PI/2*i+Math.PI/4),C(p),2**.5/2])[j%3]*(l=j<3?-1:1),a[(j+1)%3]*l,a[(j+2)%3]*l]]
+    iPc=4,iPv=1
+    P=Array(iPc).fill().map(v=>{
+      return [0,0,0,(Rn()-.5)*iPv,(Rn()-.5)*iPv,(Rn()-.5)*iPv]
+    })
+    DC=(cx,cy,cz,inside1, inside2)=>{
+      CUBE.map((v,i)=>{
+        if(!(i%4))x.beginPath()
+        X = v[0]+cx
+        Y = v[1]+cy
+        Z = v[2]+cz
+        R(Rl,Pt,Yw,1)
+        if(Z>0)x.lineTo(...Q())
+        if(i%4==3){
+          x.globalAlpha=.1
+          if(inside || inside2){
+            x.globalAlpha=inside?1:.5
+            x.fillStyle=inside?'#fff4':'#4f81'
+            x.fill()
+          }
+          x.closePath()
+          x.strokeStyle = '#aaffdd20'
+          x.lineWidth = 1200/(Z**2)|0
+          x.stroke()
+          //x.strokeStyle = '#fff4'
+          //x.lineWidth /= 5
+          //x.lineWidth |= 0
+          //x.stroke()
+          //x.globalAlpha/=4
+        }
+      })
+      x.globalAlpha=1
+    }
+  }
+  Rl = S(t/2)*2,Pt = -t,Yw = S(t/3)*3
+  oX = oY = 0, oZ = 20 + S(t*2)*10
+
+  if(go){
+    x.globalAlpha=.6
+    x.drawImage(bg,0,0,c.width,c.height)
+    x.globalAlpha = 1
+    x.fillStyle='#0001'
+    x.fillRect(0,0,c.width,c.height)
+  }else{
+    x.fillStyle='#0008'
+    x.fillRect(0,0,c.width,c.height)
+  }
+
+  x.lineJoin = 'butt'
+  rw=cl=br=10
+  sp=2**.5
+  G=cl+.5
+  P.map(v=>{
+    X=v[0]+=v[3]
+    Y=v[1]+=v[4]
+    Z=v[2]+=v[5]
+    if(v[0]>G/2||v[0]<-G/2)v[3]*=-1
+    if(v[1]>G/2||v[1]<-G/2)v[4]*=-1
+    if(v[2]>G/2||v[2]<-G/2)v[5]*=-1
+    R(Rl,Pt,Yw,1)
+    x.globalAlpha=1
+    x.beginPath()
+    if(Z>0)x.arc(...Q(),2e3/(Z**1.5),0,7)
+    x.fillStyle='#4f86',x.fill()
+    x.beginPath()
+    x.arc(...Q(),1500/(Z**1.5),0,7)
+    x.fillStyle='#fff',x.fill()
+  })
+
+  for(i=rw*cl*br;i--;){
+    tx=((i%cl)-cl/2+.5)*sp
+    ty=(((i/cl|0)%rw)-rw/2+.5)*sp
+    tz=((i/cl/rw|0)-br/2+.5)*sp
+    inside=inside2=false
+    P.map(v=>{
+      X=v[0]
+      Y=v[1]
+      Z=v[2]
+      if(
+        (Math.abs(X-tx)) < (l=2**.5/2) &&
+        (Math.abs(Y-ty)) <l &&
+        (Math.abs(Z-tz)) <l
+      ) inside=true
+      if(
+        (Math.abs(X-tx)) < (l=2**.5/.6666) &&
+        (Math.abs(Y-ty)) <l &&
+        (Math.abs(Z-tz)) <l
+      ) inside2=true
+    })
+    a=inside?1:.05
+    if(inside2)a+=1
+    DC(tx,ty,tz,inside,inside2)
+  }
+
+  t += 1/60
+  requestAnimationFrame(Draw)
+}
+Draw()
+</script>
+  </body>
+</html>

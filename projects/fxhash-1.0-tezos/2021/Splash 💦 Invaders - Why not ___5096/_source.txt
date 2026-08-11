@@ -1,0 +1,4 @@
+id: 5096
+name: Splash 💦 Invaders - Why not ?
+mint_opens_at: 2021-12-27T22:31:00+00:00
+generative_uri: ipfs://QmcPkhwm4xMWLUt5qhHr82iL1o9roKk3BcpUJ7TuDfAsDJ

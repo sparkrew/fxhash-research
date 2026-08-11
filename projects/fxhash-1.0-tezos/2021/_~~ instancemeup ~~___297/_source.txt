@@ -1,0 +1,4 @@
+id: 297
+name: <~~ instancemeup ~~>
+mint_opens_at: 2021-11-17T15:21:32+00:00
+generative_uri: ipfs://QmVkBdCdELGQNFKEn9UdfF5NkJ8Ph9xsSBXfJyrCVDxQcp

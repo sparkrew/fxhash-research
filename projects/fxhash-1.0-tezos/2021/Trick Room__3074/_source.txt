@@ -1,0 +1,4 @@
+id: 3074
+name: Trick Room 
+mint_opens_at: 2021-12-11T15:45:06+00:00
+generative_uri: ipfs://QmXrhMXG5BbbJPdLwxk85TwWzRqs3cScAaAa8YVu5Loez9

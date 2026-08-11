@@ -1,0 +1,4 @@
+id: 862
+name: Slant
+mint_opens_at: 2021-11-23T07:17:22+00:00
+generative_uri: ipfs://QmPkaJqAj45HEk3P1Dxvr3F9mdwtaNBkbpUxe5HJRY3k5r

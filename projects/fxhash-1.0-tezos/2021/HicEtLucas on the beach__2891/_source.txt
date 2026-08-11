@@ -1,0 +1,4 @@
+id: 2891
+name: HicEtLucas on the beach
+mint_opens_at: 2021-12-09T17:42:00+00:00
+generative_uri: ipfs://QmV6K3fvRWaxaibjsVNK59BfUCm9d3Nue3PsXH85KPTkzA

@@ -1,0 +1,4 @@
+id: 20488
+name: Abstracción Celular 3
+mint_opens_at: 2022-10-18T18:38:14+00:00
+generative_uri: ipfs://QmYvxiXh8XrwHJ5cRKXTzetERRQp4Pw2bF6LtYoiLjf9RY

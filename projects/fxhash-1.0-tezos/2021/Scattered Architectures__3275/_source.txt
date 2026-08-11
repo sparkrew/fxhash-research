@@ -1,0 +1,4 @@
+id: 3275
+name: Scattered Architectures
+mint_opens_at: 2021-12-12T21:06:46+00:00
+generative_uri: ipfs://QmVHFmaDViTdGx7t3SsYRzzZiNtYAxBDbuR1JCDkEGSL54

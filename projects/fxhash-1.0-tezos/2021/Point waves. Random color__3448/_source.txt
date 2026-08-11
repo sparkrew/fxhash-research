@@ -1,0 +1,4 @@
+id: 3448
+name: Point waves. Random color
+mint_opens_at: 2021-12-15T11:51:46+00:00
+generative_uri: ipfs://QmNNr9cA1wSWMBEZsPDUKuEPiLeQfVpwn5GyeYxpCqeKJ1

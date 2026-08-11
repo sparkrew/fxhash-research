@@ -1,0 +1,4 @@
+id: 3621
+name: fx(pattern,1)
+mint_opens_at: 2021-12-17T13:33:46+00:00
+generative_uri: ipfs://QmTmCC8wE5ZnKXGg1L2E6g1aWaBivpVc8cuoNgKXtWjSeH

@@ -1,0 +1,4 @@
+id: 3136
+name: free nothing
+mint_opens_at: 2021-12-11T20:24:06+00:00
+generative_uri: ipfs://Qmb54uoxs4wJrL8ScC95qcaFwDKgtZgtuP97bGmiNs5Rb7

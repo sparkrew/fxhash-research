@@ -1,0 +1,4 @@
+id: 9834
+name: -/-ÏoÏ-\-
+mint_opens_at: 2022-02-22T11:22:10+00:00
+generative_uri: ipfs://QmeYzw9XmZgg76sy1CHiGbamU63C62kMrD12Jxzssk2hHE

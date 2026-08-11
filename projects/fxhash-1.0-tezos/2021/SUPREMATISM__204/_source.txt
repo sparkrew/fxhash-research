@@ -1,0 +1,4 @@
+id: 204
+name: SUPREMATISM
+mint_opens_at: 2021-11-15T19:31:28+00:00
+generative_uri: ipfs://QmT4aPSsdXCkXC9gjWyvSbYkmAyNWZgDXMRvjYEpiJPuyx

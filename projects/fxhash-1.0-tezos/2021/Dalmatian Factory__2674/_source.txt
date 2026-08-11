@@ -1,0 +1,4 @@
+id: 2674
+name: Dalmatian Factory
+mint_opens_at: 2021-12-08T17:01:00+00:00
+generative_uri: ipfs://QmazKushXJwNnn3ZqRHQcd4ADD9MG7FjzXaHSUnH8SQhNh

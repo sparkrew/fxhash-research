@@ -1,0 +1,4 @@
+id: 2112
+name: Starfield
+mint_opens_at: 2021-12-03T09:55:24+00:00
+generative_uri: ipfs://QmYmQMkBBXNqLETqsN7wbuQcocs6w8j8iwe5tjLUCfjdsb

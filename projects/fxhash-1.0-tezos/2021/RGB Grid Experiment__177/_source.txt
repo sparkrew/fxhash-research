@@ -1,0 +1,4 @@
+id: 177
+name: RGB Grid Experiment. . .
+mint_opens_at: 2021-11-15T17:21:18+00:00
+generative_uri: ipfs://QmZDpsq2H572TatY2VBznZFX9TqhnBgeWWG9Ygx3fMiNzF

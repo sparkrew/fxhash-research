@@ -1,0 +1,50 @@
+body,
+html {
+	margin: 0;
+  	padding: 0;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background: #fff;
+	color: #fff;
+	overflow: hidden;
+  background-image: url('EAT THE WORLD.gif');
+    background-position: 0 0;
+    height: 100vh;
+  animation: pattern 15s linear infinite;
+}
+
+@keyframes pattern {
+  0% {
+    background-position: 0 0;
+  }
+  
+  100% {
+    background-position: 300px 600px;
+  }
+  
+}
+}
+
+defaultCanvas0 {
+	padding: 0;
+    margin: auto;
+    display: block;
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}

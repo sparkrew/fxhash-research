@@ -1,0 +1,4 @@
+id: 540
+name: TEMPRINTMENTAL
+mint_opens_at: 2021-11-19T17:56:22+00:00
+generative_uri: ipfs://QmZGswAk9aJ8Labtf4ZgxsrPGxscihUzoebwdHo4SPL3zi

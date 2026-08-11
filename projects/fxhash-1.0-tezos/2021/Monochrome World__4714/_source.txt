@@ -1,0 +1,4 @@
+id: 4714
+name: Monochrome World
+mint_opens_at: 2021-12-26T00:48:30+00:00
+generative_uri: ipfs://QmVQneYhz4ZPfVcsD3odPiyiYAGLRfqKg8bTt1afiWUaRH

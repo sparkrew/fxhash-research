@@ -1,0 +1,4 @@
+id: 7
+name: Generative Art - Poster
+mint_opens_at: 2021-11-11T00:49:58+00:00
+generative_uri: ipfs://QmTMULfnCodY733DbNt3S74aZnsvKjFH5JAQBTsCM83e1Q

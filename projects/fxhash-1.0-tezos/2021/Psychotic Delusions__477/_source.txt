@@ -1,0 +1,4 @@
+id: 477
+name: Psychotic Delusions
+mint_opens_at: 2021-11-19T12:41:02+00:00
+generative_uri: ipfs://QmefiZmxaDvFT2RBaTXDVtGZt8xDkH5WRf7ykL76zHm2Aq

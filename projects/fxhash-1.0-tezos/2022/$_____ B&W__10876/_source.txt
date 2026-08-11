@@ -1,0 +1,4 @@
+id: 10876
+name: $|<_// B&W
+mint_opens_at: 2022-03-18T13:47:24+00:00
+generative_uri: ipfs://QmNhXt4XPdarYQU8sFZGzTt35p8PyC3M8qHZ97iDu3xUNW

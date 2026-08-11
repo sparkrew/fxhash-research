@@ -1,0 +1,4 @@
+id: 4260
+name: Slow Burner
+mint_opens_at: 2021-12-21T11:18:26+00:00
+generative_uri: ipfs://QmX9gaUjTsEtdEwrjZZv2thaXBTcyUGcXJFL4trJK1nNC4

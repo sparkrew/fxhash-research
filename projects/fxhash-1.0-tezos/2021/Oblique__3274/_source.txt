@@ -1,0 +1,4 @@
+id: 3274
+name: Oblique
+mint_opens_at: 2021-12-12T20:51:06+00:00
+generative_uri: ipfs://QmPSUwEhQa35PLoZ6UtXRGjpYhNqowxjPX2XahXsRW5XDR

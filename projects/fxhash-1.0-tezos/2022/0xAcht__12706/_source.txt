@@ -1,0 +1,4 @@
+id: 12706
+name: 0xAcht
+mint_opens_at: 2022-05-09T13:32:14+00:00
+generative_uri: ipfs://Qmaw9kaRxS7FdvW4HNwyB7Z3DKTJribu8RhxnmNs3f8mLY

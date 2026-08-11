@@ -1,0 +1,4 @@
+id: 3242
+name: Colosseo
+mint_opens_at: 2021-12-12T16:25:16+00:00
+generative_uri: ipfs://Qme3YQ5AseMqDeHfvJANHNLfs9EttciKvFe2G5FUukJoRy

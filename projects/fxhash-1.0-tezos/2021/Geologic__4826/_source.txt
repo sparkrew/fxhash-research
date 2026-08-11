@@ -1,0 +1,4 @@
+id: 4826
+name: Geologic
+mint_opens_at: 2021-12-26T22:01:50+00:00
+generative_uri: ipfs://QmaxYpvgiJpmTRwJvS64ygKFzdmdjjNWyHqDhwj2cMzuct

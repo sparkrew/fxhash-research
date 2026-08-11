@@ -1,0 +1,4 @@
+id: 4909
+name: ball_of_chsoa
+mint_opens_at: 2021-12-26T23:38:40+00:00
+generative_uri: ipfs://QmSyDodKbRAfhaHviikmCuC5XLhERxeJ8Cbx23KeLjSHYN

@@ -1,0 +1,203 @@
+{
+     "url": "http://paletton.com/#uid=5180u0kuMSX58XXksSFS3BJS5ku",
+     "colorset": [
+       {
+         "id": "primary",
+         "title": "Primary color",
+         "color": [
+           {
+             "id": "primary-0",
+             "nr": "0",
+             "rgb": "FFBE0A",
+             "r": "255",
+             "g": "190",
+             "b": "10",
+             "r0": "1",
+             "g0": "0.745",
+             "b0": "0.039",
+             "self-closing": "true"
+           },
+           {
+             "id": "primary-1",
+             "nr": "1",
+             "rgb": "FFF4D6",
+             "r": "255",
+             "g": "244",
+             "b": "214",
+             "r0": "1",
+             "g0": "0.957",
+             "b0": "0.839",
+             "self-closing": "true"
+           },
+           {
+             "id": "primary-2",
+             "nr": "2",
+             "rgb": "FFD45C",
+             "r": "255",
+             "g": "212",
+             "b": "92",
+             "r0": "1",
+             "g0": "0.831",
+             "b0": "0.361",
+             "self-closing": "true"
+           },
+           {
+             "id": "primary-3",
+             "nr": "3",
+             "rgb": "FFBB00",
+             "r": "255",
+             "g": "187",
+             "b": "0",
+             "r0": "1",
+             "g0": "0.733",
+             "b0": "0",
+             "self-closing": "true"
+           },
+           {
+             "id": "primary-4",
+             "nr": "4",
+             "rgb": "A37800",
+             "r": "163",
+             "g": "120",
+             "b": "0",
+             "r0": "0.639",
+             "g0": "0.471",
+             "b0": "0",
+             "self-closing": "true"
+           }
+         ]
+       },
+       {
+         "id": "secondary-1",
+         "title": "Secondary color (1)",
+         "color": [
+           {
+             "id": "secondary-1-0",
+             "nr": "0",
+             "rgb": "FFE50A",
+             "r": "255",
+             "g": "229",
+             "b": "10",
+             "r0": "1",
+             "g0": "0.898",
+             "b0": "0.039",
+             "self-closing": "true"
+           },
+           {
+             "id": "secondary-1-1",
+             "nr": "1",
+             "rgb": "FFFBD6",
+             "r": "255",
+             "g": "251",
+             "b": "214",
+             "r0": "1",
+             "g0": "0.984",
+             "b0": "0.839",
+             "self-closing": "true"
+           },
+           {
+             "id": "secondary-1-2",
+             "nr": "2",
+             "rgb": "FFEE5C",
+             "r": "255",
+             "g": "238",
+             "b": "92",
+             "r0": "1",
+             "g0": "0.933",
+             "b0": "0.361",
+             "self-closing": "true"
+           },
+           {
+             "id": "secondary-1-3",
+             "nr": "3",
+             "rgb": "FFE400",
+             "r": "255",
+             "g": "228",
+             "b": "0",
+             "r0": "1",
+             "g0": "0.894",
+             "b0": "0",
+             "self-closing": "true"
+           },
+           {
+             "id": "secondary-1-4",
+             "nr": "4",
+             "rgb": "A39200",
+             "r": "163",
+             "g": "146",
+             "b": "0",
+             "r0": "0.639",
+             "g0": "0.573",
+             "b0": "0",
+             "self-closing": "true"
+           }
+         ]
+       },
+       {
+         "id": "secondary-2",
+         "title": "Secondary color (2)",
+         "color": [
+           {
+             "id": "secondary-2-0",
+             "nr": "0",
+             "rgb": "FF910A",
+             "r": "255",
+             "g": "145",
+             "b": "10",
+             "r0": "1",
+             "g0": "0.569",
+             "b0": "0.039",
+             "self-closing": "true"
+           },
+           {
+             "id": "secondary-2-1",
+             "nr": "1",
+             "rgb": "FFEDD6",
+             "r": "255",
+             "g": "237",
+             "b": "214",
+             "r0": "1",
+             "g0": "0.929",
+             "b0": "0.839",
+             "self-closing": "true"
+           },
+           {
+             "id": "secondary-2-2",
+             "nr": "2",
+             "rgb": "FFB65C",
+             "r": "255",
+             "g": "182",
+             "b": "92",
+             "r0": "1",
+             "g0": "0.714",
+             "b0": "0.361",
+             "self-closing": "true"
+           },
+           {
+             "id": "secondary-2-3",
+             "nr": "3",
+             "rgb": "FF8C00",
+             "r": "255",
+             "g": "140",
+             "b": "0",
+             "r0": "1",
+             "g0": "0.549",
+             "b0": "0",
+             "self-closing": "true"
+           },
+           {
+             "id": "secondary-2-4",
+             "nr": "4",
+             "rgb": "A35A00",
+             "r": "163",
+             "g": "90",
+             "b": "0",
+             "r0": "0.639",
+             "g0": "0.353",
+             "b0": "0",
+             "self-closing": "true"
+           }
+         ]
+       }
+     ]
+   }

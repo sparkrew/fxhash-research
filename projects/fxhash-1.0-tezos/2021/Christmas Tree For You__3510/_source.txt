@@ -1,0 +1,4 @@
+id: 3510
+name: Christmas Tree For You
+mint_opens_at: 2021-12-15T14:42:36+00:00
+generative_uri: ipfs://QmbeUQWt6xWzkqJ48rzgCMtpKqz5FGC6WW85zMFD1ZKpJD

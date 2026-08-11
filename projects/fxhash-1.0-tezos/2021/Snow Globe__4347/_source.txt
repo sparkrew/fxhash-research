@@ -1,0 +1,4 @@
+id: 4347
+name: Snow Globe
+mint_opens_at: 2021-12-22T03:15:56+00:00
+generative_uri: ipfs://QmZ6Q7isLq1LTrNvJPJg39bkuv6JFkNvw47ymjGVLyMWp3

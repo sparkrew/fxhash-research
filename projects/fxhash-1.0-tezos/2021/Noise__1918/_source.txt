@@ -1,0 +1,4 @@
+id: 1918
+name: Noise
+mint_opens_at: 2021-12-02T00:01:24+00:00
+generative_uri: ipfs://QmdFiMtuQxsVYCHh1jHdAymzhs8vp9SubEi3QDwx9fW67E

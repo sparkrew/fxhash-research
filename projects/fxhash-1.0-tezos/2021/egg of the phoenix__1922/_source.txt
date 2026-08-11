@@ -1,0 +1,4 @@
+id: 1922
+name: egg of the phoenix
+mint_opens_at: 2021-12-02T00:04:54+00:00
+generative_uri: ipfs://QmTZJ9Cze6aWQUj1wmLAb6thnSS15HSuWn499KCoYmmje8

@@ -1,0 +1,100 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+:root {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  --c1: red;
+  --c2: white;
+  --c3: #202123;
+  background: var(--c2);
+  color: var(--c3);
+  --s: 80vmin;
+  color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+
+.w {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: wrap;
+  width: var(--s);
+}
+
+.c {
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: inset 0 0 0 2px var(--c2);
+  width: 50%;
+  height: calc(var(--s) * .5);
+  background: radial-gradient(var(--c1), var(--c1) 23.6%, var(--c2) 23.6%, var(--c2) 47%, var(--c3) 47%, var(--c3) calc(70.9% - 2px), var(--c2) calc(70.9% - 2px));
+  background-size: 200% 200%;
+  
+  background-position: calc(var(--x, 0) * 100%) calc(var(--y, 0) * 100%);
+  background-repeat: no-repeat;
+  transition: 2222ms background-position cubic-bezier(0.3, 0.7, 0, 1);
+}
+
+.c.grad {
+  background: conic-gradient(var(--c1), var(--c2), var(--c3), var(--c2), var(--c1));
+  background-size: 200% 200%;
+  background-position: calc(var(--x, 0) * 100%) calc(var(--y, 0) * 100%);
+  background-repeat: no-repeat;
+
+}
+
+.c.half {
+  background: conic-gradient(var(--c1) 0 12.5%, var(--c2) 12.5% 25%, var(--c3) 25% 37.5%, var(--c2) 37.5% 50%, var(--c1));
+  background-size: 200% 200%;
+  background-position: calc(var(--x, 0) * 100%) calc(var(--y, 0) * 100%);
+  background-repeat: no-repeat;
+
+}
+
+.c.lineh {
+  background: linear-gradient(to left, var(--c1) 0% 16.66%, var(--c2) 16.66% 33.33%, var(--c3) 33.33% 66.66%, var(--c2) 66.66% 83.32%, var(--c1) 83.42% 100%);
+  background-size: 200% 200%;
+  background-position: calc(var(--x, 0) * 100%) calc(var(--y, 0) * 100%);
+}
+
+.c.linev {
+  background: linear-gradient(var(--c1) 0% 16.66%, var(--c2) 16.66% 33.33%, var(--c3) 33.33% 66.66%, var(--c2) 66.66% 83.32%, var(--c1) 83.42% 100%);
+  background-size: 200% 200%;
+  background-position: calc(var(--x, 0) * 100%) calc(var(--y, 0) * 100%);
+}
+
+.c.circlegrad {
+    background: radial-gradient(var(--c1), var(--c2), var(--c3));
+    background-size: 200% 200%;
+
+    background-position: calc(var(--x, 0) * 100%) calc(var(--y, 0) * 100%);
+    background-repeat: no-repeat;
+}
+
+.c.linehgrad {
+  background: linear-gradient(45deg, var(--c1), var(--c2), var(--c3), var(--c2), var(--c1));
+  background-size: 200% 200%;
+  background-position: calc(var(--x, 0) * 100%) calc(var(--y, 0) * 100%);
+}
+
+.c.linevgrad {
+  background: linear-gradient(-45deg, var(--c1), var(--c2), var(--c3), var(--c2), var(--c1));
+  background-size: 200% 200%;
+  background-position: calc(var(--x, 0) * 100%) calc(var(--y, 0) * 100%);
+}
+
+
+.c .c {
+  height: calc(var(--s) * .25);
+}
+
+.c .c .c {
+  height: calc(var(--s) * 0.125);
+}

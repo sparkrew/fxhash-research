@@ -1,0 +1,4 @@
+id: 17513
+name: A Watch
+mint_opens_at: 2022-08-07T19:00:00+00:00
+generative_uri: ipfs://QmR5pLKW4uhv4zLkJjLJ1674iUtyG8Qdj1MhqPx63PLWRR

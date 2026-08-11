@@ -1,0 +1,4 @@
+id: 2247
+name: Model Univi
+mint_opens_at: 2021-12-05T03:18:20+00:00
+generative_uri: ipfs://QmdYWTBMehsVazArwoeAVYmNKVspKTSwwQLfyxMYS9Yx6T

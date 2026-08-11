@@ -1,0 +1,4 @@
+id: 4190
+name: COLLAGE
+mint_opens_at: 2021-12-21T04:50:26+00:00
+generative_uri: ipfs://QmPPoxW2C74gpEP5y8vn6q1JgYxsZsajMVFgwi9zz9HxeK

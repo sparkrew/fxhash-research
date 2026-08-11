@@ -1,0 +1,4 @@
+id: 176
+name: mechanical organism
+mint_opens_at: 2021-11-15T17:17:18+00:00
+generative_uri: ipfs://QmX5SjKqGPe3BAeXsJCpQfeXEPANEzqERiZNtFvwTUd3N9

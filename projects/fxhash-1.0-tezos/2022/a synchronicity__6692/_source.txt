@@ -1,0 +1,4 @@
+id: 6692
+name: a synchronicity 
+mint_opens_at: 2022-01-12T06:30:40+00:00
+generative_uri: ipfs://QmR8kj3XJqXYPXpyJwjrA3ZyoRy8xphCMPF9bcyVirWjrm

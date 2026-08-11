@@ -1,0 +1,4 @@
+id: 3075
+name: 🎄merry yungmas
+mint_opens_at: 2021-12-11T15:45:36+00:00
+generative_uri: ipfs://QmWKAugm4Rm3gnAJJQCzbZCVDHub58hwDUbMsevqHg9fJT

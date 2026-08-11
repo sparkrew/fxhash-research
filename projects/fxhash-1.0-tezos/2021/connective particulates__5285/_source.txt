@@ -1,0 +1,4 @@
+id: 5285
+name: connective particulates
+mint_opens_at: 2021-12-28T20:55:30+00:00
+generative_uri: ipfs://QmSX8o9iVhdop33VjVsbjxoM4ZDge7iDdQEFZpCDhMbjmg

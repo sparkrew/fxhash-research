@@ -1,0 +1,505 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: black;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+canvas {
+    position: absolute;
+    opacity: 0.1;
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    top: 0;
+    left: 0;
+}
+
+body #wrap {
+    width: 100vh;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 25% 25% 25% 25%;
+    transform: rotate(var(--angle));
+    box-sizing: border-box;
+    padding: 15vh;
+    background-color: black;
+}
+
+body #wrap .neon {
+    --height: 6;
+    --width: random(10);
+    --angle: 180deg;
+}
+
+body #wrap .neon:nth-of-type(1n) {
+    transform-origin: 0% 100%;
+}
+
+body #wrap .neon:nth-of-type(2n) {
+    transform-origin: 0% 0%;
+}
+
+body #wrap .neon:nth-of-type(3n) {
+    transform-origin: 100% 0%;
+}
+
+body #wrap .neon:nth-of-type(4n) {
+    transform-origin: 100% 100%;
+}
+
+body #wrap .neon:nth-of-type(1) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #f5ff00 50%, #bfff00 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(2) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #d8ff00 50%, #6cff00 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(3) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 2;
+    background: linear-gradient(var(--angle), transparent 50%, #80ff00 50%, #00ff0a 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(4) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #80ff00 50%, lime 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(5) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #98ff07 50%, #0dfc49 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(6) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #80ff00 50%, #00ffa7 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(7) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #69fc00 50%, #00ffce 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(8) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 1;
+    grid-row-start: 2;
+    background: linear-gradient(var(--angle), transparent 50%, #5afc0a 50%, aqua 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(9) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 2;
+    background: linear-gradient(var(--angle), transparent 50%, #47fa0b 50%, deepskyblue 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(10) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 1;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #38fa11 50%, #0b84fc 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(11) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #26fa13 50%, #0027ff 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(12) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, lime 50%, blue 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(13) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #11fd24 50%, #5800ff 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(14) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #11fc38 50%, #7e03f8 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(15) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #00ff40 50%, #bf00ff 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(16) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #00ff55 50%, fuchsia 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(17) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 1;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #00ff6a 50%, #ff00bf 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(18) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 2;
+    background: linear-gradient(var(--angle), transparent 50%, #00ff80 50%, #ff0080 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(19) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 2;
+    background: linear-gradient(var(--angle), transparent 50%, #00ff95 50%, #ff0040 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(20) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 1;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #00ffaa 50%, red 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(21) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #00ffbf 50%, #ff4000 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(22) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 1;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #00ffd5 50%, #ff8000 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(23) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #00ffea 50%, #ffbf00 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(24) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, aqua 50%, yellow 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(25) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 1;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #00eaff 50%, #bfff00 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(26) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 2;
+    background: linear-gradient(var(--angle), transparent 50%, #00d5ff 50%, #80ff00 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(27) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, deepskyblue 50%, #40ff00 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(28) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #00aaff 50%, lime 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(29) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #0095ff 50%, #00ff40 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(30) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #0080ff 50%, #00ff80 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(31) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 2;
+    background: linear-gradient(var(--angle), transparent 50%, #006aff 50%, #00ffbf 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(32) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #0055ff 50%, aqua 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(33) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #0040ff 50%, deepskyblue 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(34) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #002bff 50%, #0080ff 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(35) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #0015ff 50%, #0040ff 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(36) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 5;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, blue 50%, blue 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(37) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #1500ff 50%, #4000ff 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(38) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #2b00ff 50%, #8000ff 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(39) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #4000ff 50%, #bf00ff 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(40) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #5500ff 50%, fuchsia 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(41) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #6a00ff 50%, #ff00bf 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(42) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 1;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #8000ff 50%, #ff0080 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(43) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 2;
+    background: linear-gradient(var(--angle), transparent 50%, #9500ff 50%, #ff0040 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(44) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #aa00ff 50%, red 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(45) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #bf00ff 50%, #ff4000 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(46) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 4;
+    background: linear-gradient(var(--angle), transparent 50%, #d500ff 50%, #ff8000 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(47) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 1;
+    background: linear-gradient(var(--angle), transparent 50%, #ea00ff 50%, #ffbf00 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(48) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 4;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, fuchsia 50%, yellow 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(49) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 3;
+    grid-row-start: 3;
+    background: linear-gradient(var(--angle), transparent 50%, #ff00ea 50%, #bfff00 50%, transparent);
+    position: relative;
+}
+
+body #wrap .neon:nth-of-type(50) {
+    grid-column-start: var(--height);
+    grid-column-end: var(--width);
+    grid-row-end: 2;
+    grid-row-start: 5;
+    background: linear-gradient(var(--angle), transparent 50%, #ff00d5 50%, #80ff00 50%, transparent);
+    position: relative;
+}

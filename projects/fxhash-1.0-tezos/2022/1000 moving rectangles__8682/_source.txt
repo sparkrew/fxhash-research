@@ -1,0 +1,4 @@
+id: 8682
+name: 1000 moving rectangles.
+mint_opens_at: 2022-02-07T00:03:44+00:00
+generative_uri: ipfs://Qmej2FABDh8Qk5UyTFyETH41R3mH9WH4CGFMPvwHM4wu47

@@ -1,0 +1,1 @@
+(()=>{var e;window.$fxhashFeatures={Purity:`#${12.5*size.toFixed(2)}/25`,Rarity:(e=12.5*size,e<5?"Common":e<10?"High":e<15?"Rare":e<20?"Very rare":"Exceptional"),Color:colorized(),FrameRate:60}})();

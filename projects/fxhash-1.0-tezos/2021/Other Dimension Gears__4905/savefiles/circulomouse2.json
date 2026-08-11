@@ -1,0 +1,14 @@
+{
+  "box0": {
+    "dir": "shaders/generative/circulomouse.frag",
+    "name": "circulomouse.frag",
+    "s": 0.043333333333333335,
+    "d": 0.10333333333333333
+  },
+  "box1": {
+    "dir": "shaders/imageprocessing/displace.frag",
+    "name": "displace.frag",
+    "offsetx": 0.4766666666666667,
+    "offsety": 0.5366666666666666
+  }
+}

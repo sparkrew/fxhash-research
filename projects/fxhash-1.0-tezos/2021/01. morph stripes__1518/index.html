@@ -1,0 +1,757 @@
+<html>
+
+<head>
+<title>GPU Marching Cubes</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+<script type="text/javascript" src="./js/glMatrix-0.9.5.min.js"></script>
+<script type="text/javascript" src="./js/webgl-utils.js"></script>
+<script type="text/javascript" src="./js/utils.js"></script>
+<script type="text/javascript" src="./js/controller.js"></script>
+<script type="text/javascript" src="./js/marchingCubes.js"></script>
+
+
+<script id="vs-simplePlane" type="x-shader/x-vertex">
+    attribute float aVI;
+    varying vec2 vText;
+    void main(void) {
+        float vI = aVI + 1.;
+	    vec2 xy = vec2(mod(vI, 2.) == 0. ? 1. : -1., -1. + 2. * step(-vI, -2.1));
+	    vText = xy * 0.5 + 0.5;
+	    gl_Position = vec4(xy, 0.0, 1.0);
+	}
+</script>
+
+<script id="vs-index2DGrid" type="x-shader/x-vertex">
+    attribute float aVI;
+    attribute vec2 aV2I;
+    varying float vVI;
+    void main(void) {
+		vVI = aVI;
+        gl_PointSize = 1.0;
+		gl_Position = vec4(aV2I, 0.0, 1.0);
+	}
+</script>
+
+<script id="vs-renderTriangles" type="x-shader/x-vertex">
+	attribute vec2 aV2I;
+	uniform mat4 uCameraMatrix;
+	uniform mat4 uPMatrix;
+	uniform highp sampler2D uPT;
+	uniform vec3 uC0;
+	uniform vec3 uC1;
+	uniform vec3 uC2;
+	uniform vec3 uC3;
+	uniform vec3 uC4;
+	uniform vec3 uC5;
+	uniform vec3 uC6;
+    varying vec4 vColor;
+    float gen(vec3 pos, vec3 center) {
+        return 1. / length(pos - center);
+    }
+
+    float smin( float a, float b, float k )
+    {
+        float h = clamp( 0.5+0.5*(b-a)/k, 0.0, 1.0 );
+        return mix( b, a, h ) - k*h*(1.0-h);
+    }
+
+    float potential(vec3 wP) {
+	   float val =  1. / (gen(wP, uC0) + gen(wP, uC1) + gen(wP, uC2) + gen(wP, uC3) + gen(wP, uC4) + gen(wP, uC5) + gen(wP, uC6));
+
+	   wP -= vec3(0.5);
+	   vec2 c = normalize(vec2(1., 0.3));
+	   float q = length(wP.xz);
+	   float cone = dot(c,vec2(q,wP.y));
+
+	   return smin(cone, val, 0.1);
+	}
+	vec3 gradient( vec3 v ) {
+		const vec3 delta = vec3(0.0001, 0.0, 0.0 );
+		float va = potential( v );
+		return normalize (vec3(potential( v + delta.xyy) - va, potential( v + delta.yxy) - va, potential( v + delta.yyx) - va));
+	}
+	varying vec3 vPos;
+	varying vec3 vNorm;
+    void main(void) {
+        vPos= texture2D(uPT, 0.5 * (aV2I + vec2(1.))).rgb;
+        vNorm = gradient(vPos);
+		gl_Position = uPMatrix * uCameraMatrix * vec4(vPos, 1.0);
+	}
+</script>
+
+<script id="vs-triangleIndexes" type="x-shader/x-vertex">
+    attribute float aVI;
+    attribute vec2 aV2I;
+    varying vec4 vColor;
+    void main(void) {
+        vColor = vec4(aVI);
+        gl_PointSize = 1.0;
+	    gl_Position = vec4(aV2I, 0.0, 1.0);
+	}
+</script>
+
+
+
+<script id="fs-simpleColor" type="x-shader/x-fragment">
+	precision highp float;
+    varying vec4 vColor;
+    void main(void) {
+		gl_FragColor = vColor;
+    }
+</script>
+
+<script id="fs-setTexture" type="x-shader/x-fragment">
+	precision highp sampler2D;
+	precision highp float;
+    uniform sampler2D uDT;
+    varying vec2 vText;
+    void main(void) {
+		gl_FragColor = vec4(texture2D(uDT, vText).rgb, 1.0);
+    }
+</script>
+
+<script id="fs-isoSurface" type="x-shader/x-fragment">
+    precision highp float;
+	precision highp sampler2D;
+	uniform float uRange;
+	uniform vec3 uC0;
+	uniform vec3 uC1;
+	uniform vec3 uC2;
+	uniform vec3 uC3;
+	uniform vec3 uC4;
+	uniform vec3 uC5;
+	uniform vec3 uC6;
+    float gen(vec3 pos, vec3 center) {
+        return 1. / max(length(pos - center), 0.0001);
+    }
+    float smin( float a, float b, float k )
+    {
+        float h = clamp( 0.5+0.5*(b-a)/k, 0.0, 1.0 );
+        return mix( b, a, h ) - k*h*(1.0-h);
+    }
+	float potential(vec3 wP) {
+	   float val =  1. / (gen(wP, uC0) + gen(wP, uC1) + gen(wP, uC2) + gen(wP, uC3) + gen(wP, uC4) + gen(wP, uC5) + gen(wP, uC6));
+
+	   //wP -= vec3(0.5);
+	   //vec2 c = normalize(vec2(0.6, 0.3));
+	   //float q = length(wP.xz);
+	   //float cone = dot(c,vec2(q,wP.y));
+
+	   //return smin(cone, val, .2);
+
+       return val;
+	}
+	float iso(vec3 wP) {
+	    return step(potential(wP), uRange);
+	}
+    void main(void) {
+        vec2 pos = gl_FragCoord.xy;
+        float k = 0.0078125;
+        vec3 wP = k * vec3(mod(pos.x, 128.), mod(pos.y, 128.), 16. * floor(pos.y * k) + floor(pos.x * k)) - vec3(k * 0.5);
+        float c = iso(wP) + 2. * iso(wP + vec3(k, 0., 0.)) + 4. * iso(wP + vec3(k, k, 0.)) + 8. * iso(wP + vec3(0., k, 0.)) + 16. * iso(wP + vec3(0., 0., k)) + 32. * iso(wP + vec3(k, 0., k)) + 64. * iso(wP + vec3(k)) + 128. * iso(wP + vec3(0., k, k));
+        c *= step(c, 254.);
+        gl_FragColor = vec4(step(-c, -0.5), potential(wP), 1., c);
+    }
+</script>
+
+<script id="fs-pyramid" type="x-shader/x-fragment">
+    precision highp float;
+	precision highp sampler2D;
+    uniform sampler2D uPyT;
+    uniform float uSize;
+    void main(void) {
+        float k = 0.5 * uSize;
+        vec2 position = floor(vec2(gl_FragCoord.x, gl_FragCoord.y)) * uSize;
+        gl_FragColor = vec4(texture2D(uPyT,  position + vec2(0., 0.)).r + texture2D(uPyT,  position + vec2(0., k)).r + texture2D(uPyT,  position + vec2(k, 0.)).r + texture2D(uPyT,  position + vec2(k, k)).r);
+    }
+</script>
+
+<script id="fs-pack" type="x-shader/x-fragment">
+    precision highp float;
+	precision highp sampler2D;
+    uniform sampler2D uPyT;
+    varying vec2 vTextureUV;
+    void main(void) {
+         //encoding the floating value from the upper texture of the pyramid.
+         vec4 enc = fract(vec4(1., 255., 65025., 160581375.) * texture2D(uPyT, vec2(0.)).r * 0.0000000596046448);
+         enc -= enc.yzww * vec4(vec3(0.00392157), 0.);
+         gl_FragColor = enc;
+    }
+
+</script>
+
+<script id="fs-triangleCreator" type="x-shader/x-fragment">
+    precision highp float;
+    precision highp sampler2D;
+    uniform sampler2D uPot;
+    uniform sampler2D marchTex;
+    uniform sampler2D uTI;
+    uniform float uRange;
+    varying float vVI;
+    vec2 index2D(vec3 pos) {
+		return 0.00048828125 * (pos.xy + 128. * vec2(mod(pos.z, 16.), floor(pos.z * 0.0625)) + vec2(0.5));
+    }
+    void main(void) {
+        float div1 = 0.00048828125;
+        float marchVI = floor(vVI * 0.08333333333);
+        float k = 0.0078125;
+        vec3 color = vec3(0.);
+        vec4 data = texture2D(marchTex, vec2(mod(marchVI, 2048.) + 0.5, 0.5 + floor(marchVI * div1)) * div1);
+        vec3 corner0 = data.rgb;
+        vec3 corner1 = corner0 + vec3(k, 0., 0.);
+        vec3 corner2 = corner0 + vec3(k, k, 0.);
+        vec3 corner3 = corner0 + vec3(0., k, 0.);
+        vec3 corner4 = corner0 + vec3(0., 0., k);
+        vec3 corner5 = corner0 + vec3(k, 0., k);
+        vec3 corner6 = corner0 + vec3(k, k, k);
+        vec3 corner7 = corner0 + vec3(0., k, k);
+        float vIx = 12. * data.a + mod(vVI, 12.);
+        div1 = 0.015625;
+        vIx = texture2D(uTI, div1 * vec2(mod(vIx, 64.) + 0.5, floor(vIx * div1) + 0.5)).r;
+        vec3 b0 = corner0 * step(vIx, 0.5) * step(-vIx, 0.5) + corner1 * step(vIx, 1.5) * step(-vIx, -0.5) + corner2 * step(vIx, 2.5) * step(-vIx, -1.5) + corner3 * step(vIx, 3.5) * step(-vIx, -2.5);
+        b0 += corner4 * step(vIx, 4.5) * step(-vIx, -3.5) + corner5 * step(vIx, 5.5) * step(-vIx, -4.5) + corner6 * step(vIx, 6.5) * step(-vIx, -5.5) + corner7 * step(vIx, 7.5) * step(-vIx, -6.5);
+        b0 += corner0 * step(vIx, 8.5) * step(-vIx, -7.5) + corner1 * step(vIx, 9.5) * step(-vIx, -8.5) + corner2 * step(vIx, 10.5) * step(-vIx, -9.5) + corner3 * step(vIx, 11.5) * step(-vIx, -10.5);
+        vec3 b1 = corner1 * step(vIx, 0.5) * step(-vIx, 0.5) + corner2 * step(vIx, 1.5) * step(-vIx, -0.5) + corner3 * step(vIx, 2.5) * step(-vIx, -1.5) + corner0 * step(vIx, 3.5) * step(-vIx, -2.5);
+        b1 += corner5 * step(vIx, 4.5) * step(-vIx, -3.5) + corner6 * step(vIx, 5.5) * step(-vIx, -4.5) + corner7 * step(vIx, 6.5) * step(-vIx, -5.5) + corner4 * step(vIx, 7.5) * step(-vIx, -6.5);
+        b1 += corner4 * step(vIx, 8.5) * step(-vIx, -7.5) + corner5 * step(vIx, 9.5) * step(-vIx, -8.5) + corner6 * step(vIx, 10.5) * step(-vIx, -9.5) + corner7 * step(vIx, 11.5) * step(-vIx, -10.5);
+        float m0 = texture2D(uPot, index2D(128. * b0)).g;
+        float m1 = texture2D(uPot, index2D(128. * b1)).g;
+        color = mix(b0, b1, (uRange - m0) / (m1 - m0));
+        color += (b0 - color) * step(abs(uRange - m0), 0.00001);
+        color += (b1 - color) * step(abs(uRange - m1), 0.00001);
+        color += (b0 - color) * step(abs(m0 - m1), 0.00001);
+        gl_FragColor = vec4(color, 1.);
+    }
+</script>
+
+<script id="fs-parsePyramid" type="x-shader/x-fragment">
+    precision highp float;
+    precision highp sampler2D;
+    uniform highp sampler2D uLev0;
+    uniform highp sampler2D uLev1;
+    uniform highp sampler2D uLev2;
+    uniform highp sampler2D uLev3;
+    uniform highp sampler2D uLev4;
+    uniform highp sampler2D uLev5;
+    uniform highp sampler2D uLev6;
+    uniform highp sampler2D uLev7;
+    uniform highp sampler2D uLev8;
+    uniform highp sampler2D uLev9;
+    uniform highp sampler2D uLev10;
+    varying float vVI;
+    float kSize[12];
+    void main(void) {
+        vec2 position = vec2(0.);
+        float start = 0.;
+        float end = 0.;
+        kSize [0] = 0.5;
+        kSize [1] = 0.25;
+        kSize [2] = 0.125;
+        kSize [3] = 0.0625;
+        kSize [4] = 0.03125;
+        kSize [5] = 0.015625;
+        kSize [6] = 0.0078125;
+        kSize [7] = 0.00390625;
+        kSize [8] = 0.001953125;
+        kSize [9] = 0.0009765625;
+        kSize [10] = 0.00048828125;
+        float aVI = vVI;
+        float k = kSize[0];
+        end = start + texture2D(uLev0, position).r;
+        vec2 pos1 = position;
+        float start1 = start;
+        float end1 = end;
+        float eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        vec2 pos2 = position + vec2(k, 0.);
+        float start2 = end1;
+        float end2 = end1 + texture2D(uLev0, pos2).r;
+        float eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        vec2 pos3 = position + vec2(0., k);
+        float start3 = end2;
+        float end3 = end2 + texture2D(uLev0, pos3).r;
+        float eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        vec2 pos4 = position + vec2(k, k);
+        float start4 = end3;
+        float eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[1];
+        end = start + texture2D(uLev1, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev1, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev1, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[2];
+        end = start + texture2D(uLev2, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev2, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev2, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[3];
+        end = start + texture2D(uLev3, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev3, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev3, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[4];
+        end = start + texture2D(uLev4, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev4, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev4, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[5];
+        end = start + texture2D(uLev5, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev5, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev5, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[6];
+        end = start + texture2D(uLev6, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev6, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev6, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[7];
+        end = start + texture2D(uLev7, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev7, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev7, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[8];
+        end = start + texture2D(uLev8, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev8, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev8, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[9];
+        end = start + texture2D(uLev9, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev9, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev9, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        k = kSize[10];
+        end = start + texture2D(uLev10, position).r;
+        pos1 = position;
+        start1 = start;
+        end1 = end;
+        eval1 = step(-aVI, - start1) * step(aVI, end1 - 0.5);
+        pos2 = position + vec2(k, 0.);
+        start2 = end1;
+        end2 = end1 + texture2D(uLev10, pos2).r;
+        eval2 = step(-aVI, - start2) * step(aVI, end2 - 0.5);
+        pos3 = position + vec2(0., k);
+        start3 = end2;
+        end3 = end2 + texture2D(uLev10, pos3).r;
+        eval3 = step(-aVI, - start3) * step(aVI, end3 - 0.5);
+        pos4 = position + vec2(k, k);
+        start4 = end3;
+        eval4 = 1. - eval1 - eval2 - eval3;
+        position = eval1 * pos1 + eval2 * pos2 + eval3 * pos3 + eval4 * pos4;
+        start = eval1 * start1 + eval2 * start2  + eval3 * start3 + eval4 * start4;
+        vec2 index = position * 2048.;
+        k = 0.0078125;
+        gl_FragColor = vec4(k * vec3(mod(index.x, 128.), mod(index.y, 128.), 16. * floor(index.y * k) + floor(index.x * k)), texture2D(uLev10, position).a);
+    }
+</script>
+
+<script id="fs-renderTriangles" type="x-shader/x-fragment">
+	precision highp sampler2D;
+	precision highp float;
+	uniform float uCase;
+	uniform vec3 uEye;
+    varying vec3 vPos;
+	varying vec3 vNorm;
+    void main(void) {
+        vec3 color = vPos;
+        vec3 light = normalize(vec3(0., 1., 1.));
+        vec3 ref = reflect(-light, vNorm);
+        vec3 eye = normalize(uEye);
+        vec3 phong = 0.1 * vPos + 0.7 * vPos * max(dot(light, vNorm), 0.) + 0.4 * vec3(1.) * max(pow(dot(ref, eye), 3.), 0.);
+		gl_FragColor = vec4(phong, 1.);
+    }
+</script>
+
+<script id="vertexShaderTest" type="x-shader/x-vertex">
+
+			uniform highp sampler2D uPT;
+
+            attribute vec2 aV2I;
+			attribute float indice;
+
+            uniform vec3 uC0;
+            uniform vec3 uC1;
+            uniform vec3 uC2;
+            uniform vec3 uC3;
+            uniform vec3 uC4;
+            uniform vec3 uC5;
+            uniform vec3 uC6;
+
+		    varying vec3 vNormal;
+            varying vec3 vPosition;
+            varying vec4 vOPosition;
+            varying vec3 vONormal;
+            varying vec3 vU;
+
+            float gen(vec3 pos, vec3 center) {
+                return 1. / length(pos - center);
+            }
+
+            float smin( float a, float b, float k )
+            {
+                float h = clamp( 0.5+0.5*(b-a)/k, 0.0, 1.0 );
+                return mix( b, a, h ) - k*h*(1.0-h);
+            }
+
+            float potential(vec3 wP) {
+               float val =  1. / (gen(wP, uC0) + gen(wP, uC1) + gen(wP, uC2) + gen(wP, uC3) + gen(wP, uC4) + gen(wP, uC5) + gen(wP, uC6));
+
+               //wP -= vec3(0.5);
+               //vec2 c = normalize(vec2(0.6, 0.3));
+               //float q = length(wP.xz);
+               //float cone = dot(c,vec2(q,wP.y));
+
+               //return smin(cone, val, .2);
+
+               return val;
+
+            }
+            vec3 gradient( vec3 v ) {
+                const vec3 delta = vec3(0.01, 0.0, 0.0 );
+                float va = potential( v );
+                return normalize (vec3(potential( v + delta.xyy) - va, potential( v + delta.yxy) - va, potential( v + delta.yyx) - va));
+            }
+
+            float rand(vec2 co){
+                return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+            }
+
+			void main()	{
+
+                vec3 position = texture2D(uPT, 0.5 * (aV2I + vec2(1.))).rgb;
+
+                vec3 normal = gradient(position);
+
+                position *= 5.0;
+                position -= 2.5;
+                vOPosition = modelViewMatrix * vec4( position, 1.0 );
+                vPosition = position;
+
+                vU = normalize( vec3( modelViewMatrix * vec4( position, 1.0 ) ) );
+
+                vONormal = normal;
+                vNormal = normalMatrix * normal;
+
+                gl_Position = projectionMatrix * vOPosition;
+			}
+
+		</script>
+<script id="fragmentShaderTest" type="x-shader/x-fragment">
+
+			precision mediump float;
+			precision mediump int;
+
+            uniform sampler2D textureMap;
+            uniform sampler2D normalMap;
+
+            varying vec3 vNormal;
+            varying vec3 vPosition;
+            varying vec4 vOPosition;
+            varying vec3 vONormal;
+            varying vec3 vU;
+
+            float random(vec3 scale,float seed){return fract(sin(dot(gl_FragCoord.xyz+seed,scale))*43758.5453+seed);}
+
+            void main() {
+
+
+                vec3 color = vec3( 1.0, 1.0, 1.0 );
+                vec2 texScale = vec2(1.0);
+                float normalScale = 0.0;
+                float useSSS = 1.0;
+                float useScreen = 2.0;
+
+                vec3 n = normalize( vONormal.xyz );
+                vec3 blend_weights = abs( n );
+                blend_weights = ( blend_weights - 0.2 ) * 7.;
+                blend_weights = max( blend_weights, 0. );
+                blend_weights /= ( blend_weights.x + blend_weights.y + blend_weights.z );
+
+                vec2 coord1 = vPosition.yz * texScale;
+                vec2 coord2 = vPosition.zx * texScale;
+                vec2 coord3 = vPosition.xy * texScale;
+
+                vec3 bump1 = texture2D( normalMap, coord1 ).rgb;
+                vec3 bump2 = texture2D( normalMap, coord2 ).rgb;
+                vec3 bump3 = texture2D( normalMap, coord3 ).rgb;
+
+                vec3 blended_bump = bump1 * blend_weights.xxx +
+                                    bump2 * blend_weights.yyy +
+                                    bump3 * blend_weights.zzz;
+
+                vec3 tanX = vec3( vNormal.x, -vNormal.z, vNormal.y);
+                vec3 tanY = vec3( vNormal.z, vNormal.y, -vNormal.x);
+                vec3 tanZ = vec3(-vNormal.y, vNormal.x, vNormal.z);
+                vec3 blended_tangent = tanX * blend_weights.xxx +
+                                       tanY * blend_weights.yyy +
+                                       tanZ * blend_weights.zzz;
+
+                vec3 normalTex = blended_bump * 2.0 - 1.0;
+                normalTex.xy *= normalScale;
+                normalTex.y *= -1.;
+                normalTex = normalize( normalTex );
+                mat3 tsb = mat3( normalize( blended_tangent ), normalize( cross( vNormal, blended_tangent ) ), normalize( vNormal ) );
+                vec3 finalNormal = tsb * normalTex;
+
+                vec3 r = reflect( normalize( vU ), normalize( finalNormal ) );
+                float m = 2.0 * sqrt( r.x * r.x + r.y * r.y + ( r.z + 1.0 ) * ( r.z + 1.0 ) );
+                vec2 calculatedNormal = vec2( r.x / m + 0.5,  r.y / m + 0.5 );
+
+                vec3 base = texture2D( textureMap, calculatedNormal ).rgb;
+
+                float rim = 1.75 * max( 0., abs( dot( normalize( vNormal ), normalize( -vOPosition.xyz ) ) ) );
+                base += useSSS * color * ( 1. - .75 * rim );
+                base += ( 1. - useSSS ) * 10. * base * color * clamp( 1. - rim, 0., .15 );
+
+                if( useScreen == 1. ) {
+                    base = vec3( 1. ) - ( vec3( 1. ) - base ) * ( vec3( 1. ) - base );
+                }
+
+                float nn = .05 * random( vec3( 1. ), length( gl_FragCoord ) );
+                base += vec3( nn );
+
+                gl_FragColor = vec4( base.rgb, 1. );
+
+            }
+
+
+		</script>
+
+<script id="vertexShaderQuad" type="x-shader/x-vertex">
+
+		precision highp float;
+		precision mediump int;
+
+		varying vec2 vUv;
+
+		void main() {
+
+			vUv = uv;
+			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+		}
+
+</script>
+<script id="fragmentShaderQuad" type="x-shader/x-fragment">
+
+		    precision mediump float;
+			precision mediump int;
+
+			uniform float time;
+            uniform highp sampler2D uPT;
+
+			varying vec2 vUv;
+
+			void main()	{
+
+				vec4 color = texture2D(uPT, vUv);
+				gl_FragColor = color;
+
+			}
+
+		</script>
+
+
+<script type="application/javascript" src="js/three.js"></script>
+<script type="application/javascript" src="js/ShaderLoader.js"></script>
+<script type="application/javascript" src="js/augmentedCompileShader.js"></script>
+<script type="application/javascript" src="js/CameraControl.js"></script>
+<script type="application/javascript" src="js/main.js"></script>
+<style>
+    body {
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        overflow: hidden;
+    }
+
+    #container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #FFFFFF;
+        overflow: hidden;
+    }
+
+    #vignete{
+        position: absolute;
+        width:100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: url("shadow.png");
+        background-size: cover;
+        background-position: 50%;
+        opacity: 1;
+        z-index: 1000;
+    }
+
+</style>
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+</head>
+<body onLoad="setupMain();">
+<script></script>
+<div id="vignete"></div>
+<div id="container">
+</div>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" >
+  <title>title</title>
+  <meta name="viewport" content="width=device-width, height=device-height" >
+  <meta property="og:image" content="thumbnail.png" >
+  
+  <link rel="stylesheet" href="style.css" >
+  
+  <script src="hydra-synth.js"></script>
+
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+
+
+</head>
+
+<body>
+  <script>
+    // Utility functions
+    function random(min, max) {
+      let rand = Math.random();
+      if (typeof min === "undefined") {
+        return rand;
+      } else if (typeof max === "undefined") {
+        if (min instanceof Array) {
+          return min[Math.floor(rand * min.length)];
+        } else {
+          return rand * min;
+        }
+      } else {
+        if (min > max) {
+          const tmp = min;
+          min = max;
+          max = tmp;
+        }
+
+        return rand * (max - min) + min;
+      }
+    }
+
+    function map(current, in_min, in_max, out_min, out_max) {
+      return (current - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    function rnd_btw(min, max) {return fxrand() * (max - min) + min;}
+    function rnd_btwexp(min, max) {return fxrand()**2 * (max - min) + min;}
+    function rnd_int(min, max) {min = Math.ceil(min);max = Math.floor(max);return Math.floor(fxrand() * (max - min + 1)) + min;}
+
+    // create a new hydra-synth instance
+    const hydra = new Hydra({
+      detectAudio: false,
+      autoLoop: false
+    })
+    hydra.setResolution(window.innerWidth, window.innerHeight)
+
+    // Resize canvas
+  //  window.addEventListener('resize', (evt) => {
+  //    hydra.setResolution(window.innerWidth, window.innerHeight)
+  //  })
+
+
+
+
+    // Your sketch
+    // ============
+    let mainpixelate = rnd_btw(100,180)
+    let maincontrast = rnd_btwexp(2,5)
+
+    let color1 = rnd_btw(0,1.5)
+    let kaleidon = rnd_int(2,40);
+    let mainrotate1 = rnd_btw(0,5);
+
+    let mainOscFreq = rnd_btw(2.5,4);
+    let mainOscSync = rnd_btw(-1.5,1.5);
+    let secondOscSync = rnd_btwexp(-.2,.2)
+    let color2 = rnd_btw(0,1)
+    let oscrotate = rnd_btw(0,10)
+
+
+    
+
+
+    // Update params on click
+    hydra.canvas.addEventListener('click', resetVars)
+
+    function resetVars() {
+
+    //  mainpixelate = random(100,180)
+    //  maincontrast = rnd_btwexp(2,5)
+    //  color1 = rnd_btw(0,1.5)
+    //  mainrotate1 = rnd_btw(0,1);
+    //  kaleidon = rnd_int(2,40);
+    //  mainOscFreq = rnd_btw(2.5,4);
+    //  mainOscSync = rnd_btw(-1.5,1.5);
+    //  secondOscSync = rnd_btwexp(-.2,.2)
+    //  color2 = rnd_btw(0,1)
+    //  oscrotate = rnd_btw(0,10)
+
+
+    }
+
+    osc(()=>mainOscFreq,()=> mainOscSync, ()=>color1)
+    .rotate(4)
+    .kaleid(()=>kaleidon)
+    .mult(osc(20, 0.5, ()=>color1)
+
+    .rotate(() =>mainrotate1))
+
+
+    .scale(0.07, () => 0.5 + 0.6 * Math.sin(0.25 * time))
+    .pixelate(() =>mainpixelate,() =>mainpixelate)
+    .contrast(() =>maincontrast)
+.modulate( osc(10,()=>secondOscSync))
+.rotate( ()=> oscrotate)
+    .out(o0);
+
+
+  speed=4
+
+// Animation loop
+let deltaTime = 0;
+let lastFrameTime = performance.now();
+
+function draw(timestamp) {
+  deltaTime = (timestamp - lastFrameTime) * 0.1;
+  // console.log({deltaTime});
+  hydra.tick(deltaTime);
+
+  lastFrameTime = timestamp;
+  requestAnimationFrame(draw);
+};
+
+requestAnimationFrame(draw);
+</script>
+</body>
+
+</html>

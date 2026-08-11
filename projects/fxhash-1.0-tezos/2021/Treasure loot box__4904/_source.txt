@@ -1,0 +1,4 @@
+id: 4904
+name: Treasure loot box
+mint_opens_at: 2021-12-26T23:32:00+00:00
+generative_uri: ipfs://QmPCUeCWkDaxoHA5r6GS3e7TFVVCMx6wkTd73XVKH7rTL8

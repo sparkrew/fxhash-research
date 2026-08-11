@@ -1,0 +1,4 @@
+id: 2000
+name: MATH ART 15
+mint_opens_at: 2021-12-02T09:18:14+00:00
+generative_uri: ipfs://QmYAde9hFP9xAWy3W7sADoe69YQzb2L1dDoLWiDodt23yr

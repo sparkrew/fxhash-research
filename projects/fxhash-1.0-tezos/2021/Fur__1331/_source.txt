@@ -1,0 +1,4 @@
+id: 1331
+name: Fur
+mint_opens_at: 2021-11-26T08:28:08+00:00
+generative_uri: ipfs://QmQvyeyo1SL9sCafvPh7mdyXCNtYfk4UJNTq6NEQTxKbTh

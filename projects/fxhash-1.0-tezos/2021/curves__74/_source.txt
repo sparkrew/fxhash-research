@@ -1,0 +1,4 @@
+id: 74
+name: curves
+mint_opens_at: 2021-11-13T20:52:58+00:00
+generative_uri: ipfs://QmfU5AXETFaLraCAwifKyR4f3YjaHqMfCkhcykaGX5NthE

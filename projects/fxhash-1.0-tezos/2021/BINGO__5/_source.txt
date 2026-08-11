@@ -1,0 +1,4 @@
+id: 5
+name: BINGO
+mint_opens_at: 2021-11-10T21:34:38+00:00
+generative_uri: ipfs://QmTqFidEx5qqg5vBjaDKBSfTw9VH8QvJ1AcjSBaet8moeP

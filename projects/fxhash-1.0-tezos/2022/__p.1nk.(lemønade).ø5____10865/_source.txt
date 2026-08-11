@@ -1,0 +1,4 @@
+id: 10865
+name: //p.1nk.(lemønade).ø5\\
+mint_opens_at: 2022-03-18T12:26:44+00:00
+generative_uri: ipfs://QmejbadHQZF2Z6ZwraBpFActyyvPKJhoevUJEzPLvE7VkZ

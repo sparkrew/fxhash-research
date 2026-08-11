@@ -1,0 +1,1 @@
+attribute vec2 aPosition;attribute vec2 aTexCoord;varying vec2 vTexCoord;void main(){vTexCoord=aTexCoord;highp vec4 a;a.zw=vec2(0.0,1.0);a.xy=aPosition;gl_Position=a;}

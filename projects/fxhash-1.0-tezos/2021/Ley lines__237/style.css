@@ -1,0 +1,39 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #000;
+}
+
+.body--invert canvas{
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+canvas {
+  max-width: 100%;
+  width: 800px;
+  margin: auto;
+  -webkit-transition: 0.4s -webkit-filter;
+  transition: 0.4s -webkit-filter;
+  -o-transition: 0.4s filter;
+  transition: 0.4s filter;
+  transition: 0.4s filter, 0.4s -webkit-filter;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}

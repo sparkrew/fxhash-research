@@ -1,0 +1,4 @@
+id: 6
+name: Weave
+mint_opens_at: 2021-11-10T23:28:48+00:00
+generative_uri: ipfs://QmenaVGzmKNCx71iqQx5i56TzF9xAzkh8MRvU3CWj9TkGS

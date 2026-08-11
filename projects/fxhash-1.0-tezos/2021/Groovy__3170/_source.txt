@@ -1,0 +1,4 @@
+id: 3170
+name: Groovy
+mint_opens_at: 2021-12-12T01:18:36+00:00
+generative_uri: ipfs://QmQjgDg4PZtzHedr5rMLKoHYJ3XHuWSJ9kcwH5W1WjKgkX

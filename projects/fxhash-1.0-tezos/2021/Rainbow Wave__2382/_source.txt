@@ -1,0 +1,4 @@
+id: 2382
+name: Rainbow Wave
+mint_opens_at: 2021-12-06T05:32:50+00:00
+generative_uri: ipfs://QmNnukriaGiagrPFw2ufuJdxDa59wnuYWEopfWwU1QSBpY

@@ -1,0 +1,4 @@
+id: 1917
+name: Crypt-o-Show
+mint_opens_at: 2021-12-02T00:01:24+00:00
+generative_uri: ipfs://QmR4CP3MMJazo3nYFbmi89Hh61a2asdkUYjpSqHkAJhxwp

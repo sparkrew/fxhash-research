@@ -1,0 +1,4 @@
+id: 3949
+name: NOISY WAVES #7
+mint_opens_at: 2021-12-19T11:56:46+00:00
+generative_uri: ipfs://QmYfsAryqUS8fgCxM4pNAhEPinm2DZiNuuW7ypxci9sz98

@@ -1,0 +1,4 @@
+id: 19060
+name: 4rtiu5
+mint_opens_at: 2022-09-07T09:31:59+00:00
+generative_uri: ipfs://QmTXGhnQZwUZabY13JgkSKwRkY6e5VFJMdTBtWxW3xgNuN

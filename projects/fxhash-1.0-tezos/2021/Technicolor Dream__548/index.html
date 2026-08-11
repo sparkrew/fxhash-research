@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 
+ <title>Technicolor</title>
+</head>
+<body 
+style="
+    background-color: #000;
+    padding: 0;
+    margin: 0;
+"
+>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+<style>
+ #scene {
+  display: block; 
+  margin: 0 auto; 
+  padding: 0; 
+
+  background: linear-gradient(45deg, #000000, #000000);
+ }
+</style>
+
+<canvas id="scene" width="500px" height="500px"></canvas>
+
+<script>
+var tMin = 0, tMax = 11 * Math.PI, period = 5, //обороты и период вращения
+    lineSpace = 1 / 10, lineLen = lineSpace / Math.fround(fxrand() * 5.5), //вид линий
+    xOffset = 250, yOffset = 120, //смещение на канве
+    xScale = 250,  yScale = 130, //масштаб на канве
+    yCamera = 2, zCamera = -3, //коэффициенты для пересчета координат в 2D
+    rate = Math.fround(fxrand() * 5.5), factor = rate / 3; //размах
+
+function run(id) {
+ var ctx = document.getElementById(id).getContext('2d'),
+ spirals = [ //массив спиралей
+  //семь цветов радуги:
+  new Spiral ({ foreground: "#ee0000", angleoffset: Math.PI*0.80, factor: factor*1.00 }),
+  new Spiral ({ foreground: "#ffa500", angleoffset: Math.PI*0.75, factor: factor*1.02 }),
+  new Spiral ({ foreground: "#ffff00", angleoffset: Math.PI*0.70, factor: factor*1.04 }),
+  new Spiral ({ foreground: "#008000", angleoffset: Math.PI*0.65, factor: factor*1.06 }),
+  new Spiral ({ foreground: "#42aaff", angleoffset: Math.PI*0.60, factor: factor*1.08 }),
+  new Spiral ({ foreground: "#0000ff", angleoffset: Math.PI*0.55, factor: factor*1.10 }),
+  new Spiral ({ foreground: "#8b00ff", angleoffset: Math.PI*0.50, factor: factor*1.12 })
+ ];
+ ctx.lineWidth = 15; //толщина всех линий
+
+ function Spiral (config) { //Основная функция спирали
+  var offset = 0;
+  var lineSegments = computeLineSegments();
+  this.render = function(ctx) {
+   offset --;
+   if (offset <= -period) offset += period;
+   lineSegments[offset].forEach (drawSegment);
+  };
+
+  function drawSegment (segment) { //отрисовка сегмента
+   ctx.closePath();
+   ctx.stroke();
+   ctx.strokeStyle = config.foreground;
+   ctx.globalAlpha = segment.start.alpha;
+   ctx.beginPath();
+   ctx.moveTo (segment.start.x, segment.start.y);
+   ctx.lineTo (segment.end.x, segment.end.y);
+  }
+
+  function computeLineSegments () { //отрисовка всех сегментов
+   var segments = {};
+   var factor = config.factor;
+   var tNew, tOld;
+   for (var offset = 0; offset > -period; offset--) {
+    segments[offset] = lines = [];
+    for (var theta = tMin + getdtheta (tMin, offset * lineSpace / period, rate, factor); 
+         theta < tMax; 
+         theta += getdtheta(theta, lineSpace, rate, factor)) {
+     tOld = (theta >= tMin) ? theta : tMin;
+     tNew = theta + getdtheta(theta, lineLen, rate, factor);
+     //if (tNew <= tMin) continue;
+     lines.push({
+      start: pointByAngle (tOld, factor, config.angleoffset, rate),
+      end:   pointByAngle (tNew, factor, config.angleoffset, rate)
+     });
+    } //внутренний for
+   } //внешний for 
+   return segments;
+  }
+ } //Spiral
+
+ function pointByAngle (theta, factor, angleoffset, rate) {
+  var x = theta * factor *  Math.cos (theta + angleoffset);
+  var z = - theta * factor * Math.sin (theta + angleoffset);
+  var y = rate * theta; //вычислить 3D координаты
+  var point = point2d (x, y, z); //перевести в 2D
+  point.alpha = Math.atan((y * factor / rate * 0.1 + 0.02 - z) * 10) * 0.35 + 0.65;
+   //альфа-цровень цвета точки
+  return point;
+ }
+
+ function getdtheta (theta, lineLen, rate, factor) { //приращение угла
+  return lineLen / Math.sqrt (rate * rate + factor * factor * theta * theta);
+ }
+
+ function point2d (x, y, z) { //получить двумерные координаты из 3D
+  return {
+   x: xOffset + xScale * (x / (z - zCamera)),
+   y: yOffset + yScale * ((y - yCamera) / (z - zCamera))
+  };
+ }
+
+ //Часть для организации анимации:
+ function renderSpiral (spiral) {
+  spiral.render (ctx);
+ }
+
+ function requestAnimationFrame (callback) {
+  window.setTimeout (callback, 1000 / 24); //24 кадра в сек.
+ }
+
+ function renderFrame() {
+  requestAnimationFrame (renderFrame);
+  ctx.clearRect (0, 0, 500, 500);
+  ctx.beginPath ();
+  spirals.forEach (renderSpiral);
+ }
+
+ renderFrame(); //Запустить цикл анимации
+} //run
+
+window.addEventListener ('load', function (e) {
+ run('scene');
+}); 
+</script>
+
+
+
+</body></html>

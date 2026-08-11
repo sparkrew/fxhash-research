@@ -1,0 +1,4 @@
+id: 5473
+name: Hamster #2
+mint_opens_at: 2021-12-29T07:34:20+00:00
+generative_uri: ipfs://QmRCrLjEdUxJjRB4yc3Qau4KXxB5MndgG7FD8dkeYiEVus

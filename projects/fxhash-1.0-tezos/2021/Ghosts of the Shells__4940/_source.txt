@@ -1,0 +1,4 @@
+id: 4940
+name: Ghosts of the Shells
+mint_opens_at: 2021-12-27T01:03:00+00:00
+generative_uri: ipfs://QmYc1z3MrJxZ5n85DNLsHwXcXZ1sY2hoiRazR7eh9Eo2Jo

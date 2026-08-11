@@ -1,0 +1,4 @@
+id: 3093
+name: Window Still Life
+mint_opens_at: 2021-12-11T16:36:16+00:00
+generative_uri: ipfs://QmUyEZ2iXt2E27Ab9xwevGLzwFPSQhxRC2dhUqbEYTgkDq

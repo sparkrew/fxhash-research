@@ -1,0 +1,4 @@
+id: 443
+name: Modulo Art - Perspective
+mint_opens_at: 2021-11-19T10:53:22+00:00
+generative_uri: ipfs://QmRKzixjPf76UyVzr1uDmPEBWoDL3p7FJihcPLf7EjbLtU

@@ -1,0 +1,4 @@
+id: 2820
+name: networx
+mint_opens_at: 2021-12-09T00:17:30+00:00
+generative_uri: ipfs://QmSsf37hWASHm3K3oEC3eLVz6EGaxpiAzKu7LYxmzKxpVX

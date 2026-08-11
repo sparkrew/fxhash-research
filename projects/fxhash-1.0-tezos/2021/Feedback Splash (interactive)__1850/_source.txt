@@ -1,0 +1,4 @@
+id: 1850
+name: Feedback Splash (interactive)
+mint_opens_at: 2021-12-01T03:14:58+00:00
+generative_uri: ipfs://QmYK2ZPZzn6pPeCka4LiiHPnGWQQQ63KTwfc2C41YdYC1k

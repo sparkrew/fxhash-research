@@ -1,0 +1,4 @@
+id: 1170
+name: Interconnections I 
+mint_opens_at: 2021-11-24T17:47:02+00:00
+generative_uri: ipfs://QmUNCSYPGtHnKMhcYPFdrHtcsw6UytscyxE9HWDGqRM8Wu

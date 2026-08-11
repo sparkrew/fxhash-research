@@ -1,0 +1,4 @@
+id: 3682
+name: ∏∏∏∏^∏∏∏∏
+mint_opens_at: 2021-12-17T15:26:46+00:00
+generative_uri: ipfs://QmPnudhq2Dw6P17ADHa9VzZ22voST5MuGgr7UPSup4eeAp

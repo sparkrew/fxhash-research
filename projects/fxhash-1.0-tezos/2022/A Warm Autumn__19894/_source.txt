@@ -1,0 +1,4 @@
+id: 19894
+name: A Warm Autumn
+mint_opens_at: 2022-10-03T18:20:00+00:00
+generative_uri: ipfs://QmcXuKewJMQ1TkTEqGhx1YQahGGaFh8Sh76hwnkUhtuWDJ

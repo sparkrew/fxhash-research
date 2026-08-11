@@ -1,0 +1,4 @@
+id: 2500
+name: Psilocybin 250 mg
+mint_opens_at: 2021-12-06T23:43:30+00:00
+generative_uri: ipfs://QmNfpMSDhcE7pYrHDYwWwRxxvQBJ3oGR5sfDJBDU1Y8iBH

@@ -1,0 +1,4 @@
+id: 5469
+name: FX(eyes) - Experiment w/ Fractals
+mint_opens_at: 2021-12-29T07:24:20+00:00
+generative_uri: ipfs://QmZKgBc5xnL67QyL8j61FmsgYm3ox55BFPB2pXTA9pTeWK

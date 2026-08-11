@@ -1,0 +1,4 @@
+id: 2708
+name: Ever-evolving Truchet
+mint_opens_at: 2021-12-08T17:34:40+00:00
+generative_uri: ipfs://QmW8WjN2kkA8ngSV1mYsrTaANshixQn2gBGsb6os7tadBx

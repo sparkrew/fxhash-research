@@ -1,0 +1,4 @@
+id: 3053
+name: Kaleidoscope
+mint_opens_at: 2021-12-11T15:05:36+00:00
+generative_uri: ipfs://QmU195iuxK5fQgvJrpNDwRAkyrai28r8rcs8NwqQ1w1tUH

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="author" content="jimpunk.com">
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+<style>
+@font-face {
+    font-family: 'DejavuSans';
+    src: url('./DejavuSansMono-5m7L.ttf') format('truetype');
+}
+body { 
+	background-color:#ffffff;
+	padding:0;
+	margin: 0;
+	width:100vw;
+	height:100vh;
+	overflow:hidden;
+}
+
+#XXXXXXX {
+	display:block;
+	width: 100%;
+	height: 100%;
+	margin:auto;
+	top:0;
+	bottom:0;
+	right:0;
+	left:0;
+	overflow:auto;
+	position:fixed;
+	object-fit:contain;
+	font-family:DejavuSans !important;//freeware https://dejavu-fonts.github.io/License.html
+}
+</style>
+</head>
+<body>
+<canvas id="XXXXXXX"  width="900" height="900" ></canvas>
+<script type="text/javascript">
+	//__________________________________☠_________________________________________
+	//__________________________________☠_________________________________________
+	//__________________________________☠_________________________________________
+	//__________________________________☠_________________________________________
+	//__________________________________☠_________________________________________
+	
+    let f = new FontFace('DejavuSans', 'url(./DejavuSansMono-5m7L.ttf)');
+    
+	var canvas = document.getElementById('XXXXXXX');	
+	var ctx = canvas.getContext('2d');
+	
+	var bgcolor = "#000000";
+	
+	ctx.beginPath();
+	ctx.rect(0, 0, 900, 900);
+	ctx.fillStyle = bgcolor;
+	ctx.fill();
+
+	ctx.fillStyle="#ffffff";
+    ctx.beginPath(); //backgrnd
+	ctx.moveTo((fxrand() * 150) + 150, 210);
+	ctx.lineTo((fxrand() * 150) + 590, 210);
+    ctx.lineTo((fxrand() * 150) + 590, 450);
+    ctx.lineTo((fxrand() * 150) + 570, 500);
+	ctx.lineTo((fxrand() * 150) + 540, 700);
+	ctx.lineTo((fxrand() * 150) + 260, 700);
+    ctx.lineTo((fxrand() * 150) + 200, 500);
+    ctx.lineTo((fxrand() * 150) + 150, 450);
+	ctx.closePath();
+	ctx.fill();
+
+    var text = ["&","§","☠","$","%","*","°","Ø","∆","Ó","#","•","©","◊","@","∂","Ò","º","ø","ッ","∞","∴","x","◣","◤","◥","◢","◁","▷","▽","✜","o","๏","•","░","▒","▓","□","¤","ツ","*","✶","✷","✸","✱","✲","★","◈","◆","◇","☆","✰","∅","◎","●","•","◕","◔","◐","◑","◓","◒","◯","➲","X","X","X","X","X"];
+	var text_1 = text[Math.floor(fxrand() * 65 >> 0)];
+	var text_2 = text[Math.floor(fxrand() * 65 >> 0)];
+	var size_1 = Math.floor(fxrand() *  40) + 170;
+	var size_2 = Math.floor(fxrand() *  40) + 170;
+	var x1 = 300;
+	var y1 = 430;
+	var x2 = 500;
+	var y2 = 430;
+	var font = ["DejavuSans"];
+	
+	ctx.fillStyle=bgcolor;
+	
+    ctx.beginPath();   //nose
+	ctx.moveTo((fxrand() * 10) + 420, 420);
+	ctx.lineTo((fxrand() * 10) + 480, 420);
+	ctx.lineTo((fxrand() * 10) + 480, 480);
+	ctx.lineTo((fxrand() * 10) + 420, 480);
+	ctx.closePath();
+	ctx.fill();
+    
+    ctx.beginPath(); //teeth up
+	ctx.moveTo((fxrand() * 10) + 360, 540);
+	ctx.lineTo((fxrand() * 10) + 390, 540);
+	ctx.lineTo((fxrand() * 10) + 390, 570);
+	ctx.lineTo((fxrand() * 10) + 360, 570);
+    ctx.moveTo((fxrand() * 10) + 420, 540);
+	ctx.lineTo((fxrand() * 10) + 450, 540);
+	ctx.lineTo((fxrand() * 10) + 450, 570);
+	ctx.lineTo((fxrand() * 10) + 420, 570);
+    ctx.moveTo((fxrand() * 10) + 480, 540);
+	ctx.lineTo((fxrand() * 10) + 510, 540);
+	ctx.lineTo((fxrand() * 10) + 510, 570);
+	ctx.lineTo((fxrand() * 10) + 480, 570);
+    ctx.moveTo((fxrand() * 10) + 540, 540);
+	ctx.lineTo((fxrand() * 10) + 570, 540);
+	ctx.lineTo((fxrand() * 10) + 570, 570);
+	ctx.lineTo((fxrand() * 10) + 540, 570);
+	ctx.closePath();
+	ctx.fill();
+    
+    ctx.beginPath(); //teeth bottom
+	ctx.lineTo((fxrand() * 10) + 330, 570);
+	ctx.lineTo((fxrand() * 10) + 360, 570);
+	ctx.lineTo((fxrand() * 10) + 360, 600);
+	ctx.lineTo((fxrand() * 10) + 330, 600);
+    ctx.moveTo((fxrand() * 10) + 390, 570);
+	ctx.lineTo((fxrand() * 10) + 420, 570);
+	ctx.lineTo((fxrand() * 10) + 420, 600);
+	ctx.lineTo((fxrand() * 10) + 390, 600);
+    ctx.moveTo((fxrand() * 10) + 450, 570);
+	ctx.lineTo((fxrand() * 10) + 480, 570);
+	ctx.lineTo((fxrand() * 10) + 480, 600);
+	ctx.lineTo((fxrand() * 10) + 450, 600);
+    ctx.moveTo((fxrand() * 10) + 510, 570);
+	ctx.lineTo((fxrand() * 10) + 540, 570);
+	ctx.lineTo((fxrand() * 10) + 540, 600);
+	ctx.lineTo((fxrand() * 10) + 510, 600);
+	ctx.closePath();
+	ctx.fill();
+    
+	f.load().then(function() {
+	ctx.fillStyle=bgcolor;
+    ctx.font=size_1+"px '"+font+"'";ctx.fillText(text_1, x1, y1);//eye1
+    ctx.font=size_2+"px '"+font+"'";ctx.fillText(text_2, x2, y2);//eye2
+	});
+
+	window.$fxhashFeatures = {
+	"skull eye 1"	: text_1,
+	"skull eye 2"	: text_2,
+	};
+	//fuck
+</script>
+</body>
+</html>

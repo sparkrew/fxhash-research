@@ -1,0 +1,1 @@
+function setGradient(e,l,r,o,i,t,n){if(noFill(),"Y"==n)for(let n=l;n<=l+o;n++){var a=map(n,l,l+o,0,1),f=lerpColor(i,t,a);stroke(f),line(e,n,e+r,n)}else if("X"==n)for(let n=e;n<=e+r;n++){var p=map(n,e,e+r,0,1),s=lerpColor(i,t,p);stroke(s),line(n,l,n,l+o)}}

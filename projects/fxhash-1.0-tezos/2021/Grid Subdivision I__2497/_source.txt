@@ -1,0 +1,4 @@
+id: 2497
+name: Grid Subdivision I
+mint_opens_at: 2021-12-06T23:30:20+00:00
+generative_uri: ipfs://Qmca6WzZCUHoNNDj5iVnsL7f2TteNEeGxSRtoGXwmVDoyb

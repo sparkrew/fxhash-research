@@ -1,0 +1,4 @@
+id: 4867
+name: abstract art
+mint_opens_at: 2021-12-26T22:35:40+00:00
+generative_uri: ipfs://QmbrvhwaXZ8GwU7oWp4yu3mBEHkUo2YMk9CCvbRMhywK21

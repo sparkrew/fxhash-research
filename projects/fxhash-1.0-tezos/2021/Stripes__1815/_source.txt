@@ -1,0 +1,4 @@
+id: 1815
+name: Stripes
+mint_opens_at: 2021-12-01T01:01:28+00:00
+generative_uri: ipfs://QmXib4AvthAuHTPrrddR5YqyMyyYYAFygX428e8riNivkh

@@ -1,0 +1,4 @@
+id: 3620
+name: D.Betr is Thinking
+mint_opens_at: 2021-12-17T13:33:46+00:00
+generative_uri: ipfs://QmXtGDctMzGLm6DQSraBcin8x4BS6NftyRNR8H23WQ1CZD

@@ -1,0 +1,4 @@
+id: 1854
+name: Random Mandala
+mint_opens_at: 2021-12-01T04:19:54+00:00
+generative_uri: ipfs://QmXbnthuPx7ThUaK8fHeCZUajTjrkqzUzs13swKymsezTr

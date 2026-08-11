@@ -1,0 +1,4 @@
+id: 11333
+name: 01_ski
+mint_opens_at: 2022-04-17T15:53:59+00:00
+generative_uri: ipfs://QmRGZfyWxi6KsyrZY3kUvqp3w7NZwBJcBGNtmAGWsakMjD

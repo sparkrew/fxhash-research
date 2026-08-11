@@ -1,0 +1,4 @@
+id: 4245
+name: Prospettive Astratte 01a
+mint_opens_at: 2021-12-21T10:13:56+00:00
+generative_uri: ipfs://QmeeqYMDWACGxbS9vq3imnV1wRetzGEJ4eMSTrGA8tTDQ1

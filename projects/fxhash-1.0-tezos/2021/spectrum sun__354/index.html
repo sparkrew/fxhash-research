@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lighttunnel</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="Author" content="Johan Holwerda">
+    <meta name="License" content="This NFT is released under the NFT License 2.0 - www.nftlicense.org">
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+    <style>
+        body,
+        html {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas,
+        img,
+        svg {
+            width: 100vw;
+            height: 100vh;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+<script>
+  'use strict';
+
+  function random() {
+    return fxrand();
+  }
+
+  const randomSpeed = 1 + random()* 4;
+  const speedZ = 4 + random()* 8;
+  const frequencyY = 4 + random() * 16;
+  const frequencyZ = 0.01 + random() * 0.04;
+  const temporal = random() * 0.1;
+  const wavyness = random() * 0.1;
+
+  function webglProgram(canvas, fragmentShader) {
+    const gl = canvas.getContext('webgl', { antialias: false });
+    const pid = gl.createProgram();
+    shader(`
+    attribute vec2 vertex;
+
+    void main() {
+        gl_Position = vec4(vertex, 0.0, 1.0);
+    }
+`, gl.VERTEX_SHADER);
+
+    shader(fragmentShader, gl.FRAGMENT_SHADER);
+    gl.linkProgram(pid);
+    gl.useProgram(pid);
+    gl.depthFunc(gl.ALWAYS);
+    const vertex = gl.getAttribLocation(pid, 'vertex');
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 3, -1, -1, 3, -1]), gl.STATIC_DRAW);
+    gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vertex);
+
+    function shader(src, a) {
+      let s = gl.createShader(a);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      gl.attachShader(pid, s);
+    }
+
+    const uniformsLocations = {};
+
+    function uniformLocation(name) {
+      if (!uniformsLocations[name]) {
+        uniformsLocations[name] = gl.getUniformLocation(pid, name);
+      }
+      return uniformsLocations[name];
+    }
+
+    function uf3(name, a, b, c) {
+      gl.uniform3f(uniformLocation(name), a, b, c);
+    }
+
+    function uf2(name, a, b) {
+      gl.uniform2f(uniformLocation(name), a, b);
+    }
+
+    function uf1(name, a) {
+      gl.uniform1f(uniformLocation(name), a);
+    }
+
+    let w, h;
+
+    function resize() {
+      if ((innerWidth | 0) === w && (innerHeight | 0) === h)
+        return;
+      w = canvas.width = (innerWidth | 0);
+      h = canvas.height = (innerHeight | 0);
+      gl.viewport(0, 0, w, h);
+    }
+
+    function draw() {
+      resize();
+      uf2('iResolution', w, h);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+
+    return { uf1, uf2, uf3, resize, draw };
+  }
+
+  const canvas = document.querySelector('canvas');
+  const fragmentShader =`
+precision mediump float;
+uniform float iTime;uniform vec2 iResolution;
+#define time iTime
+vec3 hash31(float p){   vec3 p3 = fract(p * vec3(.1031, .1030, .0973));   p3 += dot(p3, p3.yzx+19.19);   return fract((p3.xxy+p3.yzz)*p3.zyx); }vec3 spectrum(in float d){    return smoothstep(0.25, 0., abs(d + vec3(0.125,0.,-0.125)));}void main(){    vec3 color = vec3(0.);    float z = iTime * ${speedZ.toFixed(3)};          float zOffset = z * ${randomSpeed.toFixed(3)};    vec2 uv = gl_FragCoord.xy/iResolution.xy - 0.5;    uv.x *= iResolution.x / iResolution.y;    uv.x = abs(uv.x);    float zoom = 1.5 + sin(iTime * 0.5);    vec3 ray = normalize(vec3(uv, zoom));    float l = length(ray.xy);    vec3 dir = ray / l;    float radial = atan(dir.x, dir.y) / 6.283185;    float r = 1.;    float offset = 0.;    for(int i = 0; i <4; i++){         vec3 hit = dir * r++;        vec3 p = hit;        p.z += z;                float phase = radial * r + r;        offset += 2.4;        phase += sin(iTime *  ${temporal.toFixed(3)} + offset);        phase += sin(phase) * 2.;        phase += sin(p.z) * ${wavyness.toFixed(3)} * l;        phase *= ${frequencyY.toFixed(3)};        vec3 rand = hash31(floor(phase));        p.z += (rand.x - 0.5) *-zOffset;        p.z *=	${frequencyZ.toFixed(3)} / (rand.y + 0.05);        vec2 cell = fract(vec2(phase, p.z)) - 0.5;              float b = rand.y;        b *= smoothstep(0.5, 0.1, abs(cell.x));        b *= smoothstep(100., 20., length(hit));        color += spectrum(cell.y) * b;    }    color = sqrt(color);    color *= 1.2 - dot(uv, uv);    gl_FragColor = vec4(color,1.0);}
+`;
+  const program = webglProgram(canvas, fragmentShader);
+
+  function draw(t) {
+    program.uf1('iTime', t / 1e3);
+    program.draw();
+    requestAnimationFrame((t) => draw(t));
+  };
+  draw(0);
+
+
+</script>
+
+
+</body>
+</html>

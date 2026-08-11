@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ahoNFT Kaleidoskop v2</title>
+        <meta             http-equiv="content-type"
+            content="text/html;charset=ISO-8859-1"
+        >
+        <meta http-equiv="content-language" content="en" >
+        <meta name="description" content="Kaleidoskop art by ahoNFT" >
+        <meta             name="viewport"
+            content="width=device-width,user-scalable=0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"
+        >
+        <meta name="robots" content="all" >
+        <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+        <link rel="stylesheet" href="./style.css" >
+
+        
+        <script type="text/javascript" id="kaleidoskop">
+
+
+            function $i(id) { return document.getElementById(id); }
+            function $c(code) { return String.fromCharCode(code); }
+
+            function get_screen_size()
+            	{
+            	const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+                const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+            	var w=document.documentElement.clientWidth;
+            	var h=document.documentElement.clientHeight;
+            	return Array(w,h);
+            	}
+
+
+
+            var n=1;
+
+            var canvas_x=0;
+            var canvas_y=0;
+            var canvas_w=0;
+            var canvas_h=0;
+            var context;
+            var margin=0;
+
+            var x,y;
+            var p_x,p_y;
+            var a=0;
+            var b=0;
+            var angle=Math.PI/279*7;
+            var color=0;
+            var limit1=Math.PI*1.37;
+            var limit2=Math.PI*1.57;
+            var c=new Array(12);
+            var d=new Array(12);
+            var r,e;
+            var fade;
+            var prv_x,prv_y,prv_x2,prv_y2;
+
+            var timeout;
+            var pause=false;
+            var fps=17;
+
+            var google_flag=false;
+
+
+            document.onkeypress=key_manager;
+
+            function init()
+            	{
+            	var screen=$i('screen');
+            	screen.style.display='block';
+            	screen.style.position='absolute';
+            	screen.style.left=canvas_x+'px';
+            	screen.style.top=canvas_y+'px';
+            	screen.style.width=canvas_w+'px';
+            	screen.style.height=canvas_h+'px';
+            	var ahokaleidoskop=$i('ahokaleidoskop');
+            	ahokaleidoskop.style.position='absolute';
+            	ahokaleidoskop.style.left=canvas_x+'px';
+            	ahokaleidoskop.style.top=canvas_y+'px';
+            	ahokaleidoskop.width=canvas_w;
+            	ahokaleidoskop.height=canvas_h;
+            	context=ahokaleidoskop.getContext('2d');
+            	document.body.style.width=(canvas_x+canvas_w)+'px';
+            	document.body.style.height=(canvas_y+canvas_h)+'px';
+            	reset();
+            	var fxhash;
+            	}
+
+            function reset()
+            	{
+            	clearTimeout(timeout);
+            	a=fxrand(0,1)*angle;
+            	b=fxrand(0,1)*angle;
+            	r=0;
+            	fade=17;
+            	for(var i=0;i<12;i++)
+            		{
+            		c[i]=fxrand(0,1)/1.3;
+            		d[i]=fxrand(0,1)/1.5;
+            		}
+            	radius=Math.round((canvas_w+canvas_h)/5);
+            	e=radius*0.23;
+            	p_x=Math.round(canvas_w/2);
+            	p_y=Math.round(canvas_h/2);
+            	x=(radius*c[0])*Math.cos(a*d[1])+(radius*c[2])*Math.sin(a*d[3])+(radius*c[4])*Math.sin(a*d[5])*(radius*c[6])*Math.cos(a*d[7])+(radius*c[8])*Math.sin(a*d[9])+(radius*c[10])*Math.sin(a*d[11]);
+            	y=(radius*c[11])*Math.cos(a*d[10])+(radius*c[9])*Math.sin(a*d[8])+(radius*c[7])*Math.sin(a*d[6])*(radius*c[5])*Math.sin(a*d[4])+(radius*c[3])*Math.cos(a*d[2])+(radius*c[1])*Math.cos(a*d[0]);
+            	anim();
+            	}
+
+            function anim()
+            	{
+            	var a1=Math.cos(a*2);
+            	var a2=Math.cos(a*2);
+            	var a3=Math.cos(a);
+            	var a4=Math.sin(a);
+            	if(b>limit1&&b<limit2)
+            		{
+            		r+=radius*0.02*a1;
+            		prv_x=x;
+            		prv_y=y;
+            		x=prv_x2+r*a3;
+            		y=prv_y2+r*a4;
+            		}
+            	else
+            		{
+            		prv_x=x;
+            		prv_y=y;
+            		prv_x2=x;
+            		prv_y2=y;
+            		x=(radius*c[0])*Math.cos(a*d[1])+(radius*c[2])*Math.sin(a*d[3])+(radius*c[4])*Math.sin(a*d[5]);
+            		y=(radius*c[5])*Math.sin(a*d[4])+(radius*c[3])*Math.cos(a*d[2])+(radius*c[1])*Math.cos(a*d[0]);
+            		}
+            	var c3=8*Math.cos(a*10);
+            	var c1=Math.floor(77*Math.cos(a*angle*4)+c3);
+            	var c2=Math.floor(77*Math.sin(a*angle*4)-c3);
+            	context.lineCap='round';
+            	context.strokeStyle='rgba('+(10+c1)+','+(100+c2)+','+(200-c1)+','+(0.02-0.008*-a1)+')';
+            	context.lineWidth=e*1.6+e*0.8*a3;
+            	draw_line(p_x,p_y,prv_x,prv_y,x,y);
+            	context.lineWidth=e+e*0.8*a3;
+            	draw_line(p_x,p_y,prv_x,prv_y,x,y);
+            	context.strokeStyle='rgba(255,255,255,0.77)';
+            	context.lineWidth=e*(0.1-0.05*-a2);
+            	draw_line(p_x,p_y,prv_x,prv_y,x,y);
+            	context.strokeStyle='rgba('+(200+c1)+','+(150+c2)+','+(100-c1)+','+(0.06-0.03*-a1)+')';
+            	context.lineWidth=e*0.6+e*0.35*a3;
+            	draw_line(p_x,p_y,prv_x,prv_y,x,y);
+            	context.strokeStyle='rgba(0,0,0,0.07)';
+            	context.lineWidth=e*0.4+e*0.225*a3;
+            	draw_line(p_x,p_y,prv_x,prv_y,x,y);
+            	context.strokeStyle='rgba('+(100+c1)+','+(150+c2)+','+(100-c1)+','+(0.1-0.075*-a1)+')';
+            	context.lineWidth=e*0.2+e*0.1*a3;
+            	draw_line(p_x,p_y,prv_x,prv_y,x,y);
+
+            	a+=angle*Math.cos(b);
+            	b+=angle*0.123;
+            	if(b>limit1)
+            		{
+            		context.fillStyle='rgba(0,0,0,0.08)';
+            		context.fillRect(0,0,canvas_w,canvas_h);
+            		}
+            	if(b<limit2) timeout=setTimeout('anim()',fps); else reset();
+            	}
+
+            function draw_line(x,y,x1,y1,x2,y2)
+            	{
+            	context.beginPath();
+            	context.moveTo(x,y+x2);
+            	context.lineTo(x,y+x1);
+            	context.moveTo(x,y-x2);
+            	context.lineTo(x,y-x1);
+            	context.moveTo(x+x2,y);
+            	context.lineTo(x+x1,y);
+            	context.moveTo(x-x2,y);
+            	context.lineTo(x-x1,y);
+            	context.moveTo(x-x1,y-y1);
+            	context.lineTo(x-x2,y-y2);
+            	context.moveTo(x+x1,y-y1);
+            	context.lineTo(x+x2,y-y2);
+            	context.moveTo(x+y1,y+x1);
+            	context.lineTo(x+y2,y+x2);
+            	context.moveTo(x-y1,y+x1);
+            	context.lineTo(x-y2,y+x2);
+            	context.moveTo(x+x1,y+y1);
+            	context.lineTo(x+x2,y+y2);
+            	context.moveTo(x-x1,y+y1);
+            	context.lineTo(x-x2,y+y2);
+            	context.moveTo(x-y1,y-x1);
+            	context.lineTo(x-y2,y-x2);
+            	context.moveTo(x+y1,y-x1);
+            	context.lineTo(x+y2,y-x2);
+            	context.stroke();
+            	context.closePath();
+            	}
+
+            function draw_dot(x,y)
+            	{
+            	context.beginPath();
+            	context.moveTo(x,y);
+            	context.lineTo(x+0.013,y);
+            	context.stroke();
+            	context.closePath();
+            	}
+
+            function resize()
+            	{
+            	canvas_w=get_screen_size()[0];
+            	canvas_h=get_screen_size()[1];
+            	init();
+            	}
+
+            function key_manager(evt)
+            	{
+            	evt=evt||event;
+            	var key=evt.which||evt.keyCode;
+            	var ctrl=evt.ctrlKey;
+            	switch(key)
+            		{
+            		case 64: case 16:
+            			pause=pause?false:true;
+            			if(pause) clearTimeout(timeout); else anim();
+            			break;
+            		case 64:
+            			reset();
+            			break;
+            		}
+            	top.status='$'+key+'='+$c(key);
+            	}
+        </script>
+    </head>
+    <body         onload="resize()"
+        onresize="resize()"
+        onorientationchange="resize()"
+        ondblclick="btnSave2"
+        id="btnSave2"
+        style="width:  100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  background-color: #000000;
+  font-size: 0;
+  -webkit-text-size-adjust: none;
+  overflow: hidden;"
+    >
+        <a             href="javascript:reset()"
+            class="tap"
+            style="-webkit-tap-highlight-color: rgba(255, 0, 0, 0.2);
+	cursor: pointer;"
+        >
+            <div id="screen" style="background-color:#000000;display:none">
+                <canvas                     id="ahokaleidoskop"
+                    width="100%"
+                    height="100%"
+                    style="   background-color: #000000;
+			overflow: hidden;
+			height: 100%;
+			width: 100%;z-index:1"
+                >
+                </canvas>
+            </div>
+        </a>
+
+        <script src="./index.js"></script>
+        <script src="./html2canvas.js"></script>
+
+        <script>
+                 	var fxhash;
+                 	document.getElementById("btnSave2").addEventListener("dblclick", function() {
+
+                     html2canvas(document.querySelector('#ahokaleidoskop')).then(function(canvas) {
+                         saveAs(canvas.toDataURL(), 'ahoKalleydoScope_' + this.fxhash + '.png');
+                     });
+                 });
+
+                  $("#btnSave2").click(function() {
+                         html2canvas($("#ahokaleidoskop"), {
+                           onrendered: function(canvas) {
+                             saveAs(canvas.toDataURL(), 'canvas.png');
+                           }
+                         });
+                       });
+
+
+                 function saveAs(uri, filename) {
+
+                     var link = document.createElement('a');
+
+                     if (typeof link.download === 'string') {
+
+                         link.href = uri;
+                         link.download = filename;
+
+                         //Firefox requires the link to be in the body
+                         document.body.appendChild(link);
+
+                         //simulate click
+                         link.click();
+
+                         //remove the link when done
+                         document.body.removeChild(link);
+
+                     } else {
+
+                         window.open(uri);
+
+                     }
+                 }
+
+        </script>
+    </body>
+</html>

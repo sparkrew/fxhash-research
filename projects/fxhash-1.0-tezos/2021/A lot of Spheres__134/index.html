@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Realtime Raytracer</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="Author" content="Reinder Nijhoff">
+    <meta name="License" content="This NFT is released under the NFT License 2.0 - www.nftlicense.org">
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+    <style>
+        body,
+        html {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas,
+        img,
+        svg {
+            width: 100vw;
+            height: 100vh;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+<script>
+  'use strict';
+
+  function random() {
+    return fxrand();
+  }
+
+  const colorOffset = random(), MAXHEIGHT = 10 + 50 * random(), SPEED = 10 + 20 * random(), pal = random();
+  let palStr = 'vec3(0.5,0.5,0.5),vec3(0.5,0.5,0.5),vec3(2.0,1.0,0.0),vec3(0.5,0.20,0.25)';
+  pal > 6 / 7 ? palStr = 'vec3(0.5,0.5,0.5),vec3(0.5,0.5,0.5),vec3(1.0,1.0,1.0),vec3(0.0,0.33,0.67)' : pal > 5 / 7 ? palStr = 'vec3(0.5,0.5,0.5),vec3(0.5,0.5,0.5),vec3(1.0,1.0,1.0),vec3(0.0,0.10,0.20)' : pal > 4 / 7 ? palStr = 'vec3(0.5,0.5,0.5),vec3(0.5,0.5,0.5),vec3(1.0,1.0,1.0),vec3(0.3,0.20,0.20)' : pal > 3 / 7 ? palStr = 'vec3(0.5,0.5,0.5),vec3(0.5,0.5,0.5),vec3(1.0,1.0,0.5),vec3(0.8,0.90,0.30)' : pal > 2 / 7 ? palStr = 'vec3(0.5,0.5,0.5),vec3(0.5,0.5,0.5),vec3(1.0,0.7,0.4),vec3(0.0,0.15,0.20)' : pal > 1 / 7 ? palStr = 'vec3(0.5,0.5,0.5),vec3(0.5,0.5,0.5),vec3(2.0,1.0,0.0),vec3(0.5,0.20,0.25)' : pal > 0 && (palStr = 'vec3(0.8,0.5,0.4),vec3(0.2,0.4,0.2),vec3(2.0,1.0,1.0),vec3(0.0,0.25,0.25)');
+  const night = random() < .025;
+
+  window.$fxhashFeatures = {
+    'Night': night
+  };
+
+  function webglProgram(e, c) {
+    const i = e.getContext('webgl', { antialias: !1 }), r = i.createProgram();
+    n('\n    attribute vec2 vertex;\n\n    void main() {\n        gl_Position = vec4(vertex, 0.0, 1.0);\n    }\n', i.VERTEX_SHADER), n(c, i.FRAGMENT_SHADER), i.linkProgram(r), i.useProgram(r), i.depthFunc(i.ALWAYS);
+    const v = i.getAttribLocation(r, 'vertex');
+
+    function n(e, c) {
+      let v = i.createShader(c);
+      i.shaderSource(v, e), i.compileShader(v), i.attachShader(r, v)
+    }
+
+    i.bindBuffer(i.ARRAY_BUFFER, i.createBuffer()), i.bufferData(i.ARRAY_BUFFER, new Float32Array([-1, 3, -1, -1, 3, -1]), i.STATIC_DRAW), i.vertexAttribPointer(v, 2, i.FLOAT, !1, 0, 0), i.enableVertexAttribArray(v);
+    const o = {};
+
+    function t(e) {
+      return o[e] || (o[e] = i.getUniformLocation(r, e)), o[e]
+    }
+
+    function f(e, c, r) {
+      i.uniform2f(t(e), c, r)
+    }
+
+    let a, l;
+
+    function E() {
+      (0 | innerWidth) === a && (0 | innerHeight) === l || (a = e.width = 0 | innerWidth, l = e.height = 0 | innerHeight, i.viewport(0, 0, a, l))
+    }
+
+    return {
+      uf1: function (e, c) {
+        i.uniform1f(t(e), c)
+      }, uf2: f, uf3: function (e, c, r, v) {
+        i.uniform3f(t(e), c, r, v)
+      }, resize: E, draw: function () {
+        E(), f('iResolution', a, l), i.drawArrays(i.TRIANGLES, 0, 3)
+      }
+    }
+  }
+
+  const canvas = document.querySelector('canvas'),
+    fragmentShader = night ? `\nprecision mediump float;\nuniform float iTime;uniform vec2 iResolution;\n#define SHADOW\n#define REFLECTION\n#define RAYCASTSTEPS 40\n#define GRIDSIZE 10.\n#define GRIDSIZESMALL 7.\n#define MAXHEIGHT ${MAXHEIGHT.toFixed(2)}\n#define SPEED ${SPEED.toFixed(2)}\n#define FPS 30.\n#define MAXDISTANCE 240.\n#define EPSILON 0.0001\n#define time iTime\n#define HASHSCALE1.1031\n#define HASHSCALE3 vec3(.1031,.1030,.0973)\n#define HASHSCALE4 vec4(1031,.1030,.0973,.1099)\nvec3 f(in float v,in vec3 f,in vec3 i,in vec3 b,in vec3 E){return f+i*cos(6.28318*(b*v+E));}vec3 f(in float v){return f(v+ ${colorOffset.toFixed(3)}, ${palStr});}float v(vec2 v){vec3 i=fract(vec3(v.rgr)*HASHSCALE1);i+=dot(i,i.gbr+19.19);return fract((i.r+i.g)*i.b);}vec2 i(vec2 v){vec3 i=fract(vec3(v.rgr)*HASHSCALE3);i+=dot(i,i.gbr+19.19);return fract(vec2((i.r+i.g)*i.b,(i.r+i.b)*i.g));}bool f(vec3 v,vec3 i,float f,out float E){if(i.g==0.)return false;float r=-(v.g-f)/i.g;r=min(100000.,r);if(r>0.)return E=r,true;return false;}bool i(in vec3 v,in vec3 i,in vec3 f,out float o,out vec3 E){vec3 r=v-f;float G=dot(i,r),e=dot(r,r)-1.,b=G*G-e;if(b>0.){b=-G-sqrt(b);if(b>0.)return E=normalize(v+b*i-f),o=b,true;}return false;}void f(const in vec2 v,inout vec2 f){f=(i(v)-vec2(.5))*GRIDSIZESMALL;}void f(const in vec2 i,const in vec2 f,inout vec3 r){float G=.1+v(i),E=fract(14.*G+time/G*.3),b=G*MAXHEIGHT*abs(4.*E*(1.-E));vec2 o=i+f;r=vec3(o.r+.5*GRIDSIZE,1.+b,o.g+.5*GRIDSIZE);}void i(const in vec2 v,const in vec2 f,inout vec3 i){vec2 o=v+f;i=vec3(o.r+.5*GRIDSIZE,1.,o.g+.5*GRIDSIZE);}vec3 t(vec2 i){float E=v(i.gr);return f(E);}vec3 f(vec3 v,vec3 E,out vec3 r,out vec3 b,out float G,out int o){o=0;G=MAXDISTANCE;float g;vec3 D,n,e;if(f(v,E,0.,g)&&g<MAXDISTANCE)G=g,o=1,b=vec3(0.,1.,0.),n=f(.5);else n=vec3(0.);vec3 c=floor(v/GRIDSIZE)*GRIDSIZE,s=1./E,S=sign(E)*GRIDSIZE,m=(c-v+.5*GRIDSIZE+S*.5)*s,d=vec3(0.);vec2 R;for(int H=0;H<RAYCASTSTEPS;H++){if(o>1||distance(v.rb,c.rb)>G+GRIDSIZE)break;vec2 M;f(c.rb,M);f(c.rb,-M,D);if(i(v,E,D,g,e)&&g<G)G=g,b=e,o=2;i(c.rb,M,D);if(i(v,E,D,g,e)&&g<G)G=g,b=e,n=t(M),o=3;d=step(m.rgb,m.bgr);m+=d*S*s;c+=d*S;}vec3 H=vec3(0.);if(o>0){r=v+E*G;vec2 M=floor(r.rb/GRIDSIZE)*GRIDSIZE;if(o==1||o==3){vec3 p=vec3(-GRIDSIZE,0.,GRIDSIZE);for(int u=0;u<3;u++){for(int F=0;F<3;F++){vec2 a=M+vec2(p[u],p[F]),L;f(a,L);vec3 T=t(a)*5.,k;f(a,-L,k);float N=1.;\n#ifdef SHADOW\nif(o==1){for(int l=0;l<3;l++){for(int I=0;I<3;I++){if(N<1.)continue;vec2 A=M+vec2(p[l],p[I]),Z;f(A,Z);vec3 C,P;i(A,Z,C);float z;if(i(r,normalize(k-r),C,z,P))N=0.;}}}\n#endif\nH+=n*T*(N*max(dot(normalize(k-r),b),0.)*clamp(10./dot(k-r,k-r)-.075,0.,1.));}}}else H=(4.+2.*dot(b,vec3(.5,.5,-.5)))*t(M);}return H;}void t(in float v,out vec3 f,out vec3 i){f=vec3(16.*cos(.2+.2*v*1.5)*SPEED,5.6+3.*sin(v),16.*sin(.1+.055*v*1.5)*SPEED),v+=1.6,i=vec3(16.*cos(.2+.2*v*1.5)*SPEED,-.1+2.*sin(v),16.*sin(.1+.055*v*1.5)*SPEED);}mat3 i(in float v,out vec3 i){vec3 E;t(v,i,E);float f=-.15*sin(.732*v);vec3 o=normalize(E-i),r=vec3(sin(f),cos(f),0.),b=normalize(cross(o,r)),g=normalize(cross(b,o));return mat3(b,g,o);}void main(){vec2 v=gl_FragCoord.rg/iResolution.rg,o=-1.+2.*v;o.r*=iResolution.r/iResolution.g;vec3 E,b,e;mat3 r=i(time-1./30.,E);vec3 G=r*normalize(vec3(o.rg,2.));mat3 n=i(time,b);vec3 H=n*normalize(vec3(o.rg,2.));mat3 m=n*mat3(r[0].r,r[1].r,r[2].r,r[0].g,r[1].g,r[2].g,r[0].b,r[1].b,r[2].b);m-=mat3(1,0,0,0,1,0,0,0,1);vec3 g=E,c=G;int M;vec3 D,d;float S;vec3 a=f(g,c,d,D,S,M);\n#ifdef REFLECTION\nif(M>0){float N=.04*clamp(pow(1.+dot(c,D),5.),0.,1.);vec3 A=d+EPSILON*D;c=reflect(c,D);vec3 s=f(A,c,d,D,S,M);if(M>2)a+=.75*s;else a+=N*s;}\n#endif\na=pow(a*.5,vec3(1./2.2));a=mix(a,smoothstep(vec3(0),vec3(1),a),.25);a*=.25+.75*pow(16.*v.r*v.g*(1.-v.r)*(1.-v.g),.15);gl_FragColor=vec4(a,1.);}\n` : `\nprecision mediump float;\nuniform float iTime;uniform vec2 iResolution;\n#define RAYCASTSTEPS 30\n#define GRIDSIZE 10.\n#define GRIDSIZESMALL 7.\n#define MAXHEIGHT ${MAXHEIGHT.toFixed(2)}\n#define SPEED ${SPEED.toFixed(2)}\n#define FPS 30.\n#define MAXDISTANCE 240.\n#define MAXSHADOWDISTANCE 20.\n#define time iTime\n#define HASHSCALE1.1031\n#define HASHSCALE3 vec3(.1031,.1030,.0973)\n#define HASHSCALE4 vec4(1031,.1030,.0973,.1099)\nvec3 v(in float v,in vec3 i,in vec3 f,in vec3 g,in vec3 r){return i+f*cos(6.28318*(g*v+r));}vec3 v(in float i){return v(i+ ${colorOffset.toFixed(3)}, ${palStr});}float f(vec2 v){vec3 i=fract(vec3(v.rgr)*HASHSCALE1);i+=dot(i,i.gbr+19.19);return fract((i.r+i.g)*i.b);}vec2 i(vec2 v){vec3 i=fract(vec3(v.rgr)*HASHSCALE3);i+=dot(i,i.gbr+19.19);return fract(vec2((i.r+i.g)*i.b,(i.r+i.b)*i.g));}bool f(const in vec3 i,const in vec3 v,const in float g,out float f){if(v.g==0.)return false;float r=-(i.g-g)/v.g;r=min(100000.,r);if(r>0.)return f=r,true;return false;}vec2 f(const in vec3 v,const in vec3 i,const in vec4 f,const in vec3 g,out vec3 r){float c=-1.,b=0.;r=vec3(0.);vec3 E=v-f.rgb;float m=dot(E,i),t=dot(E,E)-f.a*f.a,o=dot(g,g),G=dot(E,g),s=dot(i,g),S=m*m-t,M=s*s-o,n=m*s-G,d=n*n-M*S;if(d>0.){d=sqrt(d);float H=(n-d)/M,D=(n+d)/M,a=max(0.,D),e=min(1.,H);if(a<e)a=.5*(a+e),c=-(m-s*a)-sqrt((m-s*a)*(m-s*a)-(t+o*a*a-2.*G*a)),r=normalize(v+i*c-(f.rgb+a*g)),b=2.*(e-a);}return vec2(c,b);}vec3 g=normalize(vec3(-.6,.7,-.5));vec3 f(const in float i,in vec3 f,const in float m,const in vec3 r,const in vec3 E,const in vec3 c){float a=max(0.,.5+.5*r.g),s=max(0.,dot(normalize(r),g)),d=pow(clamp(dot(normalize(E),g),0.,1.),16.);s*=m;vec3 G=1.2*s*v(0.);G+=.5*a*v(0.);f=f*G;f+=d*s;f=mix(f,c,smoothstep(MAXDISTANCE*.8,MAXDISTANCE,i));return f;}void f(const in vec2 v,inout vec2 f){f=(i(v)-vec2(.5))*GRIDSIZESMALL;}void i(const in vec2 v,const in vec2 i,inout vec4 r,inout vec3 g){float c=.1+f(v),s=fract(14.*c+time/c*.3),E=c*MAXHEIGHT*abs(4.*s*(1.-s));g=vec3(0,c*MAXHEIGHT*(8.*s-4.),0)*(1./FPS);vec2 t=v+i;r=vec4(t.r+.5*GRIDSIZE,1.+E,t.g+.5*GRIDSIZE,1.);}void f(const in vec2 v,const in vec2 i,inout vec4 f){vec2 c=v+i;f=vec4(c.r+.5*GRIDSIZE,1.,c.g+.5*GRIDSIZE,1.);}vec3 t(vec2 i){float g=f(i.gr);return v(g);}vec3 t(const in vec3 r,const in vec3 c,const in vec3 E,const in mat3 m){vec3 b,o,s;float a=MAXDISTANCE;vec3 d=clamp(v(0.)*2.*(1.-.8*c.g),vec3(0.),vec3(1.)),M,D,G=vec3(0.);vec4 e;vec3 n=floor(r/GRIDSIZE)*GRIDSIZE;vec2 S;if(f(r,c,0.,a)){vec3 H=r+c*a;s=m*(H.rgb-r)+E;vec2 R=mod(H.rb*.25,vec2(2.));float F=abs(fract(R.r*abs(c.r))-.5)+abs(fract(R.g*abs(c.g))-.5);M=mix(mod(floor(R.r)+floor(R.g),2.)<1.?vec3(.4):vec3(.6),vec3(.5),clamp((F+.8)*.007*length(s.rb)*FPS,0.,1.))*v(.5);float l=0.;vec3 I=H-g;vec2 A=floor((r+c*a).rb/GRIDSIZE);for(float u=-1.;u<=1.;u++){for(float T=-1.;T<=1.;T++){vec2 C=(A+vec2(u,T))*GRIDSIZE;f(C,S);i(C,-S,e,D);vec2 Z=f(I,g,e,D+E,b);if(Z.r>0.)l=clamp(l+mix(Z.g,0.,Z.r/MAXSHADOWDISTANCE),0.,1.);f(C,S,e);Z=f(I,g,e,E,b);if(Z.r>0.)l=clamp(l+mix(Z.g,0.,Z.r/MAXSHADOWDISTANCE),0.,1.);}}o=reflect(c,vec3(0.,1.,0.));M=f(a,M,1.-l,vec3(0.,1.,0.),o,d);}else M=d;vec3 H=1./c,l=sign(c)*GRIDSIZE,Z=(n-r+.5*GRIDSIZE+l*.5)*H,T=vec3(0.);float u=1.;for(int F=0;F<RAYCASTSTEPS;F++){if(u<.01)break;f(n.rb,S);i(n.rb,-S,e,D);s=m*(e.rgb-r)+D+E;vec2 R=f(r,c,e,s,b);if(R.r>0.){o=reflect(c,b);vec3 I=f(R.r,t(-e.rb),1.,b,o,d);G+=I*R.g*u;u*=1.-R.g;}f(n.rb,S,e);s=m*(e.rgb-r)+E;R=f(r,c,e,s,b);if(R.r>0.){o=reflect(c,b);vec3 I=f(R.r,t(-e.rb),1.,b,o,d);G+=I*R.g*u;u*=1.-R.g;}T=step(Z.rgb,Z.bgr);Z+=T*l*H;n+=T*l;}G+=M*u;return G;}void i(in float v,out vec3 i,out vec3 g){i=vec3(16.*cos(.2+.2*v*1.5)*SPEED,5.6+3.*sin(v),16.*sin(.1+.055*v*1.5)*SPEED),v+=1.6,g=vec3(16.*cos(.2+.2*v*1.5)*SPEED,-.1+2.*sin(v),16.*sin(.1+.055*v*1.5)*SPEED);}mat3 i(in float v,out vec3 g){vec3 c;i(v,g,c);float f=-.15*sin(.732*v);vec3 r=normalize(c-g),b=vec3(sin(f),cos(f),0.),E=normalize(cross(r,b)),o=normalize(cross(E,r));return mat3(E,o,r);}void main(){vec2 v=gl_FragCoord.rg/iResolution.rg,c=-1.+2.*v;c.r*=iResolution.r/iResolution.g;vec3 g,b,e;mat3 f=i(time-1./FPS,g);vec3 r=f*normalize(vec3(c.rg,2.));mat3 m=i(time,b);vec3 H=m*normalize(vec3(c.rg,2.));mat3 s=m*mat3(f[0].r,f[1].r,f[2].r,f[0].g,f[1].g,f[2].g,f[0].b,f[1].b,f[2].b);s-=mat3(1,0,0,0,1,0,0,0,1);vec3 E=t(g,r,b-g,s);E=pow(E,vec3(1./2.2));E=mix(E,smoothstep(vec3(0),vec3(1),E),.25);E*=.25+.75*pow(16.*v.r*v.g*(1.-v.r)*(1.-v.g),.15);gl_FragColor=vec4(E,1.);}\n`,
+    program = webglProgram(canvas, fragmentShader);
+
+  function draw(e) {
+    program.uf1('iTime', e / 1e3), program.draw(), requestAnimationFrame(e => draw(e))
+  }
+
+  draw(0);
+
+</script>
+
+
+</body>
+</html>

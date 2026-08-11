@@ -1,0 +1,4 @@
+id: 788
+name: Rubik's Cube
+mint_opens_at: 2021-11-22T15:31:52+00:00
+generative_uri: ipfs://QmSTxtCenxjEMJfo3PKKsDhN3tGB6BQmgHgZjjm2tvEPmK

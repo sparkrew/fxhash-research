@@ -1,0 +1,4 @@
+id: 4910
+name: Shigu
+mint_opens_at: 2021-12-26T23:39:40+00:00
+generative_uri: ipfs://QmUm5wDymTmsKU7P8XhTq62gAesUpFQ4ZN3UehmrhLmjmv

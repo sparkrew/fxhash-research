@@ -1,0 +1,4 @@
+id: 720
+name: Evil shark
+mint_opens_at: 2021-11-22T11:12:42+00:00
+generative_uri: ipfs://QmWHYuYdFcojdxrKUSGXhEssynpGu4qgjRxLxEtYDYw3qF

@@ -1,0 +1,4 @@
+id: 9426
+name: 2152: Line Architecture
+mint_opens_at: 2022-02-15T09:59:04+00:00
+generative_uri: ipfs://QmXUhPCDspQGfhJezp1X1Hzt5ZN8fiJbXvMw4UNKyBMLQi

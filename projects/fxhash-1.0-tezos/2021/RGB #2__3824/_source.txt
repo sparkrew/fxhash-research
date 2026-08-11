@@ -1,0 +1,4 @@
+id: 3824
+name: RGB #2
+mint_opens_at: 2021-12-18T14:10:06+00:00
+generative_uri: ipfs://QmduWJiHYZ2rJH9naobXz5WpvyXyGRJptVrMwzfWLn5yx8

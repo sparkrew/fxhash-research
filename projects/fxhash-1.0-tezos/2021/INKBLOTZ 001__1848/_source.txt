@@ -1,0 +1,4 @@
+id: 1848
+name: INKBLOTZ 001
+mint_opens_at: 2021-12-01T02:55:18+00:00
+generative_uri: ipfs://QmeKWbEFaqw8SLXS1NkukhhafSGPw29BZF9cp2d3i43dQq

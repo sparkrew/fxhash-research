@@ -1,0 +1,4 @@
+id: 21165
+name: 559753
+mint_opens_at: 2022-11-13T17:00:00+00:00
+generative_uri: ipfs://QmTemwoMwnpqC8YZsPtXHrb1LTQfWo8xfq441UrRSXNGEf

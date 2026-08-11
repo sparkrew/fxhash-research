@@ -1,0 +1,4 @@
+id: 582
+name: Aguna
+mint_opens_at: 2021-11-20T11:07:12+00:00
+generative_uri: ipfs://QmYsM1wfGei6bQzhkEbrnEyZXp6tXbLZiG9giaCEtpcy6Q

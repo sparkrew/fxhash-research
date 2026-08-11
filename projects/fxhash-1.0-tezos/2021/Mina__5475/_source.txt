@@ -1,0 +1,4 @@
+id: 5475
+name: Mina
+mint_opens_at: 2021-12-29T07:42:20+00:00
+generative_uri: ipfs://QmZ95PgkGYpGqGdxKc2oZfpjLTdrvs8yzo1Rik8ugnTb2A

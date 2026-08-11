@@ -1,0 +1,1 @@
+class Shape{constructor(s,t,h){this.name=s.name,this.vert=s.vert,this.val=s.val,this.zPos=t,this.d=h,this.r=s.r,this.s=s.s,this.c=s.c}show(){0!=this.r.name&&rotateZ(this.r.rot),beginShape();for(let s=0;s<360;s+=this.vert)vertex(this.d*cos(s),this.d*sin(s),this.zPos);endShape(CLOSE)}}

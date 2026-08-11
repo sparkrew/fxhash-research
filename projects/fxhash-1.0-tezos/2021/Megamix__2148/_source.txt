@@ -1,0 +1,4 @@
+id: 2148
+name: Megamix
+mint_opens_at: 2021-12-04T21:21:30+00:00
+generative_uri: ipfs://QmcfRZkSdCJiU1aF9FxU64YNirzHgPzR6Pt18oEyiQHNaq

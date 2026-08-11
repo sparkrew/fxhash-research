@@ -1,0 +1,527 @@
+[
+  {
+    "name": "Phenom #106",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/106.png",
+    "dna": "3c9325bc448f00079f7ef2b38e9309595a45b6b3",
+    "edition": 106,
+    "date": 1639414145183,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED ORANGE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 01"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "WAVE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 1"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP ROUND"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE RAIN"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #107",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/107.png",
+    "dna": "4ab9ab3dc5c0580cad347fcd60d4f5ee67dee7fc",
+    "edition": 107,
+    "date": 1639414145487,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED GRAPE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 05"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "ARCH SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 4"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BAKED"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #108",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/108.png",
+    "dna": "12d84ef5ed4df13801870e4483a3b4b7d385106e",
+    "edition": 108,
+    "date": 1639414145879,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED GRAPE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 04"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "WAVE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 6"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BURNT"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE RAIN"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #109",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/109.png",
+    "dna": "b26e0bae092c9d332451102507774a9a970de33f",
+    "edition": 109,
+    "date": 1639414146208,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE PHEONIX"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 03"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "WAVE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 6"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP ROUND"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #110",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/110.png",
+    "dna": "f303797037fcd3128c0d57f8e2a8e4b2b19e1c45",
+    "edition": 110,
+    "date": 1639414146556,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED GRAPE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 06"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "TANGY SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 4"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP TORTILLLA"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #111",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/111.png",
+    "dna": "be22b9cc1de4a3ae401aa50d21ff07eaf16973c1",
+    "edition": 111,
+    "date": 1639414146906,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED ORANGE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 03"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "TANGY SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 4"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "HOODY"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL DRIP"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #112",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/112.png",
+    "dna": "5eb26224ecc39a519efb744cfa24feaa65128d79",
+    "edition": 112,
+    "date": 1639414147257,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED GRAPE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 01"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "MOON SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 1"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "HOODY"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #113",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/113.png",
+    "dna": "81477f7a33948bd8f03c76d986d0ed6f04bba017",
+    "edition": 113,
+    "date": 1639414147621,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED ORANGE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 06"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "BLUE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 1"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BAKED"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #114",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/114.png",
+    "dna": "59756620cf58cf8235733c6382d43a9188175e07",
+    "edition": 114,
+    "date": 1639414147939,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED CITY COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 03"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "ARCH SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 6"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BURNT"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "BLUE RAIN"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #115",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/115.png",
+    "dna": "cc0640af53139d00520bfbf58494af5655e7e951",
+    "edition": 115,
+    "date": 1639414148278,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED CITY COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 01"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "TANGY SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 2"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BURNT"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL DRIP"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #116",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/116.png",
+    "dna": "7ab6614fbcb7fabe4ef1afb13e8cd7883a7e632c",
+    "edition": 116,
+    "date": 1639414148660,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED ORANGE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "BLUE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 6"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BURNT"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #117",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/117.png",
+    "dna": "6ac4fe44465441a6b92e9797f9ca54859039afea",
+    "edition": 117,
+    "date": 1639414148990,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "WORMHOLE PHEONIX"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "MOON SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 5"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP BAKED"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL DRIP"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #118",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/118.png",
+    "dna": "725a5d417ad986b898e979044b8daabd0fc2f18f",
+    "edition": 118,
+    "date": 1639414149360,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED GRAPE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 02"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "MOON SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 1"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP TORTILLLA"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL DRIP"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #119",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/119.png",
+    "dna": "db7865d06609c0f201c8b5888747a8ec8e5cece3",
+    "edition": 119,
+    "date": 1639414149691,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED SKY COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 06"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "INFINTE SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 2"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP ROUND"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "WHITE SPLASH"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "name": "Phenom #120",
+    "description": "",
+    "image": "ipfs://NewUriToReplace/120.png",
+    "dna": "a96c85748569c1138cee9b6120b1a921e27200fe",
+    "edition": 120,
+    "date": 1639414150025,
+    "attributes": [
+      {
+        "trait_type": "LAYER6",
+        "value": "CHISELED GRAPE COLLUMNS"
+      },
+      {
+        "trait_type": "LAYER5",
+        "value": "PEEK 04"
+      },
+      {
+        "trait_type": "LAYER4",
+        "value": "TANGY SEED"
+      },
+      {
+        "trait_type": "LAYER3",
+        "value": "WARPED PLANETS 3"
+      },
+      {
+        "trait_type": "LAYER2",
+        "value": "BLUE CHIP ROUND"
+      },
+      {
+        "trait_type": "LAYER1",
+        "value": "OIL DRIP"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  }  
+]

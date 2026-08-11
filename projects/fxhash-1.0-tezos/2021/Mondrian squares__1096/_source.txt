@@ -1,0 +1,4 @@
+id: 1096
+name: Mondrian squares
+mint_opens_at: 2021-11-24T10:57:52+00:00
+generative_uri: ipfs://QmQytmNocabA4xT2HQVVBvLSDommsKJ9aHmCcoRSAerJTm

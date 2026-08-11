@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden; height: 100%">
+  <head>
+    <title>window by Damien Seguin</title>
+    <meta charset="utf-8" >
+    <meta       name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    >
+    
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+    <style>
+      body {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      function getPalette() {
+        const r = fxrand() * 0.8;
+        if (r < 0.02) return "TriShades";
+        if (r < 0.125) return "WhiteStripes";
+        if (r < 0.25) return "Spices";
+        if (r < 0.375) return "BellPepper";
+        if (r < 0.5) return "Iceberg";
+        if (r < 0.625) return "SignoraInGiallo";
+        return "BleuBlancRouge";
+      }
+
+      function getLuminosity() {
+        const r = fxrand();
+        if (r > 0.99) return 0.95;
+        return +(r * 0.7).toFixed(2);
+      }
+
+      function getDirection() {
+        const r = fxrand();
+        if (r < 0.22) return "bottom";
+        if (r < 0.44) return "left";
+        if (r < 0.66) return "right";
+        return "top";
+      }
+
+      function getStep() {
+        if (fxrand() > 0.99) return 35;
+        return 10 + Math.floor(fxrand() * 20);
+      }
+
+      window.$fxhashFeatures = {
+        Palette: getPalette(),
+        Step: getStep(),
+        Luminosity: getLuminosity(),
+        Wave: fxrand() > 0.5,
+        Direction: getDirection(),
+      };
+    </script>
+  </head>
+  <body>
+    <script src="./bundle.js"></script>
+  </body>
+</html>

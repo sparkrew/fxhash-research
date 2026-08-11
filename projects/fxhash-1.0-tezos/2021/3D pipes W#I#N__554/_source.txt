@@ -1,0 +1,4 @@
+id: 554
+name: 3D pipes W#I#N
+mint_opens_at: 2021-11-19T19:16:32+00:00
+generative_uri: ipfs://QmSAdFjrzRy2PMhGJ11biJ6tR1bTDq5VfarBgJh9rBPJNj

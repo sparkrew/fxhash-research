@@ -1,0 +1,4 @@
+id: 1524
+name: DataWaves GEN
+mint_opens_at: 2021-11-28T08:01:38+00:00
+generative_uri: ipfs://Qmb5iX7hGFW7AL3a7MT1dGGuwGgeMGCx2G46WFRJF1NkAB

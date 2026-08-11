@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Slant</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="Author" content="Johan Holwerda">
+    <meta name="License" content="This NFT is released under the NFT License 2.0 - www.nftlicense.org">
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+    <style>
+        body,
+        html {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas,
+        img,
+        svg {
+            width: 100vw;
+            height: 100vh;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<canvas id="canvas"></canvas>
+<script>
+  'use strict';
+
+  function random() {
+    return fxrand();
+  }
+
+  const gx = random();
+  const gy = gx + random() * 0.2;
+  const gz = gy + random() * 0.2;
+  const lineSpacingNoiseFreq = 5 + random() * 20;
+  const lineSpacingNoiseAmp = 0.05 + random() * 0.2;
+  const lineWidth = 0.1 + random() * 0.3;
+  const radiusNoiseAmp = 0.1 + random() * 0.4;
+  const direction = random()> 0.8? 1 : -1;;
+
+  function webglProgram(canvas, fragmentShader) {
+    const gl = canvas.getContext('webgl', { antialias: false });
+	gl.getExtension('OES_standard_derivatives');
+    const pid = gl.createProgram();
+    shader(`
+    attribute vec2 vertex;
+
+    void main() {
+        gl_Position = vec4(vertex, 0.0, 1.0);
+    }
+`, gl.VERTEX_SHADER);
+
+    shader(fragmentShader, gl.FRAGMENT_SHADER);
+    gl.linkProgram(pid);
+    gl.useProgram(pid);
+    gl.depthFunc(gl.ALWAYS);
+    const vertex = gl.getAttribLocation(pid, 'vertex');
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 3, -1, -1, 3, -1]), gl.STATIC_DRAW);
+    gl.vertexAttribPointer(vertex, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vertex);
+
+    function shader(src, a) {
+      let s = gl.createShader(a);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      gl.attachShader(pid, s);
+    }
+
+    const uniformsLocations = {};
+
+    function uniformLocation(name) {
+      if (!uniformsLocations[name]) {
+        uniformsLocations[name] = gl.getUniformLocation(pid, name);
+      }
+      return uniformsLocations[name];
+    }
+
+    function uf3(name, a, b, c) {
+      gl.uniform3f(uniformLocation(name), a, b, c);
+    }
+
+    function uf2(name, a, b) {
+      gl.uniform2f(uniformLocation(name), a, b);
+    }
+
+    function uf1(name, a) {
+      gl.uniform1f(uniformLocation(name), a);
+    }
+
+    let w, h;
+
+     function resize() {
+      const bb = canvas.getBoundingClientRect();
+      if ((bb.width | 0) === w && (bb.height | 0) === h)
+        return;
+      w = canvas.width = (bb.width | 0);
+      h = canvas.height = (bb.height | 0);
+      gl.viewport(0, 0, w, h);
+    }
+
+    function draw() {
+      resize();
+      uf2('iResolution', w, h);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+
+    return { uf1, uf2, uf3, resize, draw };
+  }
+
+  const canvas = document.querySelector('canvas');
+  const fragmentShader =`
+precision highp float;
+#extension GL_OES_standard_derivatives : enable
+uniform float iTime;uniform vec2 iResolution;
+#define time iTime
+ #define m2 mat2(-0.73739, 0.67546, -0.67546, -0.73739)
+ vec2 sineNoise22(vec2 q) {	float a = 1.;	vec2 sum = vec2(0);	for(int i = 0; i <3 ; i++){		q = m2 * q;		vec2 s = sin(q / a) * a;		q += s;		sum += s;		a *= 0.618;	}	return sum;}vec2 hash21(float p){	vec3 p3 = fract(vec3(p) * vec3(.1031, .1030, .0973));	p3 += dot(p3, p3.yzx + 33.33);    return fract((p3.xx+p3.yz)*p3.zy);}float hash12(vec2 p){	vec3 p3  = fract(vec3(p.xyx) * .1031);    p3 += dot(p3, p3.yzx + 33.33);    return fract((p3.x + p3.y) * p3.z);}vec3 gradient( in float t, in float a){    return .5 + .5*cos( 6.28318*(t+ vec3(${gx.toFixed(3)}, ${gy.toFixed(3)}, ${gz.toFixed(3)}) * a) );}float stripeA(vec2 uv,inout float y){    uv.x += uv.y * ${direction.toFixed(3)};    vec2 n = sineNoise22(vec2(uv.x * ${lineSpacingNoiseFreq.toFixed(3)},iTime));    uv.x += n.x * ${lineSpacingNoiseAmp.toFixed(3)};    float p = uv.x * 1.;    float i = floor(p);    float f = fract(p);    float fw = fwidth(p);    float a = smoothstep(fw,0., abs(f- 0.5)-${lineWidth.toFixed(3)});    float ih = floor( uv.x * 6. + iTime);    vec2 h = hash21(ih);     float fh = fwidth(uv.y);    y = abs(uv.y + (h.y - 0.5))-h.x;    a *= smoothstep(fh,0., abs(uv.y + (h.y - 0.5))-h.x);    return a;}vec4 stripes(vec2 uv){    float y = 0.;    float a = stripeA(uv, y);    vec3 c = gradient(y * 0.4 + uv.x * 0.5, -1.);    return vec4(c,a);}vec4 circle(vec2 uv){    float l = length(uv);    float freq = 20.;    l += sineNoise22(vec2(l * freq, iTime)).x * ${radiusNoiseAmp.toFixed(3)};;    float f = fwidth(l);    float a = smoothstep(f, 0., l-0.5);    vec2 uv2 = uv;    uv2.y += uv2.x;    vec3 c = gradient( uv2.y * .4, 1.);    vec2 uv3 = uv;    uv3.x *= -1.;    float y = 0.;    a *= 1. - stripeA(uv3 * 0.5, y);        return vec4(c,a);}void main() {    vec2 uv   = (2. * gl_FragCoord.xy - iResolution) / iResolution.y;    vec3 c = vec3(uv.y * 0.25 + 0.5 + sin(iTime) * 0.1);    vec4 s = stripes(uv);    c.xyz = mix( c.xyz, s.xyz, s.w);    vec4 s0 = circle(uv);    c.xyz = mix( c.xyz, s0.xyz, s0.w);    c = sqrt(c);    c += hash12( gl_FragCoord.xy) * 0.075;    gl_FragColor = vec4(c, 1.);}
+`;
+  const program = webglProgram(canvas, fragmentShader);
+
+  function draw(t) {
+    program.uf1('iTime', t / 1e3);
+    program.draw();
+    requestAnimationFrame((t) => draw(t));
+  };
+  draw(0);
+
+
+</script>
+
+
+</body>
+</html>

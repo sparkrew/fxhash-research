@@ -1,0 +1,1 @@
+(()=>{var a;console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Style:(a=fxrand(),a<.5?"black":a<.95?"white":"red"),Movement:Math.round(300*fxrand()+10),Lod:Math.round(4*fxrand()),Step:Math.round(20*fxrand())+1}})();

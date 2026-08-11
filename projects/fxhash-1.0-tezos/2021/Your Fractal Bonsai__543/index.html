@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Fractal Tree</title>
+ </head>
+  <body>
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>	
+<div align="center">  
+ <canvas id="browCanvas" width="702" height="702" style="border: 2px inset;"></canvas>
+ <div id="browMessage">Начато новое построение (load)</div>
+</div>
+   
+<script>
+function brownian(canvasId, messageId) {
+ var canvas = document.getElementById(canvasId);
+ var ctx = canvas.getContext("2d");
+ //настройки
+ var seedResolution = 50; //разброс в пикселах для выбора позиции
+ var clearShade = Math.floor(fxrand() * 255); // 0..255, фон
+ var shade = Math.floor(fxrand() * 255); //переменная для выбора начального цвета
+ var progress = 2000; //количество попыток выбора новой точки
+ //статические переменные
+ var width = canvas.width;
+ var height = canvas.height;
+ var cx = width/2;
+ var cy = height/2;
+ var clearStyle = "rgba("+clearShade+", "+clearShade+", "+clearShade+", 1)";
+ var animation;
+ var x, y; //текущая позиция
+ var closeRadius = 1; //наибольшее расстояние до центра, где частицы ещё не было
+ 
+ //функции
+ function radius(x,y) {
+  return Math.sqrt((x-cx)*(x-cy)+(y-cx)*(y-cy));
+ }
+ function test(x, y) {
+  if (x < 0 || y < 0 || x >= width || y >= height) return false;
+  var data = ctx.getImageData(x, y, 1, 1).data;
+  return data[0] != clearShade || data[1] != clearShade || data[2] != clearShade;
+ }
+ function setc(x, y, c) {
+  shade = (shade + 0.02) % 360;
+  if (c) ctx.fillStyle = "hsl("+shade+", 100%, 50%)";
+  else ctx.fillStyle = clearStyle;
+  ctx.fillRect (x, y, 1, 1);
+ }
+ function set(x,y) { setc(x,y,true); }
+ function clear(x,y) { setc(x,y,false); }
+ 
+ function clearCanvas () {
+  //пустой непрозрачный холст 
+  ctx.fillStyle = clearStyle;
+  ctx.fillRect (0, 0, width, height);
+ }
+ clearCanvas ();
+ 
+ set (cx, cy); //место старта
+ 
+ //выбрать новую случайую позицию, необязательно свободную
+ function newpos() {
+  x = Math.floor(Math.random()*(width/seedResolution))*seedResolution;
+  y = Math.floor(Math.random()*(height/seedResolution))*seedResolution;
+ }
+ newpos();
+ 
+ function stopAnimation (msg) {
+  document.getElementById(messageId).innerHTML = msg;
+  clearInterval(animation);
+ }
+  
+ //основная функция анимации
+ animation = setInterval(function () { 
+  clear(x,y);
+  for (var i = 0; i < progress; i++) {
+   var ox = x, oy = y;
+   switch (Math.floor(Math.random()*8)) {
+    //можно отключить направления 4-7
+    case 0: x++; break;
+    case 1: x--; break;
+    case 2: y++; break;
+    case 3: y--; break;
+    case 4: x++; y++; break;
+    case 5: x--; y++; break;
+    case 6: x++; y--; break;
+    case 7: x--; y--; break;
+   }
+   if (x < 0 || y < 0 || x >= width || y >= height ||
+    radius(x,y) > closeRadius+seedResolution+2) {
+    //вылезли за границы, выбираем новую позицию
+    var pp = progress;
+    do {
+     newpos(); pp--;
+    } while ((test(x-1,y-1) || test(x,y-1) || test(x+1,y-1) ||
+              test(x-1,y  ) || test(x,y  ) || test(x+1,y  ) ||
+              test(x-1,y+1) || test(x,y+1) || test(x+1,y+1)) && pp > 0);
+    if (pp <= 0) {
+	 stopAnimation ('Для текущих настроек построение завершено');
+     break;
+    }
+   }
+   if (test(x, y)) {
+    //отметить место, откуда пришли и выбрать новое
+    set(ox,oy);
+    closeRadius = Math.max(closeRadius, radius(ox,oy));
+    newpos();
+   }
+  }
+  set(x,y);
+ }, 10);
+ 
+} //brownian
+
+document.getElementById('browCanvas').onclick = function (event) { 
+ document.getElementById('browMessage').innerHTML = '';
+ brownian('browCanvas', 'browMessage');
+} 
+window.addEventListener('load', function (e) { 
+ document.getElementById('browMessage').innerHTML = '';
+ brownian('browCanvas', 'browMessage');
+}, false); 
+</script>
+<noscript>
+ <div align="center">
+  Извините, для работы приложения нужен включённый Javascript
+ </div>
+</noscript>
+ 
+ 
+</body></html>

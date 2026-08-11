@@ -1,0 +1,4 @@
+id: 2435
+name: The Spiral Fountain
+mint_opens_at: 2021-12-06T19:36:50+00:00
+generative_uri: ipfs://QmT1MhgSvXpAw8yGJYvBYNHXCq45idmGHRboWW7nEqPSc2

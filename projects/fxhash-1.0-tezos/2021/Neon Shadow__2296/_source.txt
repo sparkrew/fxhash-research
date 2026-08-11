@@ -1,0 +1,4 @@
+id: 2296
+name: Neon Shadow
+mint_opens_at: 2021-12-05T20:38:30+00:00
+generative_uri: ipfs://QmZrEZFdwhuVPsqYeg34P8TGAgWaotqCoe2sTyNLpJ7bqW

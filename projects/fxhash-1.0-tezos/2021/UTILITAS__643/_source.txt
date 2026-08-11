@@ -1,0 +1,4 @@
+id: 643
+name: UTILITAS
+mint_opens_at: 2021-11-22T07:23:52+00:00
+generative_uri: ipfs://QmaoZsrtUacVfeqHM4wchapdQkS8RTMCq8UyYEjEjC7TfB

@@ -1,0 +1,19 @@
+/* 
+
+Style: mint
+Author: nuflark
+contact: https://twitter.com/enuflark
+ 
+*/
+
+body {
+	background-color:#99ffcc;
+	overflow:hidden;
+	
+	--color-one:#99ffcc; /* seafoam green */
+	--color-two:#cc9966;  /* brown */
+	--color-three:#ff9900;  /* bright orange */
+	--color-four:#6699cc; /* sky blue */
+	--color-five:#cc6699; /* rose */	
+	
+}

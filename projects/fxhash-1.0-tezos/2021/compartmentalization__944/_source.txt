@@ -1,0 +1,4 @@
+id: 944
+name: compartmentalization
+mint_opens_at: 2021-11-23T11:25:32+00:00
+generative_uri: ipfs://QmPAwMtb1VytM5CZotXE9oKyYvW9Afts5TYS2vB3UAes3i

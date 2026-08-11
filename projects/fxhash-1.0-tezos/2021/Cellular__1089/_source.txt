@@ -1,0 +1,4 @@
+id: 1089
+name: Cellular
+mint_opens_at: 2021-11-24T10:21:52+00:00
+generative_uri: ipfs://QmYm5zUpN9W4z6gVJDCoTM8BG34SvsaNBh88SWRZ3NBmtg

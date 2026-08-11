@@ -1,0 +1,4 @@
+id: 2297
+name: Dis Place
+mint_opens_at: 2021-12-05T21:03:50+00:00
+generative_uri: ipfs://QmRLmRywAzJbRWVgA5r2SZguxZaspfMLziA29ab213JGnN

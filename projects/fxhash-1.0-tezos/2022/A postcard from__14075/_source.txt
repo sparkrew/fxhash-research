@@ -1,0 +1,4 @@
+id: 14075
+name: A postcard from
+mint_opens_at: 2022-06-03T16:00:00+00:00
+generative_uri: ipfs://QmY9KmCnBvP5u5YXS7Hy2hSLbbzm2QK9Nzp8JaLiHxniFx

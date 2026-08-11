@@ -1,0 +1,4 @@
+id: 2493
+name: MOBO
+mint_opens_at: 2021-12-06T22:21:20+00:00
+generative_uri: ipfs://Qmb4c2btKc5TgGdVyZBA5mtPkQTtqVzdiCErtSE9BATYS1

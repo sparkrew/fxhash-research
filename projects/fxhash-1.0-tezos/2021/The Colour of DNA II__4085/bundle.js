@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Colour:vcolor_b,Grid:vgrid},document.createElement("div").innerText=`\n  random hash: ${fxhash}\n\n  some pseudo random values: [ ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()},... ]\n\n  Colour: ${window.$fxhashFeatures.Colour}\n  Grid: ${window.$fxhashFeatures.Grid}\n`;

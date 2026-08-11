@@ -1,0 +1,116 @@
+float cols = 80; //30
+float tiles = 80; //80
+
+float angle;
+
+color[] cset1 = {
+  color(255), color(0)
+};
+
+void setup() {
+  size(1000,1000);
+}
+
+void draw() {
+  background(0);
+  //blendMode(DIFFERENCE);
+  
+  float tileHeight = height/tiles;
+  float colsWidth = width/cols;
+  
+  float tileHeight2 = height/tiles;
+  float colsWidth2 = width/cols;
+  
+  //for (float a=0; a<width; a+=10) {
+  //  fill(255);
+  //  noStroke();
+  //  rectMode(CENTER);
+  //  rect(a, height/2, 5, height);
+  //  //rect(height/2, a, width, 5);
+  //}
+  
+  for (float q=0; q < width; q+=colsWidth) {
+    
+    for (float a=0; a<height*2; a+=tileHeight*2) {
+    
+      for (int b=0; b<2; b++) {
+      
+        float s = map(sin(angle + a + b + q * 0.012), -1, 1, -tileHeight, tileHeight/2);
+        float s1 = map(sin(angle+q*b*0.2), -1, 1, -10, 10); 
+        
+        noStroke();
+        
+        
+        if (b == 1) {
+          //fill(255);
+          //fill(255-255*sin((angle+a-q)), 255-255*sin(radians(angle+a-b-q)), 255-255*sin(radians(angle+a+b+q)));
+          fill(
+            map(sin(angle+a), -1, 1, 0, 255),
+            map(sin(angle+a-q), -1, 1, 0, 255),
+            map(sin(angle+a-q), -1, 1, 0, 255)
+          );
+          //fill(
+          //  255-255*sin(angle+a)-s1*5,
+          //  255-255*sin(angle+a)-s1*5,
+          //  255-255*sin(angle+a)-s1*5
+          //);
+        } else {
+          fill(
+            map(sin(angle+a-q*4), -1, 1, 0, 255),
+            map(sin(angle+a-q*5), -1, 1, 0, 255),
+            map(sin(angle+a-q*2), -1, 1, 0, 255)
+          );
+          //fill(0);
+          //fill(
+          //  255-255*sin(angle+a)-s1,
+          //  255-255*sin(angle+a)-s1,
+          //  255-255*sin(angle+a)-s1
+          //);
+        }
+        
+        rectMode(CORNER);
+        //rect(q, a+tileHeight*b, colsWidth, s);
+        rect(q, a+s, colsWidth, s);
+      }
+    }
+  }
+  
+  for (float q=0; q < width; q+=colsWidth2) {
+    
+    for (float a=0; a<height*2; a+=tileHeight2*2) {
+    
+      for (int b=0; b<2; b++) {
+      
+        float sv = map(sin(angle+a+b-q), -1, 1, 10, -10);
+        float s = map(
+          sin(angle + a + b - q * 0.02), 
+          -1, 1, 
+          -sv, sv);
+        
+        noStroke();
+        
+        if (b == 1) {
+          fill(
+            map(sin(angle+a+q), -1, 1, 0, 100),
+            map(sin(angle+a+q), -1, 1, 0, 100),
+            map(sin(angle+a+q), -1, 1, 0, 100)
+          );
+        } else {
+          fill(
+            0
+          );
+        }
+        
+        rectMode(CORNER);
+        //rect(q, a+tileHeight2*b+s, colsWidth2, s);
+        //rect(q, a+tileHeight2+s*b, colsWidth2, 1);
+      }
+    }
+  }
+  
+  
+  angle += 0.02;
+  
+  //saveFrame("v01/images/####.png");
+  println(frameCount);
+}

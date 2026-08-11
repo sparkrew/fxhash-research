@@ -1,0 +1,4 @@
+id: 4908
+name: Solstice
+mint_opens_at: 2021-12-26T23:37:40+00:00
+generative_uri: ipfs://QmUrdkaUhEv5zmcrmAhGsecBw8dQubFxctvtqRN2gvWjrr

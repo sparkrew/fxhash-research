@@ -1,0 +1,4 @@
+id: 2705
+name: Some generative galaxies
+mint_opens_at: 2021-12-08T17:30:40+00:00
+generative_uri: ipfs://QmZRQF24EAYdKatcszgTEDsrQuyKVULiDAmx23Szmn1HzR

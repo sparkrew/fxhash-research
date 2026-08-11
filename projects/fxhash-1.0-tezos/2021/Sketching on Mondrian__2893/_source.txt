@@ -1,0 +1,4 @@
+id: 2893
+name: Sketching on Mondrian
+mint_opens_at: 2021-12-09T17:43:00+00:00
+generative_uri: ipfs://QmYJnYuHXjp8mkEzZzGn8rhV3x89F83Dsb5fLjivtbmFYA

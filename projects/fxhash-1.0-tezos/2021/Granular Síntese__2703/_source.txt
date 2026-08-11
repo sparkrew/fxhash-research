@@ -1,0 +1,4 @@
+id: 2703
+name: Granular Síntese 
+mint_opens_at: 2021-12-08T17:28:40+00:00
+generative_uri: ipfs://QmVNVRQknqaR8N81uZiu3Cd5MvWd8ZBgN5zsPzbLVHsNDa

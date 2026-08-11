@@ -1,0 +1,4 @@
+id: 721
+name: Fire Cast
+mint_opens_at: 2021-11-22T11:13:42+00:00
+generative_uri: ipfs://Qmdd2zLEmBK6RbUWmtWyT47GLMEDWKYEayYTDqJqjfLRQQ

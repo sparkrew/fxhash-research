@@ -1,0 +1,16 @@
+body {
+  background-color : #000; ;
+}
+
+img{height:100%; top:0; left:0; position: absolute;mix-blend-mode: multiply; }
+
+#bg{mix-blend-mode: overlay;
+    background-image: url(img/bg.gif); width:100%; height:100%;
+    opacity: 0.65;
+    background-repeat: repeat;
+    background-size: 150px;
+    background-color: #8e8e8e;
+    background-blend-mode: overlay;
+    width: 100%;
+    height: 100%;}
+

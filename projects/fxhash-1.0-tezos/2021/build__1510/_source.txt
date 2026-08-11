@@ -1,0 +1,4 @@
+id: 1510
+name: build
+mint_opens_at: 2021-11-28T05:14:58+00:00
+generative_uri: ipfs://Qmceb3nWt8Avj95z5YEHye22F8TPtyxnyvNJDGXo1rQaZn

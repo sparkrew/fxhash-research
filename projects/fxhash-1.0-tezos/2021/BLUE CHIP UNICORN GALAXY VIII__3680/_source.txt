@@ -1,0 +1,4 @@
+id: 3680
+name: BLUE CHIP UNICORN GALAXY VIII
+mint_opens_at: 2021-12-17T15:19:46+00:00
+generative_uri: ipfs://QmWZTk4v7X9gYyKVvjVDERkCh6WZ4h96GmxPLKwSxxgAzc

@@ -1,0 +1,4 @@
+id: 2321
+name: Minimal Rect
+mint_opens_at: 2021-12-05T22:07:10+00:00
+generative_uri: ipfs://QmVtqxMVKCXgxQouPqscBr2VfmiHX9HwhTY6kqayR5uh2M

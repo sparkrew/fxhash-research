@@ -1,0 +1,4 @@
+id: 0
+name: FXHASH Generative Logo
+mint_opens_at: 2021-11-03T12:26:02+00:00
+generative_uri: ipfs://Qmc4tMDF2ff8efhi7ybAZTWucQXbuUk9z7DozAUfFgWDZB

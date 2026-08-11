@@ -1,0 +1,4 @@
+id: 4
+name: Blobby
+mint_opens_at: 2021-11-10T20:00:38+00:00
+generative_uri: ipfs://QmePFXtNtL7WMFrURPpPu14ToLveMrTJ7P1VSQigaZvYkA

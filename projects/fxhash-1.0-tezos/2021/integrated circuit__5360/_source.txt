@@ -1,0 +1,4 @@
+id: 5360
+name: integrated circuit
+mint_opens_at: 2021-12-28T23:29:40+00:00
+generative_uri: ipfs://QmZWPMHMCWi8D3YP4qe9VBR2i8ZRrGi13eEL9wp8gR2Mz8

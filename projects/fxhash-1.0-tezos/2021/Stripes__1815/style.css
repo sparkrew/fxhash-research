@@ -1,0 +1,25 @@
+/*Javier Tomeo 2021*/
+body {
+position: absolute;
+margin: 0;
+padding: 0;
+width: 100%;
+height: 100%;
+}
+
+canvas {
+  display: block;
+}
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html {
+  overflow: hidden;
+  content-zooming: none;
+  }
+  

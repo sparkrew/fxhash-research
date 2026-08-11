@@ -1,0 +1,4 @@
+id: 351
+name: arcs and lines
+mint_opens_at: 2021-11-17T20:30:02+00:00
+generative_uri: ipfs://QmRSXWfqqLJE6RDMVWSpo1QeYaQkB4FZ5y4s4ibajzmWKz

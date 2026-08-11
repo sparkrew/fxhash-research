@@ -1,0 +1,4 @@
+id: 5078
+name: crazy world of colors 
+mint_opens_at: 2021-12-27T21:58:50+00:00
+generative_uri: ipfs://QmShKsW6TYa6umgivcatsC442Wwng4AR9YZyaK2SdUBzW2

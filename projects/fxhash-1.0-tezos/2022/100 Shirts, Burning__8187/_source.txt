@@ -1,0 +1,4 @@
+id: 8187
+name: 100 Shirts, Burning
+mint_opens_at: 2022-01-28T22:19:48+00:00
+generative_uri: ipfs://QmYTrfNDJSx1jZwwenuKLYFV55szkvfGZxztyTKkafSAd3

@@ -1,0 +1,4 @@
+id: 3979
+name: Arachnid
+mint_opens_at: 2021-12-19T15:01:46+00:00
+generative_uri: ipfs://QmQnPFw9Sez8Qkct9KFwZhGYiKqvsevTgQKhfRusM36Mpg

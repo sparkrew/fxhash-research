@@ -1,0 +1,4 @@
+id: 923
+name: EAT THE WORLD
+mint_opens_at: 2021-11-23T10:00:52+00:00
+generative_uri: ipfs://QmSkwkpMWvB9QepEk4uaiSWkiFZLDjkjBjyqrpJaYGEEqD

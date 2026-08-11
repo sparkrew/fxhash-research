@@ -1,0 +1,4 @@
+id: 2474
+name: Earth
+mint_opens_at: 2021-12-06T20:52:00+00:00
+generative_uri: ipfs://QmVUTJJT5VVfTSMtwz6MZhPAt2R4ouzqV6jYYFpXZREjHN

@@ -1,0 +1,4 @@
+id: 3072
+name: colourful penduli
+mint_opens_at: 2021-12-11T15:40:36+00:00
+generative_uri: ipfs://QmZPhuDxtvnqhR26PyGgT3gqLZ8as4KBkbXchX4AecVLyt

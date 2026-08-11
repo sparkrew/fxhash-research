@@ -1,0 +1,4 @@
+id: 1337
+name: Abrupt
+mint_opens_at: 2021-11-26T08:59:38+00:00
+generative_uri: ipfs://QmdymrHBtwS7W4Zn18ACJabjzarWgZGg46D3mc6A3BaXhz

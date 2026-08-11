@@ -1,0 +1,4 @@
+id: 10817
+name: a strange and desolate place
+mint_opens_at: 2022-03-17T15:09:34+00:00
+generative_uri: ipfs://QmYgRn2RKfeLLKc57Cvmj53J9ZWX28nZQLJgPUZ3hSEGfG

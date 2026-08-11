@@ -1,0 +1,4 @@
+id: 5286
+name: .rhizome
+mint_opens_at: 2021-12-28T20:55:30+00:00
+generative_uri: ipfs://QmdR2WJ5Hu5xdq2LXyWzfLLFwHQbZ9JAGzCnRqLMg5JMRP

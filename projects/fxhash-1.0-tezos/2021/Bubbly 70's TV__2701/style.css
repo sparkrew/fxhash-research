@@ -1,0 +1,42 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:#fff;
+  }
+  
+  html {
+  flex-direction: column;
+  }
+  
+  body {
+  flex-direction: row;
+  overflow: hidden;
+  touch-action: none;
+  /*background: radial-gradient(#efefef, #000000);*/
+  background: black;
+  }
+  
+  canvas {
+  margin: auto;
+
+  
+  
+  }
+  
+  * {
+  
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  }
+
+  #debug{
+    position:absolute;
+    background-color: rgba(0,0,0,0.8);
+    color:#fff;
+  }

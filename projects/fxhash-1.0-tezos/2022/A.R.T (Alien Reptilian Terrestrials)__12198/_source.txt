@@ -1,0 +1,4 @@
+id: 12198
+name: A.R.T (Alien Reptilian Terrestrials)
+mint_opens_at: 2022-04-29T12:54:59+00:00
+generative_uri: ipfs://QmUCa8MuzpZaD4kLXgDfCrcLyuysiY1NKMgYZCSzG3spKS

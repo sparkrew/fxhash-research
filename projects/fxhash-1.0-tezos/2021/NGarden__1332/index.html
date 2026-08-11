@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>city</title>
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+  <style>
+    :root {
+      --opacity: 0;
+    }
+    *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+      all: unset;
+      display: revert;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    /* For images to not be able to exceed their container */
+    img {
+      max-width: 100%;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    #base {
+      width: 66vmin;
+      height: 66vmin;
+      perspective: 66vmin;
+      -webkit-perspective: 66vmin;
+      transform-origin: center;
+      transform: rotateX(0deg) rotateZ(0deg);
+      position: relative;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      transition: all 1s ease-in-out;
+    }
+
+    #base:hover {
+      animation: spin 12s ease-in-out infinite;
+    }
+
+
+    @keyframes spin {
+      from {
+        transform: rotateX(0deg) rotateZ(0deg);
+      }
+
+      50% {
+        transform: rotateX(70deg) rotateZ(180deg);
+      }
+
+      to {
+        /*opacity: var(--opacity);*/
+        transform: rotateX(0deg) rotateZ(360deg);
+      }
+    }
+
+    .square {
+      position: absolute;
+      background: var(--color1);
+      background-image: linear-gradient(var(--color2),var(--color1));
+      transform: translateZ(0);
+      transform-style: preserve-3d;
+      transition: all 1s ease-in-out;
+      opacity: 90%;
+      border-radius: 5px;
+    }
+
+    .square.line:after {
+      position: absolute;
+      transform-style: preserve-3d;
+      left: 0;
+      top: 0;
+      right: 0;
+      content: '';
+      height: 1px;
+      transform-origin: top center;
+      transform: rotateZ(37deg);
+      background: black;
+    }
+
+    .square:nth-child(3n) + .square:nth-child(5n) {
+      border-radius: 50%;
+      background-color: transparent;
+      background-image: radial-gradient(var(--color1), var(--color2));
+    }
+
+    .square.zebra {
+      background-color: transparent;
+      background-image: repeating-linear-gradient(-45deg, transparent 0 10%, var(--color1) 10% 20%);
+    }
+
+
+  </style>
+</head>
+<body>
+<div id="base"></div>
+<script>
+  /* global window, document */
+
+  'use strict';
+
+  function pick(arr){
+    return arr[Math.floor(fxrand() * arr.length)];
+  }
+
+  function lerpColor(a, b, amount) {
+
+    var ah = parseInt(a.replace(/#/g, ''), 16),
+      ar = ah >> 16, ag = ah >> 8 & 0xff, ab = ah & 0xff,
+      bh = parseInt(b.replace(/#/g, ''), 16),
+      br = bh >> 16, bg = bh >> 8 & 0xff, bb = bh & 0xff,
+      rr = ar + amount * (br - ar),
+      rg = ag + amount * (bg - ag),
+      rb = ab + amount * (bb - ab);
+
+    return '#' + ((1 << 24) + (rr << 16) + (rg << 8) + rb | 0).toString(16).slice(1);
+  }
+  const container = document.querySelector('#base');
+  const hw = (function (base) {
+    const width = Math.min(window.innerWidth, window.innerHeight);
+
+    const dets = {
+      width: width * 0.66,
+      height: width * 0.66,
+      get wpx() {
+        return `${this.width}px`;
+      },
+      get hpx() {
+        return `${this.height}px`;
+      }
+    };
+
+    window.addEventListener('resize', function () {
+      const side = Math.min(window.innerWidth * 0.66, window.innerHeight * 0.66);
+      dets.width = side;
+      dets.height = side;
+    });
+
+    return dets;
+  }(container));
+
+  let spacing = 3;
+  let sizeN = pick([2,3,3,3,4,])
+  let size = hw.width / sizeN;
+
+  function doIt(chance = 0.5) {
+    return fxrand() > chance;
+  }
+
+
+  function randInt(max = 10) {
+    return Math.round(fxrand() * max);
+  }
+
+  function makeSquare(x, y, localSize, depth = 1) {
+    let ops = [];
+    let recurse = doIt();
+
+    if (recurse && localSize > 6) {
+      let nextDepth = depth + 1;
+      let hs = (localSize / 2);
+
+      ops.push(makeSquare(x, y, hs, nextDepth));
+      ops.push(makeSquare(x + hs, y, hs, nextDepth));
+      ops.push(makeSquare(x, y + hs, hs, nextDepth));
+      ops.push(makeSquare(x + hs, y + hs, hs, nextDepth));
+    } else {
+      let timeToAnimate = (depth * 150) + randInt(depth * 30);
+      let square = document.createElement('div');
+      let halfSpace = spacing / 2;
+
+      square.className = `square level${depth} ${doIt(0.99) ? 'zebra' : ''}`;
+      square.style.top = `${x}px`;
+      square.style.left = `${y}px`;
+      square.style.height = `${localSize - halfSpace}px`;
+      square.style.width = `${localSize - halfSpace}px`;
+
+      ops.push(Promise.resolve()
+        .then(delay(timeToAnimate))
+        .then(function () {
+          container.appendChild(square);
+        })
+        .then(delay(1))
+        .then(function () {
+          let depth2 = fxrand() > 0.5 ? depth : depth * -1;
+          square.style.setProperty('--color2', lerpColor(doIt() ? document.documentElement.style.getPropertyValue('--color1') : pick(hexcols),
+                                                         document.documentElement.style.getPropertyValue('--color2'),
+                                                         depth2/6));
+          square.style.transform = `translateZ(${(fxrand()*25) + depth * 25}px) rotateZ(${depth2 * 60}deg)`;
+          square.style.setProperty('--opacity', `${2/ depth}`);
+        }));
+    }
+
+    return Promise.all(ops);
+  }
+
+  function delay(time) {
+    return function (...args) {
+      return new Promise(function (res) {
+        setTimeout(res.bind(res, ...args), time);
+      });
+    };
+  }
+
+  function anim() {
+    container.innerHTML = '';
+    const ops = [];
+
+    for (let x = 0; x < hw.width; x += size) {
+      for (let y = 0; y < hw.height; y += size) {
+        ops.push(makeSquare(x, y, size, 1));
+      }
+    }
+    return Promise.all(ops)
+            .then(console.log.bind(console, "iterate"))
+            .then(delay(12000))
+            .then(function(){
+              render();
+              return anim();
+            });
+  }
+
+  let last = anim();
+
+  function rnd(seed) {
+    var x = (seed % 30268) + 1;
+    seed = (seed - (seed % 30268)) / 30268;
+    var y = (seed % 30306) + 1;
+    seed = (seed - (seed % 30306)) / 30306;
+    var z = (seed % 30322) + 1;
+    seed = (seed - (seed % 30322)) / 30322;
+
+    return function random() {
+      x = (171 * x) % 30269;
+      y = (172 * y) % 30307;
+      z = (170 * z) % 30323;
+      return (x / 30269.0 + y / 30307.0 + z / 30323.0) % 1.0;
+    }
+  }
+
+  function randColor() {
+    let col = Math.floor(fxrand() * 16777215).toString(16);
+    col = "#" + ("000000" + col).slice(-6);
+    return col;
+  }
+
+  let hexcols = ["#0a47b0", "#98BDB8", "#0353fa", "#215475", "#f1f425"];
+  let white = "#faf5f1";
+  let gray = "#252525";
+
+  function render() {
+
+    let fx = fxrand();
+    let rng = rnd(fx * 2000);
+    let x = rng() * 1 - 0.5;
+    let y = rng() * 1 - 0.5;
+
+    let col2 = pick(hexcols);
+    let col = randColor();
+    document.documentElement.style.setProperty("--color2", col2);
+    document.documentElement.style.setProperty("--color1", col);
+
+    window.$fxhashFeatures = {
+      color: col
+    };
+  }
+
+  render();
+
+</script>
+
+</body>
+</html>

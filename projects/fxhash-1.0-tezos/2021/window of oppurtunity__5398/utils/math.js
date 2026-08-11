@@ -1,0 +1,1 @@
+export const getRandomIntInclusive=(o,t,a)=>(o=Math.ceil(o),t=Math.floor(t),a||(a=fxrand()),Math.floor(a*(t-o+1)+o));

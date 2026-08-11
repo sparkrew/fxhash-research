@@ -1,0 +1,4 @@
+id: 4535
+name: PATCHES
+mint_opens_at: 2021-12-23T03:00:40+00:00
+generative_uri: ipfs://QmPbF7kkwmdru5ipCvZGp7NnbMq2TmKrn4EqokfncKso6F

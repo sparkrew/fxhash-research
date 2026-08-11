@@ -1,0 +1,4 @@
+id: 912
+name: the wall
+mint_opens_at: 2021-11-23T09:20:32+00:00
+generative_uri: ipfs://QmcJ61F6ATSHQUtYE4NPFYkHUTb8zTxMrcSH4rQ8Je9owk

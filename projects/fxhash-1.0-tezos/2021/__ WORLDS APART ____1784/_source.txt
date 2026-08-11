@@ -1,0 +1,4 @@
+id: 1784
+name: \\ WORLDS APART //
+mint_opens_at: 2021-11-30T10:13:58+00:00
+generative_uri: ipfs://QmSrMUH658PFv7mDGKT1QyuTvUqitg9d5MLJ8aANQtiumL

@@ -1,0 +1,64 @@
+
+body {
+  overflow: hidden;
+}
+
+#page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:  100%;
+  width:  100%;
+  user-select: none;
+}
+
+#box-container, canvas, #clockbox {
+  position: fixed;
+  max-height:  100%;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items:  center;
+  flex-wrap:  wrap;
+  border-radius: 100%;
+  justify-content: center;
+  text-align: justify;
+  aspect-ratio:  1 / 1;
+}
+
+canvas {
+  z-index: 7;
+}
+
+#box-container {
+  z-index: 9;
+}
+
+
+.clockblock {
+  margin:8vmin;
+  /*text-justify: auto;*/
+}
+
+#clockbox {
+  position: absolute;
+  margin:8vmin;
+}
+
+@media (orientation: portrait) {
+  #box-container, canvas {
+    left: 1.99vmin;
+    right: 1.99vmin;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%); 
+  }
+}
+
+@media (orientation: landscape) {
+  #box-container, canvas {
+    top: 1.99vmin;
+    bottom: 1.99vmin;
+  }
+}

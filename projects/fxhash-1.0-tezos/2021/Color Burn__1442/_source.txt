@@ -1,0 +1,4 @@
+id: 1442
+name: Color Burn
+mint_opens_at: 2021-11-27T07:16:58+00:00
+generative_uri: ipfs://QmRFwGvCCKcydWmxYHvteUwT5zSypUXBTVm3zi5vg5orgW

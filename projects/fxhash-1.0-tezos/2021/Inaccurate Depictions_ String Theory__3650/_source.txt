@@ -1,0 +1,4 @@
+id: 3650
+name: Inaccurate Depictions: String Theory
+mint_opens_at: 2021-12-17T14:30:56+00:00
+generative_uri: ipfs://QmT3ShJDEJpjx8MvbCmAvUvYruncPNoyae3shE5gy6DNdc

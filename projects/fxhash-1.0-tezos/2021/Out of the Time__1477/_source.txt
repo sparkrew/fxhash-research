@@ -1,0 +1,4 @@
+id: 1477
+name: Out of the Time
+mint_opens_at: 2021-11-27T15:08:58+00:00
+generative_uri: ipfs://QmV3BeM8DgSVvowfxCXb2hwTjMhvY1KwNeMkrivoQc6cqp

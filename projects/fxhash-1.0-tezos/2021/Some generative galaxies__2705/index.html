@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    * {
+      outline: 1px solid rgb(0 0 0 / 10%);
+    }
+  </style>
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+  <script>
+    Math.random = fxrand;
+  </script>
+</head>
+
+<body>
+  <canvas width="1024" height="1024"></canvas>
+  <script>
+
+    function dist(x1, y1, x2, y2) {
+      return Math.hypot(x1 - x2, y1 - y2);
+    }
+
+    function lineEnd(x, y, angle, length) {
+      return [
+        Math.cos(angle) * length + x,
+        Math.sin(angle) * length + y
+      ];
+    }
+
+    function angle(cx, cy, ex, ey) {
+      return Math.atan2(ey - cy, ex - cx);
+    }
+
+    function randChoice(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    const colors = {
+      "green": 50,
+      "red": -100,
+      "violet": 200,
+      "galactic": 150,
+    };
+
+    const forms = {
+      'flat': 0,
+      'spiral': - 0.3,
+      'very spiral': -0.5
+    };
+
+    window.$fxhashFeatures = {
+      color: randChoice(Object.keys(colors)),
+      form: Math.random() > 0.3
+        ? 'spiral'
+        : Math.random() > 0.5
+          ? 'flat'
+          : 'very spiral',
+    };
+
+    const color = colors[window.$fxhashFeatures.color];
+    const form = forms[window.$fxhashFeatures.form];
+
+    const globalCanvas = document.querySelector('canvas');
+    const center = [globalCanvas.width / 2, globalCanvas.height / 2];
+    const globalCtx = globalCanvas.getContext('2d');
+
+    const linesCnv = document.createElement('canvas');
+    linesCnv.width = globalCanvas.width;
+    linesCnv.height = globalCanvas.height;
+    const linesCtx = linesCnv.getContext('2d');
+
+    const starsCnv = document.createElement('canvas');
+    starsCnv.width = globalCanvas.width;
+    starsCnv.height = globalCanvas.height;
+    const starsCtx = starsCnv.getContext('2d');
+
+    linesCtx.lineWidth = 8;
+    linesCtx.globalCompositeOperation = "screen";
+    linesCtx.strokeStyle = 'rgb(40, 40, 80)';
+
+    linesCtx.lineCap = "round";
+
+    // const points = Array.from({ length: 50 }, (_, i) => [Math.random() * canvas.width, Math.random() * canvas.height]);
+
+    // let points = Array.from({ length: 200 }, () => lineEnd(...center, Math.random() * Math.PI * 2, Math.random() * 500));
+
+    function createPoint() {
+      return {
+        dist: Math.random() * 500,
+        angle: Math.random() * Math.PI * 2,
+        width: Math.sqrt(Math.random() * 256 + 1),
+        color: `hsla(${Math.random() * 100 + color}, 50%, 25%, 0.5)`
+      };
+    }
+
+    let points = Array.from({ length: 200 }, createPoint);
+
+    function draw() {
+
+
+      linesCtx.clearRect(0, 0, globalCanvas.width, globalCanvas.height);
+
+      starsCtx.clearRect(0, 0, globalCanvas.width, globalCanvas.height);
+
+      points.forEach(({ dist, angle: a, star, width, color }, i) => {
+
+        const rand = sfc32(i, i, i, i);
+        let pos = lineEnd(...center, a, dist);
+        linesCtx.beginPath();
+        linesCtx.moveTo(...pos);
+
+        for (let i = 0; i < 50; i++) {
+          const theta = angle(...pos, ...center);
+          const lEnd = lineEnd(...pos, theta + Math.PI / 2 + form, 10);
+          pos = lEnd;
+          linesCtx.lineTo(...pos);
+
+
+          if (rand() > 0.75) {
+            starsCtx.fillStyle = `hsl(${Math.random() * 360}, 50%, 75%)`;
+            starsCtx.fillRect(...pos, 3, 3)
+          };
+        }
+        linesCtx.lineWidth = width;
+        linesCtx.strokeStyle = color;
+        linesCtx.stroke();
+      });
+
+      globalCtx.translate(globalCanvas.width / 2, globalCanvas.height / 2);
+      globalCtx.rotate(0.01);
+      globalCtx.translate(-globalCanvas.width / 2, -globalCanvas.height / 2);
+      globalCtx.drawImage(linesCnv, 0, 0, globalCanvas.width, globalCanvas.height);
+      // globalCtx.filter = 'blur(1px)';
+      globalCtx.drawImage(starsCnv, 0, 0, globalCanvas.width, globalCanvas.height);
+      globalCtx.filter = 'blur(10px)';
+      globalCtx.beginPath();
+      globalCtx.arc(...center, 50, 0, Math.PI * 2);
+      globalCtx.closePath();
+      globalCtx.fillStyle = "white";
+      globalCtx.fill();
+      globalCtx.filter = 'none';
+    }
+
+    const border = 100;
+
+    let t = 0;
+
+    // globalCtx.translate(globalCanvas.width / 2, globalCanvas.height / 2);
+    // globalCtx.rotate(5);
+    // globalCtx.translate(-globalCanvas.width / 2, -globalCanvas.height / 2);
+
+    void function step() {
+      globalCtx.globalCompositeOperation = 'source-over';
+      globalCtx.clearRect(0, 0, globalCanvas.width, globalCanvas.height);
+      globalCtx.fillStyle = "black";
+      // globalCtx.fillRect(border, border, globalCanvas.width - border * 2, globalCanvas.height - border * 2);
+      globalCtx.beginPath();
+      globalCtx.arc(...center, 450 + Math.sin(t / 10) * 10, 0, Math.PI * 2);
+      globalCtx.fill();
+      globalCtx.globalCompositeOperation = 'screen';
+      draw();
+      points.forEach(p => p.angle -= 0.05 / (p.dist / 100));
+      t++;
+      requestAnimationFrame(step);
+    }();
+
+  </script>
+</body>
+
+</html>

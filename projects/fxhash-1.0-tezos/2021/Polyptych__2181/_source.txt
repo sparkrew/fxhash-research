@@ -1,0 +1,4 @@
+id: 2181
+name: Polyptych
+mint_opens_at: 2021-12-04T21:50:30+00:00
+generative_uri: ipfs://QmVgbo53cAcdLkjxMsG4rbhVvoi8puf678bW12cgSUivqD

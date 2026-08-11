@@ -1,0 +1,4 @@
+id: 7457
+name: 13.799 ± 0.021 x 109
+mint_opens_at: 2022-01-19T01:58:10+00:00
+generative_uri: ipfs://QmVA5tjv6bUBvjXZ52oLriwQpLUKfHthGPQ6SSEuTg6Xzq

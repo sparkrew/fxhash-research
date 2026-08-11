@@ -1,0 +1,4 @@
+id: 921
+name: TOKYO GALAXY: Shibuya
+mint_opens_at: 2021-11-23T09:57:22+00:00
+generative_uri: ipfs://QmeRtk5dwgnHS4LFeHW2hDu9GKQnELjEUVUv5iXfAxMUbd

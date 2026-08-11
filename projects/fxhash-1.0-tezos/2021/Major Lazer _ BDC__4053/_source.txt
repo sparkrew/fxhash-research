@@ -1,0 +1,4 @@
+id: 4053
+name: Major Lazer | BDC
+mint_opens_at: 2021-12-20T07:17:36+00:00
+generative_uri: ipfs://QmX27yncY2JBTz4MGRZqsfzGUFC9byMpYfkdHwRKHY6WCj

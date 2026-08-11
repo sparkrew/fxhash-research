@@ -1,0 +1,4 @@
+id: 2295
+name: primordial soup
+mint_opens_at: 2021-12-05T20:35:30+00:00
+generative_uri: ipfs://QmXDaoiN6VrsccpqmFjiaf65Wp8aLMYtd2PusbUQryMQ97

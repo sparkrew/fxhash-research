@@ -1,0 +1,4 @@
+id: 2501
+name: Labyrinth
+mint_opens_at: 2021-12-07T00:26:10+00:00
+generative_uri: ipfs://QmcBFFmJFgvgNk7F8h3aZ5XF6UhmnJwcVBy6gXaMDZEsZd

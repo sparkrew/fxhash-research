@@ -1,0 +1,24 @@
+body {
+    background: #1B1B1B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.cube-box {
+    width: auto;
+    height: auto;
+}
+
+.cube-section {
+    background: red;
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 10px;
+}

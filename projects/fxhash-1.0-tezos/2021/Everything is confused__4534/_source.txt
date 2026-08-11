@@ -1,0 +1,4 @@
+id: 4534
+name: Everything is confused
+mint_opens_at: 2021-12-23T02:59:40+00:00
+generative_uri: ipfs://QmXVTfr9AcnPYxKECkxfyVmRmqNTU2cPExLFpi5xgxyYjm

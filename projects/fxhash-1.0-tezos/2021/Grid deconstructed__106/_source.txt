@@ -1,0 +1,4 @@
+id: 106
+name: Grid deconstructed
+mint_opens_at: 2021-11-15T10:21:58+00:00
+generative_uri: ipfs://QmeXUoRDNusRUoPzhJfm8nE7Ea89RV8U111fhUQjuZeWDy

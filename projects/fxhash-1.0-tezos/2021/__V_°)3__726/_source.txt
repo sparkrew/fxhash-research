@@ -1,0 +1,4 @@
+id: 726
+name: :/V<°)3
+mint_opens_at: 2021-11-22T11:32:52+00:00
+generative_uri: ipfs://QmYV6C9ZZfEhm1R4JxofxQ6oBB4zSbCccW3MyaB9wSoYwp

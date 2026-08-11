@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bgc, #202124);
+  padding: 5vmin;
+  overflow: hidden;
+
+}
+
+#app {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.c {
+  position: relative;
+  width: var(--w);
+  padding-top: var(--w);
+}
+
+.c > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(calc(var(--r) * 360deg));
+  width: calc((1 - var(--i)) * var(--s) * 1%);
+  height: calc((1 - var(--i)) * var(--s) * 1%);
+  border-radius: 50%;
+  -webkit-animation: r calc(.25s + var(--r) * 10s) infinite alternate cubic-bezier(0.3, 0.7, 0, 1.2);
+  animation: r calc(.25s + var(--r) * 10s) infinite alternate cubic-bezier(0.3, 0.7, 0, 1.2);
+  -webkit-animation-delay: calc(var(--r) * -5s);
+  animation-delay: calc(var(--r) * -5s);
+  mix-blend-mode: hard-light;
+}
+
+@-webkit-keyframes r {
+  100% {
+    transform: translate(-50%, -50%) rotate(calc(var(--r) * 360deg + (360deg * var(--d))));
+  }
+}
+
+@keyframes r {
+  100% {
+    transform: translate(-50%, -50%) rotate(calc(var(--r) * 360deg + (360deg * var(--d))));
+  }
+}

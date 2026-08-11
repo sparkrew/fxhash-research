@@ -1,0 +1,4 @@
+id: 724
+name: Infinite voids
+mint_opens_at: 2021-11-22T11:23:12+00:00
+generative_uri: ipfs://QmUTrEkwYFUrPTSarSL3yUZHbPeunNhjh2A5aeSwZZh864

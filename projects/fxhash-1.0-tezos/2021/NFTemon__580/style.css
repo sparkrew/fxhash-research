@@ -1,0 +1,158 @@
+html, body {
+	width: 100%;
+	height: 100%;
+  	margin: 0px;
+  	padding: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Verdana, Arial;
+	color: #fff;
+	font-size: 18px;
+	text-shadow: 2px 2px 2px grey;
+}
+
+html {
+	flex-direction: column;
+}
+
+body {
+	flex-direction: row;
+	overflow: hidden;
+    touch-action: none;
+	background: radial-gradient(#fff, #ddd);
+}
+
+#card {
+	width: 300px;
+	height: 400px;
+	background-color: #fff;
+	border: 5px solid #fff;
+	filter: drop-shadow(10px 10px 10px #777);
+	border-radius: 15px;
+	position: relative;
+}
+
+#card.Rainbow {
+	color: #000;
+}
+
+#card.Fire {
+	border-color: red;
+}
+#card.Water {
+	border-color: blue;
+}
+#card.Earth {
+	border-color: brown;
+}
+#card.Wind {
+	border-color: LightBlue;
+}
+
+#hp{
+	position: absolute;
+	top: 25px;
+	right: 25px;
+	font-weight: bold;
+}
+
+#ap{
+	position: absolute;
+	bottom: 110px;
+	right: 20px;
+}
+
+#attackName{
+	position: absolute;
+	bottom: 110px;
+	left: 20px;
+}
+
+#typeTop{
+	position: absolute;
+	top: 10px;
+	left: 15px;
+}
+
+#typeBottom{
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+}
+
+.emoji {
+	font-size: 40px;
+}
+
+#monsterWindow {
+	position: absolute;
+	overflow: hidden;
+	top: 75px;
+	left: 20px;
+	width: 260px;
+	height: 175px;
+	background: linear-gradient(180deg, rgba(143,138,233,1) 0%, rgba(153,153,232,1) 16%, rgba(159,227,241,1) 44%, rgba(186,245,251,1) 60%, rgba(178,242,139,1) 83%, rgba(119,79,91,1) 98%);
+	border-radius: 10px;
+	border: 1px solid #fff;
+}
+
+#weakness {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	font-size: 12px;
+	color: #fff;
+}
+
+#monsterHead {
+	position: absolute;
+	width:100px;
+	height: 100px;
+	top: 20px;
+	left: 80px;
+	background-color: #000;
+	border-radius: 50%;
+}
+
+#monsterEye1 {
+	position: absolute;
+	width:20px;
+	height: 20px;
+	top: 30%;
+	left: 10%;
+	background-color: #fff;
+	border-radius: 50%;
+}
+#monsterEye2 {
+	position: absolute;
+	width:20px;
+	height: 20px;
+	top: 30%;
+	right: 10%;
+	background-color: #fff;
+	border-radius: 50%;
+}
+
+#monsterBody {
+	position: absolute;
+	width:200px;
+	height: 200px;
+	bottom: -100px;
+	left: 30px;
+	background-color: #000;
+	border-radius: 50%;
+}
+/*canvas {*/
+	/*margin: auto;*/
+	/*display: block;*/
+/*}*/
+
+/** {*/
+  /*-webkit-box-sizing: border-box;*/
+  /*box-sizing: border-box;*/
+  /*-moz-osx-font-smoothing: grayscale;*/
+  /*-webkit-font-smoothing: antialiased;*/
+  /*-webkit-tap-highlight-color: transparent;*/
+  /*-webkit-touch-callout: none;*/
+/*}*/

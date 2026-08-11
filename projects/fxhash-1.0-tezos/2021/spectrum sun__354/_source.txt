@@ -1,0 +1,4 @@
+id: 354
+name: spectrum sun
+mint_opens_at: 2021-11-17T21:32:12+00:00
+generative_uri: ipfs://QmU539UN67UpBbcmqj6DgwRfFdYeTBqSH2rCGNeLji8gLt

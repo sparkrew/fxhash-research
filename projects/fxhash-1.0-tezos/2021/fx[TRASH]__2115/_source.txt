@@ -1,0 +1,4 @@
+id: 2115
+name: fx[TRASH]
+mint_opens_at: 2021-12-03T10:10:04+00:00
+generative_uri: ipfs://QmaBqMN4H7kmZA51MtgeYYmGvhdjDhouNfk27GpDm5Q7Qs

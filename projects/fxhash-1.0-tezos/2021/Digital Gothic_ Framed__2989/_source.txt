@@ -1,0 +1,4 @@
+id: 2989
+name: Digital Gothic: Framed
+mint_opens_at: 2021-12-10T03:56:40+00:00
+generative_uri: ipfs://QmX5hA9s6CvyDKxCAHM92aMkrnoXa2jvp7rMvDxBGu3Vx1

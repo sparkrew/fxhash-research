@@ -1,0 +1,4 @@
+id: 3800
+name: Strange Timez | BDC
+mint_opens_at: 2021-12-18T12:20:36+00:00
+generative_uri: ipfs://QmP2MUkdQ2ywLkQGW76reFGfXU9nvCU7VuzWVyQ1MKvLYG

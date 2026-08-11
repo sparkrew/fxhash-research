@@ -1,0 +1,4 @@
+id: 2630
+name: Sin of rings 3x7
+mint_opens_at: 2021-12-07T21:19:10+00:00
+generative_uri: ipfs://QmSwXx1G7KfEKH2xPHEQawkqnahCAWyxXUwrSWp7RtfySf

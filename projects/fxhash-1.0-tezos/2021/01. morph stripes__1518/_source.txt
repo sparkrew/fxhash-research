@@ -1,0 +1,4 @@
+id: 1518
+name: 01. morph stripes
+mint_opens_at: 2021-11-28T06:38:08+00:00
+generative_uri: ipfs://QmWBQFQW95SF23MtUtdcYkm8kurMGC79xMFkaYwZm7bG6o

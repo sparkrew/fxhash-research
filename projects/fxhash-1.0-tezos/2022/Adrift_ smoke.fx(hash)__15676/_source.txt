@@ -1,0 +1,4 @@
+id: 15676
+name: Adrift: smoke.fx(hash)
+mint_opens_at: 2022-07-01T14:00:00+00:00
+generative_uri: ipfs://QmNVEhpBmnyWcBBQZQE7F4TupXjN7SyPzK8snxpxe39zrw

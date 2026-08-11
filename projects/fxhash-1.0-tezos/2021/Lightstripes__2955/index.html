@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    
+
+    <title>Lightstripes</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="p5.min.js"></script>
+
+    <script src="p5.sound.min.js"></script>
+    <script src="p5.createloop.js"></script>  
+    <script src="post5.min.js"></script>
+    <script src="map2.js"></script>
+    <script src="Line.js"></script>
+    <script src="Point.js"></script>
+    <script src="VerticalPoint.js"></script>
+    <script src="HorizontalPoint.js"></script>
+    
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+    <script src="sketch.js"></script>
+
+    <script type="text/javascript">
+      
+
+      window.addEventListener('load', (event) => {
+          currentPaletteIndex = getWeightedPalette();
+          setDefaultVars();
+          randomizeParameters();
+          
+          palletes = loadJSON(currentPaletteIndex.toString() + '.json', iniShapeGrid);
+        
+          var featuresArray = {
+            "Base Size" : getBaseSize(),
+            "Colors" : getPaletteName(),
+            "Layout" : (verticalBoth) ? "Crossed" : (vertical) ? "Horizontal":"Vertical",
+            "Stripe Count": lineCount,
+            "Stripe Style": getRenderStyle()
+          }
+
+          window.$fxhashFeatures = featuresArray;
+      });
+
+      function getBaseSize()
+      {
+        var s = Math.round((averageSize-4)/10);
+        switch(s)
+        {
+          case 0:
+            return "Tiny";
+          case 1:
+            return "Small";
+          case 2:
+            return "Medium";
+          case 3:
+            return "Large";
+          case 4:
+            return "Extra Large";
+          case 5:
+            return "Supersized";
+        }
+        
+        return 2;
+      }
+
+      function getRenderStyle()
+      {
+        switch(lineRenderStyle)
+        {
+          case 0: 
+          return "Straight";
+          case 1: 
+          return "Curved";
+          case 2: 
+          return "Squares";
+          case 3: 
+          return "Circles";
+        }
+        return "Unknown";
+      }
+
+      function getDivergence()
+      {
+        var smallest = 500;
+        var largest = -500;
+
+        for(var i = 0; i < lineCount;i++)
+        {
+          if(s1[i] < smallest) smallest = s1[i];
+          if(s2[i] < smallest) smallest = s2[i];
+          
+          if(s1[i] > largest) largest = s1[i];
+          if(s2[i] > largest) largest = s2[i];
+        }
+        return map(Math.abs(largest-smallest),0,lineCount,0,1);
+      }
+
+      function getWeightedPalette() {
+        var chances = [
+              2,
+              10,
+              19,
+              13,
+              10,
+              3,
+              15,
+              12,
+              10,
+              4,
+              2
+        ]
+        
+        var cols = [];
+        var index = 0;
+        for(var i = 0;i <= 10;i++)
+        {
+          for(var o = 0;o < chances[i];o++)
+          {
+            cols.push(i); 
+          }
+        }
+
+        var rndIndex = Math.floor(fxrand()*cols.length);
+        return cols[rndIndex];
+      }
+
+
+      function setDefaultVars()
+      {
+      
+        wD = windowWidth;
+        hD = windowHeight;
+        size = Math.min(wD,hD);        
+        
+        screenRatioW = 1 / 800 * wD;
+        screenRatioH = 1 / 800 * hD;
+
+        noiseSpeed = originalNoiseSpeed * screenRatioW;
+        
+
+        glowSize = size/20;
+
+        XPOS = wD/2;
+        YPOS = hD/2;
+      }
+
+      function randomizeParameters()
+      {
+
+       
+        noiseSeed(fxhash);
+        syncedWobble = fxrand() > 0.6;
+        sizeWobble = fxrand() > 0.8;
+        lineRenderStyle = Math.round(fxrand()*3);
+        
+        wobbleSpeed = 0.003+fxrand()*0.005;
+        wobbleStrength = 5+fxrand()*40;
+
+        vertical = fxrand() > 0.5;
+        if(vertical)
+        {
+          verticalBoth = fxrand() > 0.7;
+        }
+        averageSize = 4+Math.round(fxrand()*5)*10;
+
+        if(lineRenderStyle == 2 || lineRenderStyle == 3)
+        {
+          averageSize = 10+Math.round(fxrand()*2)*10;
+        }
+
+        var linearSize = 1-map(averageSize,0,55,0,0.9);
+        lineCount = Math.round(5+30*fxrand()*linearSize);
+       
+        randomNoiseOffsetX = fxrand()*500;
+        randomNoiseOffsetY = fxrand()*500;
+        evenLines = fxrand() > 0.92 ? true : false;
+        
+
+        fadeColors = fxrand() < 0.2 ? true : false;
+        lightThreshold = 0.1+fxrand()*0.8;
+        lineSizes = [];
+        s1 = [];
+        s2 = [];
+
+        for(var i = 0; i < lineCount;i++)
+        {
+          lineSizes.push((0.01+fxrand())*averageSize);
+          wobbleStrengths.push(wobbleStrength*fxrand());
+
+          if(syncedWobble) {
+            wobbleSpeeds.push(wobbleSpeed);
+          } else {
+            wobbleSpeeds.push(0.003+fxrand()*0.005);
+          }
+          s1.push(0.1+0.9*fxrand());
+          s2.push(0.1+0.9*fxrand());
+          if(evenLines)
+          {
+           s1[i] = s2[i]; 
+          }
+        }
+
+        curved = fxrand() > 0.7;
+        
+      }
+
+
+    </script>
+  </head>
+
+  <body>
+    <div id="holdscript"></div>
+    <div id="colors" style="position:absolute;z-index:200;"></div>
+  </body>
+</html>

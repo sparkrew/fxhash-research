@@ -1,0 +1,1 @@
+(()=>{function o(o){return Number.parseFloat(o).toFixed(2)}window.$fxhashFeatures={LineNumber:o(lines_nb),BackgroundColor:`${o(backgroundColor)}, ${o(backgroundColor2)}, ${o(backgroundColor3)}`,Color:`${o(getColor)}`,alpha:alph}})();

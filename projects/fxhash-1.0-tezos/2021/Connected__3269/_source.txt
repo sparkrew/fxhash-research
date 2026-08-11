@@ -1,0 +1,4 @@
+id: 3269
+name: Connected
+mint_opens_at: 2021-12-12T19:58:06+00:00
+generative_uri: ipfs://QmeHNJPBRJtGPNf6HMrva6M67TByXkw9TDFFVourk8CGoe

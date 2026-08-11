@@ -1,0 +1,4 @@
+id: 976
+name: EXPANSION PATH
+mint_opens_at: 2021-11-23T13:33:02+00:00
+generative_uri: ipfs://QmVTabsbZL6TrMa5CX2KoXou6kd9XoTunak2Y6TdxAgjm3

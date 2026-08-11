@@ -1,0 +1,4 @@
+id: 1135
+name: LL21 Alien Art Rings
+mint_opens_at: 2021-11-24T14:10:02+00:00
+generative_uri: ipfs://QmfCgR6XwTTnhUhkUuQMDoZM8bFXz8FpwRMYKW4BZcyeQ4

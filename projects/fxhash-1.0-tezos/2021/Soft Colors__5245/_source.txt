@@ -1,0 +1,4 @@
+id: 5245
+name: Soft Colors
+mint_opens_at: 2021-12-28T20:14:20+00:00
+generative_uri: ipfs://QmPWkjvqQSYhtYjPTVWfeAmdm24VheqmyixYkBkdddxEQw

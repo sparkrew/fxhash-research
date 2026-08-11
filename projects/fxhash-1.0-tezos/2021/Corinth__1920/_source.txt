@@ -1,0 +1,4 @@
+id: 1920
+name: Corinth
+mint_opens_at: 2021-12-02T00:03:54+00:00
+generative_uri: ipfs://QmZg4RbkpTtQLjLPTLneMCcuTo4kzM8rpSYdH2JBuXa3qM

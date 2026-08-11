@@ -1,0 +1,4 @@
+id: 22037
+name: A Very TezWhales Christmas - Day #1
+mint_opens_at: 2022-12-01T20:19:44+00:00
+generative_uri: ipfs://QmUvxzq3Cp5U9Vi74QgSFWZgYWNssEAZ8QRgExRVRgjH1c

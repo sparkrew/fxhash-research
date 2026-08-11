@@ -1,0 +1,4 @@
+id: 5100
+name: edit(selfportrait)
+mint_opens_at: 2021-12-27T22:38:10+00:00
+generative_uri: ipfs://QmTg7HCPhgW1RgwDYH9iHjPsqw5v65jXtpD33QN5hpirZf

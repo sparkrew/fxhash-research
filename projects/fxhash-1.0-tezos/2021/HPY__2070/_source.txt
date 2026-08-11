@@ -1,0 +1,4 @@
+id: 2070
+name: HPY
+mint_opens_at: 2021-12-03T02:28:24+00:00
+generative_uri: ipfs://QmViWJyFQwLT9rT4fWPBmTTbd5MciTqAjB6z4Jqkg6gDWG

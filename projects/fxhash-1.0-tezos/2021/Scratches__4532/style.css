@@ -1,0 +1,7 @@
+body {
+  background: rgba(39, 39, 39, 0.651);
+}
+
+.negative{
+  filter: invert(1);
+}

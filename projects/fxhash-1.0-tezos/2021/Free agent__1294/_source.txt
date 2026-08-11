@@ -1,0 +1,4 @@
+id: 1294
+name: Free agent
+mint_opens_at: 2021-11-25T16:05:28+00:00
+generative_uri: ipfs://QmTH43eHWXxWEBqUHqKNyjp8VRqh73sr2D4S8jBThWM13B

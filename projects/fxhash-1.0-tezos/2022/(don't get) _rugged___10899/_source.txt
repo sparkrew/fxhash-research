@@ -1,0 +1,4 @@
+id: 10899
+name: (don't get) _rugged_
+mint_opens_at: 2022-03-19T09:07:24+00:00
+generative_uri: ipfs://QmbZc6fa5VJEWicTzRLGoxG1DepJDs8vTkCKU7fZeTJWQ3

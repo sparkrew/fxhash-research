@@ -1,0 +1,14 @@
+body {
+  background-color: white;
+  overflow: hidden;
+  user-select: none;
+  cursor: crosshair;
+}
+
+#cont {
+  display: block;
+  position: absolute;
+  margin: auto;
+  background-color: #fffdef;
+  border: 1px solid black;
+}

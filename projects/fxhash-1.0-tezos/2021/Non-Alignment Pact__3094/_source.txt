@@ -1,0 +1,4 @@
+id: 3094
+name: Non-Alignment Pact
+mint_opens_at: 2021-12-11T16:37:46+00:00
+generative_uri: ipfs://QmSrwf7rAX28VpRVeNwnU2gorQRF6gzi6tytM1PaPBBbRU

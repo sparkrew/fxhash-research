@@ -1,0 +1,4 @@
+id: 1746
+name: City
+mint_opens_at: 2021-11-30T06:38:18+00:00
+generative_uri: ipfs://QmcXiAAks94D8BVuwwBYDM5GYnwDryQtk8qEaWb7kQHiZ1

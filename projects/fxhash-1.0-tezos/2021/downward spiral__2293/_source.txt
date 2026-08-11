@@ -1,0 +1,4 @@
+id: 2293
+name: downward spiral
+mint_opens_at: 2021-12-05T20:31:30+00:00
+generative_uri: ipfs://QmUEzmY2ARDEreoKRHhrJLf7gDBhGyqXSXdu82SaK7f5CK

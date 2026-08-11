@@ -1,0 +1,4 @@
+id: 4528
+name: Psychedelic World
+mint_opens_at: 2021-12-23T02:39:10+00:00
+generative_uri: ipfs://QmVMXbky3jfqmbaP1argx4NX2xBvpgEyfyBdixFjFJnQje

@@ -1,0 +1,4 @@
+id: 3578
+name: Tessellation
+mint_opens_at: 2021-12-17T12:33:26+00:00
+generative_uri: ipfs://QmSmPvubCacneZ9nmEmpoo2HD1JCDPQb6f72xiQ2CCSrYR

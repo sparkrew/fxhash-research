@@ -1,0 +1,4 @@
+id: 1228
+name: Dollar Cuts: Ripple
+mint_opens_at: 2021-11-25T10:46:48+00:00
+generative_uri: ipfs://Qme4PxjPnPiv6ZFTUCJVHiJHpSq4cWwWMXrQNzG7uFF8Nt

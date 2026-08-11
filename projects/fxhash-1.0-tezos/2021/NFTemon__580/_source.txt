@@ -1,0 +1,4 @@
+id: 580
+name: NFTemon
+mint_opens_at: 2021-11-20T11:06:12+00:00
+generative_uri: ipfs://QmeFSZDehrTsgKYRhsQB57RTm9XzsjSTZGGcBYtJRiT4wq

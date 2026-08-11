@@ -1,0 +1,4 @@
+id: 1412
+name: MOSAIQUE
+mint_opens_at: 2021-11-26T16:15:58+00:00
+generative_uri: ipfs://QmVUqiCPP54Dj6xU8V3TP5jhG1HhzHan6Un8ttZLwVZ7a4

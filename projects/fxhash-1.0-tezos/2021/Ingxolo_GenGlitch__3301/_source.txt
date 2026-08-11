@@ -1,0 +1,4 @@
+id: 3301
+name: Ingxolo_GenGlitch
+mint_opens_at: 2021-12-13T12:04:56+00:00
+generative_uri: ipfs://QmNYwzPE4seoDtBY8Gw1SaHuEs4VhS489gx99r82fMaoFn

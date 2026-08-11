@@ -1,0 +1,4 @@
+id: 8485
+name: [STITCHING-MOUNTAINS]
+mint_opens_at: 2022-02-02T14:08:56+00:00
+generative_uri: ipfs://QmQjkg2dwKcef4cC5EfKyMff6N714DF3W5nZnL7MeZs5iG

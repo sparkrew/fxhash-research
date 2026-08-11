@@ -1,0 +1,4 @@
+id: 1
+name: FXHASH Logo with Features
+mint_opens_at: 2021-11-06T17:52:58+00:00
+generative_uri: ipfs://QmWeu4sxkKtyFTGDcdFG9mMbGXszSgkcbF9qmpQvEEiuX8

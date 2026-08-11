@@ -1,0 +1,4 @@
+id: 3095
+name: Colorful Interference
+mint_opens_at: 2021-12-11T16:47:46+00:00
+generative_uri: ipfs://QmRYVRMiPPogf8PtEQuFnBYoWqnVnUrdr27BD8Qo2Ay5iM

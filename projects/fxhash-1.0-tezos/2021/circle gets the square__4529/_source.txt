@@ -1,0 +1,4 @@
+id: 4529
+name: circle gets the square
+mint_opens_at: 2021-12-23T02:43:10+00:00
+generative_uri: ipfs://QmeqKWZbseQy3YqrL3rYfQMFbE1jNBkT1Xcy1oR35rY2tb

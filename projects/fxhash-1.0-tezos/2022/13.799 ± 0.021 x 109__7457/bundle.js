@@ -1,0 +1,1 @@
+window.$fxhashFeatures={Layout:layout,"Shine Level":isHighShine?"High":"Low",Shapes:isRoundOnly?"Saturn":"All","Light style":isClearLight?"Transparent":"Normal",Theme:theme};

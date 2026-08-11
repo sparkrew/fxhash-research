@@ -1,0 +1,4 @@
+id: 372
+name: CD-RandOM
+mint_opens_at: 2021-11-19T09:07:02+00:00
+generative_uri: ipfs://QmVUBdeU9erJmG4TsffQkXv498ZozatK5q6WkioHsD2zxA

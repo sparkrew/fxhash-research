@@ -1,0 +1,4 @@
+id: 3283
+name: Suprematist Method #5
+mint_opens_at: 2021-12-12T22:46:46+00:00
+generative_uri: ipfs://QmeJqNE6V6MFY8nNzYRt3Hm31eB54pqCWM2zoD2Lzp3DSV

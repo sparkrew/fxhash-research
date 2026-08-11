@@ -1,0 +1,125 @@
+<!doctype html><html><head><title>quilt</title><link rel="stylesheet" href="style.css"><meta charset="utf-8"><meta charset="utf-8"><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script><script></script><link rel="stylesheet" href="./style.css"></head><body style="display: flex; align-items: center; justify-content: center;"><script>function mRint( min, max) {  
+    min = Math.ceil(min);
+     max = Math.floor(max);
+     return Math.floor(fxrand() * (max - min)) + min;
+   }
+function getdirecao(estrada){
+    return estrada.slice(0,1)
+  }
+  function getnumber(estrada){
+    return parseInt(estrada.slice(1,estrada.length))
+  }
+  function desenhaCaminho(x,y,sgvpath){
+    caminho=sgvpath.split(" ")
+    let xchange=x
+    let ychange=y
+    for(let i=0;i<caminho.length;i++){
+      if(getdirecao(caminho[i])=='v'){
+        line(xchange,ychange,xchange,ychange+getnumber(caminho[i]))
+        ychange+=getnumber(caminho[i])
+      }
+      else if(getdirecao(caminho[i])=='h'){
+        line(xchange,ychange,xchange+getnumber(caminho[i]),ychange)
+        xchange+=getnumber(caminho[i])
+      }
+    }
+    return [xchange,ychange]
+  }
+  function rewind( corrent,tamanho ){
+    for(let i=1;i<=tamanho;i++){
+    svgCorner3=i%2==0?`h${5*i} v${-5*i}`:`h${-5*i} v${5*i}` 
+    const sgvpath1=svgCorner3
+    corrent=desenhaCaminho(corrent[0],corrent[1],sgvpath1)
+    }
+  }
+  function setup() {
+    createCanvas(800, 800);
+    pallet=[['#10111c','#23aecc','#ece1b4','#cc3016','#f2c96e','#178fa6'],
+    ['#02042C','#0481EC','#DFD3C3','#93184D','#C9A897','#0268BA'],
+    ['#FF4F19','#DB3F3D','#A03939','#FFD586','#00E389','#0E94D7'],
+    [color(162, 172, 90),color(68, 40, 203),color(237, 14, 198),color(24, 165, 143),color(180, 250, 53),color(22, 192, 162, 255)]
+  ]
+    noLoop()
+  }
+  function getY(i){
+    switch (i){
+      case 0:
+        return mRint(0,height/2)
+        break;
+      case 1:
+        return mRint(0,height/2)
+        break;
+      case 2:
+        return mRint(height/2,height)
+        break;
+      case 3:
+        return mRint(height/2,height)
+        break;
+      default:
+        return mRint(0,height)
+    }
+      
+  }
+  function getX(i){
+    switch (i){
+      case 0:
+        return mRint(0,width/2)
+        break;
+      case 1:
+        return mRint(width/2,width)
+        break;
+      case 2:
+        return mRint(0,width/2)
+        break;
+      case 3:
+        return mRint(width/2,width)
+        break;
+      default:
+        return mRint(0,width)
+    }
+      
+  }
+  function draw() {
+    background(220);
+    strokeWeight(mRint(3,5));
+    const q=mRint(10,15)
+    const maxRe=width/q
+    const palletChosen=mRint(0,pallet.length)
+        for(let i=0;i<100;i++){
+        let pX=getX(i%4)
+        let pY=getY(i%4)
+        let number=i%6;
+        stroke(color(pallet[palletChosen][number]))
+        rewind([pX, pY],maxRe)
+        }
+     
+  }</script><script defer="defer" src="./bundle.js"></script></body></html>

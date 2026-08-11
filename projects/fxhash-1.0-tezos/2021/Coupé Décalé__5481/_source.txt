@@ -1,0 +1,4 @@
+id: 5481
+name: Coupé Décalé
+mint_opens_at: 2021-12-29T07:59:20+00:00
+generative_uri: ipfs://QmWKdzyjJvZV2TFT6A9TTkBosGxvkmt7eTWcW338MpTgS9

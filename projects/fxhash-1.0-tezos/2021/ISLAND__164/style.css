@@ -1,0 +1,13 @@
+*{
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+body {
+  background-color: #8CC63F;
+}
+
+#canvas{
+  margin: 0 auto;
+  display: flex;
+}

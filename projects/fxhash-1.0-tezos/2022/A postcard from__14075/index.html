@@ -1,0 +1,89 @@
+<!doctype html><html><head><title>FXHASH project</title><meta charset="utf-8"><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script><link rel="preload prefetch" href="flowers.ttf" as="font" crossorigin><link rel="preload prefetch" href="oohbaby.ttf" as="font" crossorigin><link rel="preload prefetch" href="yesteryear.ttf" as="font" crossorigin><style>@font-face {
+  font-family: 'Flowers';
+  src: url('./flowers.ttf');
+}
+
+@font-face {
+  font-family: 'Obaby';
+  src: url('./oohbaby.ttf');
+}
+
+@font-face {
+  font-family: 'Yesteryear';
+  src: url('./yesteryear.ttf');
+}
+.yesteryear{
+  font-family: 'Yesteryear';
+}
+.obaby{
+  font-family: 'Obaby';
+}
+.flowers{
+  font-family: 'Flowers';
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  /* background-color: black; */
+  background-color: white;
+  /* color: white; */
+  font-family: 'Yesteryear';
+}
+
+.invisible-text{
+  height: 0px;
+  width: 0px;
+  overflow: hidden;
+}
+#scene-container {
+
+}
+
+#the-place {
+  padding: 0px;
+  margin: auto;
+  display: block;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}</style></head><body><div id="scene-container"><p class="invisible-text flowers">PRELOADED FONT</p><p class="invisible-text obaby">PRELOADED FONT</p><p class="invisible-text yesteryear">PRELOADED FONT</p><canvas id="the-place"></canvas></div><script defer="defer" src="./bundle.js"></script></body></html>

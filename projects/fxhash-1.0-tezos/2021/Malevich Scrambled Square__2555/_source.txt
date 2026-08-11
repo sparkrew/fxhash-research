@@ -1,0 +1,4 @@
+id: 2555
+name: Malevich Scrambled Square
+mint_opens_at: 2021-12-07T18:28:20+00:00
+generative_uri: ipfs://QmV5v9BaxFqp7pEZdXwVMTkAqLezQurxi1GwBqFF7whmnH

@@ -1,0 +1,4 @@
+id: 3446
+name: boxes
+mint_opens_at: 2021-12-15T11:46:16+00:00
+generative_uri: ipfs://QmVW7DcXVfTPXUxpCSVEqpVp8ZaaHmw9DhfqTpinUnDkVo

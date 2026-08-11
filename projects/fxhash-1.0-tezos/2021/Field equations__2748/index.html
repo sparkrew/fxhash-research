@@ -1,0 +1,134 @@
+
+
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Field equations</title><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script><script type="x-shader/x-vertex" id="particles-vs">#define EPSILON 	0.005
+        #define MAXDIST 	100.0
+        #define MAXSTEPS 100
+        attribute vec3 position;
+        attribute vec3 normal;
+        uniform mat4 modelMatrix;
+        uniform mat4 modelViewMatrix;
+        uniform mat4 projectionMatrix;
+        uniform float scale;
+        uniform float time;
+        uniform float optip;
+        uniform float modchoice;
+        uniform vec2 modsize;
+        uniform vec2 modfreq;
+        uniform vec2 modoff;
+        uniform vec2 twisttime;
+        uniform vec3 twistchoice;
+        uniform vec3 twistchoice2;
+        uniform vec3 twistchoice3;
+        uniform vec3 twistchoice4;
+        uniform vec3 twistchoice5;
+        uniform vec3 twistchoice6;
+        uniform vec3 twistchoice7;
+        uniform float torusmr;
+        uniform float torusmmr;
+        uniform float rot;
+        uniform float rot2;
+        uniform vec3 pointrotation;
+        uniform float spinv;
+        varying float vColor;
+        varying float valid;
+        mat3 rotationMatrix(vec3 axis, float angle)
+        {
+            float s = sin(angle);
+            float c = cos(angle);
+            float oc = 1.0 - c;
+            return mat3(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,
+                        oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,
+                        oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c);
+        }
+        float torus(vec3 p, float smallRadius, float largeRadius) {
+            return length(vec2(length(p.xz) - largeRadius, p.y)) - smallRadius;
+        }
+        void mod2(inout vec2 p, vec2 size) {
+            p = floor(mod(p + size*0.5,size) - size*0.5);
+        }
+        vec3 opTwist( vec3 p )
+        {
+            float t = time +cos (twisttime.x*(twistchoice.x*p.x + twistchoice.y*p.y + twistchoice.z*p.z))*sin (twisttime.y*time)*(twistchoice2.x*p.x + twistchoice2.y*p.y + twistchoice2.z*p.z);
+            float c = cos((twistchoice3.x*p.x + twistchoice3.y*p.y + twistchoice3.z*p.z)+t);
+            float s = sin((twistchoice4.x*p.x + twistchoice4.y*p.y + twistchoice4.z*p.z)+t);
+            mat2  m = mat2(c,-s,s,c);
+            vec3  q = vec3(m*(twistchoice6.x*p.xx + twistchoice6.y*p.yy + twistchoice6.zz*p.z+twistchoice7.x*p.xy + twistchoice7.y*p.yz + twistchoice7.z*p.zx),(twistchoice5.x*p.x + twistchoice5.y*p.y + twistchoice5.z*p.z));//xx,yy,zz x,y,z ;
+            return q;
+        }
+        float map (vec3 p) {
+            vec3 pp =opTwist( p );
+            pp=optip*pp+(1.0-optip)*p;
+            if(modchoice>0.5){
+                mod2(pp.zy, vec2(modsize.x*(modoff.x+cos (modfreq.x*time)),modsize.y*(modoff.y+sin (modfreq.y*time)))) ;//xy 0.5-10, zy 0.5-4.0
+            }else{
+                mod2(pp.xy, vec2(modsize.x*(modoff.x+cos (modfreq.x*time)),modsize.y*(modoff.y+sin (modfreq.y*time)))) ;
+            }
+             return torus(pp,torusmmr*(0.1+0.9*(1.0+sin(0.37*time))),torusmr);
+        }
+        
+        float march (vec3 ro, vec3 rd) {
+            float d = EPSILON;
+            float t = 0.0;
+            for (int i = 0; i < MAXSTEPS; ++i) {
+                 vec3 p = ro + rd * d;
+                   t = map (p);
+                if (t < EPSILON || d >= MAXDIST )
+                    return (d>=MAXDIST)?0.0:d;
+                d += 0.1*t;
+            }
+            return 0.0;
+        }
+        
+        void main () {
+            valid=1.0;
+            vec3 rd = - normalize( position );
+            vec3 ro = position*rotationMatrix(pointrotation*rotationMatrix(vec3(0.0,1.0,0.0),0.17*rot*time),rot*time);
+            float d = march( ro, rd);
+            vec3 p = ro + d * rd;
+            if(d==0.0){
+                valid=0.0;
+            }
+            float sspinv=0.5*spinv+0.5*spinv*cos(0.087*time);
+            p=(1.0-sspinv*valid)*p+valid*sspinv*p*10.0*(ro.x*ro.x+ro.y*ro.y+ro.z*ro.z)/(p.x*p.x+p.y*p.y+p.z*p.z);
+            vColor=d;
+            vec4 mVPosition = modelViewMatrix * vec4(p, 1. );
+            gl_Position = projectionMatrix * mVPosition;
+            gl_PointSize =  min(scale*(0.1+0.8*valid), scale/gl_Position.z)*(0.5+abs(0.5*dot(rd,vec3(0.,1.,0.))));
+        }</script><script type="x-shader/x-fragment" id="particles-fs">precision highp float;
+        varying float vColor;
+        varying float valid;
+        void main () {
+            vec2 coord = gl_PointCoord - vec2(0.5);
+            float a=coord.x*coord.x+coord.y*coord.y;
+            if (a > 0.25) discard;
+             gl_FragColor = vec4(1.0,vColor,vColor,1);
+        }</script><script defer="defer" src="FieldEquations.js"></script><link href="main.css" rel="stylesheet"></head><body><canvas class="webgl"></canvas></body></html>

@@ -1,0 +1,4 @@
+id: 2401
+name: Tumbling Glyphs
+mint_opens_at: 2021-12-06T19:11:10+00:00
+generative_uri: ipfs://QmYsYPpuxVr4cqvAbDN2voPnypAKf4jUih3LvHuS3utiSx

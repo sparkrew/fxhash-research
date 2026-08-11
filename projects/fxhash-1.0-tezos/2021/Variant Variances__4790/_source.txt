@@ -1,0 +1,4 @@
+id: 4790
+name: Variant Variances
+mint_opens_at: 2021-12-26T07:02:00+00:00
+generative_uri: ipfs://QmavEvj59jPYfN62PKb1ntfmZYqzarSZhUrN2uWW9NaUfv

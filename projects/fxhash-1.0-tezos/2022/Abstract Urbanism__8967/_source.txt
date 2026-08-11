@@ -1,0 +1,4 @@
+id: 8967
+name: Abstract Urbanism
+mint_opens_at: 2022-02-08T23:36:34+00:00
+generative_uri: ipfs://QmUgueD8sC1spCtjsJJWBQaa6GvtkPKEwzojyS6wYooDZc

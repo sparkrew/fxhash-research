@@ -1,0 +1,4 @@
+id: 11
+name: Generotique
+mint_opens_at: 2021-11-11T11:21:18+00:00
+generative_uri: ipfs://QmVamjfzK5qPiNsTe2o3hPrnXXSbJmd8ewFSLs4FapErwo

@@ -1,0 +1,4 @@
+id: 4472
+name: Christmas Gift
+mint_opens_at: 2021-12-22T13:12:10+00:00
+generative_uri: ipfs://QmRHTYVzATeD6p34fnBsV4NETQrUMj2jQdfZZmwDJmHPDf

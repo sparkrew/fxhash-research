@@ -1,0 +1,21 @@
+body {
+  background-color: black;
+  color: #999;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  /* display: none; */
+  position: absolute;
+  background-color: rgba(0,0,0,0.333);
+  color: white;
+  padding: 1rem
+}
+main{
+  margin: auto;
+  width: fit-content;
+}
+
+canvas {
+  display: block;
+}

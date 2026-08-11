@@ -1,0 +1,4 @@
+id: 2895
+name: SKULL
+mint_opens_at: 2021-12-09T17:44:00+00:00
+generative_uri: ipfs://QmVtCfdUdu2KkafQur2HkKtMF4eitj8wC7823qvuxrxVmL

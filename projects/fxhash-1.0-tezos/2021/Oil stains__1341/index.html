@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+<script id="vertex-shader" type="no-js">
+		void main()	{
+			gl_Position = vec4( position, 1.0 );
+		}
+</script>
+    
+<script id="fragment-shader" type="no-js">
+    #ifdef GL_ES
+    precision mediump float;
+    #endif
+    
+    uniform float time;
+    uniform vec2 resolution;
+    
+    #define ANTIALIAS
+    
+    #define PI 3.14159265
+    #define iTime time
+    #define iResolution vec3(resolution, 1.0)
+    #define saturate(a) (clamp((a),0.,1.))
+    #define linearstep(a,b,t) (saturate(((t)-(a))/((b)-(a))))
+    #define BEAT (time*170.0/60.0)
+    
+    
+
+
+    #define PI 3.14159265
+#define TWO_PI 2.*PI
+
+float smin(float a, float b, float k) {
+    float h = clamp(0.5 + 0.5*(a-b)/k, 0.0, 1.0);
+    return mix(a, b, h) - k*h*(1.0-h);
+}
+float dLine( vec2 p, vec2 a, vec2 b ) {
+    vec2 v = a, w = b;
+    
+    float l2 = pow(distance(w, v), 2.);
+    if(l2 == 0.0) return distance(p, v);
+    
+    float t = clamp(dot(p - v, w - v) / l2, 0., 1.);
+    vec2 j = v + t * (w - v);
+    
+    return distance(p, j);   
+}
+float dAlongLine(vec2 p, vec2 a, vec2 b){
+    return dot(normalize((b-a)),p-a);
+}
+
+vec2 midPoint(vec2 a, vec2 b){
+    return (a+b)/2.0;
+}
+
+mat2 r2D(float a) {
+	float c = cos(a), s = sin(a);
+	// https://en.wikipedia.org/wiki/Rotation_matrix
+    // https://www.khronos.org/opengl/wiki/Data_Type_(GLSL)#Matrix_constructors
+    return mat2(
+        c, s, // column 1
+        -s, c // column 2
+    );
+}
+
+vec3 HUEtoRGB(in float hue)
+{
+    // Hue [0..1] to RGB [0..1]
+    // See http://www.chilliant.com/rgb2hsv.html
+    vec3 rgb = abs(hue * 6. - vec3(3, 2, 4)) * vec3(1, -1, -1) + vec3(-1, 2, 2);
+    return clamp(rgb, 0., 1.);
+}
+vec3 HSVtoRGB(in vec3 hsv)
+{
+    // Hue-Saturation-Value [0..1] to RGB [0..1]
+    vec3 rgb = HUEtoRGB(hsv.x);
+    return ((rgb - 1.) * hsv.y + 1.) * hsv.z;
+}
+
+float solidAngle(vec2 uv, vec2 a, vec2 b){
+    float angleA = abs(atan((uv-a).y,(uv-a).x))/2.0;
+    float angleB = abs(atan((uv-b).y,(uv-b).x))/2.0;
+    return abs((angleA+angleB)/0.5)/PI;
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    // Normalized pixel coordinates (from 0 to 1)
+    vec2 uv = fragCoord/iResolution.xy;
+    uv.x *= iResolution.x/iResolution.y;
+    
+    float top = 0.9;
+    float bottom = 0.1;
+    float left = 0.1;
+    float right = iResolution.x/iResolution.y + 0.2;
+    
+    
+    vec2 pointA = vec2(0.7,0.5);//vec2(left,bottom);
+    vec2 pointB = vec2(right,0.5);//vec2(right,top)/1.5;
+    
+    float lineDist = dLine(uv,pointA,pointB);
+    float currentAngle = solidAngle(uv,pointA,pointB);
+    for(int i = 0; i < 30; i++){
+      float currentSign = (mod(float(i), 2.0)*2.0)-1.0;
+      
+      float rotationAmount = currentAngle * 5.0 + lineDist * -5.0 + iTime;
+      float stepMultiplier = currentAngle * lineDist * -6.0;
+      //stepMultiplier = 0.3;
+      
+      vec2 newPointA = midPoint(pointA,pointB);
+      vec2 newPointB = newPointA + (pointB-pointA) * stepMultiplier * r2D(rotationAmount);
+      pointA = newPointA;
+      pointB = newPointB;
+      
+      currentAngle = smin(currentAngle, solidAngle(uv,pointA,pointB),0.3);
+      lineDist = smin(dLine(uv,pointA,pointB), lineDist,0.9);
+       
+    }
+
+    vec3 col = HSVtoRGB(vec3((abs(currentAngle)),1.0-abs(lineDist)*3.0,1.0-(abs(lineDist)*2.0)));
+    fragColor = vec4(col,1.0);
+}
+
+
+
+
+    
+    void main() {
+      mainImage(gl_FragColor, gl_FragCoord.xy);
+    }
+    </script>
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

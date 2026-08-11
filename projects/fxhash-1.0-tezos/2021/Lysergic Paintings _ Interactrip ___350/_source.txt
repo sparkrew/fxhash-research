@@ -1,0 +1,4 @@
+id: 350
+name: Lysergic Paintings / Interactrip /
+mint_opens_at: 2021-11-17T20:17:32+00:00
+generative_uri: ipfs://Qma733twcycSpHahN5cvyuX6Yc5ZxAFoVL7EWvY8A6GXFW

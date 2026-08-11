@@ -1,0 +1,4 @@
+id: 725
+name: dopamine
+mint_opens_at: 2021-11-22T11:29:52+00:00
+generative_uri: ipfs://QmXUV6PovkWHvmQWUQxTjVepzVsd8aAQ7BAoTSXNRx2HRf

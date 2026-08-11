@@ -1,0 +1,4 @@
+id: 2292
+name: Machine 7
+mint_opens_at: 2021-12-05T20:30:30+00:00
+generative_uri: ipfs://QmTKwaJj4QRti5JUisCTTL31LtHnvCuLXdbRMBSzUpd3WC

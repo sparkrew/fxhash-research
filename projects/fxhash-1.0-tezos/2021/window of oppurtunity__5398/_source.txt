@@ -1,0 +1,4 @@
+id: 5398
+name: window of oppurtunity
+mint_opens_at: 2021-12-29T02:17:10+00:00
+generative_uri: ipfs://QmcGNdm529ww6yim3pbiWJcGki5fhS9zM16yVZ8AemJpGt

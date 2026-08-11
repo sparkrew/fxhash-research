@@ -1,0 +1,4 @@
+id: 10869
+name: A Handmade Gift
+mint_opens_at: 2022-03-18T15:47:14+00:00
+generative_uri: ipfs://QmSNAsyqj8WW47W8zjWu6LkEHM32Nb3wqoay5mYHNFs6oi

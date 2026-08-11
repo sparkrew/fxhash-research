@@ -1,0 +1,4 @@
+id: 1851
+name: singularity code
+mint_opens_at: 2021-12-01T03:18:28+00:00
+generative_uri: ipfs://QmVtKZyxBGYZR8xwBondq8j8Se9n9Q4B3zaCryb8339SVu

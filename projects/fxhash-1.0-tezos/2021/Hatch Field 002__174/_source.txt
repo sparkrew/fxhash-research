@@ -1,0 +1,4 @@
+id: 174
+name: Hatch Field 002
+mint_opens_at: 2021-11-15T17:16:48+00:00
+generative_uri: ipfs://QmT3bfn7iwi75Qic3dm6MDZiuNRXQQUgXYsYR19wioeUS6

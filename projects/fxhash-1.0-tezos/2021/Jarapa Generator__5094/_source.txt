@@ -1,0 +1,4 @@
+id: 5094
+name: Jarapa Generator
+mint_opens_at: 2021-12-27T22:31:00+00:00
+generative_uri: ipfs://QmW4ZZs56QLkpqfoefqoLtpUkDaacaD8fJm8d4amnP3YHg

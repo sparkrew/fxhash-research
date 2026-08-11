@@ -1,0 +1,4 @@
+id: 3807
+name: Derivative 01
+mint_opens_at: 2021-12-18T12:53:56+00:00
+generative_uri: ipfs://QmfH8R7K5pTBf2ts56dr8ZtJnHhP7t6jeMSEBQDQ18hH3G

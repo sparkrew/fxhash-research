@@ -1,0 +1,4 @@
+id: 22797
+name: Action and Meditation-2.0
+mint_opens_at: 2022-12-23T02:08:59+00:00
+generative_uri: ipfs://QmTcaXQRwJfCHcUsjz4jaok9a6bhtHaFYYLvSunxkNrw6v

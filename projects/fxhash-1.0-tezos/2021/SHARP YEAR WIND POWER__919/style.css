@@ -1,0 +1,159 @@
+/* Insipred by @mxmc on dribbble
+
+https://dribbble.com/shots/2825177-12 */
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  background-image: linear-gradient(to bottom, #000, #008);
+}
+.flex-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.waves {
+  margin-left: 140px;
+  transform-style: preserve-3d;
+  transform: rotate3d(-0.5, 1, 0, 30deg);
+}
+[class*="wave-"] {
+  position: relative;
+  float: right;
+  width: 20px;
+  height: 20px;
+  margin: 0 1px;
+  transform-style: preserve-3d;
+}
+.wave-0 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+}
+.wave-1 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 0.15s;
+          animation-delay: 0.15s;
+}
+.wave-2 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.wave-3 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 0.45s;
+          animation-delay: 0.45s;
+}
+.wave-4 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+.wave-5 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 0.75s;
+          animation-delay: 0.75s;
+}
+.wave-6 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.9s;
+}
+.wave-7 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 1.05s;
+          animation-delay: 1.0s;
+}
+.wave-8 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 1.2s;
+          animation-delay: .2s;
+}
+.wave-9 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 1.35s;
+          animation-delay: 1.5s;
+}
+.wave-10 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 1.5s;
+          animation-delay: 1s;
+}
+.wave-11 {
+  display: block;
+  -webkit-animation: waving 1s ease-in-out infinite;
+          animation: waving 1s ease-in-out infinite;
+  -webkit-animation-delay: 1.65s;
+          animation-delay: 1.65s;
+}
+.wave-face {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: linear-gradient(-240deg, #fedfe5, #d449ff);
+  transform-style: preserve-3d;
+  transform: translateZ(0px);
+}
+.wave-face:before,
+.wave-face:after {
+  position: absolute;
+  content: '';
+  display: block;
+  transform-origin: 150% 20% 50%;
+}
+.wave-face:before {
+  width: 600px;
+  height: 20px;
+  background-image: linear-gradient(to left, #555, #3de, #456, #c2e3ea, #fedfe5);
+  transform: translate3d(-300px, 0, -300px) rotateY(20deg);
+}
+.wave-face:after {
+  width: 20px;
+  height: 600px;
+  background-color: #ff0;
+  background-image: linear-gradient(to bottom, #fff, #d1f9ff, #779ade, #c2e3ea);
+  transform: translate3d(0, -300px, -300px) rotateX(90deg);
+}
+@-webkit-keyframes waving {
+  0%, 10% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(100px);
+  }
+}
+@keyframes waving {
+  0%, 10% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(100px);
+  }
+}

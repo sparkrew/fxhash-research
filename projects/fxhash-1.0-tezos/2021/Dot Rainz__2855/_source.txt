@@ -1,0 +1,4 @@
+id: 2855
+name: Dot Rainz
+mint_opens_at: 2021-12-09T16:17:10+00:00
+generative_uri: ipfs://QmVwVj4BdRTLAFepea7y3nvh9vYwoQNNT9rDjfyy9XLrZU

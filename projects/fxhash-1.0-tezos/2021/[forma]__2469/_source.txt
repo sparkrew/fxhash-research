@@ -1,0 +1,4 @@
+id: 2469
+name: [forma]
+mint_opens_at: 2021-12-06T20:42:50+00:00
+generative_uri: ipfs://QmRcqC5xuvchAGbkvBnqZzj855UeH1tztz657djWP7w8oq

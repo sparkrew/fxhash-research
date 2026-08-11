@@ -1,0 +1,4 @@
+id: 4897
+name: pétalos
+mint_opens_at: 2021-12-26T23:08:50+00:00
+generative_uri: ipfs://QmaRs4GiBn9MfwEppMGEYd3eHtabASb1gZA1MzJjg9TtJ8

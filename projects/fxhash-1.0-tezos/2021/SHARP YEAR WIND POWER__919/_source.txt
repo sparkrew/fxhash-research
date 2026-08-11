@@ -1,0 +1,4 @@
+id: 919
+name: SHARP YEAR WIND POWER
+mint_opens_at: 2021-11-23T09:50:52+00:00
+generative_uri: ipfs://QmagJLpc2WdX3scGD2rwZTT5w5hFrmUzW214PFgunuHyBs

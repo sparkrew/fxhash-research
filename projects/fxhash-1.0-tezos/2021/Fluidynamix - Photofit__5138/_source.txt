@@ -1,0 +1,4 @@
+id: 5138
+name: Fluidynamix - Photofit
+mint_opens_at: 2021-12-28T00:28:30+00:00
+generative_uri: ipfs://QmTFF8tHCHouWqx1rYZdskAiE2ZG6DbaLyMsqjZZ5wkcB1

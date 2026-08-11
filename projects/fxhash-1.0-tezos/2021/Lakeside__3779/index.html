@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <title>Lakeside</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="p5.min.js"></script>
+
+  <script src="p5.sound.min.js"></script>
+  <script src="p5.createloop.js"></script>
+  <script src="p5.collide2d.min.js"></script>
+
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+</script>
+
+  <script src="Lakeside.obf.js"></script>
+  
+  <script type="text/javascript">
+    window.addEventListener('load', (event) => {
+
+      console.log(fxhash);
+      populateBackgrounds();
+      setDefaultVars();
+      randomizeParameters();
+      setDefaultColors();
+      window.$fxhashFeatures = {
+        "Color": getSkyColor(),
+        "Wind Strength": getWindStrength(),
+        "Depth": getTreeRows(),
+        "Weather": getWeather(),
+        "Boats": getBoatCount(),
+        "Birds": getBirdCount(),
+        "Special": getSpecial()
+      }
+
+    });
+
+    function getBoatCount() {
+      if (boatCount == 0) return "None";
+      return boatCount;
+    }
+
+    function getBirdCount() {
+      if (birdCount < 1) return "None";
+      if (birdCount >= 1 && birdCount < 5) return "Few";
+      if (birdCount >= 5 && birdCount < 10) return "Some";
+      if (birdCount >= 10 && birdCount < 15) return "Many";
+
+      return "A lot";
+    }
+
+    function getSpecial() {
+      if (hasSpeedBoat) {
+        if (hasWakeboarder) {
+          return "Motorboat & Wakeboarder"
+        } else {
+          return "Motorboat";
+        }
+      }
+      return "Nothing";
+    }
+
+    function getWeather() {
+      if (isRaining) return "Rain";
+      if (isSnowing && isRaining == false) {
+        if (isIced()) {
+          return "Heavy Snowfall";
+        } else {
+          return "Snowfall";
+        }
+      }
+
+      if (cloudCount < 1) {
+        return "Clear";
+      } else if (cloudCount <= 2) {
+        return "Almost Clear";
+      } else if (cloudCount > 2 && cloudCount < 6) {
+        return "Partly Cloudy"
+      } else {
+        return "Cloudy";
+      }
+    }
+
+    function getRandomSkyColor() {
+      var chances = [];
+      chances[0] = 10;
+      chances[1] = 30;
+      chances[2] = 5;
+      chances[3] = 10;
+      chances[4] = 2;
+      chances[5] = 25;
+      chances[6] = 10;
+      chances[7] = 8;
+      chances[8] = 2;
+
+      var balancedColros = [];
+      for (var z = 0; z < chances.length; z++) {
+        for (var i = 0; i < chances[z]; i++) {
+          balancedColros.push(backgroundColors[z]);
+        }
+      }
+
+      var r = Math.floor(fxrand() * balancedColros.length - 0.001);
+      return balancedColros[r];
+    }
+
+    function getSkyColor() {
+      switch (backgroundColor) {
+        case backgroundColors[0]:
+          return "Yellow";
+        case backgroundColors[1]:
+          return "Green";
+        case backgroundColors[2]:
+          return "Wine";
+        case backgroundColors[3]:
+          return "Orange";
+        case backgroundColors[4]:
+          return "Lilac";
+        case backgroundColors[5]:
+          return "Blue";
+        case backgroundColors[6]:
+          return "Corall";
+        case backgroundColors[7]:
+          return "Pink";
+        case backgroundColors[8]:
+          return "Grey";
+      }
+    }
+
+    function getTreeRows() {
+      return treeRows;
+    }
+
+    function getAirplaneCount() {
+      return airplaneCount;
+    }
+
+    function getSnowDensity() {
+      if (snowStormDensity <= 0) {
+        return "None";
+      }
+
+      if (snowStormDensity == 0.25) {
+        return "Low";
+      }
+
+      if (snowStormDensity == 0.5) {
+        return "Medium";
+      }
+
+      if (snowStormDensity == 0.75) {
+        return "High";
+      }
+
+      if (snowStormDensity == 1) {
+        return "Extremely High";
+      }
+    }
+
+    function getSnowflakeSize() {
+      if (snowflakeBaseSizes.length > 1) {
+        return "Variable";
+      }
+
+      if (snowflakeBaseSizes[0] >= 6.5) {
+        return "Very Large";
+      }
+
+      if (snowflakeBaseSizes[0] < 6.5 && snowflakeBaseSizes[0] >= 5) {
+        return "Large";
+      }
+
+      if (snowflakeBaseSizes[0] < 5 && snowflakeBaseSizes[0] >= 3) {
+        return "Medium";
+      }
+
+      if (snowflakeBaseSizes[0] < 3 && snowflakeBaseSizes[0] >= 0) {
+        return "Small";
+      }
+
+      return "Medium";
+    }
+
+    function getWindStrength() {
+
+      var absWind = (Math.abs(snowStormSpeeds[0])-2)/snowStormSpeeds;
+      //var l = map(absWind,2,12,0,1);
+
+      if (absWind >= 0.9) {
+        return "Storm";
+      }
+
+      if (absWind >= 0.75 && absWind < 0.9) {
+        return "Strong";
+      }
+
+      if (absWind < 0.75 && absWind >= 0.5) {
+        return "Normal";
+      }
+
+      if (absWind < 0.5 && absWind >= 0) {
+        return "Calm";
+      }
+
+      return "Normal";
+
+    }
+
+    function setDefaultColors() {
+      groundColor = color(30, 30, 30);
+
+      sunColor = color(255, 246, 199);
+      sunColorLow = lerpColor(backgroundColor, color(237, 55, 0), 0.2);
+      moonColor = color(255, 233, 156);
+    }
+
+    function iniCloudsAndPlanes() {
+
+      for (var i = 0; i < airplaneCount; i++) {
+        var d = fxrand() * 7;
+        var s = 0.2 + fxrand() * 1.3;
+
+        var g = Math.round(fxrand() * 4) * 200;
+        var speed = map(s, 0.2, 1.5, 0.1, 1);
+        airplanes[i] = new Airplane(0, horizon / d, speed, 0, g, s);
+      }
+
+
+
+      for (var i = 0; i < cloudCount; i++) {
+        var d2 = fxrand() * 7;
+        var s = 10 + fxrand() * 200;
+        var sH = 5 + fxrand() * 40;
+        var a = Math.round(5 + fxrand() * 4) * 10;
+        var cS = 10 + fxrand() * 300;
+        var speed = map(s, 10, 210, 0.0001, 0.001);
+        
+        clouds[i] = new Cloud(wD * fxrand(), horizon / d2, s, sH, a, cS, speed, backgroundColor);
+      }
+
+      for (var i = 0; i < lakeCloudCount; i++) {
+        var d2 = fxrand() * 7;
+        var s = 100 + fxrand() * 101;
+        var sH = 5 + fxrand() * 15;
+        var a = Math.round(5 + fxrand() * 4) * 10;
+        var cS = 10 + fxrand() * 300;
+        var speed = map(s, 10, 210, 0.0001, 0.001);
+        var yP = (horizon * 0.8) + (hD - horizon) * (0.1 + fxrand() * 0.8);
+        
+        lakeClouds[i] = new Cloud(wD * fxrand(), yP, s, sH, a, cS, speed, backgroundColor, 0.2);
+      }
+    }
+
+
+
+    function setDefaultVars() {
+      wD = windowWidth;
+      hD = windowHeight;
+      outerRadius = Math.sqrt(wD * wD + hD * hD);
+      size = Math.min(wD, hD);
+
+      screenRatioW = 1 / 800 * wD;
+      screenRatioH = 1 / 800 * hD;
+      screenRatioAdjustment = 1 / 800 * size;
+    }
+
+
+    function randomizeParameters() {
+      hasSpeedBoat = fxrand() > 0.93;
+      
+    
+      boatCount = Math.round(fxrand() * 4);
+      if (hasSpeedBoat) boatCount = Math.max(1, boatCount);
+      speedBoatReplacementIndex = Math.floor(fxrand() * boatCount);
+      if (fxrand() > 0.98) boatCount++;
+      boatPositions = [];
+
+      if (fxrand() > 0.3) {
+        birdCount = (fxrand() * 3) * 5;
+        if (fxrand() > 0.95) {
+          birdCount = 20;
+        }
+      } else {
+        birdCount = 0;
+      }
+
+      if (hasSpeedBoat) {
+        hasWakeboarder = fxrand() > 0.6;
+      }
+
+
+      isRaining = fxrand() > 0.85;
+      isSnowing = isRaining;
+      backgroundColor = getRandomSkyColor();
+      document.body.style.backgroundColor = darken(backgroundColor, 0.5);
+      backgroundColorDark = darkenRaw(backgroundColor, 0.3);
+      pineGap = 35 + fxrand() * 110;
+      bulbColors = [];
+      changesAscendBreakPoint = [];
+      horizonFactor = 0.4 + fxrand() * 0.4;
+      horizon = hD * horizonFactor;
+
+      sunZenit = map(horizonFactor,0.4,0.8,0.3,0.6);
+      moonZenit = map(horizonFactor,0.4,0.8,0.33,0.65);;
+
+
+      for (var i = 0; i < boatCount; i++) {
+        boatPositions.push(createVector(fxrand(), (0.1 + fxrand() * 0.8)));
+      }
+
+      
+      var mHr = map(fxrand(), 0, 1, -0.3, 0.08);
+      mountainHeight = horizonFactor + mHr;
+      bulbColors[0] = [
+        color(255, 221, 128),
+        color(255, 207, 77)
+      ];
+
+      bulbColorIndex = 0;
+
+
+      treeRows = Math.round(1 + fxrand() * 3);
+      noiseScale = 0.002 + fxrand() * 2.8;
+      airplaneCount = fxrand() > 0.8 ? 1 : 0;
+      cloudCount = Math.round(fxrand() * 9);
+      lakeCloudCount = (fxrand() > 0.9) ? Math.ceil(fxrand() * 3) : 0;
+
+      if(treeRows > 2)
+      {
+        hasLightSource = fxrand() > 0.7;
+      }
+
+      treeSize = 620;
+      treeGapSize = 40;
+
+
+      if (isSnowing == false) isSnowing = fxrand() > 0.7;
+      if (isSnowing) {
+        snowStormDensity = Math.max(0.1, Math.ceil(fxrand() * 4) / 4);
+      }
+
+      if (isRaining) {
+        snowStormDensity = Math.min(0.8, snowStormDensity);
+      }
+
+      var snowFlakeVariables = 1;
+      var snowSpeedVariables = 1;
+      var snowWindVariables = 1;
+
+     
+      snowflakeBaseSizes = [];
+      snowStormSpeeds = [];
+      snowStormWinds = [];
+
+      for (var i = 0; i < snowFlakeVariables; i++) {
+        snowflakeBaseSizes.push(2 + Math.round((fxrand() * 2)));
+      }
+      for (var i = 0; i < snowSpeedVariables; i++) {
+        snowStormSpeeds.push(2 + fxrand() * 10);
+      }
+      for (var i = 0; i < snowWindVariables; i++) {
+        var ra = fxrand() > 0.5 ? 1 : -1;
+        snowStormWinds.push(ra);
+      }
+
+      mountainNoiseX = fxrand() * 500;
+      mountainNoiseY = fxrand() * 500;
+      randGap = [];
+      changesAscend = [];
+      for (var i = 0; i < treeRows; i++) {
+        changesAscendBreakPoint.push(wD * 0.2 + fxrand() * wD * 0.8);
+        ascencions[i] = (0.05 + fxrand() * 2.8 * (i / treeRows)) * (fxrand() > 0.5 ? 1 : -1);
+        randGap.push(fxrand());
+
+        hasTrees.push(true);
+        changesAscend.push(fxrand() > 0.5);
+      }
+      shootingStarDir = fxrand() < 0.2 ? -1 : 1;
+      nightskyDensity = 0.5 + fxrand() * 0.5;
+
+      if (fxrand() < 0.2) {
+        glacierSize = 0;
+      } else {
+        glacierSize = 3 + Math.round(fxrand() * 5);
+      }
+
+      schneeGrenze = horizon * (0.6 + fxrand() * 0.4);
+
+
+    }
+  </script>
+
+
+  <script src="sketch.js"></script>
+</head>
+
+<body>
+</body>
+
+</html>

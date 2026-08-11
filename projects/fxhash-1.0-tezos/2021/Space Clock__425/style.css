@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Manaspace';
+  src: url("./fonts/manaspc.woff2") format("woff2"),
+       url("./fonts/manaspc.woff") format("woff"),
+       url('./fonts/manaspc.ttf')  format('truetype');
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#clock {
+  color: #fff;
+  left: 38.5%;
+  top: 60.5%;
+  font-size: 4vmin;
+  font-family: 'Manaspace', sans-serif;
+  color: rgb(33, 199, 33);
+  position: absolute;
+}
+
+.clockbg {
+  display: grid;
+  height: 100%;
+}
+
+.clockbg img {
+  max-width: 100%;
+  max-height: 100vh;
+  margin: auto;
+}

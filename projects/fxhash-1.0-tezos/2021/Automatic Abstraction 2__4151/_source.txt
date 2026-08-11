@@ -1,0 +1,4 @@
+id: 4151
+name: Automatic Abstraction 2
+mint_opens_at: 2021-12-20T16:38:56+00:00
+generative_uri: ipfs://QmXoEpj4aPFSmmJVYmYMiqwScSCgqE19M7AESLwYC6RRb8

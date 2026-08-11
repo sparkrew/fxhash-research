@@ -1,0 +1,4 @@
+id: 4225
+name: Personality grid
+mint_opens_at: 2021-12-21T07:22:06+00:00
+generative_uri: ipfs://QmdxSRvS34T4UNJwymoZ7z6bQHL7uEuu2jXKoJ7uVvsdbq

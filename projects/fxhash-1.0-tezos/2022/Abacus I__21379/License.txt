@@ -1,0 +1,5 @@
+
+This NFT art is licensed under the NFT License: https://www.nftlicense.org/
+
+Used libs license:
+p5.js is licensed under the GNU Lesser General Public License v2.1

@@ -1,0 +1,4 @@
+id: 1697
+name: Animated Zürich Subdivision Grid
+mint_opens_at: 2021-11-29T14:37:58+00:00
+generative_uri: ipfs://QmaeLQQizCoAc7TVoj8MsnCZArbgMPoRYj7yWPE8kyDqyJ

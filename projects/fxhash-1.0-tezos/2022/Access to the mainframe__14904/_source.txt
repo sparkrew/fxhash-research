@@ -1,0 +1,4 @@
+id: 14904
+name: Access to the  mainframe
+mint_opens_at: 2022-06-16T00:51:59+00:00
+generative_uri: ipfs://QmaK88fiqTjyGKkuBdPnDgvuJ2BFgXhw9hb7EroZfAmCqF

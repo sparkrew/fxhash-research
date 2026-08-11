@@ -1,0 +1,4 @@
+id: 3077
+name: rectangles:processor
+mint_opens_at: 2021-12-11T15:49:06+00:00
+generative_uri: ipfs://QmcehN86seasxYbyUJzASJ24ovPZmn1sxg9yaKuZEXo6nX

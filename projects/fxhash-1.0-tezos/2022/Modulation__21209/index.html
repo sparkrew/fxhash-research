@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      html,
+      body,
+      #svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-color: #000;
+      }
+      #download {
+        display: none;
+      }
+    </style>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+  </head>
+  <body>
+    <a id="download">Download</a>
+    <svg       id="svg"
+      xmlns="http://www.w3.org/2000/svg"
+      shape-rendering="crispEdges"
+      viewBox="0 0 400 500"
+    >
+      <mask id="mask">
+        <rect x="0" y="0" width="400" height="500" fill="#000"></rect>
+        <rect x="27" y="27" width="346" height="446" fill="#fff"></rect>
+      </mask>
+      <rect         id="background"
+        x="0"
+        y="0"
+        width="400"
+        height="500"
+        fill="#E0B889"
+      ></rect>
+      <svg id="content" mask="url(#mask)"></svg>
+      <rect         id="border"
+        x="25"
+        y="25"
+        width="350"
+        height="450"
+        stroke="#202529"
+        stroke-width="4"
+        fill="transparent"
+      ></rect>
+    </svg>
+    <script>
+      const svg = document.getElementById("svg");
+      const a = document.getElementById("download");
+
+      let EXPORT_WIDTH = 6000;
+
+      const params = new URL(window.location).searchParams;
+
+      if (params.get("w")) {
+        EXPORT_WIDTH = params.get("w");
+      }
+
+      EXPORT_HEIGHT = EXPORT_WIDTH * (5 / 4);
+
+      let Mode = "Black";
+      let Aligned = "No";
+      let LimitedHeight = "No";
+
+      const modeScore = fxrand();
+
+      if (modeScore > 0.4) {
+        Mode = "Monotone";
+      } else if (modeScore > 0.3) {
+        Mode = "Blocks";
+      } else if (modeScore > 0.05) {
+        Mode = "Duotone";
+      }
+
+      if (fxrand() > 0.6) {
+        Aligned = "Yes";
+      }
+
+      if (fxrand() > 0.95) {
+        LimitedHeight = "Yes";
+      }
+
+      if (LimitedHeight === "Yes" && Aligned === "Yes") {
+        Mode = "Blocks";
+      }
+
+      window.$fxhashFeatures = {
+        Mode,
+        Aligned,
+        "Limited height": LimitedHeight,
+      };
+
+      function pick(arr) {
+        return arr[Math.floor(fxrand() * arr.length)];
+      }
+
+      function randomInt(min, max) {
+        return Math.floor(fxrand() * (max + 1 - min) + min);
+      }
+
+      function shuffle(array) {
+        const clone = [...array];
+        const length = clone.length;
+        const result = [];
+        for (let i = 0; i < length; i++) {
+          result.push(...clone.splice(randomInt(0, clone.length - 1), 1));
+        }
+        return result;
+      }
+
+      function downloadPNG(width, height) {
+        const clone = svg.cloneNode(true);
+        const blob = new Blob([clone.outerHTML], {
+          type: "image/svg+xml;charset=utf-8",
+        });
+        const url = URL.createObjectURL(blob);
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.setAttribute("width", width);
+          canvas.setAttribute("height", height);
+          canvas.getContext("2d").drawImage(image, 0, 0, width, height);
+          const png = canvas.toDataURL();
+          a.setAttribute("download", `Modulation.png`);
+          a.setAttribute("href", png);
+          a.click();
+        };
+        image.src = url;
+      }
+
+      function downloadSVG(width, height) {
+        const clone = svg.cloneNode(true);
+        const blob = new Blob([clone.outerHTML], {
+          type: "image/svg+xml;charset=utf-8",
+        });
+        const url = URL.createObjectURL(blob);
+        a.setAttribute("download", `Modulation.svg`);
+        a.setAttribute("href", url);
+        a.click();
+      }
+
+      document.addEventListener("keyup", ({ key }) => {
+        if (key === "e") {
+          downloadPNG(EXPORT_WIDTH, EXPORT_HEIGHT);
+        }
+        if (key === "s") {
+          downloadSVG();
+        }
+      });
+
+      function addNode(mesh, coordinates) {
+        const id = coordinates.join(",");
+        const node = { coordinates, triangles: [] };
+        mesh.nodes[id] = node;
+        return node;
+      }
+
+      function getNode(mesh, coordinates) {
+        const id = coordinates.join(",");
+        return mesh.nodes[id];
+      }
+
+      function getOrAddTriangle(mesh, coordinates) {
+        const id = coordinates.join(",");
+        if (!mesh.triangles[id]) {
+          mesh.triangles[id] = { coordinates };
+        }
+        return mesh.triangles[id];
+      }
+
+      function getOrAddEdge(mesh, coordinates) {
+        const id = coordinates.join(",");
+        if (!mesh.edges[id]) {
+          mesh.edges[id] = { coordinates, triangles: [] };
+        }
+        return mesh.edges[id];
+      }
+
+      function projectCoordinates([offsetX, offsetY], [x, y]) {
+        return [offsetX + 2 * (x - y), offsetY + x + y];
+      }
+
+      function addNodesAndTriangles(mesh, coordinates) {
+        const queue = [coordinates];
+        let index = 0;
+
+        while (queue.length > index) {
+          coordinates = queue[index];
+          const [x, y] = coordinates;
+          const [x0, y0] = projectCoordinates([0, 0], coordinates);
+
+          if (
+            !(
+              getNode(mesh, coordinates) ||
+              x0 > mesh.width / 2 ||
+              x0 < -mesh.width / 2 ||
+              y0 > mesh.height / 2 ||
+              y0 < -mesh.height / 2
+            )
+          ) {
+            const node = addNode(mesh, coordinates);
+
+            node.triangles = [
+              {
+                triangle: getOrAddTriangle(mesh, [
+                  x - 1,
+                  y - 1,
+                  x,
+                  y - 1,
+                  x,
+                  y,
+                ]),
+                face: "z",
+              },
+              {
+                triangle: getOrAddTriangle(mesh, [x, y - 1, x, y, x + 1, y]),
+                face: "x",
+              },
+              {
+                triangle: getOrAddTriangle(mesh, [
+                  x,
+                  y,
+                  x + 1,
+                  y,
+                  x + 1,
+                  y + 1,
+                ]),
+                face: "x",
+              },
+              {
+                triangle: getOrAddTriangle(mesh, [
+                  x,
+                  y,
+                  x,
+                  y + 1,
+                  x + 1,
+                  y + 1,
+                ]),
+                face: "y",
+              },
+              {
+                triangle: getOrAddTriangle(mesh, [x - 1, y, x, y, x, y + 1]),
+                face: "y",
+              },
+              {
+                triangle: getOrAddTriangle(mesh, [
+                  x - 1,
+                  y - 1,
+                  x - 1,
+                  y,
+                  x,
+                  y,
+                ]),
+                face: "z",
+              },
+            ];
+
+            queue.push([x - 1, y - 1]);
+            queue.push([x, y - 1]);
+            queue.push([x + 1, y]);
+            queue.push([x + 1, y + 1]);
+            queue.push([x, y + 1]);
+            queue.push([x - 1, y]);
+          }
+
+          index++;
+        }
+      }
+
+      function addEdges(mesh) {
+        Object.values(mesh.triangles).forEach((triangle) => {
+          const [x1, y1, x2, y2, x3, y3] = triangle.coordinates;
+          [
+            getOrAddEdge(mesh, [x1, y1, x2, y2]),
+            getOrAddEdge(mesh, [x1, y1, x3, y3]),
+            getOrAddEdge(mesh, [x2, y2, x3, y3]),
+          ].forEach((edge) => edge.triangles.push({ triangle, face: "x" }));
+        });
+      }
+
+      function createMesh({ height, width }) {
+        const mesh = {
+          height,
+          width,
+          triangles: {},
+          edges: {},
+          nodes: {},
+          voxels: [],
+        };
+        addNodesAndTriangles(mesh, [0, 0]);
+        addEdges(mesh);
+        mesh.range = getRange(mesh);
+        return mesh;
+      }
+
+      function getTrianglePath(mesh, { coordinates }) {
+        const [x0, y0] = projectCoordinates(
+          [mesh.width / 2, mesh.height / 2],
+          [coordinates[0], coordinates[1]]
+        );
+        const [x1, y1] = projectCoordinates(
+          [mesh.width / 2, mesh.height / 2],
+          [coordinates[2], coordinates[3]]
+        );
+        const [x2, y2] = projectCoordinates(
+          [mesh.width / 2, mesh.height / 2],
+          [coordinates[4], coordinates[5]]
+        );
+
+        return [
+          `M ${x0} ${y0}`,
+          `L ${x1} ${y1}`,
+          `L ${x2} ${y2}`,
+          `L ${x0} ${y0}`,
+        ];
+      }
+
+      function getEdgePath(mesh, { coordinates }) {
+        const [x0, y0] = projectCoordinates(
+          [mesh.width / 2, mesh.height / 2],
+          [coordinates[0], coordinates[1]]
+        );
+        const [x1, y1] = projectCoordinates(
+          [mesh.width / 2, mesh.height / 2],
+          [coordinates[2], coordinates[3]]
+        );
+
+        return [`M ${x0} ${y0}`, `L ${x1} ${y1}`];
+      }
+
+      function drawEdgePath(svg, legs, color) {
+        const path = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        );
+        path.setAttribute("stroke", color);
+        path.setAttribute("stroke-width", ".8");
+        path.setAttribute("stroke-linecap", "round");
+        path.setAttribute("fill", "transparent");
+        path.setAttribute("d", legs.toString());
+        path.setAttribute("transform", "translate(25,25)");
+        svg.append(path);
+      }
+
+      function drawTrianglePath(svg, legs, color) {
+        const path = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path"
+        );
+        path.setAttribute("stroke-width", "0");
+        path.setAttribute("fill", color);
+        path.setAttribute("d", legs.toString());
+        path.setAttribute("transform", "translate(25,25)");
+        svg.append(path);
+      }
+
+      const colors = shuffle([
+        "#BA4A4A",
+        "#8F9C4A",
+        "#C9A116",
+        "#9D673F",
+        "#D26750",
+        "#DB6A6A",
+        "#6789A8",
+      ]);
+
+      let x1color, x2color, z1color, z2color;
+      const ycolor = "#202529";
+
+      switch (Mode) {
+        case "Black":
+          x1color = "#6D604F";
+          x2color = "#6D604F";
+          z1color = "#E0B889";
+          z2color = "#E0B889";
+          break;
+
+        case "Monotone":
+          x1color = colors[0];
+          x2color = colors[0];
+          z1color = "#E0B889";
+          z2color = "#E0B889";
+          break;
+
+        case "Duotone":
+          x1color = colors[0];
+          x2color = colors[1];
+          z1color = "#E0B889";
+          z2color = "#E0B889";
+          break;
+
+        case "Blocks":
+          x1color = colors[0];
+          x2color = colors[1];
+          z1color = colors[0];
+          z2color = colors[1];
+          break;
+      }
+
+      function drawMesh(svg, mesh) {
+        const xLegs1 = [];
+        const xLegs2 = [];
+        const yLegs = [];
+        const zLegs1 = [];
+        const zLegs2 = [];
+        const edgeLegs = [];
+
+        Object.values(mesh.triangles).forEach((triangle) => {
+          const alternate =
+            o1(triangle.voxel?.x / 2) > 0 && o2(triangle.voxel?.y / 2) > 0;
+
+          if (!alternate && triangle.face === "y") {
+            xLegs1.push(getTrianglePath(mesh, triangle));
+          }
+
+          if (alternate && triangle.face === "y") {
+            xLegs2.push(getTrianglePath(mesh, triangle));
+          }
+
+          if (triangle.face === "x") {
+            yLegs.push(getTrianglePath(mesh, triangle));
+          }
+
+          if (!alternate && triangle.face === "z") {
+            zLegs1.push(getTrianglePath(mesh, triangle));
+          }
+
+          if (alternate && triangle.face === "z") {
+            zLegs2.push(getTrianglePath(mesh, triangle));
+          }
+        });
+
+        Object.values(mesh.edges).forEach((edge) => {
+          if (
+            JSON.stringify(edge.triangles[0]?.triangle.face) !==
+              JSON.stringify(edge.triangles[1]?.triangle.face) ||
+            JSON.stringify(edge.triangles[0]?.triangle.val) !==
+              JSON.stringify(edge.triangles[1]?.triangle.val)
+          ) {
+            edgeLegs.push(getEdgePath(mesh, edge));
+          }
+        });
+
+        drawTrianglePath(svg, xLegs1, x1color);
+        drawTrianglePath(svg, xLegs2, x2color);
+        drawTrianglePath(svg, yLegs, ycolor);
+        drawTrianglePath(svg, zLegs1, z1color);
+        drawTrianglePath(svg, zLegs2, z2color);
+        drawEdgePath(svg, edgeLegs, "#202529");
+      }
+
+      function getRange(mesh) {
+        let xMin = Infinity;
+        let xMax = -Infinity;
+        let yMin = Infinity;
+        let yMax = -Infinity;
+
+        Object.values(mesh.nodes).forEach((node) => {
+          const [x, y] = node.coordinates;
+          if (x > xMax) {
+            xMax = x;
+          }
+          if (x < xMin) {
+            xMin = x;
+          }
+
+          if (y > yMax) {
+            yMax = y;
+          }
+          if (y < yMin) {
+            yMin = y;
+          }
+        });
+
+        const zMin = Math.min(xMin, yMin);
+        const zMax = Math.max(xMax, yMax);
+
+        return { xMin, yMin, zMin, xMax, yMax, zMax };
+      }
+
+      function render(fn, mesh) {
+        const voxels = [];
+        Object.values(mesh.nodes).forEach((node) => {
+          const [xn, yn] = node.coordinates;
+          let z = mesh.range.zMax;
+          let done = false;
+          while (done === false) {
+            const x = xn + z;
+            const y = yn + z;
+            const voxelData = fn(x, y, z);
+            if (voxelData) {
+              voxels.push({ x, y, z });
+              done = true;
+            } else {
+              if (z > mesh.range.zMin) {
+                z--;
+              } else {
+                done = true;
+              }
+            }
+          }
+        });
+        renderVoxels(voxels, mesh);
+      }
+
+      function renderVoxel(voxel, mesh) {
+        const x = voxel.x - voxel.z;
+        const y = voxel.y - voxel.z;
+        const node = getNode(mesh, [x, y]);
+        if (node) {
+          Object.values(node.triangles).forEach(({ triangle, face }) => {
+            triangle.val = voxel[face];
+            triangle.voxel = voxel;
+            triangle.face = face;
+          });
+        }
+      }
+
+      function renderVoxels(voxels, mesh) {
+        voxels
+          .sort((a, b) => {
+            return a.z - b.z || a.y - b.y || a.x - b.x;
+          })
+          .forEach((voxel) => {
+            renderVoxel(voxel, mesh);
+          });
+      }
+
+      function generator(period, offset = () => 0) {
+        return function (value) {
+          return Math.cos(Math.PI * 2 * (value / period + offset(value)));
+        };
+      }
+
+      const widths = shuffle([16, 20, 25, 35, 60]);
+
+      const o1 = generator(widths[0]);
+      const o2 = generator(Aligned === "Yes" ? widths[0] : widths[1]);
+      const o3 = generator(
+        pick([widths[0], Aligned === "Yes" ? widths[0] : widths[1]])
+      );
+
+      const offset = fxrand();
+
+      const oscillators = [];
+
+      for (let i = 0; i < 8; i++) {
+        const period = randomInt(2, 50);
+        oscillators.push(
+          generator(period + offset, (val) =>
+            generator((period + offset) * 20)(val)
+          )
+        );
+      }
+
+      function getVoxelData(x, y, z) {
+        let val = false;
+        if (
+          o1(x) > 0 &&
+          o2(y) > 0 &&
+          (LimitedHeight === "Yes" ? o3(z) > 0 : true)
+        ) {
+          val = true;
+        }
+        oscillators.forEach((o) => {
+          if (o(x) > 0 && o(y) > 0 && o(z) > 0) {
+            val = false;
+          }
+        });
+        return val;
+      }
+
+      const mesh = createMesh({ height: 450, width: 350 });
+
+      render(getVoxelData, mesh);
+
+      drawMesh(document.getElementById("content"), mesh);
+
+      fxpreview();
+    </script>
+  </body>
+</html>

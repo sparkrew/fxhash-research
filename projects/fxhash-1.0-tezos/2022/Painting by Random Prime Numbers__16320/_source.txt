@@ -1,0 +1,4 @@
+id: 16320
+name: Painting by Random Prime Numbers
+mint_opens_at: 2022-07-12T17:52:14+00:00
+generative_uri: ipfs://QmPrwHsX2SLFen8SEovM85UtyHw6DjRdqG7izzckRjfp3n

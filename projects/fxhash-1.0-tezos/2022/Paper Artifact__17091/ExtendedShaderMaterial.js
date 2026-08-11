@@ -1,0 +1,1 @@
+import{ShaderMaterial}from"three";export class ExtendedShaderMaterial extends ShaderMaterial{constructor(...e){super(...e),["opacity","map","emissiveMap","roughnessMap","metalnessMap"].forEach((e=>{Object.defineProperty(this,e,{get(){if(e in this.uniforms)return this.uniforms[e].value},set(r){e in this.uniforms&&(this.uniforms[e].value=r)}})}))}}

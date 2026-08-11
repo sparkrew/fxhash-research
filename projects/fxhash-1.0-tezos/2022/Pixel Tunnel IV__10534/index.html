@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <title>Raster.ly Art</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main>
+    </main>
+    <script src="./chroma.js"></script>
+    <script>
+      const rarityScore = (rarityMin=1, rarityMax=10, rarityMultiplier=2) => {
+        let poolCount = 1;
+        let poolStart = 0;
+        let rarityRanges = [];
+        while (rarityMax >= rarityMin) {
+          rarityRanges.push([poolStart,poolStart+poolCount]);
+          poolStart = poolStart+poolCount;
+
+          rarityMax -= 1;
+          poolCount *= rarityMultiplier;
+        }
+        rarityRanges = rarityRanges.reverse();
+
+        let r = fxrand() * rarityRanges[0][1];
+        let rarity = rarityRanges.findIndex(n => r > n[0] && r < n[1]) + 1;
+        return rarity + (rarityMin-1);
+      }
+
+      let themes = [
+        "#264653, #275c62, #287271, #2a9d8f, #8ab17d, #e9c46a, #efb366, #f4a261, #ee8959, #e76f51",
+        "#033f63, #28666e, #7c9885, #b5b682, #fedc97, #ffcdb2, #ffb4a2, #e5989b, #b5838d, #6d6875",
+        "#1f0036, #280061, #200078, #2c00a3, #301cff, #4736ff, #6e61ff, #999bff, #c7e9ff, #fffcad",
+        "#3a0ca3, #f72585, #b5179e, #7209b7, #6c00e0, #480ca8, #3f37c9, #4361ee, #22b8d3, #05f2d2",
+        "#6a381f, #ffffd6, #fde7bc, #facea2, #f7b688, #e59266, #d5875d, #b5704b, #955a3a, #754328",
+        "#361c07, #533113, #8c5c2b, #9c7744, #eae5d6, #e0e3ca, #b4c187, #80914b, #5a6b3a, #496231",
+        "#ee6055, #f1705a, #f37f5f, #f58e64, #f79d69, #f9ac6e, #fbbb73, #fdca78, #fed27b, #ffd97d",
+        "#586970, #657680, #728490, #7f91a0, #8c9fb0, #98acbf, #a5bacf, #b2c7df, #bfd5ef, #cce2ff",
+        "#40916c, #52b788, #74c69d, #95d5b2, #b7e4c7, #89c2d9, #61a5c2, #468faf, #2a6f97, #013a63",
+        "#7400b8, #6930c3, #5e60ce, #5390d9, #4ea8de, #48bfe3, #56cfe1, #64dfdf, #72efdd, #8ef2e4",
+        "#16747e, #307f70, #4a8a62, #649554, #7ea046, #97ab38, #b1b62a, #cbc11c, #e5cc0e, #ffd700",
+        "#694a38, #feb80a, #fdd032, #ffb627, #fcae40, #fec862, #d1843c, #e2a84d, #f5cb5c, #f3d693",
+        "#2e3748, #4a5c72, #eee8e4, #eadbd6, #dfc5be, #d5d0cc, #fffffd, #e0c9bf, #b29692, #959ca5",
+        "#023465, #fe38b4, #d411a2, #8722d7, #af3ff9, #a693fc, #d2f9fc, #3dcefb, #3a7ff1, #0b68bd",
+        "#001219, #005f73, #0a9396, #94d2bd, #e9d8a6, #ee9b00, #ca6702, #bb3e03, #ae2012, #9b2226",
+        "#014737, #03543f, #046c4e, #057a55, #0e9f6e, #31c48d, #84e1bc, #bcf0da, #def7ec, #f3faf7",
+        "#2b2d42, #4e2c70, #702b9e, #b429f9, #9c43f8, #855df7, #6d77f6, #5591f5, #3eabf4, #26c5f3",
+        "#310906, #633533, #90605e, #e9b6b4, #f3efe0, #c1d3c8, #8fb7b0, #597380, #3e5168, #222e50",
+        "#36241c, #422c22, #4d3328, #644234, #815f51, #aa8b7e, #d3b6ab, #e6d5ce, #f0e5e1, #f9f5f3",
+        "#283c55, #355070, #6d597a, #915f78, #b56576, #e56b6f, #e77c76, #e88c7d, #eaac8b, #eebba0",
+        "#020759, #f9ddab, #f9a706, #ff6704, #e7062e, #a2217e, #511296, #114fc6, #038c5e, #7fc24f",
+        "#144366, #19598a, #006ba1, #3ba1da, #42bfc6, #49dcb1, #affee5, #ffe0e6, #ef798a, #ff6b6c",
+        "#f72585, #b5179e, #7209b7, #560bad, #480ca8, #3a0ca3, #159f91, #1bccba, #1ee3cf, #92f2e8",
+        "#202020, #7c1f3e, #aa1f4d, #d81e5b, #663767, #89438a, #ac4ead, #504f90, #6867c8, #7f7eff",
+        "#141b4d, #213f65, #56b7e6, #90e0ef, #ffc222, #ffb200, #ed1c24, #623412, #939597, #333333",
+        "#007f5f, #2b9348, #55a630, #80b918, #aacc00, #bfd200, #d4d700, #dddf00, #eeef20, #f1f24d",
+        "#355070, #6d597a, #b56576, #e56b6f, #eaac8b, #ecb496, #eebba0, #f0c1a9, #f1c7b1, #f2ccb8",
+        "#431169, #57168a, #701daf, #9a3ee0, #a259d9, #b573e8, #be84eb, #d1a7f1, #dab8f4, #f6edfc",
+        "#03045e, #023e8a, #0077b6, #0096c7, #00b4d8, #48cae4, #90e0ef, #ade8f4, #caf0f8, #cff1f9",
+        "#00291f, #00664d, #2b9348, #55a630, #80b918, #aacc00, #bfd200, #d4d700, #eeef20, #ffff3f",
+        "#3b054f, #feb538, #ff941c, #ff7200, #f86019, #f04e31, #e93c4a, #e12a62, #b8215e, #8e1859",
+        "#2c3a4e, #355070, #6d597a, #b56576, #e56b6f, #eaac8b, #e9d985, #b2bd7e, #749c75, #f6f7eb",
+        "#335c67, #66827a, #99a88c, #fff3b0, #f0c977, #e09f3e, #bf6535, #9e2a2b, #791b1d, #540b0e",
+        "#2d2731, #444060, #d6d9de, #fce0d4, #e0858c, #b84f60, #b57389, #7a4c69, #533847, #a88893",
+        "#023b01, #ffffff, #ce7e45, #df923d, #f1b555, #fcd163, #99b718, #66a000, #3e8601, #056201",
+        "#34381f, #5e5f48, #878571, #d9d2c2, #ccaba3, #be8484, #b15d65, #a33546, #641b2e, #240115",
+        "#590d22, #800f2f, #a4133c, #c9184a, #ff4d6d, #ff758f, #ff8fa3, #ffb3c1, #ffccd5, #fff0f3",
+        "#62040a, #9d0610, #d90816, #f72634, #f9626c, #bd4ef9, #a713f6, #8207c5, #5b058a, #35034f",
+        "#cf1949, #da224b, #e52a4d, #e93a4b, #ed4a49, #f15946, #f37440, #f58e3a, #f7a834, #f9c22e",
+        "#ff1493, #ff3fa4, #ff69b4, #ff88bf, #ffa6c9, #007c77, #00a5a4, #00ced1, #00e5e8, #00ffff",
+        "#336699, #5c98c0, #70b1d4, #84cae7, #a1e1cf, #bdf7b7, #8ee3a7, #5fcf97, #30bb87, #00a676",
+        "#6ab6dc, #49a6d4, #2f94c6, #277ba5, #1f6284, #e0b700, #ffd20a, #ffda33, #ffe15c, #ffe570",
+        "#103e8f, #0877c2, #16b9f5, #3bdbff, #c2e7ff, #4d0511, #800b19, #c72c39, #f05159, #ff8789"
+      ];
+
+      window.pattern = rarityScore(1,20,1.25);
+      //window.pattern = 20;
+
+
+      // window.colors = []
+      // for (const color in chroma.colors) {
+      //   colors.push(chroma.colors[color]);
+      // }
+
+      // let rarityCounts = {}
+      // for (let i=0;i<512;i++) {
+      //   let n = rarityScore(1,20,1.25);
+      //   if (!rarityCounts[n]) { rarityCounts[n]=0; }
+      //   rarityCounts[n] += 1;
+      // }
+      // console.log(rarityCounts);
+
+      let themeIndex = Math.floor(fxrand() * themes.length);
+      // console.log(themeIndex);
+
+      //let themeIndex = themes.length-1;
+
+      window.colors = themes[themeIndex].split(", ");
+      colors = colors.sort(() => (fxrand() > .5) ? 1 : -1);
+
+      let color = colors[Math.floor(fxrand() * colors.length)];
+
+      for(let i=0;i<10;i++) {
+        //console.log(chroma(color).desaturate(i).hex());
+      }
+
+      let h = chroma(color).hsl();
+      //console.log(h[0]);
+
+      window.l = 80;
+      window.c = 70;
+      window.h = 20;
+
+      window.bg = chroma.lch(5, 5, h).hex();
+      window.bgRBG = chroma(bg).rgb();
+
+      window.chaotic = fxrand()>.95;
+      //window.chaotic = true;
+
+      window.saturated = fxrand()>.95;
+      //window.saturated = true;
+
+      //console.log(chroma(bg).rgb());
+
+      window.$fxhashFeatures = {
+        "Pattern": pattern,
+        "Chaotic": chaotic,
+        "Saturated": saturated
+      }
+    </script>
+    <script src="./CCapture.min.js"></script>
+    <script src="./webm-writer-0.2.0.js"></script>
+    <script src="./download.js"></script>
+    <script src="./p5.min.js"></script>
+    <script src="./sketch.js"></script>
+  </body>
+</html>

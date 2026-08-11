@@ -1,0 +1,18 @@
+{
+  "box0": {
+    "dir": "shaders/generative/feedbackballs.frag",
+    "name": "feedbackballs.frag",
+    "sc1": 0.21666666666666667,
+    "size": 0.71,
+    "iterations": 0.7166666666666667,
+    "ite_scale": 0.15,
+    "xspeed": 0.54,
+    "yspeed": 0.6236555575928433,
+    "rotangle": 0.7533333333333333,
+    "rotspeed": 0.4866666666666667,
+    "fb_force": 0.09979302212703844,
+    "e_force": 0.4666666666666667,
+    "hue1": 0.08666666666666667,
+    "hue2": 0.5733333333333334
+  }
+}

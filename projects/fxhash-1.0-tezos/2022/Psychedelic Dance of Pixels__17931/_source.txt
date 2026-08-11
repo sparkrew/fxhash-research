@@ -1,0 +1,4 @@
+id: 17931
+name: Psychedelic Dance of Pixels
+mint_opens_at: 2022-08-12T15:05:14+00:00
+generative_uri: ipfs://QmNTTei9qbUs1khC9RAEMhoaZiZxN8JJY1Y8SEh2jffqmW

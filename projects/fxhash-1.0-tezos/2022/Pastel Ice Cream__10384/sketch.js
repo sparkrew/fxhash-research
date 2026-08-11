@@ -1,0 +1,1 @@
+var colors=["#eddcd2","#fff1e6","#fde2e4","#fad2e1","#c5dedd","#dbe7e4","#f0efeb","#d6e2e9","#bcd4e6","#99c1de"];function setup(){createCanvas(windowWidth,windowHeight),background(0)}function draw(){translate(width/2,height/2),rotate(frameCount),noStroke();for(var e=0;e<20;e++){var d=colors[e%colors.length];fill(d),ellipse(0,0,100,100),translate(20,20),scale(.95)}}

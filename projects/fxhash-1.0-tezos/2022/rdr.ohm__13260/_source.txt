@@ -1,0 +1,4 @@
+id: 13260
+name: rdr.ohm
+mint_opens_at: 2022-05-21T10:32:29+00:00
+generative_uri: ipfs://Qmf6UmJ19S7aoLJQgz4VCHu4DtK3Rr4f9cCqCJTxFgGxUu

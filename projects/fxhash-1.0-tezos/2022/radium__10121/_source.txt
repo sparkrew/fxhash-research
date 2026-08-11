@@ -1,0 +1,4 @@
+id: 10121
+name: radium
+mint_opens_at: 2022-02-28T21:12:14+00:00
+generative_uri: ipfs://QmbFYRe7KKuqf3nYm3KeztR4WwUsV5DLjy2zpUQUed7yUq

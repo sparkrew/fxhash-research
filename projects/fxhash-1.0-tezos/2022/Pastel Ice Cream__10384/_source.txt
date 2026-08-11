@@ -1,0 +1,4 @@
+id: 10384
+name: Pastel Ice Cream
+mint_opens_at: 2022-03-06T16:07:44+00:00
+generative_uri: ipfs://QmWNDtaF8ScCmQP66s6xLatnYcCZoPKi4K17B9B1kmKhNi

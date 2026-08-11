@@ -1,0 +1,4 @@
+id: 14384
+name: peaks
+mint_opens_at: 2022-06-07T18:00:00+00:00
+generative_uri: ipfs://Qmdn9fCPcYEXZxfAcjM6nWejJrKVjH7q7v4NcKzEJMsviQ

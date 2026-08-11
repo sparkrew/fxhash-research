@@ -1,0 +1,4 @@
+id: 11416
+name: NAILS
+mint_opens_at: 2022-04-18T07:05:14+00:00
+generative_uri: ipfs://QmfMhkwQaDHwNaYxhdRxpb5sybDBmJHLiftGca8G4MJPbW

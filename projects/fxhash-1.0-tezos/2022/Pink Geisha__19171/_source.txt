@@ -1,0 +1,4 @@
+id: 19171
+name: Pink Geisha
+mint_opens_at: 2022-09-09T18:00:00+00:00
+generative_uri: ipfs://QmSiB2kUC4Tb4SUPeoPNiRPuEoQWkod9w95fGBSTwaBuhn

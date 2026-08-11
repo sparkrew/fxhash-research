@@ -1,0 +1,4 @@
+id: 6434
+name: particle
+mint_opens_at: 2022-01-10T12:30:00+00:00
+generative_uri: ipfs://QmTs5y4KbfoJJscvG1vtNdNC5KrkfiwC5TgguD2YzjWJDW

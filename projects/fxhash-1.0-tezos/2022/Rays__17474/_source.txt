@@ -1,0 +1,4 @@
+id: 17474
+name: Rays
+mint_opens_at: 2022-08-02T12:54:44+00:00
+generative_uri: ipfs://QmVj6s5DmhCi2VwA8bHf2P6h9yEK9DN6haAy8T7f4Xmvpm

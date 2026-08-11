@@ -1,0 +1,4 @@
+id: 17725
+name: Regimes
+mint_opens_at: 2022-08-10T23:00:00+00:00
+generative_uri: ipfs://QmUTGGoF1fYu7vwHidYjfaaG8psbMb6s4pwEouvwvaBXGY

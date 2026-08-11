@@ -1,0 +1,4 @@
+id: 14804
+name: Noren
+mint_opens_at: 2022-06-15T23:30:00+00:00
+generative_uri: ipfs://QmW9h6DGXJfbuSRDb5AWAMZbxRXV46MXVJLBMsKYTBo5Mr

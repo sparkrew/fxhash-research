@@ -1,0 +1,4 @@
+id: 7718
+name: Raise the cat
+mint_opens_at: 2022-01-22T07:51:40+00:00
+generative_uri: ipfs://QmPjiJeppyqi4uaziVDQ8HbyiGGrL4LoaExRyQ3Q9rWS3g

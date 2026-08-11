@@ -1,0 +1,4 @@
+id: 8979
+name: NBR
+mint_opens_at: 2022-02-08T21:45:44+00:00
+generative_uri: ipfs://QmfSC6ecnHkWA9k2QNM8vtptK7SZQVNTBQVdjadZneNJAH

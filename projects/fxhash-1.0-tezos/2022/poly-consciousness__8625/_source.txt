@@ -1,0 +1,4 @@
+id: 8625
+name: poly-consciousness
+mint_opens_at: 2022-02-04T08:40:06+00:00
+generative_uri: ipfs://QmXkocZri46zV41dzQPRba6PJMYFYKgKEwieqz186YmRCL

@@ -1,0 +1,4 @@
+id: 10672
+name: Quantum Universe :: Observations
+mint_opens_at: 2022-03-13T18:59:14+00:00
+generative_uri: ipfs://QmXm7jSE43grDyGDoyywzXzCupJR8kbbV7WFvxebdYCMxd

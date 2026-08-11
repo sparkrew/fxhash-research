@@ -1,0 +1,4 @@
+id: 22452
+name: On the paper
+mint_opens_at: 2022-12-14T11:07:00+00:00
+generative_uri: ipfs://QmdTjoM8pNrhcXtVsqfejA9sD13qCxJACK3sakRQNXqfFk

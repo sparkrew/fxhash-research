@@ -1,0 +1,4 @@
+id: 22110
+name: Noise fabrix
+mint_opens_at: 2022-12-03T16:30:00+00:00
+generative_uri: ipfs://QmP7cRAUibHug8h2U5pvtzL6qp9xQDsHvwVq7q6udELJY5

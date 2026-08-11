@@ -1,0 +1,4 @@
+id: 11547
+name: redes
+mint_opens_at: 2022-04-20T01:24:44+00:00
+generative_uri: ipfs://QmdU9dGLVBq66eLTDq4UnbzyF3Xp1z93bqaoBtQAc4dzie

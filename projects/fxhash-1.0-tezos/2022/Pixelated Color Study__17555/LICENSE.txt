@@ -1,0 +1,2 @@
+- "Pixelated Color Study" visual code Copyright (c) 2022 vlorenz
+- Hydra.js MIT license GNU Affero General Public License v3.0

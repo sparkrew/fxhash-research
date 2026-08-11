@@ -1,0 +1,4 @@
+id: 7177
+name: Power Line
+mint_opens_at: 2022-01-15T22:34:20+00:00
+generative_uri: ipfs://QmNynRpN8T4y5XwwU9Z63LPxBu4TZdJa4yrcyJn6NYGG5H

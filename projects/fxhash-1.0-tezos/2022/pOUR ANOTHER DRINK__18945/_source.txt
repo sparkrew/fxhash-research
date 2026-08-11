@@ -1,0 +1,4 @@
+id: 18945
+name: pOUR ANOTHER DRINK
+mint_opens_at: 2022-09-03T17:00:44+00:00
+generative_uri: ipfs://QmPHz1GgrzetgUMd8uHCxWtfVRt3uxxfDSSoj6FriLGbe6

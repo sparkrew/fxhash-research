@@ -1,0 +1,4 @@
+id: 11102
+name: Qubiks Art
+mint_opens_at: 2022-04-16T17:06:14+00:00
+generative_uri: ipfs://QmQe8EyhFsHi34KMLerTF2iwg7B1fTstXrfkEztRfnPqoK

@@ -1,0 +1,4 @@
+id: 5504
+name: Old Town
+mint_opens_at: 2022-01-05T12:08:40+00:00
+generative_uri: ipfs://QmRHaV7EpksjaXzaGUxueaD56acMcKetdRHYQUffQ9bWdK

@@ -1,0 +1,4 @@
+id: 15860
+name: Peacock
+mint_opens_at: 2022-07-04T16:22:14+00:00
+generative_uri: ipfs://QmYJeFNpTdWYmUjyZEhdGVNgdPoB6pHWybz5PgVY26Dqog

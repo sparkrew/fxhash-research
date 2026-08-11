@@ -1,0 +1,4 @@
+id: 19123
+name: MR.Z
+mint_opens_at: 2022-09-08T17:30:00+00:00
+generative_uri: ipfs://QmZJAHWtNEunZhQufEdn1m9iNCJJK3rGyWuT3GjiuTfLWj

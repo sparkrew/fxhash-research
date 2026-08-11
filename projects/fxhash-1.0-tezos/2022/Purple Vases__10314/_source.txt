@@ -1,0 +1,4 @@
+id: 10314
+name: Purple Vases
+mint_opens_at: 2022-03-05T14:25:34+00:00
+generative_uri: ipfs://QmW1f6Uc2e8F8cmVhXmEsDzHA4CstQzEzcLeeFtMKEpR37

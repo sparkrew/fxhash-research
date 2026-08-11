@@ -1,0 +1,4 @@
+id: 15839
+name: PETRI DISH
+mint_opens_at: 2022-07-04T06:32:29+00:00
+generative_uri: ipfs://QmQfskuA4ittmRxjXmhr7cuAS5WnDGJq7cKXqLskmgH5X9

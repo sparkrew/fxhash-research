@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={"Overall-Face-Color":`${faceColor[0]}, ${faceColor[1]},  ${faceColor[2]} \n `,"Outer-Eye-Rotation-Value":`${randRo} \n `,"Inner-Eye-Rotation-Value":`${randRo2} \n `,"Inner-Eye-Color":`${innerColor[0]}, ${innerColor[1]}, ${innerColor[2]}  \n `};

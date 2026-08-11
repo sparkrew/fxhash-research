@@ -1,0 +1,4 @@
+id: 20810
+name: mosaic shatter
+mint_opens_at: 2022-10-29T19:00:00+00:00
+generative_uri: ipfs://Qmd2KqTfEBQTKw3wEXRgdpnE74A992vy1uU4Kz1i6nUP8s

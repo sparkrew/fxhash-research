@@ -1,0 +1,4 @@
+id: 7930
+name: Perspective Construct I
+mint_opens_at: 2022-01-26T04:06:00+00:00
+generative_uri: ipfs://QmUGHBEGmZGHGUEjkXVR8CggQsbAWAJakT7ECM7MJUGPxD

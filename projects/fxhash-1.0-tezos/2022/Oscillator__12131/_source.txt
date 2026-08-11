@@ -1,0 +1,4 @@
+id: 12131
+name: Oscillator
+mint_opens_at: 2022-04-28T15:54:29+00:00
+generative_uri: ipfs://QmUvss3E5BmV9e7NXcHGtWx4iWwAqSedFXPBVgoTFndQ6h

@@ -1,0 +1,1 @@
+function Mathf_Clamp(t,n,a){return t<n?t=n:t>a&&(t=a),t}function Mathf_Clamp01(t){return t<0?0:t>1?1:t}function Mathf_Repeat(t,n){return Mathf_Clamp(t-Math.floor(t/n)*n,0,n)}function Mathf_PingPong(t,n){return t=Mathf_Repeat(t,2*n),n-Math.abs(t-n)}function shuffle(t){let n=t.length;for(;0!=n;){let a=Math.floor(Math.random()*n);n--,[t[n],t[a]]=[t[a],t[n]]}return t}

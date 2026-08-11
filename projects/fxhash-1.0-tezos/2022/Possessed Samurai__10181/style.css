@@ -1,0 +1,9 @@
+body {
+    background-color: black;
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    overflow: hidden;
+    /* padding: 5%; */
+}

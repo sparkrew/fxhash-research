@@ -1,0 +1,4 @@
+id: 19330
+name: Oil Slick
+mint_opens_at: 2022-09-14T12:00:00+00:00
+generative_uri: ipfs://QmdoVAvxUvBTEqWW9sPiKVqHaBTCd33cUVYwcMaiBULQb4

@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={"Line Color":strokeRColor,"Line Weight":strokeRWeight,"Body Side Color":sideColor,"Body Center Color":centerColor,Angle:angle};

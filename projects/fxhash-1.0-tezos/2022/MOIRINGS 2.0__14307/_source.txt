@@ -1,0 +1,4 @@
+id: 14307
+name: MOIRINGS 2.0
+mint_opens_at: 2022-06-06T18:00:00+00:00
+generative_uri: ipfs://QmTmzq6gL1WaYMSyciJuQbvfQZXTfb3QzawauRZnZHN8HE

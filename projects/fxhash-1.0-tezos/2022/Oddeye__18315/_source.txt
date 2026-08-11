@@ -1,0 +1,4 @@
+id: 18315
+name: Oddeye
+mint_opens_at: 2022-08-20T19:06:00+00:00
+generative_uri: ipfs://QmTMpPdryAQB26ZxvZu3TakaYk9F7JmdJHqvoQ9SzgvNnA

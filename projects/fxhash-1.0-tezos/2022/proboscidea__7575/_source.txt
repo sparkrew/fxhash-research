@@ -1,0 +1,4 @@
+id: 7575
+name: proboscidea
+mint_opens_at: 2022-01-20T13:47:30+00:00
+generative_uri: ipfs://Qmd1GQ5dMuSPG6PCnnsiQGxJYDFtP5GonTFtPGvfKAdGby

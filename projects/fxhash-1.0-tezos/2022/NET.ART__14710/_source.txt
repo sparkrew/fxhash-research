@@ -1,0 +1,4 @@
+id: 14710
+name: NET.ART
+mint_opens_at: 2022-06-12T08:17:44+00:00
+generative_uri: ipfs://QmRCyhRTgUgxwhPyk1HcbkC93s2emtE7QW6wfyKnJjFj62

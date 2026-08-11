@@ -1,0 +1,4 @@
+id: 11302
+name: Motivational Posters
+mint_opens_at: 2022-04-17T09:00:00+00:00
+generative_uri: ipfs://QmRK7Q13CCerdXSWjq3qNZ75Rnm2zHdBvwhxS9Yfwp9YxW

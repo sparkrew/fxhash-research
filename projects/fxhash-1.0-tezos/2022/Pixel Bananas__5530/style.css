@@ -1,0 +1,41 @@
+body{
+  width: 100vw;
+  height: auto;
+  background-color: hsl(0, 29%, 63%);
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+}
+
+.main_img{
+  width: 60vh;
+  height: 60vh;
+  image-rendering: pixelated;
+  position: absolute;
+  margin-top: 0vh;
+  z-index: 5;
+}
+
+.main_img_base{
+  width: 60vh;
+  height: 60vh;
+  image-rendering: pixelated;
+  position: absolute;
+  margin-top: 0vh;
+  z-index: 0;
+}
+
+.loading_div{
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  position: fixed;
+  z-index: 1000;
+}

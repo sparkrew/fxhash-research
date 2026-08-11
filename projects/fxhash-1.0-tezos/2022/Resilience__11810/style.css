@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  align: center;
+  display: flex;
+  background-color: #FFF;
+  font-family: 'Courier';
+  color: #FFF;
+}
+
+canvas {
+  display: block;
+}

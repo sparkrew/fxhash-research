@@ -1,0 +1,4 @@
+id: 22576
+name: por rang
+mint_opens_at: 2022-12-16T14:47:14+00:00
+generative_uri: ipfs://QmbuGoqAL2HUMAubeMQ8tdWMvuTPPX6HUtpvQibSe26X1k

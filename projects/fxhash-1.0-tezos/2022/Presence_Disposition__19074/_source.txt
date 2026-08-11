@@ -1,0 +1,4 @@
+id: 19074
+name: Presence_Disposition
+mint_opens_at: 2022-09-07T11:00:14+00:00
+generative_uri: ipfs://QmeuyJkvPWp2yEhLb8zjqWCZwSgCYhuMQ8Qxb2VAriWMwg

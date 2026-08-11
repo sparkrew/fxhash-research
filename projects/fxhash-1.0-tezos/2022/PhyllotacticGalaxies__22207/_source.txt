@@ -1,0 +1,4 @@
+id: 22207
+name: PhyllotacticGalaxies
+mint_opens_at: 2022-12-07T05:00:00+00:00
+generative_uri: ipfs://QmdTtEz4dKYMdzMxkt1CveUzskMTKiargD1Xn9XCSgXEsN

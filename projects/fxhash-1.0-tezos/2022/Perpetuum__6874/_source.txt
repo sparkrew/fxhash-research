@@ -1,0 +1,4 @@
+id: 6874
+name: Perpetuum
+mint_opens_at: 2022-01-13T09:46:30+00:00
+generative_uri: ipfs://QmWtf2sqj47io2fbFFwnusLHTkBRMAq4FFJeRTwxCvbNXn

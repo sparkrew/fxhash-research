@@ -1,0 +1,4 @@
+id: 22695
+name: New Year's Chandelier
+mint_opens_at: 2022-12-30T19:00:00+00:00
+generative_uri: ipfs://QmeFD1rS9chPq7KNg4jJ3wkBcP8pz74HhPVrg4oE9HAvca

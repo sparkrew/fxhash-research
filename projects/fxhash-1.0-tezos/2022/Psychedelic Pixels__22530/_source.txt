@@ -1,0 +1,4 @@
+id: 22530
+name: Psychedelic Pixels
+mint_opens_at: 2022-12-15T13:26:44+00:00
+generative_uri: ipfs://QmYwPh7UVCUptj6SSh6haZPSDtwFyTiQREMw44dxJ34xVb

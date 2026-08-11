@@ -1,0 +1,4 @@
+id: 17004
+name: PIGGY MOO
+mint_opens_at: 2022-07-29T03:00:00+00:00
+generative_uri: ipfs://QmaedsfboXaDYM9sSB5sb58nVDUNtgqnZsN5RAcVXZkdtT

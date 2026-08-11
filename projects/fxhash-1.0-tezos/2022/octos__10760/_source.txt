@@ -1,0 +1,4 @@
+id: 10760
+name: octos
+mint_opens_at: 2022-03-15T00:48:44+00:00
+generative_uri: ipfs://QmXrUw2vSeuntqa4iu7GDiv3PekBMhzMWkmwjm1E197VzF

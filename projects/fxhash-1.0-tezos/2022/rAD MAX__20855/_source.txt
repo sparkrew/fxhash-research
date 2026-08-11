@@ -1,0 +1,4 @@
+id: 20855
+name: rAD MAX
+mint_opens_at: 2022-10-31T12:03:29+00:00
+generative_uri: ipfs://QmZZ9Ee1jFkDu9tSyNUvSJn55phPStAsNMK3GzgBdDRSPR

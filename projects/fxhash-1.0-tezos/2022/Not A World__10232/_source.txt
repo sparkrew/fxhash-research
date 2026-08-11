@@ -1,0 +1,4 @@
+id: 10232
+name: Not A World
+mint_opens_at: 2022-03-04T16:12:44+00:00
+generative_uri: ipfs://Qmeh6Kdtck1CQ4sQ45hcJuBTqJzhLnafbjbYPiCqmmDsQ4

@@ -1,0 +1,4 @@
+id: 6062
+name: rectPusher
+mint_opens_at: 2022-01-07T14:18:40+00:00
+generative_uri: ipfs://Qmenkwg6YK1hfW6Choa8orGHwSZiktMMrtLRb9Wz4AXtpk

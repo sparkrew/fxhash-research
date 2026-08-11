@@ -1,0 +1,4 @@
+id: 12049
+name: Moo-Verse
+mint_opens_at: 2022-04-27T10:59:59+00:00
+generative_uri: ipfs://QmStorLpYAHECmC11fnrTahDdzBkJu6akN9digTo3ydWH2

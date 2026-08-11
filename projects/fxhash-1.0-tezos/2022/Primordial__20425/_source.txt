@@ -1,0 +1,4 @@
+id: 20425
+name: Primordial
+mint_opens_at: 2022-10-18T15:00:00+00:00
+generative_uri: ipfs://QmbFgD7jBZ6svKhfP6suVsmuoSnMwc2Puf3y3F3L82v172

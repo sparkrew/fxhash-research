@@ -1,0 +1,4 @@
+id: 14406
+name: one hour
+mint_opens_at: 2022-06-09T17:00:00+00:00
+generative_uri: ipfs://QmXdNtXUsZgrcHBGcgKi1aHVnRGL3VeZGQ5CCwYwQ4Wjph

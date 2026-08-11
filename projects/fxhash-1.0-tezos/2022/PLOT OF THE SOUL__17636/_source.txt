@@ -1,0 +1,4 @@
+id: 17636
+name: PLOT OF THE SOUL
+mint_opens_at: 2022-08-07T09:00:00+00:00
+generative_uri: ipfs://QmVaNpMSFBoZBktq9Jda9X4pLWkTYADHu4Nd6srnux5Zwp

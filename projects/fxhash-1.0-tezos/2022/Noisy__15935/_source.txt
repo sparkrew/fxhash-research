@@ -1,0 +1,4 @@
+id: 15935
+name: Noisy
+mint_opens_at: 2022-07-05T10:05:29+00:00
+generative_uri: ipfs://QmYnF5aiuFNTXeTAPgtxJUDSmNnZVFDd545BGPCGrWLYqb

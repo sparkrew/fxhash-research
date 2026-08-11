@@ -1,0 +1,4 @@
+id: 14310
+name: Plant remains
+mint_opens_at: 2022-06-06T19:31:14+00:00
+generative_uri: ipfs://Qmbzr9s1tVcwhAgAVwLAgBBZhhivuRXDtZxhzQrbGq9pwx

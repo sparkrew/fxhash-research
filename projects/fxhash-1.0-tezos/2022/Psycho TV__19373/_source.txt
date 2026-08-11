@@ -1,0 +1,4 @@
+id: 19373
+name: Psycho TV
+mint_opens_at: 2022-09-14T06:00:00+00:00
+generative_uri: ipfs://QmbUyLEwqAd7N5DWawTYveVkhdvXjxsekGAfEUsareNKnN

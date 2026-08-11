@@ -1,0 +1,4 @@
+id: 18204
+name: Odyssey
+mint_opens_at: 2022-08-17T16:00:00+00:00
+generative_uri: ipfs://QmYoa8t3eEKx9QxMvuF2S8NdVra9erAkuQsrjLtTdFaLEp

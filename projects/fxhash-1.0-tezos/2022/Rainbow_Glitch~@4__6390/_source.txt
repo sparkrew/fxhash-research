@@ -1,0 +1,4 @@
+id: 6390
+name: Rainbow_Glitch~@4
+mint_opens_at: 2022-01-09T18:36:00+00:00
+generative_uri: ipfs://QmP3ERxznUoHfUTdNvkmsAW1bcb3p1mfpeDeP9ZgxeWwf9

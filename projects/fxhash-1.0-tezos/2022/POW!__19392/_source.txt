@@ -1,0 +1,4 @@
+id: 19392
+name: POW!
+mint_opens_at: 2022-09-17T18:00:00+00:00
+generative_uri: ipfs://QmUfFZFvtZpJZdPwAaZKLJxifQN9FPXgUNSK73bSkE3Bkr

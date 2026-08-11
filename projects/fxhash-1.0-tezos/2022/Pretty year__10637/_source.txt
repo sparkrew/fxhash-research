@@ -1,0 +1,4 @@
+id: 10637
+name: Pretty year
+mint_opens_at: 2022-03-13T01:14:04+00:00
+generative_uri: ipfs://QmNkuCQfsq7Q6Nh2ncT1zvdUakNUTsdSZa8hq9kNbXrdQT

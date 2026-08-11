@@ -1,0 +1,4 @@
+id: 14892
+name: Re-Folded
+mint_opens_at: 2022-06-16T13:00:00+00:00
+generative_uri: ipfs://QmeuXLmoDnm1Mw1kEXNsjUiwFEGhVMUogZsnf1hNWqoT3H

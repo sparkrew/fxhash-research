@@ -1,0 +1,4 @@
+id: 9478
+name: Posters from the Past
+mint_opens_at: 2022-02-16T05:34:44+00:00
+generative_uri: ipfs://Qma6UdYwyw59XV3vC3UhPVZpc2tUNVDxyHCAT31ceZgqHJ

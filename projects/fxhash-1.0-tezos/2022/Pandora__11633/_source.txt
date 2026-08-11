@@ -1,0 +1,4 @@
+id: 11633
+name: Pandora
+mint_opens_at: 2022-04-21T13:00:00+00:00
+generative_uri: ipfs://QmWuzzbAwAn6XKF5tUWNzLe4Z86d1Z18W7qC1SLzvb5B6i

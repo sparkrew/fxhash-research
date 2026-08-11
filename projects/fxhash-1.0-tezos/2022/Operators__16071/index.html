@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+<script src="script-hydra.js"></script>
+
+    <meta charset="utf-8" >
+    <title>Operators</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta property="og:image" content="thumb.png" >
+    <link type="text/css" rel="stylesheet" href="style.css" >
+  </head>
+  <body>
+
+    <script>
+
+
+          document.addEventListener("keyup", (event) => {
+            if (event.key === "s" || event.key === "S") {
+                event.preventDefault();
+                screencap();
+            }
+          })
+
+
+      var hydra = new Hydra({
+        canvas: document.getElementById("myCanvas"),
+        detectAudio: false
+      });
+
+      function rnd_btw(min, max) {return fxrand() * (max - min) + min;}
+      function rnd_btwexp(min, max) {return fxrand()**2 * (max - min) + min;}
+      function rnd_int(min, max) {min = Math.ceil(min);max = Math.floor(max);return Math.floor(fxrand() * (max - min + 1)) + min;}
+
+// digital still analog
+
+      osc1=rnd_btw(-1 ,-1.3)
+      osc2=rnd_btw(-1 ,-1.3)
+      osc3=rnd_btw(-1 ,-1.2)
+      osc4=rnd_btw(-1 ,1.35)
+      osc5=rnd_btw(-1. ,-1.3)
+      osc6=rnd_btw(-2 ,-2.1)
+      osc7=rnd_btw(-5 ,-5.3)
+      osc8=rnd_btw(-5 ,-5.4)
+      osc9=rnd_btw(-2 ,-2.3)
+      osc10=rnd_btw(-5 ,-5.6)
+      osc11=rnd_btw(-5 ,-5.1)
+      osc12=rnd_btw(-2 ,-2.2)
+      osc13=rnd_btw(-5 ,-5.2)
+      osc14=rnd_btw(-5 ,-5.8)
+      osc15=rnd_btw(-2 ,-2.5)
+      osc16=rnd_btw(-5 ,-5.5)
+      osc17=rnd_btw(-5 ,-5.5)
+      osc18=rnd_btw(-2 ,-1)
+      osc19=rnd_btw(-5 ,-4)
+      osc20=rnd_btw(-5 ,-4)
+      osc21=rnd_btw(-2 ,-1)
+      osc23=rnd_btw(-5 ,-4)
+      osc24=rnd_btw(-5 ,-4)
+      osc25=rnd_btw(-2 ,-3)
+      osc26=rnd_btw(2 ,-2)
+      osc27=rnd_btw(1.08 ,1.01)
+      osc28=rnd_btw(-2 ,-2)
+
+
+      solid(osc1,13,1)
+      .add(shape(4,0.2,0).scrollY([osc1,osc2,osc3,osc4].ease('easeInOutCubic')))
+      .add(shape(4,0.1,0).scrollX([osc5,osc6,osc7,osc8].ease('easeInOutCubic')))
+      .sub(shape(4,0.3,0).scrollX([osc9,osc10,osc11,osc12].ease('easeInOutCubic')))
+      .blend(shape(4,0.4,0).scrollY([osc13,osc14, osc15, osc16].ease('easeInOutCubic')))
+      .scrollX([osc1,osc2,osc3,osc4].ease('easeInOutCubic'))
+      .add(solid(2,1)
+      .add(shape(4,0.1,0).scrollY([osc1,osc2,osc3,osc4].ease('easeInOutCubic')))
+      .add(shape(4,0.2,0).scrollX([osc5,osc6,osc7,osc8].ease('easeInOutCubic')))
+      .sub(shape(4,0.5,0).scrollY([osc9,osc10,osc11,osc12].ease('easeInOutCubic')))
+      .blend(shape(4,0.4,0).scrollX([osc13,osc14,osc15,osc16].ease('easeInOutCubic'))))
+      .blend(solid(2,0,1).scrollX([osc9,osc10,osc11,osc12].ease('easeInOutCubic'))
+      .add(shape(4,0.2,0).scrollX([osc17,osc18,osc19,osc20].ease('easeInOutCubic')))
+      .sub(shape(4,0.3,0).scrollY([osc21,osc1,osc3].ease('easeInOutCubic')))
+      .blend(shape(4,0.4,0).scrollX([-0.2,-0.01, -0.23, -0.1].ease('easeInOutCubic')))
+      .add(solid(1,1)
+      .add(shape(4,0.1,0).scrollY([1.14,1.20].ease('easeInOutCubic')))
+      .sub(shape(4,0.5,0).scrollY([1.14,1.20].ease('easeInOutCubic')))
+      .blend(shape(4,0.4,0).scrollY([0.2,0.01].ease('easeInOutCubic')))))
+      .contrast(-2).hue(osc26).invert(2).shift(osc1,osc2,osc3).saturate(1.4)
+      .modulate(o0,20).scale(osc27).pixelate(437,450).mask(shape(4,0.99999,0))
+      .out()
+speed = 0.5
+
+// "you are here"
+
+    </script>
+  </body>
+</html>

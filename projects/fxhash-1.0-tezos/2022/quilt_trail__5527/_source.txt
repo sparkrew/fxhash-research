@@ -1,0 +1,4 @@
+id: 5527
+name: quilt_trail
+mint_opens_at: 2022-01-05T12:17:10+00:00
+generative_uri: ipfs://QmYjYiP2u4gX1HFeftg1zcrhqekW8n2fucpd6o9ms9SVDi

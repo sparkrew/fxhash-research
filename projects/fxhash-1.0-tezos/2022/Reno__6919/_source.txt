@@ -1,0 +1,4 @@
+id: 6919
+name: Reno
+mint_opens_at: 2022-01-14T01:23:40+00:00
+generative_uri: ipfs://QmaeMi5mofw3atKSdpcrBrNULp8DBHpSL7YBqexUxNfsDr

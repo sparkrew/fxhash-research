@@ -1,0 +1,4 @@
+id: 14768
+name: Ray of Light
+mint_opens_at: 2022-06-13T09:30:29+00:00
+generative_uri: ipfs://QmV5Apn1EBuakiVunWRF9BxqJwgPKRDxd2VDD5h9Wa47QC

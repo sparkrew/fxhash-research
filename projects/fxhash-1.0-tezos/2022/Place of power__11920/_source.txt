@@ -1,0 +1,4 @@
+id: 11920
+name: Place of power
+mint_opens_at: 2022-04-25T21:39:29+00:00
+generative_uri: ipfs://Qmd6k4tvLGiEST8yJdbMwYEGWm8GB4oUBV3tTEWhHoVL9f

@@ -1,0 +1,4 @@
+id: 17768
+name: MONOLITH
+mint_opens_at: 2022-08-08T20:00:00+00:00
+generative_uri: ipfs://Qma3rgdrk9SemAstYf7x2oe2ELQYV2BPsHJoH8ZKGA4jPz

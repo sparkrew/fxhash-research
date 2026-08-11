@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"><head>
+
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+  
+        <script>
+        console.log(`%c
+      
+                    __                       _   
+                   / _|                     | |  
+       _ __   ____| |_  ___     _ __    ___ | |_ 
+      | '_ \` |_  /|  _|/ __|   | '_ \`  / _ \`| __|
+      | | | | / / | |  \`__ \` _ | | | ||  __/| |_ 
+      |_| |_|/___||_|  |___/(_)|_| |_| \`___| \`__|
+                                                 
+                                                 
+      
+      `, `font-family: monospace`);
+      </script>
+
+
+
+<script src="./src/p5.js"></script>
+<link rel="stylesheet" type="text/css" href="./src/style.css">
+<meta charset="utf-8">
+
+  </head>
+  <body>
+    <script>
+      let index_col,index_fondo,color1,color2,color3,color4,r,estadoX,estadoY;function setup(){let F=9999*fxrand();randomSeed(F),noiseSeed(F),windowWidth>windowHeight?createCanvas(windowHeight,windowHeight):windowWidth<windowHeight?createCanvas(windowWidth,windowWidth):windowWidth==windowHeight&&createCanvas(windowWidth,windowHeight),index_col=floor(fxrand()*cols.length),color1=color(cols[index_col][floor(fxrand()*cols[index_col].length)]),color2=color(cols[index_col][floor(fxrand()*cols[index_col].length)]),color3=color(cols[index_col][floor(fxrand()*cols[index_col].length)]),color4=color(cols[index_col][floor(fxrand()*cols[index_col].length)]),r=random(1),estadoX=floor(random(8)+1),estadoY=floor(random(7)+1),8==estadoX&&7==estadoY&&(estadoX=floor(random(8)+1),estadoY=floor(random(7)+1)),stepX=random(2,5),stepY=random(2,5)}cols=[["#000D6B","#9C19E0","#FF5DA2","#99DDCC"],["#FF0075","#172774","#77D970","#EEEEEE"],["#B983FF","#94B3FD","#94DAFF","#99FEFF"],["#1DB9C3","#7027A0","#C32BAD","#F56FAD"],["#FF00E4","#ED50F1","#FDB9FC","#FFEDED"],["#000D6B","#9C19E0","#FF5DA2","#99DDCC"],["#1E3163","#2D46B9","#F037A5","#F8F8F8"],["#170055","#3E00FF","#AE00FB","#B5FFD9"],["#FF4848","#FFD371","#C2FFD9","#9DDAC6"],["#F0D9E7","#FF94CC","#A239EA","#5C33F6"],["#78DEC7","#D62AD0","#FB7AFC","#FBC7F7"],["#F7FD04","#F9B208","#F98404","#FC5404"],["#0CECDD","#FFF338","#FF67E7","#C400FF"],["#00EAD3","#FFF5B7","#FF449F","#005F99"],["#233E8B","#1EAE98","#A9F1DF","#FFFFC7"],["#9EDE73","#F7EA00","#E48900","#BE0000"],["#FEFFDE","#DDFFBC","#91C788","#52734D"],["#F90716","#FF5403","#FFCA03","#FFF323"],["#EDEDED","#FFA41B","#FF5151","#9818D6"],["#FA163F","#12CAD6","#0FABBC","#E4F9FF"],["#F65C78","#FFD271","#FFF3AF","#C3F584"],["#8CBA51","#DEFF8B","#FBCEB5","#FF5D6C"],["#F0134D","#FF6F5E","#F5F0E3","#40BFC1"],["#4D089A","#323EDD","#DC2ADE","#E8F044"],["#381460","#B21F66","#FE346E","#FFBD69"],["#FFBA5A","#C0FFB3","#52DE97","#2C7873"],["#FF5200","#6F0000","#00263B","#00A1AB"],["#2FC4B2","#12947F","#E71414","#F17808"],["#FA26A0","#05DFD7","#A3F7BF","#FFF591"],["#B6EB7A","#F7F7EE","#FB7813","#17706E"],["#F9D371","#F47340","#EF2F88","#8843F2"],["#D77FA1","#BAABDA","#D6E5FA","#FFF9F9"],["#FF5959","#676FA3","#CDDEFF","#EEF2FF"],["#FEE3EC","#F9C5D5","#F999B7","#F2789F"],["#FF87CA","#FFC4E1","#EAEAEA","#EED7CE"],["#544179","#6166B3","#32C1CD","#17D7A0"]["#874356"],["#655D8A","#7897AB","#D885A3","#FDCEB9"],["#1572A1","#9AD0EC","#EFDAD7","#E3BEC6"],["#FDEBF7","#FBCAFF","#FFADF0","#FC28FB"],["#F9E4D4","#D67D3E","#9C0F48","#470D21"],["#24A19C","#FAEEE7","#325288","#D96098"],["#FF6363","#FFAB76","#FFFDA2","#BAFFB4"],["#D3DEDC","#92A9BD","#7C99AC","#FFEFEF"],["#876445","#CA965C","#EEC373","#F4DFBA"],["#EA5C2B","#FF7F3F","#F6D860","#95CD41"],["#FF5959","#676FA3","#CDDEFF","#EEF2FF"],["#DB6B97","#F2FFE9","#A6CF98","#557C55"],["#2E4C6D","#396EB0","#396EB0","#FC997C"],["#009DAE","#71DFE7","#C2FFF9","#FFE652"],["#FFCE45","#D4AC2B","#B05E27","#7E370C"],["#89B5AF","#96C7C1","#DED9C4","#D0CAB2"],["#B91646","#DFD8CA","#FBF3E4","#105652"],["#4C3F91","#9145B6","#B958A5","#FF5677"],["#2E4C6D","#396EB0","#DADDFC","#FC997C"],["#66806A","#B4C6A6","#FFC286","#FFF1AF"],["#CEE5D0","#F3F0D7","#FED2AA","#FFBF86"],["#89B5AF","#96C7C1","#DED9C4","#D0CAB2"],["#FFE699","#FFF9B6","#FF9292","#FFCCD2"],["#C6D57E","#D57E7E","#A2CDCD","#FFE1AF"],["#E5DCC3","#C7BEA2","#AAA492","#9A9483"],["#D1E8E4","#C37B89","#BCCC9A","#EAE7C6"],["#6E3CBC","#7267CB","#98BAE7","#B8E4F0"],["#F9F3DF","#CDF2CA","#FFDEFA","#FFC898"],["#F5C6A5","#FF7777","#A2416B","#852747"],["#00A19D","#FFF8E5","#FFB344","#E05D5D"],["#781D42","#A3423C","#DE834D","#F0D290"],["#F5E8C7","#DEBA9D","#9E7777","#6F4C5B"],["#F0ECE3","#DFD3C3","#C7B198","#A68DAD"],["#D1E8E4","#C37B89","#BCCC9A","#EAE7C6"],["#D06224","#AE431E","#8A8635","#E9C891"],["#ED6663","#B52B65","#3C2C3E","#59405C"],["#FF5C58","#FE8F8F","#FCD2D1","#FFEDD3"],["#D83A56","#FF616D","#FFEAC9","#66DE93"],["#EDD2F3","#FFFCDC","#84DFFF","#516BEB"],["#93B5C6","#C9CCD5","#E4D8DC","#FFE3E3"],["#22577A","#38A3A5","#57CC99","#80ED99"]];let stepX=3.5,stepY=3.5;function draw(){fxrand()>.5?background(color(red(color3),green(color3),blue(color3))):background(color(red(color4),green(color4),blue(color4))),background(20,220),push(),fondo1(),pop(),strokeWeight(2.5);for(let F=0;F<=width;F+=stepX)for(let o=0;o<=height;o+=stepY){let e,r,c=F/width*TWO_PI,D=o/height*TWO_PI,E=.2*TWO_PI,s=.6*TWO_PI;switch(estadoX){case 1:e=cos(c)*cos(D)*E-sin(c)*sin(D)*s;break;case 2:e=cos(c)*cos(D)*E-cos(c)*sin(D)*s;break;case 3:e=cos(c)*cos(D)*E-cos(c)*sin(D)*c;break;case 4:e=cos(c)*cos(D)*E-sin(c)*sin(D)*s+noise(F);break;case 5:e=(cos(c)*cos(D)*E+cos(c)*cos(D*c)*s)*noise(F,o);break;case 6:e=cos(c)*cos(D)*E-sin(c)*sin(D)*cos(c)*s;break;case 7:e=cos(c)*cos(D)*E-sin(c)*sin(D)*s+noise(F,o);break;case 8:e=cos(c)/cos(c)/noise(o)+E-sin(c)*sin(D)+s-noise(F,o)}switch(estadoY){case 1:r=sin(c)*cos(D)*E+cos(c)*sin(D)*sin(D)*s;break;case 2:r=sin(c)*cos(D)*E+cos(c)*sin(D)*sin(D)*c;break;case 3:r=cos(c)*cos(D)*E+cos(c)*sin(D)*s;break;case 4:r=cos(c)*cos(D)*E+cos(c)*cos(D)*s;break;case 5:r=cos(c)*cos(D)*E+cos(c)*cos(D)*s+noise(F);break;case 6:r=cos(c)*cos(D)*E+cos(c)*cos(D)*s+noise(F,o);break;case 7:r=cos(c)*cos(D)*E-sin(c)*sin(D)*s+noise(F,o)}let C=random(15,127);random(1)>.5?stroke(color(red(color1),green(color1),blue(color1),C)):stroke(color(red(color2),green(color2),blue(color2),C)),drawingContext.shadowBlur=random(15,40),random(1)>.5?drawingContext.shadowColor=color(red(color3),green(color3),blue(color3)):drawingContext.shadowColor=color(red(color4),green(color4),blue(color4)),point(100*e+width/2,100*r+height/2),fxrand()>.5&&point(100*e+width/2,100*r+height/2),fxrand()>.9999&&(color1=color(cols[index_col][floor(fxrand()*cols[index_col].length)]),color2=color(cols[index_col][floor(fxrand()*cols[index_col].length)])),fxrand()>.9999&&(estadoX=floor(random(8)+1),estadoY=floor(random(7)+1))}noLoop(),grain(7)}function grain(F){loadPixels();for(let o=0;o<width*height/2*8;o+=4){let e=random(-F,F);pixels[o]+=e,pixels[o+1]+=e,pixels[o+2]+=e,pixels[o+3]+=0}updatePixels()}function fondo1(){noFill(),r<.25?stroke(color(red(color1),green(color1),blue(color1),20)):r>.25&&r<.5?stroke(color(red(color2),green(color2),blue(color2),20)):r>.5&&r<.75?stroke(color(red(color3),green(color3),blue(color3),20)):stroke(color(red(color4),green(color4),blue(color4),20)),strokeWeight(.2);let F=0,o=0,e=100;beginShape();for(let r=0;r<5e4;r++){vertex(F,o),F+=8*(fxrand()<.5?-1:1),o+=8*(fxrand()<.5?-1:1),F=constrain(F,-100,width+e),o=constrain(o,-100,height+e)}endShape()}
+    </script>
+
+</body></html>

@@ -1,0 +1,4 @@
+id: 19595
+name: Mr.Deer
+mint_opens_at: 2022-09-20T07:34:14+00:00
+generative_uri: ipfs://QmQkbNhMLPjKGdcBL5C7MMijSJYNMXk5fCiMBFAa27BBBt

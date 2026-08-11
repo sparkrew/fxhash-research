@@ -1,0 +1,4 @@
+id: 16028
+name: PAMILO GENERATOR®
+mint_opens_at: 2022-07-07T08:04:14+00:00
+generative_uri: ipfs://QmcNGf8WHuapr8cjcbUeaDbNYRbzva8UbVbTNFdRNpzXav

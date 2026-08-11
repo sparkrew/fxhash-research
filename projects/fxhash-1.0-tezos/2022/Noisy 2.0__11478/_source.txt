@@ -1,0 +1,4 @@
+id: 11478
+name: Noisy 2.0
+mint_opens_at: 2022-04-19T06:30:00+00:00
+generative_uri: ipfs://QmWcv21kapEqqhNisBCfLkGozCFfNn6ZyLn9MnJtvr8B5B

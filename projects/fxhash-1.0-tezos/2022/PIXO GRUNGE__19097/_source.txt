@@ -1,0 +1,4 @@
+id: 19097
+name: PIXO GRUNGE
+mint_opens_at: 2022-09-07T15:00:59+00:00
+generative_uri: ipfs://QmYTUYsgKQ3PQvUvkCxAye4hS4VnyZQp5SVjpNDpabydK2

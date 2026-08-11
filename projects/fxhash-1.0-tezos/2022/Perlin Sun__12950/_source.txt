@@ -1,0 +1,4 @@
+id: 12950
+name: Perlin Sun
+mint_opens_at: 2022-05-15T04:45:14+00:00
+generative_uri: ipfs://QmUsMN9YPoPNfLi2oD1Loz2qTq1AXjAChMV7vcjarH8TUk

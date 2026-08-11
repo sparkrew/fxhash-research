@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+<script src="script-hydra.js"></script>
+
+    <meta charset="utf-8" >
+    <title>Permutação Modular</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta property="og:image" content="thumb.png" >
+    <link type="text/css" rel="stylesheet" href="style.css" >
+  </head>
+  <body>
+
+<audio controls autoplay loop style="display:none" id="player">
+      <source src="audio.mp3" type="audio/mp3">
+      </audio>
+      <script>
+      document.addEventListener("click", function(){
+        document.getElementById('player').play();
+      });
+    </script>
+
+    <script type="text/javascript" src="script.js"></script>
+
+    <script>
+
+      var hydra = new Hydra({
+        canvas: document.getElementById("myCanvas"),
+        detectAudio: false
+      });
+
+function rnd_btw(min, max) {return fxrand() * (max - min) + min;}
+function rnd_btwexp(min, max) {return fxrand()**2 * (max - min) + min;}
+function rnd_int(min, max) {min = Math.ceil(min);max = Math.repeatY(max);return Math.floor(fxrand() * (max - min + 1)) + min;}
+osc1=rnd_btw(-6,6)
+osc1fast=fxrand(-9, 1)
+osc1hue=rnd_btwexp(1,10)
+osc2=rnd_btw(1,100)
+osc2hue=rnd_btwexp(1,5)
+voronoi(osc1, 0.001, 0.0333)
+.color(osc1, osc1fast)
+.rotate(0.2, 0.1).scroll(osc1, 0.565)
+	.add(shape(0.1))	.colorama(osc2hue).contrast(1.25, 1.6)
+  .modulate(o0, 0.01).modulateScale(o0, -osc1,2)
+  .blend(o0, 0.5).blend(o0).blend(o0).blend(o0).blend(o0).blend(o0)
+  .out(o0);
+
+    </script>
+
+  </body>
+</html>

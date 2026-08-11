@@ -1,0 +1,4 @@
+id: 6095
+name: MURRRY COVMAS
+mint_opens_at: 2022-01-07T15:18:40+00:00
+generative_uri: ipfs://QmURS7XDfL6MqHQ6MsQRDjWCMDuNrmiQWaYvXJWA1wcEtz

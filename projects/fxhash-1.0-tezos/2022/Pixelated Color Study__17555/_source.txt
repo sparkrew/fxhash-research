@@ -1,0 +1,4 @@
+id: 17555
+name: Pixelated Color Study
+mint_opens_at: 2022-08-03T17:58:59+00:00
+generative_uri: ipfs://QmebfWB9sVPihUMKtkTbUbJMUb4WB1nzFsJzaqfjmc2LPN

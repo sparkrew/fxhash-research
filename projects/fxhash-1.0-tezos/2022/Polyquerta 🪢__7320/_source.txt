@@ -1,0 +1,4 @@
+id: 7320
+name: Polyquerta 🪢
+mint_opens_at: 2022-01-18T16:15:00+00:00
+generative_uri: ipfs://QmewrFB6kTyJDRDkem5mnVs5JNnJ3f9TH79dDM23sCLncX

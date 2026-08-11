@@ -1,0 +1,4 @@
+id: 21702
+name: redblack
+mint_opens_at: 2022-11-23T14:00:00+00:00
+generative_uri: ipfs://QmbiyojbLCgWLbJjR6nYkijcdreHXV2SBTBfd94PM9BTxD

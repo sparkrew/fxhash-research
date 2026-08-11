@@ -1,0 +1,4 @@
+id: 6256
+name: Opposition
+mint_opens_at: 2022-01-08T21:08:30+00:00
+generative_uri: ipfs://QmbVRNGq9k1Kf5iTLigb1b3h1vypozQRhqwp5dXqZwrKYw

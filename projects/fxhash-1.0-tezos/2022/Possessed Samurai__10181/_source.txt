@@ -1,0 +1,4 @@
+id: 10181
+name: Possessed Samurai 
+mint_opens_at: 2022-03-01T22:27:54+00:00
+generative_uri: ipfs://QmQ4FLmdJbhKzpv8qRuNqouji3YSNSCmqH5nBY8wVCiELM

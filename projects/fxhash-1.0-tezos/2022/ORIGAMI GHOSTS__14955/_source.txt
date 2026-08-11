@@ -1,0 +1,4 @@
+id: 14955
+name: ORIGAMI GHOSTS
+mint_opens_at: 2022-06-16T19:05:59+00:00
+generative_uri: ipfs://QmP4yTzSGtA3dYaj7cUd556wqemYRHkLu1sTEshjdLWg7e

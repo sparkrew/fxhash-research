@@ -1,0 +1,4 @@
+id: 11006
+name: Paper Stack
+mint_opens_at: 2022-04-16T12:36:59+00:00
+generative_uri: ipfs://QmaHgYM5Rqk8byNKhZ3G39nDK4vBaUCad3oxzU2BmCo3F1

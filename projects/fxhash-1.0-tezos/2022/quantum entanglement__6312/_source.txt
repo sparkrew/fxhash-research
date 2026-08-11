@@ -1,0 +1,4 @@
+id: 6312
+name: quantum entanglement
+mint_opens_at: 2022-01-09T13:59:00+00:00
+generative_uri: ipfs://QmY5qEZA59oYznnGWt46jHjK5iPatpCRdgjzpu26kXQz1d

@@ -1,0 +1,4 @@
+id: 19420
+name: PPPaternS
+mint_opens_at: 2022-09-14T23:21:59+00:00
+generative_uri: ipfs://QmVKoYoZhm94SjoiM73b5WsqejVtPUJEv6HmJf2fa73ch7

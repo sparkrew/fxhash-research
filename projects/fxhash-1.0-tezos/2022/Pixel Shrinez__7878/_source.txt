@@ -1,0 +1,4 @@
+id: 7878
+name: Pixel Shrinez
+mint_opens_at: 2022-01-25T11:42:10+00:00
+generative_uri: ipfs://QmPxmf9RY4yPRMpURbabxeHeWAfJnmafrS2MNyF1vJJnRm

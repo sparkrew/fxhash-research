@@ -1,0 +1,4 @@
+id: 7971
+name: Neon Parrot
+mint_opens_at: 2022-01-27T00:14:38+00:00
+generative_uri: ipfs://QmZrH7A1xhvNCkV3RfbMs4PdBseepd4b5mdwGFzhcNUqyr

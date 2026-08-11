@@ -1,0 +1,4 @@
+id: 10257
+name: Modular Permutation 
+mint_opens_at: 2022-03-04T14:30:34+00:00
+generative_uri: ipfs://QmSKPPBhKECadx9BJRBoK9SExNeWyQwJjrXAMPc7Je6ja3

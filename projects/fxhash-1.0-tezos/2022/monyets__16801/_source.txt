@@ -1,0 +1,4 @@
+id: 16801
+name: monyets
+mint_opens_at: 2022-07-21T01:26:29+00:00
+generative_uri: ipfs://QmZGhHLfm3dR2pzbUKdJxA15Tgjaei1hc2XdjtEgVATXGd

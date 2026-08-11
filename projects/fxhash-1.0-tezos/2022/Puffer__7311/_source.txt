@@ -1,0 +1,4 @@
+id: 7311
+name: Puffer
+mint_opens_at: 2022-01-18T16:04:30+00:00
+generative_uri: ipfs://QmcZPJoprCsy6Ho8D7wdVuE8enQY5A6h8moSZCjda6k135

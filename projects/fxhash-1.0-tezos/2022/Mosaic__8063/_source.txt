@@ -1,0 +1,4 @@
+id: 8063
+name: Mosaic
+mint_opens_at: 2022-01-27T22:07:48+00:00
+generative_uri: ipfs://QmWqkYs2eDFTgfwZHEqGWYZhtvRThupTw8ZRCQhYbsXXS9

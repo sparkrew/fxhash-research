@@ -1,0 +1,20 @@
+body {
+  background-color: rgb(3, 5, 51);
+  margin: 0;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+
+#nameTag {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  background: white;
+  width: fit-content;
+  height: auto;
+  padding: 0px 30px;
+  box-shadow: 10px 10px 0px black;
+  border: 2px solid black;
+  font-family: "Roboto Mono", monospace;
+}

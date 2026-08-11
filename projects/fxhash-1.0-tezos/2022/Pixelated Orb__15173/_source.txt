@@ -1,0 +1,4 @@
+id: 15173
+name: Pixelated Orb
+mint_opens_at: 2022-06-19T12:52:29+00:00
+generative_uri: ipfs://QmZ9w6zbgGYceTB4nesH7T36hLHkwhRByjnQ3YzbSjZ2mG

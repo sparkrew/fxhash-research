@@ -1,0 +1,4 @@
+id: 22230
+name: prospect
+mint_opens_at: 2022-12-08T01:55:59+00:00
+generative_uri: ipfs://QmXD2vp5LQwHx45UYs9cvhsFcJAwNojwfPGmiiTDTkvQNj

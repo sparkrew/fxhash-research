@@ -1,0 +1,4 @@
+id: 13217
+name: Oil and pearls
+mint_opens_at: 2022-05-21T08:12:59+00:00
+generative_uri: ipfs://QmUftgv6gupFcf9xNchtSeJixctGXJDsNi5qqSjjVN6nos

@@ -1,0 +1,4 @@
+id: 13599
+name: Residents
+mint_opens_at: 2022-05-27T17:21:59+00:00
+generative_uri: ipfs://QmdgHtZABs193cJ2nWptPYYipgLPpbKC753vncGYM8X25i

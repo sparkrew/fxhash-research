@@ -1,0 +1,4 @@
+id: 15746
+name: Original Codes
+mint_opens_at: 2022-07-02T11:03:14+00:00
+generative_uri: ipfs://QmckFvNhR7xLK5fQrwfEGjvyMQ8QJLA5M8sUYYPQjQHFu2

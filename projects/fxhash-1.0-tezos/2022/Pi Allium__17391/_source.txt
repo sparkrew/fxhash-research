@@ -1,0 +1,4 @@
+id: 17391
+name: Pi Allium
+mint_opens_at: 2022-08-01T01:00:59+00:00
+generative_uri: ipfs://QmRhfkU4TTS7EkRG2LK6L62LEUmDXqU3oDhLbLct4iscq1

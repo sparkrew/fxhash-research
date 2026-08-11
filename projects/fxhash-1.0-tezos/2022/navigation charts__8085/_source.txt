@@ -1,0 +1,4 @@
+id: 8085
+name: navigation charts
+mint_opens_at: 2022-01-27T19:47:28+00:00
+generative_uri: ipfs://QmPzQpcqSTbKi9FeM3hVV9nmvXwEcMRtCQH8zP5yFVFSd7

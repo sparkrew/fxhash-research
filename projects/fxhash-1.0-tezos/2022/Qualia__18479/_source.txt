@@ -1,0 +1,4 @@
+id: 18479
+name: Qualia
+mint_opens_at: 2022-08-22T17:00:00+00:00
+generative_uri: ipfs://Qmecmd6Rj7AU1MQRoRbUe5fXbvPxeEYZ5NgWmmN8QVoKfw

@@ -1,0 +1,4 @@
+id: 11676
+name: Pachinko
+mint_opens_at: 2022-04-21T20:31:29+00:00
+generative_uri: ipfs://QmNSovGiCmZufTtsUswJjB4EYJRmThLX1dUw2ruChYDTLj

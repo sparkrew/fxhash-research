@@ -1,0 +1,35 @@
+html,
+body,
+main {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: #111;
+  overflow: hidden;
+}
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+canvas {
+  height: auto !important;
+  width: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  z-index: 89;
+}
+#p5_loading {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  z-index: 99;
+}
+#p5_loading img {
+  width: 50%;
+}

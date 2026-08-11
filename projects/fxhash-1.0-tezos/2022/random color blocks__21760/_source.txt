@@ -1,0 +1,4 @@
+id: 21760
+name: random color blocks
+mint_opens_at: 2022-11-24T12:49:14+00:00
+generative_uri: ipfs://Qmac4ekY9CaASspZ4tY7gq4tvg6CAT8LzngJ5SmU1RmWa9

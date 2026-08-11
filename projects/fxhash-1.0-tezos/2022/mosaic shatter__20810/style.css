@@ -1,0 +1,17 @@
+body {
+  background-color: #333;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}

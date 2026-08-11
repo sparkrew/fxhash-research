@@ -1,0 +1,4 @@
+id: 21395
+name: NPC FX
+mint_opens_at: 2022-11-16T01:27:14+00:00
+generative_uri: ipfs://QmWZG6M3AzS1wsNw2yKW75Xf2EqDoRME2xCQ1Nd2Hzov5z

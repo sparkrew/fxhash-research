@@ -1,0 +1,4 @@
+id: 12924
+name: Pazor
+mint_opens_at: 2022-05-14T23:43:29+00:00
+generative_uri: ipfs://QmU4FDnrC2EMFxE7DBnCsskmKhpiLKT2Fan3HoPJ8WE3tt

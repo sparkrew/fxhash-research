@@ -1,0 +1,4 @@
+id: 21219
+name: Peculiar humans
+mint_opens_at: 2022-11-14T17:00:00+00:00
+generative_uri: ipfs://QmcF5Y64DQhDyjLwtw6ycsDG51R8RBfo6FGC67PTSBz7RC

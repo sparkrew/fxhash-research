@@ -1,0 +1,4 @@
+id: 15094
+name: oil stains
+mint_opens_at: 2022-06-18T01:49:29+00:00
+generative_uri: ipfs://QmVTahAwXUE5i6J23Nw7gS8ST7R1JQPXZWUFDnRqpmbr83

@@ -1,0 +1,4 @@
+id: 5589
+name: Party escape
+mint_opens_at: 2022-01-05T13:05:30+00:00
+generative_uri: ipfs://QmZ9X9BwHYKKihbYM9bSp5kXaMnacVxbjxhAbaW96ZZXjT

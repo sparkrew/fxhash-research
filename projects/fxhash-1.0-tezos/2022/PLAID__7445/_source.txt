@@ -1,0 +1,4 @@
+id: 7445
+name: PLAID
+mint_opens_at: 2022-01-18T22:10:10+00:00
+generative_uri: ipfs://QmYDnvXNYYHA9WZzcBqp9hGDH8o3xJZBYP5UghfLzRPJWY

@@ -1,0 +1,4 @@
+id: 14889
+name: pinch
+mint_opens_at: 2022-06-16T02:23:14+00:00
+generative_uri: ipfs://Qme1rQhS8cfPU6HUZjXPxGnASWmRzvW3C4fX5idDZHYsdG

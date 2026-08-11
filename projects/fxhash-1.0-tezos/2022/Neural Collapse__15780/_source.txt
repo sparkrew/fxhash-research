@@ -1,0 +1,4 @@
+id: 15780
+name: Neural Collapse
+mint_opens_at: 2022-07-03T19:00:00+00:00
+generative_uri: ipfs://QmV8mN3S8qnKGwNQybhPbmf9pnNR8VBLjwzRwnD9FAfNYQ

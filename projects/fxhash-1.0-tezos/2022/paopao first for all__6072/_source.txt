@@ -1,0 +1,4 @@
+id: 6072
+name: paopao first for all
+mint_opens_at: 2022-01-07T15:00:50+00:00
+generative_uri: ipfs://QmSP32UFB4XfJ6Cs1grLHANsujEM7Q21GLGAgtmcB2J3ER

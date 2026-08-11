@@ -1,0 +1,22 @@
+html,
+body {
+  margin: 1;
+  padding: 1;
+}
+
+body {
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: white;
+}
+
+* {
+  -webkit-box-sizing: border-box;transparent
+  box-sizing: border-box; transparent
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}

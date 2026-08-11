@@ -1,0 +1,4 @@
+id: 16661
+name: Pongky
+mint_opens_at: 2022-07-19T14:00:00+00:00
+generative_uri: ipfs://QmZVFKgZiEXkN43ajzgBAnsYBKvy6hfCrhtdjHQeUepZDs

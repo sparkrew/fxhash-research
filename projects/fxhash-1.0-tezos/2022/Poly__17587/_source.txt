@@ -1,0 +1,4 @@
+id: 17587
+name: Poly
+mint_opens_at: 2022-08-03T20:46:44+00:00
+generative_uri: ipfs://Qmez39req4WR7cCSZZEBMWF1ciJzn1AVbe9Z916VLt5wWT

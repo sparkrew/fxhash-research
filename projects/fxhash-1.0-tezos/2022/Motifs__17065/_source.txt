@@ -1,0 +1,4 @@
+id: 17065
+name: Motifs
+mint_opens_at: 2022-07-26T06:23:14+00:00
+generative_uri: ipfs://QmSBRdJBfrscKdDJd3r8mZHsyJ7jYVQzPWn6UgmGszSQSF

@@ -1,0 +1,4 @@
+id: 8411
+name: My friend Koshkin today! It’s you! :)
+mint_opens_at: 2022-02-01T14:21:58+00:00
+generative_uri: ipfs://QmeBoV3UkjkTH147CZvCnnU9VrVCQjRFWz2SnXLW7G1Jap

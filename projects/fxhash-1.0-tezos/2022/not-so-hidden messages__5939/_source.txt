@@ -1,0 +1,4 @@
+id: 5939
+name: not-so-hidden messages
+mint_opens_at: 2022-01-06T17:27:50+00:00
+generative_uri: ipfs://QmV8XDbYaZEdxUoAsDw8ucHuo2xB1bo95Lfrs5Ap5jmsMw

@@ -1,0 +1,1 @@
+fxrand(),document.createElement("div").innerText=`\n  random hash: ${fxhash}\n\n  \n`;

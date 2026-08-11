@@ -1,0 +1,4 @@
+id: 14363
+name: RELATION
+mint_opens_at: 2022-06-07T00:33:59+00:00
+generative_uri: ipfs://QmU1Laj7Txom3q8mBbeQS1KaijT7cc3c4QNjpJHvXnmZ5v

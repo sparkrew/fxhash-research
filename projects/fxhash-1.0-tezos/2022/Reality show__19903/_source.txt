@@ -1,0 +1,4 @@
+id: 19903
+name: Reality show
+mint_opens_at: 2022-09-28T18:49:59+00:00
+generative_uri: ipfs://QmXK8QvnR1Hu4TrbDjdp6RUigPmSeV7DsfgV8iAuCiC12n

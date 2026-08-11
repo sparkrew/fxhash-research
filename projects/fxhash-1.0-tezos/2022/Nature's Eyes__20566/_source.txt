@@ -1,0 +1,4 @@
+id: 20566
+name: Nature's Eyes
+mint_opens_at: 2022-10-22T10:26:44+00:00
+generative_uri: ipfs://QmT3keHfbu653dfhzCmtSnoFTQbozukthUsP2zfocbRabr

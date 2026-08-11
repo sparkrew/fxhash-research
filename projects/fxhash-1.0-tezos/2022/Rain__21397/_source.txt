@@ -1,0 +1,4 @@
+id: 21397
+name: Rain
+mint_opens_at: 2022-11-17T20:00:00+00:00
+generative_uri: ipfs://QmavbzYk6pcyfqpvKCbq5C4GgGPCT1St5iQGVht5B1btQM

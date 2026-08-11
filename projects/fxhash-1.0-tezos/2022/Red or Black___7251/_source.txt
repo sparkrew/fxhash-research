@@ -1,0 +1,4 @@
+id: 7251
+name: Red or Black?
+mint_opens_at: 2022-01-18T18:09:30+00:00
+generative_uri: ipfs://QmZzD5Ykv3Bbc8tPC3hfNVB86VJBtctnEfiAmgY3h65mVH

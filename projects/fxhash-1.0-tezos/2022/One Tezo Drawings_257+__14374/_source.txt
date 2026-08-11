@@ -1,0 +1,4 @@
+id: 14374
+name: One Tezo Drawings_257+
+mint_opens_at: 2022-06-06T22:51:44+00:00
+generative_uri: ipfs://QmUkfkK8Mtzyo3ne6iZfkzxq445MHHiFA9gSZ8JJtvHKwC

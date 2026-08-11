@@ -1,0 +1,4 @@
+id: 8902
+name: Polkadot Snow
+mint_opens_at: 2022-02-08T20:02:04+00:00
+generative_uri: ipfs://QmZPYQtCe7aGWCnMnVVXVYN8AzUE3nMD7aLsxQkRKE27Zs

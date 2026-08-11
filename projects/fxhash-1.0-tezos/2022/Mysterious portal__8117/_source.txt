@@ -1,0 +1,4 @@
+id: 8117
+name: Mysterious portal
+mint_opens_at: 2022-01-27T23:29:58+00:00
+generative_uri: ipfs://QmZXyepvQP1nHeYfZAH4yFK4YTh6gkT3e3Tb1njauQaoEs

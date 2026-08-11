@@ -1,0 +1,4 @@
+id: 9025
+name: R U G
+mint_opens_at: 2022-02-09T18:29:44+00:00
+generative_uri: ipfs://QmYzz9j7zvCVWMVscrvz8v6ya7R3pAV5SCHLsRXDtFb86r

@@ -1,0 +1,4 @@
+id: 14165
+name: Rendezvous with R
+mint_opens_at: 2022-06-04T23:36:14+00:00
+generative_uri: ipfs://QmPLeSJjU5X9WVBWAcZm1NPih9aAw4yoDkNWha94xM4sFs

@@ -1,0 +1,4 @@
+id: 21150
+name: pixelfusion
+mint_opens_at: 2022-11-10T17:00:00+00:00
+generative_uri: ipfs://QmbuMMNABj2DPKvQvSRzVXjtGc44SF72bsRwaNBARr4Ktt

@@ -1,0 +1,4 @@
+id: 15320
+name: Mustachioed
+mint_opens_at: 2022-08-04T22:10:00+00:00
+generative_uri: ipfs://QmSLohe5HqN9eYh7qqMBzd2qJ2Bc3FgLZogF4uwT3MJvU1

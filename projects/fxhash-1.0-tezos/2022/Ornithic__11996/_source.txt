@@ -1,0 +1,4 @@
+id: 11996
+name: Ornithic
+mint_opens_at: 2022-04-26T18:59:59+00:00
+generative_uri: ipfs://QmWXEmaWMqYz5zJnc2QtMogSogLxbSZSZnyrvZR4Qogdgj

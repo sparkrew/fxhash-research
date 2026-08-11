@@ -1,0 +1,4 @@
+id: 9844
+name: perplex abstract
+mint_opens_at: 2022-02-22T15:27:10+00:00
+generative_uri: ipfs://Qme5wA3NHjJzBgJM6JWCjbSMxayKy2FS2cK2WeSGhcojmq

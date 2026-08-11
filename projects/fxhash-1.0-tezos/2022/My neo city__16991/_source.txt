@@ -1,0 +1,4 @@
+id: 16991
+name: My neo city
+mint_opens_at: 2022-07-25T11:00:00+00:00
+generative_uri: ipfs://QmfGiDbquBVkhFpmjNLCDMjwXxd4ZYNzXb5RToNVXBY9nb

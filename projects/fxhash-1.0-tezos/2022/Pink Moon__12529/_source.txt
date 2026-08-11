@@ -1,0 +1,4 @@
+id: 12529
+name: Pink Moon
+mint_opens_at: 2022-05-05T22:06:44+00:00
+generative_uri: ipfs://QmcvLeHpKjsUJ63n4KFAerQbUyLYggFg2mn7KfpTHAuPhv

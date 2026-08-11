@@ -1,0 +1,4 @@
+id: 17091
+name: Paper Artifact
+mint_opens_at: 2022-07-27T19:30:00+00:00
+generative_uri: ipfs://QmNLjSiYZFVsVLGxJxDBki69JG6mtfjHMcKv6ak6XpNDi6

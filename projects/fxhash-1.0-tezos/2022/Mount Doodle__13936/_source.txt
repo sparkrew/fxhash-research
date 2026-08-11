@@ -1,0 +1,4 @@
+id: 13936
+name: Mount Doodle
+mint_opens_at: 2022-06-01T18:00:00+00:00
+generative_uri: ipfs://QmZFVTqdAJsENpxwaVT6EmbWAYp8hUCj1Mnq6m8pruTjmw

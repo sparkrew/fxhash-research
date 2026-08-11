@@ -1,0 +1,4 @@
+id: 21444
+name: reKäp
+mint_opens_at: 2022-11-17T18:00:00+00:00
+generative_uri: ipfs://QmUaMMf7Fkd6VmAANbNR7ay6DgMuGCqGUjyFkaNFCopWUF

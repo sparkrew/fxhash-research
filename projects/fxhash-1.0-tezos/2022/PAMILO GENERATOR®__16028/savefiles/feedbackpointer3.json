@@ -1,0 +1,24 @@
+{
+  "box0": {
+    "dir": "shaders/generative/feedbackpointer1.frag",
+    "name": "FBpointer.frag",
+    "isMobile;": 0.5790292407622526,
+    "touchesCount;": 0.5388376062773828,
+    "mousePressed;": 0.08848643834973724,
+    "touchesPos[5]": 0.3193558224435036
+  },
+  "box1": {
+    "dir": "shaders/imageprocessing/lighting3d.frag",
+    "name": "L3D.frag",
+    "height": 0.9866666666666667,
+    "light_dir_x": 0.37333333333333335,
+    "light_dir_y": 0.54,
+    "light_dir_z": 0.47333333333333333,
+    "ambient": 0.5033333333333333,
+    "diffuse": 0.17666666666666667,
+    "specular_red": 0.8533333333333334,
+    "specular_green": 0.96,
+    "specular_blue": 0.99,
+    "specular_size": 0.9566666666666667
+  }
+}

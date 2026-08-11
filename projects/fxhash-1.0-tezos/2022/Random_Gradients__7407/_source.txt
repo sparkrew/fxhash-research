@@ -1,0 +1,4 @@
+id: 7407
+name: Random_Gradients
+mint_opens_at: 2022-01-18T22:34:30+00:00
+generative_uri: ipfs://QmQxtSxjURTn4YptksVxrCi6g6aTEfSaqVHDoVCVTt3Dds

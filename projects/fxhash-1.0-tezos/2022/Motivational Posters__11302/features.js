@@ -1,0 +1,3 @@
+window.$fxhashFeatures = {
+    "seed": fxrand()
+}

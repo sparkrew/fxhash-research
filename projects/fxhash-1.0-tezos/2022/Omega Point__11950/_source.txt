@@ -1,0 +1,4 @@
+id: 11950
+name: Omega Point
+mint_opens_at: 2022-04-27T11:00:00+00:00
+generative_uri: ipfs://QmaTr1MYhgrBF3RgocJvsrzRwd34KaafbZmFByuY8ayg4b

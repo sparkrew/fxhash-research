@@ -1,0 +1,4 @@
+id: 12833
+name: Pump & Dump
+mint_opens_at: 2022-05-12T17:30:00+00:00
+generative_uri: ipfs://QmeoNcRJqTxScPFZL7mCBJnaYG9FRPVFGqEzWewN3U3FGZ

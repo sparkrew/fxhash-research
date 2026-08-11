@@ -1,0 +1,44 @@
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  margin: 0;
+  background: #000000; 
+}
+
+svg {
+  width: 100%;
+}
+
+.card {
+  margin: auto;
+  width:301px;
+  height:422px;
+  background-color:black;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+/*reflet*/
+
+.js-tilt-glare {
+  width:301px;
+  height:422px;
+  border-radius: 20px;
+}
+
+
+/*animation*/
+
+.path {
+  stroke-dasharray: 10;
+  animation: dash 25s linear infinite;
+}
+
+@keyframes dash {
+  100% {
+    stroke-dashoffset: 300;
+  }
+}

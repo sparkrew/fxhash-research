@@ -1,0 +1,4 @@
+id: 29672
+name: GenCity
+mint_opens_at: 2023-12-08T17:09:28+00:00
+generative_uri: ipfs://QmP6qoLzsJJb4bYbdmFF3QA79coaMomwu5VpebybTcDQHH

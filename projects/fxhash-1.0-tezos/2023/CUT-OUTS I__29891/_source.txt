@@ -1,0 +1,4 @@
+id: 29891
+name: CUT-OUTS I
+mint_opens_at: 2023-12-31T23:00:00+00:00
+generative_uri: ipfs://QmacmYvJBxrrccAxa3hMjh3DDYsqMN2sxatiYSGDg3AU15

@@ -1,0 +1,4 @@
+id: 23701
+name: GameSqu
+mint_opens_at: 2023-01-14T22:03:14+00:00
+generative_uri: ipfs://Qmen8bcS2XKSaRBs6PL2eHgrBe6TpgmMqfKLv9tAeYCeQS

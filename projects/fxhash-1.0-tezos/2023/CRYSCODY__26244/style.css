@@ -1,0 +1,36 @@
+/* body {
+  background-color: grey;
+
+  /* leave it to hide the scrollbars */
+
+/* } */
+
+
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    overflow: hidden;
+  }
+
+  main {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  canvas {
+    object-fit: contain;
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+  }

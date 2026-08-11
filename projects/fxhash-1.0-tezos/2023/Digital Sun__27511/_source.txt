@@ -1,0 +1,4 @@
+id: 27511
+name: Digital Sun
+mint_opens_at: 2023-06-06T17:59:18+00:00
+generative_uri: ipfs://QmUJzB7NZeZUrDe3vaziDkG6mMKJMg7Z92uXuaTf6NjWHw

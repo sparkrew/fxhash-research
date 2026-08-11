@@ -1,0 +1,4 @@
+id: 24186
+name: bamboozle
+mint_opens_at: 2023-01-25T18:20:00+00:00
+generative_uri: ipfs://QmYsJqCD6rqqqc4y7wFiauLckCnmYBcvXqUK6NHUtXxAdN

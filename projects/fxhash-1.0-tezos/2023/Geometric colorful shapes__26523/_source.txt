@@ -1,0 +1,4 @@
+id: 26523
+name: Geometric colorful shapes
+mint_opens_at: 2023-04-08T08:59:19+00:00
+generative_uri: ipfs://QmeWHKkRJ366ZWRCDaWiyar3rkmFwbwWmmPxZQ2BeFWLpM

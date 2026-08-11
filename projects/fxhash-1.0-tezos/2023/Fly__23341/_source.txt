@@ -1,0 +1,4 @@
+id: 23341
+name: Fly 
+mint_opens_at: 2023-01-07T18:01:29+00:00
+generative_uri: ipfs://Qmb86sB7PMR7UREwde5Pp7Mhh52Du7URr5ncsNNDb73j3C

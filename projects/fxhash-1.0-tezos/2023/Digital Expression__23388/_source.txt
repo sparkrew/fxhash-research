@@ -1,0 +1,4 @@
+id: 23388
+name: Digital Expression
+mint_opens_at: 2023-01-09T16:30:00+00:00
+generative_uri: ipfs://QmdrzGhxE7hvtdfFECs4NZxQAdWrSE9AToeHW1m5abqdQY

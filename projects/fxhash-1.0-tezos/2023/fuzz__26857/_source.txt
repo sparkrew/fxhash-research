@@ -1,0 +1,4 @@
+id: 26857
+name: fuzz
+mint_opens_at: 2023-04-25T15:29:49+00:00
+generative_uri: ipfs://QmWNfvk5c7jiiPdfqHXedgoezJ5TLUKJFpwsSKAtptbwbX

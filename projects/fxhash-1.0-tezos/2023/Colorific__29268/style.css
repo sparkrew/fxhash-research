@@ -1,0 +1,30 @@
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	/* overflow: hidden;*/
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #888;
+
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+
+canvas {
+	background-color: #393939;
+	box-shadow: 0px 0px 8px 8px #393939;
+	/* max-width: 850px;
+	max-height: 850px; */
+	
+}
+
+#p5_loading {
+	color: #555;
+	font-family: 'tahoma';
+	letter-spacing: 4px;
+}

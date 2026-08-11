@@ -1,0 +1,4 @@
+id: 24562
+name: Hilma
+mint_opens_at: 2023-02-02T17:30:00+00:00
+generative_uri: ipfs://QmZDXxcJUtyyBf4MVw4ZaD2NXn8ZAv2urv6Xg159xTnuQk

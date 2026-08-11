@@ -1,0 +1,4 @@
+id: 23052
+name: Burger/Sandwich Generator
+mint_opens_at: 2023-01-04T15:30:00+00:00
+generative_uri: ipfs://QmYidrapTdfxDFhD5fBRn94kc6oXRZB3MzMBBRcExkHeQT

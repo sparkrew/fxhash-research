@@ -1,0 +1,4 @@
+id: 25045
+name: Blue City
+mint_opens_at: 2023-02-13T17:30:00+00:00
+generative_uri: ipfs://QmNanBb9tJneuhWx9VPGfesNxbkgLAdboTH9RTgVcbMFrA

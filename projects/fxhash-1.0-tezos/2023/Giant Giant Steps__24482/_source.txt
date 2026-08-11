@@ -1,0 +1,4 @@
+id: 24482
+name: Giant Giant Steps
+mint_opens_at: 2023-02-02T19:23:00+00:00
+generative_uri: ipfs://QmSDUj6XG8mkpYCaBSfT5ANtbFBF6GnfoyAz5dbNsD4jG4

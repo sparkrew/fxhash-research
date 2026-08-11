@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Colorific</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
+    <meta name="description" content="Colorific - generative token on Fxhash">
+    <meta name="keywords" content="generative art, fxhash, tezos">
+    <meta name="author" content="@Uniray_net uniray.net">
+
+    <link rel="license" type="text/markdown" href="./LICENSE.md">
+
+    <!-- link rel="icon" type="image/png" sizes="48x48" href="./favicon_48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon_32x32.png" -->
+    
+    <link rel="stylesheet" href="./style.css">
+
+    <script src="./fxhash.js"></script>
+    <script src="./p5.min.js"></script>
+    <script src="./index.min.js"></script>
+  </head>
+  <body>
+     <svg id="svg" width="1" height="1" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" style="line-height: 0px; margin:0px; padding: 0px; display:flex; width: 0px; height: 0px; visibility: hidden; overflow: hidden;">
+        <defs>
+          <filter id="emboss">
+            <feConvolveMatrix divisor="1.2" bias="0"
+              kernelMatrix=" 0   0   -1
+                             0   3    0
+                            -1   0    0" />
+
+          </filter>
+          <filter id="displacementFilter">
+            <feTurbulence id="octav" type="turbulence" baseFrequency="0.04" numOctaves="2" result="turbulence" seed="2"></feTurbulence>
+            <feDisplacementMap id="scale" in2="turbulence" in="SourceGraphic" scale="10" xChannelSelector="R" yChannelSelector="G" />     
+          </filter>
+        </defs>
+      </svg>
+      <div id="p5_loading" class="loader">Please Wait...</div>
+  </body>
+</html>
+

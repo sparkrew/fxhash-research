@@ -1,0 +1,4 @@
+id: 26578
+name: Gidon Transcendent
+mint_opens_at: 2023-04-14T20:00:00+00:00
+generative_uri: ipfs://QmbsieUnnbff1bPfiG8ySkMqZiDbk6LQTpDq6vV3t3daSm

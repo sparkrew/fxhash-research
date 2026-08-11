@@ -1,0 +1,4 @@
+id: 28021
+name: heikō
+mint_opens_at: 2023-07-18T17:00:00+00:00
+generative_uri: ipfs://QmVHh4mdJLpbbhK7WjYauboHhk21CegQmD1oaSnz8ZoXaN

@@ -1,0 +1,4 @@
+id: 25259
+name: Good or Bad
+mint_opens_at: 2023-02-19T17:15:00+00:00
+generative_uri: ipfs://QmUfqjYvaJoexf22qdQSiWm4eFGCHXm8tymLDtVFofWndB

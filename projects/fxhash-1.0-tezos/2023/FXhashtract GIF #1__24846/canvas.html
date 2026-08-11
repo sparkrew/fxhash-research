@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FXhashtractGIF1</title>
+    <meta charset="utf-8">
+	<script id="builder-info">
+		console.log("\nThis fxhash project was compiled using the FROSTxHASH fxhash project builder, version: 0.36.\nThe tool is available for use at https://frostxhash.clxn.art/ .\nA minimum of 10% of primary royalties should have been split with tz1NoYMQaZa9Pz6Hwfx6B2x1TaGU3fSiBbW8.\nTool created by Matthew Seremet\n  *  frostbitten.tez\n  *  eatpoopart.tez,\n  *  twitter: @frostbitten\n  *  instagram: @eatpoopart\n  *  tz1NoYMQaZa9Pz6Hwfx6B2x1TaGU3fSiBbW8\n");
+	</script>
+    <script></script>
+    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let search = new URLSearchParams(window.location.search)
+	  console.log('search',search.toString());
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = search.get('fxhash') || "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // true if preview mode active, false otherwise
+      // you can append preview=1 to the URL to simulate preview active
+      var isFxpreview = search.get('preview') === "1"
+      // call this method to trigger the preview
+      function fxpreview() {
+        console.log("fxhash: TRIGGER PREVIEW")
+      }
+      //---- /do not edit the following code
+    </script>
+	<script src="./libraries/crc32.min.js"></script>
+	<script>
+		
+		let fxproject = {"title":"FXhashtractGIF1","soundLayers":[],"layers":[{"name":"Fondo","folderName":"0_Fondo","index":0,"variations":[{"rarity":250,"asset":{"_type":"folder","_path":"/layers/0_Fondo/250-Colormix","Pintura1.png":{"_type":"file","_path":"/layers/0_Fondo/250-Colormix/Pintura1.png","_file":{}},"Pintura2.png":{"_type":"file","_path":"/layers/0_Fondo/250-Colormix/Pintura2.png","_file":{}},"Pintura3.png":{"_type":"file","_path":"/layers/0_Fondo/250-Colormix/Pintura3.png","_file":{}},"Pintura4.png":{"_type":"file","_path":"/layers/0_Fondo/250-Colormix/Pintura4.png","_file":{}},"_name":"250-Colormix"},"rarityNormalized":250,"name":"Colormix","frames":[{"k":"1e9d8c","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"681b3c46","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"37028d61","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"d4ddc49b","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":4},{"rarity":100,"asset":{"_type":"folder","_path":"/layers/0_Fondo/100-Dazzle","Dazzle1.png":{"_type":"file","_path":"/layers/0_Fondo/100-Dazzle/Dazzle1.png","_file":{}},"Dazzle2.png":{"_type":"file","_path":"/layers/0_Fondo/100-Dazzle/Dazzle2.png","_file":{}},"Dazzle3.png":{"_type":"file","_path":"/layers/0_Fondo/100-Dazzle/Dazzle3.png","_file":{}},"Dazzle4.png":{"_type":"file","_path":"/layers/0_Fondo/100-Dazzle/Dazzle4.png","_file":{}},"Dazzle5.png":{"_type":"file","_path":"/layers/0_Fondo/100-Dazzle/Dazzle5.png","_file":{}},"Dazzle6.png":{"_type":"file","_path":"/layers/0_Fondo/100-Dazzle/Dazzle6.png","_file":{}},"_name":"100-Dazzle"},"rarityNormalized":100,"name":"Dazzle","frames":[{"k":"f247aa35","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"acf0431","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"98d313cf","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"bc50d0a5","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"a4843e2c","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"73a72f59","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":6},{"rarity":150,"asset":{"_type":"folder","_path":"/layers/0_Fondo/150-Negro","Negro1.png":{"_type":"file","_path":"/layers/0_Fondo/150-Negro/Negro1.png","_file":{}},"Negro2 (2).png":{"_type":"file","_path":"/layers/0_Fondo/150-Negro/Negro2 (2).png","_file":{}},"Negro2.png":{"_type":"file","_path":"/layers/0_Fondo/150-Negro/Negro2.png","_file":{}},"Negro3.png":{"_type":"file","_path":"/layers/0_Fondo/150-Negro/Negro3.png","_file":{}},"_name":"150-Negro"},"rarityNormalized":150,"name":"Negro","frames":[{"k":"5a8430f0","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"f2eb1309","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"9bd98639","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"8c3e420f","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":4},{"rarity":200,"asset":{"_type":"folder","_path":"/layers/0_Fondo/200-Pintura","Pintura1.png":{"_type":"file","_path":"/layers/0_Fondo/200-Pintura/Pintura1.png","_file":{}},"Pintura2.png":{"_type":"file","_path":"/layers/0_Fondo/200-Pintura/Pintura2.png","_file":{}},"Pintura3.png":{"_type":"file","_path":"/layers/0_Fondo/200-Pintura/Pintura3.png","_file":{}},"Pintura4.png":{"_type":"file","_path":"/layers/0_Fondo/200-Pintura/Pintura4.png","_file":{}},"Pintura5.png":{"_type":"file","_path":"/layers/0_Fondo/200-Pintura/Pintura5.png","_file":{}},"Pintura6.png":{"_type":"file","_path":"/layers/0_Fondo/200-Pintura/Pintura6.png","_file":{}},"_name":"200-Pintura"},"rarityNormalized":200,"name":"Pintura","frames":[{"k":"1262e39b","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"1c5c395e","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"555cd63e","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"971decce","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"c53c7b6c","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"26b98ca5","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":6},{"rarity":200,"asset":{"_type":"folder","_path":"/layers/0_Fondo/200-Psicodelico","Psicodelico1.png":{"_type":"file","_path":"/layers/0_Fondo/200-Psicodelico/Psicodelico1.png","_file":{}},"Psicodelico2.png":{"_type":"file","_path":"/layers/0_Fondo/200-Psicodelico/Psicodelico2.png","_file":{}},"Psicodelico3.png":{"_type":"file","_path":"/layers/0_Fondo/200-Psicodelico/Psicodelico3.png","_file":{}},"Psicodelico4.png":{"_type":"file","_path":"/layers/0_Fondo/200-Psicodelico/Psicodelico4.png","_file":{}},"Psicodelico5.png":{"_type":"file","_path":"/layers/0_Fondo/200-Psicodelico/Psicodelico5.png","_file":{}},"Psicodelico6.png":{"_type":"file","_path":"/layers/0_Fondo/200-Psicodelico/Psicodelico6.png","_file":{}},"_name":"200-Psicodelico"},"rarityNormalized":200,"name":"Psicodelico","frames":[{"k":"c18aba70","ext":"webp","offset":{"x":0,"y":1,"width":901,"height":900}},{"k":"f19d123c","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"62ba5d11","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"5534ce57","ext":"webp","offset":{"x":0,"y":1,"width":901,"height":900}},{"k":"f9dc0534","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"32fbf01a","ext":"webp","offset":{"x":0,"y":1,"width":901,"height":900}}],"layers":[],"frameCnt":6},{"rarity":100,"asset":{"_type":"folder","_path":"/layers/0_Fondo/100-Ruido","Digital1.png":{"_type":"file","_path":"/layers/0_Fondo/100-Ruido/Digital1.png","_file":{}},"Digital2.png":{"_type":"file","_path":"/layers/0_Fondo/100-Ruido/Digital2.png","_file":{}},"Digital3.png":{"_type":"file","_path":"/layers/0_Fondo/100-Ruido/Digital3.png","_file":{}},"Digital4.png":{"_type":"file","_path":"/layers/0_Fondo/100-Ruido/Digital4.png","_file":{}},"Digital5.png":{"_type":"file","_path":"/layers/0_Fondo/100-Ruido/Digital5.png","_file":{}},"Digital6.png":{"_type":"file","_path":"/layers/0_Fondo/100-Ruido/Digital6.png","_file":{}},"_name":"100-Ruido"},"rarityNormalized":100,"name":"Ruido","frames":[{"k":"27295696","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"84ce589f","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"2d93e342","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"8fc9d072","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"30f2158d","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"68ce585e","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":6}],"raritySum":1000,"rarityNormalizationFactor":1},{"name":"Primera","folderName":"1_Primera","index":1,"variations":[{"rarity":100,"asset":{"_type":"folder","_path":"/layers/1_Primera/100-Black","Black1.png":{"_type":"file","_path":"/layers/1_Primera/100-Black/Black1.png","_file":{}},"Black2.png":{"_type":"file","_path":"/layers/1_Primera/100-Black/Black2.png","_file":{}},"Black3.png":{"_type":"file","_path":"/layers/1_Primera/100-Black/Black3.png","_file":{}},"Black4.png":{"_type":"file","_path":"/layers/1_Primera/100-Black/Black4.png","_file":{}},"Black5.png":{"_type":"file","_path":"/layers/1_Primera/100-Black/Black5.png","_file":{}},"Black6.png":{"_type":"file","_path":"/layers/1_Primera/100-Black/Black6.png","_file":{}},"_name":"100-Black"},"rarityNormalized":100,"name":"Black","frames":[{"k":"edfff476","ext":"webp","offset":{"x":43,"y":131,"width":821,"height":723}},{"k":"4931167c","ext":"webp","offset":{"x":34,"y":50,"width":726,"height":790}},{"k":"9b113e3a","ext":"webp","offset":{"x":35,"y":63,"width":761,"height":788}},{"k":"64714f95","ext":"webp","offset":{"x":89,"y":125,"width":693,"height":575}},{"k":"5cc600b3","ext":"webp","offset":{"x":96,"y":96,"width":714,"height":727}},{"k":"3cf4c58","ext":"webp","offset":{"x":52,"y":48,"width":796,"height":832}}],"layers":[],"frameCnt":6},{"rarity":300,"asset":{"_type":"folder","_path":"/layers/1_Primera/300-Green","Green1.png":{"_type":"file","_path":"/layers/1_Primera/300-Green/Green1.png","_file":{}},"Green2.png":{"_type":"file","_path":"/layers/1_Primera/300-Green/Green2.png","_file":{}},"Green3.png":{"_type":"file","_path":"/layers/1_Primera/300-Green/Green3.png","_file":{}},"Green4.png":{"_type":"file","_path":"/layers/1_Primera/300-Green/Green4.png","_file":{}},"Green5.png":{"_type":"file","_path":"/layers/1_Primera/300-Green/Green5.png","_file":{}},"Green6.png":{"_type":"file","_path":"/layers/1_Primera/300-Green/Green6.png","_file":{}},"_name":"300-Green"},"rarityNormalized":300,"name":"Green","frames":[{"k":"6ef6b9c5","ext":"webp","offset":{"x":66,"y":107,"width":761,"height":648}},{"k":"3e90113c","ext":"webp","offset":{"x":146,"y":78,"width":593,"height":723}},{"k":"68d94723","ext":"webp","offset":{"x":100,"y":122,"width":657,"height":627}},{"k":"31f2ef87","ext":"webp","offset":{"x":122,"y":120,"width":680,"height":716}},{"k":"27c459fb","ext":"webp","offset":{"x":135,"y":43,"width":576,"height":700}},{"k":"8e6f42a6","ext":"webp","offset":{"x":95,"y":89,"width":730,"height":752}}],"layers":[],"frameCnt":6},{"rarity":100,"asset":{"_type":"folder","_path":"/layers/1_Primera/100-Lightblue","Lightblue1.png":{"_type":"file","_path":"/layers/1_Primera/100-Lightblue/Lightblue1.png","_file":{}},"Lightblue2.png":{"_type":"file","_path":"/layers/1_Primera/100-Lightblue/Lightblue2.png","_file":{}},"Lightblue3.png":{"_type":"file","_path":"/layers/1_Primera/100-Lightblue/Lightblue3.png","_file":{}},"Lightblue4.png":{"_type":"file","_path":"/layers/1_Primera/100-Lightblue/Lightblue4.png","_file":{}},"Lightblue5.png":{"_type":"file","_path":"/layers/1_Primera/100-Lightblue/Lightblue5.png","_file":{}},"Lightblue6.png":{"_type":"file","_path":"/layers/1_Primera/100-Lightblue/Lightblue6.png","_file":{}},"_name":"100-Lightblue"},"rarityNormalized":100,"name":"Lightblue","frames":[{"k":"3fae825c","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"97582275","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"1fd53fbf","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"5521d146","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"5109c7cc","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"7a7eb45e","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":6},{"rarity":400,"asset":{"_type":"folder","_path":"/layers/1_Primera/400-Red","Red1.png":{"_type":"file","_path":"/layers/1_Primera/400-Red/Red1.png","_file":{}},"Red2.png":{"_type":"file","_path":"/layers/1_Primera/400-Red/Red2.png","_file":{}},"Red3.png":{"_type":"file","_path":"/layers/1_Primera/400-Red/Red3.png","_file":{}},"Red4.png":{"_type":"file","_path":"/layers/1_Primera/400-Red/Red4.png","_file":{}},"Red5.png":{"_type":"file","_path":"/layers/1_Primera/400-Red/Red5.png","_file":{}},"Red6.png":{"_type":"file","_path":"/layers/1_Primera/400-Red/Red6.png","_file":{}},"_name":"400-Red"},"rarityNormalized":400,"name":"Red","frames":[{"k":"55a39e08","ext":"webp","offset":{"x":66,"y":54,"width":752,"height":789}},{"k":"e3dcfe5d","ext":"webp","offset":{"x":122,"y":164,"width":579,"height":598}},{"k":"b1e655a5","ext":"webp","offset":{"x":190,"y":159,"width":577,"height":499}},{"k":"cc6a4bb6","ext":"webp","offset":{"x":7,"y":24,"width":867,"height":850}},{"k":"10aa2b4d","ext":"webp","offset":{"x":6,"y":10,"width":871,"height":876}},{"k":"dd04abff","ext":"webp","offset":{"x":85,"y":42,"width":701,"height":823}}],"layers":[],"frameCnt":6},{"rarity":100,"asset":{"_type":"folder","_path":"/layers/1_Primera/100-White","White1.png":{"_type":"file","_path":"/layers/1_Primera/100-White/White1.png","_file":{}},"White2.png":{"_type":"file","_path":"/layers/1_Primera/100-White/White2.png","_file":{}},"White3.png":{"_type":"file","_path":"/layers/1_Primera/100-White/White3.png","_file":{}},"White4.png":{"_type":"file","_path":"/layers/1_Primera/100-White/White4.png","_file":{}},"White5.png":{"_type":"file","_path":"/layers/1_Primera/100-White/White5.png","_file":{}},"White6.png":{"_type":"file","_path":"/layers/1_Primera/100-White/White6.png","_file":{}},"_name":"100-White"},"rarityNormalized":100,"name":"White","frames":[{"k":"1b0a38be","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"3a7dd1e","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"6072c3b","ext":"webp","offset":{"x":0,"y":2,"width":749,"height":707}},{"k":"78f8937b","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"a1dcd129","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"17751a13","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":6}],"raritySum":1000,"rarityNormalizationFactor":1},{"name":"Segunda","folderName":"2_Segunda","index":2,"variations":[{"rarity":300,"asset":{"_type":"folder","_path":"/layers/2_Segunda/300-Color","Color1.png":{"_type":"file","_path":"/layers/2_Segunda/300-Color/Color1.png","_file":{}},"Color4.png":{"_type":"file","_path":"/layers/2_Segunda/300-Color/Color4.png","_file":{}},"_name":"300-Color"},"rarityNormalized":300,"name":"Color","frames":[{"k":"c467dd35","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"209456e1","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":2},{"rarity":100,"asset":{"_type":"folder","_path":"/layers/2_Segunda/100-Coloreado","Color1.png":{"_type":"file","_path":"/layers/2_Segunda/100-Coloreado/Color1.png","_file":{}},"Color2.png":{"_type":"file","_path":"/layers/2_Segunda/100-Coloreado/Color2.png","_file":{}},"Color3.png":{"_type":"file","_path":"/layers/2_Segunda/100-Coloreado/Color3.png","_file":{}},"Color4.png":{"_type":"file","_path":"/layers/2_Segunda/100-Coloreado/Color4.png","_file":{}},"Color5.png":{"_type":"file","_path":"/layers/2_Segunda/100-Coloreado/Color5.png","_file":{}},"Color6.png":{"_type":"file","_path":"/layers/2_Segunda/100-Coloreado/Color6.png","_file":{}},"_name":"100-Coloreado"},"rarityNormalized":100,"name":"Coloreado","frames":[{"k":"8237abee","ext":"webp","offset":{"x":1,"y":233,"width":899,"height":302}},{"k":"a2b91dfc","ext":"webp","offset":{"x":0,"y":345,"width":897,"height":182}},{"k":"4dd0befc","ext":"webp","offset":{"x":0,"y":366,"width":900,"height":200}},{"k":"5ea97cf2","ext":"webp","offset":{"x":0,"y":417,"width":900,"height":291}},{"k":"4b510572","ext":"webp","offset":{"x":3,"y":197,"width":893,"height":281}},{"k":"8ed7385b","ext":"webp","offset":{"x":0,"y":366,"width":899,"height":302}}],"layers":[],"frameCnt":6},{"rarity":400,"asset":{"_type":"folder","_path":"/layers/2_Segunda/400-Salpicado","Salpicado2.png":{"_type":"file","_path":"/layers/2_Segunda/400-Salpicado/Salpicado2.png","_file":{}},"Salpicado3.png":{"_type":"file","_path":"/layers/2_Segunda/400-Salpicado/Salpicado3.png","_file":{}},"Salpicado4.png":{"_type":"file","_path":"/layers/2_Segunda/400-Salpicado/Salpicado4.png","_file":{}},"Salpicado5.png":{"_type":"file","_path":"/layers/2_Segunda/400-Salpicado/Salpicado5.png","_file":{}},"Salpicado6.png":{"_type":"file","_path":"/layers/2_Segunda/400-Salpicado/Salpicado6.png","_file":{}},"_name":"400-Salpicado"},"rarityNormalized":400,"name":"Salpicado","frames":[{"k":"b97f0a26","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"76c892b4","ext":"webp","offset":{"x":0,"y":1,"width":899,"height":899}},{"k":"9f1c90e9","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"5a7ede99","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"56c47c22","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":5},{"rarity":200,"asset":{"_type":"folder","_path":"/layers/2_Segunda/200-Vectorizado","Contra1.png":{"_type":"file","_path":"/layers/2_Segunda/200-Vectorizado/Contra1.png","_file":{}},"Contra2.png":{"_type":"file","_path":"/layers/2_Segunda/200-Vectorizado/Contra2.png","_file":{}},"Contra3.png":{"_type":"file","_path":"/layers/2_Segunda/200-Vectorizado/Contra3.png","_file":{}},"Contra4.png":{"_type":"file","_path":"/layers/2_Segunda/200-Vectorizado/Contra4.png","_file":{}},"Contra5.png":{"_type":"file","_path":"/layers/2_Segunda/200-Vectorizado/Contra5.png","_file":{}},"Contra6.png":{"_type":"file","_path":"/layers/2_Segunda/200-Vectorizado/Contra6.png","_file":{}},"_name":"200-Vectorizado"},"rarityNormalized":200,"name":"Vectorizado","frames":[{"k":"2692d1e3","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":515}},{"k":"8004fe4","ext":"webp","offset":{"x":106,"y":1,"width":796,"height":900}},{"k":"8f4a7db8","ext":"webp","offset":{"x":0,"y":1,"width":902,"height":901}},{"k":"657ee958","ext":"webp","offset":{"x":0,"y":1,"width":689,"height":901}},{"k":"cb255638","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":900}},{"k":"ea1fa44","ext":"webp","offset":{"x":0,"y":1,"width":1076,"height":903}}],"layers":[],"frameCnt":6}],"raritySum":1000,"rarityNormalizationFactor":1},{"name":"Tercera","folderName":"3_Tercera","index":3,"variations":[{"rarity":50,"asset":{"_type":"folder","_path":"/layers/3_Tercera/050-Dag","Dago1.png":{"_type":"file","_path":"/layers/3_Tercera/050-Dag/Dago1.png","_file":{}},"Dago2.png":{"_type":"file","_path":"/layers/3_Tercera/050-Dag/Dago2.png","_file":{}},"Dago3.png":{"_type":"file","_path":"/layers/3_Tercera/050-Dag/Dago3.png","_file":{}},"Dago4.png":{"_type":"file","_path":"/layers/3_Tercera/050-Dag/Dago4.png","_file":{}},"Dago5.png":{"_type":"file","_path":"/layers/3_Tercera/050-Dag/Dago5.png","_file":{}},"Dago6.png":{"_type":"file","_path":"/layers/3_Tercera/050-Dag/Dago6.png","_file":{}},"_name":"050-Dag"},"rarityNormalized":50,"name":"Dag","frames":[{"k":"f611ef58","ext":"webp","offset":{"x":19,"y":85,"width":851,"height":734}},{"k":"e88fdeca","ext":"webp","offset":{"x":30,"y":48,"width":831,"height":808}},{"k":"984c3816","ext":"webp","offset":{"x":91,"y":55,"width":800,"height":766}},{"k":"186df6ea","ext":"webp","offset":{"x":53,"y":69,"width":812,"height":766}},{"k":"7e93ce66","ext":"webp","offset":{"x":91,"y":53,"width":702,"height":800}},{"k":"af6701d5","ext":"webp","offset":{"x":55,"y":52,"width":768,"height":812}}],"layers":[],"frameCnt":6},{"rarity":125,"asset":{"_type":"folder","_path":"/layers/3_Tercera/125-Gret","Green1.png":{"_type":"file","_path":"/layers/3_Tercera/125-Gret/Green1.png","_file":{}},"Green2.png":{"_type":"file","_path":"/layers/3_Tercera/125-Gret/Green2.png","_file":{}},"Green3.png":{"_type":"file","_path":"/layers/3_Tercera/125-Gret/Green3.png","_file":{}},"Green4.png":{"_type":"file","_path":"/layers/3_Tercera/125-Gret/Green4.png","_file":{}},"_name":"125-Gret"},"rarityNormalized":125,"name":"Gret","frames":[{"k":"ca386366","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"c57b8993","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"aff712cf","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"c34cab9e","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":4},{"rarity":75,"asset":{"_type":"folder","_path":"/layers/3_Tercera/075-Lad","Lado1.png":{"_type":"file","_path":"/layers/3_Tercera/075-Lad/Lado1.png","_file":{}},"lado2.png":{"_type":"file","_path":"/layers/3_Tercera/075-Lad/lado2.png","_file":{}},"lado3.png":{"_type":"file","_path":"/layers/3_Tercera/075-Lad/lado3.png","_file":{}},"lado4.png":{"_type":"file","_path":"/layers/3_Tercera/075-Lad/lado4.png","_file":{}},"lado5.png":{"_type":"file","_path":"/layers/3_Tercera/075-Lad/lado5.png","_file":{}},"lado6.png":{"_type":"file","_path":"/layers/3_Tercera/075-Lad/lado6.png","_file":{}},"_name":"075-Lad"},"rarityNormalized":75,"name":"Lad","frames":[{"k":"951ef671","ext":"webp","offset":{"x":0,"y":1,"width":326,"height":449}},{"k":"4f641543","ext":"webp","offset":{"x":0,"y":1,"width":554,"height":899}},{"k":"43b0b34c","ext":"webp","offset":{"x":0,"y":1,"width":754,"height":899}},{"k":"420a68d1","ext":"webp","offset":{"x":0,"y":1,"width":368,"height":449}},{"k":"74cb4f3c","ext":"webp","offset":{"x":0,"y":1,"width":716,"height":899}},{"k":"821fcaaa","ext":"webp","offset":{"x":0,"y":1,"width":462,"height":899}}],"layers":[],"frameCnt":6},{"rarity":100,"asset":{"_type":"folder","_path":"/layers/3_Tercera/100-Liq","Peine1.png":{"_type":"file","_path":"/layers/3_Tercera/100-Liq/Peine1.png","_file":{}},"Peine2.png":{"_type":"file","_path":"/layers/3_Tercera/100-Liq/Peine2.png","_file":{}},"Peine3.png":{"_type":"file","_path":"/layers/3_Tercera/100-Liq/Peine3.png","_file":{}},"_name":"100-Liq"},"rarityNormalized":100,"name":"Liq","frames":[{"k":"ce3c10de","ext":"webp","offset":{"x":0,"y":1,"width":899,"height":553}},{"k":"b4945c4c","ext":"webp","offset":{"x":0,"y":1,"width":895,"height":588}},{"k":"51eef2f6","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":656}}],"layers":[],"frameCnt":3},{"rarity":25,"asset":{"_type":"folder","_path":"/layers/3_Tercera/025-Luc","Marc1.png":{"_type":"file","_path":"/layers/3_Tercera/025-Luc/Marc1.png","_file":{}},"Marc2.png":{"_type":"file","_path":"/layers/3_Tercera/025-Luc/Marc2.png","_file":{}},"Marc3.png":{"_type":"file","_path":"/layers/3_Tercera/025-Luc/Marc3.png","_file":{}},"Marc4.png":{"_type":"file","_path":"/layers/3_Tercera/025-Luc/Marc4.png","_file":{}},"Marc5.png":{"_type":"file","_path":"/layers/3_Tercera/025-Luc/Marc5.png","_file":{}},"Marc6.png":{"_type":"file","_path":"/layers/3_Tercera/025-Luc/Marc6.png","_file":{}},"_name":"025-Luc"},"rarityNormalized":25,"name":"Luc","frames":[{"k":"377643b6","ext":"webp","offset":{"x":0,"y":1,"width":899,"height":899}},{"k":"6dcb9383","ext":"webp","offset":{"x":0,"y":1,"width":897,"height":899}},{"k":"19c48c82","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"5feaf740","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"8820d9a6","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"5d3b146d","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":6},{"rarity":125,"asset":{"_type":"folder","_path":"/layers/3_Tercera/125-Marc","Marc4.png":{"_type":"file","_path":"/layers/3_Tercera/125-Marc/Marc4.png","_file":{}},"Marc5.png":{"_type":"file","_path":"/layers/3_Tercera/125-Marc/Marc5.png","_file":{}},"Marc6.png":{"_type":"file","_path":"/layers/3_Tercera/125-Marc/Marc6.png","_file":{}},"_name":"125-Marc"},"rarityNormalized":125,"name":"Marc","frames":[{"k":"37a754b0","ext":"webp","offset":{"x":59,"y":80,"width":744,"height":743}},{"k":"a4f6db57","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"9f28ba44","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":3},{"rarity":150,"asset":{"_type":"folder","_path":"/layers/3_Tercera/150-Mat","Green4.png":{"_type":"file","_path":"/layers/3_Tercera/150-Mat/Green4.png","_file":{}},"Lightblue2.png":{"_type":"file","_path":"/layers/3_Tercera/150-Mat/Lightblue2.png","_file":{}},"Marc2.png":{"_type":"file","_path":"/layers/3_Tercera/150-Mat/Marc2.png","_file":{}},"Red2.png":{"_type":"file","_path":"/layers/3_Tercera/150-Mat/Red2.png","_file":{}},"White3.png":{"_type":"file","_path":"/layers/3_Tercera/150-Mat/White3.png","_file":{}},"_name":"150-Mat"},"rarityNormalized":150,"name":"Mat","frames":[{"k":"d1d10de9","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"f27f9729","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"6c210ae5","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"98c9bb5d","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"d2031f6a","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":5},{"rarity":100,"asset":{"_type":"folder","_path":"/layers/3_Tercera/100-Max","Max1.png":{"_type":"file","_path":"/layers/3_Tercera/100-Max/Max1.png","_file":{}},"Max2.png":{"_type":"file","_path":"/layers/3_Tercera/100-Max/Max2.png","_file":{}},"Max3.png":{"_type":"file","_path":"/layers/3_Tercera/100-Max/Max3.png","_file":{}},"Max5.png":{"_type":"file","_path":"/layers/3_Tercera/100-Max/Max5.png","_file":{}},"Max6.png":{"_type":"file","_path":"/layers/3_Tercera/100-Max/Max6.png","_file":{}},"_name":"100-Max"},"rarityNormalized":100,"name":"Max","frames":[{"k":"b3a4c415","ext":"webp","offset":{"x":54,"y":49,"width":835,"height":828}},{"k":"67177af7","ext":"webp","offset":{"x":74,"y":69,"width":778,"height":783}},{"k":"e075d1ab","ext":"webp","offset":{"x":41,"y":32,"width":856,"height":846}},{"k":"ccd5fd87","ext":"webp","offset":{"x":28,"y":37,"width":831,"height":811}},{"k":"d492e64e","ext":"webp","offset":{"x":34,"y":37,"width":866,"height":840}}],"layers":[],"frameCnt":5},{"rarity":200,"asset":{"_type":"folder","_path":"/layers/3_Tercera/200-Perm","Perma1.png":{"_type":"file","_path":"/layers/3_Tercera/200-Perm/Perma1.png","_file":{}},"Perma2.png":{"_type":"file","_path":"/layers/3_Tercera/200-Perm/Perma2.png","_file":{}},"Perma3.png":{"_type":"file","_path":"/layers/3_Tercera/200-Perm/Perma3.png","_file":{}},"Perma4.png":{"_type":"file","_path":"/layers/3_Tercera/200-Perm/Perma4.png","_file":{}},"_name":"200-Perm"},"rarityNormalized":200,"name":"Perm","frames":[{"k":"c85c4208","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"84100a02","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"e69bd432","ext":"webp","offset":{"x":181,"y":1,"width":719,"height":899}},{"k":"ee4b7f3d","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":4},{"rarity":50,"asset":{"_type":"folder","_path":"/layers/3_Tercera/050-Red","Red1.png":{"_type":"file","_path":"/layers/3_Tercera/050-Red/Red1.png","_file":{}},"Red2.png":{"_type":"file","_path":"/layers/3_Tercera/050-Red/Red2.png","_file":{}},"Red3.png":{"_type":"file","_path":"/layers/3_Tercera/050-Red/Red3.png","_file":{}},"Red4.png":{"_type":"file","_path":"/layers/3_Tercera/050-Red/Red4.png","_file":{}},"_name":"050-Red"},"rarityNormalized":50,"name":"Red","frames":[{"k":"beb8a678","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}},{"k":"8ce8fd99","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":509}},{"k":"e3fb7cde","ext":"webp","offset":{"x":2,"y":1,"width":886,"height":899}},{"k":"46f5449c","ext":"webp","offset":{"x":0,"y":1,"width":900,"height":899}}],"layers":[],"frameCnt":4}],"raritySum":1000,"rarityNormalizationFactor":1}],"config":{"fps":12,"fps-limit":50,"image-convert-mode":5,"render-engine":"canvas","dither-mode":"Atkinson-serpentine","share-size":1200,"view-size":1920,"thumbnail-min-size":288,"title":"FXhashtractGIF1","background-color":"#ffffff"},"size":{"width":900,"height":900},"filesErrors":[],"filesErrorsMessages":[],"app_info":{"builder_version":"0.36","builder_about":"\nThis fxhash project was compiled using the FROSTxHASH fxhash project builder, version: 0.36.\nThe tool is available for use at https://frostxhash.clxn.art/ .\nA minimum of 10% of primary royalties should have been split with tz1NoYMQaZa9Pz6Hwfx6B2x1TaGU3fSiBbW8.\nTool created by Matthew Seremet\n  *  frostbitten.tez\n  *  eatpoopart.tez,\n  *  twitter: @frostbitten\n  *  instagram: @eatpoopart\n  *  tz1NoYMQaZa9Pz6Hwfx6B2x1TaGU3fSiBbW8\n"},"termsAgree":true};
+		
+		window.fxproject = fxproject;
+		
+		const inSandbox = document.location.href.toLowerCase().indexOf('fxhash.xyz/sandbox/') > -1;
+		const canvasFilterSupported = 'filter' in (document.createElement('canvas')).getContext('2d');
+		const backup_needed = fxproject.usingSvgFilters;
+		
+		const use_html_backup = (!backup_needed || inSandbox) ? false : (canvasFilterSupported ? false : true);
+		
+		console.log('use_html_backup?',{use_html_backup,backup_needed,canvasFilterSupported,inSandbox});
+		
+		
+		if(use_html_backup){
+						
+			if (document.readyState !== 'loading') {
+				docReady();
+			}else
+			document.addEventListener('DOMContentLoaded', docReady);
+			
+			function docReady(){
+				var iframe = document.createElement('iframe');
+				iframe.id = 'htmlbackup'
+				iframe.src = 'html.html?isbackup=1&fxhash='+fxhash
+				document.body.appendChild(iframe);
+				document.body.classList.add('using-html-backup')
+			}
+		}
+		
+		
+		// console.log('artwork window',window);
+		window.$fxhashFeatures = {};
+		
+		window.randInt = function(){ return Math.round(fxrand()*100) };
+		window.randIntK = function(){ return Math.round(fxrand()*1000) };
+		window.randIntRange = function(min, max) { // min and max included 
+		  return Math.floor(fxrand() * (max - min + 1) + min)
+		}
+		
+		const regexNonAN = /([^\w]+)/g;
+		const hashCrc = (CRC32.str(fxhash,0)>>>0).toString(16);
+		console.log('crc test',hashCrc);
+		
+		let artwork = {dirty:true};
+		let assetCache = {};
+		const doRender = ()=>{
+			if(artwork?.dirty && typeof renderScene !== 'undefined')
+				return renderScene()
+			// return new Promise((res)=>{res(true)});
+		}
+		
+		let updateFns = [(t)=>{
+			// console.log('frame',t);
+		}];
+		
+		let resizeFns = [()=>{
+			artwork.dirty = true;
+			updateFns.splice(0,updateFns.length) // these will be regenerated by scene builder
+			// updateFns.push(doRender);
+		}];
+		
+		window.addEventListener("resize", (event) => {
+			resizeFns.forEach((fn)=>{
+				fn(event);
+			})
+		});
+		
+		window.updateFns = updateFns;
+		
+		let frame = 0;
+		let lastRenderTime = 0;
+		
+		if(!use_html_backup)
+			requestAnimationFrame(animate)
+		
+		const shortestFrame = 20; // 50fps = minimum fps. see https://www.biphelps.com/blog/The-Fastest-GIF-Does-Not-Exist
+		let lastFrameData = null;
+		function animate(t){
+			// console.log('animate',{t,frame,updateFns:updateFns.length}); 
+			if(artwork?.gif_rendering){
+				return requestAnimationFrame(animate);
+			}
+			
+			updateFns.forEach((fn,i)=>{
+				fn(t);
+			})
+			
+			const dirty = artwork?.dirty;
+			doRender()
+			
+			if(artwork?.start_gif_recording){
+				let okayToStart = true;
+				if(loopMeter.framesCnts.length === 0){
+					//project is not animated. download PNG
+					artwork.renderPad = (artwork?.renderPad??0)+1
+					artwork.dirty = true;
+					if(artwork.fullyRendered && artwork.renderPad > 5){
+						
+						artwork.start_gif_recording = false;
+						document.body.classList.remove('starting-gif-recording')
+						
+						
+						artwork.octx.imageSmoothingEnabled = true;
+						artwork.octx.drawImage(displayCanvas,0,0,artwork.outputWidth,artwork.outputHeight);
+						
+						
+						let fileName = fxproject.title.toLowerCase();
+						fileName = fileName.replaceAll("'s","s");
+						fileName = fileName.replace(regexNonAN,'-');
+						
+						fileName += "-"+fxhash.substr(0,2)+"_"+fxhash.substr(-2,2)
+						fileName += "-"+hashCrc
+						
+						fileName = fileName + '.png';
+						
+						var image = artwork.outputCanvas.toDataURL('image/png');
+						var aDownloadLink = document.createElement('a');
+						aDownloadLink.download = fileName;
+						aDownloadLink.href = image;
+						aDownloadLink.click();
+						
+						
+						buildScene();
+						
+					}else{
+						lastRenderTime=t;
+						return requestAnimationFrame(animate);
+					}
+				}
+				loopMeter.framesNos.forEach((v)=>{
+					if(v!==null){
+						if(v!==0){ okayToStart = false; }
+					}
+				})
+				if(loopMeter.startFramesProgressed == loopMeter.framesProgressed.join(',')){
+					okayToStart = false; // don't start until the start of a new frame to prevent frame time cuts
+				}
+				if(okayToStart){
+					frame = 0;
+					loopMeter.loopStartState = loopMeter.framesNos.join(',');
+					loopMeter.framesProgressed = loopMeter.framesProgressed.map(v=>{if(v===null) return null; return 0;})
+					
+					artwork.gif_recorder = new GIF({
+					  workers: 2,
+					  quality: 10,
+					  // quality: 1,
+					  width: artwork.outputWidth,
+					  height: artwork.outputHeight,
+					  workerScript: './libraries/gif.worker.js',
+					  dither: fxproject.config['dither-mode'],
+						  // dither: false, //default
+						  // dither: 'FloydSteinberg',	//okay but very flickery with frames
+						  // dither: 'FalseFloydSteinberg', //test proved ugly
+						  // dither: 'Atkinson', //smooth, similar to default in terms of flickering, seems best dither mode
+						  // dither: 'Stucki',	//similar to FloydSteinberg
+					});
+					
+					artwork.gif_length = 0;
+					artwork.gif_frames = 0;
+					artwork.gif_recording = true;
+					artwork.start_gif_recording = false;
+					document.body.classList.remove('starting-gif-recording')
+					document.body.classList.add('gif-recording')
+					console.log('loopMeter.loopStartState',loopMeter);
+				}
+			}
+			
+			
+			if(!artwork.gif_recording){
+				lastRenderTime=t;
+				frame++;
+				return requestAnimationFrame(animate);
+			}else{
+				console.log('gif_recording t',t);
+				if(dirty){
+					console.log('loopMeter.framesNos',frame,loopMeter.framesNos.join(','));
+					if(artwork.gif_recorder && artwork.ctx){
+						const delay = t-lastRenderTime;
+						// console.log('frame delay',delay);
+						// artwork.gif_recorder.addFrame(document.getElementById('display'),{delay});
+						if(frame===0){
+						}else if(artwork.gif_frames > 1){ //&& loopMeter.loopStartState === loopMeter.framesNos.join(',')){
+							/*
+								let good = true;
+								let goodTestVal, goodTest;
+								loopMeter.framesProgressed.forEach((v,i)=>{
+									if(v!==null && loopMeter.framesCnts[i] > 1 ){
+										if(v >= loopMeter.framesCnts[i] && v > 1){
+											const allowEarlyCut = (v > 24) && (v >= loopMeter.framesCnts[i]); //	false;//
+											const goodTestVal0 = v % loopMeter.framesCnts[i];
+											const goodTestVal1 = (v-1) % loopMeter.framesCnts[i];
+											const goodTestVal2 = (v-2) % loopMeter.framesCnts[i];
+											const goodTestVal3 = (v-3) % loopMeter.framesCnts[i];
+											const goodTestVal_1 = (v+1) % loopMeter.framesCnts[i];
+											const goodTestVal_2 = (v+2) % loopMeter.framesCnts[i];
+											goodTest = goodTestVal1 === 0 || (
+												allowEarlyCut && (
+													false
+													// goodTestVal0===0
+												)
+											);
+											// goodTest = goodTestVal0 === 0 || (allowEarlyCut && (goodTestVal2===0));
+											if(!goodTest){
+												good = false;
+												console.log('failed goodTest',i,goodTestVal1)
+											}
+											if(v === loopMeter.framesProgressedLastRealFrame?.[i]){
+												// good = false
+											}
+										}else{
+											good = false
+										}
+									}
+								}) 
+							*/
+							// console.log('loopMeter LOOP COMPLETE?',{good,loopMeter: jCopy(loopMeter), goodTestVal})
+							const good = artwork.gif_length >= loopMeter.perfectLoopLength;
+							if(good){
+								console.log('loopMeter LOOP COMPLETE!',{good,gif_length: artwork.gif_length, loopMeter: jCopy(loopMeter)})
+								finishGifRender();
+								return requestAnimationFrame(animate);
+							}
+						}
+						if(lastFrameData){
+							console.log('write frame',{frame,delay});
+							artwork.gif_recorder.addFrame(lastFrameData, {copy: true,delay});
+							artwork.gif_length += delay;
+							artwork.gif_frames++;
+							loopMeter.frameNo++;
+							document.getElementById('gif-frame-count').innerHTML = artwork.gif_frames;
+							// artwork.gif_recorder.addFrame(artwork.ctx, {copy: true,delay});
+						}
+						// lastFrameData = artwork.ctx.getImageData(0,0,fxproject.size.width,fxproject.size.height);
+						artwork.octx.imageSmoothingEnabled = true;
+						artwork.octx.drawImage(displayCanvas,0,0,artwork.outputWidth,artwork.outputHeight);
+						lastFrameData = artwork.octx.getImageData(0,0,artwork.outputWidth,artwork.outputHeight);
+						lastRenderTime=t;
+					}
+					frame++;
+					window.loopMeter = loopMeter;
+				}
+				requestAnimationFrame(function(){	animate(t+shortestFrame); });
+				// return animate(t+shortestFrame);
+			}
+		}
+		
+		
+		let svg_filters_animated = [];
+		
+    </script>
+	
+	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			padding: 0;
+			margin: 0;
+			background-color: #ffffff;
+		}
+		#viewport {
+			position:absolute; 
+			width:100%;
+			height: 100%;
+		}
+		#test {
+			position: absolute;
+			top:0;
+			z-index:1;
+			display:none;
+		}
+		body > svg {
+			width: 0;
+			height: 0;
+			opacity: 0;
+			overflow: hidden;
+			position: absolute;
+		}
+		
+		iframe#htmlbackup {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border: none;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			/* pointer-events: none; */
+		}
+		
+		#export-screen,
+		#gif-info,
+		#starting-gif-recording,
+		#gif-recording,
+		#gif-rendering {
+			display: none;
+			position: absolute;
+			left:50%;
+			top:50%;
+			max-width: calc(100% - 2rem);
+			max-height: calc(100% - 2rem);
+			transform: translate(-50%,-50%);
+			background: #ffffffdb;
+			padding: 1em 2em;
+			width: 20em;
+			border-radius: 1em;
+			font-size: 1rem;
+			font-family: monospace;
+			box-shadow: 0 0 3em 2em #fff inset, 0 0 4em 4em #0000000f;
+		}
+		#export-screen > div > span,
+		#gif-info > span,
+		#starting-gif-recording span,
+		#gif-recording span,
+		#gif-rendering span {
+			display: block;
+		} 
+		
+		body.using-html-backup #display {
+			display: none;
+		} 
+		
+		body.starting-gif-recording #display {
+			display: none;
+		} 
+		
+		body.starting-gif-recording #display,
+		body.gif-recording #display,
+		body.gif-rendering #display {
+		    opacity: 0.9;
+		}
+		body.export-screen #export-screen,
+		body.starting-gif-recording #starting-gif-recording,
+		body.gif-recording #gif-recording,
+		body.gif-rendering #gif-rendering,
+		body.show-gif-info #gif-info {
+			display: block;
+		}
+		
+		body.artwork-static .artwork-animated {
+			display: none;
+		}
+		
+		body:not(.artwork-static) .artwork-static {
+			display: none;
+		}
+	</style>
+
+		<script src="./libraries/createImageBitmap.js"></script>
+		<script src="./libraries/gif.js"></script>
+		
+		<script>
+			console.log('fxhash:',window.fxhash);
+			
+			function jCopy(data){
+				return JSON.parse(JSON.stringify(data));
+			}
+			
+			window.filesKeyed = {"/project.yaml":{"size":81,"type":"","file":{},"fileExt":"yaml","name":"project.yaml","dataKey":"35f76025"},"/layers/3_Tercera/200-Perm/Perma1.png":{"size":170178,"type":"image/webp","file":{},"fileExt":"webp","name":"Perma1.png","dataKey":"c85c4208","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/200-Perm/Perma2.png":{"size":796695,"type":"image/webp","file":{},"fileExt":"webp","name":"Perma2.png","dataKey":"84100a02","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/200-Perm/Perma3.png":{"size":290650,"type":"image/webp","file":{},"fileExt":"webp","name":"Perma3.png","dataKey":"e69bd432","offset":{"x":181,"y":1,"width":719,"height":899}},"/layers/3_Tercera/200-Perm/Perma4.png":{"size":361678,"type":"image/webp","file":{},"fileExt":"webp","name":"Perma4.png","dataKey":"ee4b7f3d","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/150-Mat/Green4.png":{"size":331407,"type":"image/webp","file":{},"fileExt":"webp","name":"Green4.png","dataKey":"d1d10de9","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/150-Mat/Lightblue2.png":{"size":609849,"type":"image/webp","file":{},"fileExt":"webp","name":"Lightblue2.png","dataKey":"f27f9729","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/150-Mat/Marc2.png":{"size":386337,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc2.png","dataKey":"6c210ae5","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/150-Mat/Red2.png":{"size":448860,"type":"image/webp","file":{},"fileExt":"webp","name":"Red2.png","dataKey":"98c9bb5d","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/150-Mat/White3.png":{"size":353502,"type":"image/webp","file":{},"fileExt":"webp","name":"White3.png","dataKey":"d2031f6a","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/125-Marc/Marc4.png":{"size":327176,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc4.png","dataKey":"37a754b0","offset":{"x":59,"y":80,"width":744,"height":743}},"/layers/3_Tercera/125-Marc/Marc5.png":{"size":1841507,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc5.png","dataKey":"a4f6db57","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/125-Marc/Marc6.png":{"size":363698,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc6.png","dataKey":"9f28ba44","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/125-Gret/Green1.png":{"size":1637737,"type":"image/webp","file":{},"fileExt":"webp","name":"Green1.png","dataKey":"ca386366","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/125-Gret/Green2.png":{"size":1539695,"type":"image/webp","file":{},"fileExt":"webp","name":"Green2.png","dataKey":"c57b8993","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/125-Gret/Green3.png":{"size":2134492,"type":"image/webp","file":{},"fileExt":"webp","name":"Green3.png","dataKey":"aff712cf","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/125-Gret/Green4.png":{"size":1529861,"type":"image/webp","file":{},"fileExt":"webp","name":"Green4.png","dataKey":"c34cab9e","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/100-Max/Max1.png":{"size":217575,"type":"image/webp","file":{},"fileExt":"webp","name":"Max1.png","dataKey":"b3a4c415","offset":{"x":54,"y":49,"width":835,"height":828}},"/layers/3_Tercera/100-Max/Max2.png":{"size":211724,"type":"image/webp","file":{},"fileExt":"webp","name":"Max2.png","dataKey":"67177af7","offset":{"x":74,"y":69,"width":778,"height":783}},"/layers/3_Tercera/100-Max/Max3.png":{"size":462056,"type":"image/webp","file":{},"fileExt":"webp","name":"Max3.png","dataKey":"e075d1ab","offset":{"x":41,"y":32,"width":856,"height":846}},"/layers/3_Tercera/100-Max/Max5.png":{"size":477739,"type":"image/webp","file":{},"fileExt":"webp","name":"Max5.png","dataKey":"ccd5fd87","offset":{"x":28,"y":37,"width":831,"height":811}},"/layers/3_Tercera/100-Max/Max6.png":{"size":423253,"type":"image/webp","file":{},"fileExt":"webp","name":"Max6.png","dataKey":"d492e64e","offset":{"x":34,"y":37,"width":866,"height":840}},"/layers/3_Tercera/100-Liq/Peine1.png":{"size":144664,"type":"image/webp","file":{},"fileExt":"webp","name":"Peine1.png","dataKey":"ce3c10de","offset":{"x":0,"y":1,"width":899,"height":553}},"/layers/3_Tercera/100-Liq/Peine2.png":{"size":194357,"type":"image/webp","file":{},"fileExt":"webp","name":"Peine2.png","dataKey":"b4945c4c","offset":{"x":0,"y":1,"width":895,"height":588}},"/layers/3_Tercera/100-Liq/Peine3.png":{"size":219029,"type":"image/webp","file":{},"fileExt":"webp","name":"Peine3.png","dataKey":"51eef2f6","offset":{"x":0,"y":1,"width":900,"height":656}},"/layers/3_Tercera/075-Lad/Lado1.png":{"size":313500,"type":"image/webp","file":{},"fileExt":"webp","name":"Lado1.png","dataKey":"951ef671","offset":{"x":0,"y":1,"width":326,"height":449}},"/layers/3_Tercera/075-Lad/lado2.png":{"size":267038,"type":"image/webp","file":{},"fileExt":"webp","name":"lado2.png","dataKey":"4f641543","offset":{"x":0,"y":1,"width":554,"height":899}},"/layers/3_Tercera/075-Lad/lado3.png":{"size":303444,"type":"image/webp","file":{},"fileExt":"webp","name":"lado3.png","dataKey":"43b0b34c","offset":{"x":0,"y":1,"width":754,"height":899}},"/layers/3_Tercera/075-Lad/lado4.png":{"size":344738,"type":"image/webp","file":{},"fileExt":"webp","name":"lado4.png","dataKey":"420a68d1","offset":{"x":0,"y":1,"width":368,"height":449}},"/layers/3_Tercera/075-Lad/lado5.png":{"size":290750,"type":"image/webp","file":{},"fileExt":"webp","name":"lado5.png","dataKey":"74cb4f3c","offset":{"x":0,"y":1,"width":716,"height":899}},"/layers/3_Tercera/075-Lad/lado6.png":{"size":338650,"type":"image/webp","file":{},"fileExt":"webp","name":"lado6.png","dataKey":"821fcaaa","offset":{"x":0,"y":1,"width":462,"height":899}},"/layers/3_Tercera/050-Red/Red1.png":{"size":1836509,"type":"image/webp","file":{},"fileExt":"webp","name":"Red1.png","dataKey":"beb8a678","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/050-Red/Red2.png":{"size":527269,"type":"image/webp","file":{},"fileExt":"webp","name":"Red2.png","dataKey":"8ce8fd99","offset":{"x":0,"y":1,"width":900,"height":509}},"/layers/3_Tercera/050-Red/Red3.png":{"size":631744,"type":"image/webp","file":{},"fileExt":"webp","name":"Red3.png","dataKey":"e3fb7cde","offset":{"x":2,"y":1,"width":886,"height":899}},"/layers/3_Tercera/050-Red/Red4.png":{"size":2209355,"type":"image/webp","file":{},"fileExt":"webp","name":"Red4.png","dataKey":"46f5449c","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/050-Dag/Dago1.png":{"size":162887,"type":"image/webp","file":{},"fileExt":"webp","name":"Dago1.png","dataKey":"f611ef58","offset":{"x":19,"y":85,"width":851,"height":734}},"/layers/3_Tercera/050-Dag/Dago2.png":{"size":103525,"type":"image/webp","file":{},"fileExt":"webp","name":"Dago2.png","dataKey":"e88fdeca","offset":{"x":30,"y":48,"width":831,"height":808}},"/layers/3_Tercera/050-Dag/Dago3.png":{"size":155364,"type":"image/webp","file":{},"fileExt":"webp","name":"Dago3.png","dataKey":"984c3816","offset":{"x":91,"y":55,"width":800,"height":766}},"/layers/3_Tercera/050-Dag/Dago4.png":{"size":140367,"type":"image/webp","file":{},"fileExt":"webp","name":"Dago4.png","dataKey":"186df6ea","offset":{"x":53,"y":69,"width":812,"height":766}},"/layers/3_Tercera/050-Dag/Dago5.png":{"size":151037,"type":"image/webp","file":{},"fileExt":"webp","name":"Dago5.png","dataKey":"7e93ce66","offset":{"x":91,"y":53,"width":702,"height":800}},"/layers/3_Tercera/050-Dag/Dago6.png":{"size":180423,"type":"image/webp","file":{},"fileExt":"webp","name":"Dago6.png","dataKey":"af6701d5","offset":{"x":55,"y":52,"width":768,"height":812}},"/layers/3_Tercera/025-Luc/Marc1.png":{"size":118062,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc1.png","dataKey":"377643b6","offset":{"x":0,"y":1,"width":899,"height":899}},"/layers/3_Tercera/025-Luc/Marc2.png":{"size":116964,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc2.png","dataKey":"6dcb9383","offset":{"x":0,"y":1,"width":897,"height":899}},"/layers/3_Tercera/025-Luc/Marc3.png":{"size":115582,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc3.png","dataKey":"19c48c82","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/025-Luc/Marc4.png":{"size":115049,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc4.png","dataKey":"5feaf740","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/025-Luc/Marc5.png":{"size":126608,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc5.png","dataKey":"8820d9a6","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/3_Tercera/025-Luc/Marc6.png":{"size":95853,"type":"image/webp","file":{},"fileExt":"webp","name":"Marc6.png","dataKey":"5d3b146d","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/2_Segunda/400-Salpicado/Salpicado2.png":{"size":449831,"type":"image/webp","file":{},"fileExt":"webp","name":"Salpicado2.png","dataKey":"b97f0a26","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/2_Segunda/400-Salpicado/Salpicado3.png":{"size":381297,"type":"image/webp","file":{},"fileExt":"webp","name":"Salpicado3.png","dataKey":"76c892b4","offset":{"x":0,"y":1,"width":899,"height":899}},"/layers/2_Segunda/400-Salpicado/Salpicado4.png":{"size":429265,"type":"image/webp","file":{},"fileExt":"webp","name":"Salpicado4.png","dataKey":"9f1c90e9","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/2_Segunda/400-Salpicado/Salpicado5.png":{"size":650677,"type":"image/webp","file":{},"fileExt":"webp","name":"Salpicado5.png","dataKey":"5a7ede99","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/2_Segunda/400-Salpicado/Salpicado6.png":{"size":817956,"type":"image/webp","file":{},"fileExt":"webp","name":"Salpicado6.png","dataKey":"56c47c22","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/2_Segunda/300-Color/Color1.png":{"size":2706454,"type":"image/webp","file":{},"fileExt":"webp","name":"Color1.png","dataKey":"c467dd35","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/2_Segunda/300-Color/Color4.png":{"size":2843528,"type":"image/webp","file":{},"fileExt":"webp","name":"Color4.png","dataKey":"209456e1","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/2_Segunda/200-Vectorizado/Contra1.png":{"size":972334,"type":"image/webp","file":{},"fileExt":"webp","name":"Contra1.png","dataKey":"2692d1e3","offset":{"x":0,"y":1,"width":900,"height":515}},"/layers/2_Segunda/200-Vectorizado/Contra2.png":{"size":211031,"type":"image/webp","file":{},"fileExt":"webp","name":"Contra2.png","dataKey":"8004fe4","offset":{"x":106,"y":1,"width":796,"height":900}},"/layers/2_Segunda/200-Vectorizado/Contra3.png":{"size":92737,"type":"image/webp","file":{},"fileExt":"webp","name":"Contra3.png","dataKey":"8f4a7db8","offset":{"x":0,"y":1,"width":902,"height":901}},"/layers/2_Segunda/200-Vectorizado/Contra4.png":{"size":95694,"type":"image/webp","file":{},"fileExt":"webp","name":"Contra4.png","dataKey":"657ee958","offset":{"x":0,"y":1,"width":689,"height":901}},"/layers/2_Segunda/200-Vectorizado/Contra5.png":{"size":76464,"type":"image/webp","file":{},"fileExt":"webp","name":"Contra5.png","dataKey":"cb255638","offset":{"x":0,"y":1,"width":900,"height":900}},"/layers/2_Segunda/200-Vectorizado/Contra6.png":{"size":134325,"type":"image/webp","file":{},"fileExt":"webp","name":"Contra6.png","dataKey":"ea1fa44","offset":{"x":0,"y":1,"width":1076,"height":903}},"/layers/2_Segunda/100-Coloreado/Color1.png":{"size":254047,"type":"image/webp","file":{},"fileExt":"webp","name":"Color1.png","dataKey":"8237abee","offset":{"x":1,"y":233,"width":899,"height":302}},"/layers/2_Segunda/100-Coloreado/Color2.png":{"size":554233,"type":"image/webp","file":{},"fileExt":"webp","name":"Color2.png","dataKey":"a2b91dfc","offset":{"x":0,"y":345,"width":897,"height":182}},"/layers/2_Segunda/100-Coloreado/Color3.png":{"size":143364,"type":"image/webp","file":{},"fileExt":"webp","name":"Color3.png","dataKey":"4dd0befc","offset":{"x":0,"y":366,"width":900,"height":200}},"/layers/2_Segunda/100-Coloreado/Color4.png":{"size":202521,"type":"image/webp","file":{},"fileExt":"webp","name":"Color4.png","dataKey":"5ea97cf2","offset":{"x":0,"y":417,"width":900,"height":291}},"/layers/2_Segunda/100-Coloreado/Color5.png":{"size":664720,"type":"image/webp","file":{},"fileExt":"webp","name":"Color5.png","dataKey":"4b510572","offset":{"x":3,"y":197,"width":893,"height":281}},"/layers/2_Segunda/100-Coloreado/Color6.png":{"size":929042,"type":"image/webp","file":{},"fileExt":"webp","name":"Color6.png","dataKey":"8ed7385b","offset":{"x":0,"y":366,"width":899,"height":302}},"/layers/1_Primera/400-Red/Red1.png":{"size":146295,"type":"image/webp","file":{},"fileExt":"webp","name":"Red1.png","dataKey":"55a39e08","offset":{"x":66,"y":54,"width":752,"height":789}},"/layers/1_Primera/400-Red/Red2.png":{"size":34858,"type":"image/webp","file":{},"fileExt":"webp","name":"Red2.png","dataKey":"e3dcfe5d","offset":{"x":122,"y":164,"width":579,"height":598}},"/layers/1_Primera/400-Red/Red3.png":{"size":69132,"type":"image/webp","file":{},"fileExt":"webp","name":"Red3.png","dataKey":"b1e655a5","offset":{"x":190,"y":159,"width":577,"height":499}},"/layers/1_Primera/400-Red/Red4.png":{"size":119841,"type":"image/webp","file":{},"fileExt":"webp","name":"Red4.png","dataKey":"cc6a4bb6","offset":{"x":7,"y":24,"width":867,"height":850}},"/layers/1_Primera/400-Red/Red5.png":{"size":94135,"type":"image/webp","file":{},"fileExt":"webp","name":"Red5.png","dataKey":"10aa2b4d","offset":{"x":6,"y":10,"width":871,"height":876}},"/layers/1_Primera/400-Red/Red6.png":{"size":88924,"type":"image/webp","file":{},"fileExt":"webp","name":"Red6.png","dataKey":"dd04abff","offset":{"x":85,"y":42,"width":701,"height":823}},"/layers/1_Primera/300-Green/Green1.png":{"size":166770,"type":"image/webp","file":{},"fileExt":"webp","name":"Green1.png","dataKey":"6ef6b9c5","offset":{"x":66,"y":107,"width":761,"height":648}},"/layers/1_Primera/300-Green/Green2.png":{"size":166423,"type":"image/webp","file":{},"fileExt":"webp","name":"Green2.png","dataKey":"3e90113c","offset":{"x":146,"y":78,"width":593,"height":723}},"/layers/1_Primera/300-Green/Green3.png":{"size":89592,"type":"image/webp","file":{},"fileExt":"webp","name":"Green3.png","dataKey":"68d94723","offset":{"x":100,"y":122,"width":657,"height":627}},"/layers/1_Primera/300-Green/Green4.png":{"size":320798,"type":"image/webp","file":{},"fileExt":"webp","name":"Green4.png","dataKey":"31f2ef87","offset":{"x":122,"y":120,"width":680,"height":716}},"/layers/1_Primera/300-Green/Green5.png":{"size":132849,"type":"image/webp","file":{},"fileExt":"webp","name":"Green5.png","dataKey":"27c459fb","offset":{"x":135,"y":43,"width":576,"height":700}},"/layers/1_Primera/300-Green/Green6.png":{"size":263031,"type":"image/webp","file":{},"fileExt":"webp","name":"Green6.png","dataKey":"8e6f42a6","offset":{"x":95,"y":89,"width":730,"height":752}},"/layers/1_Primera/100-White/White1.png":{"size":118861,"type":"image/webp","file":{},"fileExt":"webp","name":"White1.png","dataKey":"1b0a38be","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-White/White2.png":{"size":169928,"type":"image/webp","file":{},"fileExt":"webp","name":"White2.png","dataKey":"3a7dd1e","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-White/White3.png":{"size":73762,"type":"image/webp","file":{},"fileExt":"webp","name":"White3.png","dataKey":"6072c3b","offset":{"x":0,"y":2,"width":749,"height":707}},"/layers/1_Primera/100-White/White4.png":{"size":95780,"type":"image/webp","file":{},"fileExt":"webp","name":"White4.png","dataKey":"78f8937b","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-White/White5.png":{"size":136952,"type":"image/webp","file":{},"fileExt":"webp","name":"White5.png","dataKey":"a1dcd129","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-White/White6.png":{"size":73167,"type":"image/webp","file":{},"fileExt":"webp","name":"White6.png","dataKey":"17751a13","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-Lightblue/Lightblue1.png":{"size":173788,"type":"image/webp","file":{},"fileExt":"webp","name":"Lightblue1.png","dataKey":"3fae825c","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-Lightblue/Lightblue2.png":{"size":271848,"type":"image/webp","file":{},"fileExt":"webp","name":"Lightblue2.png","dataKey":"97582275","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-Lightblue/Lightblue3.png":{"size":118050,"type":"image/webp","file":{},"fileExt":"webp","name":"Lightblue3.png","dataKey":"1fd53fbf","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-Lightblue/Lightblue4.png":{"size":155584,"type":"image/webp","file":{},"fileExt":"webp","name":"Lightblue4.png","dataKey":"5521d146","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-Lightblue/Lightblue5.png":{"size":102463,"type":"image/webp","file":{},"fileExt":"webp","name":"Lightblue5.png","dataKey":"5109c7cc","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-Lightblue/Lightblue6.png":{"size":197901,"type":"image/webp","file":{},"fileExt":"webp","name":"Lightblue6.png","dataKey":"7a7eb45e","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/1_Primera/100-Black/Black1.png":{"size":20816,"type":"image/webp","file":{},"fileExt":"webp","name":"Black1.png","dataKey":"edfff476","offset":{"x":43,"y":131,"width":821,"height":723}},"/layers/1_Primera/100-Black/Black2.png":{"size":26011,"type":"image/webp","file":{},"fileExt":"webp","name":"Black2.png","dataKey":"4931167c","offset":{"x":34,"y":50,"width":726,"height":790}},"/layers/1_Primera/100-Black/Black3.png":{"size":23811,"type":"image/webp","file":{},"fileExt":"webp","name":"Black3.png","dataKey":"9b113e3a","offset":{"x":35,"y":63,"width":761,"height":788}},"/layers/1_Primera/100-Black/Black4.png":{"size":19976,"type":"image/webp","file":{},"fileExt":"webp","name":"Black4.png","dataKey":"64714f95","offset":{"x":89,"y":125,"width":693,"height":575}},"/layers/1_Primera/100-Black/Black5.png":{"size":26059,"type":"image/webp","file":{},"fileExt":"webp","name":"Black5.png","dataKey":"5cc600b3","offset":{"x":96,"y":96,"width":714,"height":727}},"/layers/1_Primera/100-Black/Black6.png":{"size":30870,"type":"image/webp","file":{},"fileExt":"webp","name":"Black6.png","dataKey":"3cf4c58","offset":{"x":52,"y":48,"width":796,"height":832}},"/layers/0_Fondo/250-Colormix/Pintura1.png":{"size":520561,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura1.png","dataKey":"1e9d8c","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/250-Colormix/Pintura2.png":{"size":40785,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura2.png","dataKey":"681b3c46","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/250-Colormix/Pintura3.png":{"size":33091,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura3.png","dataKey":"37028d61","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/250-Colormix/Pintura4.png":{"size":378664,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura4.png","dataKey":"d4ddc49b","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Psicodelico/Psicodelico1.png":{"size":126733,"type":"image/webp","file":{},"fileExt":"webp","name":"Psicodelico1.png","dataKey":"c18aba70","offset":{"x":0,"y":1,"width":901,"height":900}},"/layers/0_Fondo/200-Psicodelico/Psicodelico2.png":{"size":182483,"type":"image/webp","file":{},"fileExt":"webp","name":"Psicodelico2.png","dataKey":"f19d123c","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Psicodelico/Psicodelico3.png":{"size":517238,"type":"image/webp","file":{},"fileExt":"webp","name":"Psicodelico3.png","dataKey":"62ba5d11","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Psicodelico/Psicodelico4.png":{"size":693387,"type":"image/webp","file":{},"fileExt":"webp","name":"Psicodelico4.png","dataKey":"5534ce57","offset":{"x":0,"y":1,"width":901,"height":900}},"/layers/0_Fondo/200-Psicodelico/Psicodelico5.png":{"size":713667,"type":"image/webp","file":{},"fileExt":"webp","name":"Psicodelico5.png","dataKey":"f9dc0534","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Psicodelico/Psicodelico6.png":{"size":280665,"type":"image/webp","file":{},"fileExt":"webp","name":"Psicodelico6.png","dataKey":"32fbf01a","offset":{"x":0,"y":1,"width":901,"height":900}},"/layers/0_Fondo/200-Pintura/Pintura1.png":{"size":117804,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura1.png","dataKey":"1262e39b","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Pintura/Pintura2.png":{"size":111416,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura2.png","dataKey":"1c5c395e","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Pintura/Pintura3.png":{"size":171926,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura3.png","dataKey":"555cd63e","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Pintura/Pintura4.png":{"size":87958,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura4.png","dataKey":"971decce","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Pintura/Pintura5.png":{"size":42190,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura5.png","dataKey":"c53c7b6c","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/200-Pintura/Pintura6.png":{"size":79779,"type":"image/webp","file":{},"fileExt":"webp","name":"Pintura6.png","dataKey":"26b98ca5","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/150-Negro/Negro1.png":{"size":135673,"type":"image/webp","file":{},"fileExt":"webp","name":"Negro1.png","dataKey":"5a8430f0","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/150-Negro/Negro2 (2).png":{"size":473945,"type":"image/webp","file":{},"fileExt":"webp","name":"Negro2 (2).png","dataKey":"f2eb1309","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/150-Negro/Negro2.png":{"size":176678,"type":"image/webp","file":{},"fileExt":"webp","name":"Negro2.png","dataKey":"9bd98639","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/150-Negro/Negro3.png":{"size":79462,"type":"image/webp","file":{},"fileExt":"webp","name":"Negro3.png","dataKey":"8c3e420f","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Ruido/Digital1.png":{"size":745114,"type":"image/webp","file":{},"fileExt":"webp","name":"Digital1.png","dataKey":"27295696","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Ruido/Digital2.png":{"size":784999,"type":"image/webp","file":{},"fileExt":"webp","name":"Digital2.png","dataKey":"84ce589f","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Ruido/Digital3.png":{"size":812336,"type":"image/webp","file":{},"fileExt":"webp","name":"Digital3.png","dataKey":"2d93e342","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Ruido/Digital4.png":{"size":777850,"type":"image/webp","file":{},"fileExt":"webp","name":"Digital4.png","dataKey":"8fc9d072","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Ruido/Digital5.png":{"size":763956,"type":"image/webp","file":{},"fileExt":"webp","name":"Digital5.png","dataKey":"30f2158d","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Ruido/Digital6.png":{"size":787344,"type":"image/webp","file":{},"fileExt":"webp","name":"Digital6.png","dataKey":"68ce585e","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Dazzle/Dazzle1.png":{"size":140473,"type":"image/webp","file":{},"fileExt":"webp","name":"Dazzle1.png","dataKey":"f247aa35","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Dazzle/Dazzle2.png":{"size":64392,"type":"image/webp","file":{},"fileExt":"webp","name":"Dazzle2.png","dataKey":"acf0431","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Dazzle/Dazzle3.png":{"size":89338,"type":"image/webp","file":{},"fileExt":"webp","name":"Dazzle3.png","dataKey":"98d313cf","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Dazzle/Dazzle4.png":{"size":45871,"type":"image/webp","file":{},"fileExt":"webp","name":"Dazzle4.png","dataKey":"bc50d0a5","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Dazzle/Dazzle5.png":{"size":44728,"type":"image/webp","file":{},"fileExt":"webp","name":"Dazzle5.png","dataKey":"a4843e2c","offset":{"x":0,"y":1,"width":900,"height":899}},"/layers/0_Fondo/100-Dazzle/Dazzle6.png":{"size":31833,"type":"image/webp","file":{},"fileExt":"webp","name":"Dazzle6.png","dataKey":"73a72f59","offset":{"x":0,"y":1,"width":900,"height":899}}};
+			window.fxchoice = {};
+			
+			const viewport = document.getElementById('viewport');
+			
+			
+		</script>
+		<script id="fxchoice">
+			{
+				// throw 'test 0';
+				const layerRand = [];
+				const layer = fxproject.layers[0];
+				for(let x=0; x<100; x++){
+					layerRand.push(window.randIntK());
+				}
+				let rarityTest = 0;
+				let layerVariation = 0;
+				for(const rand = layerRand.pop(); layerVariation < 6; layerVariation++){
+					rarityTest += layer.variations[layerVariation].rarityNormalized;
+					if(rarityTest>999.96) rarityTest = 1000;
+					console.log('rarityTest1',rand,rarityTest);
+					if(rand <= rarityTest){
+						break;
+					}
+				}
+				window.fxchoice['layer-0'] = layerVariation; 
+			}
+			{
+				// throw 'test 1';
+				const layerRand = [];
+				const layer = fxproject.layers[1];
+				for(let x=0; x<100; x++){
+					layerRand.push(window.randIntK());
+				}
+				let rarityTest = 0;
+				let layerVariation = 0;
+				for(const rand = layerRand.pop(); layerVariation < 5; layerVariation++){
+					rarityTest += layer.variations[layerVariation].rarityNormalized;
+					if(rarityTest>999.96) rarityTest = 1000;
+					console.log('rarityTest1',rand,rarityTest);
+					if(rand <= rarityTest){
+						break;
+					}
+				}
+				window.fxchoice['layer-1'] = layerVariation; 
+			}
+			{
+				// throw 'test 2';
+				const layerRand = [];
+				const layer = fxproject.layers[2];
+				for(let x=0; x<100; x++){
+					layerRand.push(window.randIntK());
+				}
+				let rarityTest = 0;
+				let layerVariation = 0;
+				for(const rand = layerRand.pop(); layerVariation < 4; layerVariation++){
+					rarityTest += layer.variations[layerVariation].rarityNormalized;
+					if(rarityTest>999.96) rarityTest = 1000;
+					console.log('rarityTest1',rand,rarityTest);
+					if(rand <= rarityTest){
+						break;
+					}
+				}
+				window.fxchoice['layer-2'] = layerVariation; 
+			}
+			{
+				// throw 'test 3';
+				const layerRand = [];
+				const layer = fxproject.layers[3];
+				for(let x=0; x<100; x++){
+					layerRand.push(window.randIntK());
+				}
+				let rarityTest = 0;
+				let layerVariation = 0;
+				for(const rand = layerRand.pop(); layerVariation < 10; layerVariation++){
+					rarityTest += layer.variations[layerVariation].rarityNormalized;
+					if(rarityTest>999.96) rarityTest = 1000;
+					console.log('rarityTest1',rand,rarityTest);
+					if(rand <= rarityTest){
+						break;
+					}
+				}
+				window.fxchoice['layer-3'] = layerVariation; 
+			}
+		</script>
+			<style>
+				#display {
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					left: 0;
+					top: 0;
+					object-fit: contain;
+					
+				}
+			</style><body><pre id="test"></pre><div id="viewport">
+		<canvas id="display" />
+		</div>
+		<div id="export-screen">
+			<div class="artwork-animated">
+				<span>GIF export.</span>
+				<span>Perfect loop length: <span class="gif-total-length">0</span> seconds</span>
+				<span><button id="begin-gif-export" type="button" onclick="toggleGifExport()">Render GIF</button></span>
+				<span class="mobile"><button type="button" onclick="cancelGifExport()">Cancel</button></span>
+			</div>
+			<div class="artwork-static">
+				<span>PNG export.</span>
+				<span><button id="begin-png-export" type="button" onclick="toggleGifExport()">Render PNG</button></span>
+			</div>
+		</div>
+		<div id="starting-gif-recording">
+			<div class="artwork-animated">
+				<span>GIF export starting.</span>
+				<span>Waiting for first frame. Please wait...</span>
+				<span>To cancel, press the Escape key.</span>
+				<span class="mobile"><button type="button" onclick="cancelGifExport()">Cancel</button></span>
+			</div>
+			<div class="artwork-static">
+				<span>PNG export starting.</span>
+				<span>Please wait a moment...</span>
+			</div>
+		</div>
+		<div id="gif-rendering">
+			<span>Rendering .GIF from captured frames.</span>
+			<span>Please wait...</span>
+		</div>
+		<div id="gif-recording">
+			<span>Capturing frames for GIF export.</span>
+			<span>Captured <span id="gif-frame-count">0</span> frames</span>
+			<span>To clip the recording early, press the G key <button type="button" onclick="toggleGifExport()">Clip Recording</button></span>
+			<span class="desktop">To cancel, press the Escape key.</span>
+			<span>Please wait...</span>
+			<span class="mobile"><button type="button" onclick="cancelGifExport()">Cancel</button></span>
+		</div>
+		<div id="gif-info">
+			<span>Perfect loop length: <span class="gif-total-length">0</span> seconds</span>
+			<span><i>Press the [i] key to exit.</i></span>
+		</div>
+		
+		<script>
+		
+			const gcd = (a,b)=>b?gcd(b,a%b):a;
+			const lcm = (a,b)=>(a*b)/gcd(a,b);
+			const gcdA = (A)=>A.reduce(gcd,1);
+			const lcmA = (A)=>A.reduce(lcm,1);
+			
+			let loopMeter = {
+				framesNos: [],
+				framesCnts: [],
+				framesProgressed: [],
+				loopStartState: '',
+				lastUpdateRealFrame: [],
+				framesProgressedLastRealFrame: [],
+				frameNo: 0,
+			};
+			
+			//calculate loop length
+			{
+				loopMeter.lengthCalc = {}
+				loopMeter.lengthCalcs = []
+				
+				let loopLayers = [];
+				Object.keys(fxchoice).forEach(k=>{
+					const kParts = k.split('-')
+					const layerIndex = kParts[1]
+					const variationIndex = fxchoice[k];
+					if(kParts.length==2){
+						//regular layer variation
+						const layer = fxproject.layers[layerIndex];
+						const variation = layer.variations[variationIndex];
+						
+						
+						let layerLoopLengthMs = 0;
+						const fps = variation?.fps ?? layer?.fps ?? fxproject.config?.fps ?? 10;
+						variation?.frames?.forEach(frame=>{
+							let frameTime = fps===0 ? shortestFrame : Math.round(1000/fps)
+							if(frame?.delay){
+								frameTime =  frame?.delay;
+							}
+							layerLoopLengthMs += frameTime;
+						})
+						
+						loopMeter.lengthCalc['layer-'+layerIndex] = layerLoopLengthMs;
+						
+						if(layerLoopLengthMs)
+							loopMeter.lengthCalcs.push(layerLoopLengthMs)
+						console.log('calc layer loop length',layer,variation,layerLoopLengthMs)
+						
+						variation?.layers?.forEach((sublayer,i)=>{
+							
+							let layerLoopLengthMs = 0;
+							const fps = sublayer?.fps ?? variation?.fps ?? layer?.fps ?? fxproject.config?.fps ?? 10;
+							sublayer?.frames?.forEach(frame=>{
+								let frameTime = fps===0 ? shortestFrame : Math.round(1000/fps)
+								if(frame?.delay){
+									frameTime =  frame?.delay;
+								}
+								layerLoopLengthMs += frameTime;
+							})
+							
+							loopMeter.lengthCalc['layer-'+layerIndex+'-'+i] = layerLoopLengthMs;
+							
+							if(layerLoopLengthMs)
+								loopMeter.lengthCalcs.push(layerLoopLengthMs)
+							console.log('calc layer loop length',layer,variation,layerLoopLengthMs)
+						})
+						
+						
+					}else if(kParts.length==5){
+						if(kParts[2]+'-'+kParts[3]==='gradient-map'){
+							//figure out how many frames it uses
+						}
+					} 
+				})
+				
+				loopMeter.perfectLoopLength = lcmA(loopMeter.lengthCalcs);
+				// document.getElementById('gif-total-length').innerHTML = (loopMeter.perfectLoopLength/1000).toFixed(2);
+				document.querySelectorAll('.gif-total-length').forEach(gi=>{gi.innerHTML = (loopMeter.perfectLoopLength/1000).toFixed(2)});
+				
+			}
+			
+			window.loopMeter = loopMeter;
+			
+			//start filterSvgJS
+			
+			//end filterSvgJS
+			
+			let assetLoadedFns = {};
+			function assetLoaded(dataKey,fn){
+				// console.log('assetLoaded callback assign',dataKey);
+				if(!assetLoadedFns?.[dataKey])
+					assetLoadedFns[dataKey] = [];
+				assetLoadedFns[dataKey].push(fn)
+			}
+			
+			function cancelGifExport(){
+				if(artwork?.start_gif_recording){
+					artwork.start_gif_recording = false;
+					document.body.classList.remove('starting-gif-recording')
+					buildScene();
+				}
+				if(artwork?.gif_recording){
+					artwork.gif_recording = false;
+					artwork.gif_recorder.abort()
+					document.body.classList.remove('gif-recording')
+					buildScene();
+				}
+				
+				artwork.export_screen = false;
+				document.body.classList.remove('export-screen');
+			}
+			
+			function toggleGifExport(){
+				if(!artwork?.gif_recording){
+				
+					loopMeter.startFramesProgressed = loopMeter.framesProgressed.join(',');
+					artwork.start_gif_recording = true;
+					artwork.dirty = true;
+					buildScene();
+					document.body.classList.add('starting-gif-recording')
+				}else{
+					finishGifRender()
+				}
+			}
+			
+			function keydown(e){
+				console.log('canvas keydown',e);
+				const key = e.key;
+				if(key === "g" || key === "x" || key === "d"){ //gxd
+					if(!artwork?.gif_rendering){ // if rendering it's already busy
+						if(!artwork?.gif_recording){
+						
+							loopMeter.startFramesProgressed = loopMeter.framesProgressed.join(',');
+							artwork.start_gif_recording = true;
+							artwork.dirty = true;
+							buildScene();
+							document.body.classList.add('starting-gif-recording')
+						}else{
+							finishGifRender()
+						}
+					}
+				}else
+				if(key === "i"){ //info
+					artwork.gif_info = !artwork?.gif_info;
+					if(artwork.gif_info){
+						document.body.classList.add('show-gif-info')
+					}else{
+						document.body.classList.remove('show-gif-info')
+					}
+				}else
+				if(key === "Escape"){
+					cancelGifExport()
+				}
+			}
+			window.addEventListener('keydown',keydown)
+			
+			function exportInfoToggle(){
+				artwork.export_screen = !artwork?.export_screen;
+				if(artwork.export_screen){
+					document.body.classList.add('export-screen')
+				}else{
+					document.body.classList.remove('export-screen')
+				}
+			}
+			
+			let lastTouch = performance.now()
+			const touchstart = (e) => {
+				//console.log('touchstart',e)
+				let now = performance.now();
+				if(now - lastTouch < 500){
+					console.log('double tap')
+					exportInfoToggle()
+					now-=500
+				}
+				lastTouch = now;
+			}
+			window.addEventListener('touchstart',touchstart)
+			
+			
+		
+			function finishGifRender(){
+				buildScene();
+				artwork.gif_recording = false;
+				document.body.classList.remove('gif-recording')
+				artwork.gif_rendering = true;
+				document.body.classList.add('gif-rendering')
+				artwork.gif_recorder.on('finished', function(blob) {
+					const gifURL = URL.createObjectURL(blob);
+					// window.open(gifURL);
+					
+					
+					let fileName = fxproject.title.toLowerCase();
+					fileName = fileName.replaceAll("'s","s");
+					fileName = fileName.replace(regexNonAN,'-');
+					
+					fileName += "-"+fxhash.substr(2,2)+"_"+fxhash.substr(-2,2)
+					fileName += "-"+hashCrc
+					
+					fileName = fileName + '.gif';
+					
+					var aDownloadLink = document.createElement('a');
+					aDownloadLink.download = fileName;
+					aDownloadLink.href = gifURL;
+					aDownloadLink.click();
+					
+					
+					artwork.gif_rendering = false;
+					document.body.classList.remove('gif-rendering')
+				});
+
+				artwork.gif_recorder.render();
+			}
+		
+			function artworkSize(dim){
+				return Math.ceil(window.devicePixelRatio * window[dim==='width' ? 'innerWidth' : 'innerHeight']);
+			}
+			artwork.currentSize = {
+					width: artworkSize('width'),
+					height: artworkSize('height'),
+				};
+			artwork.dirty = true;
+			const displayCanvas = document.getElementById('display');
+			const ctx = displayCanvas.getContext('2d');
+			artwork.displayCanvas = displayCanvas;
+			artwork.ctx = ctx;
+			
+			const outputCanvas = document.createElement('canvas');
+			const octx = outputCanvas.getContext('2d');
+			octx.imageSmoothingEnabled = true;
+			const videoShareSizePX = fxproject.config['share-size'];
+			const sizeFactor = fxproject.config?.pixel ? Math.ceil(videoShareSizePX/Math.max(fxproject.size.width,fxproject.size.height)) : 1;
+			artwork.outputWidth = sizeFactor*fxproject.size.width;
+			artwork.outputHeight = sizeFactor*fxproject.size.height;
+			outputCanvas.setAttribute('width',String(artwork.outputWidth));
+			outputCanvas.setAttribute('height',String(artwork.outputHeight));
+			artwork.outputCanvas = outputCanvas;
+			artwork.octx = octx;
+			
+			
+			let tempCanvases = {};
+			let sceneLayout = [];
+			// let lastRenderTime = performance.now();
+			function renderScene(){
+				// console.log('renderScene');
+				if(artwork.dirty){
+					const renderTime = performance.now();
+					// console.time('renderScene');
+					ctx.clearRect(0,0,displayCanvas.width,displayCanvas.height);
+					if(fxproject.config?.['background-color']){
+						ctx.fillStyle = fxproject.config['background-color'];
+						ctx.fillRect(0,0,displayCanvas.width,displayCanvas.height);
+					}
+					let lastMajorLayerIndex = -1;
+					let fullyRendered = true;
+					sceneLayout.forEach((layer,i)=>{
+						if(layer && layer?.asset){
+							// console.log('draw layer',layer);
+								
+							const majorLayerIndex = layer.majorLayerIndex;
+							const nextLayer = sceneLayout?.[i+1] ?? null;
+							// console.log('render layer ',i,layer);
+							if(layer?.blendMode){
+								ctx.globalCompositeOperation = layer.blendMode;
+							}else{
+								ctx.globalCompositeOperation = "source-over";
+							}
+							const width = Math.round(fxproject.size.sizeFactor*(layer?.width ?? fxproject.size.width));
+							const height = Math.round(fxproject.size.sizeFactor*(layer?.height ?? fxproject.size.height));
+							const x = fxproject.size.sizeFactor*layer.x;
+							const y = fxproject.size.sizeFactor*layer.y;
+							
+							
+							const asset = fxproject.size.sizeFactor === 1 ? layer.asset : layer.asset_sm;
+							
+							// console.log('asset',i,asset);
+							
+							if(layer?.filter){
+								let tempCanvas = tempCanvases?.[majorLayerIndex];
+								if(!tempCanvas || lastMajorLayerIndex !== majorLayerIndex){
+									// console.log('create layer temp canvas');
+									tempCanvas = document.createElement('canvas');
+									tempCanvases[majorLayerIndex] = tempCanvas;
+									tempCanvas.setAttribute('width',displayCanvas.width);
+									tempCanvas.setAttribute('height',displayCanvas.height);
+								}
+								const tempCtx = tempCanvas.getContext('2d');
+								if(layer?.blendMode){
+									tempCtx.globalCompositeOperation = layer.blendMode;
+								}else{
+									tempCtx.globalCompositeOperation = "source-over";
+								}
+								
+								tempCtx.drawImage(asset,x,y);
+								// console.log('draw onto temp layer canvas');
+							}else{
+								if(width && height){
+									ctx.drawImage(asset,x,y,width,height);
+								}else{
+									ctx.drawImage(asset,x,y);
+								}
+								// console.log('draw onto main canvas');
+							}
+							
+							// tempCanvases
+							if(layer?.filter && nextLayer?.majorLayerIndex !== layer.majorLayerIndex){
+								const layerCanvas = tempCanvases?.[majorLayerIndex]
+								const tempCanvas = document.createElement('canvas');
+								tempCanvas.setAttribute('width',displayCanvas.width);
+								tempCanvas.setAttribute('height',displayCanvas.height);
+								tempCtx = tempCanvas.getContext('2d');
+								tempCtx.filter = layer.filter.join(" ");
+								tempCtx.drawImage(layerCanvas,0,0);
+								// console.log('draw temp layer canvas onto temp filtered layer canvas');
+								
+								
+								if(layer?.majorBlendMode){
+									ctx.globalCompositeOperation = layer.majorBlendMode;
+								}else if(layer?.blendMode){
+									ctx.globalCompositeOperation = layer.blendMode;
+								}else{
+									ctx.globalCompositeOperation = "source-over";
+								}
+								
+								// const width = Math.round(fxproject.size.sizeFactor*(fxproject.size.width));
+								// const height = Math.round(fxproject.size.sizeFactor*(fxproject.size.height));
+								// ctx.drawImage(tempCanvas,0,0,width,height);
+								ctx.drawImage(tempCanvas,0,0);
+								// console.log('draw temp filtered layer canvas onto main canvas');
+							}
+							
+							lastMajorLayerIndex = majorLayerIndex;
+						}else{
+							fullyRendered = false;
+						}
+					})
+					artwork.fullyRendered = fullyRendered;
+					artwork.dirty = false;
+					// console.timeEnd('renderScene');
+					// lastRenderTime = renderTime
+				}
+			}
+			
+			
+			
+			const buildScene = (e)=>{
+				updateFns.splice(0,updateFns.length) // these will be regenerated by scene builder
+				
+				let newSceneLayout = [];
+				artwork.currentSize.width =  artworkSize('width');
+				artwork.currentSize.height = artworkSize('height');
+				// displayCanvas.setAttribute('width', String(artwork.currentSize.width));
+				// displayCanvas.setAttribute('height', String(artwork.currentSize.height));
+				
+				const maxSize = artwork?.start_gif_recording ? Infinity : fxproject.config['view-size'];
+				let sizeFactor = 1;
+				
+				const refSize = Math.max(fxproject.size.width, fxproject.size.height);
+				if(refSize > maxSize){
+					sizeFactor = maxSize/refSize;
+				}
+				
+				fxproject.size.sizeFactor = sizeFactor;
+				
+				displayCanvas.setAttribute('width', String(Math.round(sizeFactor*fxproject.size.width)));
+				displayCanvas.setAttribute('height', String(Math.round(sizeFactor*fxproject.size.height)));
+				
+				let layerStackCnt = 0;
+				layerDurations = [];
+				window.layerDurations = layerDurations;
+				
+					{
+						const layer = fxproject.layers[0];
+						let layerStackIndex = layerStackCnt++;
+						console.log('layer 0 layerStackIndex',layerStackIndex);
+						const frames = layer?.frames;
+						const layerVariation = window.fxchoice['layer-0']
+						const variation = layer.variations[layerVariation];
+						const layerConfig = fxproject.config?.layers?.[0] ?? {};
+						// console.log('Fondo variation',variation)
+				
+						let layerFilter = [];
+						const layerSubvariations = Object.keys(window.fxchoice).filter(key=>key.startsWith('layer-0-')); 
+						let sublayerAnimatedI = 0;
+						layerSubvariations.forEach((v)=>{
+							const subVariation = window.fxchoice[v];
+							let variationType = v.split('layer-0-')[1];
+							const typeMatches = variationType.match(/(.*)-([0-9])/);
+							variationType = typeMatches[1] || variationType;
+							
+							console.log('layerSubvariation z' ,{layer,v,subVariation,variationType});
+							// layerEl.classList.add('filter-'+variationType+'-'+subVariation)
+							layerFilter.push('url(#'+variationType+'-'+subVariation+')');
+							
+							const animated = svg_filters_animated?.[variationType+'-'+subVariation];
+							if(animated){
+								// console.log('animated',animated)
+								const _layerStackIndex = layerStackIndex+sublayerAnimatedI;
+								loopMeter.framesProgressed[_layerStackIndex] = 0;
+								const delay = animated.delay*10;
+								let lastTime = -1;
+								let frameNo = 0;
+								const filterEl = document.getElementById('filter-'+animated.id);
+								const filterTempEl = document.createElement('div');
+								const gradientMapHardness = animated?.gradientMapHardness ?? 1;
+								const transition = animated?.transition;
+								const frameSkip = 
+									transition === 'smooth' 
+									? 1 
+									: !isNaN(Number(transition))
+									? Number(transition)
+									: gradientMapHardness
+								;
+								const framesTotal = Math.round(getColorPalette(animated.palette,0,gradientMapHardness).length/frameSkip);
+								loopMeter.framesCnts[_layerStackIndex] = framesTotal;
+								console.log('_layerStackIndex',_layerStackIndex,subVariation)
+								updateFns.push(function(t){
+									if(t-lastTime >= delay){
+										lastTime = t;
+										frameNo++;
+										filterTempEl.innerHTML = filterSVG(animated.paletteName,animated.color_interpolation,getColorVals(animated.palette,frameNo*frameSkip,animated?.repeat,gradientMapHardness))
+										filterEl.innerHTML = filterTempEl.firstChild.innerHTML;
+										artwork.dirty=true;
+										const realFrameNo = frameNo%framesTotal;
+										// const realFrameNo = frameNo;
+										loopMeter.framesNos[_layerStackIndex] = realFrameNo;
+										loopMeter.framesProgressed[_layerStackIndex]++;
+										loopMeter.lastUpdateRealFrame[_layerStackIndex] = loopMeter.frameNo;
+									}else{
+										// if(loopMeter.lastUpdateRealFrame[_layerStackIndex] < loopMeter.frameNo){
+											loopMeter.framesProgressedLastRealFrame[_layerStackIndex] = loopMeter.framesProgressed[_layerStackIndex];
+										// }
+									}
+								})
+								sublayerAnimatedI++;
+							}
+						})
+						layerStackIndex += sublayerAnimatedI;
+						layerStackCnt += sublayerAnimatedI;
+						console.log('layer 0 layerStackCnt update',{sublayerAnimatedI,layerStackIndex,layerStackCnt});
+						
+						if(variation.asset._type === "file"){
+							//variation is a still image
+							layerDurations.push(0);
+							
+						
+							const fName = variation.asset._name
+							const fPath = variation.asset._path;
+							const f = filesKeyed[fPath];
+							const dataKey = f.dataKey;
+							const fileExt = f.fileExt;
+							const offset = f.offset;
+							
+							let blendMode = variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+							
+							const layerIndex = newSceneLayout.length;
+							
+							let asset = assetCache?.[dataKey];
+							if(!asset){
+								newSceneLayout.push(null);
+								asset = new Image();
+								asset.onload = async ()=>{
+									let sceneLayer = {
+										name: fName,
+									}
+									assetCache[dataKey] = await createImageBitmap(asset);
+									if(fxproject.size?.sizeFactor && fxproject.size.sizeFactor!==1){
+										const width = Math.round(fxproject.size.sizeFactor*asset.naturalWidth);
+										const height = Math.round(fxproject.size.sizeFactor*asset.naturalHeight);
+										const assetResizedCanvas = document.createElement('canvas');
+										assetResizedCanvas.setAttribute('width',width);
+										assetResizedCanvas.setAttribute('height',height);
+										assetCtx = assetResizedCanvas.getContext('2d');
+										assetCtx.drawImage(assetCache[dataKey],0,0,width,height);
+										
+										assetCache[dataKey+'_sm'] = assetResizedCanvas;
+										sceneLayer.asset_sm = assetCache[dataKey+'_sm'];
+									}
+									assetLoadedFns?.[dataKey]?.forEach(fn=>fn(performance.now()));
+									artwork.dirty = true;
+									
+									sceneLayer.asset= assetCache?.[dataKey];
+										
+									sceneLayer.x = offset?.x??0;
+									sceneLayer.y = offset?.y??0;
+									sceneLayer.blendMode = blendMode;
+									sceneLayer.filter = layerFilter;
+									sceneLayer.majorLayerIndex = 0;
+									
+									sceneLayout[layerIndex] = sceneLayer 
+								}
+									asset.src = 'assets/' + dataKey + '.' + fileExt;
+							}else{
+								drawLayer();
+							}
+							function drawLayer() {
+								// console.log('assign layer');
+								newSceneLayout.push({
+									name: fName,
+									asset: assetCache?.[dataKey],
+									asset_sm: assetCache?.[dataKey+'_sm'],
+									x:offset?.x??0,
+									y:offset?.y??0,
+									blendMode,
+									filter: layerFilter,
+									majorLayerIndex: 0,
+								})
+							}
+						}else 
+						if(variation.asset._type === "folder"){
+							//variation is aniamted or made up of sublayers
+							// console.log('setup variation',variation);
+							
+							if(variation.layers.length > 0) {
+								//variation is made up of layers
+								// variation.layers.forEach
+								
+								let subLayerI = 0;
+								for(let subLayer of variation.layers) {
+								
+									layerDurations.push(null);
+									
+									const _layerStackIndex = layerStackIndex+subLayerI;
+									
+									console.log('set up subLayer',subLayer);
+									
+									const layerIndex = newSceneLayout.length;
+									newSceneLayout.push(null);
+									
+									let blendMode = subLayer?.blendMode ?? variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+									let fps = subLayer.fps ?? variation?.fps ?? layer?.fps ?? fxproject.config?.fps ?? 10;
+									
+									let frameNo = 0;
+									let lastTime = performance.now();
+									
+									console.log('layer fps',layer,fps);
+									loopMeter.framesProgressed[_layerStackIndex] = 0;
+								
+									doLayer(-1)
+									if(subLayer.frames.length>1){
+										updateFns.push(doLayer);
+									}else{
+										const dataKey = subLayer.frames[0].k
+										const asset = assetCache?.[dataKey];
+										if(!asset){
+											assetLoaded(dataKey,function(){
+												console.log('asset loaded callback',dataKey);
+												doLayer(-1)
+											});
+										}
+									}
+									
+									loopMeter.framesCnts[_layerStackIndex] = subLayer.frames.length;
+									
+									function doLayer(t) {
+										// console.log('do subLayer',subLayer,t);
+										const dt = t-lastTime;
+										if(fps===0 || t<0 || dt >= 1000/fps){
+											lastTime = t;
+											const realFrameNo = frameNo%subLayer.frames.length;
+											const dataKey = subLayer.frames[realFrameNo].k;
+											const offset = subLayer.frames[realFrameNo].offset;
+											const asset = assetCache?.[dataKey];
+											// console.log('dirty: assign subLayer',lastTime,dataKey,frameNo);
+											// console.log('dirty: assign subLayer',layer.name,dt,Math.round(1000/dt));
+											if(asset){
+												const renderLayer = {
+														name: subLayer.name,
+														asset,
+														x:offset?.x??0,
+														y:offset?.y??0,
+														blendMode,
+														filter: layerFilter,
+														majorLayerIndex: 0,
+													};
+												if(t<0){
+													newSceneLayout[layerIndex] = renderLayer;
+												}else{
+													sceneLayout[layerIndex] = renderLayer;
+												}
+												artwork.dirty=true;
+											}
+											loopMeter.framesNos[_layerStackIndex] = realFrameNo;
+											loopMeter.framesProgressed[_layerStackIndex]++;
+											loopMeter.lastUpdateRealFrame[_layerStackIndex] = loopMeter.frameNo;
+											frameNo++;
+										}else{
+											// if(loopMeter.lastUpdateRealFrame[_layerStackIndex] < loopMeter.frameNo){
+												loopMeter.framesProgressedLastRealFrame[_layerStackIndex] = loopMeter.framesProgressed[_layerStackIndex];
+											// }
+										}
+									}
+									// console.log('layer',layer);
+									for(let frame of subLayer.frames) {
+										const fileExt = frame.ext;
+										const dataKey = frame.k;
+										const frameFile = dataKey+'.'+fileExt;
+										const offset = frame.offset;
+										
+										let asset = assetCache?.[dataKey];
+										if(!asset){
+											asset = new Image();
+											asset.onload = async ()=>{
+												// assetCache[dataKey] = asset;
+												assetCache[dataKey] = await createImageBitmap(asset);
+												assetLoadedFns?.[dataKey]?.forEach(fn=>fn(performance.now()));
+												artwork.dirty = true;
+												// console.log('dirty: frame',{layer:layer.name,frame,dataKey,fileExt});
+											}
+												asset.src = 'assets/' + frameFile;
+										}
+									}
+									subLayerI++;
+								}
+								layerStackCnt += subLayerI;
+								layerStackIndex = layerStackCnt;
+							}
+							else{
+								//variation is made up of frames
+								let layerDuration = 0;
+									
+								const layerIndex = newSceneLayout.length;
+								newSceneLayout.push(null);
+							
+								const fps = variation?.fps ?? fxproject?.config?.fps ?? 10;
+								// console.log('variation fps',fps)
+								let frameNo = 0;
+								let lastTime = performance.now();
+								let blendMode = variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+								loopMeter.framesProgressed[layerStackIndex] = 0;
+								
+								let frameTime = fps===0 ? 1 : 1000/fps;
+								updateFns.push(doLayer);
+								doLayer(-1)
+								loopMeter.framesCnts[layerStackIndex] = variation.frames.length;
+								
+								function doLayer(t) {
+									// console.log('do layer',t);
+									const dt = t-lastTime;
+									if(((dt) >= frameTime) || t < 0){
+										const realFrameNo = frameNo%variation.frames.length
+										const dataKey = variation.frames[realFrameNo].k;
+										const offset = variation.frames[realFrameNo].offset;
+										frameTime = fps===0 ? 1 : variation.frames[realFrameNo]?.delay ?? 1000/fps;
+										
+										// console.time("get asset from cache");
+										const asset = assetCache?.[dataKey];
+										// console.timeEnd("get asset from cache");
+										
+										// console.log("got asset from cache",asset);
+										
+										if(asset){
+											lastTime = t
+											// console.log('dirty: assign layer frame update',layer.name,lastTime,dataKey,frameNo);
+											// console.log('dirty: assign layer frame update',layer.name,dt,Math.round(1000/dt));
+											
+											const renderLayer = {
+												name: layer.name,
+												asset,
+												x:offset?.x??0,
+												y:offset?.y??0,
+												blendMode,
+												filter: layerFilter,
+												majorLayerIndex: 0,
+											};
+											if(t<0){
+												newSceneLayout[layerIndex] = renderLayer;
+											}else{
+												sceneLayout[layerIndex] = renderLayer;
+											}
+											
+											artwork.dirty=true;
+											loopMeter.framesNos[layerStackIndex] = realFrameNo;
+											loopMeter.framesProgressed[layerStackIndex]++;
+											frameNo++;
+										}else{
+											frameTime=1;
+											// console.log('dont assign layer frame update',layer.name);
+										}
+										// console.timeEnd("assign layer");
+										/* */
+										
+										
+											loopMeter.lastUpdateRealFrame[layerStackIndex] = loopMeter.frameNo;
+									}else{
+										// if(loopMeter.lastUpdateRealFrame[layerStackIndex] < loopMeter.frameNo){
+											loopMeter.framesProgressedLastRealFrame[layerStackIndex] = loopMeter.framesProgressed[layerStackIndex];
+										// }
+									}
+									// console.timeEnd("doLayer");
+								}
+								for(let frame of variation.frames) {
+									const fileExt = frame.ext;
+									const dataKey = frame.k;
+									const frameFile = dataKey+'.'+fileExt;
+									const offset = frame.offset
+									
+									const frameTime = fps===0 ? shortestFrame : frame?.delay ?? 1000/fps;
+									layerDuration += frameTime;
+									
+									// console.log('frame',{frame,dataKey,fileExt});
+									let asset = assetCache?.[dataKey];
+									if(!asset){
+										asset = new Image();
+										asset.onload = async ()=>{
+											assetCache[dataKey] = await createImageBitmap(asset);
+											artwork.dirty = true;
+											// console.log('dirty: frame',{frame,dataKey,fileExt});
+										}
+											asset.src = 'assets/' + frameFile;
+									}
+								}
+							
+								layerDurations.push(layerDuration);
+							}
+							/* 		}else if(variation.asset[fName]._type === "folder"){
+										//variation is made up of multiple sublayers
+										
+										for(let _fName in variation.asset[fName]) {
+											if(_fName[0]!=="_"){
+											}
+										}
+									}
+								} 
+							}
+							*/
+						}
+					}
+					{
+						const layer = fxproject.layers[1];
+						let layerStackIndex = layerStackCnt++;
+						console.log('layer 1 layerStackIndex',layerStackIndex);
+						const frames = layer?.frames;
+						const layerVariation = window.fxchoice['layer-1']
+						const variation = layer.variations[layerVariation];
+						const layerConfig = fxproject.config?.layers?.[1] ?? {};
+						// console.log('Primera variation',variation)
+				
+						let layerFilter = [];
+						const layerSubvariations = Object.keys(window.fxchoice).filter(key=>key.startsWith('layer-1-')); 
+						let sublayerAnimatedI = 0;
+						layerSubvariations.forEach((v)=>{
+							const subVariation = window.fxchoice[v];
+							let variationType = v.split('layer-1-')[1];
+							const typeMatches = variationType.match(/(.*)-([0-9])/);
+							variationType = typeMatches[1] || variationType;
+							
+							console.log('layerSubvariation z' ,{layer,v,subVariation,variationType});
+							// layerEl.classList.add('filter-'+variationType+'-'+subVariation)
+							layerFilter.push('url(#'+variationType+'-'+subVariation+')');
+							
+							const animated = svg_filters_animated?.[variationType+'-'+subVariation];
+							if(animated){
+								// console.log('animated',animated)
+								const _layerStackIndex = layerStackIndex+sublayerAnimatedI;
+								loopMeter.framesProgressed[_layerStackIndex] = 0;
+								const delay = animated.delay*10;
+								let lastTime = -1;
+								let frameNo = 0;
+								const filterEl = document.getElementById('filter-'+animated.id);
+								const filterTempEl = document.createElement('div');
+								const gradientMapHardness = animated?.gradientMapHardness ?? 1;
+								const transition = animated?.transition;
+								const frameSkip = 
+									transition === 'smooth' 
+									? 1 
+									: !isNaN(Number(transition))
+									? Number(transition)
+									: gradientMapHardness
+								;
+								const framesTotal = Math.round(getColorPalette(animated.palette,0,gradientMapHardness).length/frameSkip);
+								loopMeter.framesCnts[_layerStackIndex] = framesTotal;
+								console.log('_layerStackIndex',_layerStackIndex,subVariation)
+								updateFns.push(function(t){
+									if(t-lastTime >= delay){
+										lastTime = t;
+										frameNo++;
+										filterTempEl.innerHTML = filterSVG(animated.paletteName,animated.color_interpolation,getColorVals(animated.palette,frameNo*frameSkip,animated?.repeat,gradientMapHardness))
+										filterEl.innerHTML = filterTempEl.firstChild.innerHTML;
+										artwork.dirty=true;
+										const realFrameNo = frameNo%framesTotal;
+										// const realFrameNo = frameNo;
+										loopMeter.framesNos[_layerStackIndex] = realFrameNo;
+										loopMeter.framesProgressed[_layerStackIndex]++;
+										loopMeter.lastUpdateRealFrame[_layerStackIndex] = loopMeter.frameNo;
+									}else{
+										// if(loopMeter.lastUpdateRealFrame[_layerStackIndex] < loopMeter.frameNo){
+											loopMeter.framesProgressedLastRealFrame[_layerStackIndex] = loopMeter.framesProgressed[_layerStackIndex];
+										// }
+									}
+								})
+								sublayerAnimatedI++;
+							}
+						})
+						layerStackIndex += sublayerAnimatedI;
+						layerStackCnt += sublayerAnimatedI;
+						console.log('layer 1 layerStackCnt update',{sublayerAnimatedI,layerStackIndex,layerStackCnt});
+						
+						if(variation.asset._type === "file"){
+							//variation is a still image
+							layerDurations.push(0);
+							
+						
+							const fName = variation.asset._name
+							const fPath = variation.asset._path;
+							const f = filesKeyed[fPath];
+							const dataKey = f.dataKey;
+							const fileExt = f.fileExt;
+							const offset = f.offset;
+							
+							let blendMode = variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+							
+							const layerIndex = newSceneLayout.length;
+							
+							let asset = assetCache?.[dataKey];
+							if(!asset){
+								newSceneLayout.push(null);
+								asset = new Image();
+								asset.onload = async ()=>{
+									let sceneLayer = {
+										name: fName,
+									}
+									assetCache[dataKey] = await createImageBitmap(asset);
+									if(fxproject.size?.sizeFactor && fxproject.size.sizeFactor!==1){
+										const width = Math.round(fxproject.size.sizeFactor*asset.naturalWidth);
+										const height = Math.round(fxproject.size.sizeFactor*asset.naturalHeight);
+										const assetResizedCanvas = document.createElement('canvas');
+										assetResizedCanvas.setAttribute('width',width);
+										assetResizedCanvas.setAttribute('height',height);
+										assetCtx = assetResizedCanvas.getContext('2d');
+										assetCtx.drawImage(assetCache[dataKey],0,0,width,height);
+										
+										assetCache[dataKey+'_sm'] = assetResizedCanvas;
+										sceneLayer.asset_sm = assetCache[dataKey+'_sm'];
+									}
+									assetLoadedFns?.[dataKey]?.forEach(fn=>fn(performance.now()));
+									artwork.dirty = true;
+									
+									sceneLayer.asset= assetCache?.[dataKey];
+										
+									sceneLayer.x = offset?.x??0;
+									sceneLayer.y = offset?.y??0;
+									sceneLayer.blendMode = blendMode;
+									sceneLayer.filter = layerFilter;
+									sceneLayer.majorLayerIndex = 1;
+									
+									sceneLayout[layerIndex] = sceneLayer 
+								}
+									asset.src = 'assets/' + dataKey + '.' + fileExt;
+							}else{
+								drawLayer();
+							}
+							function drawLayer() {
+								// console.log('assign layer');
+								newSceneLayout.push({
+									name: fName,
+									asset: assetCache?.[dataKey],
+									asset_sm: assetCache?.[dataKey+'_sm'],
+									x:offset?.x??0,
+									y:offset?.y??0,
+									blendMode,
+									filter: layerFilter,
+									majorLayerIndex: 1,
+								})
+							}
+						}else 
+						if(variation.asset._type === "folder"){
+							//variation is aniamted or made up of sublayers
+							// console.log('setup variation',variation);
+							
+							if(variation.layers.length > 0) {
+								//variation is made up of layers
+								// variation.layers.forEach
+								
+								let subLayerI = 0;
+								for(let subLayer of variation.layers) {
+								
+									layerDurations.push(null);
+									
+									const _layerStackIndex = layerStackIndex+subLayerI;
+									
+									console.log('set up subLayer',subLayer);
+									
+									const layerIndex = newSceneLayout.length;
+									newSceneLayout.push(null);
+									
+									let blendMode = subLayer?.blendMode ?? variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+									let fps = subLayer.fps ?? variation?.fps ?? layer?.fps ?? fxproject.config?.fps ?? 10;
+									
+									let frameNo = 0;
+									let lastTime = performance.now();
+									
+									console.log('layer fps',layer,fps);
+									loopMeter.framesProgressed[_layerStackIndex] = 0;
+								
+									doLayer(-1)
+									if(subLayer.frames.length>1){
+										updateFns.push(doLayer);
+									}else{
+										const dataKey = subLayer.frames[0].k
+										const asset = assetCache?.[dataKey];
+										if(!asset){
+											assetLoaded(dataKey,function(){
+												console.log('asset loaded callback',dataKey);
+												doLayer(-1)
+											});
+										}
+									}
+									
+									loopMeter.framesCnts[_layerStackIndex] = subLayer.frames.length;
+									
+									function doLayer(t) {
+										// console.log('do subLayer',subLayer,t);
+										const dt = t-lastTime;
+										if(fps===0 || t<0 || dt >= 1000/fps){
+											lastTime = t;
+											const realFrameNo = frameNo%subLayer.frames.length;
+											const dataKey = subLayer.frames[realFrameNo].k;
+											const offset = subLayer.frames[realFrameNo].offset;
+											const asset = assetCache?.[dataKey];
+											// console.log('dirty: assign subLayer',lastTime,dataKey,frameNo);
+											// console.log('dirty: assign subLayer',layer.name,dt,Math.round(1000/dt));
+											if(asset){
+												const renderLayer = {
+														name: subLayer.name,
+														asset,
+														x:offset?.x??0,
+														y:offset?.y??0,
+														blendMode,
+														filter: layerFilter,
+														majorLayerIndex: 1,
+													};
+												if(t<0){
+													newSceneLayout[layerIndex] = renderLayer;
+												}else{
+													sceneLayout[layerIndex] = renderLayer;
+												}
+												artwork.dirty=true;
+											}
+											loopMeter.framesNos[_layerStackIndex] = realFrameNo;
+											loopMeter.framesProgressed[_layerStackIndex]++;
+											loopMeter.lastUpdateRealFrame[_layerStackIndex] = loopMeter.frameNo;
+											frameNo++;
+										}else{
+											// if(loopMeter.lastUpdateRealFrame[_layerStackIndex] < loopMeter.frameNo){
+												loopMeter.framesProgressedLastRealFrame[_layerStackIndex] = loopMeter.framesProgressed[_layerStackIndex];
+											// }
+										}
+									}
+									// console.log('layer',layer);
+									for(let frame of subLayer.frames) {
+										const fileExt = frame.ext;
+										const dataKey = frame.k;
+										const frameFile = dataKey+'.'+fileExt;
+										const offset = frame.offset;
+										
+										let asset = assetCache?.[dataKey];
+										if(!asset){
+											asset = new Image();
+											asset.onload = async ()=>{
+												// assetCache[dataKey] = asset;
+												assetCache[dataKey] = await createImageBitmap(asset);
+												assetLoadedFns?.[dataKey]?.forEach(fn=>fn(performance.now()));
+												artwork.dirty = true;
+												// console.log('dirty: frame',{layer:layer.name,frame,dataKey,fileExt});
+											}
+												asset.src = 'assets/' + frameFile;
+										}
+									}
+									subLayerI++;
+								}
+								layerStackCnt += subLayerI;
+								layerStackIndex = layerStackCnt;
+							}
+							else{
+								//variation is made up of frames
+								let layerDuration = 0;
+									
+								const layerIndex = newSceneLayout.length;
+								newSceneLayout.push(null);
+							
+								const fps = variation?.fps ?? fxproject?.config?.fps ?? 10;
+								// console.log('variation fps',fps)
+								let frameNo = 0;
+								let lastTime = performance.now();
+								let blendMode = variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+								loopMeter.framesProgressed[layerStackIndex] = 0;
+								
+								let frameTime = fps===0 ? 1 : 1000/fps;
+								updateFns.push(doLayer);
+								doLayer(-1)
+								loopMeter.framesCnts[layerStackIndex] = variation.frames.length;
+								
+								function doLayer(t) {
+									// console.log('do layer',t);
+									const dt = t-lastTime;
+									if(((dt) >= frameTime) || t < 0){
+										const realFrameNo = frameNo%variation.frames.length
+										const dataKey = variation.frames[realFrameNo].k;
+										const offset = variation.frames[realFrameNo].offset;
+										frameTime = fps===0 ? 1 : variation.frames[realFrameNo]?.delay ?? 1000/fps;
+										
+										// console.time("get asset from cache");
+										const asset = assetCache?.[dataKey];
+										// console.timeEnd("get asset from cache");
+										
+										// console.log("got asset from cache",asset);
+										
+										if(asset){
+											lastTime = t
+											// console.log('dirty: assign layer frame update',layer.name,lastTime,dataKey,frameNo);
+											// console.log('dirty: assign layer frame update',layer.name,dt,Math.round(1000/dt));
+											
+											const renderLayer = {
+												name: layer.name,
+												asset,
+												x:offset?.x??0,
+												y:offset?.y??0,
+												blendMode,
+												filter: layerFilter,
+												majorLayerIndex: 1,
+											};
+											if(t<0){
+												newSceneLayout[layerIndex] = renderLayer;
+											}else{
+												sceneLayout[layerIndex] = renderLayer;
+											}
+											
+											artwork.dirty=true;
+											loopMeter.framesNos[layerStackIndex] = realFrameNo;
+											loopMeter.framesProgressed[layerStackIndex]++;
+											frameNo++;
+										}else{
+											frameTime=1;
+											// console.log('dont assign layer frame update',layer.name);
+										}
+										// console.timeEnd("assign layer");
+										/* */
+										
+										
+											loopMeter.lastUpdateRealFrame[layerStackIndex] = loopMeter.frameNo;
+									}else{
+										// if(loopMeter.lastUpdateRealFrame[layerStackIndex] < loopMeter.frameNo){
+											loopMeter.framesProgressedLastRealFrame[layerStackIndex] = loopMeter.framesProgressed[layerStackIndex];
+										// }
+									}
+									// console.timeEnd("doLayer");
+								}
+								for(let frame of variation.frames) {
+									const fileExt = frame.ext;
+									const dataKey = frame.k;
+									const frameFile = dataKey+'.'+fileExt;
+									const offset = frame.offset
+									
+									const frameTime = fps===0 ? shortestFrame : frame?.delay ?? 1000/fps;
+									layerDuration += frameTime;
+									
+									// console.log('frame',{frame,dataKey,fileExt});
+									let asset = assetCache?.[dataKey];
+									if(!asset){
+										asset = new Image();
+										asset.onload = async ()=>{
+											assetCache[dataKey] = await createImageBitmap(asset);
+											artwork.dirty = true;
+											// console.log('dirty: frame',{frame,dataKey,fileExt});
+										}
+											asset.src = 'assets/' + frameFile;
+									}
+								}
+							
+								layerDurations.push(layerDuration);
+							}
+							/* 		}else if(variation.asset[fName]._type === "folder"){
+										//variation is made up of multiple sublayers
+										
+										for(let _fName in variation.asset[fName]) {
+											if(_fName[0]!=="_"){
+											}
+										}
+									}
+								} 
+							}
+							*/
+						}
+					}
+					{
+						const layer = fxproject.layers[2];
+						let layerStackIndex = layerStackCnt++;
+						console.log('layer 2 layerStackIndex',layerStackIndex);
+						const frames = layer?.frames;
+						const layerVariation = window.fxchoice['layer-2']
+						const variation = layer.variations[layerVariation];
+						const layerConfig = fxproject.config?.layers?.[2] ?? {};
+						// console.log('Segunda variation',variation)
+				
+						let layerFilter = [];
+						const layerSubvariations = Object.keys(window.fxchoice).filter(key=>key.startsWith('layer-2-')); 
+						let sublayerAnimatedI = 0;
+						layerSubvariations.forEach((v)=>{
+							const subVariation = window.fxchoice[v];
+							let variationType = v.split('layer-2-')[1];
+							const typeMatches = variationType.match(/(.*)-([0-9])/);
+							variationType = typeMatches[1] || variationType;
+							
+							console.log('layerSubvariation z' ,{layer,v,subVariation,variationType});
+							// layerEl.classList.add('filter-'+variationType+'-'+subVariation)
+							layerFilter.push('url(#'+variationType+'-'+subVariation+')');
+							
+							const animated = svg_filters_animated?.[variationType+'-'+subVariation];
+							if(animated){
+								// console.log('animated',animated)
+								const _layerStackIndex = layerStackIndex+sublayerAnimatedI;
+								loopMeter.framesProgressed[_layerStackIndex] = 0;
+								const delay = animated.delay*10;
+								let lastTime = -1;
+								let frameNo = 0;
+								const filterEl = document.getElementById('filter-'+animated.id);
+								const filterTempEl = document.createElement('div');
+								const gradientMapHardness = animated?.gradientMapHardness ?? 1;
+								const transition = animated?.transition;
+								const frameSkip = 
+									transition === 'smooth' 
+									? 1 
+									: !isNaN(Number(transition))
+									? Number(transition)
+									: gradientMapHardness
+								;
+								const framesTotal = Math.round(getColorPalette(animated.palette,0,gradientMapHardness).length/frameSkip);
+								loopMeter.framesCnts[_layerStackIndex] = framesTotal;
+								console.log('_layerStackIndex',_layerStackIndex,subVariation)
+								updateFns.push(function(t){
+									if(t-lastTime >= delay){
+										lastTime = t;
+										frameNo++;
+										filterTempEl.innerHTML = filterSVG(animated.paletteName,animated.color_interpolation,getColorVals(animated.palette,frameNo*frameSkip,animated?.repeat,gradientMapHardness))
+										filterEl.innerHTML = filterTempEl.firstChild.innerHTML;
+										artwork.dirty=true;
+										const realFrameNo = frameNo%framesTotal;
+										// const realFrameNo = frameNo;
+										loopMeter.framesNos[_layerStackIndex] = realFrameNo;
+										loopMeter.framesProgressed[_layerStackIndex]++;
+										loopMeter.lastUpdateRealFrame[_layerStackIndex] = loopMeter.frameNo;
+									}else{
+										// if(loopMeter.lastUpdateRealFrame[_layerStackIndex] < loopMeter.frameNo){
+											loopMeter.framesProgressedLastRealFrame[_layerStackIndex] = loopMeter.framesProgressed[_layerStackIndex];
+										// }
+									}
+								})
+								sublayerAnimatedI++;
+							}
+						})
+						layerStackIndex += sublayerAnimatedI;
+						layerStackCnt += sublayerAnimatedI;
+						console.log('layer 2 layerStackCnt update',{sublayerAnimatedI,layerStackIndex,layerStackCnt});
+						
+						if(variation.asset._type === "file"){
+							//variation is a still image
+							layerDurations.push(0);
+							
+						
+							const fName = variation.asset._name
+							const fPath = variation.asset._path;
+							const f = filesKeyed[fPath];
+							const dataKey = f.dataKey;
+							const fileExt = f.fileExt;
+							const offset = f.offset;
+							
+							let blendMode = variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+							
+							const layerIndex = newSceneLayout.length;
+							
+							let asset = assetCache?.[dataKey];
+							if(!asset){
+								newSceneLayout.push(null);
+								asset = new Image();
+								asset.onload = async ()=>{
+									let sceneLayer = {
+										name: fName,
+									}
+									assetCache[dataKey] = await createImageBitmap(asset);
+									if(fxproject.size?.sizeFactor && fxproject.size.sizeFactor!==1){
+										const width = Math.round(fxproject.size.sizeFactor*asset.naturalWidth);
+										const height = Math.round(fxproject.size.sizeFactor*asset.naturalHeight);
+										const assetResizedCanvas = document.createElement('canvas');
+										assetResizedCanvas.setAttribute('width',width);
+										assetResizedCanvas.setAttribute('height',height);
+										assetCtx = assetResizedCanvas.getContext('2d');
+										assetCtx.drawImage(assetCache[dataKey],0,0,width,height);
+										
+										assetCache[dataKey+'_sm'] = assetResizedCanvas;
+										sceneLayer.asset_sm = assetCache[dataKey+'_sm'];
+									}
+									assetLoadedFns?.[dataKey]?.forEach(fn=>fn(performance.now()));
+									artwork.dirty = true;
+									
+									sceneLayer.asset= assetCache?.[dataKey];
+										
+									sceneLayer.x = offset?.x??0;
+									sceneLayer.y = offset?.y??0;
+									sceneLayer.blendMode = blendMode;
+									sceneLayer.filter = layerFilter;
+									sceneLayer.majorLayerIndex = 2;
+									
+									sceneLayout[layerIndex] = sceneLayer 
+								}
+									asset.src = 'assets/' + dataKey + '.' + fileExt;
+							}else{
+								drawLayer();
+							}
+							function drawLayer() {
+								// console.log('assign layer');
+								newSceneLayout.push({
+									name: fName,
+									asset: assetCache?.[dataKey],
+									asset_sm: assetCache?.[dataKey+'_sm'],
+									x:offset?.x??0,
+									y:offset?.y??0,
+									blendMode,
+									filter: layerFilter,
+									majorLayerIndex: 2,
+								})
+							}
+						}else 
+						if(variation.asset._type === "folder"){
+							//variation is aniamted or made up of sublayers
+							// console.log('setup variation',variation);
+							
+							if(variation.layers.length > 0) {
+								//variation is made up of layers
+								// variation.layers.forEach
+								
+								let subLayerI = 0;
+								for(let subLayer of variation.layers) {
+								
+									layerDurations.push(null);
+									
+									const _layerStackIndex = layerStackIndex+subLayerI;
+									
+									console.log('set up subLayer',subLayer);
+									
+									const layerIndex = newSceneLayout.length;
+									newSceneLayout.push(null);
+									
+									let blendMode = subLayer?.blendMode ?? variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+									let fps = subLayer.fps ?? variation?.fps ?? layer?.fps ?? fxproject.config?.fps ?? 10;
+									
+									let frameNo = 0;
+									let lastTime = performance.now();
+									
+									console.log('layer fps',layer,fps);
+									loopMeter.framesProgressed[_layerStackIndex] = 0;
+								
+									doLayer(-1)
+									if(subLayer.frames.length>1){
+										updateFns.push(doLayer);
+									}else{
+										const dataKey = subLayer.frames[0].k
+										const asset = assetCache?.[dataKey];
+										if(!asset){
+											assetLoaded(dataKey,function(){
+												console.log('asset loaded callback',dataKey);
+												doLayer(-1)
+											});
+										}
+									}
+									
+									loopMeter.framesCnts[_layerStackIndex] = subLayer.frames.length;
+									
+									function doLayer(t) {
+										// console.log('do subLayer',subLayer,t);
+										const dt = t-lastTime;
+										if(fps===0 || t<0 || dt >= 1000/fps){
+											lastTime = t;
+											const realFrameNo = frameNo%subLayer.frames.length;
+											const dataKey = subLayer.frames[realFrameNo].k;
+											const offset = subLayer.frames[realFrameNo].offset;
+											const asset = assetCache?.[dataKey];
+											// console.log('dirty: assign subLayer',lastTime,dataKey,frameNo);
+											// console.log('dirty: assign subLayer',layer.name,dt,Math.round(1000/dt));
+											if(asset){
+												const renderLayer = {
+														name: subLayer.name,
+														asset,
+														x:offset?.x??0,
+														y:offset?.y??0,
+														blendMode,
+														filter: layerFilter,
+														majorLayerIndex: 2,
+													};
+												if(t<0){
+													newSceneLayout[layerIndex] = renderLayer;
+												}else{
+													sceneLayout[layerIndex] = renderLayer;
+												}
+												artwork.dirty=true;
+											}
+											loopMeter.framesNos[_layerStackIndex] = realFrameNo;
+											loopMeter.framesProgressed[_layerStackIndex]++;
+											loopMeter.lastUpdateRealFrame[_layerStackIndex] = loopMeter.frameNo;
+											frameNo++;
+										}else{
+											// if(loopMeter.lastUpdateRealFrame[_layerStackIndex] < loopMeter.frameNo){
+												loopMeter.framesProgressedLastRealFrame[_layerStackIndex] = loopMeter.framesProgressed[_layerStackIndex];
+											// }
+										}
+									}
+									// console.log('layer',layer);
+									for(let frame of subLayer.frames) {
+										const fileExt = frame.ext;
+										const dataKey = frame.k;
+										const frameFile = dataKey+'.'+fileExt;
+										const offset = frame.offset;
+										
+										let asset = assetCache?.[dataKey];
+										if(!asset){
+											asset = new Image();
+											asset.onload = async ()=>{
+												// assetCache[dataKey] = asset;
+												assetCache[dataKey] = await createImageBitmap(asset);
+												assetLoadedFns?.[dataKey]?.forEach(fn=>fn(performance.now()));
+												artwork.dirty = true;
+												// console.log('dirty: frame',{layer:layer.name,frame,dataKey,fileExt});
+											}
+												asset.src = 'assets/' + frameFile;
+										}
+									}
+									subLayerI++;
+								}
+								layerStackCnt += subLayerI;
+								layerStackIndex = layerStackCnt;
+							}
+							else{
+								//variation is made up of frames
+								let layerDuration = 0;
+									
+								const layerIndex = newSceneLayout.length;
+								newSceneLayout.push(null);
+							
+								const fps = variation?.fps ?? fxproject?.config?.fps ?? 10;
+								// console.log('variation fps',fps)
+								let frameNo = 0;
+								let lastTime = performance.now();
+								let blendMode = variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+								loopMeter.framesProgressed[layerStackIndex] = 0;
+								
+								let frameTime = fps===0 ? 1 : 1000/fps;
+								updateFns.push(doLayer);
+								doLayer(-1)
+								loopMeter.framesCnts[layerStackIndex] = variation.frames.length;
+								
+								function doLayer(t) {
+									// console.log('do layer',t);
+									const dt = t-lastTime;
+									if(((dt) >= frameTime) || t < 0){
+										const realFrameNo = frameNo%variation.frames.length
+										const dataKey = variation.frames[realFrameNo].k;
+										const offset = variation.frames[realFrameNo].offset;
+										frameTime = fps===0 ? 1 : variation.frames[realFrameNo]?.delay ?? 1000/fps;
+										
+										// console.time("get asset from cache");
+										const asset = assetCache?.[dataKey];
+										// console.timeEnd("get asset from cache");
+										
+										// console.log("got asset from cache",asset);
+										
+										if(asset){
+											lastTime = t
+											// console.log('dirty: assign layer frame update',layer.name,lastTime,dataKey,frameNo);
+											// console.log('dirty: assign layer frame update',layer.name,dt,Math.round(1000/dt));
+											
+											const renderLayer = {
+												name: layer.name,
+												asset,
+												x:offset?.x??0,
+												y:offset?.y??0,
+												blendMode,
+												filter: layerFilter,
+												majorLayerIndex: 2,
+											};
+											if(t<0){
+												newSceneLayout[layerIndex] = renderLayer;
+											}else{
+												sceneLayout[layerIndex] = renderLayer;
+											}
+											
+											artwork.dirty=true;
+											loopMeter.framesNos[layerStackIndex] = realFrameNo;
+											loopMeter.framesProgressed[layerStackIndex]++;
+											frameNo++;
+										}else{
+											frameTime=1;
+											// console.log('dont assign layer frame update',layer.name);
+										}
+										// console.timeEnd("assign layer");
+										/* */
+										
+										
+											loopMeter.lastUpdateRealFrame[layerStackIndex] = loopMeter.frameNo;
+									}else{
+										// if(loopMeter.lastUpdateRealFrame[layerStackIndex] < loopMeter.frameNo){
+											loopMeter.framesProgressedLastRealFrame[layerStackIndex] = loopMeter.framesProgressed[layerStackIndex];
+										// }
+									}
+									// console.timeEnd("doLayer");
+								}
+								for(let frame of variation.frames) {
+									const fileExt = frame.ext;
+									const dataKey = frame.k;
+									const frameFile = dataKey+'.'+fileExt;
+									const offset = frame.offset
+									
+									const frameTime = fps===0 ? shortestFrame : frame?.delay ?? 1000/fps;
+									layerDuration += frameTime;
+									
+									// console.log('frame',{frame,dataKey,fileExt});
+									let asset = assetCache?.[dataKey];
+									if(!asset){
+										asset = new Image();
+										asset.onload = async ()=>{
+											assetCache[dataKey] = await createImageBitmap(asset);
+											artwork.dirty = true;
+											// console.log('dirty: frame',{frame,dataKey,fileExt});
+										}
+											asset.src = 'assets/' + frameFile;
+									}
+								}
+							
+								layerDurations.push(layerDuration);
+							}
+							/* 		}else if(variation.asset[fName]._type === "folder"){
+										//variation is made up of multiple sublayers
+										
+										for(let _fName in variation.asset[fName]) {
+											if(_fName[0]!=="_"){
+											}
+										}
+									}
+								} 
+							}
+							*/
+						}
+					}
+					{
+						const layer = fxproject.layers[3];
+						let layerStackIndex = layerStackCnt++;
+						console.log('layer 3 layerStackIndex',layerStackIndex);
+						const frames = layer?.frames;
+						const layerVariation = window.fxchoice['layer-3']
+						const variation = layer.variations[layerVariation];
+						const layerConfig = fxproject.config?.layers?.[3] ?? {};
+						// console.log('Tercera variation',variation)
+				
+						let layerFilter = [];
+						const layerSubvariations = Object.keys(window.fxchoice).filter(key=>key.startsWith('layer-3-')); 
+						let sublayerAnimatedI = 0;
+						layerSubvariations.forEach((v)=>{
+							const subVariation = window.fxchoice[v];
+							let variationType = v.split('layer-3-')[1];
+							const typeMatches = variationType.match(/(.*)-([0-9])/);
+							variationType = typeMatches[1] || variationType;
+							
+							console.log('layerSubvariation z' ,{layer,v,subVariation,variationType});
+							// layerEl.classList.add('filter-'+variationType+'-'+subVariation)
+							layerFilter.push('url(#'+variationType+'-'+subVariation+')');
+							
+							const animated = svg_filters_animated?.[variationType+'-'+subVariation];
+							if(animated){
+								// console.log('animated',animated)
+								const _layerStackIndex = layerStackIndex+sublayerAnimatedI;
+								loopMeter.framesProgressed[_layerStackIndex] = 0;
+								const delay = animated.delay*10;
+								let lastTime = -1;
+								let frameNo = 0;
+								const filterEl = document.getElementById('filter-'+animated.id);
+								const filterTempEl = document.createElement('div');
+								const gradientMapHardness = animated?.gradientMapHardness ?? 1;
+								const transition = animated?.transition;
+								const frameSkip = 
+									transition === 'smooth' 
+									? 1 
+									: !isNaN(Number(transition))
+									? Number(transition)
+									: gradientMapHardness
+								;
+								const framesTotal = Math.round(getColorPalette(animated.palette,0,gradientMapHardness).length/frameSkip);
+								loopMeter.framesCnts[_layerStackIndex] = framesTotal;
+								console.log('_layerStackIndex',_layerStackIndex,subVariation)
+								updateFns.push(function(t){
+									if(t-lastTime >= delay){
+										lastTime = t;
+										frameNo++;
+										filterTempEl.innerHTML = filterSVG(animated.paletteName,animated.color_interpolation,getColorVals(animated.palette,frameNo*frameSkip,animated?.repeat,gradientMapHardness))
+										filterEl.innerHTML = filterTempEl.firstChild.innerHTML;
+										artwork.dirty=true;
+										const realFrameNo = frameNo%framesTotal;
+										// const realFrameNo = frameNo;
+										loopMeter.framesNos[_layerStackIndex] = realFrameNo;
+										loopMeter.framesProgressed[_layerStackIndex]++;
+										loopMeter.lastUpdateRealFrame[_layerStackIndex] = loopMeter.frameNo;
+									}else{
+										// if(loopMeter.lastUpdateRealFrame[_layerStackIndex] < loopMeter.frameNo){
+											loopMeter.framesProgressedLastRealFrame[_layerStackIndex] = loopMeter.framesProgressed[_layerStackIndex];
+										// }
+									}
+								})
+								sublayerAnimatedI++;
+							}
+						})
+						layerStackIndex += sublayerAnimatedI;
+						layerStackCnt += sublayerAnimatedI;
+						console.log('layer 3 layerStackCnt update',{sublayerAnimatedI,layerStackIndex,layerStackCnt});
+						
+						if(variation.asset._type === "file"){
+							//variation is a still image
+							layerDurations.push(0);
+							
+						
+							const fName = variation.asset._name
+							const fPath = variation.asset._path;
+							const f = filesKeyed[fPath];
+							const dataKey = f.dataKey;
+							const fileExt = f.fileExt;
+							const offset = f.offset;
+							
+							let blendMode = variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+							
+							const layerIndex = newSceneLayout.length;
+							
+							let asset = assetCache?.[dataKey];
+							if(!asset){
+								newSceneLayout.push(null);
+								asset = new Image();
+								asset.onload = async ()=>{
+									let sceneLayer = {
+										name: fName,
+									}
+									assetCache[dataKey] = await createImageBitmap(asset);
+									if(fxproject.size?.sizeFactor && fxproject.size.sizeFactor!==1){
+										const width = Math.round(fxproject.size.sizeFactor*asset.naturalWidth);
+										const height = Math.round(fxproject.size.sizeFactor*asset.naturalHeight);
+										const assetResizedCanvas = document.createElement('canvas');
+										assetResizedCanvas.setAttribute('width',width);
+										assetResizedCanvas.setAttribute('height',height);
+										assetCtx = assetResizedCanvas.getContext('2d');
+										assetCtx.drawImage(assetCache[dataKey],0,0,width,height);
+										
+										assetCache[dataKey+'_sm'] = assetResizedCanvas;
+										sceneLayer.asset_sm = assetCache[dataKey+'_sm'];
+									}
+									assetLoadedFns?.[dataKey]?.forEach(fn=>fn(performance.now()));
+									artwork.dirty = true;
+									
+									sceneLayer.asset= assetCache?.[dataKey];
+										
+									sceneLayer.x = offset?.x??0;
+									sceneLayer.y = offset?.y??0;
+									sceneLayer.blendMode = blendMode;
+									sceneLayer.filter = layerFilter;
+									sceneLayer.majorLayerIndex = 3;
+									
+									sceneLayout[layerIndex] = sceneLayer 
+								}
+									asset.src = 'assets/' + dataKey + '.' + fileExt;
+							}else{
+								drawLayer();
+							}
+							function drawLayer() {
+								// console.log('assign layer');
+								newSceneLayout.push({
+									name: fName,
+									asset: assetCache?.[dataKey],
+									asset_sm: assetCache?.[dataKey+'_sm'],
+									x:offset?.x??0,
+									y:offset?.y??0,
+									blendMode,
+									filter: layerFilter,
+									majorLayerIndex: 3,
+								})
+							}
+						}else 
+						if(variation.asset._type === "folder"){
+							//variation is aniamted or made up of sublayers
+							// console.log('setup variation',variation);
+							
+							if(variation.layers.length > 0) {
+								//variation is made up of layers
+								// variation.layers.forEach
+								
+								let subLayerI = 0;
+								for(let subLayer of variation.layers) {
+								
+									layerDurations.push(null);
+									
+									const _layerStackIndex = layerStackIndex+subLayerI;
+									
+									console.log('set up subLayer',subLayer);
+									
+									const layerIndex = newSceneLayout.length;
+									newSceneLayout.push(null);
+									
+									let blendMode = subLayer?.blendMode ?? variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+									let fps = subLayer.fps ?? variation?.fps ?? layer?.fps ?? fxproject.config?.fps ?? 10;
+									
+									let frameNo = 0;
+									let lastTime = performance.now();
+									
+									console.log('layer fps',layer,fps);
+									loopMeter.framesProgressed[_layerStackIndex] = 0;
+								
+									doLayer(-1)
+									if(subLayer.frames.length>1){
+										updateFns.push(doLayer);
+									}else{
+										const dataKey = subLayer.frames[0].k
+										const asset = assetCache?.[dataKey];
+										if(!asset){
+											assetLoaded(dataKey,function(){
+												console.log('asset loaded callback',dataKey);
+												doLayer(-1)
+											});
+										}
+									}
+									
+									loopMeter.framesCnts[_layerStackIndex] = subLayer.frames.length;
+									
+									function doLayer(t) {
+										// console.log('do subLayer',subLayer,t);
+										const dt = t-lastTime;
+										if(fps===0 || t<0 || dt >= 1000/fps){
+											lastTime = t;
+											const realFrameNo = frameNo%subLayer.frames.length;
+											const dataKey = subLayer.frames[realFrameNo].k;
+											const offset = subLayer.frames[realFrameNo].offset;
+											const asset = assetCache?.[dataKey];
+											// console.log('dirty: assign subLayer',lastTime,dataKey,frameNo);
+											// console.log('dirty: assign subLayer',layer.name,dt,Math.round(1000/dt));
+											if(asset){
+												const renderLayer = {
+														name: subLayer.name,
+														asset,
+														x:offset?.x??0,
+														y:offset?.y??0,
+														blendMode,
+														filter: layerFilter,
+														majorLayerIndex: 3,
+													};
+												if(t<0){
+													newSceneLayout[layerIndex] = renderLayer;
+												}else{
+													sceneLayout[layerIndex] = renderLayer;
+												}
+												artwork.dirty=true;
+											}
+											loopMeter.framesNos[_layerStackIndex] = realFrameNo;
+											loopMeter.framesProgressed[_layerStackIndex]++;
+											loopMeter.lastUpdateRealFrame[_layerStackIndex] = loopMeter.frameNo;
+											frameNo++;
+										}else{
+											// if(loopMeter.lastUpdateRealFrame[_layerStackIndex] < loopMeter.frameNo){
+												loopMeter.framesProgressedLastRealFrame[_layerStackIndex] = loopMeter.framesProgressed[_layerStackIndex];
+											// }
+										}
+									}
+									// console.log('layer',layer);
+									for(let frame of subLayer.frames) {
+										const fileExt = frame.ext;
+										const dataKey = frame.k;
+										const frameFile = dataKey+'.'+fileExt;
+										const offset = frame.offset;
+										
+										let asset = assetCache?.[dataKey];
+										if(!asset){
+											asset = new Image();
+											asset.onload = async ()=>{
+												// assetCache[dataKey] = asset;
+												assetCache[dataKey] = await createImageBitmap(asset);
+												assetLoadedFns?.[dataKey]?.forEach(fn=>fn(performance.now()));
+												artwork.dirty = true;
+												// console.log('dirty: frame',{layer:layer.name,frame,dataKey,fileExt});
+											}
+												asset.src = 'assets/' + frameFile;
+										}
+									}
+									subLayerI++;
+								}
+								layerStackCnt += subLayerI;
+								layerStackIndex = layerStackCnt;
+							}
+							else{
+								//variation is made up of frames
+								let layerDuration = 0;
+									
+								const layerIndex = newSceneLayout.length;
+								newSceneLayout.push(null);
+							
+								const fps = variation?.fps ?? fxproject?.config?.fps ?? 10;
+								// console.log('variation fps',fps)
+								let frameNo = 0;
+								let lastTime = performance.now();
+								let blendMode = variation?.blendMode ?? layerConfig?.['blend-mode'] ?? layer?.blendMode;
+								loopMeter.framesProgressed[layerStackIndex] = 0;
+								
+								let frameTime = fps===0 ? 1 : 1000/fps;
+								updateFns.push(doLayer);
+								doLayer(-1)
+								loopMeter.framesCnts[layerStackIndex] = variation.frames.length;
+								
+								function doLayer(t) {
+									// console.log('do layer',t);
+									const dt = t-lastTime;
+									if(((dt) >= frameTime) || t < 0){
+										const realFrameNo = frameNo%variation.frames.length
+										const dataKey = variation.frames[realFrameNo].k;
+										const offset = variation.frames[realFrameNo].offset;
+										frameTime = fps===0 ? 1 : variation.frames[realFrameNo]?.delay ?? 1000/fps;
+										
+										// console.time("get asset from cache");
+										const asset = assetCache?.[dataKey];
+										// console.timeEnd("get asset from cache");
+										
+										// console.log("got asset from cache",asset);
+										
+										if(asset){
+											lastTime = t
+											// console.log('dirty: assign layer frame update',layer.name,lastTime,dataKey,frameNo);
+											// console.log('dirty: assign layer frame update',layer.name,dt,Math.round(1000/dt));
+											
+											const renderLayer = {
+												name: layer.name,
+												asset,
+												x:offset?.x??0,
+												y:offset?.y??0,
+												blendMode,
+												filter: layerFilter,
+												majorLayerIndex: 3,
+											};
+											if(t<0){
+												newSceneLayout[layerIndex] = renderLayer;
+											}else{
+												sceneLayout[layerIndex] = renderLayer;
+											}
+											
+											artwork.dirty=true;
+											loopMeter.framesNos[layerStackIndex] = realFrameNo;
+											loopMeter.framesProgressed[layerStackIndex]++;
+											frameNo++;
+										}else{
+											frameTime=1;
+											// console.log('dont assign layer frame update',layer.name);
+										}
+										// console.timeEnd("assign layer");
+										/* */
+										
+										
+											loopMeter.lastUpdateRealFrame[layerStackIndex] = loopMeter.frameNo;
+									}else{
+										// if(loopMeter.lastUpdateRealFrame[layerStackIndex] < loopMeter.frameNo){
+											loopMeter.framesProgressedLastRealFrame[layerStackIndex] = loopMeter.framesProgressed[layerStackIndex];
+										// }
+									}
+									// console.timeEnd("doLayer");
+								}
+								for(let frame of variation.frames) {
+									const fileExt = frame.ext;
+									const dataKey = frame.k;
+									const frameFile = dataKey+'.'+fileExt;
+									const offset = frame.offset
+									
+									const frameTime = fps===0 ? shortestFrame : frame?.delay ?? 1000/fps;
+									layerDuration += frameTime;
+									
+									// console.log('frame',{frame,dataKey,fileExt});
+									let asset = assetCache?.[dataKey];
+									if(!asset){
+										asset = new Image();
+										asset.onload = async ()=>{
+											assetCache[dataKey] = await createImageBitmap(asset);
+											artwork.dirty = true;
+											// console.log('dirty: frame',{frame,dataKey,fileExt});
+										}
+											asset.src = 'assets/' + frameFile;
+									}
+								}
+							
+								layerDurations.push(layerDuration);
+							}
+							/* 		}else if(variation.asset[fName]._type === "folder"){
+										//variation is made up of multiple sublayers
+										
+										for(let _fName in variation.asset[fName]) {
+											if(_fName[0]!=="_"){
+											}
+										}
+									}
+								} 
+							}
+							*/
+						}
+					}
+				
+				
+				if(loopMeter.framesCnts.length === 0){
+					artwork.static = true;
+					document.body.classList.add('artwork-static')
+				}
+				
+				sceneLayout = newSceneLayout;
+				window.sceneLayout = sceneLayout;
+				renderScene()
+			};
+			// updateFns.push(doRender);
+			resizeFns.push(buildScene);
+			buildScene();
+			
+			
+			
+			/* 
+			
+				gif stuff
+			
+			*/
+			
+			
+			
+		
+		</script>
+	<script>
+		
+		fxproject.layers.forEach((layer,i)=>{
+			// console.log('layer',{layer,i});
+			const layerVariation = window.fxchoice['layer-'+i];
+			if(layer.variations.length > 1)
+				window.$fxhashFeatures[layer.name] = layer.variations[layerVariation].name;
+		})
+		
+		fxproject.soundLayers.forEach((layer,i)=>{
+			// console.log('layer',{layer,i});
+			const layerVariation = window.fxchoice['sound-layer-'+i];
+			if(layer.variations.length > 1)
+				window.$fxhashFeatures[layer.name] = layer.variations[layerVariation].name;
+		})
+		 
+		// document.getElementById('test').innerHTML = window.fxhash;
+		document.getElementById('test').innerHTML = JSON.stringify(window.fxchoice,null,2);
+	</script>
+	

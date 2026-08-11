@@ -1,0 +1,4 @@
+id: 28862
+name: Arts of Chet Masterpiece 8
+mint_opens_at: 2023-09-12T12:56:00+00:00
+generative_uri: ipfs://QmXCAcJX3NFGEhXGMLQwcPjFVYutmToBxwY6fpRrbZz6dY

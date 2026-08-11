@@ -1,0 +1,4 @@
+id: 23881
+name: FxStricher
+mint_opens_at: 2023-01-18T15:30:00+00:00
+generative_uri: ipfs://QmTLtJE1E43JpHDwU5xe3zafUSMZqKJ9LUTPLbLJ6tvJnm

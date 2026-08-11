@@ -1,0 +1,266 @@
+<!doctype html><html lang="en"><head><title>Gray Team</title><script src="p5.scribble.js"></script><link rel="stylesheet" href="style.css"><meta charset="utf-8"><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script></head><body><script src="p5.js"></script><script src="sketch.js"></script><script>palettes = [
+  ['#FFA41B', '#000839', '#005082', '#00A8CC', '#000000', '#ffffff'],
+  ['#61481C', '#fad082', '#1A4D2E', '#361e01', '#000000', '#ffffff'],
+  ['#212121', '#323232', '#0D7377', '#14FFEC', '#000000', '#ffffff'],
+  ['#082032', '#2C394B', '#334756', '#FF4C29', '#000000', '#ffffff'],
+  ['#252525', '#FF0000', '#AF0404', '#414141', '#000000', '#ffffff'],
+  ['#111111', '#3E432E', '#616F39', '#A7D129', '#000000', '#ffffff'],
+  ['#006E7F', '#F8CB2E', '#EE5007', '#B22727', '#000000', '#ffffff'],
+  ['#1C0A00', '#361500', '#603601', '#CC9544', '#000000', '#ffffff'],
+  ['#EAA81B', '#C95501', '#7D0000', '#012C0B', '#000000', '#ffffff'],
+  ['#E14D2A', '#FD841F', '#3E6D9C', '#001253', '#000000', '#ffffff'],
+  ['#111111', '#150050', '#3F0071', '#FB2576', '#000000', '#ffffff'],
+  ['#4C0033', '#790252', '#AF0171', '#E80F88', '#000000', '#ffffff'],
+  ['#472D2D', '#553939', '#704F4F', '#A77979', '#000000', '#ffffff'],
+  ['#2A0944', '#3FA796', '#FEC260', '#fa0254', '#000000', '#ffffff'],
+  ['#8C0000', '#BD2000', '#FA1E0E', '#FFBE0F', '#000000', '#ffffff'],
+  ['#F88F01', '#E27802', '#6A492B', '#2e1e0f', '#000000', '#ffffff'],
+  ['#CDB30C', '#62760C', '#535204', '#523906', '#000000', '#ffffff'],
+  ['#BB3B0E', '#DD7631', '#708160', '#D8C593', '#000000', '#ffffff'],
+  ['#2F2519', '#4A3F35', '#FA7D09', '#FF4301', '#000000', '#ffffff'],
+  ['#52006A', '#CD113B', '#FF7600', '#FFA900', '#000000', '#ffffff'],
+  ['#08D9D6', '#252A34', '#FF2E63', '#EAEAEA', '#000000', '#ffffff'],
+  ['#212121', '#323232', '#0D7377', '#14FFEC', '#000000', '#ffffff'],
+  ['#2D4059', '#EA5455', '#F07B3F', '#FFD460', '#000000', '#ffffff'],
+  ['#3EC1D3', '#111111', '#FF9A00', '#FF165D', '#000000', '#ffffff'],
+  ['#155263', '#FF6F3C', '#fc7f03', '#FFC93C', '#000000', '#ffffff'],
+  ['#0366fc', '#011536', '#F0FF42', '#1e1f1e', '#000000', '#ffffff'],
+  ['#3F0071', '#FB2576', '#332FD0', '#0002A1', '#000000', '#ffffff'],
+  ['#EA047E', '#FF6D28', '#FCE700', '#00F5FF', '#000000', '#ffffff'],
+  ['#2192FF', '#38E54D', '#9CFF2E', '#FDFF00', '#000000', '#ffffff'],
+  ['#00FFD1', '#31C6D4', '#FFFF00', '#FF1E1E', '#000000', '#ffffff'],
+  ['#F7EC09', '#3EC70B', '#3B44F6', '#A149FA', '#000000', '#ffffff'],
+  ['#111111', '#5800FF', '#E900FF', '#FFC600', '#000000', '#ffffff'],
+  ['#00AF91', '#007965', '#F58634', '#111111', '#000000', '#ffffff'],
+  ['#111111', '#282A3A', '#735F32', '#C69749', '#000000', '#ffffff'],
+  ['#041C32', '#04293A', '#064663', '#ECB365', '#000000', '#ffffff'],
+  ['#040303', '#461111', '#A13333', '#B3541E', '#000000', '#ffffff'],
+  ['#362222', '#171010', '#423F3E', '#2B2B2B', '#000000', '#ffffff'],
+  ['#2F2519', '#4A3F35', '#FA7D09', '#FF4301', '#000000', '#ffffff'],
+  ['#C70D3A', '#ED5107', '#230338', '#02383C', '#000000', '#ffffff'],
+  ['#003545', '#00454A', '#3C6562', '#ED6363', '#000000', '#ffffff'],
+  ['#EA047E', '#FF6D28', '#FCE700', '#00F5FF', '#000000', '#ffffff'],
+  ['#00FFD1', '#31C6D4', '#FFFF00', '#FF1E1E', '#000000', '#ffffff'],
+  ['#2192FF', '#38E54D', '#9CFF2E', '#FDFF00', '#000000', '#ffffff'],
+  ['#293462', '#1CD6CE', '#FEDB39', '#D61C4E', '#000000', '#ffffff'],
+  ['#B9FFF8', '#6FEDD6', '#FF9551', '#FF4A4A', '#000000', '#ffffff'],
+  ['#37E2D5', '#590696', '#C70A80', '#FBCB0A', '#000000', '#ffffff'],
+  ['#541690', '#FF4949', '#FF8D29', '#FFCD38', '#000000', '#ffffff'],
+  ['#143F6B', '#F55353', '#FEB139', '#F6F54D', '#000000', '#ffffff'],
+  ['#111111', '#5800FF', '#E900FF', '#FFC600', '#000000', '#ffffff'],
+  ['#F90716', '#FF5403', '#FFCA03', '#FFF323', '#000000', '#ffffff'],
+  ['#FF1700', '#FF8E00', '#FFE400', '#06FF00', '#000000', '#ffffff'],
+  ['#3B0000', '#FF0000', '#FF95C5', '#FFF6CD', '#000000', '#ffffff'],
+  ['#0CECDD', '#FFF338', '#FF67E7', '#C400FF', '#000000', '#ffffff'],
+  ['#F7FD04', '#F9B208', '#F98404', '#FC5404', '#000000', '#ffffff'],
+  ['#9EDE73', '#F7EA00', '#E48900', '#BE0000', '#000000', '#ffffff'],
+  ['#8C0000', '#BD2000', '#FA1E0E', '#c79204', '#000000', '#ffffff'],
+  ['#00AF91', '#007965', '#F58634', '#FFCC29', '#000000', '#ffffff'],
+  ['#1e1f1e', '#52057B', '#892CDC', '#BC6FF1', '#000000', '#ffffff'],
+];
+
+bkpalettes = [
+  ['#ce9a3e'], //Satin Sheen Gold 
+  ['#01796f'], //Pine Green
+  ['#565650'], //Davy's Grey
+  ['#fad3be'], //Peach Puff
+  ['#87BAB0'], //Pewter Blue
+  ['#a46868'], //Blast-Off Bronze
+  ['#d9d798'], //Medium Spring Bud
+  ['#EEC035'], //Saffron  
+  ['#CCB297'], //Khaki
+  ['#C43219'], //Dark Pastel Red
+  ['#D79569'], //Tan
+  ['#d3c5bc'], //Pale Silver
+  ['#D4D4D4'], //Light Gray
+  ['#E4D9CB'], //Bone
+  ['#B4755A'], //Café Au Lait
+  ['#cccccc'], //Chinese Silver
+  ['#ED6363'], //Light Carmine Pink
+  ['#00587A'], //Blue Sapphire
+  ['#5D6D7E'], //Dark Electric Blue
+  ['#8a496b'], //Twilight Lavender
+  ['#a52a2a'], //Auburn
+  ['#3C2A21'], //Bistre
+  ['#678983'], //Steel Teal
+  ['#C69749'], //Aztec Gold
+  ['#404258'], //Charcoal
+  ['#483838'], //Dark Lava
+  ['#0F3D3E'], //MSU Green
+  ['#826F66'], //Shadow
+  ['#ECB365'], //Fawn
+  ['#B85252'], //Bittersweet Shimmer
+  ['#260000'], //Crimson Red
+  ['#152D35'], //Medium Jungle Green
+  ['#FFAA4C'], //Pastel Orange
+  ['#C06014'], //Alloy Orange
+  ['#F0A500'], //Orange
+  ['#046582'], //Blue Sapphire
+  ['#F2A07B'], //Light Salmon
+];
+
+function getColName(value){
+  if (value == '#ce9a3e') return "Satin Sheen Gold";
+  else if(value == '#01796f') return "Pine Green";
+  else if(value == '#565650') return "Davy's Grey";
+  else if(value == '#fad3be') return "Peach Puff";
+  else if(value == '#87BAB0') return "Pewter Blue";
+  else if(value == '#a46868') return "Blast-Off Bronze";
+  else if(value == '#d9d798') return "Medium Spring Bud";
+  else if(value == '#EEC035') return "Saffron";
+  else if(value == '#CCB297') return "Khaki";
+  else if(value == '#C43219') return "Dark Pastel Red";
+  else if(value == '#D79569') return "Tan";
+  else if(value == '#d3c5bc') return "Pale Silver";
+  else if(value == '#D4D4D4') return "Light Gray";
+  else if(value == '#E4D9CB') return "Bone";
+  else if(value == '#B4755A') return "Café Au Lait";
+  else if(value == '#cccccc') return "Chinese Silver";
+  else if(value == '#ED6363') return "Light Carmine Pink";
+  else if(value == '#00587A') return "Blue Sapphire";
+  else if(value == '#5D6D7E') return "Dark Electric Blue";
+  else if(value == '#8a496b') return "Twilight Lavender";
+  else if(value == '#a52a2a') return "Auburn";
+  else if(value == '#3C2A21') return "Bistre";
+  else if(value == '#678983') return "Steel Teal";
+  else if(value == '#C69749') return "Aztec Gold";
+  else if(value == '#404258') return "Charcoal";
+  else if(value == '#483838') return "Dark Lava";
+  else if(value == '#0F3D3E') return "MSU Green";
+  else if(value == '#826F66') return "Shadow";
+  else if(value == '#ECB365') return "Fawn";
+  else if(value == '#B85252') return "Bittersweet Shimmer";
+  else if(value == '#260000') return "Crimson Red";
+  else if(value == '#152D35') return "Medium Jungle Green";
+  else if(value == '#FFAA4C') return "Pastel Orange";
+  else if(value == '#C06014') return "Alloy Orange";
+  else if(value == '#F0A500') return "Orange";
+  else if(value == '#046582') return "Blue Sapphire";
+  else if(value == '#F2A07B') return "Light Salmon";
+  else return "Base Color";
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(fxrand() * (max - min + 1) + min);
+}  
+  function getRndInt(dimension, minimalValue = 0) {
+  return minimalValue + parseInt(fxrand() * dimension, 10);
+}
+
+function getDns(value) {
+  if (value == 1) return "Very High";
+  else if (value == 2 || value == 3) return "High";
+  else if (value == 4 || value == 5) return "Medium";
+  else if (value == 6) return "Low";
+  else return "Very Low";
+}
+
+function getThik(value) {
+  if (value == 1){
+    const thickness = [1, 2];
+    const thickIdx = getRndInt(thickness.length);
+    const tks = thickness[thickIdx];
+    return tks;
+  } 
+  else if (value == 2){
+    const thickness = [1, 2];
+    const thickIdx = getRndInt(thickness.length);
+    const tks = thickness[thickIdx];
+    return tks;
+  }   
+  else if (value == 3){
+    const thickness = [2, 3];
+    const thickIdx = getRndInt(thickness.length);
+    const tks = thickness[thickIdx];
+    return tks;
+  } 
+  else if (value == 4){
+    const thickness = [3, 4];
+    const thickIdx = getRndInt(thickness.length);
+    const tks = thickness[thickIdx];
+    return tks;
+  } 
+  else if (value == 5){
+    const thickness = [4, 5];
+    const thickIdx = getRndInt(thickness.length);
+    const tks = thickness[thickIdx];
+    return tks;
+  }     
+  else if (value == 6){
+    const thickness = [5, 6];
+    const thickIdx = getRndInt(thickness.length);
+    const tks = thickness[thickIdx];
+    return tks;
+  }   
+  else return 12;
+}
+
+const density = [2, 3, 4, 5, 6, 40];
+const denIdx = getRndInt(density.length);
+const denSi = density[denIdx];
+
+const tks = getThik(denSi);
+
+const cell_size = [100, 50, 80, 125, 200];
+if(denSi == 40){
+  cell_size.splice(0, 1);
+}
+const czIdx = getRndInt(cell_size.length);
+const ceSize = cell_size[czIdx];
+
+const coloridx = getRndInt(palettes.length);
+const cl1 = palettes[coloridx][0];
+const cl2 = palettes[coloridx][1];
+const cl3 = palettes[coloridx][2];
+const cl4 = palettes[coloridx][3];
+const pall = cl1+'-'+cl2+'-'+cl3+'-'+cl4;
+
+const bkpalIdx1 = getRndInt(bkpalettes.length);
+const backcol = bkpalettes[bkpalIdx1];
+
+const vwList = [1, 2];
+const vwIdx = getRndInt(vwList.length);
+const vwVal = vwList[vwIdx];
+
+window.$fxhashFeatures = {
+  "Cell Size": ceSize+'px',
+  "Density": getDns(denSi),
+  "Background": getColName(backcol),
+  "Color Palette": pall,
+}</script><script defer="defer" src="./bundle.js"></script></body></html>

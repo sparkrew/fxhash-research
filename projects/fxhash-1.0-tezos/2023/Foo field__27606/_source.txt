@@ -1,0 +1,4 @@
+id: 27606
+name: Foo field
+mint_opens_at: 2023-06-13T20:00:00+00:00
+generative_uri: ipfs://QmYNymPiE4p4pzDAjapeNGbwjrj3A6thdCfrjUGniWtem3

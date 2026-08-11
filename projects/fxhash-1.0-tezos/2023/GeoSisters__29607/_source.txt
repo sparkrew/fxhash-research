@@ -1,0 +1,4 @@
+id: 29607
+name: GeoSisters
+mint_opens_at: 2023-12-03T15:06:40+00:00
+generative_uri: ipfs://QmRJWBsP2Ep7Pp5po26z811EdtV3cmVV44K1tuDSCp4nbD

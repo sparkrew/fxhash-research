@@ -1,0 +1,4 @@
+id: 26244
+name: CRYSCODY
+mint_opens_at: 2023-03-27T17:08:00+00:00
+generative_uri: ipfs://QmbDd3Yg2PFQ1W3PqDctqqtFpHrwiiRvm5piSKP2p2CoZ9

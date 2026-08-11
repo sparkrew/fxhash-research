@@ -1,0 +1,4 @@
+id: 23021
+name: fx(woods)
+mint_opens_at: 2023-01-02T12:55:29+00:00
+generative_uri: ipfs://QmWvv8hxD6GE3jnNGuU69QPgEvBZjyxnxmqK2nhET84kTG

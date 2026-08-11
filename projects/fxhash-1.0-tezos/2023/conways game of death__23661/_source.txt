@@ -1,0 +1,4 @@
+id: 23661
+name: conways game of death
+mint_opens_at: 2023-01-14T04:23:14+00:00
+generative_uri: ipfs://QmVFYd3y6BBXsAEAW5vuMU9Ld7LeRZ68YQJ2QAnFazxUwe

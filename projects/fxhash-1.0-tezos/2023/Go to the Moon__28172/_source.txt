@@ -1,0 +1,4 @@
+id: 28172
+name: Go to the Moon
+mint_opens_at: 2023-07-24T12:56:00+00:00
+generative_uri: ipfs://QmUxyonxr5PpSWfg1ijUaBAnxWiFB7NaGNdmPQV9NqPaC9

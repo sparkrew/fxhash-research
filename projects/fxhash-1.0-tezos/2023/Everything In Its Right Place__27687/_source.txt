@@ -1,0 +1,4 @@
+id: 27687
+name: Everything In Its Right Place.
+mint_opens_at: 2023-06-18T19:18:02+00:00
+generative_uri: ipfs://QmXkcWfVo6kfJfzBXKYS5ZMEpnoGZsnj2khXxYRuWkxxot

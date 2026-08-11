@@ -1,0 +1,4 @@
+id: 27470
+name: control alt delete
+mint_opens_at: 2023-06-03T11:33:45+00:00
+generative_uri: ipfs://QmWiTZn5oXAL87dHnXLArqVdwVCX42oYyh2nrRDf6A8tP8

@@ -1,0 +1,84 @@
+
+html,
+body {
+    overflow: hidden;
+    font-family: sans-serif;
+	background-color: #ffffff;
+}
+
+.image-container{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top:0;
+    left: 0;
+    bottom:0;
+    right: 0;
+    margin: auto;
+
+}
+
+
+#audio_box{
+    display: none;
+}
+
+#draw_canv,#bck_canv,#loading_canvs{
+    /* display: none; */
+    position: absolute;
+    margin: auto;
+    top:0;
+    left: 0;
+    bottom:0;
+    right: 0;
+    width: 50%;
+    height: 50%;
+}
+
+#draw_canv{
+	/* opacity: 0.4; */
+}
+
+#bck_canv{
+    /* opacity: 0.2; */
+}
+
+#loading_info{
+    display: block;
+}
+
+#draw_canv, #loading_canvs{
+    width: 50%;
+    height: 50%;
+}
+#loading_canvs{
+    /* mix-blend-mode:hard-light; */
+    /* opacity: 0.5; */
+
+}
+
+#loading{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top:25%;
+    left: 0;
+    bottom:0;
+    right: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: red;
+    /* color: white; */
+}
+
+#percent{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top:55%;
+    left: 0;
+    bottom:0;
+    right: 0;
+    /* color: white; */
+
+}

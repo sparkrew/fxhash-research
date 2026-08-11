@@ -1,0 +1,4 @@
+id: 28772
+name: Arts of Chet Masterpiece 6
+mint_opens_at: 2023-09-06T12:56:00+00:00
+generative_uri: ipfs://QmV7Nr87TkMuXndEZESprNBUvoQQS2jnnhAoUNYyQXAcv8

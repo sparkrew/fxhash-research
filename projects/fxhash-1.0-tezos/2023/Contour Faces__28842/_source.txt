@@ -1,0 +1,4 @@
+id: 28842
+name: Contour Faces
+mint_opens_at: 2023-09-11T15:00:00+00:00
+generative_uri: ipfs://QmaeUgadWPiAMrRGoPwgNNmXS4n5iUuMouZ3XCzCFd918P

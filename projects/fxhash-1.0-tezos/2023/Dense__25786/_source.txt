@@ -1,0 +1,4 @@
+id: 25786
+name: Dense
+mint_opens_at: 2023-03-09T16:00:00+00:00
+generative_uri: ipfs://QmTNdiMnuAYSjbUsxmMm4vPchVErw2BeGwDJueXaowWqb1

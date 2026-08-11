@@ -1,0 +1,4 @@
+id: 26042
+name: Cubism Buildings
+mint_opens_at: 2023-03-18T17:30:00+00:00
+generative_uri: ipfs://QmNmwAvrH1RwKBZBTZugw1qRXW9fvT82VTCc9t3wZVq7K1

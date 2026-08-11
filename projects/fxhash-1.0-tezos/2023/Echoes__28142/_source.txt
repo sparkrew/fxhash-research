@@ -1,0 +1,4 @@
+id: 28142
+name: Echoes
+mint_opens_at: 2023-07-18T18:46:47+00:00
+generative_uri: ipfs://QmUZV6WTZJrtFFqCj9cx5WAoiCddhCqYp3xUfdK6H16xsa

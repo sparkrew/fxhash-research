@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" >
+    <title>Hilma</title>
+    <script src="./p5.min.js"></script>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    <script>
+        // *********************************************************
+        // LICENSE info: CC BY-NC-SA-4.0 (more info in ./LICENSE.md)
+        // *********************************************************
+        const filename = 'hilma';
+        const weight = 2;
+        let pageHeight = 4960;
+        let pageWidth = 3508;
+        const props = {};
+
+        let img = null;
+
+        const offsetY = Math.round(0.1 * pageHeight);
+        const height = pageHeight - 2 * offsetY;
+        const offsetX = Math.round(0.1 * pageWidth);
+        const width = pageWidth - 2 * offsetX;
+        const lines = [];
+
+        function getSkewedValue(values) {
+            const possible = values.reduce((acc, next) => acc + next.p, 0);
+            let total = 0.0;
+            const p = possible * r.random_dec();
+
+            for (let i=0;i<values.length;i++) {
+                total += values[i].p;
+                if (p <= total) {
+                    return values[i].v;
+                }
+            }
+
+            return values[values.length].v;
+        }
+
+        function choose(values) {
+            return values[Math.floor(fxrand() * values.length)];
+        }
+
+        function attributes() {
+            window.$fxhashFeatures = {};
+
+            props.dark = fxrand() > 0.5;
+            window.$fxhashFeatures.Background = props.dark ? 'Dark' : 'Light';
+            props.randy = fxrand() > 0.3;
+            window.$fxhashFeatures['Color order'] = props.randy ? 'Random' : 'Regular';
+            props.perfect = fxrand() > 0.5;
+            window.$fxhashFeatures.Form = props.perfect ? 'Perfect' : 'Bristly';
+            props.reverse = fxrand() > 0.99;
+            window.$fxhashFeatures['Color direction'] = props.reverse ? 'Reverse' : 'Direct';
+
+            Object.keys(window.$fxhashFeatures).forEach((k) => console.log(`${k} = ${window.$fxhashFeatures[k]}`));
+        }
+
+        const generate = () => {
+            let colors = [
+                '#DACBAD',
+                '#C6C0B2',
+                '#928E85',
+                '#6D6E72',
+                '#282725',
+                '#B38D4C',
+                '#9E7585',
+                '#315A78',
+                '#6D93C0',
+                '#55977B',
+                '#E5C355',
+                '#EC9341',
+                '#EF5D34',
+            ];
+
+            if (props.reverse) {
+                colors.reverse();
+            }
+
+            let r = 0.36 + 0.12 * fxrand();
+            const w = 0.0175 + 0.0175 * fxrand();
+
+            let c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 0];
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 1];
+            r -= w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 2];
+            r -= w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 3];
+            r -= w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 4];
+            r -= w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 5];
+            r -= 0.6 * w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 6];
+            r -= 0.2 * w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 7];
+            r -= 1.2 * w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 8];
+            r -= w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 9];
+            r -= w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 10];
+            r -= 1.2 * w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 11];
+            r -= 1.2 * w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+            c = colors[props.randy ? Math.floor(fxrand() * colors.length) : 12];
+            r -= 1.2 * w;
+            circle(0.5 * pageWidth, 0.5 * pageHeight, r * pageWidth, c);
+        };
+
+        const pointOnCircle = (cx, cy, r, angle) => {
+            const ax = r * Math.sin(angle * Math.PI / 180);
+            const ay = r * Math.cos(angle * Math.PI / 180);
+
+            const x = cx + (props.perfect ? 1 : (0.04 * fxrand() + 0.98)) * ax;
+            const y = cy + (props.perfect ? 1 : (0.04 * fxrand() + 0.98)) * ay;
+            return { x, y };
+        };
+
+        const hatchedCircle = (x, y, r, c) => {
+            const hatchCount = r * (fxrand() + 1);
+            for (let i=0;i<hatchCount;i++) {
+                const p1 = pointOnCircle(x, y, r, 360 * fxrand());
+                const p2 = pointOnCircle(x, y, r, 360 * fxrand());
+                lines.push({ p1, p2, c});
+            }
+        };
+
+        const circle = (x, y, r, c) => {
+            hatchedCircle(x, y, r, c);
+        };
+
+        const sketch = (addKeyListener, ratio) => {
+            return (p) => {
+                p.setup = () => {
+                    p.createCanvas(ratio * pageWidth, ratio * pageHeight);
+                    p.noLoop();
+                    p.angleMode(p.DEGREES);
+                    p.noFill();
+
+                    if (addKeyListener) {
+                        p.keyPressed = () => {
+                            if (img.keyCode === 83) {
+                                const hiRes = new p5(sketch(false, 1), 'hires');
+                                console.log(`saving ${filename}-${fxhash}.png`);
+                                hiRes.saveCanvas(`${filename}-${fxhash}.png`);
+                            }
+                        };
+                    }
+                }
+
+                p.draw = () => {
+                    p.strokeWeight(ratio * weight);
+                    p.background(props.dark ? '#222222' : '#E4D9C2');
+
+                    lines.forEach(({ p1, p2, c}) => {
+                        p.stroke(c);
+                        p.noFill();
+                        p.line(ratio * p1.x, ratio * p1.y, ratio * p2.x, ratio * p2.y);
+                    });
+                    fxpreview();
+                }
+            };
+        }
+
+        attributes();
+        generate();
+
+        img = new p5(sketch(true, Math.min(window.innerWidth, window.innerHeight) / pageHeight), 'img');
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+            padding: 0;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #hires {
+            display: none;
+        }
+
+        #img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw!important;
+            height: 100vh!important;
+        }
+
+        canvas {
+            display: flex;
+            height: 100vmin !important;
+            width: 70.707vmin !important;
+        }
+    </style>
+</head>
+<body>
+<main>
+</main>
+<div id="img"></div>
+<div id="hires"></div>
+</body>
+</html>

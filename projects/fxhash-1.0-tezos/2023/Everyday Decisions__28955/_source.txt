@@ -1,0 +1,4 @@
+id: 28955
+name: Everyday Decisions
+mint_opens_at: 2023-09-21T09:00:00+00:00
+generative_uri: ipfs://QmYkvmtFVuuqjkiik1uQJpzHaW2k13WmeNEB5qG9sW2kAe

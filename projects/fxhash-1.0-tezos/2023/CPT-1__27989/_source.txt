@@ -1,0 +1,4 @@
+id: 27989
+name: CPT-1
+mint_opens_at: 2023-07-08T20:10:42+00:00
+generative_uri: ipfs://QmXUJC5xT7ssmbMa58gD2wbqkDXcAkNZYQY6kR3yhG9jxf

@@ -1,0 +1,4 @@
+id: 22912
+name: AUTOHIRST - THE CRYPTOCURRENCY
+mint_opens_at: 2023-01-01T02:23:14+00:00
+generative_uri: ipfs://Qmee197TxYUcT6VUTYb1f6RG1dWdooFUeGsjuJMPPtQTGR

@@ -1,0 +1,4 @@
+id: 27903
+name: Bauhaus Study (special edition)
+mint_opens_at: 2023-07-03T20:00:00+00:00
+generative_uri: ipfs://QmQr1CiG95QdeGxHYkseEU8Z9YPMrCpLvwHYJ6nSXsUQCz

@@ -1,0 +1,4 @@
+id: 23666
+name: Giant Mushroom Wood
+mint_opens_at: 2023-01-14T06:14:14+00:00
+generative_uri: ipfs://Qmdx6sLkstY7jMTN8z7ToE3SDvrTu63ht4e24KjTAhFa8N

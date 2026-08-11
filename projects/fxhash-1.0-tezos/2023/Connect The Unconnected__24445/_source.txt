@@ -1,0 +1,4 @@
+id: 24445
+name: Connect The Unconnected
+mint_opens_at: 2023-01-31T19:00:00+00:00
+generative_uri: ipfs://QmNRnBRpS7GpV9kK19V3B5veKwcLraoJgGKHLB28jfoTRq

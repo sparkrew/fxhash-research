@@ -1,0 +1,4 @@
+id: 28330
+name: Arts of Chet NFTs 2023
+mint_opens_at: 2023-08-04T16:56:00+00:00
+generative_uri: ipfs://QmV1FbFrjoGYKVhyAFqL23D6AZYjEqMpdMfsJjXBrW2vMG

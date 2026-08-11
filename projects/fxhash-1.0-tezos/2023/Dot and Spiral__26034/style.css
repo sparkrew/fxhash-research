@@ -1,0 +1,68 @@
+body {
+  background-color: rgb(230, 230, 230);
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+
+div{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  font-size: 1px;
+  font-family: 'Courier New', Courier, monospace;
+  color: rgb(230, 230, 230);
+  background-color: rgb(230, 230, 230);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+p{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  font-size: 20px;
+  font-family: 'Brush Script MT', Brush Script Std, cursive;
+  color: rgb(15, 15, 15);
+}
+#sentence {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+head {
+  height: 10vh;
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+canvas#defaultCanvas0 {
+  WIDTH: 100%;
+  HEIGHT: 100%;
+}

@@ -1,0 +1,4 @@
+id: 27001
+name: Botanical metamorphoses
+mint_opens_at: 2023-05-03T23:23:26+00:00
+generative_uri: ipfs://QmSgCex6JaBn5yYWcLRkadApNz6xHwDLiWdd4nFc5k9fij

@@ -1,0 +1,4 @@
+id: 22918
+name: CityScape
+mint_opens_at: 2023-01-01T02:36:14+00:00
+generative_uri: ipfs://QmfBR3x93x5XRaK1NrpvGVLbckRPjHf3Ff6MjheYTYHhSy

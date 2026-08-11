@@ -1,0 +1,4 @@
+id: 23654
+name: Confusion
+mint_opens_at: 2023-01-13T22:35:14+00:00
+generative_uri: ipfs://QmarDf6ewccDU9a3nSeNPVuk9YqSU6iLcbcS8CvgiuXQxC

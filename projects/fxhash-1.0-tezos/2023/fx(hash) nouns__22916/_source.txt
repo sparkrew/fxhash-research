@@ -1,0 +1,4 @@
+id: 22916
+name: fx(hash) nouns
+mint_opens_at: 2023-01-01T02:32:14+00:00
+generative_uri: ipfs://QmXy4mQnKYiR8ndvtLbKnLGZxBmbLF6uGGNzUvSB1N3roC

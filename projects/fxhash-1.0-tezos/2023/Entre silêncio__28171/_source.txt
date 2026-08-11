@@ -1,0 +1,4 @@
+id: 28171
+name: Entre silêncio 
+mint_opens_at: 2023-07-27T17:30:00+00:00
+generative_uri: ipfs://QmSWSiLWdYDw5XPg28BRNxHCWqs7pHzudn8ybf56rd1bpR

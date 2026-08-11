@@ -1,0 +1,4 @@
+id: 29268
+name: Colorific
+mint_opens_at: 2023-10-23T17:00:00+00:00
+generative_uri: ipfs://QmUeCGRRHGRk8kuXvcgY7NyAhPbhGU8QxzwEMfAep2FYBR

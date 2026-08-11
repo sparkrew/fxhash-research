@@ -1,0 +1,4 @@
+id: 29816
+name: Connecting
+mint_opens_at: 2023-12-21T12:00:00+00:00
+generative_uri: ipfs://QmP2EupnEvp35bT5NRqJwNC7y3dpNoKbUHtPbUwu9W35ie

@@ -1,0 +1,118 @@
+const pal = 
+[
+    ["#011826", "#034159", "#044A59", "#99B8BF", "#010D00"],
+    ["#F07A2A", "#F09400", "#EC6F17", "#F24405", "#E79511"],
+    ["#F2BF80", "#D98F4E", "#8C441B", "#400D01", "#260801"],
+    ["#038C3E","#05A64B","#034001","#022601","#0D0D0D"],
+    ["#A3C9D9","#038C8C","#025951","#012623","#000D0A"],
+    ["#0433BF","#03258C","#021859","#D9B504","#BF9004"],
+    ["#6B002B","#EE478A","#EB005F","#6B203E","#B80049"],
+    ["#730A26","#BF3064","#F2B84B","#F2A74B","#F2622E"],
+    ["#1F2740","#F2CDA0","#BF6969","#D9D9D9","#0D0D0D"],
+    ["#8C034E","#590232","#BF047E","#F20FA3","#0D0D0D"],
+    ["#D9CB04","#A69B03","#595302","#BF4904"],
+    ["#591218","#8C2029","#D94350","#07070D","#4F818C"],
+    ["#011C40", "#011126", "#03588C"],
+    ["#A60311", "#260273", "#BF9663", "#F20505", "#590202"],
+    ["#622BD9", "#270B8C", "#050E40", "#0B2B8C"],
+    ["#003547", "#005E54", "#C2BB00", "#E1523D", "#ED8B16"],
+    ["#F2B988", "#F27D72", "#D91414", "#590808", "#A61717"],
+    ["#575859", "#0D0D0C", "#A6A5A4", "#404040", "#262626"],
+    ["#A60321", "#011640", "#010D26", "#6D86A6", "#A60303"],
+    ["#0E1F26", "#68868C", "#F28D52", "#8C5637", "#8C2C23"],
+    ["#400C1A", "#731931", "#D9A0AF", "#A64468", "#26141E"],
+    ["#021859", "#445CA6", "#4A5B8C", "#BFBAB0", "#0D0D0D"],
+    ["#F2505D", "#8C3253", "#010B40", "#8AA626", "#F2A71B"],
+    ["#26010B", "#732441", "#A66A80", "#D9B0BF"],
+    ["#152614", "#A6800F", "#D9BF71", "#8C4637", "#D94032"],
+    ["#261416", "#BF7582", "#F2C2CB", "#A64B75", "#A66617"]
+
+];
+
+const namePal = [
+    "Deep Ocean Blues",
+    "Golden Harvest",
+    "Bronze Elegance",
+    "Vibrant Greenery",
+    "Cool Aquatic Tones",
+    "Blue Nebula",
+    "Fiery Blaze",
+    "Crimson Sunset",
+    "Elegant Monochrome",
+    "Mystical Nightfall",
+    "Golden Hour",
+    "Passionate Reds",
+    "Marine Serenity",
+    "Vivid Spectrum",
+    "Celestial Whispers",
+    "Fiery Allure",
+    "Slate Serenity",
+    "Urban Monochrome",
+    "Coastal Tranquility",
+    "Subtle Elegance",
+    "Nautical Serenity",
+    "Autumn Sunset",
+    "Earthy Tones",
+    "Crimson Hues",
+    "Bronze Nights",
+    "Alien Dreamscape"
+  ]
+
+
+const neon = [
+    ["#056CF2", "#0583F2", "#0C9AF2", "#1DB6F2", "#05F2F2"],
+    ["#F2A649", "#F29544", "#D97236", "#732514"],
+    ["#049DD9", "#04B2D9", "#04BFAD", "#F2B705", "#F29F05"],
+    ["#F22283", "#8C144C", "#400923", "#260515", "#F22998"],
+    ["#4C6C73", "#4D8C81", "#F2EDA0", "#F2B263", "#F29863"],
+    ["#035AA6", "#04D9B2", "#F2B705", "#F29F05"],
+    ["#BF4B96", "#8C237B", "#BF8EB7", "#5A4073", "#F2ACAC"],
+    ["#F26B8F", "#D93D93", "#F2D479", "#F2811D", "#F2622E"],
+    ["#D90479", "#D9048E", "#BC04BF", "#6503A6"],
+    ["#A85EF2", "#1F2C73", "#03A66A", "#F25050"],
+    ["#D962D1", "#7E5EF2", "#5298F2", "#07DBF2", "#07F2F2"],
+    ["#D9C8B4", "#D9A273", "#F2E4D8", "#D96F32"],
+    ["#F2B988", "#F27D72", "#D91414", "#590808", "#A61717"],
+    ["#D9AE5F", "#F2E2C4", "#A66933", "#F2CCB6"],
+    ["#F2668B", "#4C3959", "#2198A6", "#17BFBF", "#F2C777"],
+    ["#99A637", "#F2EDCC", "#03A696", "#F2C230"],
+    ["#A60F37", "#D91136", "#F2E6CE", "#A5A698", "#6A7371"],
+    ["#D9CA9C", "#F2EDE4", "#BFB2A3", "#D9D0C5", "#594E45"],
+    ["#F257AC", "#F291C7", "#4AB0D9", "#F28585", "#F2F2F2"],
+    ["#B8D9C6", "#9FBFA7", "#87A686", "#D9C3A9", "#F2E2CE"],
+    ["#7AACBF", "#557370", "#D7D9D7", "#BFA98E", "#A65B4B"]
+]
+
+
+const nameNeon = [
+    "Neon Waves",
+    "Solar Blaze",
+    "Aquatic Glow",
+    "Vivid Skyline",
+    "Luminous Turquoise",
+    "Radiant Sunburst",
+    "Amber Skies",
+    "Fierce Orange",
+    "Pink Vibrance",
+    "Electric Fusion",
+    "Violet Radiance",
+    "Crimson Fire",
+    "Marine Neon",
+    "Spectrum of Colors",
+    "Luminous Whispers",
+    "Neon Allure",
+    "Slate Serenity",
+    "Urban Monochrome",
+    "Nautical Tranquility",
+    "Radiant Neon Lights",
+    "Harmonic Neon Spectrum"
+];
+
+
+
+
+  
+
+
+
+  

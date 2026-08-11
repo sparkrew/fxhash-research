@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html>  
+  <head>
+<script id="fxhash-snippet">
+    //---- do not edit the following code (you can indent as you wish)
+    let search = new URLSearchParams(window.location.search)
+    let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+    let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+    let sfc32 = (a, b, c, d) => {
+      return () => {
+        a |= 0; b |= 0; c |= 0; d |= 0
+        var t = (a + b | 0) + d | 0
+        d = d + 1 | 0
+        a = b ^ b >>> 9
+        b = c + (c << 3) | 0
+        c = c << 21 | c >>> 11
+        c = c + t | 0
+        return (t >>> 0) / 4294967296
+      }
+    }
+    let rndHash = (n) => Array(n).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join("")
+    let matcher = (str, start) => str.slice(start).match(new RegExp(".{"+((str.length-start)>>2)+"}","g")).map(b58dec)
+    // make fxrand from hash
+    var fxhash = search.get("fxhash") || "oo" + rndHash(49)
+    var fxrand = sfc32(...matcher(fxhash, 2))
+    // make fxrandminter from minter address
+    var fxminter = search.get("fxminter") || "tz1" + rndHash(33)
+    var fxrandminter = sfc32(...matcher(fxminter, 3))
+    // true if preview mode active, false otherwise
+    // you can append preview=1 to the URL to simulate preview active
+    var isFxpreview = search.get('preview') === "1"
+    // call this method to trigger the preview
+    function fxpreview() {
+      window.dispatchEvent(new Event("fxhash-preview"))
+      setTimeout(() => fxpreview(), 500)
+    }
+    // get the byte params from the URL
+    const searchParams = window.location.hash
+    let initialInputBytes = searchParams?.replace("#0x", "")
+    const throttle = (func, delay) => {
+      let isThrottled = false
+
+      return function (...args) {
+        if (!isThrottled) {
+          func.apply(this, args)
+          isThrottled = true
+          
+          setTimeout(() => {
+            isThrottled = false
+          }, delay)
+        }
+      }
+    }
+
+    const stringToHex = (s) => {
+      let rtn = ""
+      for (let i = 0; i < s.length; i++) {
+        rtn += s.charCodeAt(i).toString(16).padStart(4, "0")
+      }
+      return rtn
+    }
+
+    const completeHexColor = (hexCode) => {
+      let hex = hexCode.replace("#", "")
+      if (hex.length === 6) {
+        hex = `${hex}ff`
+      }
+      if (hex.length === 3) {
+        hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}ff`
+      }
+      return hex
+    }
+
+    // the parameter processor, used to parse fxparams
+    const processors = {
+      number: {
+        serialize: (input) => {
+          const view = new DataView(new ArrayBuffer(8))
+          view.setFloat64(0, input)
+          return view.getBigUint64(0).toString(16).padStart(16, "0")
+        },
+        deserialize: (input) => {
+          const view = new DataView(new ArrayBuffer(8))
+          for (let i = 0; i < 8; i++) {
+            view.setUint8(i, parseInt(input.substring(i * 2, i * 2 + 2), 16))
+          }
+          return view.getFloat64(0)
+        },
+        bytesLength: () => 8,
+        constrain: (value, definition) => {
+          let min = Number.MIN_SAFE_INTEGER
+          if (typeof definition.options?.min !== "undefined")
+            min = Number(definition.options.min)
+          let max = Number.MAX_SAFE_INTEGER
+          if (typeof definition.options?.max !== "undefined")
+            max = Number(definition.options.max)
+          max = Math.min(max, Number.MAX_SAFE_INTEGER)
+          min = Math.max(min, Number.MIN_SAFE_INTEGER)
+          const v = Math.min(Math.max(value, min), max)
+          if (definition?.options?.step) {
+            const t = 1.0 / definition?.options?.step
+            return Math.round(v * t) / t
+          }
+          return v
+        },
+        random: (definition) => {
+          let min = Number.MIN_SAFE_INTEGER
+          if (typeof definition.options?.min !== "undefined")
+            min = Number(definition.options.min)
+          let max = Number.MAX_SAFE_INTEGER
+          if (typeof definition.options?.max !== "undefined")
+            max = Number(definition.options.max)
+          max = Math.min(max, Number.MAX_SAFE_INTEGER)
+          min = Math.max(min, Number.MIN_SAFE_INTEGER)
+          const v = Math.random() * (max - min) + min
+          if (definition?.options?.step) {
+            const t = 1.0 / definition?.options?.step
+            return Math.round(v * t) / t
+          }
+          return v
+        },
+      },
+      bigint: {
+        serialize: (input) => {
+          const view = new DataView(new ArrayBuffer(8))
+          view.setBigInt64(0, BigInt(input))
+          return view.getBigUint64(0).toString(16).padStart(16, "0")
+        },
+        deserialize: (input) => {
+          const view = new DataView(new ArrayBuffer(8))
+          for (let i = 0; i < 8; i++) {
+            view.setUint8(i, parseInt(input.substring(i * 2, i * 2 + 2), 16))
+          }
+          return view.getBigInt64(0)
+        },
+        bytesLength: () => 8,
+        random: (definition) => {
+          const MIN_SAFE_INT64 = -9223372036854775808n
+          const MAX_SAFE_INT64 = 9223372036854775807n
+          let min = MIN_SAFE_INT64
+          let max = MAX_SAFE_INT64
+          if (typeof definition.options?.min !== "undefined")
+            min = BigInt(definition.options.min)
+          if (typeof definition.options?.max !== "undefined")
+            max = BigInt(definition.options.max)
+          const range = max - min
+          const bits = range.toString(2).length
+          let random
+          do {
+            random = BigInt(
+              "0b" +
+                Array.from(
+                  crypto.getRandomValues(new Uint8Array(Math.ceil(bits / 8)))
+                )
+                  .map((b) => b.toString(2).padStart(8, "0"))
+                  .join("")
+            )
+          } while (random > range)
+          return random + min
+        },
+      },
+      boolean: {
+        serialize: (input) =>
+          (typeof input === "boolean" && input) ||
+          (typeof input === "string" && input === "true")
+            ? "01"
+            : "00",
+        // if value is "00" -> 0 -> false, otherwise we consider it's 1
+        deserialize: (input) => {
+          return input === "00" ? false : true
+        },
+        bytesLength: () => 1,
+        random: () => Math.random() < 0.5,
+      },
+      color: {
+        serialize: (input) => {
+          return completeHexColor(input)
+        },
+        deserialize: (input) => input,
+        bytesLength: () => 4,
+        transform: (input) => {
+          const r = parseInt(input.slice(0, 2), 16)
+          const g = parseInt(input.slice(2, 4), 16)
+          const b = parseInt(input.slice(4, 6), 16)
+          const a = parseInt(input.slice(6, 8), 16)
+          return {
+            hex: {
+              rgb: "#" + input.slice(0, 6),
+              rgba: "#" + input,
+            },
+            obj: {
+              rgb: { r, g, b },
+              rgba: { r, g, b, a },
+            },
+            arr: {
+              rgb: [r, g, b],
+              rgba: [r, g, b, a],
+            },
+          }
+        },
+        constrain: (value, definition) => {
+          const hex = value.replace("#", "")
+          return hex.slice(0, 8).padEnd(8, "f")
+        },
+        random: () =>
+          `${[...Array(8)]
+            .map(() => Math.floor(Math.random() * 16).toString(16))
+            .join("")}`,
+      },
+      string: {
+        serialize: (input, def) => {
+          let max = 64
+          if (typeof def.options?.maxLength !== "undefined")
+            max = Number(def.options.maxLength)
+          let hex = stringToHex(input.substring(0, max))
+          hex = hex.padEnd(max * 4, "0")
+          return hex
+        },
+        deserialize: (input) => {
+          const hx = input.match(/.{1,4}/g) || []
+          let rtn = ""
+          for (let i = 0; i < hx.length; i++) {
+            const int = parseInt(hx[i], 16)
+            if (int === 0) break
+            rtn += String.fromCharCode(int)
+          }
+          return rtn
+        },
+        bytesLength: (options) => {
+          if (typeof options?.maxLength !== "undefined")
+            return Number(options.maxLength) * 2
+          return 64 * 2
+        },
+        constrain: (value, definition) => {
+          let min = 0
+          if (typeof definition.options?.minLength !== "undefined")
+            min = definition.options.minLength
+          let max = 64
+          if (typeof definition.options?.maxLength !== "undefined")
+            max = definition.options.maxLength
+          let v = value.slice(0, max)
+          if (v.length < min) {
+            return v.padEnd(min)
+          }
+          return v
+        },
+        random: (definition) => {
+          let min = 0
+          if (typeof definition.options?.minLength !== "undefined")
+            min = definition.options.minLength
+          let max = 64
+          if (typeof definition.options?.maxLength !== "undefined")
+            max = definition.options.maxLength
+          const length = Math.round(Math.random() * (max - min) + min)
+          return [...Array(length)]
+            .map((i) => (~~(Math.random() * 36)).toString(36))
+            .join("")
+        },
+      },
+      bytes: {
+        serialize: (input, def) => {
+          const out = Array.from(input)
+            .map((i) => i.toString(16).padStart(2, '0'))
+            .join('')
+          return out
+        },
+        deserialize: (input, def) => {
+          const len = input.length / 2
+          const uint8 = new Uint8Array(len)
+          let idx
+          for (let i = 0; i < len; i++) {
+            idx = i*2
+            uint8[i] = parseInt(`${input[idx]}${input[idx + 1]}`, 16)
+          }
+          return uint8
+        },
+        bytesLength: opt => opt.length,
+        constain: (value, def) => {
+          return value
+        },
+        random: (def) => {
+          const len = def.options?.length || 0
+          const uint8 = new Uint8Array(len)
+          for (let i = 0; i < len; i++) {
+            uint8[i] = (Math.random() * 255) | 0
+          }
+          return uint8
+        },
+      },
+      select: {
+        serialize: (input, def) => {
+          // find the index of the input in the array of options
+          return Math.min(255, def.options?.options?.indexOf(input) || 0)
+            .toString(16)
+            .padStart(2, "0")
+        },
+        deserialize: (input, definition) => {
+          return (
+            definition.options.options[parseInt(input, 16)] ||
+            definition.default
+          )
+        },
+        bytesLength: () => 1,
+        constrain: (value, definition) => {
+          if (definition.options.options.includes(value)) {
+            return value
+          }
+          return definition.options.options[0]
+        },
+        random: (definition) => {
+          const index = Math.round(
+            Math.random() * (definition?.options?.options?.length - 1) + 0
+          )
+          return definition?.options?.options[index]
+        },
+      },
+    }
+
+    // Utility function to get parameter value, default value, or a random value
+    const getParamValue = (param, def, processor) => {
+      if (typeof param !== "undefined") return param
+      if (typeof def.default !== "undefined") return def.default
+      return processor.random(def)
+    }
+
+    // params are injected into the piece using the binary representation of the
+    // numbers, to keep precision
+    const serializeParams = (params, definition) => {
+      // Initialization of the hex string for parameters
+      let hexString = ""
+      // If definition is not provided, return an empty hex string
+      if (!definition) return hexString
+      // Iterating over the definitions
+      for (const def of definition) {
+        const { id, type } = def
+        // Get the processor for the given type
+        const processor = processors[type]
+        // Get the param value, fall back to default or a random value
+        const paramValue = getParamValue(params[id], def, processor)
+        // Serialize the param value
+        const serializedParam = processor.serialize(paramValue, def)
+        // Concatenate serialized params
+        hexString += serializedParam
+      }
+      return hexString
+    }
+
+    // takes the parameters as bytes and outputs an object with the
+    // deserialized parameters, identified by their id in an object
+    const deserializeParams = (bytes, definition) => {
+      const params = {}
+      for (const def of definition) {
+        const processor = processors[def.type]
+        // if we don't have any parameters defined in the URL, set the
+        // default value and move on
+        if (!bytes) {
+          let v
+          if (typeof def.default === "undefined") v = processor.random(def)
+          else v = def.default
+          params[def.id] = processor.constrain?.(v, def) || v
+          continue
+        }
+        // extract the length from the bytes & shift the initial bytes string
+        const valueBytes = bytes.substring(
+          0,
+          processor.bytesLength(def?.options) * 2
+        )
+        bytes = bytes.substring(processor.bytesLength(def?.options) * 2)
+        // deserialize the bytes into the params
+        const value = processor.deserialize(valueBytes, def)
+        params[def.id] = processor.constrain?.(value, def) || value
+      }
+      return params
+    }
+
+    const processParam = (paramId, value, definitions, transformer) => {
+      const definition = definitions.find((d) => d.id === paramId)
+      const processor = processors[definition.type]
+      return processor[transformer]?.(value, definition) || value
+    }
+
+    const processParams = (values, definitions, transformer) => {
+      const paramValues = {}
+      for (const definition of definitions) {
+        const processor = processors[definition.type]
+        const value = values[definition.id]
+        // deserialize the bytes into the params
+        paramValues[definition.id] =
+          processor[transformer]?.(value, definition) || value
+      }
+      return paramValues
+    }
+
+    window.$fx = {
+      _version: "3.3.0",
+      _processors: processors,
+      // where params def & features will be stored
+      _params: undefined,
+      _features: undefined,
+      // where the parameter values are stored
+      _paramValues: {},
+      _listeners: {},
+      _receiveUpdateParams: async function (newRawValues, onDefault) {
+        const handlers = await this.propagateEvent(
+          "params:update",
+          newRawValues
+        )
+        handlers.forEach(([optInDefault, onDone]) => {
+          if (!(typeof optInDefault == "boolean" && !optInDefault)) {
+            this._updateParams(newRawValues)
+            onDefault?.()
+          }
+          onDone?.(optInDefault, newRawValues)
+        })
+        if (handlers.length === 0) {
+          this._updateParams(newRawValues)
+          onDefault?.()
+        }
+      },
+      _updateParams: function (newRawValues) {
+        const constrained = processParams(
+          { ...this._rawValues, ...newRawValues },
+          this._params,
+          "constrain"
+        )
+        Object.keys(constrained).forEach((paramId) => {
+          this._rawValues[paramId] = constrained[paramId]
+        })
+        this._paramValues = processParams(
+          this._rawValues,
+          this._params,
+          "transform"
+        )
+        this._updateInputBytes()
+      },
+      _updateInputBytes: function () {
+        const bytes = serializeParams(this._rawValues, this._params)
+        this.inputBytes = bytes
+      },
+      _emitParams: function (newRawValues) {
+        const constrainedValues = Object.keys(newRawValues).reduce(
+            (acc, paramId) => {
+              acc[paramId] = processParam(
+                paramId,
+                newRawValues[paramId],
+                this._params,
+                "constrain"
+              )
+              return acc
+            },
+            {}
+          )
+        this._receiveUpdateParams(constrainedValues, () => {
+          parent.postMessage(
+            {
+              id: "fxhash_emit:params:update",
+              data: {
+                params: constrainedValues,
+              },
+            },
+            "*"
+          )
+        })
+      },
+      hash: fxhash,
+      rand: fxrand,
+      minter: fxminter,
+      randminter: fxrandminter,
+      iteration: Number(search.get('fxiteration')) || 1,
+      context: search.get("fxcontext") || "standalone",
+
+      preview: fxpreview,
+      isPreview: isFxpreview,
+      params: function(definition) {
+        this._params = definition
+        this._rawValues = deserializeParams(initialInputBytes, definition)
+        this._paramValues = processParams(
+          this._rawValues,
+          definition,
+          "transform"
+        )
+        this._updateInputBytes()
+      },
+      features: function(features) {
+        this._features = features
+      },
+      getFeature: function(id) {
+        return this._features[id]
+      },
+      getFeatures: function() {
+        return this._features
+      },
+      getParam: function(id) {
+        return this._paramValues[id]
+      },
+      getParams: function() {
+        return this._paramValues
+      },
+      getRawParam: function(id) {
+        return this._rawValues[id]
+      },
+      getRawParams: function() {
+        return this._rawValues
+      },
+      getRandomParam: function(id) {
+        const definition = this._params.find(d => d.id === id)
+        const processor = processors[definition.type]
+        return processor.random(definition)
+      },
+      getDefinitions: function() {
+        return this._params
+      },
+      stringifyParams: function(params) {
+        return JSON.stringify(
+          params || this._rawValues,
+          (key, value) => {
+            if (typeof value === "bigint") return value.toString()
+            return value
+          }, 
+          2,
+        )
+      },
+      on: function (name, callback, onDone) {
+        if (!this._listeners[name]) {
+          this._listeners[name] = []
+        }
+        this._listeners[name].push([callback, onDone])
+        return () => {
+          const index = this._listeners[name].findIndex(
+            ([c]) => c === callback
+          )
+          if (index > -1) {
+            this._listeners[name].splice(index, 1)
+          }
+        }
+      },
+      propagateEvent: async function (name, data) {
+        const results = []
+        if (this._listeners?.[name]) {
+          for (const [callback, onDone] of this._listeners[name]) {
+            const result = callback(data)
+            results.push([
+              result instanceof Promise ? (await result) : result,
+              onDone
+            ])
+          }
+        }
+        return results
+      },
+      emit: function (id, data) {
+        switch (id) {
+          case "params:update":
+            this._emitParams(data)
+            break
+          default:
+            console.log("$fx.emit called with unknown id:", id)
+            break
+        }
+      },
+    }
+    const resetFxRand = () => {
+      fxrand = sfc32(...matcher(fxhash, 2))
+      $fx.rand = fxrand
+      fxrand.reset = resetFxRand
+    }
+    fxrand.reset = resetFxRand
+    const resetFxRandMinter = () => {
+      fxrandminter = sfc32(...matcher(fxminter, 3))
+      $fx.randminter = fxrandminter
+      fxrandminter.reset = resetFxRandMinter
+    }
+    fxrandminter.reset = resetFxRandMinter
+    window.addEventListener("message", (event) => {
+      if (event.data === "fxhash_getInfo") {
+        parent.postMessage({
+          id: "fxhash_getInfo",
+          data: { 
+            version: window.$fx._version,
+            hash: window.$fx.hash,
+            iteration: window.$fx.iteration,
+            features: window.$fx.getFeatures(),
+            params: {
+              definitions: window.$fx.getDefinitions(),
+              values: window.$fx.getRawParams(),
+            },
+            minter: window.$fx.minter,
+          },
+        }, "*")
+      }
+      if (event.data?.id === "fxhash_params:update") {
+        const { params } = event.data.data
+        if (params) window.$fx._receiveUpdateParams(params)
+      }
+    })
+    // END NEW
+
+    //---- /do not edit the following code
+
+</script>
+    <title>Uinges</title>
+    <meta charset="utf-8">
+    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let search = new URLSearchParams(window.location.search)
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      // make fxrand from hash
+      var fxhash = search.get('fxhash') || "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // make fxrandminter from minter address
+      var fxminter = search.get('fxminter') || "tz1" + Array(33).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let fxminterTrunc = fxminter.slice(3)
+      regex = new RegExp(".{" + ((fxminterTrunc.length/4)|0) + "}", 'g')
+      hashes = fxminterTrunc.match(regex).map(h => b58dec(h))
+      var fxrandminter = sfc32(...hashes)
+
+      // true if preview mode active, false otherwise
+      // you can append preview=1 to the URL to simulate preview active
+      var isFxpreview = search.get('preview') === "1"
+      // call this method to trigger the preview
+      function fxpreview() {
+        console.log("FXPREVIEW")
+        // window.dispatchEvent(new Event("fxhash-preview"))
+        // setTimeout(() => fxpreview(), 500)
+      }
+      // get the byte params from the URL
+      let fxparams = search.get('fxparams')
+      fxparams = fxparams ? fxparams.replace("0x", "") : fxparams
+
+      // the parameter processor, used to parse fxparams
+      const processors = {
+        number: {
+          deserialize: (input) => {
+            const view = new DataView(new ArrayBuffer(8))
+            for (let i = 0; i < 8; i++) {
+              view.setUint8(i, parseInt(input.substring(i * 2, i * 2 + 2), 16))
+            }
+            return view.getFloat64(0)
+          },
+          bytesLength: () => 8,
+          constrain: (value, definition) =>  {
+            let min = Number.MIN_SAFE_INTEGER
+            if (typeof definition.options?.min !== "undefined")
+              min = Number(definition.options.min)
+            let max = Number.MAX_SAFE_INTEGER
+            if (typeof definition.options?.max !== "undefined")
+              max = Number(definition.options.max)
+            max = Math.min(max, Number.MAX_SAFE_INTEGER)
+            min = Math.max(min, Number.MIN_SAFE_INTEGER)
+            const v = Math.min(Math.max(value, min), max)
+            return v;
+          },
+          random: (definition) => {
+            let min = Number.MIN_SAFE_INTEGER
+            if (typeof definition.options?.min !== "undefined")
+              min = Number(definition.options.min)
+            let max = Number.MAX_SAFE_INTEGER
+            if (typeof definition.options?.max !== "undefined")
+              max = Number(definition.options.max)
+            max = Math.min(max, Number.MAX_SAFE_INTEGER)
+            min = Math.max(min, Number.MIN_SAFE_INTEGER)
+            const v = Math.random() * (max - min) + min
+            if (definition?.options?.step) {
+              const t = 1.0 / definition?.options?.step
+              return Math.round(v * t) / t
+            }
+            return v; 
+          },
+        },
+        bigint: {
+          deserialize: (input) => {
+            const view = new DataView(new ArrayBuffer(8))
+            for (let i = 0; i < 8; i++) {
+              view.setUint8(i, parseInt(input.substring(i * 2, i * 2 + 2), 16))
+            }
+            return view.getBigInt64(0)
+          },
+          bytesLength: () => 8,
+          random: (definition) => {
+            const MIN_SAFE_INT64 = -9223372036854775808n
+            const MAX_SAFE_INT64 = 9223372036854775807n
+            let min = MIN_SAFE_INT64
+            let max = MAX_SAFE_INT64
+            if (typeof definition.options?.min !== "undefined")
+              min = BigInt(definition.options.min)
+            if (typeof definition.options?.max !== "undefined")
+              max = BigInt(definition.options.max)
+            const range = max - min
+            const bits = range.toString(2).length
+            let random
+            do {
+              random = BigInt(
+                "0b" +
+                  Array.from(
+                    crypto.getRandomValues(new Uint8Array(Math.ceil(bits / 8)))
+                  )
+                    .map((b) => b.toString(2).padStart(8, "0"))
+                    .join("")
+              )
+            } while (random > range)
+            return random + min
+          },
+        },
+        boolean: {
+          // if value is "00" -> 0 -> false, otherwise we consider it's 1
+          deserialize: (input) => {
+            return input === "00" ? false : true
+          },
+          bytesLength: () => 1,
+          random: () => Math.random() < 0.5,
+        },
+        color: {
+          deserialize: (input) => input,
+          bytesLength: () => 4,
+          transform: (input) => {
+            const r = parseInt(input.slice(0,2), 16)
+            const g = parseInt(input.slice(2,4), 16)
+            const b = parseInt(input.slice(4,6), 16)
+            const a = parseInt(input.slice(6,8), 16)
+            return {
+              hex: {
+                rgb: '#' + input.slice(0,6),
+                rgba: '#' + input,
+              },
+              obj: {
+                rgb: { r, g, b},
+                rgba: { r, g, b, a},
+              },
+              arr: {
+                rgb: [r,g,b],
+                rgba: [r,g,b,a],
+              }
+            }
+          },
+          constrain: (value, definition) => {
+            const hex = value.replace("#", "")
+            return hex.slice(0, 8).padEnd(8, "f")
+          },
+          random: () =>
+            `${[...Array(8)]
+              .map(() => Math.floor(Math.random() * 16).toString(16))
+              .join("")}`,
+          },
+        string: {
+          deserialize: (input) => {
+            const hx = input.match(/.{1,4}/g) || []
+            let rtn = ""
+            for (let i = 0; i < hx.length; i++) {
+              const int = parseInt(hx[i], 16)
+              if (int === 0) break
+              rtn += String.fromCharCode(int)
+            }
+            return rtn
+          },
+          bytesLength: (options) => {
+            if (typeof options?.maxLength !== "undefined")
+                return Number(options.maxLength) * 2
+            return 64 * 2
+          },
+          constrain: (value, definition) => {
+            let min = 0
+            if (typeof definition.options?.minLength !== "undefined")
+              min = definition.options.minLength
+            let max = 64
+            if (typeof definition.options?.maxLength !== "undefined")
+              max = definition.options.maxLength
+            let v = value.slice(0, max);
+            if (v.length < min) {
+              return v.padEnd(min)
+            }
+            return v;
+          },
+          random: (definition) => {
+            let min = 0
+            if (typeof definition.options?.minLength !== "undefined")
+              min = definition.options.minLength
+            let max = 64
+            if (typeof definition.options?.maxLength !== "undefined")
+              max = definition.options.maxLength
+            const length = Math.round(Math.random() * (max - min) + min)
+            return [...Array(length)]
+              .map((i) => (~~(Math.random() * 36)).toString(36))
+              .join("")
+          },
+        },
+        select: {
+          deserialize: (input, definition) => {
+            return definition.options.options[parseInt(input, 16)] || definition.default
+          },
+          bytesLength: () => 1,
+          constrain: (value, definition) => {
+            if(definition.options.options.includes(value)) {
+              return value;
+            }
+            return definition.options.options[0]
+          },
+          random: (definition) => {
+            const index = Math.round(
+              Math.random() * (definition?.options?.options?.length - 1) + 0
+            )
+            return definition?.options?.options[index]
+          },
+        }
+      }
+
+      // takes the parameters as bytes and outputs an object with the
+      // deserialized parameters, identified by their id in an object
+      const deserializeParams = (bytes, definition) => {
+        const params = {}
+        for (const def of definition) {
+          const processor = processors[def.type]
+          // if we don't have any parameters defined in the URL, set the 
+          // default value and move on
+          if (!bytes) {
+            let v
+            if (typeof def.default === "undefined") v = processor.random(def)
+            else v = def.default
+            params[def.id] = processor.constrain?.(v, def) || v;
+            continue
+          }
+          // extract the length from the bytes & shift the initial bytes string
+          const valueBytes = bytes.substring(0, processor.bytesLength(def?.options) * 2)
+          bytes = bytes.substring(processor.bytesLength(def?.options) * 2)
+          // deserialize the bytes into the params
+          const value =  processor.deserialize(valueBytes, def)
+          params[def.id] = processor.constrain?.(value, def) || value;
+        }
+        return params
+      }
+
+      const transformParamValues = (values, definitions) => {
+        const paramValues = {}
+        for (const def of definitions) {
+          const processor = processors[def.type]
+          const value = values[def.id]
+          // deserialize the bytes into the params
+          paramValues[def.id] = processor.transform ? processor.transform(value) : value;
+        }
+        return paramValues; 
+      }
+
+      window.$fx = {
+        _version: "3.0.0",
+        _processors: processors,
+        // where params def & features will be stored
+        _params: undefined,
+        _features: undefined,
+        // where the parameter values are stored
+        _paramValues: {},
+
+        hash: fxhash,
+        rand: fxrand,
+
+        minter: fxminter,
+        randminter: fxrandminter,
+
+        preview: fxpreview,
+        isPreview: isFxpreview,
+        params: function(definition) {
+          // todo: maybe do some validation on the dev side ?
+          // or maybe not ?
+          this._params = definition
+          this._rawValues = deserializeParams(fxparams, definition)
+          this._paramValues = transformParamValues(this._rawValues, definition)
+        },
+        features: function(features) {
+          this._features = features
+        },
+        getFeature: function(id) {
+          return this._features[id]
+        },
+        getFeatures: function() {
+          return this._features
+        },
+        getParam: function(id) {
+          return this._paramValues[id]
+        },
+        getParams: function() {
+          return this._paramValues
+        },
+        getRawParam: function(id) {
+          return this._rawValues[id]
+        },
+        getRawParams: function() {
+          return this._rawValues
+        },
+        getDefinitions: function() {
+          return this._params;
+        },
+        stringifyParams: function(params) {
+          return JSON.stringify(
+            params,
+            (key, value) => {
+              if (typeof value === "bigint") return value.toString()
+              return value
+            }, 
+            2,
+          )
+        }
+        
+      }
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getInfo") {
+          parent.postMessage({
+            id: "fxhash_getInfo",
+            data: { 
+              version: window.$fx._version,
+              hash: window.$fx.hash,
+              features: window.$fx.getFeatures(),
+              params: {
+                definitions: window.$fx.getDefinitions(),
+                values: window.$fx.getRawParams(),
+              },
+              minter: window.$fx.minter,
+            },
+          }, "*")
+        }
+      })
+      // END NEW
+
+      //---- /do not edit the following code
+</script>
+<link rel="stylesheet" href="./style.css">
+<script src="p5.js"></script>
+<script src="sketch.js"></script>
+
+</head>
+<body>
+
+
+<script>
+palettes = [
+  ['#C38154', '#332115', '#F4D160', '#FBEEAC', '#EAC696'],
+  ['#AD9D9D', '#2b2727', '#fce8ea', '#FFD2D7', '#D8D9DA'],
+  ['#CD5D7D', '#361820', '#fcf2dc', '#FFE5AD', '#C1A3A3'],
+  ['#829460', '#282e1d', '#fcfbe3', '#F2EE9D', '#6D8B74'],
+  ['#A7727D', '#332326', '#FFF5E1', '#FFBD35', '#435B66'],
+  ['#CCD5AE', '#31332a', '#F8F1F1', '#E8AA42', '#61876E'],
+  ['#3A98B9', '#112c36', '#fceded', '#EF6262', '#164B60'],
+  ['#3A98B9', '#112c36', '#FAE392', '#F1C93B', '#164B60'],
+  ['#CBE4DE', '#2E4F4F', '#F4F2DE', '#E9B384', '#78C1F3'],
+  ['#A2D5F2', '#1e272b', '#FBEEAC', '#F4D160', '#146C94'],
+  ['#F56FAD', '#2e1521', '#FFEAEA', '#F5C6EC', '#460C68'],
+  ['#00A1AB', '#01292b', '#ffeceb', '#F24C3D', '#133b4f'],
+  ['#00A1AB', '#01292b', '#fcebd2', '#F1C27B', '#133b4f'],
+  ['#00A1AB', '#01292b', '#4f4f4f', '#F1C93B', '#222222'],
+  ['#F5C7A9', '#382e27', '#def0fc', '#579BB1', '#6C3428'],
+  ['#FFA41B', '#261904', '#FBEEAC', '#C51605', '#222222'],
+  ['#FFA41B', '#261904', '#FBEEAC', '#DF2E38', '#222222'],
+  ['#A47E3B', '#2e2310', '#FAF8F1', '#FAEAB1', '#4F200D'],
+  ['#FF0000', '#2b0000', '#FFF6C3', '#F2BE22', '#222222'],
+  ['#FF0000', '#2b0000', '#404040', '#EEEEEE', '#222222'],
+  ['#F8CB2E', '#2e2508', '#F3E99F', '#98D8AA', '#4C4B16'],
+  ['#F8CB2E', '#2e2508', '#CDE990', '#AACB73', '#4C4B16'],
+  ['#d4c7cf', '#363234', '#394867', '#F1F6F9', '#393646'],
+  ['#d4c7cf', '#363234', '#8294C4', '#f0f0f0', '#292733'],
+  ['#CD113B', '#2e030d', '#FBEEAC', '#F4D160', '#fa6666'],
+  ['#678983', '#232e2c', '#FBEEAC', '#F4D160', '#222222'],
+  ['#678983', '#232e2c', '#E4DCCF', '#F0EBE3', '#222222'],
+  ['#749F82', '#212e25', '#F2DEBA', '#FFEFD6', '#AAC8A7'],
+  ['#749F82', '#212e25', '#F2DEBA', '#FFC95F', '#AAC8A7'],
+  ['#FF6F3C', '#36170c', '#FBEEAC', '#F4D160', '#dbdba2'],
+  ['#FF6F3C', '#36170c', '#454545', '#FFE6C7', '#222222'],
+  ['#FB2576', '#38071a', '#690034', '#FFE5AD', '#fcf2dc'],
+  ['#FB2576', '#38071a', '#413F42', '#FFEAEA', '#222222'],
+  ['#5800FF', '#140138', '#9E4784', '#D27685', '#301326'],
+  ['#31C6D4', '#0c373b', '#F4F2DE', '#E9B384', '#fbfc92'],
+  ['#1CD6CE', '#083b38', '#FFFDA2', '#FFAB76', '#e86478'],
+  ['#F55353', '#361414', '#FFFDA2', '#BAFFB4', '#D0F5BE'],
+  ['#F55353', '#361414', '#253029', '#66DE93', '#222222'],
+  ['#00AF91', '#003028', '#FFE194', '#FF7000', '#F4D160'],
+  ['#00AF91', '#003028', '#545353', '#ff987d', '#222222'],
+  ['#E27802', '#3b1f01', '#FBEEAC', '#F4D160', '#dbdb81'],
+  ['#E27802', '#3b1f01', '#F0ECCF', '#A3BB98', '#FFD89C'],
+  ['#E27802', '#3b1f01', '#AD8E70', '#FFEBB7', '#2b1d0d'],
+  ['#BD2000', '#330101', '#FBEEAC', '#F4D160', '#222222'],
+  ['#BD2000', '#330101', '#454545', '#D4D925', '#222222'],
+  ['#CDB30C', '#293301', '#F6FFDE', '#FF7B54', '#F2EE9D'],
+  ['#3FA796', '#2A0944', '#FBEEAC', '#F4D160', '#a0b8b3'],
+  ['#3FA796', '#2A0944', '#e3e3e3', '#FFD9C0', '#a0b8b3'],
+  ['#577D86', '#393E46', '#e8fcb3', '#28B5B5', '#deff87'],
+  ['#E49393', '#393E46', '#faead4', '#FFB84C', '#fcd9a9'],
+  ['#B5525C', '#393E46', '#FBEEAC', '#F4D160', '#A76F6F'],
+  ['#B5525C', '#393E46', '#FFF3E2', '#FFE5CA', '#EAB2A0'],
+  ['#537188', '#393E46', '#FFE5B4', '#E8AA42', '#222222'],
+  ['#7A3E3E', '#361b1b', '#ffd8c2', '#F0997D', '#516570'],
+  ['#7A3E3E', '#361b1b', '#FFC3A1', '#F2BE22', '#516570'],
+  ['#47A992', '#112923', '#FBEEAC', '#F29727', '#C4C1A4'],
+  ['#3C486B', '#10121c', '#FBEEAC', '#F4D160', '#7C9D96'],
+  ['#3C486B', '#10121c', '#e6fcf8', '#D8C4B6', '#7C9D96'],
+  ['#3C486B', '#10121c', '#e0faff', '#976bff', '#325e66'],
+  ['#245953', '#091715', '#fce0c2', '#F4D160', '#fcc890'],
+  ['#245953', '#091715', '#ffdbb5', '#dded8e', '#fcc890'],
+  ['#245953', '#091715', '#ffd28a', '#FD841F', '#b9c4c9'],
+  ['#5D3891', '#150c21', '#FBEEAC', '#ffb836', '#fcf0c7'],
+  ['#BD4B4B', '#2e1313', '#FBEEAC', '#F4D160', '#fad182'],
+  ['#BD4B4B', '#2e1313', '#F2DEBA', '#4E6C50', '#fad182'],
+  ['#02475E', '#001b24', '#FBEEAC', '#F9D949', '#b3c4c7'],
+  ['#02475E', '#001b24', '#E2F6CA', '#A2FF86', '#bbc9b5'],
+  ['#02475E', '#001b24', '#3d3d3d', '#d4d4d4', '#222222'],
+  ['#541212', '#140202', '#FBEEAC', '#F4D160', '#e3d5a8'],
+  ['#541212', '#140202', '#FFC95F', '#B5C99A', '#e6e691'],
+  ['#541212', '#140202', '#2e2e2e', '#DFD8CA', '#222222'],
+  ['#787777', '#111111', '#FBEEAC', '#F4D160', '#C4C1A4'],
+  ['#787777', '#111111', '#E5DCC3', '#FBD85D', '#fade7d'],
+  ['#787777', '#111111', '#3d3d3d', '#e0e0e0', '#222222'],
+];
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(fxrand() * (max - min + 1) + min);
+}  
+  function getRndInt(dimension, minimalValue = 0) {
+  return minimalValue + parseInt(fxrand() * dimension, 10);
+}
+function randomRange(min, max) {
+  let cal = (fxrand() * (max - min) + min);
+  return cal;
+}
+function getColName(value){
+  if (value == '#EAC696') return "Putty";
+  else if(value == '#D8D9DA') return "Iron";
+  else if(value == '#C1A3A3') return "Thatch";
+  else if(value == '#6D8B74') return "Viridian Green";
+  else if(value == '#435B66') return "Fiord";
+  else if(value == '#61876E') return "Viridian Green";
+  else if(value == '#164B60') return "Chathams Blue";
+  else if(value == '#78C1F3') return "Malibu";
+  else if(value == '#146C94') return "Matisse";
+  else if(value == '#460C68') return "Violent Violet";
+  else if(value == '#133b4f') return "Elephant";
+  else if(value == '#6C3428') return "Irish Coffee";
+  else if(value == '#4F200D') return "Van Cleef";
+  else if(value == '#4C4B16') return "Punga";
+  else if(value == '#393646') return "Tuna";
+  else if(value == '#292733') return "Charade";
+  else if(value == '#fa6666') return "Carnation";
+  else if(value == '#AAC8A7') return "Spring Rain";
+  else if(value == '#dbdba2') return "Sapling";
+  else if(value == '#fcf2dc') return "Pearl Lusta";
+  else if(value == '#301326') return "Tamarind";
+  else if(value == '#fbfc92') return "Dolly";
+  else if(value == '#e86478') return "Mandy";
+  else if(value == '#D0F5BE') return "Gossip";
+  else if(value == '#F4D160') return "Cream Can";
+  else if(value == '#dbdb81') return "Zombie";
+  else if(value == '#FFD89C') return "Peach Orange";
+  else if(value == '#2b1d0d') return "Onion";
+  else if(value == '#F2EE9D') return "Sandwisp";
+  else if(value == '#a0b8b3') return "Tower Gray";
+  else if(value == '#deff87') return "Honeysuckle";
+  else if(value == '#fcd9a9') return "Light Apricot";
+  else if(value == '#A76F6F') return "Coral Tree";
+  else if(value == '#EAB2A0') return "Zinnwaldite";
+  else if(value == '#516570') return "Cutty Sark";
+  else if(value == '#C4C1A4') return "Coral Reef";
+  else if(value == '#7C9D96') return "Sea Nymph";
+  else if(value == '#325e66') return "Casal";
+  else if(value == '#fcc890') return "Chardonnay";
+  else if(value == '#b9c4c9') return "Submarine";
+  else if(value == '#fcf0c7') return "Double Pearl Lusta";
+  else if(value == '#fad182') return "Salomie";
+  else if(value == '#b3c4c7') return "Submarine";
+  else if(value == '#bbc9b5') return "Clay Ash";
+  else if(value == '#e3d5a8') return "Hampton";
+  else if(value == '#e6e691') return "Zombie";
+  else if(value == '#fade7d') return "Marigold Yellow";
+  else return "Dark";
+}
+const getRndPalette = () => fxrand() >= 0.5;
+const reverseLight = getRndPalette();
+const coloridx = getRndInt(palettes.length);
+if(reverseLight){
+  col2 = palettes[coloridx][0];
+  col3 = palettes[coloridx][1];
+}
+else {
+  col2 = palettes[coloridx][1];
+  col3 = palettes[coloridx][0];
+}
+col1 = palettes[coloridx][2];
+col4 = palettes[coloridx][3];
+const getRndBackCol = () => fxrand() >= 0.5;
+const rndBackCol = getRndBackCol();
+if(rndBackCol){
+  backCol = palettes[coloridx][4];
+}
+else {
+  backCol = '#222222';
+}
+const changeScl = fxrand();
+var celSize;
+var dnsMax = 0;
+var grSize = 0;
+var diverse_scales = false;
+if(changeScl >= 0.75){
+  if(fxrand() > 0.5){
+    celSize = [100, 200, 300];
+    diverse_scales = true;
+  }
+  else{
+  celSize = [100];
+  }
+  dnsMax = randomRange(5, 30);
+  grSize = 100;
+}
+else if(changeScl < 0.75 && changeScl >= 0.5){
+  if(fxrand() > 0.5){
+    celSize = [200, 300, 400];
+    diverse_scales = true;
+  }
+  else{
+  celSize = [200];
+  }
+  dnsMax = randomRange(5, 30);
+  grSize = 200;
+}
+else if(changeScl < 0.5 && changeScl >= 0.25){
+  if(fxrand() > 0.5){
+    celSize = [300, 400, 500];
+    diverse_scales = true;
+  }
+  else{
+  celSize = [300];
+  }
+  dnsMax = randomRange(5, 20);
+  grSize = 300;
+}
+else {
+  if(fxrand() > 0.5){
+    celSize = [400, 600];
+    diverse_scales = true;
+  }
+  else{
+  celSize = [400];
+  }
+  dnsMax = randomRange(5, 10);
+  grSize = 400;
+}
+function getCelSize(value){
+  if(value < 0.8) return "Small";
+  else if(value >= 0.8 && value < 1.3) return "Medium";
+  else return "Big";
+}
+function getDNS(value){
+  if(value < 10) return "High";
+  else if(value >=10 && value < 20) return "Medium";
+  else return "Low";
+}
+function getLightDir(value){
+  if(value) return "Right";
+  else return "Left";
+}
+$fx.features({
+  'Hex Grid Size': grSize+'px',
+  'Diverse Scales': diverse_scales,
+  'Cell Size': getCelSize(celSize),
+  'Density': getDNS(dnsMax),
+  'Light Direction': getLightDir(reverseLight),
+  'Background': getColName(backCol),
+  'Main Colors': col2+' '+col3,
+})
+</script>    
+  <script defer src="./bundle.js"></script></body>
+</html>
+      
+      

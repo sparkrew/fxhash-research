@@ -1,0 +1,25 @@
+body {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #333;
+	background-repeat: no-repeat;
+    background-size: cover;
+}
+
+canvas {
+	background-color: #333;
+	/*box-shadow: 0px 0px 18px 8px #555;*/
+}
+
+
+#p5_loading {
+	color: #777;
+	font-family: 'tahoma';
+	letter-spacing: 4px;
+}

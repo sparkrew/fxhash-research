@@ -1,0 +1,4 @@
+id: 26518
+name: HERE & NOW PORTALS
+mint_opens_at: 2023-04-07T20:40:26+00:00
+generative_uri: ipfs://QmW815Vk5WFptQwBjVVhgqraySHVXajUP4jNaNphuk2RVy

@@ -1,0 +1,4 @@
+id: 26505
+name: GEODECA
+mint_opens_at: 2023-04-21T18:30:00+00:00
+generative_uri: ipfs://QmbEJtBuyhKV93oKmT45PD65vWtKcJv7NGWhchgzdzhTG6

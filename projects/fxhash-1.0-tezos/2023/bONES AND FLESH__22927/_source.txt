@@ -1,0 +1,4 @@
+id: 22927
+name: bONES AND FLESH
+mint_opens_at: 2023-01-01T04:00:00+00:00
+generative_uri: ipfs://QmcGp87v5ffUzyfteWctFcku38PWCBg9w9UZmCBbcAuP5E

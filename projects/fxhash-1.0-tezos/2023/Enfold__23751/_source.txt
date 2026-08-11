@@ -1,0 +1,4 @@
+id: 23751
+name: Enfold
+mint_opens_at: 2023-01-15T14:47:29+00:00
+generative_uri: ipfs://QmQ15dgRpuum23fggVvBYi7CgwQ7RxpoM2FLsJn1DC8iXo

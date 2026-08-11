@@ -1,0 +1,4 @@
+id: 29313
+name: Cosmogony of Thetarion Fractals
+mint_opens_at: 2023-10-27T17:00:00+00:00
+generative_uri: ipfs://QmPkJTkuQd7NRCywuV6TZ4qQJgHRoJN1p21F1MqBQm749z

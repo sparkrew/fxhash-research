@@ -1,0 +1,4 @@
+id: 25099
+name: Disk
+mint_opens_at: 2023-02-14T12:56:44+00:00
+generative_uri: ipfs://QmeQPN3qtydDKGN8NdasZ9HTt5no5Q1PuUQoYSkhEAAcnz

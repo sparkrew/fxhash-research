@@ -1,0 +1,4 @@
+id: 26274
+name: Code of Pixelated Dreams 
+mint_opens_at: 2023-03-27T17:25:00+00:00
+generative_uri: ipfs://QmdKKPgcb2P44ZXMZwmfkhgKu4eBBAuSgyZyoSZSuT6riW

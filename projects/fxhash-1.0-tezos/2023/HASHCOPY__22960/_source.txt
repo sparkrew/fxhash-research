@@ -1,0 +1,4 @@
+id: 22960
+name: HASHCOPY
+mint_opens_at: 2023-01-01T15:24:29+00:00
+generative_uri: ipfs://QmRNdWTMUPUeLJjmsxJgRayamizH9WJLzMvkFEMYN6kyjq

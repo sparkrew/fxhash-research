@@ -1,0 +1,4 @@
+id: 29533
+name: Generative Virus
+mint_opens_at: 2023-11-27T10:16:22+00:00
+generative_uri: ipfs://QmSggGukRHLWwe8m3tMuF6d5aYFLXrYSDvaR8m1kLAiiRe

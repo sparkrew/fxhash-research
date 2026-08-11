@@ -1,0 +1,4 @@
+id: 24971
+name: Crypto Words
+mint_opens_at: 2023-02-10T20:00:00+00:00
+generative_uri: ipfs://QmVU8xMqvtYZ4kWuHRyBB9dAVxiF3pL3ed9ec2qEM2jQrp

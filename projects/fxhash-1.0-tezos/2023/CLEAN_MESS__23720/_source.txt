@@ -1,0 +1,4 @@
+id: 23720
+name: CLEAN:MESS
+mint_opens_at: 2023-01-15T05:00:00+00:00
+generative_uri: ipfs://QmRdMvwSFCdWFAQzbaWTWHGVeUjQ38uGaLruwNo656Vdeu

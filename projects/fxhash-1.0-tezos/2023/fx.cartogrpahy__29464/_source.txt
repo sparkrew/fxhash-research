@@ -1,0 +1,4 @@
+id: 29464
+name: fx.cartogrpahy
+mint_opens_at: 2023-11-17T17:30:00+00:00
+generative_uri: ipfs://QmcmuK8PqMgWgk8LcozTj9NqVM2F5UBkhzWPRp8ag5i3BE

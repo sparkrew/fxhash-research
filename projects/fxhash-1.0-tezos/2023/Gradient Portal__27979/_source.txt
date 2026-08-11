@@ -1,0 +1,4 @@
+id: 27979
+name: Gradient Portal
+mint_opens_at: 2023-07-07T23:00:00+00:00
+generative_uri: ipfs://QmWRZrHgiQVhZxSnd3Wu98ca1nBxc3aqithqioRDtdmCS3

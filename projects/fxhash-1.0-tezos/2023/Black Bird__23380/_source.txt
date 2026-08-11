@@ -1,0 +1,4 @@
+id: 23380
+name: Black Bird
+mint_opens_at: 2023-01-08T19:10:00+00:00
+generative_uri: ipfs://QmPmzikq19EsJSRqtBtBprExysKsueRRSHjSquX6Br2uys

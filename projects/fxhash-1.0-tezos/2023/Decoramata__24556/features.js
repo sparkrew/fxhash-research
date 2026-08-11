@@ -1,0 +1,1 @@
+function ff(e,o,t,l,i){window.$fxhashFeatures={"1 - Cell Width":e,"2 - Cell Decoration":o?t?"Type A":"Type B":t?"Type C":"Type D","3 - Rustic":l?"Yes":"No","4 - Colors":i==BLEND?"Soft":"Hard"}}window.$fxhashFeatures={"1 - Cell Width":10,"2 - Cell Decoration":"Type A","3 - Rustic":"No","4 - Colors":"Soft"};

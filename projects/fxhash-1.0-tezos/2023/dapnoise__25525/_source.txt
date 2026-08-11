@@ -1,0 +1,4 @@
+id: 25525
+name: dapnoise
+mint_opens_at: 2023-02-27T18:20:00+00:00
+generative_uri: ipfs://QmS18Wcdn3YmzRUpyZ1hwdxwi32Hwyd279yo4V91TLJ7UP

@@ -1,0 +1,4 @@
+id: 26476
+name: Arts of Chet Minimalism 12
+mint_opens_at: 2023-04-05T20:36:00+00:00
+generative_uri: ipfs://QmQ3ig2CuqHHRAVQ1nW6dEq3CYB8iJNNqqn22KNVPz91JJ

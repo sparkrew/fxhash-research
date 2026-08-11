@@ -1,0 +1,4 @@
+id: 29867
+name: ephemeral
+mint_opens_at: 2023-12-29T12:00:00+00:00
+generative_uri: ipfs://QmVFTkChmVv9iruxBU6khs888Ws9QUuEViCvQdJfkj4Lfa

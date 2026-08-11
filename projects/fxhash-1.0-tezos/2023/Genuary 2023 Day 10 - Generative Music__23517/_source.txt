@@ -1,0 +1,4 @@
+id: 23517
+name: Genuary 2023 Day 10 - Generative Music
+mint_opens_at: 2023-01-11T00:35:44+00:00
+generative_uri: ipfs://QmZtbj32kZxDfaGmvkPDu8hkWNAKKqLLmYiFtpbzcM4n7z

@@ -1,0 +1,1 @@
+import("./index.js").catch((r=>console.error("Error importing `index.js`:",r)));

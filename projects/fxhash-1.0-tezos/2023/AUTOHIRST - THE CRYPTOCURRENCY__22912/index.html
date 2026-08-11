@@ -1,0 +1,206 @@
+<!doctype html><html><head><title>FXHASH project</title><meta charset="utf-8"><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script><link rel="stylesheet" href="./style.css"><script src="p5.min.js"></script><script src="sketch.js"></script></head><body><p id="sentence" style="font-family: 'Brush Script MT', Brush Script Std, cursive" ;></p><script>// AUTOHIRST - THE CRYPTOCURRENCY is a generative
+// art project that uses code and blockchain technology to 
+// create artworks that explore the relationship between value, 
+// wealth, and art. This project is inspired by a well-known artist
+// who has addressed similar themes in their work, but aims to offer a
+// fresh and innovative perspective on these themes through the use of 
+// generative art technology.
+
+// By using code and algorithms to create these artworks,
+// unique and original pieces are created that are not bound 
+// by the limitations of traditional media. In contrast to some 
+// traditional art practices, which can sometimes rely entirely on 
+// the labor of others to create large pieces or collections of art, 
+// these automated artworks are created entirely by code, requiring no 
+// human intervention. This approach allows for a commentary on the 
+// hypocrisy of wealthy artists who profit from NFT technology while 
+// continuing to rely on the labor of others to create their art in this 
+// ecosystem. This goes against the spirit of Web 3, which aims to empower 
+// individuals and decentralize power. Many wealthy artists take advantage 
+// of lesser known artists in different ways, and this collection is a 
+// challenge to traditional power structures and encourages viewers to think 
+// critically about the value systems that shape our society and the future of 
+// the digital art space.
+
+// The project generates an image over the span of 60 seconds. 
+// As the end of the 60 seconds approaches, the code becomes increasingly 
+// specific about the points it plots until it finishes the piece at the 
+// 60-second mark.
+
+// AUTOHIRST - THE CRYPTOCURRENCY, also uses a random phrase generator 
+// to create a unique phrase for the title of each piece.  This random phrase 
+// generator uses randomness proivided by the fxrand function so each piece always 
+// has a unique title paired with it, or a "seed phrase" if you will...
+
+// The main purpose of the random phrase generator in this project is to inspire 
+// thoughts and ideas based on the mainly crypto-related phrases it generates. 
+// By providing a diverse range of phrases, the generator encourages users to think 
+// creatively and come up with new ideas that are related to the world of cryptocurrency.
+// In addition to inspiring creative and innovative ideas, the random phrase generator 
+// in this project also aims to inject a bit of humor into the mix. The generator generates 
+// a wide range of phrases that are often comical or absurd, which can be a great 
+// source of entertainment and enjoyment.
+
+// To use the generator in your own projects, simply include the code in your project
+// and call the generator function whenever you want to generate a new phrase. You can 
+// customize the generator by adding your own lists of words or phrases to use as input, 
+// or by modifying the generator function to suit your specific needs.
+
+//Attribution-NonCommercial 4.0 International License
+
+// Code + Artwork Copyright (c) 2022 "AUTOHIRST" 
+// https://www.fxhash.xyz/u/autohirst
+// https://twitter.com/AUTOHlRST
+
+
+window.onload = function() {
+    generateSentence();
+  }
+  
+    // Array of adjectives
+    var adjectives = [
+        "adorable", "adventurous", "aggressive", "agreeable", "alert",
+        "amused", "angry", "annoyed", "annoying", "anxious", "arrogant", "ashamed",
+        "attractive", "average", "awful", "bad", "beautiful", "better", "bewildered",
+        "bloody", "blue", "blue-eyed", "blushing", "bored", "brainy", "brave","worthless",
+        "breakable", "bright", "busy", "calm", "careful", "cautious", "charming",
+        "cheerful", "clean", "clear", "clever", "cloudy", "clumsy", "colorful",
+        "combative", "comfortable", "concerned", "condemned", "confused", "cooperative",
+        "courageous", "crazy", "creepy", "crowded", "cruel", "curious", "cute",
+        "dangerous", "dark", "dead", "defeated", "defiant", "delightful", "depressed",
+        "determined", "different", "difficult", "disgusted", "distinct", "disturbed",
+        "dizzy", "doubtful", "drab", "dull", "talented", "tame", "tasty", "tender",
+        "tense", "terrible", "thankful", "thoughtful", "thoughtless", "tired",
+        "tough", "troubled", "ugliest", "ugly", "uninterested", "unsightly", 
+        "unusual", "upset", "uptight", "vast", "victorious", "vivacious", 
+        "wandering", "weary", "wicked", "wide-eyed", "wild", "witty", "worried",
+        "worrisome", "wrong", "zany", "zealous", "eager", "easy", "elated",
+        "elegant", "embarrassed", "enchanting", "encouraging", "energetic", 
+        "enthusiastic", "envious", "evil", "excited", "expensive", "exuberant",
+        "fair", "faithful", "famous", "fancy", "fantastic", "fierce", 
+        "filthy", "fine", "foolish", "fragile", "frail", "frantic", "friendly",
+        "frightened", "funny", "gentle", "gifted", "glamorous", "gleaming",
+        "glorious", "good", "gorgeous", "graceful", "grieving", "grotesque",
+        "grumpy", "handsome", "happy", "healthy", "helpful", "helpless",
+        "hilarious", "homeless", "homely", "horrible", "hungry", "hurt",
+        "ill", "important", "impossible", "inexpensive", "innocent", 
+        "inquisitive", "itchy", "jealous", "jittery", "jolly", "joyous",
+        "kind", "lazy", "light", "lively", "lonely", "long", "lovely", 
+        "lucky", "magnificent", "misty", "modern", "motionless", "muddy",
+        "mushy", "mysterious", "nasty", "naughty", "nervous", "nice", 
+        "nutty", "obedient", "obnoxious", "odd", "old-fashioned", "open","dissaffected",
+        "outrageous", "outstanding", "panicky", "perfect", "plain",
+        "pleasant", "poised", "poor", "powerful", "precious", "prickly",
+        "proud", "putrid", "puzzled", "quaint", "real", "relieved",
+        "repulsive", "rich", "scary", "selfish", "shiny", "shy", "silly",
+        "sleepy", "smiling", "smoggy", "sore", "sparkling", "splendid",
+        "spotless", "stormy", "strange", "stupid", "successful", "super"
+    ];
+  
+    // Array of crypto and NFT-related nouns
+    var nouns1 = [
+        "bitcoin", "ethereum", "cryptocurrency", "wallet", "mining",
+        "smart contract", "ERC-20 token", "NFT", "non-fungible token", "crypto art",
+        "digital collectible", "crypto asset", "crypto game", "decentralized finance",
+        "DeFi", "ledger", "hash", "private key", "public key",
+        "signature", "mining rig", "gas", "dapp", 
+        "airdrop", "fork", "halving", "HODL", "sharding", "segWit",  
+        "digital dweeb", "nft weirdo", "digital doofus", "crypto clown",
+        "nft nitwit", "ethereal eccentric","pixelated prankster", "digital dingbat",
+        "crypto klutz",  "nft nutter", "crypto clod",  "nft nitwit", "nft nonsense",
+        "digital absurdity",  "crypto craziness", "public", 
+        "dickbutt", "nft nuttiness", "digital dimwittedness", 
+        "cyber bully", "village idiot", "nft numbskull", "digital dummy", 
+        "blockchain bumblebee", "crypto clumsy clod", "virtual vaudeville clown", 
+        "nft nincompoop", "digital dimwit", "defi doofus", "shitcoin simpleton",
+        "masternode", "staking", "cash", "currency",
+        "bills", "change", "payment", "transaction", "credit", "debit", "bank", 
+        "atm", "investment", "stock", "bond", "mutual fund", "401(k)", "pension", 
+        "annuity", "dividend", "interest", "capital", "profit", "loss", "expense", 
+        "income", "salary", "wages", "tip", "commission", "bonus", "raise", "promotions", 
+        "allowance", "salary increase", "income tax", "social security", "medicare", "medicaid", 
+        "unemployment insurance", "disability insurance", "health insurance", "life insurance", 
+        "car insurance", "homeowners insurance", "rent", "mortgage", "property tax", 
+        "utility bill", "credit card","liquidity pool",  "governance token","asymmetric", 
+        "symmetric", "DAO", "DEX", "CEX", "fraud", "scam", "investment fraud",  "phishing",  
+        "embezzlement", "money laundering", "financial fraud", "securities fraud", 
+        "credit card fraud", "identity theft", "cybercrime", "consumer fraud", "loan fraud", 
+        "mortgage fraud", "bank fraud", "wire fraud", "charity fraud","SBF", "satoshi nakamoto", " satoshi", ];
+    var nouns2 = ["network","decentralized autonomous organization",
+        "consensus algorithm","ponzi scheme","pyramid scheme","insider trading",  
+        "decentralized exchange", "DAO", "ICO", "IPO", "proof of work",
+        "coins", "proof of stake", "yield farming","blockchain buffoonery",
+        "blockchain","blockchain booby","blockchain blooper","goblin",
+        "crypto kook","virtual vaudevillian","virtual goofball",
+        "cipher", "cryptography", "encryption", "decryption", "algorithm", 
+        "certificate", "exchange","tech invasion", "hustle porn",
+        "technological takeover", "cyber domination", "virtual victory",
+        "tech supremacy", "technological rule", "cyber empire", 
+        "virtual realm", "technological realm", "cyber realm", "virtual world", "tech world","technological world", "cyber world", "virtual universe", "tech universe", 
+        "management", "generation", "storage", "recovery", 
+        "escrow", "revocation", "infrastructure", "distribution center", "server", "pair",
+        "archive", "database", "backup", "recovery agent", "escrow agent", 
+        "generation center", "management system", "life cycle", 
+        "distribution protocol", "generation protocol", "agreement protocol",
+        "exchange protocol", "management protocol", "recovery protocol", 
+        "unwrapping", 
+        "verification", "fingerprint", "signature",  "identifier"];
+
+    function generateSentence() {
+      if (fxrand() <= 0.5){
+
+    let adjective = adjectives[Math.floor(fxrand() * adjectives.length)];
+    let noun1 = nouns1[Math.floor(fxrand() * nouns1.length)];
+    let noun2 = nouns2[Math.floor(fxrand() * nouns2.length)];
+  
+    let sentence = `"${adjective} ${noun1} ${noun2}"`;
+  
+
+    document.getElementById('sentence').innerHTML = sentence;
+  
+    return sentence;}
+
+    else{ let adjective = adjectives[Math.floor(fxrand() * adjectives.length)];
+    let noun1 = nouns1[Math.floor(fxrand() * nouns1.length)];
+    let noun2 = nouns2[Math.floor(fxrand() * nouns2.length)];
+  
+    let sentence = `"${noun1} ${noun2}"`;
+  
+    document.getElementById('sentence').innerHTML = sentence;
+  
+    return sentence;}
+  }</script><script defer="defer" src="./bundle.js"></script></body></html>

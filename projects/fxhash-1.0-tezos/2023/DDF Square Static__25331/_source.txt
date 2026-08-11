@@ -1,0 +1,4 @@
+id: 25331
+name: DDF Square Static
+mint_opens_at: 2023-02-21T22:00:59+00:00
+generative_uri: ipfs://QmaWtaF9PiKBisf24VemdQwAX2oTUNFkiiBF4QwYwNqmt5

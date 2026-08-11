@@ -1,0 +1,4 @@
+id: 29898
+name: First Mint Art 2024
+mint_opens_at: 2023-12-31T17:00:00+00:00
+generative_uri: ipfs://QmR98rV3tx7895DC5nJYEzejV5LsbWSLAVsrUn5W4DpLiQ

@@ -1,0 +1,4 @@
+id: 28400
+name: H#2Y#M
+mint_opens_at: 2023-08-07T15:00:00+00:00
+generative_uri: ipfs://QmZTV6YtaHi7Jrw8po4u8Ceheg9quNUmTjPR7nnbZhWRja

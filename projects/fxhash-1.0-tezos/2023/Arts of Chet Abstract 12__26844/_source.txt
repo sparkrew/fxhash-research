@@ -1,0 +1,4 @@
+id: 26844
+name: Arts of Chet Abstract 12
+mint_opens_at: 2023-04-25T01:47:03+00:00
+generative_uri: ipfs://QmWmpostkPJCbgAjzkMsYDUZJjJ7faAmftMePgUrryLB45

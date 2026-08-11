@@ -1,0 +1,4 @@
+id: 22977
+name: Circumscript
+mint_opens_at: 2023-01-01T21:00:00+00:00
+generative_uri: ipfs://QmeTZX2tCBB9K2cxZFTRgkqxYz1pHiQsNdyuec4tvHbBY9

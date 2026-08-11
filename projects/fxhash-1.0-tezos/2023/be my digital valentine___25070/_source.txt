@@ -1,0 +1,4 @@
+id: 25070
+name: be my digital valentine?
+mint_opens_at: 2023-02-13T23:00:00+00:00
+generative_uri: ipfs://QmcJMYrKM9q5pmH5bDYoi3g8ELBFVr1r4aN16wXofg9ZVh

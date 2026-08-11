@@ -1,0 +1,4 @@
+id: 26760
+name: Bamboo Jungle
+mint_opens_at: 2023-04-20T05:21:37+00:00
+generative_uri: ipfs://QmTSnNTtPj5dsaYpupydqT7XXFqPg7mRTQHfbjZFBxfycV

@@ -1,0 +1,4 @@
+id: 29609
+name: Gate
+mint_opens_at: 2023-12-04T00:34:00+00:00
+generative_uri: ipfs://QmNXHKL2kZaae4NKJ84B9A6SZpb3gkeoq9T6FvPHPSHwvp

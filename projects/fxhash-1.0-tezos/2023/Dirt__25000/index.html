@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      //------------------------------------------------------------------------
+      // The copyright is on me. If you want to do anything with my work,
+      // you can contact me through Twitter:
+      // https://twitter.com/dashdashjona
+      //
+      // The perlin noise code comes from p5js, license:
+      // https://p5js.org/copyright.html
+      //------------------------------------------------------------------------
+    </script>
+    <title>Dirt by --jona</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main>
+      <canvas id='cnv'></canvas>
+      <div class="loading">[Loading...]</div>
+      <div id='help' class='help'>
+        <h1>[H]ints... [H]ello... [H]elp</h1>
+        <p><i>[H] is a great letter, you can use it to say 'Hi',
+          <br> to call for 'Help',
+          or to open this Hints screen.</i>
+        </p>
+        <br>
+        
+        <div>Press <b>[spacebar]</b> to pause or restart the animation.</div>
+        <div>Press <b>[s]</b> to save a png image at the current canvas size.</div>
+        
+        <br>
+        <div>Press <b>[h]</b> to close this screen.</div>
+      </div>
+    </main>
+  </body>
+  <script src="./noise.js"></script>
+  <script src="./entities.js"></script>
+  <script src="./index.js"></script>
+</html>

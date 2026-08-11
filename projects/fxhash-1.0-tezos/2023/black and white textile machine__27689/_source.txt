@@ -1,0 +1,4 @@
+id: 27689
+name: black and white textile machine
+mint_opens_at: 2023-06-19T15:00:00+00:00
+generative_uri: ipfs://QmPk8JLodKnEqTHAYRqyKW6g8VVsvFdtoCYoe1Mk9QMt2Q

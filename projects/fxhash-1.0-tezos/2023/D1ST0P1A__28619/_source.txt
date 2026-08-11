@@ -1,0 +1,4 @@
+id: 28619
+name: D1ST0P1A
+mint_opens_at: 2023-08-23T21:00:00+00:00
+generative_uri: ipfs://QmfPgkAU9gJJeCs1NPEBn3gEK43fDcJ5z6Rq4TqPgq5zHW

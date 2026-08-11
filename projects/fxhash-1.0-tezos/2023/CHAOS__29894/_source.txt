@@ -1,0 +1,4 @@
+id: 29894
+name: CHAOS
+mint_opens_at: 2023-12-30T13:00:00+00:00
+generative_uri: ipfs://QmNtPHypvUYGpiXK4bfMkbwryfQN886zuBL6iLW2XYDDZX

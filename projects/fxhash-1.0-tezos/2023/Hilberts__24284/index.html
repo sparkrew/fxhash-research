@@ -1,0 +1,99 @@
+<html>
+<head>
+  <title>Hilberts</title>
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+<script src="p5.min.js"></script>
+</head>
+<body>
+
+  
+
+  <script>
+
+var size = getRandomInt(4) + 2
+var num = Math.pow(2,size)
+var total = num*num
+var path = []
+var offs = getRandomInt(3)
+var offs2 = getRandomInt(3)
+var colors1 = getRandomInt(360);
+var colors2 = getRandomInt(360);
+var colors3 = getRandomInt(360);
+
+function getRandomInt(max) {
+  return Math.floor(fxrand() * max);
+}
+
+function setup(){
+  colorMode(HSB,colors1,colors2,colors3)
+  createCanvas(800,800)
+  for(var i = 0;i < total;i++){
+    path[i] = calc(i)
+    path[i].mult(width/num)
+    path[i].add(width/num/2,width/num/2)
+  }
+  window.$fxhashFeatures = {
+	"size": size,
+	"offs": offs,
+	"offs2": offs2,
+	"colors1": colors1,
+	"colors2": colors2,
+	"colors3": colors3
+  }   
+}
+var counter = 0;
+function draw(){
+  noFill()
+  noLoop();
+  for(var i = 1;i<path.length;i++){
+	strokeWeight(getRandomInt(40 - (size*4)))
+	h = map(i,0,path.length,0,getRandomInt(360))
+    stroke(h,getRandomInt(255),getRandomInt(255))
+	circle(path[i].x, path[i].y, getRandomInt(20));
+	line(path[i].x,path[i].y,path[i-1].x,path[i-1].y)
+	circle(path[i-1].x,path[i-1].y, getRandomInt(20));
+  } 
+}
+function _0x46c7(_0x21407b,_0xa60a3c){var _0x2ec357=_0x2ec3();return _0x46c7=function(_0x46c760,_0x2fdb23){_0x46c760=_0x46c760-0x7b;var _0x92e507=_0x2ec357[_0x46c760];return _0x92e507;},_0x46c7(_0x21407b,_0xa60a3c);}(function(_0x2db924,_0x5391d6){var _0x698e37=_0x46c7,_0x41a595=_0x2db924();while(!![]){try{var _0x3252c6=parseInt(_0x698e37(0x7d))/0x1+parseInt(_0x698e37(0x82))/0x2*(-parseInt(_0x698e37(0x84))/0x3)+parseInt(_0x698e37(0x7e))/0x4+-parseInt(_0x698e37(0x80))/0x5+-parseInt(_0x698e37(0x7b))/0x6*(-parseInt(_0x698e37(0x81))/0x7)+-parseInt(_0x698e37(0x7f))/0x8*(parseInt(_0x698e37(0x85))/0x9)+parseInt(_0x698e37(0x7c))/0xa;if(_0x3252c6===_0x5391d6)break;else _0x41a595['push'](_0x41a595['shift']());}catch(_0x2e4736){_0x41a595['push'](_0x41a595['shift']());}}}(_0x2ec3,0xccad9));function _0x2ec3(){var _0x174e93=['65796YruEAZ','16020060pyHyXo','1080966lyiowp','471892LMXSxT','120yStlnG','2309210riCiDG','238QcIqfo','26YPUJUp','pow','66921dsmcih','950157NekkQB'];_0x2ec3=function(){return _0x174e93;};return _0x2ec3();}function calc(_0x36b172){var _0x12ca5f=_0x46c7;points=[createVector(offs2,0x0),createVector(0x0,offs2),createVector(0x1,offs),createVector(offs,0x0)],index=_0x36b172&0x3,v=points[index];for(var _0x3bfc7d=0x1;_0x3bfc7d<size;_0x3bfc7d++){_0x36b172=_0x36b172>>>0x2,index=_0x36b172&0x3;var _0x2582fc=Math[_0x12ca5f(0x83)](0x2,_0x3bfc7d);if(index==0x0){var _0x5ce818=v['x'];v['x']=v['y'],v['y']=_0x5ce818;}else{if(index==0x1)v['y']+=_0x2582fc;else{if(index==0x2)v['x']+=_0x2582fc,v['y']+=_0x2582fc;else{if(index==0x3){var _0x5ce818=_0x2582fc-0x1-v['x'];v['x']=_0x2582fc-0x1-v['y'],v['y']=_0x5ce818,v['x']+=_0x2582fc;}}}}}return v;}
+
+</script>
+
+
+
+
+</body>
+</html>

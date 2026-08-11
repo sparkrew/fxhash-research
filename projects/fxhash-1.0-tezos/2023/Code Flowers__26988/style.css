@@ -1,0 +1,20 @@
+body {
+	background-color: rgb(44, 44, 44);
+}
+
+#mainCanvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    image-rendering: auto;
+
+    width: 90vmin;
+    height: 90vmin;
+}
+
+img{
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    padding-right: 10px;
+}

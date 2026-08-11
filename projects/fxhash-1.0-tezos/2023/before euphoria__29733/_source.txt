@@ -1,0 +1,4 @@
+id: 29733
+name: before euphoria
+mint_opens_at: 2023-12-14T10:00:00+00:00
+generative_uri: ipfs://QmZj9mrRMj5FG4DZVqJyg4NjLrWdHA5QJMaPspbNBW7k8V

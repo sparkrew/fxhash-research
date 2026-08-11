@@ -1,0 +1,4 @@
+id: 29366
+name: Cubey
+mint_opens_at: 2023-11-01T23:20:29+00:00
+generative_uri: ipfs://Qmc1GJwXXZdZGSE9YgtLWNSxqvPZsBeJAyrBRo2GChBPHS

@@ -1,0 +1,4 @@
+id: 26780
+name: Geofeminia
+mint_opens_at: 2023-04-21T17:30:00+00:00
+generative_uri: ipfs://QmcM1spzPHkmpiErnZnJYAqnNS3cUJtQXcg8rgGvtNiz4c

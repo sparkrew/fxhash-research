@@ -1,0 +1,4 @@
+id: 24348
+name: Empathy
+mint_opens_at: 2023-01-28T18:30:00+00:00
+generative_uri: ipfs://QmWRNfCckQCEiSRdgxEFkFZab5NcMxhe3yTA33pxoy9odr

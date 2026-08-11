@@ -1,0 +1,4 @@
+id: 27230
+name: Get Up
+mint_opens_at: 2023-05-19T07:28:00+00:00
+generative_uri: ipfs://QmNrQHtCx2oxQ7dRZZG4urxNSiKS1TDPfjN6o9CjXKE2aT

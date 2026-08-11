@@ -1,0 +1,4 @@
+id: 25979
+name: Hix love
+mint_opens_at: 2023-03-15T16:37:44+00:00
+generative_uri: ipfs://QmQJmoGgKAiLAiZrhtL6ZdnnbjGgTGoCm4GzYQiLYXmV8T

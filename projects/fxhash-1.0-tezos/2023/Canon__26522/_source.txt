@@ -1,0 +1,4 @@
+id: 26522
+name: Canon
+mint_opens_at: 2023-04-08T12:00:00+00:00
+generative_uri: ipfs://QmW3DqA8CxB9wAGg1MHZNJLPC7U99wYPDs8guHFf6LUe4t

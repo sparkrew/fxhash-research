@@ -1,0 +1,4 @@
+id: 23463
+name: color of ice
+mint_opens_at: 2023-01-10T01:26:14+00:00
+generative_uri: ipfs://QmYwFuWMqAUKFneKUiSXoXy9kRMizh2e27cqwiDEkzqWj2

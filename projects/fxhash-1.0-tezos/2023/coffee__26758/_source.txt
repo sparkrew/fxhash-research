@@ -1,0 +1,4 @@
+id: 26758
+name: coffee
+mint_opens_at: 2023-04-20T14:30:00+00:00
+generative_uri: ipfs://QmPFNNYizy8fYCthsaDRaPNAexLKzckgUccoPbG4Z6V16J

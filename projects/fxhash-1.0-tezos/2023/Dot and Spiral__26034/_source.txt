@@ -1,0 +1,4 @@
+id: 26034
+name: Dot and Spiral
+mint_opens_at: 2023-03-17T23:12:59+00:00
+generative_uri: ipfs://QmRn45KjjSeG4vK37VkHEja6ZS67yKaM2EvpRWb43K53mh

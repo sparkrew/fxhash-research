@@ -1,0 +1,4 @@
+id: 23802
+name: Generative ARTicle
+mint_opens_at: 2023-01-18T15:30:00+00:00
+generative_uri: ipfs://QmZqdDzoQhWiceMBw56hZXrZGeoP5RMkms3u1ZTLPDBysX

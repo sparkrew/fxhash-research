@@ -1,0 +1,4 @@
+id: 26696
+name: Havoc
+mint_opens_at: 2023-04-16T23:08:51+00:00
+generative_uri: ipfs://QmQ7N5e2pHdhebjZ4Q1ZfrbkfMe6yFabYtJEsRxC79RTmU

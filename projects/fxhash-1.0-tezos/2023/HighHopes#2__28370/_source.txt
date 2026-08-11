@@ -1,0 +1,4 @@
+id: 28370
+name: HighHopes#2
+mint_opens_at: 2023-08-04T11:44:25+00:00
+generative_uri: ipfs://QmVY2vbRpVugCS411VkJPcx5pqBTB59Dp71sfLg4HaTu6i

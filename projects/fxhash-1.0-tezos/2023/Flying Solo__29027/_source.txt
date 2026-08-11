@@ -1,0 +1,4 @@
+id: 29027
+name: Flying Solo
+mint_opens_at: 2023-09-28T16:30:00+00:00
+generative_uri: ipfs://QmW6WXMpxRReWQ3Zw6kc8nZzvDrA7GQ5yDYkN148nbeggM

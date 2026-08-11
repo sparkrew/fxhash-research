@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <title>Giant Pepes - art by obxium (2022)</title>
+
+  <head>
+    <script src="./p5.min.js"></script>
+    <script src="./p5.svg.js"></script>
+    <script src="./poline.min.js"></script>
+    <script src="./giant-pepes.js"></script>
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" >
+    <link       rel="apple-touch-icon-precomposed"
+      sizes="57x57"
+      href="apple-touch-icon-57x57.png"
+    >
+    <link       rel="apple-touch-icon-precomposed"
+      sizes="114x114"
+      href="apple-touch-icon-114x114.png"
+    >
+    <link       rel="apple-touch-icon-precomposed"
+      sizes="72x72"
+      href="apple-touch-icon-72x72.png"
+    >
+    <link       rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="apple-touch-icon-144x144.png"
+    >
+    <link       rel="apple-touch-icon-precomposed"
+      sizes="60x60"
+      href="apple-touch-icon-60x60.png"
+    >
+    <link       rel="apple-touch-icon-precomposed"
+      sizes="120x120"
+      href="apple-touch-icon-120x120.png"
+    >
+    <link       rel="apple-touch-icon-precomposed"
+      sizes="76x76"
+      href="apple-touch-icon-76x76.png"
+    >
+    <link       rel="apple-touch-icon-precomposed"
+      sizes="152x152"
+      href="apple-touch-icon-152x152.png"
+    >
+    <link       rel="icon"
+      type="image/png"
+      href="favicon-196x196.png"
+      sizes="196x196"
+    >
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" >
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" >
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" >
+    <link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" >
+    <meta charset="utf-8" >
+    <meta name="application-name" content="obxium" >
+    <meta name="msapplication-TileColor" content="#FFFFFF" >
+    <meta name="msapplication-TileImage" content="mstile-144x144.png" >
+    <meta name="msapplication-square70x70logo" content="mstile-70x70.png" >
+    <meta name="msapplication-square150x150logo" content="mstile-150x150.png" >
+    <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" >
+    <meta name="msapplication-square310x310logo" content="mstile-310x310.png" >
+  </head>
+
+  <body>
+    <script>
+      window.$fxhashFeatures = {
+        "Apeshit Cyborg": getCyborg(fxrand()),
+        "ChuckleBones": getChuckleBones(fxrand()),
+        "Colpa Mia": getColpaMia(fxrand()),
+        "MkUltra": getMkUltra(fxrand()),
+        "Signed": getSigned(fxrand()),
+        "Wild One": getWildOne(fxrand())
+      };
+    </script>
+  </body>
+</html>

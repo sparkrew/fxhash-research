@@ -1,0 +1,4 @@
+id: 22910
+name: color palettes
+mint_opens_at: 2023-01-01T02:17:44+00:00
+generative_uri: ipfs://QmV4V2WRhmRScGFPptYFDfQcQiqHq7JWXpZ6WBPaEJ6c6i

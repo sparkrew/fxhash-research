@@ -1,0 +1,4 @@
+id: 28254
+name: Cellular Squares
+mint_opens_at: 2023-07-26T13:20:39+00:00
+generative_uri: ipfs://QmXk6coyttdqNbYdJyL1ugfmxQiqDtzkuhgaGDbpx89XSv

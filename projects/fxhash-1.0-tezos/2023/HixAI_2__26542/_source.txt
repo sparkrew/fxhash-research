@@ -1,0 +1,4 @@
+id: 26542
+name: HixAI*2
+mint_opens_at: 2023-04-09T14:21:24+00:00
+generative_uri: ipfs://QmZp1xpN1UEBvBCXtRsiMXaezY2Ev9HFo2WCnJVTERp1MN

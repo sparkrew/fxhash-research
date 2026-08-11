@@ -1,0 +1,4 @@
+id: 25480
+name: GIANT PEPES
+mint_opens_at: 2023-02-25T22:34:29+00:00
+generative_uri: ipfs://QmUFP3pVK1y5EVGokqUxJGXK8L68vbXzCoKe6M76Rf16o6

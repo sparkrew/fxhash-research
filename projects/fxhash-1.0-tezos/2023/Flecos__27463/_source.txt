@@ -1,0 +1,4 @@
+id: 27463
+name: Flecos
+mint_opens_at: 2023-06-02T22:00:16+00:00
+generative_uri: ipfs://QmTegc11ETefmhg2SiGZdzHfUKQejDWmZw8sUPSHV8zbmk

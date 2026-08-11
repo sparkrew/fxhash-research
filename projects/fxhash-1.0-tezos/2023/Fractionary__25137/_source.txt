@@ -1,0 +1,4 @@
+id: 25137
+name: Fractionary
+mint_opens_at: 2023-02-15T16:35:00+00:00
+generative_uri: ipfs://QmRthZWfLEsXkoCT1Q2W9yjYebwESwRieSrkg62UPivnYw

@@ -1,0 +1,4 @@
+id: 24124
+name: COMPOSITION X
+mint_opens_at: 2023-01-23T03:36:59+00:00
+generative_uri: ipfs://QmeF3tAoDdxnrLHk3tELB5rjrLud8CrctazexocjRGQeLG

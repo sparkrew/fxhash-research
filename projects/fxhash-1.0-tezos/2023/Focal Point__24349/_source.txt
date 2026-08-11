@@ -1,0 +1,4 @@
+id: 24349
+name: Focal Point
+mint_opens_at: 2023-01-28T17:09:00+00:00
+generative_uri: ipfs://QmbvY5WkxWsjVDAH5JKCku5KEzhQfkqhVMwwMaz4T2NfCu

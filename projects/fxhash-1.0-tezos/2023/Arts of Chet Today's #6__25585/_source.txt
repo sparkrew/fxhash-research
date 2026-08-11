@@ -1,0 +1,4 @@
+id: 25585
+name: Arts of Chet Today's #6
+mint_opens_at: 2023-03-02T12:28:00+00:00
+generative_uri: ipfs://QmVo2zQ1GSudfbjdMLiDzroE3ekQqyWcCk5sCdC8V34Cse

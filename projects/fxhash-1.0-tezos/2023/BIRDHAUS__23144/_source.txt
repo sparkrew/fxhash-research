@@ -1,0 +1,4 @@
+id: 23144
+name: BIRDHAUS
+mint_opens_at: 2023-01-04T03:12:44+00:00
+generative_uri: ipfs://QmTDskvi1H4r4TkHupXpER3zFnAJN9PSdm9PwwjYwtM2cA

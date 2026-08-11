@@ -1,0 +1,5 @@
+Naibdian's Forgive your Sins
+Copyright @naibdian 2023
+Project made using Opensource WebGL, WASM/Rust/JS libs using MIT Licensed library https://github.com/kchapelier/poisson-disk-sampling
+Inspired by Navier Stoke equations and implementations https://github.com/PavelDoGreat/WebGL-Fluid-Simulation and https://shahriyarshahrabi.medium.com/gentle-introduction-to-fluid-simulation-for-programmers-and-technical-artists-7c0045c40bac and more
+For terms of use, check NFT license https://www.nftlicense.org/

@@ -1,0 +1,4 @@
+id: 23617
+name: dead bride
+mint_opens_at: 2023-01-13T19:10:00+00:00
+generative_uri: ipfs://QmUNdY3EWTk398wkqDBsCqGKhWa9aUKkq8GLYdPvCEeQ89

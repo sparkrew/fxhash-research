@@ -1,0 +1,4 @@
+id: 26595
+name: Glomularus Redux
+mint_opens_at: 2023-04-12T18:00:00+00:00
+generative_uri: ipfs://QmUBu53LXedFr7xvBF5oHUXn4VfzuYpVxd2aV24iafQ5J8

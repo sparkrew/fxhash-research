@@ -1,0 +1,4 @@
+id: 26524
+name: fx(cryptonoises,1b)
+mint_opens_at: 2023-04-08T09:29:12+00:00
+generative_uri: ipfs://QmXfjT4eXvd5CehyGcpJs8ftohizM1qThtfnCRqeUQJAut

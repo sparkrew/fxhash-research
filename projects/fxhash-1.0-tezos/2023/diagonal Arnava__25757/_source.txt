@@ -1,0 +1,4 @@
+id: 25757
+name: diagonal Arnava
+mint_opens_at: 2023-03-07T16:30:00+00:00
+generative_uri: ipfs://QmQ2BKZofiPyHyBJoNkFL5Adu6GgAKaSVM8R4fDJtuz74E

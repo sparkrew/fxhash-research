@@ -1,0 +1,4 @@
+id: 29542
+name: Film
+mint_opens_at: 2023-12-01T13:30:00+00:00
+generative_uri: ipfs://QmbkZCB9s3TqKbGdvyhQmvzH3N2FX1QYc7pqiGwZqze45u

@@ -1,0 +1,4 @@
+id: 24608
+name: Fish Scale
+mint_opens_at: 2023-02-03T15:30:00+00:00
+generative_uri: ipfs://QmZew1uVZcD8qchNu9G56Y7TbX2adk8MUDZ3rWHCZygLFJ

@@ -1,0 +1,4 @@
+id: 27733
+name: Boxel
+mint_opens_at: 2023-06-22T17:30:00+00:00
+generative_uri: ipfs://QmcaHmRwvgiPH5UJXJy3M8jZDrvwkDpQ99xiECeoHKY57z

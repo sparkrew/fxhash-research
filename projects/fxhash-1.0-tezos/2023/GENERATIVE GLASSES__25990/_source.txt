@@ -1,0 +1,4 @@
+id: 25990
+name: GENERATIVE GLASSES
+mint_opens_at: 2023-04-04T14:04:00+00:00
+generative_uri: ipfs://QmViXs2889MxrdAApBn8D3DN48m5zxTC97QwRULU8EskdB

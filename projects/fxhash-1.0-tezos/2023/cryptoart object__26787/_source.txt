@@ -1,0 +1,4 @@
+id: 26787
+name: cryptoart object
+mint_opens_at: 2023-04-21T17:37:25+00:00
+generative_uri: ipfs://Qmf6H9gzx1XvrDet9XgykVneP9GUobZ1TRMLgGU3p84Qti

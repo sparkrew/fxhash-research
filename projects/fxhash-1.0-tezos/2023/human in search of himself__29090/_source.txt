@@ -1,0 +1,4 @@
+id: 29090
+name: human in search of himself
+mint_opens_at: 2023-10-04T17:05:00+00:00
+generative_uri: ipfs://QmUxftZmjHwPAG93CPLcMhDMWjCYfExBNgrNuvx1UZScXo

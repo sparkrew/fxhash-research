@@ -1,0 +1,4 @@
+id: 24400
+name: FREE
+mint_opens_at: 2023-02-01T17:37:00+00:00
+generative_uri: ipfs://QmcYmbjQSaapD7ed2VtspLXet9qQWGt3Azo3WtMdwYHbAX

@@ -1,0 +1,4 @@
+id: 26786
+name: Gold Mining
+mint_opens_at: 2023-04-21T20:33:00+00:00
+generative_uri: ipfs://QmPEUfeaosRB4G7qit8XNRRmQYWGF2EQ8STRo16E7MnMNm

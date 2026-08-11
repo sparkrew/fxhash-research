@@ -1,0 +1,4 @@
+id: 24284
+name: Hilberts
+mint_opens_at: 2023-01-26T13:28:29+00:00
+generative_uri: ipfs://QmT3TXbhx6Ri1i8o7c9qo7Haqg2DxuaRx2uzrtGsEMtGkV

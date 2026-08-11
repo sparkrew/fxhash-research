@@ -1,0 +1,4 @@
+id: 23422
+name: Digital Circles
+mint_opens_at: 2023-01-09T12:12:59+00:00
+generative_uri: ipfs://Qma7sE5wPPQNCxNia6TQ9NszxvFwD13Yk34RyHVhY8quY1

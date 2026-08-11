@@ -1,0 +1,4 @@
+id: 26520
+name: Birdies
+mint_opens_at: 2023-04-08T01:33:35+00:00
+generative_uri: ipfs://QmbHgSXvMYWX14r91GNLeSdTxgQWZxKhB3FiZS1y4SYePX

@@ -1,0 +1,4 @@
+id: 29507
+name: Arts of Chet Masterpiece 01 Dec. 2023
+mint_opens_at: 2023-12-03T16:56:00+00:00
+generative_uri: ipfs://QmPS5jwq9Lov7BzWboru4VfBiZUZPDZ6VuYMeAPkyTU1oE

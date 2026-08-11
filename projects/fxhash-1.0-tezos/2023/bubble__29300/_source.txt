@@ -1,0 +1,4 @@
+id: 29300
+name: bubble
+mint_opens_at: 2023-10-25T08:03:17+00:00
+generative_uri: ipfs://QmQstBzHS3tt2hAFkjsfQXk1R5pH2yjxniRNVamWAR1WME

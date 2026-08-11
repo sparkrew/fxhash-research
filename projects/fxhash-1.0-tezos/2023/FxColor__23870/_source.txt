@@ -1,0 +1,4 @@
+id: 23870
+name: FxColor
+mint_opens_at: 2023-01-18T09:30:00+00:00
+generative_uri: ipfs://QmaUrvoGsDHEFCicSjhyaqqUtxRi1xCovbux2ospDJUDt4

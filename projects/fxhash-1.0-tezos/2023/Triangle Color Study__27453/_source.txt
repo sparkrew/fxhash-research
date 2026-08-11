@@ -1,0 +1,4 @@
+id: 27453
+name: Triangle Color Study
+mint_opens_at: 2023-06-02T18:00:00+00:00
+generative_uri: ipfs://QmSrWeygJqHAxJ7CuaXujVmqtSmo7PiZffRAZoqWVdkrcB

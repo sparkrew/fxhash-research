@@ -1,0 +1,4 @@
+id: 31301
+name: Ancient time
+mint_opens_at: 2024-11-11T22:59:00+00:00
+generative_uri: ipfs://QmZNNKoYi12RMPXn9WayrwuxCC5MhTxumGBeWX7HmZeF4F

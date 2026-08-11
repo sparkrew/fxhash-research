@@ -1,0 +1,4 @@
+id: 31249
+name: Alien DNA
+mint_opens_at: 2024-10-21T23:20:05+00:00
+generative_uri: ipfs://QmWVrBbyCRMq4BPFTEWizJMxFmacKrxs7VskXcVVCvJMc3

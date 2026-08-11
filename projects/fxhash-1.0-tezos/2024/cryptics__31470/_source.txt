@@ -1,0 +1,4 @@
+id: 31470
+name: cryptics
+mint_opens_at: 2024-12-31T20:50:40+00:00
+generative_uri: ipfs://QmdWpdRXaAWD2fvSaPEcug6kh8wkKwfG8pF65zYihAVaxH

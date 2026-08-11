@@ -1,0 +1,4 @@
+id: 31159
+name: BITXO [🎧]
+mint_opens_at: 2024-09-05T10:00:00+00:00
+generative_uri: ipfs://Qmc61Lnayui5yYWBEBjeYPp1rFtZKQKKPZ4Sv3wHRfaWc7

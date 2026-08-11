@@ -1,0 +1,4 @@
+id: 31225
+name: BLUE SERIES UNIVERSAL SPIRITUALITY
+mint_opens_at: 2024-10-25T15:00:00+00:00
+generative_uri: ipfs://QmdA5Qhrd2cTnUvNxhWfQkSX42umKe5iPPYoedFKSN4zmR

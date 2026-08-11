@@ -1,0 +1,4 @@
+id: 31441
+name: DEER
+mint_opens_at: 2024-12-30T20:30:00+00:00
+generative_uri: ipfs://QmX6CKGf6gWLJtPAAVEean4YP2gqeAZ8hWejpP3vecLdiW

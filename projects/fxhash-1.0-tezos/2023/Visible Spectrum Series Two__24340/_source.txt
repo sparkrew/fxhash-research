@@ -1,0 +1,4 @@
+id: 24340
+name: Visible Spectrum Series Two
+mint_opens_at: 2023-01-28T18:00:00+00:00
+generative_uri: ipfs://QmdJcpuhqLEaC3Xv5FtnLzWrHckeam6TjwmCMmoPh7WjuC

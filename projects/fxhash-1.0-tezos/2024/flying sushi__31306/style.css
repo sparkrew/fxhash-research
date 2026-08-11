@@ -1,0 +1,9 @@
+/* the following CSS ensures that your if your canvas does not take up the screen, it will be centered */
+
+body {
+    margin: 0;
+    background-color: black;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+}

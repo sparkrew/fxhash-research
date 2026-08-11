@@ -1,0 +1,4 @@
+id: 30651
+name: cool
+mint_opens_at: 2024-03-27T18:50:00+00:00
+generative_uri: ipfs://QmPbEMfB5LLCyWz1fDWQ9Keek1BEzgsjwZzy6K23G3WQdd

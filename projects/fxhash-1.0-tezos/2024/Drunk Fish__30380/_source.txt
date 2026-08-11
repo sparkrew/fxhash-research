@@ -1,0 +1,4 @@
+id: 30380
+name: Drunk Fish
+mint_opens_at: 2024-02-23T09:11:36+00:00
+generative_uri: ipfs://QmWRnJzpR325PqiAMY9DqZGYgDqz2861TqDguzL3KXZGXF

@@ -1,0 +1,4 @@
+id: 27059
+name: 💾 HELLO TEST ∆ GEN_1
+mint_opens_at: 2023-05-07T22:16:39+00:00
+generative_uri: ipfs://QmYGPpww8UjafZCEhpPNrNayPheYmLRHRagcJBjccwPZLr

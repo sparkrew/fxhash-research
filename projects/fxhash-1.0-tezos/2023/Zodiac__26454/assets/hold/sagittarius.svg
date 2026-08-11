@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" width="749.88" height="887.07" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 749.88 887.07">
+  <defs>
+    <radialGradient id="radial-gradient" cx="3008.92" cy="741.15" fx="3008.92" fy="741.15" r="9.49" gradientTransform="translate(3464.47) rotate(-180) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".1"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="2878.04" cy="699.65" fx="2878.04" fy="699.65" r="9.49" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-3" cx="2938.54" cy="636.6" fx="2938.54" fy="636.6" r="9.49" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-4" cx="3120.56" cy="654.86" fx="3120.56" fy="654.86" r="9.49" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-5" cx="3235.2" cy="553.64" fx="3235.2" fy="553.64" r="9.5" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-6" cx="3225.06" cy="527.07" fx="3225.06" fy="527.07" r="7.12" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-7" cx="3186.64" cy="433.82" fx="3186.64" fy="433.82" r="4.75" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-8" cx="3051.13" cy="392.64" fx="3051.13" fy="392.64" r="11.87" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-9" cx="3007.89" cy="416.35" fx="3007.89" fy="416.35" r="11.86" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-10" cx="3026.08" cy="341.04" fx="3026.08" fy="341.04" r="14.24" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-11" cx="2983.24" cy="327.7" fx="2983.24" fy="327.7" r="11.87" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-12" cx="2939.65" cy="258.31" fx="2939.65" fy="258.31" r="11.87" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-13" cx="2934.93" cy="155.07" fx="2934.93" fy="155.07" r="9.49" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-14" cx="2769.8" cy="202.46" fx="2769.8" fy="202.46" r="7.12" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-15" cx="2808.75" cy="285.41" fx="2808.75" fy="285.41" r="11.87" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-16" cx="2867.92" cy="311.84" fx="2867.92" fy="311.84" r="11.87" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-17" cx="2827.43" cy="391.34" fx="2827.43" fy="391.34" r="14.24" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-18" cx="2781.43" cy="416.65" fx="2781.43" fy="416.65" r="11.87" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-19" cx="3094.74" cy="266.75" fx="3094.74" fy="266.75" r="9.49" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-20" cx="3113.28" cy="296.24" fx="3113.28" fy="296.24" r="9.49" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-21" cx="3220.11" cy="283.87" fx="3220.11" fy="283.87" r="9.5" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-22" cx="3192.94" cy="290.07" fx="3192.94" fy="290.07" r="7.12" xlink:href="#radial-gradient"/>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <polygon points="730.87 230.34 592.13 .7 304.31 189.88 260.24 127.23 .73 322.27 211.19 567.92 144.63 630.63 421.78 886.37 605.97 695.69 492.32 562.32 749.22 379.47 680.51 262.34 730.87 230.34" fill="none" stroke="#fff" stroke-miterlimit="10"/>
+      <path d="m455.36,731.67c5.25-.11,9.58,4.05,9.68,9.3.1,5.24-4.05,9.58-9.29,9.67-5.24.1-9.58-4.06-9.69-9.3-.1-5.24,4.06-9.57,9.3-9.67Z" fill="url(#radial-gradient)"/>
+      <path d="m586.24,690.16c5.24-.11,9.57,4.05,9.68,9.3.1,5.23-4.06,9.58-9.31,9.68-5.24.09-9.57-4.07-9.67-9.3-.11-5.25,4.05-9.58,9.3-9.68Z" fill="url(#radial-gradient-2)"/>
+      <path d="m525.75,627.11c5.24-.11,9.57,4.06,9.67,9.3.11,5.24-4.06,9.58-9.29,9.68-5.25.1-9.6-4.07-9.69-9.3-.11-5.25,4.06-9.58,9.31-9.68Z" fill="url(#radial-gradient-3)"/>
+      <path d="m343.73,645.37c5.24-.11,9.57,4.06,9.67,9.29.11,5.24-4.05,9.58-9.29,9.69-5.24.09-9.58-4.07-9.69-9.31-.1-5.24,4.06-9.57,9.31-9.67Z" fill="url(#radial-gradient-4)"/>
+      <path d="m229.07,544.14c5.25-.11,9.59,4.07,9.69,9.31.11,5.24-4.07,9.57-9.3,9.68-5.25.1-9.58-4.07-9.69-9.3-.1-5.25,4.06-9.58,9.3-9.69Z" fill="url(#radial-gradient-5)"/>
+      <path d="m239.27,519.95c3.92-.08,7.18,3.05,7.26,6.98.08,3.92-3.05,7.18-6.97,7.26-3.93.07-7.19-3.04-7.27-6.98-.08-3.93,3.05-7.18,6.98-7.26Z" fill="url(#radial-gradient-6)"/>
+      <path d="m277.73,429.08c2.63-.05,4.79,2.03,4.84,4.65.05,2.62-2.03,4.79-4.66,4.84-2.63.05-4.78-2.03-4.83-4.65-.05-2.62,2.03-4.79,4.65-4.84Z" fill="url(#radial-gradient-7)"/>
+      <path d="m413.1,380.78c6.56-.13,11.97,5.07,12.1,11.63.13,6.55-5.07,11.96-11.63,12.09-6.55.13-11.97-5.07-12.1-11.63-.13-6.55,5.08-11.97,11.63-12.1Z" fill="url(#radial-gradient-8)"/>
+      <path d="m456.34,404.48c6.56-.13,11.98,5.07,12.1,11.63s-5.07,11.97-11.62,12.09c-6.57.13-11.98-5.08-12.1-11.62-.14-6.55,5.07-11.97,11.62-12.1Z" fill="url(#radial-gradient-9)"/>
+      <path d="m438.1,326.81c7.85-.16,14.36,6.09,14.52,13.95.16,7.86-6.09,14.36-13.96,14.52-7.85.15-14.36-6.09-14.52-13.95-.16-7.86,6.09-14.37,13.96-14.52Z" fill="url(#radial-gradient-10)"/>
+      <path d="m480.99,315.83c6.56-.13,11.97,5.07,12.09,11.63.14,6.55-5.07,11.97-11.63,12.1-6.56.13-11.97-5.08-12.09-11.63-.13-6.56,5.08-11.97,11.63-12.11Z" fill="url(#radial-gradient-11)"/>
+      <path d="m524.58,246.45c6.55-.13,11.97,5.08,12.1,11.62.13,6.55-5.08,11.97-11.64,12.1-6.54.13-11.96-5.08-12.09-11.62-.12-6.55,5.08-11.97,11.63-12.1Z" fill="url(#radial-gradient-12)"/>
+      <path d="m529.34,145.58c5.24-.1,9.58,4.06,9.69,9.29.11,5.24-4.07,9.57-9.3,9.67-5.24.11-9.58-4.06-9.68-9.3-.12-5.23,4.06-9.57,9.29-9.67Z" fill="url(#radial-gradient-13)"/>
+      <path d="m694.51,195.35c3.93-.08,7.19,3.04,7.27,6.97.08,3.93-3.06,7.19-6.98,7.26-3.92.08-7.17-3.04-7.25-6.98-.09-3.92,3.05-7.18,6.96-7.25Z" fill="url(#radial-gradient-14)"/>
+      <path d="m655.48,273.54c6.56-.13,11.98,5.09,12.1,11.63.13,6.55-5.07,11.97-11.62,12.09-6.57.14-11.98-5.07-12.11-11.62-.12-6.55,5.07-11.97,11.63-12.1Z" fill="url(#radial-gradient-15)"/>
+      <path d="m596.31,299.98c6.55-.13,11.98,5.07,12.1,11.63.13,6.55-5.09,11.97-11.64,12.1-6.55.12-11.97-5.07-12.09-11.63-.13-6.55,5.08-11.97,11.63-12.1Z" fill="url(#radial-gradient-16)"/>
+      <path d="m636.75,377.1c7.86-.16,14.35,6.09,14.52,13.96.15,7.85-6.09,14.36-13.96,14.52-7.86.16-14.36-6.09-14.52-13.95-.16-7.87,6.09-14.37,13.96-14.53Z" fill="url(#radial-gradient-17)"/>
+      <path d="m682.79,404.79c6.57-.14,11.99,5.07,12.11,11.64.13,6.55-5.07,11.97-11.64,12.09-6.54.13-11.96-5.07-12.09-11.62-.13-6.56,5.07-11.98,11.62-12.11Z" fill="url(#radial-gradient-18)"/>
+      <path d="m369.54,257.25c5.25-.1,9.58,4.06,9.68,9.31.11,5.24-4.06,9.58-9.29,9.68-5.25.1-9.58-4.06-9.69-9.31-.11-5.24,4.05-9.58,9.3-9.68Z" fill="url(#radial-gradient-19)"/>
+      <path d="m351,286.76c5.24-.1,9.57,4.05,9.68,9.3.11,5.24-4.06,9.58-9.3,9.67-5.24.11-9.58-4.07-9.68-9.3-.11-5.24,4.06-9.57,9.3-9.68Z" fill="url(#radial-gradient-20)"/>
+      <path d="m244.17,274.37c5.24-.1,9.59,4.06,9.68,9.31.1,5.26-4.05,9.58-9.3,9.69-5.25.09-9.58-4.06-9.68-9.3-.11-5.26,4.05-9.58,9.3-9.7Z" fill="url(#radial-gradient-21)"/>
+      <path d="m271.39,282.94c3.93-.07,7.18,3.05,7.26,6.98.08,3.93-3.04,7.18-6.97,7.26-3.93.08-7.19-3.05-7.26-6.98-.09-3.93,3.04-7.19,6.97-7.27Z" fill="url(#radial-gradient-22)"/>
+    </g>
+  </g>
+</svg>

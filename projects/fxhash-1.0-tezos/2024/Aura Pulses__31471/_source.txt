@@ -1,0 +1,4 @@
+id: 31471
+name: Aura Pulses
+mint_opens_at: 2024-12-31T19:57:20+00:00
+generative_uri: ipfs://Qmawo4CqZPdvGfVyntNp9WrGcQjT4dNakujDRdre6mGQJN

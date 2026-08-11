@@ -1,0 +1,4 @@
+id: 30017
+name: cl0nes
+mint_opens_at: 2024-01-14T13:00:00+00:00
+generative_uri: ipfs://QmQwQP6izFiTvNhAZ9KbsMa22y8M5hL1iiEX3DKTaThjha

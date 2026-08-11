@@ -1,0 +1,4 @@
+id: 26041
+name: 野生の本能 / Wild instinct
+mint_opens_at: 2023-03-18T03:48:59+00:00
+generative_uri: ipfs://QmRJoLaeWav3HomWy1v8iJmzRzoNtKimSbhdWZL8DftJra

@@ -1,0 +1,4 @@
+id: 27226
+name: Zancanism*2*
+mint_opens_at: 2023-05-18T20:30:00+00:00
+generative_uri: ipfs://QmcxTK2BtWmosR7J8Xv8wYZWxFvuc4jnkdf8bJgpSuvMMZ

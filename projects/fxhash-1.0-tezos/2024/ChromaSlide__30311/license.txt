@@ -1,0 +1,17 @@
+ChromaSlide
+
+ChromaSlide generates animations that fill the screen, run forever, and do not repeat.
+
+Most editions have a 4 color palette and each color emerges only from one of the edges. Dashed lines are drawn at an edge and then the pixels in a rectangular region are shifted. The overlap between different regions cause a mixing and complex movement of the colored pixels. Will the color that emerges from one side reach the opposite or get shunted aside? Does one color dominate over the others? Do persistent structures emerge from the sliding colors?
+
+--------------------------
+
+This is a 100% code generated project.
+
+Click on the output to stop and start the animation.
+Use the 's' key to save the current frame.
+
+Copyright 2024 Jeff Clark
+--------------------------
+
+All drawing and geometric code created by Jeff Clark using standard javascript and canvas 2D api.

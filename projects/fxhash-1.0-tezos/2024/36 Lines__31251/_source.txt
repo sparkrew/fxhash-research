@@ -1,0 +1,4 @@
+id: 31251
+name: 36 Lines
+mint_opens_at: 2024-10-23T20:33:40+00:00
+generative_uri: ipfs://QmPv9xtoFkgsRKynC4Z6Gwb2iUMNb2s9bxrq6qSbgqUyNR

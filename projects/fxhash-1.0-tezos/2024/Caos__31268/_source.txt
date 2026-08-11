@@ -1,0 +1,4 @@
+id: 31268
+name: Caos
+mint_opens_at: 2024-11-02T14:00:00+00:00
+generative_uri: ipfs://Qmc9KWgQj3YFJsqBonZJ2HF2ikhVwL4fo1DzWUzKijCFXY

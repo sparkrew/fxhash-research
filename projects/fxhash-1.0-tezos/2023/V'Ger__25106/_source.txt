@@ -1,0 +1,4 @@
+id: 25106
+name: V'Ger
+mint_opens_at: 2023-02-14T19:00:00+00:00
+generative_uri: ipfs://QmcdivVabDF9Mdhx3YrSN6GSEvDEjhZq8M4FJbxjzBqMHi

@@ -1,0 +1,4 @@
+id: 28614
+name: Weird birds 
+mint_opens_at: 2023-08-23T19:00:00+00:00
+generative_uri: ipfs://QmSd57XyjcohKZSA482PJNCwrTjNy6baPdchohxt1d8bDw

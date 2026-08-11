@@ -1,0 +1,4 @@
+id: 30024
+name: COMICS
+mint_opens_at: 2024-01-14T16:00:00+00:00
+generative_uri: ipfs://QmQFy9gds56yn2ZpGyw3vGnmwRhwy1WaedcToX4CGN3GZu

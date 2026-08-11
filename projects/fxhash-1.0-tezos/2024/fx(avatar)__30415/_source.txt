@@ -1,0 +1,4 @@
+id: 30415
+name: fx(avatar)
+mint_opens_at: 2024-02-25T17:42:42+00:00
+generative_uri: ipfs://QmT97jrL4LjUWkET9GUJsbcLA2U6GJZhkZXViYMqqQv7cn

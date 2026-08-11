@@ -1,0 +1,4 @@
+id: 31293
+name: Celestial Grove
+mint_opens_at: 2024-11-08T23:36:45+00:00
+generative_uri: ipfs://QmZtaH3kJWWfW9gYgDxUfrBLiD4R2hVsBJnj3Hbe4YMeZR

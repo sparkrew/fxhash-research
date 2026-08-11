@@ -1,0 +1,4 @@
+id: 26743
+name: Velire
+mint_opens_at: 2023-04-20T17:30:00+00:00
+generative_uri: ipfs://QmPQKiyx4i187VnGthGyZJ2apxMgq8RX288qpkB3Yr53r1

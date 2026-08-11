@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Include fxhash library first -->
+  <script id="fxhash-snippet">
+    //---- do not edit the following code (you can indent as you wish)
+    let search = new URLSearchParams(window.location.search)
+    let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+    let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+    let fxhashTrunc = search.get('fxhash')?.slice(2)
+    let fxhash = search.get('fxhash') || "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+    let b58dec_hash = b58dec(fxhashTrunc || fxhash.slice(2))
+    let rawParams = search.get('fxparams')
+    let params = rawParams ? JSON.parse(rawParams) : null
+    window.$fx = {
+      hash: fxhash,
+      rand: () => {
+        b58dec_hash = Math.imul(16807, b58dec_hash) | 0
+        return (b58dec_hash & ((1 << 30) - 1)) / ((1 << 30) - 1)
+      },
+      randminter: () => Math.random(),
+      preview: () => {
+        console.log("FXHASH PREVIEW MODE")
+        document.body.classList.add('preview')
+        setTimeout(() => window.$fx.preview(), 500)
+      },
+      isPreview: search.get('preview') === "1",
+      params: params,
+      features: {},
+      getFeature: name => window.$fx.features[name],
+      getFeatures: () => window.$fx.features,
+      setFeatures: (features) => {
+        window.$fx.features = features
+      },
+      meta: {
+        name: "Liquid Forms",
+        description: "Dynamic organic shapes with fluid animations",
+        author: "Your Name",
+        version: "1.0.0"
+      }
+    }
+    const $fx_version = window.$fx.version || "3.0.0"
+    const $fx_hash = window.$fx.hash
+    window.$fx.hash = "oo" + $fx.hash.slice(2)
+    window.$fx_version = $fx_version
+    window.$fxhash = $fx_hash
+    window.$fxhashFeatures = window.$fx.features
+    //---- /do not edit the following code
+  </script>
+  
+  <style>
+    body { margin: 0; padding: 0; background: black; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <svg id="artwork" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveaspectratio="none" width="100vmin" height="100vmin" style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+    <defs>
+      <!-- Dynamic gradients -->
+      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop id="gradient1-stop1" offset="0%">
+          <animate class="duration1" attributename="stop-color" values dur="20s" repeatcount="indefinite"></animate>
+        </stop>
+        <stop id="gradient1-stop2" offset="50%">
+          <animate class="duration2" attributename="stop-color" values dur="25s" repeatcount="indefinite"></animate>
+        </stop>
+        <stop id="gradient1-stop3" offset="100%">
+          <animate class="duration3" attributename="stop-color" values dur="30s" repeatcount="indefinite"></animate>
+        </stop>
+      </linearGradient>
+
+      <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop id="gradient2-stop1" offset="0%"></stop>
+        <stop id="gradient2-stop2" offset="50%"></stop>
+        <stop id="gradient2-stop3" offset="100%"></stop>
+      </linearGradient>
+
+      <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop id="gradient3-stop1" offset="0%"></stop>
+        <stop id="gradient3-stop2" offset="50%"></stop>
+        <stop id="gradient3-stop3" offset="100%"></stop>
+      </linearGradient>
+
+      <!-- Filters -->
+      <filter id="liquid1">
+        <feTurbulence type="fractalNoise" basefrequency="0.012" numoctaves="4">
+          <animate attributename="baseFrequency" values="0.012;0.017;0.012" dur="25s" repeatcount="indefinite"></animate>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" scale="7"></feDisplacementMap>
+      </filter>
+
+      <filter id="trail">
+        <feGaussianBlur in="SourceGraphic" stddeviation="0.5" result="blur"></feGaussianBlur>
+        <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="trail"></feColorMatrix>
+        <feMerge>
+          <feMergeNode in="trail"></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
+      </filter>
+
+      <filter id="depth">
+        <feGaussianBlur in="SourceAlpha" stddeviation="1.5" result="blur"></feGaussianBlur>
+        <feSpecularLighting in="blur" surfacescale="3" specularexponent="15" lighting-color="#ffffff" result="specOut">
+          <fePointLight x="-5000" y="-10000" z="20000"></fePointLight>
+        </feSpecularLighting>
+        <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"></feComposite>
+        <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litPaint"></feComposite>
+      </filter>
+    </defs>
+
+    <rect width="100" height="100" fill="black" />
+
+    <g filter="url(#depth) url(#trail)">
+      <g filter="url(#liquid1)">
+        <path id="path1" fill="url(#gradient1)" opacity="0.8">
+          <animate attributename="d" values dur="31s" repeatcount="indefinite"></animate>
+        </path>
+      </g>
+
+      <g filter="url(#liquid1)">
+        <path id="path2" fill="url(#gradient2)" opacity="0.5">
+          <animate attributename="d" values dur="27s" repeatcount="indefinite"></animate>
+        </path>
+      </g>
+
+      <g filter="url(#liquid1)">
+        <path id="path3" fill="url(#gradient3)" opacity="0.4">
+          <animate attributename="d" values dur="29s" repeatcount="indefinite"></animate>
+        </path>
+      </g>
+    </g>
+
+    <g filter="url(#trail)" opacity="0.15">
+      <use href="#path1" transform="scale(1.01)">
+        <animate attributename="opacity" values="0.15;0.05;0.15" dur="5s" repeatcount="indefinite"></animate>
+      </use>
+      <use href="#path2" transform="scale(1.01)">
+        <animate attributename="opacity" values="0.15;0.05;0.15" dur="7s" repeatcount="indefinite"></animate>
+      </use>
+      <use href="#path3" transform="scale(1.01)">
+        <animate attributename="opacity" values="0.15;0.05;0.15" dur="6s" repeatcount="indefinite"></animate>
+      </use>
+    </g>
+  </svg>
+
+  <script>
+    // Set up artwork configuration
+    const CONFIG = {
+      complexity: window.$fx.params?.complexity || 5,
+      animationSpeed: window.$fx.params?.animationSpeed || 25,
+      colorScheme: window.$fx.params?.colorScheme || "vibrant"
+    };
+
+    function random(min, max) {
+      return $fx.rand() * (max - min) + min;
+    }
+
+    function generatePath(numPoints = CONFIG.complexity) {
+      const points = [];
+      
+      for(let i = 0; i < numPoints; i++) {
+        points.push({
+          x: random(0, 100),
+          y: random(0, 100),
+          cx1: random(-20, 120),
+          cy1: random(-20, 120),
+          cx2: random(-20, 120),
+          cy2: random(-20, 120)
+        });
+      }
+      
+      let path = `M${points[0].x},${points[0].y}`;
+      for(let i = 1; i < points.length; i++) {
+        path += ` C${points[i-1].cx1},${points[i-1].cy1} ${points[i].cx2},${points[i].cy2} ${points[i].x},${points[i].y}`;
+      }
+      path += ` C${points[points.length-1].cx1},${points[points.length-1].cy1} ${points[0].cx2},${points[0].cy2} ${points[0].x},${points[0].y}`;
+      
+      return path;
+    }
+
+    function generateColor(scheme = CONFIG.colorScheme) {
+      let hue, saturation, lightness;
+      
+      switch(scheme) {
+        case "pastel":
+          hue = random(0, 360);
+          saturation = random(30, 60);
+          lightness = random(70, 90);
+          break;
+        case "monochrome":
+          hue = random(0, 30);
+          saturation = random(0, 20);
+          lightness = random(40, 80);
+          break;
+        case "warm":
+          hue = random(0, 60);
+          saturation = random(70, 100);
+          lightness = random(45, 65);
+          break;
+        case "cool":
+          hue = random(180, 270);
+          saturation = random(70, 100);
+          lightness = random(45, 65);
+          break;
+        default: // vibrant
+          hue = random(0, 360);
+          saturation = random(70, 100);
+          lightness = random(45, 65);
+      }
+      
+      return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    }
+
+    function generateGradientColors() {
+      return {
+        color1: generateColor(),
+        color2: generateColor(),
+        color3: generateColor()
+      };
+    }
+
+    // Initialize the artwork
+    // Wait for artwork to be ready before triggering preview
+function capturePreview() {
+  // Ensure the artwork is fully rendered
+  setTimeout(() => {
+    if(window.fxpreview) {
+      fxpreview();
+    }
+  }, 500); // Wait 500ms to ensure animations have started
+}
+
+window.addEventListener('load', () => {
+      // Generate paths
+      const path1 = generatePath();
+      const path2 = generatePath();
+      const path3 = generatePath();
+
+      // Generate colors
+      const colors1 = generateGradientColors();
+      const colors2 = generateGradientColors();
+      const colors3 = generateGradientColors();
+
+      // Get animation speed
+      const speed = CONFIG.animationSpeed;
+
+      // Update gradients
+      document.getElementById('gradient1-stop1').setAttribute('stop-color', colors1.color1);
+      document.getElementById('gradient1-stop2').setAttribute('stop-color', colors1.color2);
+      document.getElementById('gradient1-stop3').setAttribute('stop-color', colors1.color3);
+      
+      document.getElementById('gradient2-stop1').setAttribute('stop-color', colors2.color1);
+      document.getElementById('gradient2-stop2').setAttribute('stop-color', colors2.color2);
+      document.getElementById('gradient2-stop3').setAttribute('stop-color', colors2.color3);
+      
+      document.getElementById('gradient3-stop1').setAttribute('stop-color', colors3.color1);
+      document.getElementById('gradient3-stop2').setAttribute('stop-color', colors3.color2);
+      document.getElementById('gradient3-stop3').setAttribute('stop-color', colors3.color3);
+
+      // Update paths
+      document.getElementById('path1').setAttribute('d', path1);
+      document.getElementById('path2').setAttribute('d', path2);
+      document.getElementById('path3').setAttribute('d', path3);
+
+      // Update animations
+      const animations = document.getElementsByTagName('animate');
+      for(let anim of animations) {
+        const duration = speed + random(-5, 5);
+        anim.setAttribute('dur', `${duration}s`);
+      }
+    });
+
+    // Set features for fxhash
+    window.$fx.setFeatures({
+      "Color Scheme": CONFIG.colorScheme,
+      "Complexity": CONFIG.complexity,
+      "Animation Speed": CONFIG.animationSpeed
+    });
+  </script>
+</body>
+</html>

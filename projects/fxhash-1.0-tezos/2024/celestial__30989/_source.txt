@@ -1,0 +1,4 @@
+id: 30989
+name: celestial
+mint_opens_at: 2024-07-09T16:00:00+00:00
+generative_uri: ipfs://QmYZ4d7LPZmSqVV42shU9PbxKg33o6E9fs6qGiUx3WUAU3

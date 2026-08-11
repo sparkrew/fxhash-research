@@ -1,0 +1,4 @@
+id: 24080
+name: XDeca
+mint_opens_at: 2023-01-22T11:34:59+00:00
+generative_uri: ipfs://QmTcRwNDw73jFXWNd5PLnVR8Vy4AT5Gw3LpUN9w2XiSzLF

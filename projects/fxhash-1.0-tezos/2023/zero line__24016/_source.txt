@@ -1,0 +1,4 @@
+id: 24016
+name: zero line
+mint_opens_at: 2023-01-21T01:57:44+00:00
+generative_uri: ipfs://QmV8aZTUfTYHvgNvTXPFMio4447Gm5qddyLbuXezPZwtha

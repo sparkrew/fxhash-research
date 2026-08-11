@@ -1,0 +1,4 @@
+id: 26141
+name: 𝙧𝙤𝙨𝙚𝙢𝙖𝙧𝙮'𝙨 GᗩᖇᗪEᑎ
+mint_opens_at: 2023-03-21T21:51:14+00:00
+generative_uri: ipfs://QmeChvXGDorndBRC3eSPoT8DcbaUMneaShiB5twAj4Jvnu

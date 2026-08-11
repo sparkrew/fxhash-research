@@ -1,0 +1,4 @@
+id: 27783
+name: Wineva
+mint_opens_at: 2023-06-26T17:00:00+00:00
+generative_uri: ipfs://QmSRrRpXcTbAybNXmyYHV1U2X1uwSzmfiVzr9MGVpt6S6K

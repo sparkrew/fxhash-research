@@ -1,0 +1,4 @@
+id: 31125
+name: Entangled Lives
+mint_opens_at: 2024-08-24T14:59:25+00:00
+generative_uri: ipfs://QmeDPj6eBUWV3sJgVUryD6E1XEP2tLcG7VfBHuTSkBTQWB

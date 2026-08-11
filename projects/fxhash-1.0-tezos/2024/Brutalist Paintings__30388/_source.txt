@@ -1,0 +1,4 @@
+id: 30388
+name: Brutalist Paintings
+mint_opens_at: 2024-02-23T17:43:11+00:00
+generative_uri: ipfs://QmPo1isZPTTiTvgwzDrdqj8a2zR6na8DsKQgtK8qCakqBp

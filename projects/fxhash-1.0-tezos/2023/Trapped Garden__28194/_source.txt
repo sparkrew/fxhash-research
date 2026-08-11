@@ -1,0 +1,4 @@
+id: 28194
+name: Trapped Garden
+mint_opens_at: 2023-07-22T03:40:58+00:00
+generative_uri: ipfs://QmY4yyb58djAssFiKQ9uTT6YEYbcnSnFZWKVZj7FRLMy2n

@@ -1,0 +1,4 @@
+id: 26415
+name: COMPLEX
+mint_opens_at: 2024-12-14T14:00:00+00:00
+generative_uri: ipfs://Qmc61NsMzB9sQmmQZg2ZuYcjo4XLnnM54rPtukVM62Q4xp

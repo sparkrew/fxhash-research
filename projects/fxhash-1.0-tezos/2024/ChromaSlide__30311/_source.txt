@@ -1,0 +1,4 @@
+id: 30311
+name: ChromaSlide
+mint_opens_at: 2024-02-20T16:30:00+00:00
+generative_uri: ipfs://QmS5Vs9CTuAHaMzQD9zE7aQAj6WRPgpZueV1SNRod2qmve

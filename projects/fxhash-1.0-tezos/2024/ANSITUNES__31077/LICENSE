@@ -1,0 +1,9 @@
+This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+This software is built with [p5.js](https://p5js.org/) and [Tone.js](https://tonejs.github.io/).
+
+The concept of using an elementary cellular automaton to generate music is heavily inspired by the exploration done at [WolframTones](https://tones.wolfram.com/).
+
+The ASCII font is modified from the [code page 437](https://en.wikipedia.org/wiki/Code_page_437) character set available in the public domain.
+
+All other code is hand-crafted with 💙 by Craig Phares.

@@ -1,0 +1,4 @@
+id: 25745
+name: unmet expectations
+mint_opens_at: 2023-03-08T19:00:00+00:00
+generative_uri: ipfs://QmbW6uepTgXf3zpDs7Y6rN85bKrzCLXCzStnEpkPSNXojP

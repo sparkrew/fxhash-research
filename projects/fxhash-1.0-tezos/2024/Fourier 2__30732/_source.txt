@@ -1,0 +1,4 @@
+id: 30732
+name: Fourier 2
+mint_opens_at: 2024-04-10T00:30:00+00:00
+generative_uri: ipfs://QmPVDmFmNRbvvKwEZP4mGsSrAASsYLB4VixTiqNzWW4wtD

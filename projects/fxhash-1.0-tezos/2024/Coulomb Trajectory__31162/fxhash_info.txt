@@ -1,0 +1,21 @@
+
+Coulomb Trajectory
+
+--------------------
+
+First, several charged particles are placed on the screen. Another 1,000 charged particles are then incident from above. The particles have various charge amounts and masses. The incident charged particles are subjected to a force by the Coulomb force with the stationary charged particles, which changes their movement. The greater the action of force, the more vivid and bright the image will appear. Due to the difference in each particle's charge and mass, the particles trace various trajectories.
+
+--------------------
+
+Controls :
+
+[p] : Play / Pause
+[c] : New Particles & Redraw
+[f] : Normal / Fullscreen
+[s] : Save image (High-Res takes time)
+
+--------------------
+
+Information :
+
+Created with p5.js

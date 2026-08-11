@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" width="958.23" height="860.6" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 958.23 860.6">
+  <defs>
+    <radialGradient id="radial-gradient" cx="678.8" cy="538.71" fx="678.8" fy="538.71" r="7.08" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".1"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="340.96" cy="276.54" fx="340.96" fy="276.54" r="9.28" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-3" cx="292.14" cy="119.34" fx="292.14" fy="119.34" r="11.23" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-4" cx="485.96" cy="76.87" fx="485.96" fy="76.87" r="6.83" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-5" cx="800.85" cy="224.79" fx="800.85" fy="224.79" r="7.32" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-6" cx="772.05" cy="374.67" fx="772.05" fy="374.67" r="8.79" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-7" cx="718.83" cy="725.69" fx="718.83" fy="725.69" r="7.32" xlink:href="#radial-gradient"/>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <polygon points=".68 312.18 59.27 410.8 165.7 346.36 181.32 375.65 139.33 402.99 155.93 427.4 197.92 401.03 228.19 450.83 332.66 386.39 373.67 450.83 338.52 473.29 399.06 571.91 474.24 528.94 490.84 557.26 509.39 548.47 493.77 519.18 597.27 458.64 656.83 561.17 547.47 622.68 683.19 859.95 881.4 761.33 834.54 660.76 957.56 607.06 910.7 507.46 884.33 520.16 876.52 501.6 905.81 486.96 814.03 300.46 910.7 253.6 867.73 162.79 769.12 214.54 699.79 83.7 569.93 157.91 479.12 .71 353.17 82.73 333.64 53.43 79.77 207.71 107.11 247.74 .68 312.18" fill="none" stroke="#fff" stroke-miterlimit="10"/>
+      <ellipse cx="678.8" cy="538.71" rx="7.32" ry="6.83" fill="url(#radial-gradient)"/>
+      <circle cx="340.96" cy="276.54" r="9.28" fill="url(#radial-gradient-2)"/>
+      <path d="m292.14,108.11c6.2,0,11.23,5.03,11.23,11.23s-5.03,11.23-11.23,11.23-11.23-5.03-11.23-11.23,5.03-11.23,11.23-11.23Z" fill="url(#radial-gradient-3)"/>
+      <circle cx="485.96" cy="76.87" r="6.83" fill="url(#radial-gradient-4)"/>
+      <path d="m800.85,217.47c4.04,0,7.32,3.28,7.32,7.32s-3.28,7.32-7.32,7.32-7.32-3.28-7.32-7.32,3.28-7.32,7.32-7.32Z" fill="url(#radial-gradient-5)"/>
+      <circle cx="772.05" cy="374.67" r="8.79" fill="url(#radial-gradient-6)"/>
+      <path d="m718.83,718.37c4.04,0,7.32,3.28,7.32,7.32s-3.28,7.32-7.32,7.32-7.32-3.28-7.32-7.32,3.28-7.32,7.32-7.32Z" fill="url(#radial-gradient-7)"/>
+    </g>
+  </g>
+</svg>

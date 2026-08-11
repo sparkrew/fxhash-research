@@ -1,0 +1,4 @@
+id: 22909
+name: XOXO Pixels
+mint_opens_at: 2023-01-01T02:14:44+00:00
+generative_uri: ipfs://QmPTRfhTnyTx1y1H29hU6Zn3vh3YNWftp5xb1yPsra1o43

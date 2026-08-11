@@ -1,0 +1,23 @@
+Atomic Radiation: A Generative Exploration of Mid-Century Modernity
+A Fusion of Past and Present:
+
+This generative art piece, "Atomic Radiation," reflects my fascination with Mid-Century Modern (MCM) design, a style that resonated deeply during my Industrial Design studies from 1965 to 1969. Revisiting this aesthetic serves as an exploration of my artistic roots and a celebration of the design influences that shaped me.
+
+Echoes of Modernism:
+
+MCM design drew heavily from modern movements like Scandinavian Design and the Bauhaus. It championed clean lines, honest use of materials, and a minimalist approach that shunned excessive ornamentation.
+
+Generative Interpretations:
+
+As a generative artist, I leverage the power of code to effortlessly create MCM design elements – think of them as artistic building blocks. These elements are then arranged in patterns or layouts, often utilizing tessellations (a method for creating seamless, interlocking patterns) inspired by György Kepes' "Language of Vision" – itself an embodiment of the Bauhaus philosophy within the MCM movement.
+
+The Art of the Algorithm:
+
+The backdrop of "Atomic Radiation" is a dynamic canvas. Its wavy structure incorporates subtle random variations while adhering to a limited palette reminiscent of Bauhaus color theory. Colors are randomly chosen, and the interplay of the oscillating vertical lines creates a mesmerizing visual effect. An overlay of atomic widgets, a quintessential MCM motif, forms a captivating, interlocking structure. Each widget, empowered by code and controlled randomness, becomes unique – distinct in color, number of orbits, and electron placement.
+
+A Dynamic Experience:
+
+The true magic of "Atomic Radiation" lies in its interactive nature. With a simple key press, the entire composition refreshes, generating a new, original piece of generative art. Each iteration offers a fresh perspective on the fusion of MCM aesthetics and contemporary artistic expression.
+
+
+

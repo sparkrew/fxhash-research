@@ -1,0 +1,4 @@
+id: 28134
+name: Torn
+mint_opens_at: 2023-07-18T01:00:00+00:00
+generative_uri: ipfs://QmVpPPjXGrpGC1E85DyEtsBHXqdpKXckkqjCU44oDoASjA

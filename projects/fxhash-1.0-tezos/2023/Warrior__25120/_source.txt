@@ -1,0 +1,4 @@
+id: 25120
+name: Warrior
+mint_opens_at: 2023-02-16T00:34:00+00:00
+generative_uri: ipfs://QmVo1SVT4G2SWU2bJ9YZsAwc66weJ8fFuH7puttgFKBfwk

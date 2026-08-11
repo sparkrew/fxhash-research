@@ -1,0 +1,4 @@
+id: 31273
+name: Complementary Opposites
+mint_opens_at: 2024-11-11T15:00:00+00:00
+generative_uri: ipfs://QmcJQHkkDzdnQabJsCmYV6CNzMdejkADEa9XvRqhLoowFP

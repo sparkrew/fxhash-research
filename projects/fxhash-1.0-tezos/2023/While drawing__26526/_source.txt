@@ -1,0 +1,4 @@
+id: 26526
+name: While drawing
+mint_opens_at: 2023-04-08T12:04:57+00:00
+generative_uri: ipfs://Qmdp7fdarYUQdPut266F9Sw97KEMBDJf3wZtXRgiFodFg7

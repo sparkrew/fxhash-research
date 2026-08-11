@@ -1,0 +1,4 @@
+id: 28672
+name: Trouchet
+mint_opens_at: 2023-08-27T17:00:00+00:00
+generative_uri: ipfs://QmTDuq7GX127pvZ3xB1h8baPf6ZuAN6cx6enKrGDvUeJb2

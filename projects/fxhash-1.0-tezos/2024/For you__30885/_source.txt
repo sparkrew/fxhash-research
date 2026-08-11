@@ -1,0 +1,4 @@
+id: 30885
+name: For you
+mint_opens_at: 2024-06-01T11:00:00+00:00
+generative_uri: ipfs://QmTEmVc28qFH8yVVjsA8fHtJme1dLHgtsr9WP3qz4x52nw

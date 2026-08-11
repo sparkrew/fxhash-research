@@ -1,0 +1,4 @@
+id: 29458
+name: wizard
+mint_opens_at: 2023-12-31T20:30:00+00:00
+generative_uri: ipfs://QmcsszkBuhVCYWHSSpVtsnhoyK7oroGJyvRVrgxUt1hS4o

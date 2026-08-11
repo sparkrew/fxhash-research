@@ -1,0 +1,4 @@
+id: 26757
+name: 春が来て、美しさが咲く。
+mint_opens_at: 2023-04-20T00:50:50+00:00
+generative_uri: ipfs://QmQncWgwVQzWpsY4jVSUWTjSdJsCroYW3dsUr4UPpVMbLg

@@ -1,0 +1,4 @@
+id: 30667
+name: Bioz
+mint_opens_at: 2024-04-03T15:00:00+00:00
+generative_uri: ipfs://Qma5aRBLCwd18hGP6ZzokbNbNtFWh9q4HM2rxWjBWWA64U

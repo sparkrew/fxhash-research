@@ -1,0 +1,48 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: white;
+    font-family: 'Avenir';
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#canvas-container {
+    position: relative;
+}
+
+#start-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: soft-light;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0.5;}
+    100% {opacity: 1;}
+}
+
+#record {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    animation: blink 1.25s linear infinite;
+    display: none;
+}

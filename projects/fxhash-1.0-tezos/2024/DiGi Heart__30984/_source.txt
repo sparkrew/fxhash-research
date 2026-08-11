@@ -1,0 +1,4 @@
+id: 30984
+name: DiGi Heart
+mint_opens_at: 2024-07-08T16:00:00+00:00
+generative_uri: ipfs://QmeTiwYwo4UYJHKEPTiMyrFuvA6mTYSeZn7FRRHbWziJoZ

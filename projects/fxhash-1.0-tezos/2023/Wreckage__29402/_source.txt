@@ -1,0 +1,4 @@
+id: 29402
+name: Wreckage
+mint_opens_at: 2023-11-06T04:47:27+00:00
+generative_uri: ipfs://QmbNheGLBcMYXT3dPnfaKgtqVb9Hbd7y3Y38hqp8NeLoQb

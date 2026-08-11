@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Una | by Infinity</title>
+
+    <link rel="stylesheet" href="app.css">
+    <script src="fxhash.js"></script>
+
+</head>
+
+<body>
+<script>
+
+    let currentDisplayImage = null;
+    let worker = null;
+
+    function getWorker() {
+        let workerInternal = new window.Worker("worker.js");
+
+        workerInternal.addEventListener("message", async (event) => {
+
+            // When the web worker is ready, we can start rendering
+            if (event.data.type === 'ready') {
+                resetFx();
+
+                document.getElementById("displayCanvas").classList.remove("hide");
+                document.getElementById("loader").classList.add("hide");
+
+                showOverlay();
+                workerInternal.postMessage({
+                    type: "call",
+                    func: "renderDefaultView",
+                    args: [1, layoutSeed, colorSeed]
+                });
+            }
+
+            if (event.data.log !== undefined) {
+                // console.log(event.data.log)
+            }
+
+            // We have a displayable image from the web worker
+            if (event.data.type === "updateDisplayImage") {
+                createImageBitmap(event.data.displayImage).then((imageBitmap) => {
+
+                    highResToWorkerCanvas(imageBitmap);
+
+                    const canvas = document.getElementById('displayCanvas')
+                    currentDisplayImage = imageBitmap;
+                    drawCanvas(canvas, currentDisplayImage);
+                    hideOverlay();
+                    $fx.preview();
+                });
+
+            }
+
+            // We have a high res image to be downloaded
+            if (event.data.type === "updateHighResImage") {
+                createImageBitmap(event.data.displayImage).then((imageBitmap) => {
+
+                    highResToWorkerCanvas(imageBitmap);
+                    const highResCanvas = document.getElementById('highResCanvas')
+
+                    const dataURL = highResCanvas.toDataURL();
+
+                    const createEl = document.createElement('a');
+                    createEl.href = dataURL;
+                    createEl.download = event.data.filename;
+                    createEl.click();
+
+                    hideOverlay();
+
+                });
+            }
+
+            if (event.data.progress !== undefined) {
+            	// console.log(event.data.progress)
+            	document.getElementById("progressBar").value = `${event.data.progress}`;
+
+            }
+        })
+        return workerInternal;
+    }
+
+    function highResToWorkerCanvas(imageBitmap) {
+
+        const highResCanvas = document.getElementById('highResCanvas')
+        highResCanvas.width = imageBitmap.width;
+        highResCanvas.height = imageBitmap.height;
+
+        let context = highResCanvas.getContext('2d')
+
+        context.clearRect(0, 0, highResCanvas.width, highResCanvas.height);
+        context.drawImage(imageBitmap, 0, 0, imageBitmap.width, imageBitmap.height,
+            0, 0, imageBitmap.width, imageBitmap.height);
+
+    }
+
+
+    function drawCanvas(canvas, img) {
+        canvas.width = getComputedStyle(canvas).width.split('px')[0];
+        canvas.height = getComputedStyle(canvas).height.split('px')[0];
+        let ratio = Math.min(canvas.width / img.width, canvas.height / img.height);
+        let x = (canvas.width - img.width * ratio) / 2;
+        let y = (canvas.height - img.height * ratio) / 2;
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+        canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
+            x, y, img.width * ratio, img.height * ratio);
+    }
+
+
+    let layoutSeed = 0;
+    let colorSeed = 0;
+    let rectDifficulty = 0;
+
+    function initialize() {
+
+        addKeyHandlers();
+
+        // set the layout and color seeds
+        resetFx();
+        layoutSeed = getLayoutSeed();
+        colorSeed = getColorSeed();
+        rectDifficulty = $fx.getParam("rect_difficulty");
+
+        // Register an event listener to call the resizeCanvas() function
+        // each time the window is resized.
+        window.addEventListener('resize', resizeCanvas, false);
+        // Draw canvas border for the first time.
+        resizeCanvas();
+    }
+
+    function resetFx() {
+        $fx.randminter.reset();
+        $fx.rand.reset();
+    }
+
+    function getLayoutSeed() {
+
+        let rndMinter = $fx.randminter();
+        let layoutSeed = $fx.getParam("layout_seed");
+        let s = Math.floor((rndMinter*1000)*layoutSeed);
+        return s;
+    }
+
+    function getColorSeed(){
+        let rndMinter = $fx.randminter();
+        let colorSeed = $fx.getParam("color_seed");
+
+        let s = Math.floor((rndMinter*1000)*colorSeed);
+        return s;
+    }
+
+    function resizeCanvas() {
+        const canvas = document.getElementById('displayCanvas')
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        if (currentDisplayImage != null) {
+            drawCanvas(canvas, currentDisplayImage);
+        }
+    }
+
+    function addKeyHandlers() {
+        window.addEventListener('keypress', (event) => {
+
+            let scale = -1;
+
+            switch (event.key) {
+                case '1':
+                    scale = 1;
+                    break;
+                case '2':
+                    scale = 2;
+                    break;
+                case '3':
+                    scale = 4;
+                    break;
+                case '4':
+                    scale = 8;
+                    break;
+                case '5':
+                    scale = 10;
+                    break;
+            }
+
+            if (scale !== -1) {
+                worker.postMessage({
+                    type: "call",
+                    func: "renderHighRes",
+                    args: [scale, layoutSeed, colorSeed, rectDifficulty]
+                });
+
+                showOverlay();
+            }
+        })
+    }
+
+
+    // fxHash
+    $fx.params([
+        {
+            id: "color_seed",
+            name: "Color Seed",
+            type: "number",
+            default: 50,
+            options: {
+                min: 1,
+                max: 200,
+                step: 1,
+            }
+        },
+        {
+            id: "layout_seed",
+            name: "Layout Seed",
+            type: "number",
+            default: 50,
+            options: {
+                min: 1,
+                max: 200,
+                step: 1,
+            }
+        },
+        {
+            id: "rect_difficulty",
+            name: "Rectangle Chance",
+            type: "number",
+            default: 3,
+            options: {
+                min: 0,
+                max: 20,
+                step: 1,
+            }
+        }
+    ])
+
+
+    function showOverlay() {
+        document.getElementById("progressBar").value = 0;
+        document.getElementById("renderOverlay").classList.remove("hide");
+    }
+
+    function hideOverlay() {
+        document.getElementById("renderOverlay").classList.add("hide");
+    }
+
+
+
+    // ----------------------------------------------------
+    window.addEventListener('load', (event) => {
+        initialize();
+        worker = getWorker();
+    });
+
+</script>
+
+<div id="loader">
+    <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    <h4>Una by Infinity</h4>
+    <hr>
+    <p>loading project files</p>
+</div>
+
+<canvas id="displayCanvas" class="hide"></canvas>
+<canvas id="highResCanvas" class="hide" width="800" height="600"></canvas>
+
+<div class="overlay hide" id="renderOverlay">
+    <div class="progress-wrapper">
+        <h4>Rendering</h4>
+        <progress id="progressBar" value="0" max="100" style="width: 100%"></progress>
+    </div>
+</div>
+
+</body>
+
+</html>

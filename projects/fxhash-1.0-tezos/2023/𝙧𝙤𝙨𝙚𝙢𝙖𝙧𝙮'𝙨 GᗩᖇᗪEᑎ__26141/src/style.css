@@ -1,0 +1,17 @@
+main,
+body,
+html {
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0;
+    overflow: hidden;
+}
+
+#defaultCanvas0 > svg {
+    width: 100vw;
+    height: 100vw;
+}
+#defaultCanvas0 {
+    width: 100vw;
+    height: 100vw;
+}

@@ -1,0 +1,4 @@
+id: 30614
+name: Fragments of tessuto
+mint_opens_at: 2024-03-22T18:30:00+00:00
+generative_uri: ipfs://Qmd77tqLW1wruwCgS7fqBEybzemVrgFR8SfizkiGEvmMg3

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <title>electric skyline</title>
+    <meta charset="utf-8" />
+    <script src="./fxhash.min.js"></script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <style>
+    *{
+      margin: 0px; 
+      padding: 0px;
+    }
+
+    #test-canv{
+
+    left: 0px;
+    top: 0px;
+    position: fixed;
+    }
+    #fill{
+      left: 0px;
+      top: 0px;
+      
+    }
+    #horizon{
+      top: 0px;
+      right: 0px;
+      position: absolute;
+    }
+    #circs{
+      top: 0px;
+      left: -100px;
+      position: absolute;
+    }
+  </style>
+  <body>
+    <div></div>
+    <canvas id="fill"></canvas>
+    <canvas id="horizon"></canvas>
+    <canvas id="test-canv"></canvas>
+    <canvas id="circs"></canvas>
+    <script src="./index.js"></script>
+  </body>
+</html>

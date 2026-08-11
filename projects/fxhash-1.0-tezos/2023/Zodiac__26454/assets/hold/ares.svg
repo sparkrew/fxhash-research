@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" width="887.06" height="706.23" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 887.06 706.23">
+  <defs>
+    <radialGradient id="radial-gradient" cx="7258.7" cy="197.09" fx="7258.7" fy="197.09" r="9.12" gradientTransform="translate(7523.82) rotate(-180) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".1"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="6966.52" cy="131.09" fx="6966.52" fy="131.09" r="13.67" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-3" cx="6853.57" cy="145.41" fx="6853.57" fy="145.41" r="11.39" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-4" cx="6821.86" cy="179.71" fx="6821.86" fy="179.71" r="6.84" xlink:href="#radial-gradient"/>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <polygon points="194.46 494.78 308.6 705.53 886.34 366.05 627.72 .71 547.6 60.86 507.15 9.03 350.09 124.04 294.37 41.91 .67 233.53 162.79 511.74 194.46 494.78" fill="none" stroke="#fff" stroke-miterlimit="10"/>
+      <path d="m267.09,188.19c4.91,1.08,8.02,5.94,6.94,10.86-1.08,4.91-5.96,8.02-10.87,6.94-4.91-1.09-8.02-5.95-6.94-10.87,1.09-4.92,5.96-8.02,10.87-6.93Z" fill="url(#radial-gradient)"/>
+      <path d="m560.25,117.74c7.37,1.62,12.03,8.92,10.41,16.29-1.63,7.37-8.92,12.04-16.3,10.41-7.37-1.63-12.03-8.92-10.4-16.3,1.62-7.37,8.92-12.03,16.29-10.4Z" fill="url(#radial-gradient-2)"/>
+      <path d="m672.7,134.28c6.15,1.36,10.02,7.43,8.67,13.58-1.35,6.14-7.42,10.03-13.59,8.67-6.13-1.36-10.02-7.43-8.66-13.58,1.35-6.15,7.43-10.02,13.57-8.67Z" fill="url(#radial-gradient-3)"/>
+      <path d="m703.43,173.04c3.69.81,6.03,4.47,5.21,8.15-.81,3.68-4.47,6.01-8.16,5.21-3.67-.82-6.01-4.47-5.2-8.16.81-3.68,4.46-6.03,8.15-5.2Z" fill="url(#radial-gradient-4)"/>
+    </g>
+  </g>
+</svg>

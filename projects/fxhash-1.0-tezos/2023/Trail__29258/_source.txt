@@ -1,0 +1,4 @@
+id: 29258
+name: Trail 
+mint_opens_at: 2023-10-21T00:15:00+00:00
+generative_uri: ipfs://QmSBWrBU9xz29JBdHnpzDYta9djoDHgYK3Np8u8f9e2XKW

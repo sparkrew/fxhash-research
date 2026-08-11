@@ -1,0 +1,4 @@
+id: 31468
+name: Crowded Maximal
+mint_opens_at: 2024-12-31T07:54:40+00:00
+generative_uri: ipfs://QmTZvxkUiqU84N9Ejb7KSV8TL3bj99wE71KdShkzeAqHsv

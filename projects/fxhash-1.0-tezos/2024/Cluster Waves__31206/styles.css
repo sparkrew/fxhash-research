@@ -1,0 +1,25 @@
+body {
+	background-color: #000;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+
+	
+
+	
+
+}
+.PixelCluster {
+
+    margin: 0;
+    padding: 0;
+
+}
+
+
+

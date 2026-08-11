@@ -1,0 +1,4 @@
+id: 31331
+name: BrightTessera
+mint_opens_at: 2024-11-26T17:00:00+00:00
+generative_uri: ipfs://QmPFbBF9yZYfUVcLMpkYyELnCB8UJnnY8DC1CX6C6h7jm5

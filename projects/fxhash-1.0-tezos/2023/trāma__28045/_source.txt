@@ -1,0 +1,4 @@
+id: 28045
+name: trāma
+mint_opens_at: 2023-07-14T07:30:00+00:00
+generative_uri: ipfs://QmW4RJZRe81bNqPc24Pd4uuDG86PoiBiVkfZV5AwdfqNBi

@@ -1,0 +1,4 @@
+id: 30752
+name: Cyan Magenta Yellow blacK
+mint_opens_at: 2024-04-13T00:30:11+00:00
+generative_uri: ipfs://QmRaY99BDCDM8p6HM8bNWAchKFwbgK3qm5Gr7ragre2qax

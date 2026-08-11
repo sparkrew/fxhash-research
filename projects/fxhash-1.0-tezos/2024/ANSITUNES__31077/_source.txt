@@ -1,0 +1,4 @@
+id: 31077
+name: ANSITUNES
+mint_opens_at: 2024-08-15T14:00:00+00:00
+generative_uri: ipfs://QmWGYGTebmYjzGBbmAy6BGmRVNLVaBKKrRUSA1F63xCkWT

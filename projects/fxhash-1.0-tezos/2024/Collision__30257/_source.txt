@@ -1,0 +1,4 @@
+id: 30257
+name: Collision
+mint_opens_at: 2024-02-08T20:00:00+00:00
+generative_uri: ipfs://QmcNtPAPHCFH6ENofsHLpzyFb77Ubc4JtyeMcrgP6C1Ncb

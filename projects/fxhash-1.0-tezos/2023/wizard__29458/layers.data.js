@@ -1,0 +1,1 @@
+const JSON_DATA_LAYERS = {"00-Background":["1-Background_1.png"],"01-Body":["1-Body_1.png"],"02-Leg":["1-Leg_1.png","1-Leg_2.png","1-Leg_3.png"],"03-Necklaces":["1-Necklaces_1.png","1-Necklaces_2.png","1-Necklaces_3.png"],"04-Flame":["1-Flame_1.png","1-Flame_2.png"]}

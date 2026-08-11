@@ -1,0 +1,4 @@
+id: 29900
+name: TREE DIAGRAM
+mint_opens_at: 2023-12-31T09:46:28+00:00
+generative_uri: ipfs://QmcVnryPDzWDB1CfFiUteMG9ngLR5q3Hv6zvLAXAtu3uzd

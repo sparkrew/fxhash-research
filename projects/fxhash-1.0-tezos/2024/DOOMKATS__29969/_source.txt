@@ -1,0 +1,4 @@
+id: 29969
+name: DOOMKATS
+mint_opens_at: 2024-01-08T12:00:00+00:00
+generative_uri: ipfs://QmRWm88Psg8AsiBw3A1BFxc6KSLMzFmGKwrapmhADC1bLP

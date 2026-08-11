@@ -1,0 +1,4 @@
+id: 29131
+name: Wallet Spectrums
+mint_opens_at: 2023-10-09T16:30:00+00:00
+generative_uri: ipfs://QmXrkVKdFuydWzthjJBe5qADSkb1SsVmB3t3oSqXL2AF18

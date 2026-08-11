@@ -1,0 +1,4 @@
+id: 30756
+name: Arc_And_Arch_Archipelago
+mint_opens_at: 2024-04-19T11:00:00+00:00
+generative_uri: ipfs://QmV2KLXiamnpUydWdT8C5wiwZ3ddMShdYRDcRA5AHHfzVR

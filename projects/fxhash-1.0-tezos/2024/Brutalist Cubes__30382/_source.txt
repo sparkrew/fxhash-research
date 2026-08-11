@@ -1,0 +1,4 @@
+id: 30382
+name: Brutalist Cubes
+mint_opens_at: 2024-02-23T10:31:43+00:00
+generative_uri: ipfs://QmQ3StpQSNX57YdsvjtDpZE8W6DE8S7oQo4m8KDyCP2ntA

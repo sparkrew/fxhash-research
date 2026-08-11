@@ -1,0 +1,4 @@
+id: 31295
+name: CharCrafter0 (XTZ)
+mint_opens_at: 2024-11-09T18:36:05+00:00
+generative_uri: ipfs://QmXBU4yQDQuQ9xfvmP7XUJbafYd9qj8fzrnHsmkMWrpnWh

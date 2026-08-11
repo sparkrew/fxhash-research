@@ -1,0 +1,4 @@
+id: 31305
+name: Explosion and Implosion
+mint_opens_at: 2024-11-12T16:33:00+00:00
+generative_uri: ipfs://QmPgwzN6RYr5L8ZLrjJvESQnzfCeNd7g9ioeXEAfZNHG3J

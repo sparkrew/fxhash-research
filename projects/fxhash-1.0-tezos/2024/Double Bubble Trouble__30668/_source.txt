@@ -1,0 +1,4 @@
+id: 30668
+name: Double Bubble Trouble
+mint_opens_at: 2024-03-30T02:01:17+00:00
+generative_uri: ipfs://QmQkrLFX55geujEsUTu7m8RY1soupjXe61TMLddZudNQkp

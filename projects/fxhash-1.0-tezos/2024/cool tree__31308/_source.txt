@@ -1,0 +1,4 @@
+id: 31308
+name: cool tree
+mint_opens_at: 2024-11-12T22:33:00+00:00
+generative_uri: ipfs://QmaC2CME8hbNWxLquetoCcZUw5sUrDYZ7u4d6ymRVd145c

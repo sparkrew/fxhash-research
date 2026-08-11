@@ -1,0 +1,4 @@
+id: 31364
+name: fx cubes
+mint_opens_at: 2024-11-29T11:55:05+00:00
+generative_uri: ipfs://QmbgPiqpxQpXntbWUXMNUoC9oLGpGFwq28FSnX22wm6k5J

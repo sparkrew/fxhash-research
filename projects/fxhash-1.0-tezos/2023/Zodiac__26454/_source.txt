@@ -1,0 +1,4 @@
+id: 26454
+name: Zodiac
+mint_opens_at: 2023-04-13T12:00:00+00:00
+generative_uri: ipfs://QmVWWqWpwxZR7SovAELoTGfLcPN35ZyDn55MMzcmUVMTwu

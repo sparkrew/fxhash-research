@@ -1,0 +1,4 @@
+id: 30234
+name: Artist Party
+mint_opens_at: 2024-02-05T17:28:00+00:00
+generative_uri: ipfs://Qmeg8LkK13SzsG5AAU4B2mQ9ifXiieLyNjzNeTJJTNBWQ5

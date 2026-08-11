@@ -1,0 +1,4 @@
+id: 30830
+name: Cirot
+mint_opens_at: 2024-05-13T16:00:00+00:00
+generative_uri: ipfs://Qmb46hMNrQjJ55THA21wdP19EaswwagmjZZXnKxuKNZ8hN

@@ -1,0 +1,4 @@
+id: 29343
+name: Una
+mint_opens_at: 2023-10-30T11:08:00+00:00
+generative_uri: ipfs://QmbtZkDegf4dSfuPpoWAdhK1MsQT7fdk6ucKa4Y46uDJf8

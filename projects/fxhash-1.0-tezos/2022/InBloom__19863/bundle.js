@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Stage:stage_string},document.createElement("div").innerText=`\n  "Stage": [${$fxhashFeatures.Stage}]\n\n`;

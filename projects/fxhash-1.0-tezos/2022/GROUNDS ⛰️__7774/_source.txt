@@ -1,0 +1,4 @@
+id: 7774
+name: GROUNDS ⛰️
+mint_opens_at: 2022-01-22T17:56:00+00:00
+generative_uri: ipfs://QmRAJNSShKQy8NrX74UGj6aKcH5gJ7dDqmdbBvnQ5jc59p

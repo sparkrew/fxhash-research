@@ -1,0 +1,4 @@
+id: 21593
+name: LA BOUGIE 🕯
+mint_opens_at: 2022-12-30T08:30:00+00:00
+generative_uri: ipfs://QmPAk5kUFdpAX2cShmQVPAB63XSLyUChDumvkhszXZKBeC

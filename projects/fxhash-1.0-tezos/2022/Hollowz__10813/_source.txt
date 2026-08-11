@@ -1,0 +1,4 @@
+id: 10813
+name: Hollowz
+mint_opens_at: 2022-03-17T17:50:34+00:00
+generative_uri: ipfs://QmR3UtWg9UL79soQHdrpKm5ktDutWpbH2EjWA3KwnVSE1v

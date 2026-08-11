@@ -1,0 +1,239 @@
+<html>
+<head>
+      <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>      
+</head>
+<script src="./p5.min.js"></script>
+<script>
+      const boxW = 6;
+      var temp = 0;
+      var lines=[]
+      var _g=132
+      var _g_direction=1
+      var cc=5
+      var worm1
+      let x = [];
+      let y = [];
+      let z = [];
+      let rad
+      let deltaMove=1;
+      
+      function setup() {
+            createCanvas(800, 800, WEBGL);
+            frameRate(30)
+            colorMode(HSB)
+            blendMode(HARD_LIGHT)
+            background(0);
+            for(let i = 0; i < 15; i++){
+                  x.push(i);
+                  y.push(i/2);
+            }
+      }
+      
+      function draw() {
+            orbitControl()
+            background(0);
+            strokeWeight(0.4)
+            fill(color(292, 100, 20))
+            rotateY(173)
+            rotateX(0.6)
+            rotateZ(1.55)
+            translate(-300,0,-50)
+      
+            rad = millis() / 3000;
+                  push()
+                        stroke(color(120, 100, 10))
+                        strokeWeight(5)
+                        fill(color(120, 100, 20))                  
+      
+                        translate(200,0 ,0)
+                        sphere(30, 23, 24)
+                        fill(color(80, 40, 100))                  
+                        rotateX((20)+rad)
+                        //pointLight(300, 50, 100-5,200,0 ,0)
+                        sphere(30, 23, 24)
+                  pop()
+            let n=20
+            for(let i=1; i<n; i++){
+                  fill(color(map(i,1,n,1,360), 90, 100))                  
+                  //golbarg-e-bozorg
+                  //sikh-e-golbarg
+                  //down
+                  // up
+                  shininess(80)
+                  stroke(color(360-map(i,1,n,1,360), 70, 100-5*i))
+                  strokeWeight(1)
+                  fill(color(map(i,1,n,1,360), 70, 100-5*i))
+                  push()
+                        rotateX((10*i)+rad);rotateY(1.5);translate(-110,50, 330);
+                        rotateX(1.5);scale(0.3,-0.6,0.5);translate(50,190,0)
+                        beginShape();
+                              curveVertex(width/2, 340, 0);
+                              curveVertex(width/2, 340-2*i, 0);
+                              curveVertex(width/2, 50, 50);shearX(HALF_PI/ map(i,1,19,7,10));
+                              curveVertex(width/2 - random(100+i,100+n)-2*i, 290-3*i, 50);
+                              curveVertex(width/2     , 10, 50);
+                              curveVertex(width/2 + random(100+i,100+n)+2*i, 340-3*i, 50);
+                              curveVertex(width/2, 50, 50);
+                              curveVertex(width/2, 340-2*i, 0);
+                              curveVertex(width/2, 340, 0);
+                        endShape();   
+                        shininess(10)
+                        specularMaterial(color(map(i,1,n,1,360), 90, 100-5*i))
+                        pointLight(300, 50, 100-5*i,width/2 - 20-2*i, 290, 50)
+                        translate(width/2 - 20-2*i, 290, 50);cone(4, 10);
+                  pop()
+                  push()
+                        rotateX((10*i)+rad);rotateY(1.5);translate(-140,50, 330);
+                        rotateX(1.5);rotateZ(0.3);scale(0.3,-0.6,0.5);translate(50,280,0);
+                        beginShape();
+                              curveVertex(width/2, 300, 0);
+                              curveVertex(width/2, 300, 0);
+                              curveVertex(width/2, 50, 50);
+                              curveVertex(width/2 - 130-5*i, 280-2*i, 50);
+                              curveVertex(width/2     , 10, 50);
+                              curveVertex(width/2 + 130+5*i, 330-2*i, 50);
+                              curveVertex(width/2, 50, 50);
+                              curveVertex(width/2, 300, 0);
+                              curveVertex(width/2, 300, 0);
+                        endShape();    
+                        shininess(10)
+                        specularMaterial(color(map(i,1,n,1,360), 90, 100-5*i))
+                        pointLight(300, 50, 100-5*i,width/2 - 20-2*i, 280, 50)
+                        translate(width/2 - 20-2*i, 280, 50);cone(4, 10);
+      
+                  pop()
+                  push()                  
+                        rotateX((10*i)+rad);rotateY(1.5);translate(-220,50, 330);
+                        rotateX(1.5);rotateZ(0.6);scale(0.3,-0.6,0.5);translate(50,410,0);shearX(HALF_PI/ map(i,1,19,4,10));
+                        beginShape();
+                              curveVertex(width/2, 300, 0);
+                              curveVertex(width/2, 300, 0);
+                              curveVertex(width/2, 50, 50);
+                              curveVertex(width/2 - 140, 270, 50);
+                              curveVertex(width/2     , 10, 50);
+                              curveVertex(width/2 + 140, 320, 50);
+                              curveVertex(width/2, 50, 50);
+                              curveVertex(width/2, 300, 0);
+                              curveVertex(width/2, 300, 0);
+                        endShape();    
+                        shininess(10)
+                        specularMaterial(color(map(i,1,n,1,360), 90, 100-5*i))
+                        pointLight(300, 50, 100-5*i,width/2 - 40, 270, 50)
+                        translate(width/2 - 40, 270, 50);cone(4, 10);
+      
+                  pop()
+                  push()
+                        rotateX((7*i)+rad);rotateY(1.5);translate(-440,50, 330);
+                        rotateX(1.5);rotateZ(1);scale(0.3,-0.6,0.5);translate(50,780,0);
+                        beginShape();
+                              curveVertex(width/2, 200, 0);
+                              curveVertex(width/2, 200-1.5*i, 0);
+                              curveVertex(width/2, 50, 50);shearX(HALF_PI/ map(i,1,19,4,10));
+                              curveVertex(width/2 - 60, 150+50*sin(i), 50);
+                              curveVertex(width/2     , 10, 50);
+                              curveVertex(width/2 + 60, 200+50*cos(i), 50);
+                              curveVertex(width/2, 50, 50);
+                              curveVertex(width/2, 200-2*i, 0);
+                              curveVertex(width/2, 200, 0);
+                        endShape();    
+                        shininess(10)
+                        specularMaterial(color(map(i,1,n,1,360), 90, 100-5*i))
+                        pointLight(300, 50, 100-5*i,width/2 - 60, 150+50*sin(i), 50)
+                        translate(width/2 - 60, 150+50*sin(i), 50);cone(4, 10);
+                  pop()
+      
+      
+            }
+            for(let i=0; i<4; i++){
+      
+                  push()
+                        smooth()
+                        shininess(0.5)
+                        stroke(color(116, 100, 32-5*i))
+                        strokeWeight(2.5)
+                        fill(color(116, 100, 25-5*i))                  
+                        rotateX((190*i)+rad)
+                        rotateY(1.5)
+                        rotateZ(0)
+                        translate(-390,50, 330)
+                        scale(1.04,-1.3,1.5+5*i/10)
+                        
+                        beginShape();
+                              curveVertex(width/2, 200, 0);
+                              curveVertex(width/2, 250, 0);
+                              curveVertex(width/2 - 40, 130+3*i, -10);
+                              curveVertex(width/2, 40, 70);
+                              curveVertex(width/2 + 40, 120+4*i, -10);
+                              curveVertex(width/2, 250, 0);
+                              curveVertex(width/2, 200, 0);
+                        endShape(); 
+      
+                        strokeWeight(0.5)
+                        translate(400, 30, 105) 
+                        rotateX(-10)  
+                        shearX(HALF_PI/ 4);
+                        //cylinder(5, 55);  
+                  pop()
+                  if (i==2){
+                        push()
+                              rotateX((1.1*i)+rad)
+                              rotateZ(0.04)
+                              _g=_g+_g_direction
+                              if (_g>145) _g_direction=-1
+                              else if (_g<125) _g_direction=1
+                              stroke(color(_g, 100, 43))
+                              strokeWeight(0.4)
+                              specularMaterial(color(_g, 100, 53))
+                              rotateZ(1.51)
+                              translate(5, -400, 0)
+                              pointLight(0,0,100,15, -300-_g, 0 )
+                              //shearX(PI/ 8);
+                              cylinder(8, 350);  
+                        pop()
+                        }
+                  }
+            
+                  directionalLight(0,0,100, 0,0,-100)
+                  pointLight(0,0,100, 0, -8  , 0)
+                  directionalLight(0,0,100, 0, -28  , 0)
+      
+      }
+      
+
+      
+      </script>
+</html>

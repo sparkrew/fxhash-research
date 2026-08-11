@@ -1,0 +1,4 @@
+id: 15102
+name: GRADIUM
+mint_opens_at: 2022-06-18T17:01:44+00:00
+generative_uri: ipfs://QmdFES48u9XkoyoBz1FF9MkmsYVkVmjb3Th3rN5CSo25Ev

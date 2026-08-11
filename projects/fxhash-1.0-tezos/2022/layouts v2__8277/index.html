@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+	</head>
+	<body>
+		<canvas style="position:absolute;top: 0;left:0;width: 100%;background-repeat:no-repeat;background-size:cover;" id='myCanvas' width='2000' height='2000'></canvas>
+		<script>
+			window.onload = function() {			
+				function getRndInteger(min, max) {
+				  return Math.floor( fxrand() * (max - min + 1) + min);
+				}
+				
+				var bgs = [
+					'',
+					'#eae5d4',
+					'#ddd4ea',
+					'#ededed',
+					'#07000a', // 4 - dark
+					'#f2e6ea'
+				]
+				
+				var strokes = [
+					'',
+					'#6243f7',	//LILA
+					'#00bccf', // AZUL-VERDOSO
+					'#ff6556', // AZUL
+					'#ff0062', // ROJO-FUCSIA
+					'#ff6556', // SALMON
+					'#440011', // CEREZA
+					'#ea6300', // NARANJA
+					'#311000', // MARRON
+					'#60719c', // AZUL - GRISASEO
+				];
+				
+				
+				var grises = [
+					'',
+					'#e1e1e1',
+					'#c1c1c1',
+					'#979797',
+					'#6f6f6f',
+					'#0f0f0f',
+					'#505050'
+				];
+				
+
+				var cnvs = document.getElementById('myCanvas');	  
+				var canvasWidth = cnvs.width;
+				var canvasHeight = cnvs.height;
+				cnvs.style.position = 'absolute';
+				var ctx = cnvs.getContext('2d');
+				
+				
+				
+				bg = getRndInteger(1,(bgs.length-1));
+				cnvs.style.backgroundColor = bgs[bg];
+				
+				
+				matrix_size = 2;
+				while ((matrix_size % 2) == 0){
+					matrix_size = getRndInteger(73,333);
+				}
+				
+				
+
+				matrix = matrix_size;
+				d = (2000/matrix);
+				xi = 0;
+				yi = 0;
+				x = 0 ;
+				y = 2000 - d;
+				ori = getRndInteger(1,2);
+				gris = getRndInteger(1,22);
+				times = getRndInteger(1,2);
+				drawn = 0;
+				//color
+				while(drawn == 0){
+					if(gris != 22){
+						for(j=0;j<3;j++){
+							colori = strokes[getRndInteger(1,strokes.length-1)];
+							for(i=0;i<matrix;i++){	
+								fill = getRndInteger(1,11);
+								if(fill == 3){
+									for(k=0;k<matrix;k += 2){
+										r = getRndInteger(40,180);
+										ctx.beginPath();
+										switch(ori){
+											case 1:
+												ctx.rect(d*i*times,d*k*times,r,d*times);
+												break;
+											case 2:
+												ctx.rect(d*k*times,d*i*times,d*times,r);
+												break;
+										}
+										drawn = 1;
+										ctx.fillStyle  = colori;
+										ctx.fill();
+									}
+								}
+							}
+						} 
+					} else {
+						// gris
+						for(j=0;j<3;j++){
+							for(i=0;i<matrix;i++){				
+								fill = getRndInteger(1,33);
+								if(fill == 4){
+									for(k=0;k<matrix;k += 2){
+										colorg = grises[getRndInteger(1,grises.length-1)];
+										r = getRndInteger(40,180);
+										ctx.beginPath();
+										switch(ori){
+											case 1:
+												ctx.rect(d*i,d*k,r,d);
+												break;
+											case 2:
+												ctx.rect(d*k,d*i,d,r);
+												break;
+										}
+										drawn = 1;									
+										ctx.fillStyle  = colorg;
+										ctx.fill();
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				
+				// MARGINS
+				mx = getRndInteger(100,600);
+				my = getRndInteger(100,600);
+				
+				ctx.clearRect(0,0,my,2000);
+				ctx.clearRect(2000 - my,0,my,2000);
+				ctx.clearRect(0,0,2000,mx);
+				ctx.clearRect(0,2000 - mx,2000,mx);
+				
+				// NOISE
+				w = getRndInteger(1,6);
+				h = getRndInteger(1,10);
+				color = getRndInteger(5,155);
+				
+				for(i=0;i<getRndInteger(500,6000);i++){
+					x = getRndInteger(1,2000);
+					y = getRndInteger(1,2000);
+					ctx.beginPath();
+					ctx.rect(x,y,w,h);
+					ctx.fillStyle  = 'rgba('+color+','+color+','+color+',0.4)';
+					ctx.fill();
+					
+				}
+				
+				for(i=0;i<getRndInteger(500,6000);i++){
+					r = getRndInteger(5,155);
+					g = getRndInteger(5,155);
+					b = getRndInteger(5,155);
+					x = getRndInteger(1,2000);
+					y = getRndInteger(1,2000);
+					ctx.beginPath();
+					ctx.rect(x,y,w,h);
+					ctx.fillStyle  = 'rgba('+r+','+g+','+b+',0.4)';
+					ctx.fill();
+					
+				}
+			}
+		</script>
+	</body>
+</html>

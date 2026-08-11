@@ -1,0 +1,4 @@
+id: 19590
+name: Intrinsic
+mint_opens_at: 2022-09-20T19:00:00+00:00
+generative_uri: ipfs://QmVsk6HG4h68wqfqpMsbk7ow2Geg7DrgpUdhGDFdBwJ3Y5

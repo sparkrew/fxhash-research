@@ -1,0 +1,4 @@
+id: 11169
+name: Let it burn
+mint_opens_at: 2022-04-19T02:30:00+00:00
+generative_uri: ipfs://QmXkHVByqpxdKnxMZqM4jHnedBAzXAZkvXkruTDm6ogJCx

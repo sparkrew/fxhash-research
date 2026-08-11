@@ -1,0 +1,4 @@
+id: 20527
+name: Minimal Scapes
+mint_opens_at: 2022-10-20T18:00:00+00:00
+generative_uri: ipfs://QmSE4n4QnmUctggjX569xHH2NNNgzGFj1PG6m6ie5WX8SQ

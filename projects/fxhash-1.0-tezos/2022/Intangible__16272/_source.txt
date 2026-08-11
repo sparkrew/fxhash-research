@@ -1,0 +1,4 @@
+id: 16272
+name: Intangible
+mint_opens_at: 2022-07-13T18:00:00+00:00
+generative_uri: ipfs://QmR97pLVgV8YXTK8jzJ2pDiUVF821SqfCLQT44L9MV8Tet

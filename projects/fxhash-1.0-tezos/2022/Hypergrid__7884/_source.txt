@@ -1,0 +1,4 @@
+id: 7884
+name: Hypergrid
+mint_opens_at: 2022-01-25T23:01:00+00:00
+generative_uri: ipfs://QmSGj2wvVeQqQm2sa7aKqXUdH9xBHTE6TqyqV54Qk1ZWkm

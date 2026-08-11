@@ -1,0 +1,63 @@
+.bot .body {
+  transform: translateY(-55px);
+}
+
+.body-cover {
+  width: 100%;
+  height: 100%;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.arm {
+  position: absolute;
+  border-radius: 75px;
+  width: 50px;
+  height: 120px;
+  box-shadow: var(--shadow);
+}
+
+/* Bot body 1 */
+.body-1 {
+  width: 180px;
+  height: 170px;
+}
+
+.body-1 .arm.left {
+  top: 58px;
+  left: -35px;
+  transform: rotate(10deg);
+}
+
+.body-1 .arm.right {
+  top: 58px;
+  right: -35px;
+  transform: rotate(-10deg);
+}
+
+.body-cover {
+  border-radius: 75px;
+}
+
+/* Bot body 5 */
+.head-5 .ear {
+  top: 100px;
+}
+
+.head-5 .arm.left {
+  height: 200px;
+  top: 130px;
+  left: -35px;
+  transform: rotate(5deg);
+}
+
+.head-5 .arm.right {
+  height: 200px;
+  top: 130px;
+  right: -35px;
+  transform: rotate(-5deg);
+}
+
+.body-cover {
+  border-radius: 75px;
+}

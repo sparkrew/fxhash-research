@@ -1,0 +1,4 @@
+id: 18457
+name: Lines and Curves
+mint_opens_at: 2022-08-22T04:00:00+00:00
+generative_uri: ipfs://QmXMYLSPD3VZeu6cPiKLpL4Y3chNNxvPRz2TwukdB4Wyja

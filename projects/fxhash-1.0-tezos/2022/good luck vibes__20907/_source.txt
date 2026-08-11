@@ -1,0 +1,4 @@
+id: 20907
+name: good luck vibes
+mint_opens_at: 2022-11-01T16:19:14+00:00
+generative_uri: ipfs://QmRyAmUUDEhS7KvccBeFSc3R6YEPSmCcPL95hsQ9Vxs7D4

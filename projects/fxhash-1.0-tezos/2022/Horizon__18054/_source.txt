@@ -1,0 +1,4 @@
+id: 18054
+name: Horizon
+mint_opens_at: 2022-08-13T20:37:44+00:00
+generative_uri: ipfs://QmYPK1nRUf61oMmKYk3L56QxfNNe5FsY31Bks7oCSpav6A

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      /*background-color: #fff8dc;*/
+      background-attachment: fixed;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+    }
+  </style>
+
+
+
+
+
+</head>
+
+<body>
+
+  <canvas id="firstcanvas"></canvas>
+
+<script>
+
+
+var boingo = fxrand();
+
+// doc setup
+// make a square canvas based on minimum window size
+// awesome code from @therickface
+/////////////////////////////////
+let size = Math.min(window.innerWidth, window.innerHeight);
+
+var cb = document.getElementById("firstcanvas");
+var ctx = cb.getContext("2d");
+
+function clearCanvas() {
+  cb.height = size;
+  cb.width = size;
+}
+clearCanvas();
+
+// add background color directly to the canvas
+// makes it more cohesive to right-click-save
+// add midnight function for rare dark background
+////////////////////////////////////
+var crnvr = document.getElementById("firstcanvas");
+var corntext = crnvr.getContext("2d");
+corntext.globalCompositeOperation = "source-over";
+
+function midnight() {
+  if (boingo > 0.75) {
+    corntext.fillStyle = "#333333";
+	console.log('It is midnight in the garden of good and evil.');
+  } else corntext.fillStyle = "#fff8dc";
+}
+midnight();
+corntext.fillRect(0, 0, size, size);
+
+// draw all the background circles
+// from this pen by Matthew Richardson
+// https://codepen.io/2toria/pen/nddZKE
+// made variable by screen size
+/////////////////////////////////////
+var texxxture = function () {
+  const canvas = document.getElementById("firstcanvas");
+  const ctx = canvas.getContext("2d");
+  //ctx.clearRect(0, 0, size, size);
+  for (
+    i = 0;
+    i < size * 99;
+    i++ // number of circles based on screen size
+  ) {
+    // placing circles at x,y within the width and height of canvas context
+	
+	
+	
+    var x = Math.floor(fxrand() * size);
+    var y = Math.floor(fxrand() * size);
+
+    // circle max size
+    // use 2 for tiny dots or 35 to make big clouds
+    var radius = Math.floor(fxrand() * 2);
+
+    var a =
+      fxrand() *
+      0.12; /* declaring a of rgba to have random opacity between 0 and x. Originally 0.25. */
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, Math.PI * 2, 0, false);
+    ctx.globalCompositeOperation = "source-over";
+
+    // all medium grey circles with random opacity
+    ctx.fillStyle = "rgba(150,150,150," + a + ")";
+
+    ctx.fill();
+    ctx.closePath();
+  }
+};
+texxxture(); // finish drawing the background texture
+
+// phil start
+// One thing you can do to choose a palette randomly
+// is to place them in an array and randomly select an index to the array.
+//////////////////////////////////////////////
+const PALETTES = [
+  {
+    name: "jedentag", // yellow, orange, purple, pink
+    colors: ["#FFF200", "#F7941D", "#A7228E", "#4C3390"]
+  },
+  {
+    name: "stormy", // teal, green, purple, pink
+    colors: ["#33cccc", "#33cc99", "#6666cc", "#ff3399"]
+  },
+  /*{
+    name: "mardigras", // mustard, purple, teal, green
+    colors: ["#DBB342", "#16DBA2", "#C32CDB", "#1D8F6E"] //#7E0E8F
+  },*/
+
+  {
+    name: "harvest", // tan, orange, brown
+    colors: ["#E1A744", "#DB8A00", "#5C3A00", "#A86B00"]
+  },
+  {
+    name: "peony", // grey-purple, pink, seafoam, purple
+    colors: ["#6E5270", "#E968F2", "#52A6A8", "#680070"] //"#EBAFF0",
+  },
+  {
+    name: "cajabeats", // FAVE: yellow, pink, purple
+    colors: ["#EBC710", "#F28D0C", "#F20CBF", "#5E05EB"] //#DB2601
+  },
+  {
+    name: "whale", // bright blue, light blue, dark blue, grey blue
+    colors: ["#68BDF2", "#AFD7F0", "#004570", "#8AA9BD"]
+  },
+
+  {
+    name: "studioyorktown", // grey, dark red, bright red, black
+    colors: ["#4d4d4d", "#c63939", "#FF0000", "#000000"]
+  },
+  {
+    name: "trousers", // green, purple, red-purple, pink
+    colors: ["#cce335", "#A09CF0", "#A3528E", "#F084D4"] //#7572A3
+  }
+];
+
+// Random helper functions
+// random number between a and b
+function rn(a, b) {
+  return a + (b - a) * fxrand();
+}
+// random integer between a (inclusive) and b (inclusive)
+// requires a < b for proper probability distribution
+function ri(a, b) {
+  return Math.floor(rn(a, b + 1));
+}
+
+// Select a palette
+const paletteIndex = ri(0, PALETTES.length - 1);
+const randomPalette = PALETTES[paletteIndex];
+console.log(`the palette is ${randomPalette.name}`);
+
+let uid = 1000;
+
+
+
+// draw the wilder shapes
+/////////////////////////////////////////
+function timberwolfShape(canvasName, baseY, selectedColor) {
+  const canvas = document.getElementById(canvasName);
+  const ctx = canvas.getContext("2d");
+
+  // responsive points based on window size
+  const points = [
+    { x: size * 0.05, y: ri(baseY + 10, baseY + 55) },
+    { x: size * 0.121, y: ri(baseY + 10, baseY + 55) },
+    { x: size * 0.221, y: ri(baseY + 10, baseY + 200) },
+    { x: size * 0.424, y: ri(baseY + 10, baseY + 200) },
+    { x: size * 0.633, y: ri(baseY + 10, baseY + 200) },
+    { x: size * 0.931, y: ri(baseY + 10, baseY + 200) },
+    { x: size * 0.931, y: ri(baseY, baseY + 225) },
+    { x: size * 0.599, y: ri(baseY, baseY + 225) },
+    { x: size * 0.455, y: ri(baseY, baseY + 225) },
+    { x: size * 0.26, y: ri(baseY, baseY + 225) },
+    { x: size * 0.08, y: ri(baseY, baseY + 100) },
+    { x: size * 0.05, y: ri(baseY, baseY + 100) }
+  ];
+
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y);
+
+  for (var i = 0; i < points.length - 1; i++) {
+    var x_mid = (points[i].x + points[i + 1].x) / 2;
+    var y_mid = (points[i].y + points[i + 1].y) / 2;
+    var cp_x1 = (x_mid + points[i].x) / 2;
+    var cp_x2 = (x_mid + points[i + 1].x) / 2;
+    //ctx.globalCompositeOperation = 'multiply';
+    ctx.quadraticCurveTo(cp_x1, points[i].y, x_mid, y_mid);
+    ctx.quadraticCurveTo(
+      cp_x2,
+      points[i + 1].y,
+      points[i + 1].x,
+      points[i + 1].y
+    );
+  }
+
+  // Set up the dot patterns within the line shapes again
+  // this time for the timberwolf shapes
+  // no changes from before
+  /////////////////////////////////////
+  const pqCanvas = document.createElement("canvas");
+  pqCanvas.width = 5;
+  pqCanvas.height = 5;
+  pqCanvas.id = `pattern-${uid++}`;
+  const pqContext = pqCanvas.getContext("2d");
+  console.log(selectedColor);
+  pqContext.arc(3, 3, 2.5, 0, 2 * Math.PI);
+  pqContext.fillStyle = selectedColor;
+  pqContext.globalAlpha = 0.25; // opacity of dots
+  pqContext.fill();
+  ctx.closePath();
+  ctx.fillStyle = ctx.createPattern(pqCanvas, "repeat");
+  ctx.fill();
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = selectedColor;
+  ctx.stroke();
+}
+
+// circle mask, a.k.a. function spyglass
+///////////////////////////////////////////
+function spyglass() {
+  var c = document.getElementById("firstcanvas");
+  var ctx = c.getContext("2d");
+  ctx.beginPath();
+  ctx.arc(size * 0.5, size * 0.45, size * 0.33, 0, 2 * Math.PI);
+  ctx.closePath();
+
+  // add texture to spyglass
+  const ayCanvas = document.createElement("canvas");
+  const ayContext = ayCanvas.getContext("2d");
+
+  // same size dots as dots in wavy shapes
+  ayCanvas.width = 5;
+  ayCanvas.height = 5;
+  ayCanvas.id = `pattern-${uid++}`;
+  ayContext.arc(3, 3, 2.5, 0, 2 * Math.PI);
+  ayContext.fillStyle = randomPalette.colors[2];
+  ayContext.globalAlpha = 0.125; // opacity of dots
+  ayContext.fill();
+  ctx.closePath();
+  ctx.fillStyle = ctx.createPattern(ayCanvas, "repeat");
+  ctx.fill();
+
+  ctx.strokeStyle = randomPalette.colors[3];
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.clip();
+}
+
+// Clip multiple small circles
+// var size is based on Math.min of window.innerWidth
+/////////////////////////////////////
+
+function cropcircles() {
+  var c = document.getElementById("firstcanvas");
+  var ctx = c.getContext("2d");
+
+  // first circle
+  let cx = size * 0.29;
+  let cy = size * 0.225;
+  let r = size * 0.15;
+  ctx.moveTo(cx + r, cy);
+  ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+
+  // second circle
+  cx = size * 0.675;
+  cy = size * 0.45;
+  r = size * 0.25;
+  ctx.moveTo(cx + r, cy);
+  ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+
+  ctx.strokeStyle = randomPalette.colors[3];
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.clip();
+}
+
+if (boingo > 0.8) {
+  // normally > 0.8
+  spyglass();
+  console.log('Horatio Hornblower is using his spyglass');
+} else if (boingo < 0.2) {
+  // normally < 0.2
+  cropcircles();
+  console.log('the aliens have made cropcircles');
+}
+
+// Draw 3 shapes
+/////////////////////////////////
+function drawGroupOfShapes(canvasName, baseY, shapeColor) {
+  drawShape("firstcanvas", baseY, shapeColor);
+  drawShape("firstcanvas", baseY + 40, shapeColor);
+ // if (boingo > 0.85) { drawShape("firstcanvas", baseY + 80, shapeColor); }
+}
+
+// timberwolf only do 2 shapes per set
+//////////////////////////////////////
+function drawGroupofWildShapes(canvasName, baseY, shapeColor) {
+  timberwolfShape("firstcanvas", baseY, shapeColor);
+  timberwolfShape("firstcanvas", baseY + 40, shapeColor);
+  //timberwolfShape("firstcanvas", baseY + 80, shapeColor);
+}
+
+
+
+// timberwolf: draw 2 or 3 sets of wild shapes
+// timberwolf always leave off fourth color to better fit mobile screens
+// randomly leave out second color
+//////////////////////////////////////////
+function timberwolf() {
+  drawGroupofWildShapes("firstcanvas", size * 0.1, randomPalette.colors[0]);
+ if (boingo > 0.2) {  drawGroupofWildShapes("firstcanvas", size * 0.15, randomPalette.colors[1]); }
+  drawGroupofWildShapes("firstcanvas", size * 0.2, randomPalette.colors[2]);
+if (boingo > 0.3) {   drawGroupofWildShapes("firstcanvas", size * 0.25, randomPalette.colors[3]); }
+}
+
+
+
+timberwolf();
+
+
+// features functions
+////////////
+
+function SpyglassOrCropCircles(value) {
+if (value > 0.8) return "spyglass"
+if (value < 0.2) return "cropcircles"
+// if (value < 0.1) return "threecropcircles"
+else return "all quiet on the farm"
+}
+
+
+function isitdarkoutside(value){
+if (value > 0.75) return "midnight"
+else return "daylight"
+}
+
+window.$fxhashFeatures = {
+
+  "Alien Influence": SpyglassOrCropCircles(boingo),
+  "Color Palette": randomPalette.name,
+  "Background": isitdarkoutside(boingo),
+}
+
+
+
+
+fxpreview();
+
+
+
+</script>
+
+</body>
+
+</html>

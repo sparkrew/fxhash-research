@@ -1,0 +1,376 @@
+<html>
+<head>
+      <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>      
+</head>
+<script src="./p5.min.js"></script>
+<script>
+      const boxW = 6;
+      var temp = 0;
+      var lines=[]
+      var _g=132
+      var _g_direction=1
+      var cc=5
+      var worm1
+      let x = [];
+      let y = [];
+      let z = [];
+      let rad
+      let deltaMove=1;
+      let g=0
+      //golbarg1-color1
+      var c1=[[237, 97, 34],[315, 47, 75],[17,94,96]]
+      //golbarg1-color2
+      var c2=[[126, 5, 86],[329, 77, 57],[359,96,96]]
+      //golbarg2-color1
+      var c3=[[231, 99, 60],[34, 66, 67],[21,96,97]]
+      //golbarg2-color2
+      var c4=[[233, 75, 72],[328, 76, 52],[58,98,99]]
+      //golbarg3-color1
+      var c5=[[237,97,34],[47,100,100],[21,96,97]]
+      //golbarg3-color2
+      var c6=[[44, 93, 97],[315,47,75],[58,98,99]]
+      
+      function setup() {
+            createCanvas(800, 800, WEBGL);
+            frameRate(30)
+            colorMode(HSB)
+            blendMode(SOFT_LIGHT)
+            background(0);
+            for(let i = 0; i < 15; i++){
+                  x.push(i);
+                  y.push(i/2);
+            }
+            //rad = -1.5;
+      }
+      
+      function draw() {
+            orbitControl()
+            background(0);
+            strokeWeight(0.4)
+            fill(color(292, 100, 20))
+            rotateY(173)
+            rotateX(0.6)
+            rotateZ(1.55)
+            translate(-300,-5,-50)   
+            rad = millis() / 3000;
+
+            g=0
+            drawFlower();
+            push()
+            rotateX(2.1)
+            g=1
+            drawFlower();
+            rotateX(2.2)
+            g=2
+            drawFlower();
+            pop()
+      
+      
+            
+            for(let i=0; i<4; i++){
+      
+                  push()
+                        smooth()
+                        shininess(0.5)
+                        stroke(color(116, 100, 32-5*i))
+                        strokeWeight(12.5)
+                        fill(color(116, 100, 25-5*i))                  
+                        rotateX((190*i)+rad)
+                        rotateY(0.59)
+                        rotateZ(1.9)
+                        translate(-710-5*i,-140-5*i, 330)
+                        scale(1.4,-1.3,1.5)
+                        
+                        beginShape();
+                              curveVertex(width/2, 200, 0);
+                              curveVertex(width/2, 250, 0);
+                              curveVertex(width/2 - 40, 150+6*i, -10);
+                              curveVertex(width/2, 40, 70);
+                              curveVertex(width/2 + 40, 140+8*i, -10);
+                              curveVertex(width/2, 250, 0);
+                              curveVertex(width/2, 200, 0);
+                        endShape(); 
+                        // beginShape();
+                        //       curveVertex(width/2     , 200       , 0);
+                        //       curveVertex(width/2     , 250       , 0);
+                        //       curveVertex(width/2 + 90, 250-190   , -10);
+                        //       curveVertex(width/2 + 70, 250-160   , -10-i*2);
+                        //       curveVertex(width/2 +80, 250-190  , -10-i*3);
+                        //       curveVertex(width/2 +80, 250-170   , -10);
+                        //       curveVertex(width/2 +100, 250-220  , -10-i*3);
+                        //       curveVertex(width/2 +100, 250-200  , -10);
+                        //       curveVertex(width/2 +200, 250-150  , -10);
+                        //       curveVertex(width/2 +250, 250-170  , -10-i*2);
+                        //       curveVertex(width/2 +200, 250-130  , -10);
+                        //       curveVertex(width/2 +180, 250-120  , -10-i*4);
+                        //       curveVertex(width/2 +190, 250-100  , -10);
+                        //       curveVertex(width/2 +130, 250-90  , -10-i*3);
+                        //       curveVertex(width/2 +150, 250-30  , -10);
+                        //       curveVertex(width/2 +70, 250-40  , -10-i*5);
+                        //       curveVertex(width/2 +90, 250+20  , -10);
+                        //       curveVertex(width/2     , 250       , 0);
+                        //       curveVertex(width/2     , 200       , 0);
+                        // endShape();
+      
+                        strokeWeight(0.5)
+                        translate(400, 30, 105) 
+                        rotateX(-10)  
+                        shearX(HALF_PI/ 4);
+                        //cylinder(5, 55);  
+                  pop()
+                  if (i==2){
+                        push()
+                              rotateX((1.1*i)+rad)
+                              rotateZ(0.04)
+                              _g=_g+_g_direction
+                              if (_g>145) _g_direction=-1
+                              else if (_g<125) _g_direction=1
+                              stroke(color(_g, 100, 43))
+                              strokeWeight(0.4)
+                              specularMaterial(color(_g, 100, 53))
+                              rotateZ(1.51)
+                              translate(5, -400, 0)
+                              pointLight(0,0,100,15, -300-_g, 0 )
+                              //shearX(PI/ 8);
+                              cylinder(8, 540); 
+                              translate(0, 260, 0)
+                              sphere(13, 16, 20) 
+                        pop()
+                        }
+                  }
+            
+                  directionalLight(0,0,100, 0,0,-100)
+                  pointLight(0,0,100, 0, -8  , 0)
+                  directionalLight(0,0,100, 0, -28  , 0)
+      
+      }
+      
+
+      function drawFlower(){
+                  shininess(80)
+                  noStroke()
+                  push()
+                  //translate(0,100,0)
+                        rotateX((.5)+rad);rotateY(1.8);
+                        translate(-90,20, -500);
+                        rotateX(1.4);
+                        rotateY(1.9);
+                        scale(0.3,0.6,0.5);
+                        translate(-550,700,270);
+                        rotateX(-0.4)
+                        rotateY(0.33)
+                        rotateZ(0.7)
+                        //golbarg1                  
+                        fill(color(c1[g]))
+                        beginShape();
+                              curveVertex(width/2     , 200 , 0);
+                              curveVertex(width/2     , 200 , 0);
+                              curveVertex(width/2-170 , 150 , 50);
+                              curveVertex(width/2-110  , 0  , 50);
+                              curveVertex(width/2+110  , 0  , 50);
+                              curveVertex(width/2+170 , 150 , 50);
+                              curveVertex(width/2     , 200, 0);
+                              curveVertex(width/2     , 200, 0);
+                        endShape();    
+                        fill(color(c2[g]))
+                        rotateZ(0.01)
+                        rotateX(-0.01)
+                        beginShape();
+                              curveVertex(width/2     , 200 , 0);
+                              curveVertex(width/2     , 200 , 0);
+                              curveVertex(width/2-170 , 150 , 50);
+                              curveVertex(width/2-110  , 0  , 50);
+                              curveVertex(width/2+110  , 0  , 50);
+                              curveVertex(width/2+170 , 150 , 50);
+                              curveVertex(width/2     , 200, 0);
+                              curveVertex(width/2     , 200, 0);
+                        endShape();  
+                        //golbarg2
+                        fill(color(c1[g]))
+                        rotateZ(-0.9)
+                        rotateY(0.2)
+                        translate(-390,200,30);
+                        beginShape();
+                              curveVertex(width/2     , 200 , 0);
+                              curveVertex(width/2     , 200 , 0);
+                              curveVertex(width/2-170 , 150 , 50);
+                              curveVertex(width/2-110  , 0  , 50);
+                              curveVertex(width/2+110  , 0  , 50);
+                              curveVertex(width/2+170 , 150 , 50);
+                              curveVertex(width/2     , 200, 0);
+                              curveVertex(width/2     , 200, 0);
+                        endShape();    
+                        fill(color(c2[g]))
+                        rotateZ(0.01)
+                        rotateX(-0.01)
+                        beginShape();
+                              curveVertex(width/2     , 200 , 0);
+                              curveVertex(width/2     , 200 , 0);
+                              curveVertex(width/2-170 , 150 , 50);
+                              curveVertex(width/2-110  , 0  , 50);
+                              curveVertex(width/2+110  , 0  , 50);
+                              curveVertex(width/2+170 , 150 , 50);
+                              curveVertex(width/2     , 200, 0);
+                              curveVertex(width/2     , 200, 0);
+                        endShape();    
+                        //golbarg3
+                        fill(color(c3[g]))
+                        rotateZ(1.79)
+                        rotateY(0.2)
+                        rotateX(-0.25)
+                        translate(-100,-750,-115);
+                        scale(0.5, 1.4, 1.2)
+                        beginShape();
+                              curveVertex(width/2     , 225 , 0);
+                              curveVertex(width/2     , 225 , 0);
+                              curveVertex(width/2-130 , 100 , 50);
+                              curveVertex(width/2-110  , 0  , 50);
+                              curveVertex(width/2+110  , 0  , 50);
+                              curveVertex(width/2+130 , 100 , 50);
+                              curveVertex(width/2     , 225, 0);
+                              curveVertex(width/2     , 225, 0);
+                        endShape();    
+                        fill(color(c4[g]))
+                        rotateZ(0.01)
+                        rotateX(-0.01)
+                        beginShape();
+                              curveVertex(width/2     , 230 , 0);
+                              curveVertex(width/2     , 230 , 0);
+                              curveVertex(width/2-130 , 100 , 50);
+                              curveVertex(width/2-110  , 0  , 50);
+                              curveVertex(width/2+110  , 0  , 50);
+                              curveVertex(width/2+130 , 100 , 50);
+                              curveVertex(width/2     , 230, 0);
+                              curveVertex(width/2     , 230, 0);
+                        endShape();    
+                        //golbarg4
+                        fill(color(c3[g]))
+                        scale(1, -1, 1)
+                        translate(0,-290,70);
+                        rotateY(0.05)
+                        rotateX(-0.3)
+                        rotateZ(-.2)
+                        beginShape();
+                              curveVertex(width/2     , 225 , 0);
+                              curveVertex(width/2     , 225 , 0);
+                              curveVertex(width/2-130 , 100 , 50);
+                              curveVertex(width/2-110  , 0  , 50);
+                              curveVertex(width/2+110  , 0  , 50);
+                              curveVertex(width/2+130 , 100 , 50);
+                              curveVertex(width/2     , 225, 0);
+                              curveVertex(width/2     , 225, 0);
+                        endShape();    
+                        fill(color(c4[g]))
+                        rotateZ(0.01)
+                        rotateX(-0.01)
+                        beginShape();
+                              curveVertex(width/2     , 230 , 0);
+                              curveVertex(width/2     , 230 , 0);
+                              curveVertex(width/2-130 , 100 , 50);
+                              curveVertex(width/2-110  , 0  , 50);
+                              curveVertex(width/2+110  , 0  , 50);
+                              curveVertex(width/2+130 , 100 , 50);
+                              curveVertex(width/2     , 230, 0);
+                              curveVertex(width/2     , 230, 0);
+                        endShape();    
+                        //golbarg5
+                        fill(color(c5[g]))
+                        scale(1.5, 0.9, 1)
+                        rotateZ(1.9)
+                        translate(-250,-510,-80);
+                        rotateY(-.25)
+                        beginShape();
+                              curveVertex(width/2     , 225 , 0);
+                              curveVertex(width/2     , 225 , 0);
+                              curveVertex(width/2-190 , 130 , 93);
+                              curveVertex(width/2-110  , 0  , 93);
+                              curveVertex(width/2+10    , -10  , 70);
+                              curveVertex(width/2+110  , 0  , 70);
+                              curveVertex(width/2+150 , 130 , 70);
+                              curveVertex(width/2     , 225, 0);
+                              curveVertex(width/2     , 225, 0);
+                        endShape();    
+                        fill(color(c6[g]))
+                        rotateZ(0.01)
+                        rotateX(-0.01)
+                        beginShape();
+                              curveVertex(width/2     , 215 , 0);
+                              curveVertex(width/2     , 215 , 0);
+                              curveVertex(width/2-100 , 120 , 89);
+                              curveVertex(width/2-60  , 20  , 89);
+                              curveVertex(width/2  , -2  , 70);
+                              curveVertex(width/2+60  , 20  , 70);
+                              curveVertex(width/2+100 , 120 , 70);
+                              curveVertex(width/2     , 215, 0);
+                              curveVertex(width/2     , 215, 0);
+                        endShape();    
+
+                        // middle
+                        stroke(0)
+                        strokeWeight(7)
+                        fill(color(49, 100, 99))
+                        scale(2.8, 1.3, 1.5)
+                        rotateZ(1.9)
+                        translate(-280,-420,-80);
+                        rotateY(-.25)
+                        beginShape();
+                              curveVertex(width/2     , 225 , 0);
+                              curveVertex(width/2     , 225 , 0);
+                              curveVertex(width/2-20     , 230 , 0);
+                              curveVertex(width/2-25     , 235 , 0);
+                              curveVertex(width/2-20     , 240 , 0);
+                              curveVertex(width/2     , 245 , -5);
+                              curveVertex(width/2+30     , 240 , -20);
+                              curveVertex(width/2+35     , 235 , -20);
+                              curveVertex(width/2+30     , 230 , -20);
+                              curveVertex(width/2+25     , 225 , -10);
+                              curveVertex(width/2+20     , 225 , -10);
+                        endShape();    
+
+
+                        shininess(10)
+                        specularMaterial(color(30, 90, 100))
+                        pointLight(300, 50, 100-5,width/2 - 60, 150+50, 50)
+                        translate(width/2 - 40, 150+100, -30);
+                        stroke(color(_g, 100, 25))
+                        rotateX(2)
+                        cylinder(2, 40)
+                  pop()
+
+      }
+      </script>
+</html>

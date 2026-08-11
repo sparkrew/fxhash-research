@@ -1,0 +1,4 @@
+id: 10306
+name: Machine Spirit
+mint_opens_at: 2022-03-04T20:55:24+00:00
+generative_uri: ipfs://QmRAxYDw6Lxn2Ykk6GXLxXSrGxnxmjrg7vZXmvEiruvLTN

@@ -1,0 +1,4 @@
+id: 13934
+name: Is this a Superpower?
+mint_opens_at: 2022-05-31T13:53:59+00:00
+generative_uri: ipfs://QmS2upsJfW5aj3veaiqiYED8RFmjwJxDEC9YaAG1srB1Fg

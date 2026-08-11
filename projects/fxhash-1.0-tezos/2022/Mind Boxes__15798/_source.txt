@@ -1,0 +1,4 @@
+id: 15798
+name: Mind Boxes
+mint_opens_at: 2022-07-02T18:14:29+00:00
+generative_uri: ipfs://QmU2MT9aUUM9Deiuc1f1bsoHNV9Shw4PeQnDDWK1fkiqGY

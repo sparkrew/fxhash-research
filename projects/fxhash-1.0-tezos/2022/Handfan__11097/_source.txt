@@ -1,0 +1,4 @@
+id: 11097
+name: Handfan
+mint_opens_at: 2022-04-16T13:50:44+00:00
+generative_uri: ipfs://QmWytu6SJiJ7Sh6rddSBhX9jHdimZw9D153UceqWDRvvWh

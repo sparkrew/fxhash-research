@@ -1,0 +1,68 @@
+Intrinsic
+
+My only real goal for this project was to avoid getting sucked into building something figurative. Although the outputs will often have an architecural feel I think I succeeded in sticking to an abstract exploration of shape, depth, color, and hatching styles.
+
+Primary Features:
+TopDensity - Light (35%), Full (65%)
+ColorCombination - analogous (27%), splitcomplement (20%), triad (15%), random (33%), silverandgold (5%)
+SaturationByY - true (45%), false (55%)
+RandomizeY - true (85%), false (15%)
+InvertShadows - true (5%), false (95%)
+ShadowDarkness - .1 (70%), .3 (25%) , .7 (5%)
+ShadowSide - Left (25%), Right (25%), Bottom (25%), Angled (25%)
+TallerAreThinner - true (75%), false (25%)
+Outline - true (85%), false (15%)
+pCurvedShape - 0 (5%), .1 (30%), .25 (50%), .5 (10%), 1 (5%)
+hatchStyle - 1 (75%), 2 (17%), 3 (3%), 4 (5%)
+blur - true (14%), false (86%)
+
+
+Copyright 2022 Jeff Clark
+--------------------------
+All drawing and geometric code created by Jeff Clark using standard
+javascript except for:
+
+- perlin.js from https://codepen.io/sixsided/pen/emxxea.js
+- tinycolor.js from https://github.com/bgrins/TinyColor
+
+  
+/*
+ * A speed-improved perlin and simplex noise algorithms for 2D.
+ *
+ * Based on example code by Stefan Gustavson (stegu@itn.liu.se).
+ * Optimisations by Peter Eastman (peastman@drizzle.stanford.edu).
+ * Better rank ordering method by Stefan Gustavson in 2012.
+ * Converted to Javascript by Joseph Gentle.
+ *
+ * Version 2012-03-09
+ *
+ * This code was placed in the public domain by its original author,
+ * Stefan Gustavson. You may use it as you see fit, but
+ * attribution is appreciated.
+ *
+ */
+
+--------------------------
+tinycolor.js
+from https://github.com/bgrins/TinyColor
+
+Copyright (c), Brian Grinstead, http://briangrinstead.com
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

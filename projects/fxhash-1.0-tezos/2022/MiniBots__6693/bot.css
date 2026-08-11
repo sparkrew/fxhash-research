@@ -1,0 +1,101 @@
+.bot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: botHover 8s infinite;
+}
+
+.bot .eyes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bot .eyes.vert {
+  flex-direction: column;
+}
+
+.bot .eye {
+  margin: 10px;
+  width: 69px;
+  height: 69px;
+  border-radius: 50%;
+  box-shadow: inset 0px 4px 20px #000000;
+  background: linear-gradient(180deg, #626262 0%, #000000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bot .pupil {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #fff;
+  animation: eyeMovement 10s infinite;
+}
+
+.bot .mouth {
+  margin: 5px 0px 20px 0px;
+  height: 10px;
+  width: 100%;
+  box-shadow: inset 0px 4px 20px #000000;
+}
+
+.bot .bot-bottom {
+  --width: 98px;
+  left: calc(50% - (var(--width) / 2));
+  position: absolute;
+  border-radius: 20px;
+  width: var(--width);
+  height: 44px;
+  background: var(--gray);
+  box-shadow: var(--shadow);
+  bottom: -10px;
+}
+
+.bot .ear {
+  --size: 60px;
+
+  width: var(--size);
+  height: var(--size);
+  background: var(--gray);
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+}
+
+.bot .ear.left {
+  left: calc(var(--size) / 2 * -1);
+}
+
+.bot .ear.right {
+  right: calc(var(--size) / 2 * -1);
+}
+
+.shadow {
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  animation: shadowChange 8s infinite;
+}
+
+.bot .body-center {
+  --size: 40px;
+
+  width: var(--size);
+  height: var(--size);
+  background: var(--gray);
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 55%;
+  box-shadow: inset 0px 4px 20px rgba(0, 0, 0, 0.75);
+  opacity: 0.8;
+}

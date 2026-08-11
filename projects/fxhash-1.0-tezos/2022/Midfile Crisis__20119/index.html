@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script type="text/javascript" src="./js/CCapture.all.min.js"></script>
+    <title>Midfile Crisis</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    
+      <link rel="icon" href="favicon.svg">
+
+    <style>
+            * {
+              font-family: 'Courier New', monospace;
+              overflow: hidden;
+            }
+
+            #outer-container {
+                
+                width: 100vw;
+                height: 100vh;
+
+                
+            }
+            #midfile-crisis-container {
+                position: absolute;
+                margin: 0px auto;
+                width: 60vmin;
+                height: 30vmin;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: 5px 7px 10px rgba(190,190,190,100);
+                
+                
+            }
+
+            .intro-title {
+                position: absolute;
+                margin: 0px auto;
+                top: 50%;
+                left: 50%;  
+                transform: translate(-50%, -50%);    
+                font-weight: 600;
+                color: white;   
+                text-align: center; 
+                font-size: 2.5vmin;   
+                width: 100vmin;
+                animation: fadeOut 12s;
+                -webkit-animation: fadeOut 12s;
+                -moz-animation: fadeOut 12s;
+                -o-animation: fadeOut 12s;
+                -ms-animation: fadeOut 12s;
+                animation-fill-mode: forwards;
+                -webkit-animation-fill-mode: forwards;
+                -moz-animation-fill-mode: forwards;
+                -o-animation-fill-mode: forwards;
+                -ms-animation-fill-mode: forwards;
+                }
+            @keyframes fadeOut {
+                0% {
+                    opacity: 0;
+                    }
+                15% {
+                    opacity: 0;
+                    }
+                35% {
+                    opacity: 1;
+                    }
+                55% {
+                    opacity: 1;
+                    }
+                75% {
+                    opacity: 0;
+                    }
+                100% {
+                    opacity: 0;
+                    }
+                }
+            @-webkit-keyframes fadeOut {
+                0% {
+                    opacity: 0;
+                    }
+                15% {
+                    opacity: 0;
+                    }
+                35% {
+                    opacity: 1;
+                    }
+                55% {
+                    opacity: 1;
+                    }
+                75% {
+                    opacity: 0;
+                    }
+                100% {
+                    opacity: 0;
+                    }
+                }
+            @-moz-keyframes fadeOut {
+                0% {
+                    opacity: 0;
+                    }
+                15% {
+                    opacity: 0;
+                    }
+                35% {
+                    opacity: 1;
+                    }
+                55% {
+                    opacity: 1;
+                    }
+                75% {
+                    opacity: 0;
+                    }
+                100% {
+                    opacity: 0;
+                    }
+                }
+            @-o-keyframes fadeOut {
+                0% {
+                    opacity: 0;
+                    }
+                15% {
+                    opacity: 0;
+                    }
+                35% {
+                    opacity: 1;
+                    }
+                55% {
+                    opacity: 1;
+                    }
+                75% {
+                    opacity: 0;
+                    }
+                100% {
+                    opacity: 0;
+                    }
+                }
+            @-ms-keyframes fadeOut {
+                0% {
+                    opacity: 0;
+                    }
+                15% {
+                    opacity: 0;
+                    }
+                35% {
+                    opacity: 1;
+                    }
+                55% {
+                    opacity: 1;
+                    }
+                75% {
+                    opacity: 0;
+                    }
+                100% {
+                    opacity: 0;
+                    }
+            }
+
+            .info-box {
+                    
+                    position: absolute;
+                    top:  30vmin;
+                    width: 60vmin;
+                    height: 3vmin;
+                    visibility: hidden;
+
+                }
+
+            
+            .artwork-title {
+              
+              font-weight: bold;
+              font-size: 90%;
+             
+            }
+
+            .features {
+              
+              display: flex;
+             
+            }
+
+            /* Create two equal columns that sits next to each other */
+            .column {
+              margin-right: 40px
+                           
+              
+            }
+
+            .entry{
+               margin-bottom: 0px;
+               margin-top: 5px;
+               font-size: 80%;
+            }
+
+            .artwork-title{
+               margin-top: 35px;
+            }
+
+
+            @media only screen and (min-aspect-ratio: 1/1) {
+                #outer-container {
+                    
+                }
+                #midfile-crisis-container {
+                    width: 60vmax;
+                    height: 30vmax;
+                }
+                .info-box {
+                    top:  30vmax;
+                    width: 60vmax;
+
+                }
+            }
+            @media only screen and (min-aspect-ratio: 2/1) {
+                #outer-container {
+                    
+                }
+                #midfile-crisis-container {
+                    width: 120vmin;
+                    height: 60vmin;
+                }
+                .info-box {
+                    top:  60vmin;
+                    width: 120vmin;
+                }
+            }
+        </style>
+
+</head>
+<body>
+    <div id="outer-container">
+        <div id="midfile-crisis-container">
+            <div class='intro-title'>Midfile Crisis, 2022</div>
+            <div class="info-box">
+                <p></p>
+                  <div class="artwork-title">Midfile Crisis, 2022</div>
+                    <div class="features">
+                      <div class="column left">
+                        <p class='entry'>Direction: <em  id='direction'></em></p>
+                        <p class='entry'>Seed: <em id='seed'></em></p>
+                        <p class='entry'>Color Palette: <em id='color-palette'></em></p>
+                      </div>
+                      <div class="column right">
+                        <p class='entry'>Shape Tendency: <em id='shape'></em></p>
+                        <p class='entry'>Amount: <em id='amount'></em></p>
+                      </div>
+                    </div>
+            </div> 
+        </div>
+    </div>
+    <script src="js/midfile-crisis.min.js"></script>
+
+    <a id="link"></a>
+
+</body>
+</html>

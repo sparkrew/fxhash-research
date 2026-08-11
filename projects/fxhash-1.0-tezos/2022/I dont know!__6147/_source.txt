@@ -1,0 +1,4 @@
+id: 6147
+name: I dont know!
+mint_opens_at: 2022-01-07T21:15:30+00:00
+generative_uri: ipfs://QmYXB3aA5wbwjrE541mZP5fP7Kd5779vqnS86e2ubYgVeS

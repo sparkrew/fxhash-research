@@ -1,0 +1,4 @@
+id: 13890
+name: Marx Hilton's The Simple Life
+mint_opens_at: 2022-05-30T15:17:59+00:00
+generative_uri: ipfs://QmW9dyRZssyV9Hi5uxeg1HsuWxJVwuHAv6C55jieVNC6XP

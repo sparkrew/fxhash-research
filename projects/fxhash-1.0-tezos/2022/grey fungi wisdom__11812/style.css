@@ -1,0 +1,11 @@
+body {
+	overflow: hidden;
+	margin: 0 auto;
+	text-align: center;
+	background: #eee;
+}
+canvas {
+	margin: 0;
+	width:100vh!important;
+	height: 100vh!important;
+}

@@ -1,0 +1,4 @@
+id: 17009
+name: Grande Dame
+mint_opens_at: 2022-07-26T18:10:00+00:00
+generative_uri: ipfs://QmWq4kefzDiZ3bUG4kA2P5aZuiCFTxQ6erT4cSXbBYTLXo

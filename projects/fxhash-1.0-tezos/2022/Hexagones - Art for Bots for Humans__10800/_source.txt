@@ -1,0 +1,4 @@
+id: 10800
+name: Hexagones - Art for Bots for Humans
+mint_opens_at: 2022-03-17T13:29:34+00:00
+generative_uri: ipfs://QmfKuUjDcgD7w98jVpa8ohv9EHxbqu1MoGz6VvS2gt7uas

@@ -1,0 +1,4 @@
+id: 13967
+name: Grid, Rules and Cells
+mint_opens_at: 2022-05-31T16:51:59+00:00
+generative_uri: ipfs://QmZei2WFFCfz64vcrtgn42rCiBZSmqvdd4eXm7U4KqVdnq

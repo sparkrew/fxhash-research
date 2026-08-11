@@ -1,0 +1,4 @@
+id: 12902
+name: metaBohème
+mint_opens_at: 2022-05-16T08:00:00+00:00
+generative_uri: ipfs://QmZM4eNw88FiPks6a8HXoYkFz8FbceEihk1vwvUZF2D3dg

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minima.....</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+    
+    <script src="./js/lib/p5.min.js"></script>
+
+    
+    <script src="./js/lib/p5.svg.js"></script>
+</head>
+
+<body>
+    <div class="loadOverlay">
+        <h1>Minima - Wouter Missler</h1>
+    </div>
+
+    <div class="closeOverlay" onclick="closeDescription();"></div>
+
+    <div class="colors hidden">
+        <p>Shhh, you've found my secret palette mixer machine... Don't tell anyone how you've found it and you get to
+            play around with it. Deal?</p>
+        
+    </div>
+
+    <div class="description" onclick="openDescription();">
+        <h1>Minima</h1>
+        <h3>By Wouter Missler</h3>
+        <p>Minima is a study on focus and color. Playing with the idea of a simple composition of semicircles, either
+            rotated up or down. The focus of the observer is moved with the use of gradual animation in the gradients
+            and occasional circles and/or rectangles connecting the shapes together through color. <br><br>
+
+            The name minima stems from the origins of the composition, mostly taking inspiration from minimalism in its
+            use of a few elements to form a composition greater than the sum of its parts. Less is more, as they say.
+            <br><br>
+
+            The point at the bottom right of the canvas resembles the end of a sentence. Like reading a book, you
+            process the canvas in a similar way, moving from what pops the most to what the least.
+
+        </p>
+
+        <div class="buttons">
+            <button onclick="exportImage(window.outerWidth,window.outerHeight);">Export wallpaper</button>
+            <button onclick="exportImage(3000,4000);">Export 3:4</button>
+            <button onclick="exportImage(5000,5000);">Export 1:1</button>
+            <button onclick="exportImage(prompt('width (in pixels): '),prompt('height (in pixels): '));">Export
+                custom</button>
+            <button 
+                onclick="exportImage(prompt('default width (in pixels): \n\n leave empty for default'),prompt('default height (in pixels): \n\n leave empty for default'),true);">export
+                svg</button>
+        </div>
+
+        <div class="closeBox" onclick="closeDescription(true);"></div>
+    </div>
+
+    <script src="./js/colors.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+id: 14476
+name: KINGMOUSE CARD COLLECT EVENT
+mint_opens_at: 2022-06-09T17:20:29+00:00
+generative_uri: ipfs://QmQVNug95VGoZvefc2MGrqMD7SQhFxSBq5hEoiZYdKBDHD

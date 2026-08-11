@@ -1,0 +1,4 @@
+id: 9812
+name: mobilé
+mint_opens_at: 2022-02-21T19:28:30+00:00
+generative_uri: ipfs://QmY5vmfM9ud9UUMjzVKDrcwqHcSa6xaoC4rBoZLA72ZGKo

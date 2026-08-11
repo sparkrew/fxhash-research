@@ -1,0 +1,52 @@
+.bot .head {
+  z-index: 10;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.head-cover {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  box-shadow: var(--shadow);
+}
+
+.head-1 {
+  width: 240px;
+  height: 150px;
+}
+
+.head-2 {
+  width: 310px;
+  height: 150px;
+}
+
+.head-1 .head-cover,
+.head-2 .head-cover {
+  padding-top: 20px;
+}
+
+.head-3 {
+  width: 240px;
+  height: 190px;
+}
+
+.head-4 {
+  width: 240px;
+  height: 190px;
+}
+
+.head-5 .head-cover {
+  padding: 40px;
+  border-radius: 100px;
+}

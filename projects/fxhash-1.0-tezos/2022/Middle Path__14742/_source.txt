@@ -1,0 +1,4 @@
+id: 14742
+name: Middle Path
+mint_opens_at: 2022-06-13T05:25:59+00:00
+generative_uri: ipfs://QmcmREcixri4SX3Fr31GJrsRqqP5aE6fR4na2wWWkVnPqZ

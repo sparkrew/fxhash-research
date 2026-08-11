@@ -1,0 +1,4 @@
+id: 7393
+name: Hizki arrunta
+mint_opens_at: 2022-01-18T22:04:30+00:00
+generative_uri: ipfs://QmSm2pgVWjLtmDuigAVD2U7K5anCqoD6jEGDsYaKBxvHBY

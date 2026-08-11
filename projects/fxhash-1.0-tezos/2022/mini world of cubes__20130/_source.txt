@@ -1,0 +1,4 @@
+id: 20130
+name: mini world of cubes
+mint_opens_at: 2022-10-06T16:15:00+00:00
+generative_uri: ipfs://QmejPjreUmDzg7tqpYRgkZDLUXzmL7G7QM55Ayy4c2BaSx

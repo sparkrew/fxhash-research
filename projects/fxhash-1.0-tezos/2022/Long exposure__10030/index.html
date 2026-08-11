@@ -1,0 +1,146 @@
+<html>
+	<head>
+		
+		<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+	</head>
+	<body>
+		<canvas style="position:absolute;top: 0;left:0;background-repeat:no-repeat;background-size:cover;" id='myCanvas' width='6000' height='6000' ></canvas>
+		<script>
+			function getRndInteger(min, max) {
+			  return Math.floor( fxrand() * (max - min + 1) + min);
+			}
+			
+			
+
+			var cnvs = document.getElementById('myCanvas');	  
+			var canvasWidth = cnvs.width;
+			var canvasHeight = cnvs.height;
+			cnvs.style.position = 'absolute';
+			cnvs.style.width = '100%';
+			var ctx = cnvs.getContext('2d');
+			
+			hue = getRndInteger(1,359);
+			colori = 'hsla('+hue+',60%,6%,0.9)';
+			ctx.beginPath();
+			ctx.rect(0,0,6000,6000);
+			ctx.fillStyle  = colori;
+			ctx.fill();
+			
+			x = 3000;
+			y = 4500;
+			
+			timesx = 300;
+			incfactor = 8;
+			l = 30;
+			
+			minInc = 100;
+			maxIncrease = 3000;
+			
+			// NOISE
+			ctx.fillStyle  = 'hsla('+hue+',40%,25%,0.95)';
+			for(k=0;k<2000000;k++){
+				ctx.beginPath();
+				ctx.rect(getRndInteger(1,6000),getRndInteger(1,6000),1,1);
+				ctx.fill();
+			}
+			
+			
+			xc = getRndInteger(1000,5000);
+			yc = getRndInteger(1000,5000);
+			
+			inc = -19.78;
+			blurOrientation = getRndInteger(1,4);
+			for(n=1;n<28;n++){
+				ctx.beginPath();
+				switch(blurOrientation){
+					case 1:
+						ctx.arc(xc+(inc*n*2),yc+(inc*n*2),700,0,Math.PI*2);
+						break;
+					case 2:
+						ctx.arc(xc+(inc*n*2),yc-(inc*n*2),700,0,Math.PI*2);
+						break;
+					case 3:
+						ctx.arc(xc-(inc*n*2),yc+(inc*n*2),700,0,Math.PI*2);
+						break;
+					case 4:
+						ctx.arc(xc-(inc*n*2),yc-(inc*n*2),700,0,Math.PI*2);
+						break;
+				}
+				colori = 'hsla('+(hue+60)+',100%,50%,0.'+(3-(n/4))+')';
+				ctx.fillStyle = colori;
+				ctx.fill();
+			}
+			
+			// CIRCULO
+			
+			ctx.beginPath();
+			ctx.arc(xc,yc,700,0,Math.PI*2);
+			colori = 'hsla('+(hue+90)+',100%,50%,0.99)';
+			ctx.fillStyle = colori;
+			ctx.fill();
+			ctx.lineWidth = 5;
+			
+			
+			
+			
+			// TRAZOS
+			ctx.lineWidth = 11;
+			for(j=0;j<4;j++){
+				hue += 30;
+				l += 10;
+				a = getRndInteger(minInc,maxIncrease);
+				b = getRndInteger(minInc,maxIncrease);
+				c = getRndInteger(minInc,maxIncrease);
+				d = getRndInteger(minInc,maxIncrease);
+				e = getRndInteger(minInc,maxIncrease);
+				f = getRndInteger(minInc,maxIncrease);
+				
+				for(i=0;i<timesx;i++){
+					inc = i*incfactor;
+					ctx.beginPath();
+					if(getRndInteger(1,15) == 2){
+						ctx.moveTo(x, y-inc);
+						ctx.bezierCurveTo(a+inc,b-inc,c+inc,d+inc,e+inc,f+inc);
+						colori = 'hsla('+hue+',90%,'+l+'%,0.8)';
+						ctx.strokeStyle = colori;
+						ctx.stroke();
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

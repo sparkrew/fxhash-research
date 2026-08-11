@@ -1,0 +1,4 @@
+id: 5484
+name: Let it snow
+mint_opens_at: 2022-01-05T12:02:10+00:00
+generative_uri: ipfs://QmTXaFjb8rUa3MmxZ7Ge89uh4XnQNEG6QC5XitVDRy2wnj

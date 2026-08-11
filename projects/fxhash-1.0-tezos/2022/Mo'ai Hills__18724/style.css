@@ -1,0 +1,12 @@
+body {
+  background-color: black;
+  margin:0px;
+  padding:0px;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+
+*{
+   /* cursor: none;  */
+}

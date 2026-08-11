@@ -1,0 +1,39 @@
+
+.loader {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  box-sizing: border-box;
+  margin: 0;
+  margin-right: -50%;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+
+}
+
+
+
+.loader {
+  width: 20px;
+  aspect-ratio: 0.75;
+  --c: no-repeat linear-gradient(rgb(198, 196, 195) 0 0);
+  background: 
+    var(--c) 0%   50%,
+    var(--c) 50%  50%,
+    var(--c) 100% 50%;
+  background-size: 20% 100%;
+  /* animation: b1 5s infinite linear; */
+  
+}
+/* @keyframes b1 {
+  0%  {background-size: 20% 100%,20% 100%,20% 100%}
+  33% {background-size: 20% 10% ,20% 100%,20% 100%}
+  50% {background-size: 20% 100%,20% 10% ,20% 100%}
+  66% {background-size: 20% 100%,20% 100%,20% 10% }
+  100%{background-size: 20% 100%,20% 100%,20% 100%}
+} */

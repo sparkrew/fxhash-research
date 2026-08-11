@@ -1,0 +1,4 @@
+id: 9106
+name: Milenials Apes Cards Collection
+mint_opens_at: 2022-02-10T00:54:34+00:00
+generative_uri: ipfs://QmXQj3SJBz4WeMeTuKXTB4CHJBTXey6ad34S37ht8JWjff

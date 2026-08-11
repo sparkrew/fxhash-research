@@ -1,0 +1,23 @@
+go boxy
+December 2022
+
+NFT Art & Code © by ocun with p5.js
+https://twitter.com/ocun
+https://www.fxhash.xyz/u/ocun
+
+### NFT Art License ###
+https://www.nftlicense.org/
+
+### Code License ###
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+
+### p5.js Library ###
+Copyright Information
+The p5.js library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, version 2.1.
+
+### fxhash-template ###
+used for index.html
+https://www.fxhash.xyz/generative/slug/p5js-tuto-'square'-fxhash-template
+by Elout de Kok
+

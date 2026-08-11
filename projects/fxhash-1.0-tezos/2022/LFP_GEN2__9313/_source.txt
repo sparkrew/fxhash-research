@@ -1,0 +1,4 @@
+id: 9313
+name: LFP_GEN2
+mint_opens_at: 2022-02-14T08:11:04+00:00
+generative_uri: ipfs://QmTusag8ziAwYC5uPuJiU6hWBYq8Brt91fDEadLfd7a41h

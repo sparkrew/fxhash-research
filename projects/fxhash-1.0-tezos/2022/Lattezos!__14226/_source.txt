@@ -1,0 +1,4 @@
+id: 14226
+name: Lattezos!
+mint_opens_at: 2022-06-05T21:00:44+00:00
+generative_uri: ipfs://QmW7vhXu9M88TfkMQEpmkBaJswvWVdZ1nYZMPMnxbYREv7

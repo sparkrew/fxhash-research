@@ -1,0 +1,45 @@
+function drawExampleSketch2(g) {
+
+let colors = ["#cad2c5", "#84a98c", "#52796f", "#354f52", "#2f3e46"];
+
+let n = g.random([2, 4, 3]);
+	let s = g.width/n;
+	let col1, col2;
+
+  for (let x = 0; x < g.width; x += s) {
+    for (let y = 0; y < g.height; y += s) {
+			col1 = g.random(colors);
+      g.fill(col1);
+			g.square(x, y, s);
+
+			do {
+				col2 = g.random(colors);
+			} while (col1 === col2)
+			g.fill(col2);
+			let r = g.random();
+			if (r < 1/2) {
+				r = g.random();
+				if (r < 1/4) {
+					g.rect(x, y, s*2, s*2);
+				} else if (r < 1/2) {
+					g.rect(x+s, y, s*2, s*2);
+				} else if (r < 3/4) {
+					g.rect(x+s, y+s, s*2, s*2);
+				} else {
+					g.rect(x, y+s, s*2, s*2);
+				}
+			} else {
+				r = g.random();
+				if (r < 1*16) {
+					g.rect(x+s/2, y, s, s);
+				} else if (r < 1/2) {
+					g.rect(x+s, y+s/2, s, s);
+				} else if (r < 3/4) {
+					g.rect(x+s/2, y+s, s, s);
+				} else {
+					g.rect(x, y+s/2, s, s);
+				}
+			}
+    }
+  }
+}

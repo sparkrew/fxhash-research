@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HashPunks: collection of neural GAN generated Persons</title>
+
+
+<style>
+body {margin: 0;	padding: 0;			background-color: #000000;			overflow: hidden;	}
+body {background-image: url('ui/noise.gif');
+background-size: cover;
+}
+
+#logo
+{
+position: absolute;
+top:5vh;
+height:90vh;
+width:90vh;
+left: calc(50vw - 45vh);
+background-image: url('ui/pfp.png');
+background-size: cover;
+}
+
+#console
+{
+position: absolute;
+left:5vh;
+top:92vh;
+font-size: 3vh;
+color: #FFFFFF;
+font-family: monospace, monospace;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+ <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+<div id="console" >&gt; Loading Neural Model...</div>
+<div id="logo"></div>
+
+
+<div id="ui" class="" style="display:none;">
+        <div class="">
+            <div class="">
+
+                <div class="canvas-wrapper" id="canvas-wrapper" width="256" height="256">
+                    <canvas id="the_canvas" width="256" height="256" style="filter: blur(1.5px);">
+                        Your browser does not support the canvas element.
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12 l5">
+            <div class="control-panel">
+                <div class="row">
+                    <div class="col s12">
+                        <h5> Model </h5>
+                        <p> ↓ Click to select a <b>better</b> (and larger) model </p>
+                        <div class="input-field">
+                            <select id="model-select">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <h5> Action </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <button class="" id="generate-button"></button>
+                    </div>
+                    <div class="col s6">
+                        <button class="" id="animate-button"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <h5> Info </h5>
+                        <p class="logging" id="logging">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div id="canvasDump" style="display:none;">
+</div>
+
+
+<script src="appbild.js"></script>
+</body>
+</html>

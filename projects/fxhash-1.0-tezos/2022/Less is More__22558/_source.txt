@@ -1,0 +1,4 @@
+id: 22558
+name: Less is More
+mint_opens_at: 2022-12-16T19:30:00+00:00
+generative_uri: ipfs://QmRsa5GH7SRqG7GLYkpCnP9K68eN5JKSb2h19npLZky7TU

@@ -1,0 +1,4 @@
+id: 19877
+name: Indian Girl
+mint_opens_at: 2022-09-27T19:51:44+00:00
+generative_uri: ipfs://QmXmwckXEzLFNjBmy7aAn63x4EnqXXbzX7PF5ryCis3jcq

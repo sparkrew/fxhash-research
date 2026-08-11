@@ -1,0 +1,4 @@
+id: 17627
+name: Minimal Painting #2
+mint_opens_at: 2022-08-10T16:30:00+00:00
+generative_uri: ipfs://Qmaa7oqdv57KN8whPDLDacVDDqxM4w9qbtAQwKh6n9SZk4

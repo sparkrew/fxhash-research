@@ -1,0 +1,4 @@
+id: 20193
+name: math
+mint_opens_at: 2022-10-09T15:57:59+00:00
+generative_uri: ipfs://Qmers8TTQUGB2EVbUmh9dnKbPvRpFiMLb8pg6DDG5qfvxf

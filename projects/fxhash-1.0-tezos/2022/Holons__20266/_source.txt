@@ -1,0 +1,4 @@
+id: 20266
+name: Holons
+mint_opens_at: 2022-10-12T15:00:00+00:00
+generative_uri: ipfs://QmTtiWWYZU6g4Ga7gq4rExJFAPwwXAFuoYThywX2SZCmqW

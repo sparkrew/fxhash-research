@@ -1,0 +1,4 @@
+id: 16262
+name: melted cïrcles //
+mint_opens_at: 2022-07-11T22:58:29+00:00
+generative_uri: ipfs://QmXyqNhwbHrL2spbexgoDQfw2X9HgdsNn5XJ1sUT7ibCDG

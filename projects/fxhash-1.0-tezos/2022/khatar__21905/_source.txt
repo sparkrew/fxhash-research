@@ -1,0 +1,4 @@
+id: 21905
+name: khatar
+mint_opens_at: 2022-11-29T19:44:14+00:00
+generative_uri: ipfs://QmYR82FxJQuhUXoxkrQuf5vL8NgiAKbMZ8jQxL6fyvwqKN

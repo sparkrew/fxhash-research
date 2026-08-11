@@ -1,0 +1,4 @@
+id: 21867
+name: hunger for perspective
+mint_opens_at: 2022-11-27T15:00:00+00:00
+generative_uri: ipfs://QmVANspb8xUfygDGnvrUwytPCsrksqbtegHxpxdz6Y1Hxd

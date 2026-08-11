@@ -1,0 +1,4 @@
+id: 17746
+name: La Veranada
+mint_opens_at: 2022-08-08T13:00:00+00:00
+generative_uri: ipfs://QmdpC9W4T5V5k7EJs11xJwEg2Fr53dAp2zauVQnkrcMCNv

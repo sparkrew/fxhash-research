@@ -1,0 +1,4 @@
+id: 6201
+name: Hypno Particles
+mint_opens_at: 2022-01-08T15:58:40+00:00
+generative_uri: ipfs://QmdKbU5sA4jgnnpjqi9L56KJXDSs1dsHWEz7SnixXX6b4Y

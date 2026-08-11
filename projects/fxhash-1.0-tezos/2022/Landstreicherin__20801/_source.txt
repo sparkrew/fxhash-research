@@ -1,0 +1,4 @@
+id: 20801
+name: Landstreicherin
+mint_opens_at: 2022-10-30T13:00:00+00:00
+generative_uri: ipfs://QmdoLjTdaGeq5Es7FomDUeUkb4keQRo5PnkDzbmVht7p9L

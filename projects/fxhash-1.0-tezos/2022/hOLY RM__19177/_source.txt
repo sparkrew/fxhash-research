@@ -1,0 +1,4 @@
+id: 19177
+name: hOLY RM
+mint_opens_at: 2022-09-09T07:21:59+00:00
+generative_uri: ipfs://QmZPpgv3CoBANYUvntG5pcBHpRs6qmK8GcZCHKQKE4MbqN

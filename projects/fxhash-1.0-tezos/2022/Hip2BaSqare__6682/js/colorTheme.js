@@ -1,0 +1,1 @@
+class ColorTheme{constructor(h,i,o,t,r,s,g,n,u){this.name=h,this.background1=i,this.background2=o,this.background3=t,this.foreground1=r,this.foreground2=s,this.foreground3=g,this.highlight1=n,this.highlight2=u}}

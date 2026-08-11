@@ -1,0 +1,4 @@
+id: 22857
+name: Line art #zentangle2
+mint_opens_at: 2022-12-26T16:53:00+00:00
+generative_uri: ipfs://QmZwC6oyaP136Z6QssX5m5isGiVwN6Jqyhxbt6wjXdhhGW

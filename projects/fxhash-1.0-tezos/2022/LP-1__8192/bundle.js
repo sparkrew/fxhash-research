@@ -1,0 +1,1 @@
+window.$fxhashFeatures={Color:getVar(COLOR_NAME)};

@@ -1,0 +1,4 @@
+id: 18913
+name: Minima
+mint_opens_at: 2022-09-03T20:00:00+00:00
+generative_uri: ipfs://QmSXy7sSC9Lai5UUA8jhowNjSFPTWzanQiD9qHjwy76HMG

@@ -1,0 +1,4 @@
+id: 15235
+name: Inside the Shape grayscale
+mint_opens_at: 2022-06-22T09:02:29+00:00
+generative_uri: ipfs://QmSyUpBPEnSnwtP2srG1r7cfoW6Ni5wYwamYnkmy2FSA8M

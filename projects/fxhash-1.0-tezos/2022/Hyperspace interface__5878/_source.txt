@@ -1,0 +1,4 @@
+id: 5878
+name: Hyperspace interface
+mint_opens_at: 2022-01-06T13:45:30+00:00
+generative_uri: ipfs://QmdixYBmy68en7D55n1bkuH7dwYdi9W4JLZ9DBBE5Bp9zv

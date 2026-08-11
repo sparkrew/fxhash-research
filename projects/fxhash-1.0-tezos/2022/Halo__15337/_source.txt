@@ -1,0 +1,4 @@
+id: 15337
+name: Halo
+mint_opens_at: 2022-06-27T18:41:00+00:00
+generative_uri: ipfs://QmXpTggzTobUMbUbdXsvX3HM7bgnYS93xa9XJgzGYtuYvH

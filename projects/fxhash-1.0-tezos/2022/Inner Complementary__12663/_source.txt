@@ -1,0 +1,4 @@
+id: 12663
+name: Inner Complementary
+mint_opens_at: 2022-05-09T06:34:44+00:00
+generative_uri: ipfs://QmUyHYpbmQcePAWHGrZNotDFE5S9ygpr75nPxw4yK7dfTD

@@ -1,0 +1,4 @@
+id: 10030
+name: Long exposure
+mint_opens_at: 2022-02-27T01:01:34+00:00
+generative_uri: ipfs://QmXj8oJb8t9UXZrngho4jZw4Gnm3AmAVpEqeMAsuRYAkth

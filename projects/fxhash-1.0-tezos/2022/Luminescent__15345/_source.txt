@@ -1,0 +1,4 @@
+id: 15345
+name: Luminescent
+mint_opens_at: 2022-06-23T09:58:44+00:00
+generative_uri: ipfs://QmZ3nJg4eUAYk7vqLU1S1Lj8VZcZj9HryoTgvJ4wfAut8y

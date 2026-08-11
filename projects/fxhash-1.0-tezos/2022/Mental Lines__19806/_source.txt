@@ -1,0 +1,4 @@
+id: 19806
+name: Mental Lines
+mint_opens_at: 2022-09-26T17:40:00+00:00
+generative_uri: ipfs://QmNULcbwHSnp9692wHcbLXmBb71Xwx2prXNwvgvdiQPrjB

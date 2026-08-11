@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+
+		<link rel="stylesheet" href="css/layout.css">
+
+<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+<link rel="shortcut icon" type="image/png" href="http://brokenenglish.lol/brknfiles/brkn.ico">
+<title>lowfipng</title>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9268681-17"></script>
+
+
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+<script>
+
+/* colores generales :: no impremendaos creo */
+const randomColor = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor1 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor2 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor3 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor4 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor5 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor6 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor7 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor8 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor9 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor10 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor11 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor12 = "#"+((1<<24)*fxrand()|0).toString(16);
+const randomColor13 = "#"+((1<<24)*fxrand()|0).toString(16);
+
+document.documentElement.style.setProperty('--main-bg-color', randomColor);
+document.documentElement.style.setProperty('--main-bg-color1', randomColor1);
+document.documentElement.style.setProperty('--main-bg-color2', randomColor2);
+document.documentElement.style.setProperty('--main-bg-color3', randomColor3);
+document.documentElement.style.setProperty('--main-bg-color4', randomColor4);
+document.documentElement.style.setProperty('--main-bg-color5', randomColor5);
+document.documentElement.style.setProperty('--main-bg-color6', randomColor6);
+document.documentElement.style.setProperty('--main-bg-color7', randomColor7);
+document.documentElement.style.setProperty('--main-bg-color8', randomColor8);
+document.documentElement.style.setProperty('--main-bg-color9', randomColor9);
+document.documentElement.style.setProperty('--main-bg-color10', randomColor10);
+document.documentElement.style.setProperty('--main-bg-color11', randomColor11);
+document.documentElement.style.setProperty('--main-bg-color12', randomColor12);
+document.documentElement.style.setProperty('--main-bg-color13', randomColor13);
+
+</script>
+<script>
+
+/*
+lowfipng juega con los filters
+automatizandolos
+
+así que a continuación vienen los generadores de numeros para los filters-
+
+blur : px
+brigtness : .
+contrast : %
+greyscale %
+hue-rotate: deg
+invert : %
+opcity : %
+saturate : .
+sepia : %
+
+
+*/
+
+const scl = Math.floor((fxrand() * 2.2 ) + 2);
+document.documentElement.style.setProperty('--escala', scl );
+const strt = Math.floor((fxrand() * 10 ) + 1);
+document.documentElement.style.setProperty('--satur', strt );
+const strt2 = Math.floor((fxrand() * 14 ) + 4);
+document.documentElement.style.setProperty('--satur2', strt2 );
+const strt3 = Math.floor((fxrand() * -14 ) + 4);
+document.documentElement.style.setProperty('--satur3', strt3 );
+/*blur :: px */
+const pxdes = Math.floor((fxrand() * 3) + 1)+'px';
+document.documentElement.style.setProperty('--blurear', pxdes );
+
+/* brigtness */
+const brgtns = Math.floor((fxrand() * 3) + .31);
+document.documentElement.style.setProperty('--brigt', brgtns );
+
+/* contrast */
+const cntrst = Math.floor((fxrand() * 664) + 20)+'%';
+document.documentElement.style.setProperty('--contr', cntrst );
+/* translate */
+const trnsY = Math.floor((fxrand() * -33) + 2)+'%';
+document.documentElement.style.setProperty('--transY', trnsY );
+/* translate X */
+const trnsX = Math.floor((fxrand() * -43) - 3)+'%';
+document.documentElement.style.setProperty('--transx', trnsX );
+/* invert */
+const invrt = Math.floor((fxrand() * 100) + 1)+'%';
+document.documentElement.style.setProperty('--iverto', invrt);
+
+/* greyscale */
+const gryscl = Math.floor((fxrand() * 100) + 1)+'%';
+document.documentElement.style.setProperty('--grey', gryscl);
+
+/* generador de deg para huerotate */
+const hrtt = Math.floor((fxrand() * 360) + 1)+'deg';
+document.documentElement.style.setProperty('--huer', hrtt);
+
+const rtate = Math.floor((fxrand() * 360) + 1)+'deg';
+document.documentElement.style.setProperty('--rotar', rtate);
+</script><script>
+
+/* opacity */
+const opct = Math.floor((fxrand() * 100) + 1)+'%';
+document.documentElement.style.setProperty('--opace', opct);
+
+/* saturate positv */
+
+
+
+/* como hacer porcentajes? */
+const pcento = Math.floor((fxrand() * 100) + 1)+'%';
+document.documentElement.style.setProperty('--cento', pcento);
+
+
+
+
+/* */
+
+
+
+
+</script>
+
+	</head>
+	<body>
+
+
+		<div id="container">
+
+			<div id="content">
+
+				<div id="output">
+				</div>
+
+			</div>
+		</div>
+		<script src="js/vendor/jquery-1.11.2.min.js"></script>
+		<script src="js/tracery.min.js"></script>
+		<script src="js/grammars.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+		var flo = ["Un doble atemoriza al mundo, el doble de la abstracción", "El destino de estados y ejércitos, empresas y comunidades depende de él", "Todas las clases contendientes, sea las dominantes, sea las que son dominadas, lo veneran pese a temerlo", "El nuestro es un mundo que se aventura a ciegas en lo nuevo con los dedos cruzados", "Todas las clases temen esa implacable abstracción del mundo, de la que, no obstante, depende su destino", "Todas las clases salvo una: la clase hacker", "Nosotros hackeamos la abstracción", "Producimos nuevos conceptos, nuevas percepciones, nuevas sensaciones hackeadas a partir de datos en bruto", "Sea cual sea el código que hackeamos, ya sea lenguaje de programación, lenguaje poético, matemáticas o música, curvas o colores, somos nosotros quienes abstraemos nuevos mundos", "Aunque nos presentemos como investigadores o autores, artistas o biólogos, químicos o músicos, filósofos o programadores, cada una de estas subjetividades no es más que un fragmento de una clase que, punto a punto, todavía está cobrando consciencia de sí misma como tal", "Sin embargo, no sabemos muy bien quiénes somos", "Por eso este libro pretende poner de manifiesto nuestros orígenes, nuestro propósito y nuestros intereses", "Un manifiesto hacker: no el único manifiesto, puesto que la naturaleza misma del hacker entraña diferir de los demás, diferir incluso de uno mismo, a lo largo del tiempo", "Hackear es diferir", "Un manifiesto hacker no puede afirmar que representa aquello que rechaza toda representación", "Los hackers crean la posibilidad de que a nuestro mundo lleguen cosas nuevas", "No siempre grandes cosas, ni siquiera cosas buenas, pero sí nuevas", "En el arte, en la ciencia, en la filosofía y en la cultura, en cualquier producto del conocimiento en el que se puedan reunir datos, del que se pueda extraer información y en el que se produzcan nuevas posibilidades para el mundo partiendo de esa información, hay hackers que hackean algo nuevo partiendo de lo antiguo", "Pese a que creamos esos nuevos mundos, no los poseemos", "Todo lo que creamos queda hipotecado a otros, y a los intereses de otros, a estados y corporaciones que monopolizan los medios necesarios para construir mundos que sólo nosotros podemos descubrir", "No poseemos lo que producimos; lo que producimos nos posee a nosotros", "Los hackers utilizan su conocimiento y su ingenio para conservar su autonomía", "Algunos aceptan el dinero y echan a correr", "(Tenemos que vivir con nuestros compromisos", ") Algunos se niegan a comprometerse", "(Vivimos lo mejor que podemos", ") Con demasiada frecuencia, aquellos de nosotros que seguimos alguna de estas dos sendas nos sentimos ofendidos por quienes han seguido la otra", "Un grupo se siente ofendido por la prosperidad de la que carece, el otro se siente ofendido por la libertad de la que carece para hackear a voluntad en el mundo", "La clase hacker no ha llegado aún a una expresión más abstracta de nuestros intereses como clase y de cómo esos intereses pueden coincidir con el de otras personas del mundo", "Los hackers no somos gregarios", "No solemos estar dispuestos a sumergir nuestra individualidad", "Lo que requieren nuestros tiempos es un hackeo colectivo que desarrolle un interés de clase basado en una alineación de diferencias más que en una unidad coercitiva", "Los hackers son una clase, pero una clase abstracta", "Una clase que fabrica abstracciones y una clase de factura abstracta", "Abstraer a los hackers como clase es abstraer el concepto mismo de clase", "El eslogan de la clase hacker no es:«Obreros del mundo, unios»; sino: «Obras del mundo, liberaos»", "Por doquier impera la abstracción, la abstracción hecha concreción", "Por doquier las líneas rectas y las curvas puras de la abstracción ordenan materias a lo largo de vectores complejos pero eficaces", "Sin embargo, mientras que la educación enseña lo que puede producirse con una abstracción, el conocimiento más útil para la clase hacker es cómo se producen las abstracciones en sí", "Deleuze: «Las abstracciones no explican nada, en sí mismas deben ser explicadas»", "La abstracción puede ser descubierta o producida, puede ser material o inmaterial, pero abstracción es lo que todo hackeo produce y afirma", "Abstraer es construir un plano en el que materias en principio diferentes y no relacionadas entre sí pueden unirse mediante muchas relaciones posibles", "Abstraer es expresar la virtualidad de la naturaleza, dar a conocer algún ejemplo de sus posibilidades, hacer realidad una relación de entre la relacionalidad infinita, manifestar la multiplicidad", "La historia es la producción de abstracción y la abstracción de la producción", "Lo que hace que la vida difiera de una época a la época siguiente es la aplicación de nuevos modos de abstracción en la tarea de extraer libertad de la necesidad", "La historia es lo virtual hecho real, un hackeo tras otro", "La historia es la diferenciación cualitativa acumulativa de la naturaleza a medida que es hackeada", "De la abstracción de la naturaleza nace su productividad, así como la producción de un excedente que sobrepasa las necesidades de la supervivencia", "De ese excedente creciente que sobrepasa la necesidad nace una capacidad creciente de hackear, una y otra vez, produciendo más abstracciones, más productividad, más alivio de la necesidad, al menos potencialmente", "No obstante, el hackeo de la naturaleza, la producción de un excedente, no nos hace libres", "Siempre surge una clase dominante que controla el excedente que sobrepasa las necesidades básicas e impone nuevas necesidades a las personas que producen esos mismos medios para escapar de la necesidad", "Lo que hace diferente nuestra época es la perspectiva de la posibilidad de un nuevo mundo imaginado hace mucho tiempo: un mundo libre de la necesidad", "La producción de abstracción ha llegado a un umbral en el que podría romper los grilletes, de una vez por todas, que atan el hackeo a unos intereses de clase desfasados y retrógrados", "Debord: «El mundo posee ya el sueño de una época cuya consciencia debe ahora poseer para llegar a vivirlo»", "La invención es la madre de la necesidad", "Mientras que todos los estados dependen de la abstracción para producir su riqueza y su poder, la clase dominante de cualquier estado mantiene una relación incómoda con la producción de abstracción en formas nuevas", "La clase dominante busca siempre controlar la innovación y encaminarla hacia sus propios fines, de manera que priva al hacker del control de su creación y, por ende, niega al mundo en su totalidad el derecho a gestionar su propio desarrollo", "La producción de nueva abstracción se da siempre entre quienes se distinguen de los otros por el acto de hackear", "Quienes hemos hackeado nuevos mundos partiendo de los viejos acabamos por convertirnos no sólo en personas aparte, sino en una clase aparte", "Mientras que reconocemos nuestra inconfundible existencia como grupo, como programadores, artistas, escritores, científicos o músicos, rara vez vemos formas de representarnos como meros fragmentos de una experiencia de clase", "Repelentes y empollones adquieren una connotación negativa a causa de la exclusión por parte de los demás", "Juntos formamos una clase, una clase que aún tiene pendiente hackear su camino hacia su existencia como tal, y por sí misma", "Mediante lo abstracto se identifica, se produce y se da a conocer lo virtual", "Lo virtual no es sólo el potencial latente en la materia, es el potencial del potencial", "Hackear es producir o aplicar lo abstracto de la información y expresar la posibilidad de nuevos mundos, más allá de la necesidad", "Todas las abstracciones son abstracciones de la naturaleza", "Las abstracciones liberan el potencial del mundo material", "Aun así, la abstracción depende de la cualidad más curiosa del mundo material: la información", "La información puede existir con independencia de una forma material concreta, pero no puede existir sin alguna forma material", "Es al mismo tiempo material e inmaterial", "El hackeo depende de las cualidades materiales de la naturaleza y, no obstante, descubre algo independiente de cualquier forma material concreta", "Es al mismo tiempo material e inmaterial", "Descubre la virtualidad inmaterial de lo material, sus cualidades de información", "La abstracción es siempre una abstracción de la naturaleza, un proceso que crea un doble de la naturaleza, una segunda naturaleza, un espacio de existencia humana en el que la vida colectiva convive con sus propios productos y llega a considerar natural el entorno que produce", "La tierra es un recurso desprendido de la naturaleza, un aspecto del potencial productivo de la naturaleza hecho abstracto en forma de propiedad", "El capital es un recurso desprendido de la tierra, un aspecto del potencial productivo de la tierra hecho abstracto en forma de propiedad", "La información es un recurso desprendido del capital ya desprendido de la tierra", "Es el doble de un doble", "Es un proceso ulterior de abstracción más allá del capital; pero que, de nuevo, produce su existencia independiente en forma de propiedad", "Igual que el desarrollo de la tierra como recurso productivo origina el progreso histórico hacia su abstracción en forma de capital, también el desarrollo del capital da pie al progreso histórico hacia una abstracción ulterior de la información en forma de «propiedad intelectual»", "En las sociedades tradicionales, la tierra, el capital y la información estaban ligados a ciertos poderes sociales o regionales mediante lazos tradicionales o hereditarios", "Lo que la abstracción hackea y obtiene del viejo armazón feudal es una liberación de estos recursos basada en una forma más abstracta de propiedad, un derecho universal a la propiedad privada", "Esta forma abstracta universal abarca primero la tierra, luego el capital, ahora la información", "Cuando la abstracción de la propiedad da lugar a recursos productivos, produce al mismo tiempo una división de clases", "La propiedad privada origina una clase pastoralista que posee la tierra, y una clase agricultora desposeída de ella", "Las personas a quienes la abstracción de la propiedad privada niega su derecho comunitario a la tierra quedan convertidas en una clase desposeída, que pasa a ser la clase trabajadora cuando una clase emergente de propietarios de los medios materiales de fabricación, la clase capitalista, los pone a trabajar", "Esa clase trabajadora se convierte en la primera clase que contempla seriamente la idea de derrocar el sistema de clases", "Fracasa en su labor histórica en tanto que la forma de propiedad no es aún lo bastante abstracta para liberar la virtualidad de la ausencia de clases que está latente en las energías productivas de la abstracción misma", "Siempre es el hackeo lo que crea una nueva abstracción", "Con el surgimiento de una clase hacker se acelera el ritmo de producción de nuevas abstracciones", "El reconocimiento de la propiedad intelectual como forma de propiedad -en sí misma una abstracción, un hackeo Iegal origina una clase de creadores de propiedad intelectual", "Sin embargo, esta clase sigue trabajando por el bien de otra, a cuyos intereses están subordinados los suyos propios", "Cuando la abstracción de la propiedad privada se extiende a la información, produce la clase hacker como tal, como una clase capaz de convertir en una forma de propiedad sus innovaciones en abstracción", "Al contrario que los agricultores y los trabajadores, los hackers no han sido desposeídos por completo -aún- de sus derechos sobre la propiedad, pero de todos modos deben vender su capacidad de abstracción a una clase que posee los medios de producción, la clase vectorialista: la clase dominante emergente de nuestros tiempos", "La clase vectorialista libra una intensa batalla para desposeer a los hackers de su propiedad intelectual", "Las patentes y los copyrights acaban siempre en manos no de sus creadores, sino de una clase vectorialista que posee los medios para desarrollar el valor de esas abstracciones", "La clase vectorialista lucha por monopolizar la abstracción", "Para la clase vectorial, «la política consiste en el control absoluto de la propiedad intelectual mediante estrategias bélicas de comunicación, control y mando»", "Los hackers se encuentran desposeídos, individualmente y como clase", "Cuando la clase vectorialista consolida su monopolio de los medios de desarrollo del valor de la propiedad intelectual, se enfrenta a la clase hacker cada vez más como una clase antagonista", "Los hackers acaban luchando contra las tarifas de usura que los vectorialistas exigen por el acceso a la información que los hackers producen colectivamente, pero que acaban poseyendo los vectorialistas", "Los hackers acaban luchando contra cada una de las formas en que la abstracción se ve mercantilizada y convertida en propiedad privada de la clase vectorialista", "Los hackers, como clase, acaban por darse cuenta de que la mejor forma de expresar su interés de clase es luchar no sólo por liberar la producción de abstracción de los grilletes de esta forma de propiedad o aquélla, sino también por abstraer la forma misma de la propiedad", "Ha llegado ya el momento de que los hackers se unan a los trabajadores y a los agricultores -a todos los productores del mundo- para liberar los recursos productivos e inventivos del mito de la escasez", "Ha llegado ya el momento de que se creen nuevas formas de asociación que salven al mundo de su destrucción a manos de la explotación mercantilizada", "Los mayores hackeos de nuestros tiempos podrían consistir en formas de organizar la libre expresión colectiva de manera que, a partir de ese momento, la abstracción sirva al pueblo, en lugar de que el pueblo sirva a la clase dominante", "Surge una clase, la clase trabajadora, capaz de poner en duda la necesidad de la propiedad privada", "Dentro del movimiento de los trabajadores surge un partido que afirma responder a los deseos de la clase trabajadora: los comunistas", "Como escribe Marx, «todos estos movimientos hacen hincapié en la cuestión de la propiedad como elemento principal de cada uno de ellos, al margen de su grado de desarrollo en ese determinado momento»", "Esta fue la solución que propusieron los comunistas a la cuestión de la propiedad: «centralizar todos los instrumentos de producción en manos del estado».* Hacer de la propiedad un monopolio del estado sólo produjo una nueva clase dominante y una nueva lucha de clases aún más cruenta", "Sin embargo, ¿es ésa nuestra respuesta definitiva? Tal vez el curso de la lucha de clases no ha llegado aún a su fin", "Tal vez existe otra clase que puede exponer la cuestión de la propiedad de una nueva forma..", "y, al mantenerla siempre expuesta, acabar de una vez por todas con el monopolio de las clases dominantes sobre los fines de la historia", "Existe una dinámica de clases que pone en movimiento cada fase del desarrollo de este mundo vectorial en el que nos encontramos ahora", "La clase vectorial lleva a este mundo hasta el borde del desastre, pero también le abre la puerta hacia los recursos necesarios para superar sus propias tendencias destructivas", "En las tres fases sucesivas de mercantilización surgen clases dominantes muy distintas, que usurpan diferentes formas de propiedad privada", "Cada clase dominante, a su vez, lleva al mundo hacia fines más y más abstractos", "Primero surge una clase pastoralista", "Son los encargados de dispersar a la gran masa de campesinos que tradicionalmente trabajaba la tierra bajo el yugo de los señores feudales", "Los pastoralistas suplantan a los señores feudales y liberan la productividad de la naturaleza, que ellos afirman poseer como propiedad privada", "Es esta privatización de la propiedad -un hackeo legal- la que crea las condiciones necesarias para los demás hackeos mediante los que se consigue que la tierra produzca un excedente", "Un mundo vectorial surge a hombros del hackeo agrícola", "Cuando las nuevas formas de abstracción posibilitan que se produzca un excedente de la tierra cada vez con menos agricultores, los pastoralistas les arrebatan la tierra y los dejan sin su medio de subsistencia", "Los agricultores desposeídos buscan trabajo y un nuevo hogar en las ciudades", "Allí el capital les da trabajo en sus fábricas", "Los agricultores se convierten en trabajadores", "El capital como propiedad da origen a una clase de capitalistas, que posee los medios de producción, y a una clase de trabajadores, desposeída de ellos, y mediante ellos", "Ya sea como trabajadores o como agricultores los productores directos se encuentran desposeídos, no sólo de su tierra, sino de la mayor parte del excedente que producen, que se acumula para los pastoralistas en forma de rentas como rendimiento de la tierra, y para los capitalistas en forma de beneficio como rendimiento del capital", "Los agricultores desposeídos sólo se convierten en trabajadores para ser desposeídos de nuevo", "Cuando ya han perdido su agricultura, acaban perdiendo también su cultura humana", "El capital no sólo produce en sus fábricas lo necesario para la existencia, sino también una forma de vida que espera que sus trabajadores consuman", "La vida mercantilizada desposee al trabajador de la información que se transmitía tradicionalmente fuera del ámbito de la propiedad privada como cultura, como el regalo de una generación a la siguiente, y la reemplaza con información que se da mercantilizada", "La información, igual que la tierra o el capital, se convierte en una forma de propiedad monopolizada por una clase, una clase de vectorialistas, llamados así porque controlan los vectores a través de los cuales se abstrae la información, igual que los capitalistas controlan los medios materiales con los que se producen las mercancías, y los pastoralistas la tierra con la que se produce el alimento", "Esta información, que una vez fue propiedad colectiva de las clases productivas -el conjunto de las clases trabajadora y agricultora- se convierte en propiedad de otra clase apropiadora más", "Cuando los campesinos se convierten en agricultores mediante la apropiación de su tierra, siguen conservando cierta autonomía en cuanto a la disposición de sus horas laborales", "Los trabajadores, pese a no poseer el capital y tener que trabajar según el reloj y sus horarios despiadados, podían al menos luchar para reducir la jornada laboral y extraer tiempo libre del trabajo", "La información circulaba por la cultura de la clase trabajadora como una propiedad pública que pertenecía a todos", "Sin embargo, cuando la información, a su vez, se convierte en una forma de propiedad privada, los trabajadores quedan desposeídos de ella y deben comprar su propia cultura a quien la posee, la clase vectorialista", "El agricultor se convierte en trabajador; el trabajador, en esclavo", "El mundo entero queda sujeto a la extracción de un excedente por parte de las clases productoras que está controlado por las clases dominantes, que únicamente lo utilizan para reproducir y expandir esta matriz de explotación", "Incluso el tiempo se convierte en una experiencia mercantilizada", "Las clases productivas -agricultores, trabajadores, hackers- luchan contra las clases expropiadoras -pastoralistas, capitalistas, vectorialistas-, pero esas sucesivas clases dominantes luchan también entre sí", "Los capitalistas intentan quebrantar el monopolio pastoralista de la tierra y subordinar el producto de la tierra a la producción industrial", "Los vectorialistas intentan quebrantar el monopolio capitalista del proceso de producción y subordinar la producción de mercancías a la circulación de información: «El ámbito privilegiado del espacio electrónico controla la logística física de la manufactura, ya que la puesta en venta de materias primas y bienes manufacturados requiere consentimiento y dirección electrónicos»", "Que la clase vectorialista ha reemplazado al capital como clase explotadora dominante puede verse en la forma que toman las compañías más destacadas", "Estas empresas se despojan de su capacidad productiva, ya que ésta ha dejado de ser una fuente de poder", "Dependen de una masa competidora de contratistas capitalistas para manufacturar sus productos", "Su poder reside en el monopolio de la propiedad intelectual: patentes, copyrights y marcas comerciales; y de los medios con los que se reproduce su valor: los vectores de la comunicación", "La privatización de la información se convierte en el aspecto dominante, en lugar de uno subsidiario, de la vida mercantilizada", "«Existe cierta lógica en esta progresión: primero, un grupo selecto de fabricantes transciende su conexión con los productos prosaicos; después, ensalzando el márketing como cúspide del negocio, intentan modificar el estatus social del márketing como interrupción comercial y transformarlo mediante una integración perfecta.» Con el auge de la clase vectorial, el mundo vectorial está completo", "Cuando la propiedad privada pasa de tierra a capital y luego a información, la propiedad en sí se vuelve más abstracta", "El capital como propiedad libera a la tierra de su fijación espacial", "La información como propiedad libera al capital de su fijación en un objeto concreto", "Esta abstracción de la propiedad hace que la propiedad misma se vea expuesta a la innovación acelerada, y también al conflicto", "El conflicto de clases se fragmenta, pero impregna absolutamente toda relación que se convierte en una relación de propiedad", "La cuestión de la propiedad, la base de la clase, se convierte en la cuestión que se plantea en todas partes, respecto a todo", "Si a los apologistas de nuestro tiempo les parece que la «clase» está ausente, no es porque este aspecto se haya convertido tan sólo en uno más de una serie de antagonismos y articulaciones, sino, por el contrario, porque se ha convertido en el principio estructural del plano vectorial que estructura la farsa de las identidades como diferencias", "La clase hacker, productora de nuevas abstracciones, se hace cada vez más importante para cada clase dominante sucesiva, ya que todas ellas dependen cada vez más de la información como recurso", "La tierra no puede reproducirse a voluntad", "La buena tierra se presta a la escasez, y la abstracción de la propiedad privada por sí sola casi se basta para proteger las rentas de la clase pastoralista", "El beneficio del capital descansa sobre medios de producción reproducibles mecánicamente, sus fábricas y sus existencias", "La empresa capitalista necesita a veces al hacker para refinar y desarrollar las herramientas y las técnicas de producción a fin de mantenerse al día respecto a la competencia", "La información es el objeto más fácilmente reproducible que ha recogido jamás la abstracción de la propiedad", "Nada protege al negocio vectorialista de sus competidores, salvo su capacidad de transformar cualitativamente la información que posee y extraer de ella un nuevo valor", "Los servicios de la clase hacker se hacen indispensables para una economía que es en sí cada vez más dispensable: una economía de propiedad y escasez", "Cuando los medios de producción se vuelven más abstractos, también lo hace la forma de propiedad", "La propiedad debe expandirse para contener formas cada vez más complejas de diferencia y reducirla a equivalencia", "Para hacer equivalente la tierra, basta con trazar fronteras y crear medios para asignarla como objeto a un sujeto", "Naturalmente, esta imposición antinatural sobre la superficie del mundo dará origen a complejidades, a pesar de que su principio no es más que una abstracción simple", "Sin embargo, para que algo sea representado como propiedad intelectual no basta con que se encuentre en un emplazamiento diferente", "Tiene que ser cualitativamente diferente", "Esa diferencia, que hace posible un copyright o una patente, es el trabajo de la clase hacker", "La clase hacker hace lo que Bateson denomina «la diferencia que lo hace todo diferente ».* La diferencia que impulsa la abstracción del mundo, pero que también impulsa la acumulación de poder de clase en manos de la clase vectorial", "La clase hacker surge de la transformación de la información en propiedad, en forma de propiedad intelectual", "Este hackeo legal hace del hackeo un proceso productor de propiedad y, por ende, un proceso productor de clases", "El hackeo produce la fuerza de clase capaz de plantear -y responder- la cuestión de la propiedad: la clase hacker", "La clase hacker es la clase con capacidad para crear no sólo nuevos tipos de objetos y sujetos en el mundo, no sólo nuevos tipos de formas de propiedad en las que éstos pueden ser representados, sino también nuevos tipos de relaciones, con propiedades imprevistas, que cuestionan la forma misma de la propiedad", "La clase hacker se realiza como clase cuando hackea la abstracción de la propiedad y supera las limitaciones de las formas de propiedad existentes", "La clase hacker puede sentirse halagada por la gran cantidad de atención que le han dedicado los capitalistas en comparación con los pastoralistas, y los vectorialistas en comparación con los capitalistas", "Los hackers suelen aliarse en cada ocasión con la forma más abstracta de relación de mercancía y propiedad", "Sin embargo, no tardan en sentir la fuerza restrictiva de toda clase dominante, que desea asegurar su dominio sobre la clase predecesora y rival, y puede faltar a su palabra en cuanto a las exenciones ofrecidas a los hackers como clase", "La clase vectorialista, en especial, hará cuanto sea necesario para intentar conseguir la participación y la productividad de los hackers, pero sólo a causa de su atenuada dependencia de nuevas abstracciones como motor de la competencia entre intereses vectoriales", "Cuando los vectorialistas ac-túan de común acuerdo como clase, es para subyugar el hackeo a las prerrogativas de su poder de clase", "El mundo vectorial es dinámico", "Pone en funcionamiento nuevas abstracciones y, así, produce nuevas libertades partiendo de la necesidad", "La dirección que toma esta lucha no viene dada por el curso de las cosas, sino que está determinada por la lucha entre clases", "Todas las clases entablan relaciones de conflicto, colisión y compromiso", "Sus relaciones no son necesariamente dialécticas", "Las clases pueden formar alianzas de interés mutuo contra otras clases, o pueden llegar a un «compromiso histórico » durante un tiempo", "Sin embargo, pese a pausas y reveses, la lucha de clases impulsa la historia hacia la abstracción y la abstracción hacia la historia", "A veces el capital forma una alianza con los pastoralistas, y las dos clases se unen de forma eficaz bajo el liderazgo del interés capitalista","A veces el capital forma una alianza con los trabajadores contra la clase pastoralista, una alianza que se rompe enseguida, en cuanto se logra la disolución de la clase pastoralista", "Estas luchas dejan huella en la forma histórica del Estado, que sigue estando controlado por el interés de la clase dominante y al mismo tiempo arbitra entre los representantes de las clases competidoras", "La historia está llena de sorpresas", "A veces -para variar- los trabajadores forman con los agricultores una alianza que socializa la propiedad privada y la pone en manos del estado, al tiempo que liquida las clases pastoralista y capitalista", "En ese caso, el estado se convierte en una clase pastoralista y capitalista colectiva, y ejerce su poder de clase sobre una economía mercantil organizada burocráticamente más que competitivamente", "La clase vectorialista emerge de los estados competitivos más que de los burocráticos", "Las condiciones competitivas impulsan con mayor eficacia la búsqueda de abstracción productiva", "El desarrollo de formas abstractas de propiedad intelectual genera la relativa autonomía en la que la clase hacker puede producir abstracciones, a pesar de que esa productividad está constreñida dentro de la forma de mercancía", "La clase vectorialista emerge de los estados competitivos más que de los burocráticos", "Las condiciones competitivas impulsan con mayor eficacia la búsqueda de abstracción productiva", "El desarrollo de formas abstractas de propiedad intelectual genera la relativa autonomía en la que la clase hacker puede producir abstracciones, a pesar de que esa productividad está constreñida dentro de la forma de mercancía", "Existe un aspecto que une a pastoralistas, capitalistas y vectorialistas: la inviolabilidad de la forma de propiedad de la que depende el poder de clase", "Todos ellos dependen de formas de abstracción que pueden comprar y poseer, pero no producir", "Todos ellos acaban dependiendo de la clase hacker, que encuentra nuevas formas de hacer productiva la naturaleza, que descubre nuevos patrones en los datos que lanzan la naturaleza y la segunda naturaleza, que produce nuevas abstracciones mediante las cuales puede conseguirse que la naturaleza reporte más de una segunda naturaleza, quizás incluso una tercera", "La clase hacker, al ser numéricamente reducida y no poseer los medios de producción, se encuentra atrapada entre una política de las masas, desde abajo, y una política de los gobernantes, desde arriba", "Debe negociar lo mejor que pueda o hacer lo mejor que sabe hacer: obtener mediante el hackeo una nueva política al margen de esa contraposición", "A largo plazo, los intereses de la clase hacker son acordes con los de quienes más se beneficiarían del avance de la abstracción, esto es, las clases productivas desposeídas de los medios de producción: agricultores y trabajadores", "Para intentar llevar a la práctica esta posibilidad, la clase hacker hackea la política misma y crea un nuevo sistema de gobierno, convierte la política de masas en una política de multiplicidad en la que todas las clases productivas pueden expresar su virtualidad", "El interés hacker no puede formar alianzas fácilmente con las formas de política de masas que subordinan las diferencias minoritarias a la unidad de acción", "La política de masas siempre corre el peligro de reprimir la fuerza creativa y abstrayente de la interacción de las diferencias", "El interés hacker no reside en representar a las masas, sino en una política más abstracta que exprese la productividad de las diferencias", "Los hackers, que producen muchas clases de conocimiento a partir de muchas clases de experiencias, también tienen potencial para producir nuevos conocimientos de formación y de acción de clases cuando trabajan junto con la experiencia colectiva de todas las clases productivas", "Una clase no es lo mismo que su representación", "En política hay que desconfiar de las representaciones que se muestran como clases, puesto que tan sólo representan una fracción de una clase y no expresan sus múltiples intereses", "Las clases no cuentan con vanguardias que puedan hablar por ellas", "Las clases se expresan por igual en todos sus múltiples intereses y acciones", "La clase hacker no es lo que es; la clase hacker es lo que no es..", "pero que puede llegar a ser", "Mediante el desarrollo de la abstracción se puede extraer libertad de la necesidad", "La clase vectorialista, igual que sus predecesoras, trata de ligar la abstracción a la producción de escasez y margen, no de abundancia y libertad", "La formación de la clase hacker como tal llega justo en el momento en que aparece la posibilidad de quedar libres de la necesidad y de la dominación de clase", "Negri: «¿Qué es este mundo de crisis política, ideológica y productiva, este mundo de sublimación y circulación incontrolable? ¿Qué es, pues, sino un salto, un salto que hace época, más allá de todo lo que la humanidad haya experimentado hasta la fecha? ..", "constituye simultáneamente la destrucción y el nuevo potencial de todo el significado»", "Lo único que se requiere es la creación mediante hackeo de la clase hacker como tal, una clase capaz de hackear la propiedad misma, que es lo que mantiene encadenados todos los medios de producción y la productividad del significado", "Hasta la fecha, la lucha entre clases ha establecido la disposición del excedente, el régimen de escasez y la forma en que crece la producción", "Sin embargo, ahora hay muchísimo más en juego", "De pronto se tiene en perspectiva la supervivencia y la libertad", "Las clases dominantes no sólo convierten a las clases productoras en recurso instrumental, sino también a la naturaleza misma, hasta el punto de que la explotación de clases y la explotación de la naturaleza se convierten en una misma cosificación insostenible", "El potencial para que este mundo dividido en clases produzca su propia derrota no llega antes de tiempo"]
+
+
+		var virus = flo [(Math.floor(fxrand() * 227 >> 0))];
+
+				window.$fxhashFeatures = {
+
+				"text": virus,
+				"scale": scl,
+					"saturation": strt,
+					"blur": pxdes,
+
+					"contrast": cntrst,
+					"transalateY": trnsY,
+					"transalateX": trnsX,
+					"invert": invrt,
+					"grayscale": gryscl,
+					"hue": hrtt,
+								"brightness": brgtns,
+
+
+
+				};
+
+				console.log(scl);
+				console.log(virus);
+				console.log(fxhash);
+				console.log(hrtt);
+				console.log(trnsY);
+					console.log(trnsX);
+
+	</script>
+
+	</body>
+</html>

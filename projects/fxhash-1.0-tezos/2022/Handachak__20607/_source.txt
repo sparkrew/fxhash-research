@@ -1,0 +1,4 @@
+id: 20607
+name: Handachak
+mint_opens_at: 2022-10-23T18:30:00+00:00
+generative_uri: ipfs://QmPqF2TSLkyk8kwDj29CWSkcqjt7LvZFuZTuMYKo5LyKnN

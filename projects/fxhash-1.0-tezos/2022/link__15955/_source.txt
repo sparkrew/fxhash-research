@@ -1,0 +1,4 @@
+id: 15955
+name: link
+mint_opens_at: 2022-07-06T00:18:29+00:00
+generative_uri: ipfs://QmWKcpESDoWQjojSBCWipVvLDSGHGsyoZAki5p73oSchGv

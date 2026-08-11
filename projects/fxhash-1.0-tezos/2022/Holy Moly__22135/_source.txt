@@ -1,0 +1,4 @@
+id: 22135
+name: Holy Moly
+mint_opens_at: 2022-12-07T16:05:00+00:00
+generative_uri: ipfs://QmPdv6FvZmfMEwVGsBxonEvaeqVVsaKmmJ5y6gqdJJagEN

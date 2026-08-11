@@ -1,0 +1,4 @@
+id: 8531
+name: microcosmos
+mint_opens_at: 2022-02-02T14:56:06+00:00
+generative_uri: ipfs://QmQCVhfz2tpw1sPK4LpHwNMA3fweu1eZXFEa4T7JRsK3MF

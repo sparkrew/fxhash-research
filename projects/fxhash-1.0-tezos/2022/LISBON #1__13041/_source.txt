@@ -1,0 +1,4 @@
+id: 13041
+name: LISBON #1
+mint_opens_at: 2022-05-17T00:06:44+00:00
+generative_uri: ipfs://QmVKjMKmA3N6436AvvZ3wpu1948v5K6NwzcxgNkDCat4ce

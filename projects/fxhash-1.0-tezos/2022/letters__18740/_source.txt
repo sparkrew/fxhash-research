@@ -1,0 +1,4 @@
+id: 18740
+name: letters
+mint_opens_at: 2022-09-06T17:00:00+00:00
+generative_uri: ipfs://QmVHzXyddD1619BkrKRbadxnyx87ti8PjE4bbUcTzSg639

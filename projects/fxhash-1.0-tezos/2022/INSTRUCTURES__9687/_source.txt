@@ -1,0 +1,4 @@
+id: 9687
+name: INSTRUCTURES
+mint_opens_at: 2022-02-20T15:01:00+00:00
+generative_uri: ipfs://QmVNnqtzuN2teuGCGnH2xVAorqMF2K5MMSmFwarcyEt8nq

@@ -1,0 +1,4 @@
+id: 19984
+name: Insider Dreams
+mint_opens_at: 2022-10-03T01:20:14+00:00
+generative_uri: ipfs://QmWFihQkv13n4k14YbnhnCfvizgJpmYnwTkynW3QhRfG53

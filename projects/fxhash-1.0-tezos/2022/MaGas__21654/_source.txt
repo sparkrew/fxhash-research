@@ -1,0 +1,4 @@
+id: 21654
+name: MaGas
+mint_opens_at: 2022-11-19T22:36:14+00:00
+generative_uri: ipfs://QmensPFLkvandZaxyt8gkaGUynfbuSxoEf7ihRtnnnPqnC

@@ -1,0 +1,4 @@
+id: 20509
+name: Gone With The Wind
+mint_opens_at: 2022-10-19T19:50:00+00:00
+generative_uri: ipfs://QmQ9V9auz4zRzKGDnhwRrtHqUUG7GFPcSv4ymewBS2Vnao

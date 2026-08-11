@@ -1,0 +1,44 @@
+html,
+body {
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.image-container{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top:0;
+    left: 0;
+    bottom:0;
+    right: 0;
+    margin: auto;
+
+}
+
+
+#draw_canv,#bck_canv{
+    position: absolute;
+    margin: auto;
+    top:0;
+    left: 0;
+    bottom:0;
+    right: 0;
+    width: 50%;
+    height: 50%;
+}
+
+#draw_canv{
+    width: 50%;
+    height: 50%;
+}
+
+#loading{
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    top:50%;
+    left: 0;
+    bottom:0;
+    right: 0;
+}

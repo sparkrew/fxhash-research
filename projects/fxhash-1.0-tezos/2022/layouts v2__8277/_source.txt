@@ -1,0 +1,4 @@
+id: 8277
+name: layouts v2
+mint_opens_at: 2022-01-31T13:10:38+00:00
+generative_uri: ipfs://QmU2DYNNnNMjupaPNXjsM2Y6XJ7MjYwZRhg1FYPMsyqgV7

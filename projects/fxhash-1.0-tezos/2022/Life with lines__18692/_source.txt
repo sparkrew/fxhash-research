@@ -1,0 +1,4 @@
+id: 18692
+name: Life with lines
+mint_opens_at: 2022-08-29T16:00:00+00:00
+generative_uri: ipfs://QmSLf5e7hePd1wAKByXQhFDyFuKof1jVx24CroHmbw8kWi

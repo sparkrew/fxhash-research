@@ -1,0 +1,4 @@
+id: 13746
+name: Megalopolis
+mint_opens_at: 2022-05-29T14:00:00+00:00
+generative_uri: ipfs://QmT8hZqnDAcig5sEWgWYsiGoi2AQ9CTNKTZtdTgdfHPmVU

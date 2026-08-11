@@ -1,0 +1,4 @@
+id: 22779
+name: How to Draw Bubbles (◕‿◕)♡
+mint_opens_at: 2022-12-28T19:00:00+00:00
+generative_uri: ipfs://QmadmdJc6bWwkHiAQ5wPim2WrYA6uSFLQWmStY2SynHuBJ

@@ -1,0 +1,4 @@
+id: 6917
+name: Gradients
+mint_opens_at: 2022-01-14T04:20:40+00:00
+generative_uri: ipfs://QmZzgaSdaBAtv3eDKwMiik68c9f1HBpRyaZru4xujNd2FJ

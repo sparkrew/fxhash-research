@@ -1,0 +1,1 @@
+function squareSize(){let n;return n=windowWidth>windowHeight?windowHeight:windowWidth,n}function randomizeList(n){let i=[];for(;n.length>0;)index=Math.floor(fxrand()*n.length),i.push(n[index]),n.splice(index,1);return i}function windowCenter(){return[.5*windowWidth,.5*windowHeight]}

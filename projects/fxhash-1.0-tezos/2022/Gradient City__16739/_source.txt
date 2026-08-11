@@ -1,0 +1,4 @@
+id: 16739
+name: Gradient City
+mint_opens_at: 2022-07-20T00:29:14+00:00
+generative_uri: ipfs://QmPtM5CPEbTbJie6knTY2xDZSeoPNfHrQRjUiuWfgKnoAH

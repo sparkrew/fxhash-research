@@ -1,0 +1,4 @@
+id: 18724
+name: Mo'ai Hills
+mint_opens_at: 2022-08-29T05:03:14+00:00
+generative_uri: ipfs://QmUW9mTQTDJJw56ttHjyuSRF136kWCv7WdeucCpLazG9RU

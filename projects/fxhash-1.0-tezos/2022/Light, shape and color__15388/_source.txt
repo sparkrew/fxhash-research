@@ -1,0 +1,4 @@
+id: 15388
+name: Light, shape and color
+mint_opens_at: 2022-06-24T02:13:59+00:00
+generative_uri: ipfs://QmSvzBJxwGBxsa73NGcS7Yr3CGnBD96ca9nwpbTehrK1kK

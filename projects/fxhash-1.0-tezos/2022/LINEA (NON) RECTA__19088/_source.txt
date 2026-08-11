@@ -1,0 +1,4 @@
+id: 19088
+name: LINEA (NON) RECTA
+mint_opens_at: 2022-09-13T18:00:00+00:00
+generative_uri: ipfs://QmYpbn1qj68e1PhgG9bg1j3Cab6oymTtzY2CaKyb9dS58T

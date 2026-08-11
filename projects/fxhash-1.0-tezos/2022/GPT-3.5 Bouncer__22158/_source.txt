@@ -1,0 +1,4 @@
+id: 22158
+name: GPT-3.5 Bouncer
+mint_opens_at: 2022-12-06T09:35:44+00:00
+generative_uri: ipfs://QmNh3JCMTeCzzHXzWay3AApgyfsuVH1VfQ813UunjYK7t9

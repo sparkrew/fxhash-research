@@ -1,0 +1,4 @@
+id: 15206
+name: Midwest Magic
+mint_opens_at: 2022-06-19T16:31:29+00:00
+generative_uri: ipfs://QmeKf5Jg4RXNVx5wsQg3gz2oRC6TQkH94sDrJ8bu7BmUP1

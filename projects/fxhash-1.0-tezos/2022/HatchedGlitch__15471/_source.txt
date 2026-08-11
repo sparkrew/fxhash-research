@@ -1,0 +1,4 @@
+id: 15471
+name: HatchedGlitch
+mint_opens_at: 2022-06-25T05:55:44+00:00
+generative_uri: ipfs://QmQFQZmZe5kscj6GCWFM6EeQoAdYxiZPWooVACEVYQCyj6

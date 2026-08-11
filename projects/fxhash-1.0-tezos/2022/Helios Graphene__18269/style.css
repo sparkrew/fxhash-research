@@ -1,0 +1,23 @@
+html,
+body {
+  flex-direction: row;
+  overflow: hidden;
+  touch-action: none;
+  background: lightgray;
+}
+
+canvas {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2), -2px 12px 10px rgba(0, 0, 0, 0.2);
+  display: block;
+  padding: 0;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  object-fit: contain;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

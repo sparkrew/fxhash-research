@@ -1,0 +1,4 @@
+id: 17122
+name: Intersecity
+mint_opens_at: 2022-07-27T12:30:00+00:00
+generative_uri: ipfs://QmTb3L59XB9QgivcLLdMy4rp1SSPDxCRDQ157dwK96UjFs

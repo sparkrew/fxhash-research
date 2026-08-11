@@ -1,0 +1,4 @@
+id: 12072
+name: Just whale
+mint_opens_at: 2022-04-27T16:34:14+00:00
+generative_uri: ipfs://Qmd47WogxZC4jZAPdbTWsXkXhEdvEmPASqhSMB2vRuFwn3

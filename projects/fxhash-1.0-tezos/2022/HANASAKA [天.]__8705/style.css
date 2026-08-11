@@ -1,0 +1,14 @@
+body, html {
+  height: 100vh;
+}
+body {
+  background: rgb(0, 0, 0);
+  display: grid;
+  margin: 0;
+}
+canvas {
+  --w: min(100vh, 100vw);
+  margin: auto;
+  height: var(--w);
+  width: var(--w);
+}

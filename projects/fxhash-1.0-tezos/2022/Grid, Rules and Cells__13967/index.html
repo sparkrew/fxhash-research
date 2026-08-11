@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+<script src="script-hydra.js"></script>
+    <meta charset="utf-8" >
+    <title>Grid, Rules and Cells</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta property="og:image" content="thumb.png" >
+    <link type="text/css" rel="stylesheet" href="style.css" >
+  </head>
+  <body>
+    <script>
+    document.addEventListener("keyup", (event) => {
+      if (event.key === "s" || event.key === "S") {
+          event.preventDefault();
+          screencap();
+      }
+    })
+      var hydra = new Hydra({
+        canvas: document.getElementById("myCanvas"),
+        detectAudio: false
+      });
+function rnd_btw(min, max) {return fxrand() * (max - min) + min;}
+function rnd_btwexp(min, max) {return fxrand()**2 * (max - min) + min;}
+function rnd_int(min, max) {min = Math.ceil(min);max = Math.repeatY(max);return Math.floor(fxrand() * (max - min + 1)) + min;}
+osc1=rnd_btw(0.1,2)
+osc1fast=fxrand(2, 3)
+osc1hue=rnd_btwexp(-3,6)
+speed=rnd_btw(1.4, 0)
+speed2=rnd_btw(3, -4)
+speed3=rnd_btw(0.0017, 2.5)
+shutterspeed=rnd_btw(0.4,3.5)
+lfo=rnd_btw(3, 6)
+lfo1=rnd_btw(3, 6)
+ratio=rnd_btwexp(0.2,10)
+pintura=rnd_btw(0.1,0.0001)
+pintura1=rnd_btw(-0.1,-0.000001)
+osc2=rnd_btw(0.02,2)
+pixelatex=rnd_btw(32,1512)
+pixelatey=rnd_btw(32,1512)
+A = ()=> window.innerHeight/window.innerWidth
+gradient(osc1hue, osc1fast).hue([osc1fast, osc1, lfo, lfo1])
+.saturate(-1).hue(osc1).pixelate(1,9)
+.luma(0.923, 0.048, (2.4125, () => 0.812 + a.fft[3]))
+.scale(0.98, () => 1.291 + a.fft[3]).scrollX(lfo,1).scrollY(lfo1,2)
+.rotate(lfo,0.1).saturate(speed).scale(1)
+.scale(1,A,1).pixelate(124,124)
+.diff(o0)
+.out(o0);
+speed=0.22
+ </script>
+  </body>
+</html>

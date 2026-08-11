@@ -1,0 +1,4 @@
+id: 8015
+name: Hidden Monster
+mint_opens_at: 2022-01-27T01:33:58+00:00
+generative_uri: ipfs://QmXfdsfhPhaBSBrDvFvFrddUWMRH9UcLRBmH6k6Ew8HS47

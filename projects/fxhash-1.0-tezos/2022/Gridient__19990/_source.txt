@@ -1,0 +1,4 @@
+id: 19990
+name: Gridient
+mint_opens_at: 2022-10-03T14:00:00+00:00
+generative_uri: ipfs://QmY7nhpTRJpQ1XaUmpMMnxiybhfvxdpaqca1vCUeEvzdqT

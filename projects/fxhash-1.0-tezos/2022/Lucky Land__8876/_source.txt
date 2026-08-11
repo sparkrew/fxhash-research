@@ -1,0 +1,4 @@
+id: 8876
+name: Lucky Land
+mint_opens_at: 2022-02-07T23:17:04+00:00
+generative_uri: ipfs://QmWYt491mcKerPrKFzRxEyHYPG4MwUshJzx2gbGe85N2iT

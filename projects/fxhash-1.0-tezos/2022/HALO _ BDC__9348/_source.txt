@@ -1,0 +1,4 @@
+id: 9348
+name: HALO | BDC
+mint_opens_at: 2022-02-14T12:11:24+00:00
+generative_uri: ipfs://QmcXCyn6d1YKJ5wnHyVNCNjoJD7trYkNpB1qMZisBvFwtR

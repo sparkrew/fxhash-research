@@ -1,0 +1,4 @@
+id: 18513
+name: Idea of Peace Constructed
+mint_opens_at: 2022-08-23T00:07:59+00:00
+generative_uri: ipfs://QmQ7cs9eRYXkhqZgHA2YLcfsH4zNDn9C6jdR6MTN2NwNFQ

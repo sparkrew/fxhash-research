@@ -1,0 +1,4 @@
+id: 21279
+name: Happy Birthday, fx(hash)
+mint_opens_at: 2022-11-14T11:00:00+00:00
+generative_uri: ipfs://QmTU6B6qrRC8zoTnD8Tu4FtWeE22EVbYP25Hf44wVV2bbs

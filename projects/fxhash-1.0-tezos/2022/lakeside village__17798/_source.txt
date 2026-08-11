@@ -1,0 +1,4 @@
+id: 17798
+name: lakeside village
+mint_opens_at: 2022-08-09T10:01:00+00:00
+generative_uri: ipfs://QmS7Yqw5WegXmFjre4anYL3inw58NFFrW1cvuQnfpcmLEM

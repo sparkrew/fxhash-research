@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Interdimensional Shapes</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+    <link rel="stylesheet" href="./style.css">
+
+        <script src="./hydra-synth.js"></script>
+	<script src="./Tone.js"></script>
+	<script src="./p5.js"></script>
+    
+  </head>
+  <body>
+
+        <script>
+    var hydra = new Hydra({detectAudio: false})
+    hydra.setResolution(window.innerWidth, window.innerHeight);
+    window.addEventListener("resize",evt=>{hydra.setResolution(window.innerWidth, window.innerHeight)})</script>
+	<script>
+//FX Hash April 22
+// tone.js, p5.js, hydra.js
+
+let ready = false;
+let playing = false;
+let loopBeat;
+let random1, random2, random3;
+let filter;
+let counter;
+let synth, synth2, synth3, perc1, kick, snare, lowPass, gate, comp;
+const volume = -15;
+let v1, v2, v3, v4, v5, v6, v7;
+let meter;
+
+// an array ov values
+var myArray = ['C3', 'D3', 'E3', 'F3', 'G3', 'C3', 'D3', 'E3', 'F3', 'G3', 'C3', 'D3', 'G3', 'C3', 'D3'];
+// an empty array
+var selected = [];
+// an array ov values
+var myArray2 = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C4', 'E4', 'D4', 'G4', 'B4'];
+// an empty array
+var selected2 = [];
+// an array ov values
+var myArray3 = ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5', 'C6'];
+// an empty array
+var selected3 = [];
+
+// 7 because you said you wanted
+while (selected.length < 4) {
+  let chosen = Math.floor(fxrand() * myArray.length);
+  selected.push(myArray[chosen]);
+}
+selected.push(null, null);
+// 7 because you said you wanted
+while (selected2.length < 7) {
+  let chosen2 = Math.floor(fxrand() * myArray2.length);
+  selected2.push(myArray2[chosen2]);
+}
+selected2.push(null, null, null);
+// 7 because you said you wanted
+while (selected3.length < 6) {
+  let chosen3 = Math.floor(fxrand() * myArray3.length);
+  selected3.push(myArray3[chosen3]);
+}
+selected3.push(null, null, null, null);
+
+//sets up the synth and background
+async function setup() {
+
+  v1 = new Tone.Volume(-12);//12 - synth
+  v2 = new Tone.Volume(-30).toDestination();//30 - lead
+  v3 = new Tone.Volume(-27);//12 - synth3
+   v4 = new Tone.Volume(-25);//25 - perc2
+    v5 = new Tone.Volume(-25);//25 - perc1
+      v6 = new Tone.Volume(-15); //kick 15
+    v7 = new Tone.Volume(-15); //snare 15
+  pL = new Tone.Panner(-0.4).toDestination();
+  pR = new Tone.Panner(0.4).toDestination();
+   pL2 = new Tone.Panner(-0.2).toDestination();
+  pR2 = new Tone.Panner(0.2).toDestination();
+       pL3 = new Tone.Panner(-0.1).toDestination();
+  pR3 = new Tone.Panner(0.1).toDestination();
+
+  synth = new Tone.FMSynth({
+    "harmonicity": 1,
+    "modulationIndex": 7,
+    "oscillator": {
+        "type": "pwm"
+    },
+    "envelope": {
+        "attack": 0.2,
+        "decay": 0.3,
+        "sustain": 0.1,
+        "release": 1.2
+    },
+    "modulation" : {
+        "type": "sawtooth"
+    },
+    "modulationEnvelope" : {
+        "attack": 0.01,
+        "decay": 0.5,
+        "sustain": 0.2,
+        "release": 0.1
+    }
+});
+  filter = new Tone.Filter();
+  filter.type = 'lowpass';
+  synth.chain(filter, v1, pL);
+
+  //LEAD SYNTH
+  const delay = new Tone.FeedbackDelay("4nd", 0.5);
+  synth2 = new Tone.Synth({
+    oscillator: {
+      type: "sawtooth",
+      "filter": {
+        "Q": 1,
+        "type": "lowpass",
+        "rolloff": -12
+      },
+      "envelope": {
+        "attack": 1,
+        "decay": 0.5,
+        "sustain": 0.1,
+        "release": 2
+      },
+      "modulation": {
+        "type": "square"
+      },
+      "modulationEnvelope": {
+        "attack": 0.002,
+        "decay": 0.2,
+        "sustain": 0,
+        "release": 0.2
+      },
+    }
+  });
+  synth2.chain(delay, v2);
+  // synth2.volume.value = -5;
+
+
+  synth3 = new Tone.FMSynth({
+    "harmonicity": 1,
+    "modulationIndex": 7,
+    "oscillator": {
+        "type": "pwm"
+    },
+    "envelope": {
+        "attack": 0.2,
+        "decay": 0.3,
+        "sustain": 0.1,
+        "release": 1.2
+    },
+    "modulation" : {
+        "type": "sawtooth"
+    },
+    "modulationEnvelope" : {
+        "attack": 0.01,
+        "decay": 0.5,
+        "sustain": 0.2,
+        "release": 0.1
+    }
+});
+  synth3.chain(v3, pR);
+
+  perc1 = new Tone.MetalSynth({
+    "harmonicity": 2,
+    "resonance": 1000,
+    "modulationIndex": 30,
+    "envelope": {
+      "decay": 1.1,
+    },
+  });
+  perc1.chain(v5, pR2);
+  perc2 = new Tone.MetalSynth({
+    "harmonicity": 2,
+    "resonance": 1000,
+    "modulationIndex": 30,
+    "envelope": {
+      "decay": 1.1,
+    },
+  });
+perc2.chain(v4, pL2);
+
+    //snare
+
+lowPass = new Tone.Filter({
+			frequency: 11000,
+		});
+
+		 snare = new Tone.NoiseSynth({
+			volume: -10,
+			noise: {
+				type: 'pink',
+				playbackRate: 3,
+			},
+			envelope: {
+				attack: 0.001,
+				decay: 0.13,
+				sustain: 0,
+				release: 0.03,
+			},
+		});
+snare.chain(lowPass, v7, pL3);
+
+ //kick
+gate = new Tone.Gate(-20, 0.2);
+comp = new Tone.Compressor(-20, 3);
+ kick = new Tone.MembraneSynth( {
+  "pitchDecay"  : 0.05 ,
+  "octaves"  : 10 ,
+  "oscillator"  : {
+    "type"  : "square"
+}  ,
+  "envelope"  : {
+    "attack"  : 0.001 ,
+    "decay"  : 0.4 ,
+    "sustain"  : 0.01 ,
+    "release"  : 0.4 ,
+    "attackCurve"  : "exponential"
+  }
+});
+    kick.chain(gate, comp, v6, pR3)
+
+  Tone.Master.volume.value = volume;
+  meter = new Tone.Meter();
+  Tone.Master.connect(meter);
+
+  loopBeat = new Tone.Loop(song, '4n');
+  counter = 1
+  Tone.Transport.bpm.value = 180
+}
+
+//starts the loop and activates the audio through user action
+function mouseClicked() {
+  console.log("starting loop");
+  console.log(selected);
+  console.log(selected2);
+  console.log(selected3);
+  Tone.context.resume();
+  Tone.start();
+  Tone.Transport.start();
+  playing = true;
+  loopBeat.start(0);
+  ready = true;
+}
+
+//this is the loop
+function song(time) {
+  if (counter  === 1) {
+    var random1 = Math.floor(Math.random() * selected.length);
+    synth.triggerAttackRelease(selected[random1], "2n", time, -15);
+       kick.triggerAttackRelease("e1", "4n", time, -5);
+  }
+  if (counter === 3) {
+    var random2 = Math.floor(Math.random() * selected2.length);
+    synth2.triggerAttackRelease(selected2[random2], "4n", time, -15);
+      snare.triggerAttackRelease( "2n", time, -15);
+  }
+  if (counter === 5) {
+    var random3 = Math.floor(Math.random() * selected3.length);
+    synth3.triggerAttackRelease(selected3[random3], "4n", time, -15);
+        var random6 = Math.floor(Math.random()*10);
+      console.log(random6);
+      if (random6 <=7){
+       kick.triggerAttackRelease("e1", "4n", time, -5);}
+  }
+    if(counter === 6){
+        var random4 =  Math.floor(Math.random() * selected2.length);
+        synth2.triggerAttackRelease(selected2[random4], "2n", time, -15);
+        console.log("!!");
+         var random7 = Math.floor(Math.random()*10);
+            if (random7 >=7){
+       kick.triggerAttackRelease("e1", "4n", time, -15);}
+    }
+
+
+  if (counter  === 7) {
+          var random10 = Math.floor(Math.random() * selected3.length);
+    synth3.triggerAttackRelease(selected3[random10], "4n", time, -15);
+        snare.triggerAttackRelease( "2n", time, -15);
+        var random6 = Math.floor(Math.random()*10);
+      if (random6 <=5){
+       perc2.triggerAttackRelease("C3", "4n", time);}
+  }
+  if (counter === 0) {
+      var random5 = Math.floor(Math.random()*10);
+      if (random5 <=5){
+    perc1.triggerAttackRelease("e3", "4n", time);
+      }else{
+          snare.triggerAttackRelease( "2n", time, -15);
+      }}
+  counter = (counter + 1) % 8;
+}
+
+</script>
+        <script src="./index.js"></script>
+  </body>
+</html>

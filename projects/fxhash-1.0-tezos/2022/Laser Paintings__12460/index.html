@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+            cursor: crosshair;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html,
+        body {
+            font-family: 'courier';
+            font-size: 16px;
+            background: #000;
+            color: #999999;
+            min-width: 100vw;
+            max-width: 100vw;
+            min-height: 100vh;
+            max-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        :root {
+            --wasd: min(100vw, 100vh);
+        }
+
+        #obstacles_canvas {
+            display: none;
+        }
+
+        #cd_canvas {
+            background-color: transparent;
+            position: absolute;
+            z-index: 1;
+            min-width: var(--wasd);
+            min-height: var(--wasd);
+            max-width: var(--wasd);
+            max-height: var(--wasd);
+            /* border-radius: var(--wasd); */
+            pointer-events: all;
+        }
+    </style>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+</head>
+
+<body>
+    <canvas id="cd_canvas" width="2048" height="2048"></canvas>
+    <script>
+        const selectRandomValue = (values, probabilities) => {
+            if (!probabilities) return values[Math.floor(fxrand() * values.length)]
+
+            const sum = probabilities.reduce((s, p) => s + p, 0)
+            let probabilityOffset = 0
+            const normalizedProbabilities = probabilities.map(p => {
+                let probabilityStep = p / sum + probabilityOffset
+                probabilityOffset = probabilityStep
+                return probabilityStep
+            })
+            const randomValue = fxrand()
+            for (let p = 0; p < normalizedProbabilities.length; p++) {
+                if (randomValue < normalizedProbabilities[p]) {
+                    return values[p]
+                }
+            }
+        }
+        const csize = 2048
+        var loading = true
+        let renders = 0
+        const colorReference = [
+            { r: 1, g: 1, b: 1 }, //W
+            { r: 1, g: .2, b: .2 }, //R
+            { r: .2, g: 1, b: .2 }, //G
+            { r: .2, g: .2, b: 1 }, //B
+            { r: 1, g: 1, b: .2 }, //RG
+            { r: 1, g: .2, b: 1 }, //RB
+            { r: .2, g: 1, b: 1 }, //GB
+        ]
+
+        const colorSchemas = {
+            MONO: 0,
+            DUAL: 1,
+            THRI: 2,
+        }
+        const colorsSchemaString = [
+            'MONO',
+            'DUAL',
+            'THRI',
+        ]
+
+        let colorSchema = selectRandomValue([
+            colorSchemas.MONO,
+            colorSchemas.DUAL,
+            colorSchemas.THRI,
+        ], [5, 4, 6])
+
+        const palettes = {
+            W: 0,
+            R: 1,
+            G: 2,
+            B: 3,
+            RG: 4,
+            RB: 5,
+            GB: 6,
+        }
+        const paletteString = [
+            'W',
+            'R',
+            'G',
+            'B',
+            'RG',
+            'RB',
+            'GB',
+        ]
+        const selectRandomColor = (previousColors = []) => {
+            let col = selectRandomValue([0, 1, 2, 3, 4, 5, 6], [2, 4, 4, 4, 3, 3, 3])
+            while (previousColors.includes(col))
+                col = selectRandomValue([0, 1, 2, 3, 4, 5, 6], [2, 4, 4, 4, 3, 3, 3])
+            return col
+        }
+        let randomColor = selectRandomColor()
+        const palette = [randomColor]
+        const colors = [colorReference[randomColor]]
+        if (colorSchema === colorSchemas.DUAL) {
+            randomColor = selectRandomColor(palette)
+            palette.push(randomColor)
+            colors.push(colorReference[randomColor])
+        } else if (colorSchema === colorSchemas.THRI) {
+            randomColor = selectRandomColor(palette)
+            palette.push(randomColor)
+            colors.push(colorReference[randomColor])
+            randomColor = selectRandomColor(palette)
+            palette.push(randomColor)
+            colors.push(colorReference[randomColor])
+        }
+
+        const paletteFeature = [...palette].sort().map(p => paletteString[p]).join('')
+
+        let cdCanvas = document.querySelector('#cd_canvas')
+        const ctx = cdCanvas.getContext("2d")
+        let obstaclesCanvas = document.createElement("canvas");
+        obstaclesCanvas.width = csize
+        obstaclesCanvas.height = csize
+        const otx = obstaclesCanvas.getContext("2d")
+        const border = 100
+
+        otx.fillRect(0, 0, 8, csize)
+        otx.fillRect(0, 0, csize, 8)
+        otx.fillRect(0, csize - 8, csize, 8)
+        otx.fillRect(csize - 8, 0, 8, csize)
+
+        const obstaclesType = selectRandomValue([
+            'Pebbles',
+            'Sparse',
+            'Bars',
+            'Structure',
+            'Clouds',
+            'Dotgrid',
+            'Globuli',
+            'FX',
+            'Dashes',
+            'Flowers',
+            'Concentrism',
+            'Sines',
+        ])
+        let sourcesAmount = 0
+
+        if (obstaclesType === 'Sparse') {
+            const squares = fxrand() < .5
+            for (let o = 0; o < 40; o++) {
+                let X, Y, D, L, R
+                if (squares) {
+                    otx.fillRect(
+                        X = border + fxrand() * (csize - border * 2),
+                        Y = border + fxrand() * (csize - border * 2),
+                        D = 50 + fxrand() * 150,
+                        L = 50 + fxrand() * 150
+                    )
+                }
+                else {
+                    otx.beginPath()
+                    otx.arc(
+                        X = border + fxrand() * (csize - border * 2),
+                        Y = border + fxrand() * (csize - border * 2),
+                        R = 40 + fxrand() * 60,
+                        0, 7
+                    )
+                    otx.fill()
+                }
+            }
+        }
+
+        if (obstaclesType === 'Pebbles') {
+            for (let o = 0; o < 430; o++) {
+                let X, Y, D, L, R
+                if (fxrand() < -.5) {
+                    otx.fillRect(
+                        X = border + fxrand() * (csize - border * 2),
+                        Y = border + fxrand() * (csize - border * 2),
+                        D = 8 + fxrand() * 15,
+                        L = 8 + fxrand() * 15
+                    )
+                }
+                else {
+                    otx.beginPath()
+                    otx.arc(
+                        X = border + fxrand() * (csize - border * 2),
+                        Y = border + fxrand() * (csize - border * 2),
+                        R = 5 + fxrand() * 15,
+                        0, 7
+                    )
+                    otx.fill()
+                }
+            }
+        }
+
+        if (obstaclesType === 'Bars') {
+            const barHeight = Math.floor(6 + fxrand() * 32)
+            const barHV = fxrand() < .5
+            const barSplutter = selectRandomValue([16, 32, 48, 64])
+            for (let bh = 0; bh < barHeight; bh++) {
+                let barFreq = Math.floor(16 + fxrand() * barSplutter)
+                let barWidth = 2
+                for (let b = 0; b < barFreq; b++) {
+                    if (barHV) {
+                        otx.fillRect(b * csize / barFreq, bh * csize / barHeight, barWidth, csize / barHeight)
+                    } else {
+                        otx.fillRect(bh * csize / barHeight, b * csize / barFreq, csize / barHeight, barWidth)
+                    }
+                }
+            }
+        }
+
+        if (obstaclesType === 'Structure') {
+            const strComposit = selectRandomValue([16, 32, 48, 64])
+            const strHeight = Math.floor(6 + fxrand() * strComposit)
+            const strSplutter = selectRandomValue([16, 32, 48, 64])
+            for (let bh = 0; bh < strHeight; bh++) {
+                let strFreq = Math.floor(16 + fxrand() * strSplutter)
+                let strWidth = 2 * fxrand()
+                for (let b = 0; b < strFreq; b++) {
+                    otx.fillRect(b * csize / strFreq, bh * csize / strHeight, strWidth, csize / strHeight)
+                    otx.fillRect(bh * csize / strHeight, b * csize / strFreq, csize / strHeight, strWidth)
+                }
+            }
+        }
+
+        if (obstaclesType === 'Clouds') {
+            const alvSplutter = selectRandomValue([16, 32, 48])
+            const alvHeight = Math.floor(6 + fxrand() * 32)
+            for (let bh = 0; bh < alvHeight; bh++) {
+                let alvFreq = Math.floor(16 + fxrand() * alvSplutter)
+                let alvWidth = 2
+                for (let b = 0; b < alvFreq; b++) {
+                    otx.beginPath()
+                    otx.lineWidth = fxrand() * 2
+                    let alvRadius = 25 + 25 * alvWidth * fxrand()
+                    otx.moveTo(b * csize / alvFreq + alvRadius, bh * csize / alvHeight)
+                    otx.arc(b * csize / alvFreq, bh * csize / alvHeight, alvRadius, 0, Math.PI * 2)
+
+                    otx.stroke()
+                }
+            }
+        }
+
+        if (obstaclesType === 'Dotgrid') {
+            const dotgridSplutter = selectRandomValue([6])
+            const dotgridHeight = Math.floor(6 + fxrand() * 8)
+            console.log(dotgridHeight, dotgridSplutter)
+            for (let bh = 1; bh < dotgridHeight; bh++) {
+                let dotgridFreq = Math.floor(6 + fxrand() * dotgridSplutter)
+                let dotgridWidth = 2
+                for (let b = 0; b <= dotgridFreq; b++) {
+                    let dotgridRadius = 25 + 25 * dotgridWidth * fxrand()
+                    otx.beginPath()
+                    otx.lineWidth = fxrand() * 10
+                    otx.moveTo(b * csize / dotgridFreq + dotgridRadius, bh * csize / dotgridHeight)
+                    otx.arc(b * csize / dotgridFreq, bh * csize / dotgridHeight, dotgridRadius, 0, Math.PI * 2)
+
+                    otx.stroke()
+                }
+            }
+        }
+
+        if (obstaclesType === 'Globuli') {
+            const globHeight = Math.floor(6 + fxrand() * 32)
+            const globSplutter = selectRandomValue([16, 32, 48, 64])
+            console.log(globHeight, globSplutter)
+            otx.beginPath()
+            for (let bh = 0; bh < globHeight; bh++) {
+                let globFreq = Math.floor(16 + fxrand() * globSplutter)
+                let globWidth = fxrand()
+                for (let b = 0; b < globFreq; b++) {
+                    let globRadius = 50 * globWidth * fxrand()
+                    otx.moveTo(b * csize / globFreq + globRadius, bh * csize / globHeight)
+                    otx.arc(b * csize / globFreq, bh * csize / globHeight, globRadius, 0, Math.PI * 2)
+                }
+            }
+            otx.fill()
+        }
+
+        const possibleSources = [
+            'Points',
+            'Line',
+            'Drips',
+            'Laser',
+            'Scan'
+        ]
+        if (colorSchema === colorSchemas.MONO) {
+            possibleSources.push('Eye')
+        }
+        const source = selectRandomValue(possibleSources)
+
+        if (obstaclesType === 'FX') {
+            otx.save()
+            otx.font = "courier 10px"
+            otx.scale(150, 150); // enlarge 5x
+            if (source === "Eye")
+                otx.fillText('f x', 2, 9.5)
+            else
+                otx.fillText('fx', 3, 10)
+            otx.restore()
+        }
+
+
+        if (obstaclesType === 'Dashes') {
+            for (let o = 0; o < 8; o++) {
+                otx.beginPath();
+                otx.lineWidth = 30
+                otx.setLineDash([20 + fxrand() * 240, 145 + fxrand() * 245]);
+                otx.moveTo(0, j = border * 1.5 + (csize - border * 3) * fxrand());
+                otx.lineTo(csize, j);
+                otx.closePath();
+                otx.stroke();
+            }
+            for (let o = 0; o < 8; o++) {
+                otx.beginPath();
+                otx.lineWidth = 30
+                otx.setLineDash([20 + fxrand() * 240, 145 + fxrand() * 245]);
+                otx.moveTo(j = border * 1.5 + (csize - border * 3) * fxrand(), 0);
+                otx.lineTo(j, csize);
+                otx.closePath();
+                otx.stroke();
+            }
+        }
+
+        if (obstaclesType === 'Flowers') {
+            const circles = []
+            for (let o = 0; o < 8; o++) {
+                otx.beginPath();
+                let radius, X, Y
+
+                let compatible = false
+                while (!compatible) {
+                    radius = border + fxrand() * 200
+                    X = border + (csize - border * 2) * fxrand()
+                    Y = border + (csize - border * 2) * fxrand()
+                    compatible = !circles.some(c => Math.hypot(X - c.X, Y - c.Y) < c.radius + radius / 2 + radius)
+                }
+                otx.lineWidth = 8 + fxrand() * radius
+                let circonferenza = 2 * Math.PI * radius
+
+                let circFill = 2 + Math.floor(fxrand() * 16) * 2
+                let circGap = 8 + Math.floor(fxrand() * 16) * 2
+                otx.setLineDash([circonferenza / circFill, circonferenza / circGap]);
+
+                circles.push({ X, Y, radius })
+
+                otx.moveTo(X + radius, Y);
+                otx.arc(X, Y, radius, 0, Math.PI * 2);
+                otx.stroke();
+            }
+        }
+
+        if (obstaclesType === 'Concentrism') {
+            let concentricRadius = border
+            const concentricCircles = Math.floor(3 + fxrand() * 10)
+            for (let o = 0; o < concentricCircles; o++) {
+                otx.beginPath();
+                let X, Y
+                X = csize / 2
+                Y = csize / 2
+                otx.lineWidth = 8 + fxrand() * 80
+                let circonferenza = 2 * Math.PI * concentricRadius
+
+                let circFill = 2 + Math.floor(fxrand() * 16) * 2
+                let circGap = 8 + Math.floor(fxrand() * 16) * 2
+                otx.setLineDash([circonferenza / circFill, circonferenza / circGap]);
+
+                otx.moveTo(X + concentricRadius, Y);
+                otx.arc(X, Y, concentricRadius, 0, Math.PI * 2);
+                otx.stroke();
+                concentricRadius += csize / concentricCircles / 2 + csize / concentricCircles / 4 * fxrand()
+            }
+        }
+
+
+        if (obstaclesType === 'Sines') {
+            otx.beginPath()
+            if (fxrand() < .2) {
+                let sinesRadius = border + fxrand() * 200
+                let circonferenza4sines = 2 * Math.PI * sinesRadius
+                let sinesFill = 2 + Math.floor(fxrand() * 16) * 2
+                let sinesGap = 8 + Math.floor(fxrand() * 16) * 2
+                otx.setLineDash([circonferenza4sines / sinesFill, circonferenza4sines / sinesGap]);
+                otx.lineWidth = 8 + Math.floor(fxrand() * 30)
+            } else {
+                otx.lineWidth = 2 + Math.floor(fxrand() * 3)
+            }
+            otx.moveTo(0, csize / 2)
+            let sinPar1 = 1 + fxrand()
+            let sinPar2 = 1 + fxrand()
+            let sinPar3 = 1 + fxrand()
+            let sinPar4 = 1 + fxrand()
+            let sinPar5 = 1 + fxrand()
+            for (let x = 0; x < csize; x++) {
+                otx.lineTo(x, csize / 2 + (1 + sinPar4 * Math.sin(x * sinPar5 / 100)) * Math.sin(sinPar1 * x / 100 + sinPar2 * Math.cos(sinPar3 * x / 100)) * 300)
+            }
+            otx.stroke()
+            if (fxrand() < .69) {
+                otx.beginPath()
+                otx.moveTo(0, csize / 2)
+                sinPar1 = 1 + fxrand()
+                sinPar2 = 1 + fxrand()
+                sinPar3 = 1 + fxrand()
+                sinPar4 = 1 + fxrand()
+                sinPar5 = 1 + fxrand()
+                for (let x = 0; x < csize; x++) {
+                    otx.lineTo(x, csize / 2 + (1 + sinPar4 * Math.sin(x * sinPar5 / 100)) * Math.sin(sinPar1 * x / 100 + sinPar2 * Math.cos(sinPar3 * x / 100)) * 300)
+                }
+                otx.stroke()
+            }
+        }
+
+
+
+
+
+
+        // end obstacles
+
+        let obstaclesData = otx.getImageData(0, 0, csize, csize);
+        let obstacles = obstaclesData.data
+        const laserCount = Math.floor(3 + fxrand() * 5)
+        let laserPositions = []
+
+        for (let l = 0; l < laserCount; l++) {
+            let laserOrigin = {
+                x: csize * fxrand() - csize / 2,
+                y: csize * fxrand() - csize / 2
+            }
+            while (obstacles[laserOrigin.x * 4 + csize * 4 * laserOrigin.y] > 239) {
+                laserOrigin = {
+                    x: csize * fxrand() - csize / 2,
+                    y: csize * fxrand() - csize / 2
+                }
+            }
+            laserPositions.push(laserOrigin)
+        }
+
+        const laserRadius = 8
+        if (source === 'Laser' || source === 'Scan') {
+            laserPositions.forEach(lp => {
+                otx.beginPath()
+                otx.arc(lp.x + csize / 2, lp.y + csize / 2, laserRadius, 0, Math.PI * 2)
+                otx.fill()
+            })
+        }
+        obstaclesData = otx.getImageData(0, 0, csize, csize);
+        obstacles = obstaclesData.data
+
+
+
+        const base = selectRandomValue(
+            ['000', '001', '100', '010', '110', '101', '011'],
+            [10, 4, 4, 4, 2, 2, 2]
+        )
+        ctx.fillStyle = '#' + base;
+        ctx.fillRect(0, 0, csize, csize)
+
+
+        const imageData = ctx.getImageData(0, 0, csize, csize);
+        const pixels = imageData.data;
+        const colorsAccumulator = [...pixels];
+        const hue = fxrand() * 360
+        var frame = 0
+
+        var mR = 1//.5 + fxrand() * .75
+        var mG = 1//.5 + fxrand() * .75
+        var mB = 1//.5 + fxrand() * .75
+
+        var alphaSplitter = 6
+
+        var finalLimit = Math.PI * 2 * 2
+
+        const sourceOrigin = {
+            x: fxrand() * csize,
+            y: fxrand() * csize,
+        }
+
+        var nextCoords = (t) => [
+            sourceOrigin.x + Math.cos(t) * 30,
+            sourceOrigin.y + Math.sin(t) * 30,
+            Math.PI * 2 * fxrand()
+        ]
+
+        let step3p = 0
+        let prevT = 0
+        switch (source) {
+            case 'Eye':
+                sourcesAmount = 1
+                const hasPupilla = fxrand() < .5
+                const speedMod = 2
+                finalLimit = (Math.PI * 3 + (hasPupilla) * Math.PI / 4) / speedMod
+                const firstStep = Math.PI * 2 / speedMod
+                const secondStep = Math.PI * 3 / speedMod
+                let grayscale = 0
+                if (grayscale) {
+                    mR = 0.1
+                    mG = 0.1
+                    mB = 0.1
+                } else {
+                    mR = 0.02 + fxrand() * .3
+                    mG = 0.02 + fxrand() * .3
+                    mB = 0.02 + fxrand() * .3
+                }
+                nextCoords = (t) => {
+                    let X, Y
+                    if (t < firstStep) {
+                        X = 0 + Math.tan(t * speedMod) * 100
+                        Y = 0 + Math.cos(t * speedMod) * 100
+                    }
+                    else {
+                        if (t > secondStep) {
+                            X = 0 + Math.cos(t * speedMod * 8) * 8
+                            Y = 0 + Math.sin(t * speedMod * 8) * 8
+                        } else {
+                            X = 0 + Math.cos(t * speedMod * 2) * 80
+                            Y = 0 + Math.sin(t * speedMod * 2) * 80
+                        }
+                    }
+                    return [X, Y,
+                        Math.PI * 2 * fxrand()]
+                }
+                break;
+            case 'Line':
+                alphaSplitter = 4
+                finalLimit = Math.PI * 2 * 8
+                let segmenti = selectRandomValue([1, 2, 3, 4, 6, 8, 16])
+                sourcesAmount = segmenti
+                let segmento = 100 / segmenti
+                let segmentoHalf = segmento / 2
+                let segAmount = selectRandomValue([...(segmenti === 1
+                    ? [3, 3, 3]
+                    : segmenti === 2
+                        ? [2, 3, 2, 3, 2, 3]
+                        : [1, 2, 3, 1, 2, 3, 1, 2, 3]),
+                    4, 6, 12, 32])
+                console.log(segmenti + ' segment(s) split by ' + segAmount)
+                let placeInverter = fxrand() < .5 ? -1 : 1
+                nextCoords = (t) => {
+                    let X = -csize / 2 + csize * t / finalLimit
+                    let place = placeInverter * (t % segmento > segmentoHalf ? 1 : -1)
+                    let Y = place * (csize / 2 - 4)
+
+                    step3p = 0
+                    while (prevT % segmento > segmentoHalf / segAmount) {
+                        prevT -= segmentoHalf / segAmount
+                        step3p++
+                    }
+
+                    mR = colors[step3p % colors.length].r * fxrand()
+                    mG = colors[step3p % colors.length].g * fxrand()
+                    mB = colors[step3p % colors.length].b * fxrand()
+
+                    prevT = t
+                    return [X, Y,
+                        -place * Math.PI * fxrand()]
+                }
+                break;
+            case 'Points':
+                let pointsAmount = Math.floor(3 + fxrand() * 5)
+                finalLimit = Math.PI / 2 * 12
+                mR = 0.1
+                mG = 0.1
+                mB = 0.1
+                let initialAngle = fxrand() * Math.PI * 2
+                let pointPositions = fxrand() < .5 ? [] : [
+                    { x: 0, y: 0 }
+                ]
+                let sameDistance3P = fxrand() < .5
+                let fixed3PDistance = csize / 4 + csize / 4 * fxrand()
+                for (let p = 0; p < pointsAmount; p++) {
+                    let radius3p = sameDistance3P ? fixed3PDistance : csize / 8 + csize / 3 * fxrand()
+                    let angle3p = initialAngle + p * Math.PI * 2 / pointsAmount
+
+                    let newPointPos = {
+                        x: radius3p * Math.cos(angle3p),
+                        y: radius3p * Math.sin(angle3p),
+                    }
+                    while (obstacles[newPointPos.x * 4 + csize * 4 * newPointPos.y] > 239) {
+                        radius3p = csize / 8 + csize / 3 * fxrand()
+                        newPointPos = {
+                            x: radius3p * Math.cos(angle3p),
+                            y: radius3p * Math.sin(angle3p),
+                        }
+                    }
+                    pointPositions.push(newPointPos)
+                }
+                pointsAmount = pointPositions.length
+                sourcesAmount = pointsAmount
+                let smallSource = fxrand() < .75
+                let sourceRadius = smallSource ? 4 : 24 + fxrand() * 92
+
+                nextCoords = (t) => {
+                    t += 1
+                    let X, Y
+                    let a = fxrand() * Math.PI * 2
+                    step3p = 0
+                    while (t > finalLimit / pointsAmount) {
+                        t -= finalLimit / pointsAmount
+                        step3p++
+                        step3p %= pointsAmount
+                    }
+
+                    mR = colors[step3p % colors.length].r * fxrand()
+                    mG = colors[step3p % colors.length].g * fxrand()
+                    mB = colors[step3p % colors.length].b * fxrand()
+
+                    X = pointPositions[step3p].x + Math.cos(a) * sourceRadius
+                    Y = pointPositions[step3p].y + Math.sin(a) * sourceRadius
+
+                    if (smallSource) {
+                        return [X, Y, fxrand() * Math.PI * 2]
+                    }
+                    return selectRandomValue([
+                        [X, Y, a], // direct
+                        [X, Y, a - Math.PI / 2], // spiral
+                        [X, Y, a + Math.sin(fxrand() * Math.PI * 2.01) * Math.PI / 2]
+                    ])
+                }
+                break;
+            case 'Drips':
+                const dripsAmount = Math.floor(3 + fxrand() * 5)
+                finalLimit = Math.PI / 2 * 6
+                mR = 0.1
+                mG = 0.1
+                mB = 0.1
+                let dripsInitialAngle = fxrand() * Math.PI * 2
+                let dripsPositions = []
+                let sameDistanceDrips = fxrand() > .5
+                let fixedDripsDistance = csize / 4 + csize / 4 * fxrand()
+                for (let p = 0; p < dripsAmount; p++) {
+                    let radius3p = sameDistanceDrips ? fixedDripsDistance : csize / 8 + csize / 3 * fxrand()
+                    let angle3p = dripsInitialAngle + p * Math.PI * 2 / dripsAmount
+                    dripsPositions.push({
+                        x: radius3p * Math.cos(angle3p),
+                        y: radius3p * Math.sin(angle3p),
+                    })
+                }
+                let dripsSourceRadius = 128 + fxrand() * 96
+                let dripsFixedDirecton = fxrand() * Math.PI * 2
+
+                sourcesAmount = dripsAmount
+
+                nextCoords = (t) => {
+                    t += 1
+                    let X, Y
+                    let a = fxrand() * Math.PI * 2
+                    step3p = 0
+                    while (t > finalLimit / dripsAmount) {
+                        t -= finalLimit / dripsAmount
+                        step3p++
+                        step3p %= dripsAmount
+                    }
+
+                    mR = colors[step3p % colors.length].r * fxrand()
+                    mG = colors[step3p % colors.length].g * fxrand()
+                    mB = colors[step3p % colors.length].b * fxrand()
+
+                    X = dripsPositions[step3p].x + Math.cos(a) * dripsSourceRadius
+                    Y = dripsPositions[step3p].y + Math.sin(a) * dripsSourceRadius
+
+                    return [X, Y, dripsFixedDirecton]
+                }
+                break;
+            case 'Laser':
+            case 'Scan':
+                finalLimit = Math.PI / 2 * 6
+                let laserAngle
+                let laserAngles = []
+                for (let la = 0; la < laserPositions.length; la++) {
+                    laserAngles.push(fxrand() * Math.PI * 2)
+                }
+                mR = 1 * fxrand()
+                mG = 1 * fxrand()
+                mB = 1 * fxrand()
+
+                sourcesAmount = laserPositions.length
+
+                nextCoords = (t) => {
+                    let X, Y
+                    step3p = 0
+                    while (t > finalLimit / laserPositions.length) {
+                        t -= finalLimit / laserPositions.length
+                        step3p++
+                    }
+                    mR = colors[step3p % colors.length].r * fxrand()
+                    mG = colors[step3p % colors.length].g * fxrand()
+                    mB = colors[step3p % colors.length].b * fxrand()
+                    laserAngle = laserAngles[step3p % laserPositions.length] + (source === 'Scan') * Math.sin(fxrand() * Math.PI * 2) * Math.PI / 16
+                    X = laserPositions[step3p % laserPositions.length].x + Math.cos(laserAngle) * laserRadius
+                    Y = laserPositions[step3p % laserPositions.length].y + Math.sin(laserAngle) * laserRadius
+
+                    return [X, Y, laserAngle]
+                }
+                break;
+        }
+        let t_frame = 0
+        let angA
+        let n = 1
+        let nextStep = 1
+        let prevCoords = {}
+        const render = () => {
+
+            for (let num = 0; num < 2; num++) {
+                if (t_frame >= finalLimit) {
+                    break;
+                }
+
+                t_frame = 100 * (frame / (11978 + fxrand() * 9))
+                const [nX, nY, nA] = nextCoords(t_frame)
+                let X = nX
+                let Y = nY
+                angA = nA
+
+                let A = Math.cos(angA)
+                let B = Math.sin(angA)
+                for (let i = 64; i;) { // amount of rays
+                    // let aperture = Math.PI / 4
+                    // let initialAngle = 0//Math.PI
+                    // r = initialAngle + aperture
+                    prevCoords = { X: Math.round(X), Y: Math.round(Y) }
+                    X += A
+                    Y += B
+                    // if (fxrand() < .25) {
+                    let px = Math.floor(csize / 2 + X)
+                    let py = Math.floor(csize / 2 + Y)
+                    let pixdex = Math.floor(4 * py * csize + 4 * px)
+
+                    if (
+                        px > -border &&
+                        py > -border &&
+                        px < csize + border &&
+                        py < csize + border &&
+                        obstacles[pixdex + 3] < 240
+                    ) {
+                        if (px < 0 ||
+                            py < 0 ||
+                            px >= csize ||
+                            py >= csize
+                        ) {
+                            //don't render when outside
+                        } else {
+                            nextStep++
+
+                            if (pixels[pixdex] < 40 && pixels[pixdex + 1] < 40 && pixels[pixdex + 2] < 40) {
+                                // pixels[pixdex] = 255
+                                // pixels[pixdex + 1] = 255
+                                // pixels[pixdex + 2] = 255
+                                pixels[pixdex + 3] = 0
+                            }
+                            let alpha = n / (nextStep ** .2) / alphaSplitter
+                            // alpha *= alpha
+                            // alpha /= (1 + fxrand() * 5)
+                            colorsAccumulator[pixdex] += mR * alpha
+                            colorsAccumulator[pixdex + 1] += mG * alpha
+                            colorsAccumulator[pixdex + 2] += mB * alpha
+                            const maxChannel = Math.max(colorsAccumulator[pixdex], colorsAccumulator[pixdex + 1], colorsAccumulator[pixdex + 2])
+                            // const maxChannel = (colorsAccumulator[pixdex] + colorsAccumulator[pixdex + 1] + colorsAccumulator[pixdex + 2]) / 3
+
+                            if (maxChannel > 1) {
+                                pixels[pixdex] = colorsAccumulator[pixdex] * 255 / maxChannel
+                                pixels[pixdex + 1] = colorsAccumulator[pixdex + 1] * 255 / maxChannel
+                                pixels[pixdex + 2] = colorsAccumulator[pixdex + 2] * 255 / maxChannel
+                            } else {
+                                pixels[pixdex] = colorsAccumulator[pixdex] * 255
+                                pixels[pixdex + 1] = colorsAccumulator[pixdex + 1] * 255
+                                pixels[pixdex + 2] = colorsAccumulator[pixdex + 2] * 255
+                            }
+                            pixels[pixdex + 3] += alpha
+
+                            // pixels[pixdex] = 255
+                            // pixels[pixdex + 1] = 255
+                            // pixels[pixdex + 2] = 255
+                            // pixels[pixdex + 3] = 255
+                        }
+                    } else { // bounce
+                        nextStep = 1
+                        n--
+                        if (!n) { // reset
+                            n = 32 // number of bounces
+                            const [nX, nY, nA] = nextCoords(t_frame)
+                            X = nX
+                            Y = nY
+                            angA = nA
+                            i--
+                        } else {
+                            angA = Math.PI * 2 * fxrand()
+                            if (n === 31) {
+                                X = prevCoords.X
+                                Y = prevCoords.Y
+                            }
+                        }
+                        A = Math.cos(angA)
+                        B = Math.sin(angA)
+                    }
+                    // }
+                }
+                frame += 1// fxrand() * 199
+            }
+            ctx.putImageData(imageData, 0, 0)
+
+            // if (frame < 10)
+            //     window.requestAnimationFrame(render)
+
+            if (t_frame < finalLimit) {
+                window.requestAnimationFrame(render)
+            } else {
+                if (renders === 0) {
+                    fxpreview()
+                }
+                renders++
+                console.log('Completed render #' + renders)
+                if (renders === 1) console.log('Click to add an other pass of light!')
+                loading = false
+            }
+        }
+        window.requestAnimationFrame(render)
+
+
+        cdCanvas.addEventListener('click', () => {
+            if (!loading) {
+                loading = true
+                frame = 0
+                t_frame = 0
+                n = 1
+                nextStep = 1
+                prevCoords = {}
+                console.log('Starting render #' + (renders + 1) + ' ...')
+                window.requestAnimationFrame(render)
+            } else {
+                console.log('Wait for the rendering end [' + Math.floor(10000 * t_frame / finalLimit) / 100 + '%]')
+            }
+        })
+        console.log("Origins:", sourcesAmount)
+        // laser scan
+        // laser painting
+        // light ruins
+        const features = {
+            "schema": colorsSchemaString[colorSchema],
+            "palette": paletteFeature,
+            "base": base,
+            "darkness": obstaclesType,
+            "source": source,
+        }
+        window.$fxhashFeatures = features
+        console.table(features)
+    </script>
+</body>
+
+</html>

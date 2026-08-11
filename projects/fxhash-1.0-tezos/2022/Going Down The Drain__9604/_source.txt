@@ -1,0 +1,4 @@
+id: 9604
+name: Going Down The Drain
+mint_opens_at: 2022-02-19T17:27:20+00:00
+generative_uri: ipfs://QmZvEH33THzW3QfNCDZHPgVPh6EHK8cgEka7Kx6dFTWVKP

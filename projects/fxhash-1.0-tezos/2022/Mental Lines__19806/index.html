@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><title>Gray Team</title><script src="p5.scribble.js"></script><link rel="stylesheet" href="style.css"><meta charset="utf-8"><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script></head><body><script src="p5.js"></script><script src="sketch.js"></script><script>function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(fxrand() * (max - min + 1) + min);
+}  
+  function getRndInt(dimension, minimalValue = 0) {
+  return minimalValue + parseInt(fxrand() * dimension, 10);
+}
+const colPalette = [['#F4B41A','#143D59'], 
+['#FFE042','#E71989'], 
+['#FFA781','#5B0E2D'], 
+['#00E1D9','#5E001F'], 
+['#030E4F','#F49F1C'], 
+['#0E387A','#9FAFCA'], 
+['#A9DCE3','#7689DE'], 
+['#FCC729','#337DEF'], 
+['#EFC8B1','#514644'], 
+['#5E057E','#C299D0'], 
+['#551FBD','#A2EACB'], 
+['#FFB8B1','#993441'], 
+['#BDFFF6','#E23C52'], 
+['#390879','#B8DF10'], 
+['#A3842C','#575200'], 
+['#008970','#99EEDF'], 
+['#EFC8B1','#8A6626'], 
+['#0F4D19','#6FC27C'],
+['#E54B22','#ABD1FF'],
+['#0F149A','#FD9B4D'],
+['#BFBF14','#0029A5'],
+['#F6B60D','#372800'],
+['#F2BC94','#722620'],
+['#EFC9AF','#1F8AC0'],
+['#F9858B','#761137'],
+['#00154F','#F4AF1B'],
+['#4B3D8F','#B7B1D2'],
+['#4D3227','#EBC999'],
+['#3D4C41','#E6E6E6'],
+['#CEDEF0','#6B9BD1'],
+['#7B3433','#E9BBBA'],
+['#EBEBDE','#777764'],
+['#64395F','#C075B7'],
+['#5A431B','#D6A34A'],
+['#241F1C','#E7DAC7'],
+['#2F3C7E','#FBEAEB'],
+['#FCEDDA','#EE4E34'],
+['#CBD18F','#3A6B35'],
+['#EF5455','#2B3252'],
+['#FBEAEB','#2F3C7E'],
+['#1D1B1B','#EC4D37'],
+['#295F2D','#FFE67C'],
+['#F7F7F9','#D2302C'],
+['#101820FF','#FEE715FF']];
+  const palIdx1 = getRndInt(colPalette.length);
+  const backcol = colPalette[palIdx1][0];
+  const frontcol = colPalette[palIdx1][1];
+  const framesize = getRandomInt(200, 1000);
+  const linenum = getRandomInt(100, 140);
+  const ln = linenum * 2; 
+
+
+  window.$fxhashFeatures = {
+		"Frame Size": framesize,
+    "Background": backcol,
+    "color": frontcol,
+    "Lines": ln, 
+		}</script><script defer="defer" src="./bundle.js"></script></body></html>

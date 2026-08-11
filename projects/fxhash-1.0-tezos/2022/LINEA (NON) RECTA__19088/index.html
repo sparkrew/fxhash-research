@@ -1,0 +1,351 @@
+<html>
+
+<head>
+    <title>LINEA (NON) RECTA</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+</head>
+
+<body style="display: flex;">
+    <div id="drw" style="margin:auto;"></div>
+    <script type="text/javascript">
+        //================================================================================================================================= 
+        // LINEA (NON) RECTA (C)  MATTHIJS KEUPER aka @codeandwood  SEPT 2022
+        //=================================================================================================================================
+        
+
+        //================================================================================================================================= UTILITIES
+        let { abs, max, min, sin, cos, sqrt, round, floor, PI } = Math,
+            d = document, W = window, qs = k => d.querySelector(k), AE = (a, b, c) => a.addEventListener(b, c), CE = a => d.createElement(a)
+        // RANDOM between t and r  (high, low value!)
+        R = ((t = 1, r = 0) => r + fxrand() * (t - r)),
+            // LOOP N times, execute f and fill array   (Piter's amazingly useful loop funciotn)     
+            L = (N, f) => (Number(N) == N ? [...Array(N)] : N).map((_, i) => f(i)),
+            // Loop through all elements of array or object and execute F
+            A = (a, f) => Object.values(a).map(f),
+            // quick split
+            X = (a, b = ",") => a.split(b),
+            // SELECT RANDOM FROM LIST l        
+            P = l => l[R(l.length) | 0],
+            // RARITY RANDOM   : RR[10,1,.2,3]  returns random index of this array, weighted with the number in the array.  so here, 0 will be returned most of the times and 2 is very rare
+            RR = (a, e, c) => (e = a.map((a => e => a += e)(0)), c = R(max(...e)), e.findIndex(a => a > c)),
+            // RARITY generator: RV([1,99],[3,20.2],"featurename,rare,often")  -> returns 20.2 with  99% chance, returns 3 with 1% chance.
+            RV = (rarity, values, descriptions, i) => (i = RR(rarity), { i: i, v: values[i], t: X(descriptions)[i + 1], n: X(descriptions)[0] })
+
+
+        //================================================================================================================================= SVG STUFF
+        let create = x => document.createElementNS("http://www.w3.org/2000/svg", x),
+            svg = create("svg"),
+            att = (x, y, z) => x.setAttribute(y, z),
+            atx = (p, y) => { for (let z in y) att(p, z, y[z]) },
+            app = x => svg.appendChild(x),
+            appendText = t => { var template = create('template'); template.innerHTML = t; svg.append(template.childNodes[0]) },
+            // initialize  --------------------------------------------------------------------------------------------------
+            init = (w, h, w1 = 1000, h1 = 1000) => atx(svg, { viewBox: `0 0 ${w1} ${h1}`, width: w, height: h }),
+            // adds an element --------------------------------------------------------------------------------------------------        
+            add = (x, set = {}, child = {}) => { let p, y, def; for (y in x) { p = create(y); atx(p, x[y]); atx(p, set); app(p); } return p; },
+            // draw a polyline --------------------------------------------------------------------------------------------------
+            polyline = (closed = false, set = {}, points = [], svgpoints = []) => ({
+                points, add: (...x) => { svgpoints.push(...x); L(x.length / 2, i => points.push({ x: x[i * 2], y: x[i * 2 + 1] })) },
+                draw: () => { let p = create(closed ? "polygon" : "polyline"); atx(p, { points: svgpoints.join(",") }); atx(p, set); app(p) }
+            }),
+            // draw path --------------------------------------------------------------------------------------------------
+            path = (s = {}, list = "", r) => (r = {
+                set: s, add: (p, x) => list += p + x.join(","), moveTo: (...x) => r.add("M", x),
+                lineTo: (...x) => r.add("L", x), bezTo: (...x) => r.add("T", x), bezToR: (...x) => r.add("t", x),
+                draw: (s = r.set) => { let p = create("path"); atx(p, { d: list }); atx(p, s); app(p); }
+            })
+        // filter for inset shading.
+        appendText(
+            `<filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200% ">
+            <feComponentTransfer in=SourceAlpha><feFuncA type="table" tableValues="1 0" /></feComponentTransfer>
+            <feGaussianBlur stdDeviation="5"/>
+            <feOffset dx="5 " dy="5" result="offsetblur"/>
+            <feFlood flood-color="black"  flood-opacity=".9"/><feComposite in2="offsetblur" operator="in"/>
+            <feComposite in2="SourceAlpha" operator="in" />
+            <feMerge>
+                <feMergeNode in="SourceGraphic" /><feMergeNode />
+            </feMerge>
+        </filter>`);
+        d.getElementById("drw").appendChild(svg);
+
+
+        //=================================================================================================================================  check if point is inside polu
+        let insidePoly = (b, g) => { for (var d = !1, c = g.points_inside || g.points, e = 0, h = c.length - 1; e < c.length; h = e++) { var i, a = c[e], f = c[h]; a.y > b.y != f.y > b.y && b.x < (f.x - a.x) * (b.y - a.y) / (f.y - a.y) + a.x && (d = !d) } return d }
+       
+       
+        //======================================================================================================================================   Subdivision
+        // subdivides panels into multiple 
+        // object: parent object containing center and size {x,y} attributes ; creator: callback function to create the object creator(center,size, features)
+        // para: number: number of subdivisions in x,y;  method: how to subdivide (golden,invgolden,equal), style or styleFN: function or object containing style
+        let subDiv = (object, creator, para = { number: { x: 1, y: 0 }, method: { x: "equal", y: "equal" } }) => {
+            let styleFn = para.styleFn || (_ => para.style || object.style), goldenRatio = 0.5 + sqrt(5) / 2, x0 = object.center.x - object.size.x / 2
+            // subdivision method:   equal sizes or according to golden ratio
+            getsize = (index, num, dim, type) => ({
+                equal: (index, num, dim) => dim / (num + 1),
+                golden: (index, num, dim) => { let sum = 0; L(num + 1, i => sum += goldenRatio ** i); return (dim / sum) * goldenRatio ** index },
+                invgolden: (index, num, dim) => { let sum = 0; L(num + 1, i => sum += goldenRatio ** i); return (dim / sum) * goldenRatio ** (num - index) },
+            }[type](index, num, dim))
+            L(para.number.x + 1, x => {
+                let w = getsize(x, para.number.x, object.size.x, para.method.x), y0 = object.center.y - object.size.y / 2;
+                L(para.number.y + 1, y => {
+                    let h = getsize(y, para.number.y, object.size.y, para.method.y),
+                        P = creator({ x: x0 + w / 2, y: y0 + h / 2 }, { x: w, y: h }, styleFn(x, y))
+                    P.parent = object; P.depth = object.depth + 1; Object.assign(P, para)
+                    object.children.push(P)
+                    y0 += h
+                })
+                x0 += w
+            })
+            return object
+        }
+        // gets array of all end objects, for easier selecting
+        let objList = o => (o.children.length == 0) ? [o] : [...o.children.map(i => objList(i))].flat()
+
+
+        //====================================================================================================================================== 2D NOISE .  Not perfect, I know.  Ported from https://www.shadertoy.com/view/Msf3WH by  Inigo Quilez
+        let HX = [2313257647, 2700274807, 3152041561, 3679390633], HY = L(4, _ => R(2 ** 31) | 0), ROT = R(PI * 2),
+            H = HY,
+            Q1 = v => { H = [Math.abs(H[1] ^ v * HX[0]), Math.abs(H[2] ^ v * HX[1]), Math.abs(H[3] ^ v * HX[2]), Math.abs(H[0] ^ v * HX[3])] },
+            R0 = uv => { uv.x = uv.x % 100; uv.y = uv.y % 100; Q1(uv.x * 5413. + 1423.); Q1(uv.y * 2251.); Q1(uv.y * uv.x * 7869. + 91242.); return [H[0] / 671040 % 1, H[1] / 671040 % 1, H[2] / 671040 % 1, H[3] / 671040 % 1,] },
+            R1 = uv => { H = HY; return R0(uv) },
+            R2 = (u, pwr = 3) => {
+                let p = { x: u.x * cos(ROT) - u.y * sin(ROT), y: u.y * cos(ROT) + u.x * sin(ROT) },
+                    hash = u => { let r = R1(u); return { x: r[0], y: r[1] } },
+                    dot = (a, b) => a.x * b.x + a.y * b.y,
+                    K1 = 0.366025404, K2 = 0.211324865,
+                    i = { x: floor(p.x + (p.x + p.y) * K1), y: floor(p.y + (p.x + p.y) * K1) },
+                    a = { x: p.x - i.x + (i.x + i.y) * K2, y: p.y - i.y + (i.x + i.y) * K2 },
+                    m = a.x < a.y ? 0 : 1,
+                    o = { x: m, y: 1 - m },
+                    b = { x: a.x - o.x + K2, y: a.y - o.y + K2 },
+                    c = { x: a.x - 1.0 + 2.0 * K2, y: a.y - 1.0 + 2.0 * K2 },
+                    h = { x: max(0.5 - dot(a, a), 0), y: max(0.5 - dot(b, b), 0), z: max(0.5 - dot(c, c), 0) },
+                    n = { x: h.x ** pwr * dot(a, hash(i)), y: h.y ** pwr * dot(b, hash({ x: i.x + o.x, y: i.y + o.y })), z: h.z ** pwr * dot(c, hash({ x: i.x + 1, y: i.y + 1 })) }
+                return (n.x + n.y + n.z) * 2 ** pwr / 70
+            },
+            dx = R(10), dy = R(10), force = (b, c) => { function d(d, e, f) { let c = 0; for (let a = 0; a < 3; a++) { let b = a + 1; c += 3e3 * R2({ x: (dx + d) * .001 * b, y: dx + .001 * e * b }) / b } return c } var a = .001, e = d(b, c + a), f = d(b, c - a), g = (e - f) / (2 * a), e = d(b + a, c), f = d(b - a, c), h = (e - f) / (2 * a); return [g, -h] }
+
+
+        //====================================================================================================================================== QUADTREE ====================
+        // MP: max points per node; MD= max depth.  n=number of points (including children) C=children D=data
+        function quad(x, y, w, h, depth = 0, MP = 10, MD = 7) {
+            let r = { x, y, w, h, MP, MD, n: 0, C: [], D: [], depth }, addtoChild = p => L(4, j => { r.C[j].addPoint(p) }) // add points to children
+            r.noFit = p => (p.x < r.x - r.w / 2 || p.x > r.x + r.w / 2 || p.y < r.y - r.h / 2 || p.y > r.y + r.h / 2)           // true if data doesnt fit in node
+            r.split = _ => { r.C = L(2, x => L(2, y => quad(r.x - r.w / 2 * (x - .5), r.y - r.h / 2 * (y - .5), r.w / 2, r.h / 2, r.depth + 1))).flat(); L(r.MP + 1, i => addtoChild(r.D[i])); r.D = [] } // split node and add poaitns to children
+            r.addPoint = p => { if (!r.noFit(p)) { r.n++; if (r.C.length > 0) { addtoChild(p); return } r.D.push(p); if (r.D.length > r.MP && r.depth < r.MD) { r.split(); } } } // add point to node
+            r.getPoints = (p, d) => r.getCells(p, d).map(f => f.D).flat().filter(e => sqrt((p.x - e.x) ** 2 + (p.y - e.y) ** 2) < d) //get points within radius d
+            r.getCells = (p, d) => ((sqrt((p.x - x) ** 2 + (p.y - y) ** 2) > (d + sqrt(w ** 2 + h ** 2)))) ? [] : (r.C.length > 0 ? L(4, j => r.C[j].getCells(p, d)).flat() : [r])  // get cells within radius d
+            r.placePoint = _ => r.C.length == 0 ? { x: R(r.x + r.w / 2, r.x - r.w / 2), y: R(r.y + r.h / 2, r.y - r.h / 2) } : P(r.C.filter(p => p.n == (r.C.reduce((p, c) => p.n < c.n ? p : c).n))).placePoint();  // place point at 'most empty spcace'
+            return r
+        }
+
+
+        // ============================================= FEATURES ===================================================================================================
+        let readcolors = _ => {  // palettes
+            var c, plt = atob(`cAQAhi7G6SohdnCI1zIShCvetTQhlDoydlMQ3KlRwRQAMi+h7+1yMyd0I0d47s256VkklF9j/7iL9z9Tmmh2Qhu5Zz+wuXQQ/A+Q9QUA/9zdMTCnEUq6+hOM//Cc1zhCffECJn/cxR+3ERCI//iIREER3dh3HOQSHO32A1NouQBVi7dWaEJAqG25ib3JdjpT/7iL2j9zVz/g/AQQqJWKu7hnat/FqXQg`),
+                s = (a, b) => L(a.length / b, _ => a.splice(0, b)),
+                colors = s(s(L(plt.length, i => (c = plt.charCodeAt(i), [((c >> 4) & 15) / 15, (c & 15) / 15])).flat(), 3), 4),                                
+                hexcolors = colors.map(i => L(4, j => "#" + L(3, k => ((i[j][k]) * 15 * 16).toString(16).padStart(2, "0")).join(""))),
+                num = R(colors.length) | 0, t = "No." + num
+            return { n: "palette", t, v: num, c: colors[num], h: hexcolors[num] };
+        }
+        let Q = { size: 4000 }, config = {}, features = {
+            a: RV([10, 1], [1, 16 / 9], "Aspect ratio,square,landscape"),
+            spacing: RV([1, 3, 1], [4, 8, 12], "Size,small,medium,large"),
+            spread: RV([20, 1], [1, 0], "Style,uniform,constrained"),
+            palette: readcolors(),
+            sh: RV([4, 1], [1, 0], "Shadow,yes,no"),
+            fc: RV([1, 1, 10], [_ => "Black", _ => "White", _ => P(features.palette.h)], "Panel Color,black,white,varied"),
+        }
+        features.bd = RV([1, 1, features.fc.i < 2 ? 0 : 5], [0, 1, 2], "Border Color,black,white,varied")
+
+
+        // ============================================= DOCUMENT SIZE ===================================================================================================
+        new URLSearchParams(window.location.search).forEach((v, k) => Q[k] = v || 1)
+        Q.a = features.a.v; // aspectratio
+        Q.w = round(min(window.innerWidth * 0.95, (window.innerHeight * 0.95 * Q.a)));
+        Q.h = round(Q.w / Q.a)
+
+        let height = 900, width = height * Q.a; init(Q.w, Q.h, width, height)
+        let cv = document.createElement("canvas"), ctx = cv.getContext("2d");
+        cv.width = Q.size; cv.height = Q.size / Q.a; ctx.width = Q.size; ctx.height = Q.size / Q.a
+
+
+        //======================================================================================================================================
+        //  plane object: center, size (width,height), style        
+        let plane = (center, size, style = { edge2: { x: 5, y: 5 }, edge: { x: -5, y: -5 }, fill: "#F0F0F0", "stroke": "none", "strokeWidth": 0 }) => {
+            let hx = size.x / 2 - style.edge.x, hy = size.y / 2 - style.edge.y, e2 = style.edge2 || { x: 0, y: 0 },
+                pts = (dx, dy) => L(4, i => ({ x: center.x + [-dx, -dx, dx, dx][i], y: center.y + [-dy, dy, dy, -dy][i] })),
+                points = pts(hx, hy),
+                points_inside = pts(hx - e2.x, hy - e2.y),
+                p = {
+                    center, size, children: [], parent: null, hx, hy, points, style, points_inside,
+                    draw: (all = false) => {
+                        if (all || (p.children.length == 0)) {
+                            let pl = polyline(true, style);
+                            L(4, i => pl.add(points[i].x, points[i].y))
+                            pl.draw()
+                        }
+                        if (p.children.length > 0) L(p.children, i => p.children[i].draw(all))
+                    }
+                }
+            return p
+        }
+
+
+        //======================================================================================================================================
+        //======================================================================================================================================
+        // DEFINE MAIN PLANE AND START THE REAL WORK
+        //======================================================================================================================================
+        //======================================================================================================================================
+        let mainfill = ["Black", "White", features.fc.v()][features.bd.v]
+        let maxlines = 8000, subdivDept = 0, main = plane({ x: width / 2, y: height / 2 }, { x: width - 10, y: height - 10 }, { fill: mainfill, edge: { x: -5, y: -5 }, edge2: { x: 8, y: 8 } })
+        main.depth = 0;
+        main.draw()  // draw main panel
+
+        
+        //======================================================================================================================================  SPLIT MAIN INTO SUB PANELS
+        L(RV([1, 2, 10, 10, 10, 10], [1, 1, 2, 4, 6, 8], "").v | 0, i => {
+            let o = P(objList(main)), nx = min(3, (o.size.x / 100) | 0), ny = min(3, (o.size.y / 100) | 0)
+            if (o.size.x > 100 && o.size.y > 100) subDiv(o, plane, {
+                number: { x: R(nx) | 0, y: R(ny) | 0 },
+                method: { x: P(["golden", "invgolden"]), y: P(["golden", "invgolden"]) },
+                styleFn: (a, b) => ({ filter: features.sh.v ? `url(#inset-shadow)` : "none", fill: features.fc.v(), edge: { x: 5, y: 5 }, edge2: { x: 4, y: 4 } })
+            })
+        })
+        main.draw(features.bd.v == 2)
+        let oL = objList(main)          // contains array of all panels
+        config["Division depth"] = max(...oL.map(i => i.depth))
+        config["Number of panels"] = oL.length
+        let mindist = features.spacing.v, linewidth = mindist / 2
+        for (let a in features) { config[features[a].n] = features[a].t };
+        console.log("LINEA (NON) RECTA by Matthijs Keuper aka @codeandwood Sept 2022")
+        console.table(config)    // add calculated parameters to features
+        window.$fxhashFeatures = { ...config, };
+
+
+        //======================================================================================================================================  DETERMINE PARAMETERS PER PANEL
+        let flowp = L(4, _ => R(1, -1) * .00003)
+        for (let pol of oL) {
+            pol.quad = quad(pol.center.x, pol.center.y, pol.size.x, pol.size.y)
+            pol.allpoints = []
+            pol.linewidth = linewidth
+            pol.force = L(2, _ => R(.02, -.02))
+            pol.speed = 40
+            pol.npoints = P([2, 5, 10, 30, 70, 100]) * 2
+            pol.forcefunction = RV([3, 1, 1], [
+                force,
+                (x, y) => [x * flowp[0] + y * flowp[1], y * flowp[2] - x * flowp[3]],
+                (x, y) => pol.force
+            ], "").v // force function
+        }
+
+
+        //======================================================================================================================================  WHEN FINISHED RENDERING
+        let finish = _ => { fxpreview() }
+
+        
+        //======================================================================================================================================  DRAW THE LINES
+        let panelIndex = 0; let lines = 0;
+        let drawlines = _ => {
+            let linepoints = [], p0, p, lineColor, pol = oL[panelIndex], ff = pol.forcefunction, speed = pol.speed, tooClose = true, maxretries = 200
+            while ((lineColor = P(features.palette.h)) == pol.style.fill) { }      // set color different from background           
+            // -------------------------------------------------------------------- initial points
+            while (tooClose && maxretries-- > 0) {
+                if (features.spread.v == 1) {
+                    p0 = (maxretries % 2 == 0) ? pol.quad.placePoint() : { x: R(1, -1) * pol.size.x / 2 + pol.center.x, y: R(1, -1) * pol.size.y / 2 + pol.center.y };
+                } else {
+                    p0 = { x: R(1, -1) * pol.size.x / 2 + pol.center.x, y: R(.1, -.1) * pol.size.y / 2 + pol.center.y };
+                }
+                tooClose = pol.quad.getPoints(p0, mindist).length > 0   // there are npoints within (mindist) from p0; 
+            }
+            // -------------------------------------------------------------------- enough lines or cant find starting point: start next panel
+            if (tooClose || lines++ > 1500) {
+                lines = 0
+                if (panelIndex++ == oL.length - 1) { finish(); return false }
+            }
+            // -------------------------------------------------------------------- Draw a line
+            let B = path({ fill: "none", stroke: lineColor, "stroke-width": pol.linewidth, "stroke-linecap": "round" })
+            let Bs = path({ fill: "none", stroke: "black", "stroke-opacity": 0.2, "stroke-width": pol.linewidth * 1, "stroke-linecap": "round" }) // shadow
+            let xs = pol.linewidth * .3, ys = pol.linewidth * .3
+            L(2, _ => {
+                p = { x: p0.x, y: p0.y }
+                B.moveTo(p.x, p.y)
+                if (features.sh.v) Bs.moveTo(p.x + xs, p.y + ys)
+                linepoints.push({ x: p.x, y: p.y })
+                for (point = 0; point < pol.npoints; point++) {
+                    let f = ff(p.x, p.y)
+                    p.x += f[0] * speed
+                    p.y += f[1] * speed
+                    if (!insidePoly(p, pol)) break;
+                    if (pol.quad.getPoints(p, mindist).length > 0) break;
+                    B.lineTo(p.x, p.y)
+                    if (features.sh.v) Bs.lineTo(p.x + xs, p.y + ys)
+                    linepoints.push({ x: p.x, y: p.y })
+                }
+                speed = -speed
+            })
+            if (features.sh.v) Bs.draw()
+            B.draw()
+            linepoints.map(l=>pol.quad.addPoint(l))            
+            return true
+        }
+
+
+        //====================================================================================================================================== Animation loop
+        let loop = _ => {
+            for (let i = 0; i < 100; i++)
+                if (!drawlines()) return;
+            requestAnimationFrame(loop)
+        }
+        loop()
+
+
+        //====================================================================================================================================== BUTTONS, SAVING, 
+
+        let filename = "LINE_NON_RECTA_" + fxhash, save = (href) => { let link = CE('a'); link.download = filename; link.href = href; d.body.appendChild(link); link.click(); d.body.removeChild(link); }
+        let K = {
+            Save: _ => save("data:image/svg+xml;charset=utf-8," + encodeURIComponent('<?xml version="1.0" standalone="no"?>\r\n' + new XMLSerializer().serializeToString(svg))),
+            PNG: _ => {
+                var img = new Image()
+                img.onload = () => { ctx.drawImage(img, 0, 0, Q.size, Q.size / Q.a); save(cv.toDataURL()) }
+                img.src = "data:image/svg+xml;base64," + btoa(new XMLSerializer().serializeToString(svg));
+            }
+        }
+        AE(d, 'keydown', e => { for (t in K) (e.code == ("Key" + t[0])) ? K[t]() : 0 })
+    </script>
+</body></html>

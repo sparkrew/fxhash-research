@@ -1,0 +1,4 @@
+id: 8816
+name: Hash Monkeys - Genesis
+mint_opens_at: 2022-02-07T22:13:44+00:00
+generative_uri: ipfs://QmYBbpuMT1qiQV7U1kJ21geA84rDjCWYcqq2oKP2cuKoTv

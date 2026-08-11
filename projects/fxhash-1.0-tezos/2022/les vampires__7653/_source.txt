@@ -1,0 +1,4 @@
+id: 7653
+name: les vampires
+mint_opens_at: 2022-01-21T11:33:50+00:00
+generative_uri: ipfs://QmPc1Rjn6YhWeSphFkyazp6UkU9XDoDMBMh622xfsbY3Wy

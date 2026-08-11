@@ -1,0 +1,4 @@
+id: 9699
+name: Life Coubs
+mint_opens_at: 2022-02-20T15:20:00+00:00
+generative_uri: ipfs://QmWuj37Q75pHADu3fbUsmKqtGaVxAc5CTYhoDKa6b7myvh

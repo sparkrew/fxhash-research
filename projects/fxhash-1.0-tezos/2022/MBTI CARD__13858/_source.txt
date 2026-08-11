@@ -1,0 +1,4 @@
+id: 13858
+name: MBTI CARD
+mint_opens_at: 2022-05-30T15:00:00+00:00
+generative_uri: ipfs://Qme3TNdx9MHD1HexaWUia8v9N57LCFuUzMXFATpKk992cR

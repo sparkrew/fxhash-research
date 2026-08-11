@@ -1,0 +1,35 @@
+/*body {*/
+/*  background-color: #282742;*/
+/*!*justify-content: center;*!*/
+/*!*  align-items: center;*!*/
+/*!*  display: flex;*!*/
+/*!*  margin: 0;*!*/
+/*  !* leave it to hide the scrollbars *!*/
+/*  overflow: hidden;*/
+/*}*/
+
+body {
+  margin: 0;
+  padding: 0;
+    background-color: #282742;
+  overflow: hidden;
+}
+
+#canvas {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#canvas canvas {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}
+

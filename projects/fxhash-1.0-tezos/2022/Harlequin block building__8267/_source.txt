@@ -1,0 +1,4 @@
+id: 8267
+name: Harlequin block building
+mint_opens_at: 2022-01-31T15:06:38+00:00
+generative_uri: ipfs://QmaPfTcZQRQ4PZG9pESeQbxAv3jUExTZ4bExmFBc19UYMe

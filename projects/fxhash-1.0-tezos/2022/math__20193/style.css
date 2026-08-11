@@ -1,0 +1,35 @@
+body { 
+  margin: 0; 
+  box-sizing:border-box; 
+} 
+canvas {
+
+  width: 100% !important;
+  height: 100% !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  /* display: block; */
+  background-color: rgb(87, 68, 255);
+  background: radial-gradient(ellipse at center,  rgb(250, 171, 2) 0%,rgba(0,0,0,1) 100%);
+  
+}
+
+*
+{
+    margin: 0;
+    padding: 0;
+}
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+html,
+body
+{
+    overflow: hidden;
+}

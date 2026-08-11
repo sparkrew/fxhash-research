@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Grids:status_grids,Color:status_color,Fuzz:status_fuzz,Bloom:status_bloom,Density:dotDensity,Intricacy:status_perlinsize};

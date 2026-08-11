@@ -1,0 +1,4 @@
+id: 18729
+name: Kids on the Chair
+mint_opens_at: 2022-08-29T13:30:00+00:00
+generative_uri: ipfs://QmNr21mK6wnAEBjCpm8m8UypfpaDs7k8zrzyhYV6YUujDC

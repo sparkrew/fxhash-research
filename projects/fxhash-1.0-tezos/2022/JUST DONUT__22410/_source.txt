@@ -1,0 +1,4 @@
+id: 22410
+name: JUST DONUT
+mint_opens_at: 2022-12-12T21:54:14+00:00
+generative_uri: ipfs://QmegrNNYmY5JhtJ5u55oP9h6zgxjqYrGqgh6evvPQnQP2e

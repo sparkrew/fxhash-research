@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<title>HTML5 Canvas发光大树动画</title>
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+<style type="text/css">
+body { 
+  background:hsla(0, 0%, 0%, 1);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(to right top, hsla(0, 5%,5%, 0.5), hsla(0, 0%, 15%,1));
+  background-image:-moz-linear-gradient(to right top, hsla(0, 5%,5%, 0.5), hsla(0, 0%, 15%,1));
+	margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width:100%;
+} 
+    </style>
+    	
+</head>
+<body>
+
+
+<canvas id='canv'></canvas>
+
+<script>
+  function colors(){
+   return `rgba(${parseInt(fxrand()*255)},${parseInt(fxrand()*255)},${parseInt(fxrand()*255)},1)`
+}
+document.querySelector('body').style.backgroundColor=`rgb(0,0,0,${fxrand()})`
+var c = document.getElementById('canv');
+var $ = c.getContext('2d');
+var w = c.width = window.innerWidth;
+var h = c.height = window.innerHeight;
+var w2 = w* 0.5;
+var h2 = h * 0.5;
+var uu = 0;
+var topiary = new branch(80, 0, 0);
+var cnt = 0;
+
+function anim(){
+	cnt++;
+  uu-=.5;
+  	if (cnt%2) {
+      draw();
+    }
+ window.requestAnimationFrame(anim);
+}
+anim();
+
+function draw() {
+    $.save();
+    $.clearRect(0, 0, w, h);
+    $.translate(w2, h*0.98);
+    $.rotate(-Math.PI * 0.5);
+    topiary.disp($);
+    $.restore();
+}
+
+function branch(len, ang, gen){
+    this.len = len;
+    this.ang = ang;
+    this.gen = gen;
+    this.limb = [];
+    this.sway = 0;
+    this.mult = rnd(0.01, 0.1);
+    this.spawn = 0;
+    this.vel =0;
+    
+    if(gen < 10){
+    	this.limb.push(new branch(len*rnd(0.8, 0.99), 
+      rnd(0, Math.PI/6), this.gen+1));
+    	this.limb.push(new branch(len*rnd(0.8, 0.99), 
+      rnd(0, -Math.PI/6), this.gen+1));
+    }
+    
+    this.disp = function($){
+    	  this.sway++;  
+        $.save(); 
+        this.vel *= 0.9;
+        var dif = 1-this.spawn;
+        this.vel += (dif*0.1);
+        this.spawn += this.vel;
+        
+        $.strokeStyle = "hsla(" + (uu % 360) + ",100%,50%,1)";
+        $.lineWidth = parseInt(fxrand()*3);
+        $.beginPath();
+        $.rotate(this.ang + (Math.sin(this.sway*this.mult)*Math.PI/128));
+        $.moveTo(0, 0);
+        $.lineTo(this.len * this.spawn, 0);
+        $.stroke();
+        $.translate(this.len * this.spawn, 0);
+        if(this.spawn > 0.1){
+            for(var i = 0; i < this.limb.length; i++){
+            	var limb = this.limb[i];
+                limb.disp($);
+            }
+        }
+        $.restore();
+    };
+}
+
+function rnd(min, max){
+	return fxrand()*(max - min) + min;
+}
+</script>
+</body>
+</html>

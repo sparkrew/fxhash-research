@@ -1,0 +1,4 @@
+id: 8316
+name: Gridhaus
+mint_opens_at: 2022-01-31T16:19:58+00:00
+generative_uri: ipfs://QmQaU9qMav9DT7ZbC6sgebNTbxnZUezRfo6bH9pibjdyU2

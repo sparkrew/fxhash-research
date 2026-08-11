@@ -1,0 +1,4 @@
+id: 12460
+name: Laser Paintings
+mint_opens_at: 2022-05-05T12:00:00+00:00
+generative_uri: ipfs://QmaSbs3nNcYX4yGjAnHsZLNL1Htjm5PJwyp6Gk4bCLuQuM

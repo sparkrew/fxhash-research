@@ -1,0 +1,4 @@
+id: 21946
+name: Karani
+mint_opens_at: 2022-11-30T11:30:00+00:00
+generative_uri: ipfs://QmQ1d2GjZfkApi5iKzUvRLjukxLx5FujzBEZHgvsczy6cK

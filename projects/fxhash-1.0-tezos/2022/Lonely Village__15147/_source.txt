@@ -1,0 +1,4 @@
+id: 15147
+name: Lonely Village
+mint_opens_at: 2022-06-18T20:00:00+00:00
+generative_uri: ipfs://QmNgFdAeVUB6PLFMDEDVzTkw7rqVMPyAZ7a8azKZ3o6mRm

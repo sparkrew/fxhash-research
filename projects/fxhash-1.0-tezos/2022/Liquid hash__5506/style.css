@@ -1,0 +1,42 @@
+/* Check my videoblog: https://www.youtube.com/watch?v=dQw4w9WgXcQ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #000;
+}
+
+
+
+canvas {
+  --blur: 4px;
+  --contrast: 10;
+  --brightness: 1;
+  --invert: 0;
+  max-width: 100%;
+  width: 800px;
+  margin: auto;
+  overflow: hidden;
+  -webkit-filter: blur(var(--blur)) contrast(var(--contrast)) brightness(var(--brightness)) invert(var(--invert));
+          filter: blur(var(--blur)) contrast(var(--contrast)) brightness(var(--brightness)) invert(var(--invert));
+  cursor: none;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}

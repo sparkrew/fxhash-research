@@ -1,0 +1,4 @@
+id: 21182
+name: Humanoids
+mint_opens_at: 2022-11-11T10:27:44+00:00
+generative_uri: ipfs://Qmb2SXLcR3nCrQTFPPrt2i1uExtKg3mKfzyzSvwXBphCHE

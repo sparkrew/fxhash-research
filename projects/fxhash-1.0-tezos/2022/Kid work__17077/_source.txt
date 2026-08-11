@@ -1,0 +1,4 @@
+id: 17077
+name: Kid work
+mint_opens_at: 2022-07-26T10:35:44+00:00
+generative_uri: ipfs://QmWiTLMg28WrESK9gtasePkYGhFMPHBiQgkZhCwsjrk14j

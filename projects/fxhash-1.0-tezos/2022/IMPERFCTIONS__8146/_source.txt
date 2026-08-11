@@ -1,0 +1,4 @@
+id: 8146
+name: IMPERFCTIONS
+mint_opens_at: 2022-01-28T17:18:58+00:00
+generative_uri: ipfs://QmZoiUeD9dLwSpFRf6Hfv6fycE5HiSdjPjvAfTLQxZxzp8

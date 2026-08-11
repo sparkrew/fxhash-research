@@ -1,0 +1,4 @@
+id: 14465
+name: IS THIS ART?
+mint_opens_at: 2022-06-12T18:32:00+00:00
+generative_uri: ipfs://QmVp6XmuhxCxxhTvg8dDHadrQM2ZEneVeRkjbQF5dWBPX3

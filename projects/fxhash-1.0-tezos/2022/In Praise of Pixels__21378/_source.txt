@@ -1,0 +1,4 @@
+id: 21378
+name: In Praise of Pixels
+mint_opens_at: 2022-11-15T10:26:14+00:00
+generative_uri: ipfs://QmPzBw3CyndQjnVZ3Gu2pF4GXBosTRp6jSwLpBTCg8Wo8F

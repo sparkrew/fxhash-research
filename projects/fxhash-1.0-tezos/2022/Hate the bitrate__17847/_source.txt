@@ -1,0 +1,4 @@
+id: 17847
+name: Hate the bitrate
+mint_opens_at: 2022-08-09T20:17:14+00:00
+generative_uri: ipfs://QmQHwTJye3hvkEfVupTYoXTytafhzqYNHMssZe6ajKgnbq

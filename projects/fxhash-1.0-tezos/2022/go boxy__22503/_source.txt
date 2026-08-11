@@ -1,0 +1,4 @@
+id: 22503
+name: go boxy
+mint_opens_at: 2022-12-15T09:52:14+00:00
+generative_uri: ipfs://QmUDFvrLxh2sGPgthLdnia9VNji7JgSD5AdbUpjkWmn3WZ

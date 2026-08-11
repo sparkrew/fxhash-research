@@ -1,0 +1,1 @@
+function chsl(e,n,r,t=100){const u=hsluv.hsluvToRgb([e,n,r]);return"rgba("+parseInt(255*u[0])+","+parseInt(255*u[1])+","+parseInt(255*u[2])+","+t/100+")"}function hexHsl(e,n,r,t=100){return hsluv.hsluvToHex([e,n,r])}function hueDegree(e,n){let r,t=e+n%360;return r=t>360?t-360:t<0?t+360:t,r}

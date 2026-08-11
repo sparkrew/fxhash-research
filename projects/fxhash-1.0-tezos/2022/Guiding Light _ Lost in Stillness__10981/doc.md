@@ -1,0 +1,21 @@
+## Patch Variables:
+
+* __rand1__ ```Number``` (default Value: `0`)
+* __rand10__ ```Number``` (default Value: `0`)
+* __rand11__ ```Number``` (default Value: `0`)
+* __rand12__ ```Number``` (default Value: `0`)
+* __rand13__ ```Number``` (default Value: `0`)
+* __rand14__ ```Number``` (default Value: `0`)
+* __rand15__ ```Number``` (default Value: `0`)
+* __rand16__ ```Number``` (default Value: `0`)
+* __rand17__ ```Number``` (default Value: `0`)
+* __rand18__ ```Number``` (default Value: `0`)
+* __rand2__ ```Number``` (default Value: `0`)
+* __rand3__ ```Number``` (default Value: `0`)
+* __rand4__ ```Number``` (default Value: `0`)
+* __rand5__ ```Number``` (default Value: `0`)
+* __rand6__ ```Number``` (default Value: `0`)
+* __rand7__ ```Number``` (default Value: `0`)
+* __rand8__ ```Number``` (default Value: `0`)
+* __rand9__ ```Number``` (default Value: `0`)
+

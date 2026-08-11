@@ -1,0 +1,4 @@
+id: 21645
+name: gnarly tree
+mint_opens_at: 2022-11-21T16:15:00+00:00
+generative_uri: ipfs://QmRd6qCobaf8MRPCMxDwzUqA9FhSG2NKH7ADyVq4vzdgAo

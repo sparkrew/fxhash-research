@@ -1,0 +1,92 @@
+:root {
+  --gray: linear-gradient(180deg, #9c9c9c 0%, #4f4f4f 100%);
+  --shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#art {
+  width: 600px;
+  height: 600px;
+  font-size: 0px;
+  padding: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: radial-gradient(50% 50% at 50% 50%, #8effb5 0%, #54edb6 100%);
+  position: relative;
+}
+
+#art-effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(#fff 0%, #000 1%);
+  opacity: 0.01;
+}
+
+@keyframes botHover {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-40px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes shadowChange {
+  0% {
+    width: 250px;
+    height: 10px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.05);
+  }
+  50% {
+    width: 260px;
+    height: 11px;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.05);
+  }
+  100% {
+    width: 250px;
+    height: 10px;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@keyframes eyeMovement {
+  0% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(100%);
+  }
+  45% {
+    transform: translateX(-100%);
+  }
+  55% {
+    transform: translateX(-100%);
+  }
+  60% {
+    transform: translateX(0px);
+  }
+}

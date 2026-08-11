@@ -1,0 +1,4 @@
+id: 8192
+name: LP-1
+mint_opens_at: 2022-01-28T19:40:18+00:00
+generative_uri: ipfs://QmaEAHbyQZj24FzQQxCskTYftVwwimYgh1B4eFzQVWdTvf

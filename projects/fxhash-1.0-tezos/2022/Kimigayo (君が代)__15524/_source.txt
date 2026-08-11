@@ -1,0 +1,4 @@
+id: 15524
+name: Kimigayo (君が代)
+mint_opens_at: 2022-06-26T10:00:00+00:00
+generative_uri: ipfs://QmWYjXUwEYYMdxVn1s4JA9cSzSPWyD7Vym7syE9fu7Vayy

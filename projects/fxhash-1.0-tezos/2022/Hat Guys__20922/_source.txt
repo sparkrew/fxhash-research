@@ -1,0 +1,4 @@
+id: 20922
+name: Hat Guys
+mint_opens_at: 2022-11-05T06:00:00+00:00
+generative_uri: ipfs://QmVa7S1cBVfYe3GSyWU3HGpfBDV6Nc7vbgkw2NfhwhgJ9g

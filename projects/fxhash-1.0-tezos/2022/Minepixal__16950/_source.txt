@@ -1,0 +1,4 @@
+id: 16950
+name: Minepixal
+mint_opens_at: 2022-07-24T15:38:14+00:00
+generative_uri: ipfs://QmbgEFwDefZZW1r1cpQDAJkz7qvH5VDBhdjqu9XC1VPDEL

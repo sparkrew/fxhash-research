@@ -1,0 +1,4 @@
+id: 22269
+name: Kirto ja
+mint_opens_at: 2022-12-09T00:18:14+00:00
+generative_uri: ipfs://QmThBJ7NRpDd6wdzHHeRqJH3aVaxUe9osCCcg3qdzhuidy

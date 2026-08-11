@@ -1,0 +1,4 @@
+id: 20785
+name: Hashgirls
+mint_opens_at: 2022-10-30T16:30:00+00:00
+generative_uri: ipfs://QmVUYvQeVkCp8hXCuH532X9Hubkq7BcEAKmnFoEvRh6r2j

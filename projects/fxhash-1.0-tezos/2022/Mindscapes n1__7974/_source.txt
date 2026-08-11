@@ -1,0 +1,4 @@
+id: 7974
+name: Mindscapes n1
+mint_opens_at: 2022-01-26T21:19:38+00:00
+generative_uri: ipfs://QmPqnkmqNeBXAfQgxoHavL7Qp5tWW4jNrCAnFTyNEH4TMj

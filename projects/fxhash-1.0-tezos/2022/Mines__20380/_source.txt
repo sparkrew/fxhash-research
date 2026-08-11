@@ -1,0 +1,4 @@
+id: 20380
+name: Mines
+mint_opens_at: 2022-10-17T16:00:00+00:00
+generative_uri: ipfs://QmVSXw9WwN1eZYv6ks2LrKo3EF97yHa9jUcm9pha5riSri

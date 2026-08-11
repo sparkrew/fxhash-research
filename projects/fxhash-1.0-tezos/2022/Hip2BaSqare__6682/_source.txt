@@ -1,0 +1,4 @@
+id: 6682
+name: Hip2BaSqare
+mint_opens_at: 2022-01-12T05:51:00+00:00
+generative_uri: ipfs://QmcEZZqCqQKMAKTidTGSmfk7oqd4FcrWXB8qqhjumCmTjf

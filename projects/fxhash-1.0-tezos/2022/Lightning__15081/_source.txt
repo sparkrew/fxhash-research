@@ -1,0 +1,4 @@
+id: 15081
+name: Lightning
+mint_opens_at: 2022-07-07T18:00:00+00:00
+generative_uri: ipfs://QmRb7ZQ8qnxKkYdLZwTAj6P7ucPo8pa3aydA4puDCFESYm

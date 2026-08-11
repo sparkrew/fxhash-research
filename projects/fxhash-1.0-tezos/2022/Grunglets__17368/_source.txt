@@ -1,0 +1,4 @@
+id: 17368
+name: Grunglets
+mint_opens_at: 2022-07-31T20:47:29+00:00
+generative_uri: ipfs://QmaPKSiafMsv2dKLmPe2f2yRFLRFvB6nvSHZcyDcVbY9f5

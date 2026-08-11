@@ -1,0 +1,211 @@
+<!doctype html><html lang="en"><head><title>Gray Team</title><script src="p5.scribble.js"></script><link rel="stylesheet" href="style.css"><meta charset="utf-8"><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script></head><body><script src="p5.js"></script><script src="sketch.js"></script><script>palettes = [
+  ['#FFA41B', '#000839', '#005082', '#00A8CC'],
+  ['#61481C', '#A47E3B', '#1A4D2E', '#361e01'],
+  ['#212121', '#323232', '#0D7377', '#14FFEC'],
+  ['#082032', '#2C394B', '#334756', '#FF4C29'],
+  ['#382933', '#3B5249', '#519872', '#145c35'],
+  ['#252525', '#FF0000', '#AF0404', '#414141'],
+  ['#000000', '#3E432E', '#616F39', '#A7D129'],
+  ['#006E7F', '#F8CB2E', '#EE5007', '#B22727'],
+  ['#1C0A00', '#361500', '#603601', '#CC9544'],
+  ['#EAA81B', '#C95501', '#7D0000', '#012C0B'],
+  ['#E14D2A', '#FD841F', '#3E6D9C', '#001253'],
+  ['#000000', '#150050', '#3F0071', '#FB2576'],
+  ['#4C0033', '#790252', '#AF0171', '#E80F88'],
+  ['#16213E', '#0F3460', '#533483', '#E94560'],
+  ['#472D2D', '#553939', '#704F4F', '#A77979'],
+  ['#2A0944', '#3FA796', '#FEC260', '#A10035'],
+  ['#8C0000', '#BD2000', '#FA1E0E', '#FFBE0F'],
+  ['#F88F01', '#E27802', '#6A492B', '#58391C'],
+  ['#CDB30C', '#62760C', '#535204', '#523906'],
+  ['#BB3B0E', '#DD7631', '#708160', '#D8C593'],
+  ['#041C32', '#04293A', '#064663', '#ECB365'],
+  ['#2F2519', '#4A3F35', '#FA7D09', '#FF4301'],
+  ['#142850', '#27496D', '#0C7B93', '#00A8CC'],
+  ['#52006A', '#CD113B', '#FF7600', '#FFA900'],
+  ['#425F57', '#749F82', '#A8E890', '#CFFF8D'],
+  ['#1A374D', '#406882', '#6998AB', '#B1D0E0'],
+  ['#222831', '#393E46', '#00ADB5', '#000000'],
+  ['#08D9D6', '#252A34', '#FF2E63', '#EAEAEA'],
+  ['#1A374D', '#406882', '#6998AB', '#B1D0E0'],
+  ['#212121', '#323232', '#0D7377', '#14FFEC'],
+  ['#2D4059', '#EA5455', '#F07B3F', '#FFD460'],
+  ['#3EC1D3', '#000000', '#FF9A00', '#FF165D'],
+  ['#142850', '#27496D', '#0C7B93', '#00A8CC'],
+  ['#155263', '#FF6F3C', '#FF9A3C', '#FFC93C'],
+  ['#303841', '#3A4750', '#D72323', '#000000'],
+  ['#222831', '#393E46', '#F0FF42', '#000000'],
+  ['#3F0071', '#FB2576', '#332FD0', '#0002A1'],
+  ['#EA047E', '#FF6D28', '#FCE700', '#00F5FF'],
+  ['#2192FF', '#38E54D', '#9CFF2E', '#FDFF00'],
+  ['#00FFD1', '#31C6D4', '#FFFF00', '#FF1E1E'],
+  ['#F7EC09', '#3EC70B', '#3B44F6', '#A149FA'],
+  ['#000000', '#5800FF', '#E900FF', '#FFC600'],
+  ['#00AF91', '#007965', '#F58634', '#000000'],
+  ['#000000', '#282A3A', '#735F32', '#C69749'],
+  ['#041C32', '#04293A', '#064663', '#ECB365'],
+  ['#040303', '#461111', '#A13333', '#B3541E'],
+  ['#362222', '#171010', '#423F3E', '#2B2B2B'],
+  ['#1A1A2E', '#16213E', '#0F3460', '#E94560'],
+  ['#2F2519', '#4A3F35', '#FA7D09', '#FF4301'],
+  ['#C70D3A', '#ED5107', '#230338', '#02383C'],
+  ['#003545', '#00454A', '#3C6562', '#ED6363'],
+  ['#000000', '#111111', '#000000', '#111111'],
+];
+backpalettes = [
+    ['#ce9a3e', '#FFFFFF'],
+    ['#6EBF8B', '#000000'],
+    ['#565650', '#FFFFFF'],
+    ['#fad3be', '#000000'],
+    ['#87BAB0', '#000000'],
+    ['#a46868', '#FFFFFF'],
+    ['#d9d798', '#000000'],
+    ['#EEC035', '#000000'],
+    ['#CCB297', '#000000'],
+    ['#C43219', '#FFFFFF'],
+    ['#D79569', '#000000'],
+    ['#EDEC92', '#000000'],
+    ['#d3c5bc', '#000000'],
+    ['#D4D4D4', '#000000'],
+    ['#ffffff', '#000000'],
+    ['#D2A078', '#000000'],
+    ['#EEECE1', '#000000'],
+    ['#DCC1B4', '#000000'],
+    ['#E4D9CB', '#000000'],
+    ['#B4755A', '#FFFFFF'],
+    ['#EAF2F8', '#000000'],
+    ['#EAFAF1', '#000000'],
+    ['#FEF5E7', '#000000'],
+    ['#EFF4F8', '#000000'],
+    ['#cccccc', '#000000'],
+    ['#ED6363', '#000000'],
+    ['#00587A', '#000000'],
+    ['#5D6D7E', '#000000'],
+  ];
+
+layouts = [
+[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+];
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(fxrand() * (max - min + 1) + min);
+}  
+  function getRndInt(dimension, minimalValue = 0) {
+  return minimalValue + parseInt(fxrand() * dimension, 10);
+}
+function getdns(value) {
+  if (value < 2) return "Very High";
+  else if (value > 3 && value < 5) return "High";
+  else if (value > 5 && value < 7) return "Medium";
+  else return "Low";
+}
+
+function getbktxt(value) {
+  if (value == 'FFFFFF') return "Light";
+  else return "Dark";
+}
+
+function getColName(value){
+  if (value == '#cccccc') return "Chinese Silver";
+  else if(value == '#ce9a3e') return "Satin Sheen Gold";
+  else if(value == '#6EBF8B') return "Iguana Green";
+  else if(value == '#565650') return "Davy's Grey";
+  else if(value == '#fad3be') return "Peach Puff";
+  else if(value == '#87BAB0') return "Pewter Blue";
+  else if(value == '#a46868') return "Blast-Off Bronze";
+  else if(value == '#d9d798') return "Medium Spring Bud";
+  else if(value == '#EEC035') return "Saffron";
+  else if(value == '#CCB297') return "Khaki";
+  else if(value == '#C43219') return "Dark Pastel Red";
+  else if(value == '#D79569') return "Tan";
+  else if(value == '#EDEC92') return "Khaki II";
+  else if(value == '#d3c5bc') return "Pale Silver";
+  else if(value == '#D4D4D4') return "Light Gray";
+  else if(value == '#ffffff') return "White";
+  else if(value == '#D2A078') return "Antique Brass";
+  else if(value == '#EEECE1') return "Alabaster";
+  else if(value == '#DCC1B4') return "Dark Vanilla";
+  else if(value == '#E4D9CB') return "Bone";
+  else if(value == '#B4755A') return "Café Au Lait";
+  else if(value == '#EAF2F8') return "Anti-Flash White";
+  else if(value == '#EAFAF1') return "Honeydew";
+  else if(value == '#FEF5E7') return "Old Lace";
+  else if(value == '#EFF4F8') return "Isabelline";
+  else if(value == '#ED6363') return "Light Carmine Pink";
+  else if(value == '#00587A') return "Blue Sapphire";
+  else if(value == '#5D6D7E') return "Dark Electric Blue";
+  else return "Base Color";
+}
+
+const layoutIdx = getRndInt(layouts.length);
+
+const density = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const denIdx = getRndInt(density.length);
+const dns = density[denIdx];
+
+const bkpal = getRndInt(backpalettes.length);
+const backCol = backpalettes[bkpal][0];
+const textureCol = backpalettes[bkpal][1];
+
+const canvas_size = [2000, 2500, 3000, 3500];
+const cswIdx = getRndInt(canvas_size.length);
+const cshIdx = getRndInt(canvas_size.length);
+const canwSize = canvas_size[cswIdx];
+const canhSize = canvas_size[cshIdx];
+const sketch_size = canwSize+'x'+canhSize+'px';
+
+
+const cell_size = [100, 150, 200, 250, 300, 350];
+const czIdx = getRndInt(cell_size.length);
+const ceSize = cell_size[czIdx];
+
+const coloridx = getRndInt(palettes.length);
+const col0 = palettes[coloridx][0];
+const col1 = palettes[coloridx][1];
+const col2 = palettes[coloridx][2];
+const col3 = palettes[coloridx][3];
+const pall = col0+'-'+col1+'-'+col2+'-'+col3;
+
+window.$fxhashFeatures = {
+  "Canvas Size":sketch_size,
+  "Background":getColName(backCol),
+  "Compression": getdns(dns),
+  "Back Texture":getbktxt(textureCol),
+  "Color Palette": pall,
+	}</script><script defer="defer" src="./bundle.js"></script></body></html>

@@ -1,0 +1,4 @@
+id: 17505
+name: Meteor
+mint_opens_at: 2022-08-02T23:00:00+00:00
+generative_uri: ipfs://QmYnS4EikRtsFgWtijcp6ZHPYS95GQJvtRdthn3QdV6TT2

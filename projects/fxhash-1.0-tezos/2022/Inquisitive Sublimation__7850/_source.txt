@@ -1,0 +1,4 @@
+id: 7850
+name: Inquisitive Sublimation
+mint_opens_at: 2022-01-25T08:20:30+00:00
+generative_uri: ipfs://Qmdu5HtenE4r7FTvRdcLam24y76soGJEq6yxPzEjwMvhKc

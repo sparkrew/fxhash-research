@@ -1,0 +1,4 @@
+id: 21161
+name: LNS
+mint_opens_at: 2022-11-10T19:55:29+00:00
+generative_uri: ipfs://QmS9GtwfjAQjLuYXKRiTT6qwCv8dv4yrwMs2hu8D6FoeSE

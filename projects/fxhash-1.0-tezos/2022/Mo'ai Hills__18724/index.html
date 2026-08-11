@@ -1,0 +1,1182 @@
+<!doctype html><html><head><title>Moai Hills</title><meta charset="utf-8"><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script><link rel="stylesheet" href="./style.css"><link rel="icon" href="./pp.png"><script src="p5.min.js"></script><script>//features
+    let bigface = false
+    let hasstars = false
+    if(fxrand()>0.6){
+      hasstars = true
+    }
+
+    let darksky = false
+    if(fxrand()>0.8){
+      darksky = true
+    }
+
+   //globals
+    let w = innerWidth/2
+    let h = innerHeight/2
+    let min= (Math.min(innerWidth,innerHeight))
+    let p = min*0.2
+    let s = min - p
+    //margin globals
+    let mw = s
+    let mh = mw - fxrand()*mw/2
+    //
+   
+   let noseC
+    //
+    let nhp = 5+  parseInt(fxrand()*20)
+    let HPC= []// Horizon Point Container
+    let HPCx= []// Horizon Point Container
+    let HPCy= []// Horizon Point Container
+
+    let RPCx=[]
+    let RPCy= []
+
+    let pa1=[]
+    let pa2= []
+
+    //colors
+    let h_red = 0
+    let h_yellow = 60
+    let h_face = 0
+
+    let c_leaves = [(fxrand()*360)%250,fxrand()*50,100]
+
+    let c_face =  [c_leaves[0],fxrand()*70,100]
+    let c_face2  =  [(fxrand()*360)%250,fxrand()*30,100,1]
+
+    let lcr = fxrand()
+    if(lcr<0.2){
+      c_leaves = [h_red,fxrand()*70,100,1]
+      c_face =  [h_yellow,fxrand()*50,100]
+
+    }else if(lcr<0.4){
+      c_leaves = [h_yellow,fxrand()*70,100]
+      c_face =  [h_red,fxrand()*50,100]
+    }
+
+    c_face = c_leaves
+    let c_branch = [fxrand()*360,10,10,1]
+    let c_horizonf = [(fxrand()*360)%250,40,90,0.9]
+    let c_horizonb = [(fxrand()*360)%250,40,10,0.7]
+
+    if (darksky == true){
+      c_horizonb = c_horizonf
+    }
+
+    let sw = s/(700 + fxrand()*600 ) // 3
+
+
+    function setup(){
+      createCanvas(innerWidth,innerHeight)
+      colorMode(HSB,360,100,100)
+      background(43,10,100)
+      rectMode(CENTER)
+      //strokeCap(SQUARE)
+  
+      mMargin()
+
+      mHorizon2()
+      if(hasstars == true){
+      let nStars  = 1 + fxrand()*10
+      if(fxrand()>0.88 == true){
+        nStars  = 1 + fxrand()*50
+      }
+
+      for(let i = 0 ; i < nStars; i ++){
+      star(w -mw/2 +mw*fxrand(),h - mh/2+ mh/2*fxrand(),fxrand()*s/20)
+      }
+    }
+
+
+
+
+
+      groundB(w,h,fxrand()*100)
+      ground()
+      let nFaces =1
+      for(let i = 0 ; i < nFaces ; i ++){
+        let xsize = 0
+        if(fxrand()>0.9){
+        xsize = s/7
+        bigface = true
+        }
+      mFace(w + i*120,h-s/55,s/10 + fxrand()*s/17 + xsize) // (100+w - mw/2) +(fxrand()*mw ) - 100
+      }
+
+       let nNopales= fxrand()*10
+       let offset = 40
+      for (let i  = 0 ; i < nNopales; i ++){
+        branch()
+
+      }
+
+
+      distress()
+
+
+      }
+
+
+
+
+
+    function mMargin(){
+      noFill()
+
+
+      strokeWeight(sw*2)
+      //blendMode(EXCLUSION)
+      rect(w,h,mw+s/50,mh+s/50)
+      fill(c_face2[0],c_face2[1],c_face2[2],c_face2[3])
+      //fill(c_branch[0],c_leaves[1],c_leaves[2]-100,0.21)
+      rect(w,h,mw,mh)
+
+    }
+
+    function mFace(_px,_py,_s){
+
+      let rt = fxrand()
+      if (rt > 0.85){
+        rt = fxrand()*20
+      }else{
+        rt = 0
+      }
+      let sides = int(10 +rt)
+      if(sides == 5 ){
+        sides += int(1+fxrand()*6)
+      }
+     let step = int(360 / sides)
+
+      beginShape()
+      strokeWeight(sw*2)
+
+      fill(c_branch)
+
+      //noStroke()
+
+     beginShape()
+
+
+      for(let i = 0 ; i < 360; i+=step){
+
+
+        let a = radians(i)
+        let r = s/20
+        let x = _px + sin(a) *_s +fxrand()*30
+
+
+        let y = _py+ mh/2 - _s*1.2+ cos(a)*1.2*_s  +fxrand()*s/10
+        if(i >= 0 && i < 90 || i > 270){
+          y =  _py+ mh/2
+        }
+
+
+        p = {x: x  , y: y}
+
+        RPCx[i] = p.x
+        RPCy[i] = p.y
+        curveVertex(p.x,p.y)
+
+
+
+
+      }
+
+
+      //noFill()
+      //strokeWeight(2)
+      //stroke(0)
+      endShape(CLOSE)
+
+      /////////
+
+        for(let k = 0 ; k <  fxrand()*10 ; k ++){
+       beginShape()
+      noFill()
+      stroke(c_branch)
+      strokeWeight(sw*2)
+      for(let i = 0 ; i < 360; i+=step){
+        curveVertex( RPCx[i]-fxrand()*s/20,s/40+RPCy[i]-fxrand()*s/40)
+      }
+      fill(c_branch)
+      endShape(CLOSE)
+    }
+
+    for(let k = 0 ; k <  fxrand()*10 ; k ++){
+
+       beginShape()
+      noFill()
+      fill(0,100,100)
+      stroke(c_branch)
+      strokeWeight(sw*2)
+      for(let i = 0 ; i < 360; i+=step){
+        curveVertex( RPCx[i],s/40+RPCy[i])
+      }
+      fill(c_leaves[0],c_branch[1],c_branch[2]+2)
+      endShape(CLOSE)
+    }
+
+    for(let k = 0 ; k < fxrand()*10 ; k ++){
+       beginShape()
+      noFill()
+      stroke(c_branch)
+      strokeWeight(sw*1)
+      for(let i = 0 ; i < 360; i+=step){
+        curveVertex( RPCx[i]+fxrand()*s/20,RPCy[i]+fxrand()*s/40)
+      }
+
+      endShape(CLOSE)
+    }
+
+    let ste = 10 +fxrand() *60
+    let raea = 1+fxrand()
+
+    for(let k = 0 ; k <  fxrand()*10 ; k ++){
+      beginShape()
+     noFill()
+     fill(c_leaves[0],c_branch[1],c_branch[2]+2)
+     stroke(c_branch)
+     noStroke()
+     strokeWeight(sw*2)
+
+     for(let i = 0 ; i < 360; i+=ste){
+      let px = RPCx[0] -_s +cos(radians(i)) *_s/2
+      let py = RPCy[0] -_s/raea+sin(radians(i))*_s/1.5
+       curveVertex( px,py) //ear
+     }
+    //  fill(c_leaves[0],c_branch[1],c_branch[2]+2)
+     endShape(CLOSE)
+   }
+    // big earhighlights
+    for(let k = 0 ; k <  fxrand()*10 ; k ++){
+      beginShape()
+     noFill()
+     fill(c_leaves[0],c_branch[1],c_branch[2]+2)
+     stroke(c_branch)
+     noStroke()
+     strokeWeight(sw*2)
+
+     for(let i = 200 ; i <= 460   ; i+=ste){
+      let px = RPCx[0] -_s +cos(radians(i)) *_s/2
+      let py = RPCy[0] -_s/raea+sin(radians(i))*_s/1.5
+      if(i >= 210 && i <= 400){
+       curveVertex( px+fxrand()*s/60,py-fxrand()*s/60) //big ear higlights
+      }else{
+        curveVertex( px+fxrand(),py-fxrand())
+      }
+     }
+    //  fill(c_leaves[0],c_branch[1],c_branch[2]+2)
+    noFill()
+    stroke(c_face)
+    curveTightness(fxrand())
+    strokeWeight(sw*1)
+     endShape()
+   }
+
+
+
+
+   for(let k = 0 ; k <  fxrand()*10 ; k ++){
+      beginShape()
+     noFill()
+     fill(c_branch)
+     stroke(c_branch)
+     noStroke()
+     strokeWeight(sw*1)
+
+     for(let i = 0 ; i < 360; i+=ste){
+      let px = RPCx[0] -_s-_s/20 +cos(radians(i)) *_s/3
+      let py = RPCy[0] -_s/raea+sin(radians(i))*_s/2.2
+       curveVertex( px,py) //ear
+     }
+    //  fill(c_leaves[0],c_branch[1],c_branch[2]+2)
+     endShape(CLOSE)
+   }
+
+    // small earhighlights
+    for(let k = 0 ; k <  fxrand()*5 ; k ++){
+      beginShape()
+     noFill()
+     fill(c_leaves[0],c_branch[1],c_branch[2]+2)
+     stroke(c_branch)
+     noStroke()
+     strokeWeight(sw*1)
+
+     for(let i = 0 ; i < 270 ; i+=ste){
+      let px = RPCx[0] -_s +cos(radians(i)) *_s/3
+      let py = RPCy[0] -_s/raea+sin(radians(i))*_s/2.2
+       curveVertex( px-fxrand()*s/80,py-fxrand()*s/80) // small ear higlights
+     }
+    //  fill(c_leaves[0],c_branch[1],c_branch[2]+2)
+    noFill()
+    stroke(c_face)
+    curveTightness(fxrand())
+     endShape()
+   }
+
+
+
+       noFill()
+      for(let i = 0 ; i < 360; i++){
+      stroke(c_face)
+      if(i>180){
+        // line( RPCx[i], RPCy[i],RPCx[i]+s/50, RPCy[i])
+
+
+        // ellipse(RPCx[0]+40 +70,RPCy[]+40,200,200)
+        noStroke()
+      }
+      if(i>80&& i < 130){
+        beginShape()
+        for (let k = 0 ; k < 5 ; k ++){
+      //line( RPCx[i], RPCy[i],RPCx[i]-s/20,  (RPCy[i])/3+(fxrand()*20 -s/30)+s/1.9)
+      curveTightness(-4)
+      curveVertex(RPCx[i], RPCy[i]/3+(fxrand()*20 -s/30)+s/1.9)
+      // curveVertex(RPCx[i], RPCy[i-1]/3+(fxrand()*20 -s/30)+s)
+      curveVertex(RPCx[i]-s/20,  (RPCy[i]))
+      // curveVertex(RPCx[i]-60,  (RPCy[i]+fxrand()*5))
+      // lx+60, ly+fxrand()*5,lx+120,ly+fxrand()*20
+
+        }
+        noFill()
+        endShape()
+      }
+      if(i>80&& i < 130){
+        beginShape()
+        for (let k = 0 ; k < 5 ; k ++){
+      curveTightness(-2)
+
+      curveVertex(RPCx[i]-s/20,  (RPCy[i])+fxrand()*5)
+      curveVertex(RPCx[i]-s/5,  (RPCy[i]/3+(fxrand()*20 -s/30)+s/1.9))
+
+
+        }
+        noFill()
+
+        endShape()
+      }
+      if(i>80&& i < 130){
+        beginShape()
+        for (let k = 0 ; k <6 ; k ++){
+
+      curveTightness(fxrand())
+          let nsr =fxrand()
+          curveTightness(0.2)
+      curveVertex(RPCx[i]-s/20-k*s/200,  (RPCy[i])+ s/20*fxrand()/8)
+      curveVertex(RPCx[i]-s/20-k*s/200,  RPCy[i]+s/12+ s/20*fxrand()/2)
+
+
+
+
+
+
+
+
+        }
+        noFill()
+
+        endShape()
+        curveTightness(0)
+      }
+      }
+
+      for(let k = 0 ; k < 3; k++){
+
+        beginShape()
+      for(let i = 0 ; i < 360; i+=step){
+
+        stroke(c_face)
+        noFill()
+
+        strokeWeight(sw*2)
+        if(i > 20 && i < 220 + fxrand()*70){
+
+          noFill()
+        curveVertex( RPCx[i] - 5*k +fxrand(),(RPCy[i]) )
+
+        for(let jk = 0 ; jk<10 ; jk++){
+          ly = (RPCy[i])/3+(fxrand()*20 -s/30)+s/1.9
+          lx =  RPCx[i]-50 - 5*k +fxrand()*10
+          fill(c_branch)
+          noStroke()
+          // rect(RPCx[0]+40,ly+40,fxrand()*200,fxrand()*10)
+          // rect(RPCx[0]+40,ly+40,fxrand()*20,fxrand()*100)
+        }
+
+
+
+
+
+        }
+      }
+      endShape()
+    }
+    for (let i =  90; i < 135 ; i ++){
+      stroke(c_face)
+    if (fxrand()>0.2){
+    ellipse(RPCx[i]-s/30,RPCy[i]+s/40,_s/10+fxrand()*10)
+    ellipse(RPCx[i]-s/30,RPCy[i]+s/40,_s/13+fxrand()*10/2)
+    }else{
+    rect(RPCx[i]-s/30,RPCy[i]+s/40,_s/13+fxrand()*10*1.3)
+    rect(RPCx[i]-s/30,RPCy[i]+s/40,_s/13+fxrand()*10/2)
+    }
+    if (fxrand()>0.2){
+    ellipse(RPCx[i]-s/10,RPCy[i]+s/40,_s/13+fxrand()*10)
+    ellipse(RPCx[i]-s/10,RPCy[i]+s/40,_s/13+fxrand()*10/2)
+    }
+    else{
+    rect(RPCx[i]-s/10,RPCy[i]+s/40,_s/13+fxrand()*10*1.3)
+    rect(RPCx[i]-s/10,RPCy[i]+s/40,_s/13+fxrand()*10/2)
+    }
+    if(fxrand()>0.7){
+    line(RPCx[i]-s/10,RPCy[i]+s/40,RPCx[i]-s/10,RPCy[i]+s/40+100*fxrand())
+    }
+
+    if(fxrand()>0.5){
+    line(RPCx[i]-s/10,RPCy[i],RPCx[i]-s/10,RPCy[i]+s/40-100)
+
+    line(RPCx[i]-s/9,RPCy[i],RPCx[i]-s/9 -s/40,RPCy[i]+s/40-70)
+
+    line(RPCx[i]-s/11,RPCy[i],RPCx[i]-s/11 +s/40,RPCy[i]+s/40-70)
+
+    }
+
+
+
+    if(fxrand()>1.0){
+    if(fxrand()>0.2){
+      ellipse(RPCx[i]-s/10+s/30,RPCy[i]+s/40+s/10,fxrand()*_s,_s/13)
+    }else{
+      rect(RPCx[i]-s/10+s/30,RPCy[i]+s/40+s/10,fxrand()*_s,_s/13)
+    }
+
+  }
+    }
+if(fxrand()>0.7){
+    for (let i =  180; i < 181 ; i ++){
+
+
+      // line(RPCx[i] +_s/2,RPCy[i],RPCx[i]+_s/2,RPCy[i]-crownH)
+      // line(RPCx[i] ,RPCy[i],RPCx[i]+_s/2,RPCy[i]-crownH)
+      // line(RPCx[i] ,RPCy[i],RPCx[i]-_s/4,RPCy[i]-crownH)
+      // line(RPCx[i]-_s/2 ,RPCy[i],RPCx[i]-_s/4,RPCy[i]-crownH)
+      // line(RPCx[i]-_s/2 ,RPCy[i],RPCx[i]-_s,RPCy[i]-crownH)
+      // line(RPCx[i] -_s,RPCy[i],RPCx[i]-_s,RPCy[i]-crownH)
+      // line(RPCx[i] -_s,RPCy[i],RPCx[i]-_s,RPCy[i]-crownH)
+
+      for(let k = 0 ; k < 3 ; k ++){
+        let crownH= s/20+s/10 *fxrand()
+        let crownW= s/20+s/10 *fxrand() *2
+        let y = _s/4
+        let x = _s/4
+      beginShape()
+
+      curveVertex(RPCx[i]+x +_s/2,RPCy[i]+y)
+      curveVertex(RPCx[i]+x +_s/2,RPCy[i]+y)
+      curveVertex(RPCx[i]+x+_s/2,RPCy[i]-crownH+y)
+
+      curveVertex(RPCx[i]+x ,RPCy[i]+y)
+      //curveVertex(RPCx[i]+_s/2,RPCy[i]-crownH)
+
+      curveVertex(RPCx[i]+x ,RPCy[i]+y)
+      curveVertex(RPCx[i]+x-_s/4,RPCy[i]-crownH+y)
+
+      curveVertex(RPCx[i]+x-_s/2 ,RPCy[i]+y)
+     // curveVertex(RPCx[i]-_s/4,RPCy[i]-crownH)
+
+      curveVertex(RPCx[i]+x-_s/2 ,RPCy[i]+y)
+      curveVertex(RPCx[i]+x-_s,RPCy[i]-crownH+y)
+
+      curveVertex(RPCx[i]+x -_s,RPCy[i]+y)
+     // curveVertex(RPCx[i]-_s,RPCy[i]-crownH)
+
+      curveVertex(RPCx[i]+x +_s/2,RPCy[i]+y)
+      curveVertex(RPCx[i]+x -_s,RPCy[i]+y)
+      //curveVertex(RPCx[i] +_s/2,RPCy[i])
+      //curveVertex(RPCx[i]-_s,RPCy[i]-crownH)
+
+      curveTightness(0.8)
+      fill(c_leaves)
+        if(k>1){
+          curveTightness(fxrand()*3)
+          noFill()
+          stroke(c_branch)
+        }
+      endShape()
+      //ellipse(RPCx[i],RPCy[i],100)
+    }
+    }
+}
+stroke(c_face)
+
+
+    for (let i =  99; i < 110 ; i ++){
+      // /stroke(0,100,100)
+      beginShape()
+      for (let k = 0 ; k < 3+fxrand()*18; k ++){
+        curveTightness(fxrand()*10)
+      curveVertex(RPCx[i]-s/10*fxrand(),RPCy[i]+_s+k*_s/40*fxrand()) // mouth
+      curveVertex(RPCx[i]-_s*fxrand(),RPCy[i]+_s+k*_s/40*fxrand()) //mouth
+
+      }
+      endShape()
+    }
+
+
+   // ellipse(lx+40,ly+40,10,10)
+
+
+    //  ellipse(RPCx[0]+40 +70,ly+40,20,20)
+    fill(c_leaves)
+    // ellipse(RPCx[0]+40+70,ly+40,10,10)
+    for (let i  = 0 ; i < 4 ; i ++){
+    //line(lx+60, ly+fxrand()*5,lx+120,ly+fxrand()*20)
+    }
+    if(fxrand()>0.1){
+   // line(lx+40,ly+40,lx+40,ly+90)
+    }
+
+   // line(lx+40,ly+40,lx+40,ly+40)
+
+
+
+
+    }
+    function star(_w,_h,_s){
+      let starW = _s
+      let starH = _s
+
+      beginShape()
+
+      let spx = _w
+      let spy = _h
+
+      curveVertex(spx +fxrand()*_s/4,spy+fxrand()*_s/4)
+      curveVertex(spx+starW/2+fxrand()*_s/4,spy-starH+fxrand()*_s/4)
+      curveVertex(spx+starW+fxrand()*_s/4,spy+fxrand()*_s/4)
+      curveVertex(spx-starW/4+fxrand()*_s/4,spy-starH/2+fxrand()*_s/4)
+      curveVertex(spx+starW +starW/4+fxrand()*_s/4,spy-starH/2+fxrand()*_s/4)
+      // curveVertex(spx,spy)
+
+
+      fill(c_horizonf)
+
+     // stroke(c_horizonf)
+     noStroke()
+      strokeWeight(sw*1)
+      curveTightness(fxrand())
+          if(darksky ==true){
+
+           fill(c_horizonf[0],c_horizonf[1],c_horizonf[2],1)
+
+      }
+
+      endShape(CLOSE)
+
+
+      beginShape()
+
+
+      curveVertex(spx +fxrand()*_s/4,spy+fxrand()*_s/4)
+      curveVertex(spx+starW/2+fxrand()*_s/4,spy-starH+fxrand()*_s/4)
+      curveVertex(spx+starW+fxrand()*_s/4,spy+fxrand()*_s/4)
+      curveVertex(spx-starW/4+fxrand()*_s/4,spy-starH/2+fxrand()*_s/4)
+      curveVertex(spx+starW +starW/4+fxrand()*_s/4,spy-starH/2+fxrand()*_s/4)
+      // curveVertex(spx,spy)
+
+
+      //fill(0,100,100)
+      noFill()
+      stroke(c_branch)
+      strokeWeight(sw*1)
+      curveTightness(fxrand())
+      endShape(CLOSE)
+    }
+
+    function ground(){
+      noStroke()
+      fill(c_branch)
+      rect(w,h+mh/2,mw+s/40,mh/20,2)
+    }
+    let h2r  = fxrand()
+    let r2 =fxrand()
+    let r3 = 1
+
+
+    function mHorizon2(){
+        fill(50,100,100)
+        noStroke()
+
+        blendMode(MULTIPLY)
+        let p = {x: w - s/2, y : h}
+
+        let offset = s/(nhp-2)
+
+        noFill()
+        stroke(0,0,0)
+        beginShape()
+        curveTightness(fxrand())
+        strokeWeight(sw*2)
+        //curveVertex(p.x, h+ mh/2)
+        for(let i = 0 ; i <= nhp ; i++){
+
+
+          if(h2r>0.0){
+       // curveVertex(p.x,p.y)
+          }
+
+
+
+
+
+        p.x = (w - s/2) + (i * offset)// + offset
+        p.y = h + (fxrand() * mh/(1.9+(mh/2/100*r1)))
+
+
+
+
+        HPC[i] = p
+        HPCx[i] = p.x
+        HPCy[i] = p.y
+        if(i < nhp-1){
+          if(fxrand()>0.9){
+        line(p.x,h+mh/2,HPCx[i], h-mh/2)
+          }
+        }
+        }
+
+        beginShape()
+      fill(c_horizonb)
+      noStroke()
+      //curveVertex( (w - s/2),HPCy[0])
+      for(let i = 1 ; i <= nhp-1 ; i++){
+        if(r3>0.5 ){
+        curveVertex(HPCx[i] -offset ,HPCy[i])
+        }
+      }
+      curveTightness(1)
+      if(r3>0.5 ){
+        curveVertex(w+mw/2, h+mh/2)
+        curveVertex(w-mw/2, h+mh/2)
+        //curveVertex( w-mw/2,HPCy[0])
+      }
+        //noFill()
+
+      endShape(CLOSE)
+      let rh2 = fxrand()
+      if(darksky == true){
+
+      beginShape() //darksky
+        fill(c_face[0],c_branch[1],c_branch[2] )
+
+        for(let i = 0 ; i <= nhp -2; i++){
+
+          curveTightness(0)
+
+            curveVertex(HPCx[i],(HPCy[i]/1.3) - rh2*s/5)
+
+        }
+
+        curveVertex(w+mw/2, h-mh/2)
+        curveVertex(w-mw/2, h-mh/2)
+        curveTightness(1)
+        endShape(CLOSE)
+
+
+      }
+
+
+        beginShape() //mountains front fill
+        fill(c_horizonf)
+
+        for(let i = 0 ; i <= nhp -2; i++){
+
+          curveTightness(0)
+
+            curveVertex(HPCx[i],(HPCy[i]/1.27) - rh2*s/5)
+
+        }
+
+        curveVertex(w+mw/2, h+mh/2)
+        curveVertex(w-mw/2, h+mh/2)
+        curveTightness(1)
+        endShape(CLOSE)
+
+
+
+        let amt = 1 +int(fxrand()*10)
+
+        for(let k=1 ; k <= amt; k ++){
+        beginShape()
+
+
+        for(let i = 0 ; i <= nhp  ; i++){
+
+        if(k< amt){
+          curveVertex(HPCx[i] -offset ,(HPCy[i-1]/1.27)- rh2*s/5 +fxrand()*s/20)
+        }
+
+        }
+        noFill()
+        curveTightness(fxrand())
+        strokeWeight(sw*1)
+        stroke(c_horizonf)
+        endShape()
+
+        }
+
+
+
+
+
+
+
+        noFill()
+        endShape()
+        blendMode(NORMAL)
+
+
+
+        let nHorizons = 10
+
+        for (let i = 0 ; i < nHorizons ;i++){
+        beginShape()
+        curveVertex( (w - s/2),HPCy[0])
+         strokeCap(ROUND)
+        curveTightness(fxrand())
+        strokeWeight(sw*1)
+        for(let i = 0 ; i <= nhp-1 ; i++){
+          let r2
+
+
+          if(i < nhp-1){
+            if(fxrand()>0.99){
+              curveTightness(fxrand()*0.5)
+              curveVertex(HPCx[i] -offset  +fxrand()*10, HPCy[i-1] +fxrand()*s/20)
+
+            }
+
+        }
+
+        p.y = h + (fxrand() * mh/(4+(10*r1)))
+
+        }
+
+        curveVertex(w+mw/2, h+mh/2)
+        curveVertex(w-mw/2, h+mh/2)
+
+
+      }
+
+        nHorizons = fxrand()*15
+
+        for (let i = 0 ; i < nHorizons ;i++){
+        beginShape()
+         strokeCap(ROUND)
+        curveTightness(fxrand()*-1)
+        strokeWeight(sw*1)
+        for(let i = 0 ; i <= nhp ; i++){
+          let r2
+
+          curveVertex(HPCx[i] -offset ,HPCy[i]+fxrand()*s/20)
+          if(i < nhp-1){
+            if(fxrand()>0.99){
+              curveTightness(fxrand()*0.5)
+              curveVertex(HPCx[i] -offset  +fxrand()*s/10, HPCy[i-1] +fxrand()*s )
+
+            }
+
+        }
+
+        p.y = h + (fxrand() * mh/(4+(10*r1)))
+
+        }
+        if(fxrand()>0.5){
+        stroke(c_horizonb)
+        }else{
+        stroke(c_branch)
+        }
+        endShape()
+        curveTightness(1)
+
+      }
+      stroke(c_branch)
+
+
+
+
+
+
+      }
+      let val =fxrand()*100
+      let val2 = fxrand()
+      let val3 = fxrand()
+    function branch(){
+      strokeWeight(sw*3)
+      let blength = fxrand()*s/4
+      let x1 = w + mw/3
+
+      if (fxrand()>0.5033){
+        x1 = w - mw/3
+      }
+
+      if (bigface == true){
+         x1 = w + mw/2.2
+
+        if (fxrand()>0.5033){
+        x1 = w - mw/2.2
+      }
+
+      }
+
+      let x2 = x1
+      let y1 = h + mh/2
+      let y2 = y1 - blength
+      p1 =  { x:x1 , y:y1 }
+      p2 =  { x:x2 , y:y2 }
+
+      let nBranches =fxrand()*5
+      for(let i = 0; i < nBranches ; i ++){
+        blength = s/3.5*fxrand()
+        if(fxrand()>0.5){
+          stw = -1
+        }else {
+          stw= 1
+        }
+
+        p2.x = p2.x  +(fxrand()*stw)*blength/2
+
+        strokeWeight((sw*20)-i*sw*4)
+        noFill()
+        stroke(c_branch)
+        bezier(p1.x,p1.y, p2.x,p2.y, p1.x +r1*s/4  ,p1.y, p2.x ,p2.y)
+        let nTreeStrokes = 5
+        let off = mh/400+fxrand()*5
+        strokeWeight(sw*3- i *sw*2)
+        strokeCap(ROUND)
+        if(fxrand()>0.5){
+        //stroke(c_leaves[0],c_leaves[1],c_leaves[2],0.6)
+        }
+         bezier(p1.x +off,p1.y+off, p2.x+off,p2.y+off, p1.x +r1*s/4  ,p1.y, p2.x ,p2.y)
+
+
+
+
+
+
+        p1.y = p2.y
+        p1.x = p2.x
+        p2.y = p1.y - blength
+        p2.x = p1.x +(fxrand()*stw)*blength
+
+
+        blength = blength/10
+
+
+
+
+
+      pa1[i] = p1.x
+      pa2[i] = p1.y
+      }
+      for(let i = 0; i < nBranches ; i ++){
+        let xsize=  s/40 + fxrand()*s/10
+        rock( pa1[i] ,pa2[i]- xsize/2,xsize)
+      }
+
+    }
+
+    let c  = fxrand()*360
+    let ts1 = fxrand()
+    let ts2 = fxrand()
+    ts2 >0.5? ts2 = s/30 : ts2 = 1
+
+
+
+
+
+    function rock(_px,_py, _s){
+     curveTightness(fxrand())
+    let sides = 40
+     let step = 360 / sides
+
+      beginShape()
+      strokeWeight(sw*2)
+
+      fill(c_leaves[0],c_leaves[1],c_leaves[2]-fxrand()*20)
+
+
+      for(let i = 0 ; i < 360; i+=step){
+        let a = radians(i)
+        let r = s/20
+        let x = _px + sin(a) *_s * fxrand()
+        if(ts1>0.5){
+          x = _px + sin(a) *_s
+        }
+
+        let y = _py + cos(a)*_s  *fxrand()
+        if(ts2 != 1){
+          y = _py + cos(a)*_s  *fxrand() / i*ts2
+        }
+
+        p = {x: x  , y: y}
+        RPCx[i] = p.x
+        RPCy[i] = p.y
+        stroke(c_branch)
+
+        curveVertex(p.x,p.y)
+
+      }
+      endShape(CLOSE)
+
+      beginShape()
+      for(let i = 0 ; i < 360; i+=step){
+        noFill()
+        strokeWeight(sw*1)
+        let a = radians(i)
+        let r = s/20
+        let x = _px + sin(a) *_s * fxrand()
+        if(ts1>0.5){
+          x = _px + sin(a) *_s
+        }
+
+        let y = _py + cos(a)*_s  *fxrand()
+        if(ts2 != 1){
+          y = _py + cos(a)*_s  *fxrand() / i*ts2
+        }
+
+        p = {x: x  , y: y}
+
+      curveVertex(p.x,p.y)
+      }
+      endShape(CLOSE)
+
+      beginShape()
+      for(let i = 0 ; i < 360; i+=step){
+
+        if(fxrand()>fxrand()*2){
+          stroke(c,10,5)
+        beginShape()
+        vertex(RPCx[i],RPCy[i])
+        vertex( RPCx[i ] ,RPCy[step] +fxrand()*_s)
+        endShape()
+
+        beginShape()
+        let off = 2
+        stroke(c_leaves)
+        vertex(RPCx[i]- off,RPCy[i]+off )
+        vertex( RPCx[i ]-off ,RPCy[step] +fxrand()*_s+off)
+        endShape()
+        strokeWeight(sw*1)
+        }
+
+
+      }
+      endShape(CLOSE)
+
+      beginShape()
+      for(let i = 0 ; i < 360; i+=step){
+
+        // vertex(RPCx[i],RPCy[i])
+        // vertex(RPCx[i - step ] ,RPCy[i -step])
+
+      }
+      endShape(CLOSE)
+
+
+
+    }
+    function distress(){
+      let ndistress =s*10
+      for (let i = 0 ; i < ndistress ; i ++ ){
+        beginShape()
+        strokeWeight(sw/2)
+        stroke(c_leaves)
+        //line(fxrand()*innerWidth,fxrand()*innerHeight,fxrand()*innerWidth,fxrand()*innerHeight)
+        ellipse(fxrand()*innerWidth,innerHeight*fxrand(),s/2000)
+
+        stroke(c_branch)
+        //line(fxrand()*innerWidth,fxrand()*innerHeight,fxrand()*innerWidth,fxrand()*innerHeight)
+        ellipse(fxrand()*innerWidth,innerHeight*fxrand(),s/2000)
+        endShape()
+      }
+    }
+
+
+
+
+    let r1 = fxrand()
+
+    function mHorizon(){
+      fill(50,100,100)
+      //noStroke()
+      strokeWeight(sw*10)
+      // rect(w,h + s/4,s,s/4)
+      // fill(150,100,100)
+      // rect(w,h ,s,s/4)
+
+      let p = {x: 0, y :  0 }
+
+      let offset = (s/2)/(nhp)
+
+      noFill()
+      stroke(0,0,0)
+      beginShape()
+      curveTightness(fxrand())
+      strokeWeight(sw*10)
+
+      for(let i = 0 ; i <= nhp ; i++){
+      let r2
+      curveVertex(p.x,p.y)
+      p.x = w - (fxrand() * mw/10)// + offset
+      p.y = (h) + ((nhp-i) * offset)
+     // p.y = (h -mh/4) + ((nhp-i) * offset)
+      // p.x = (w - s/2) + (i * offset)// + offset
+      // p.y = h + (fxrand() * mh/(2+(10*r1)))
+      HPC[i] = p
+      HPCx[i] = p.x
+      HPCy[i] = p.y
+
+      }
+
+      curveTightness(fxrand())
+      strokeWeight(sw*10)
+      for(let i = 0 ; i <= nhp ; i++){
+      let r2
+      curveVertex(HPCx[i] +400,HPCy[nhp-i])
+
+
+
+
+      // p.x = (w - s/2) + (i * offset)// + offset
+      // p.y = h + (fxrand() * mh/(2+(10*r1)))
+
+
+      }
+      endShape()
+
+
+
+    }
+    function groundB(){
+      let nPlants= fxrand()*33
+      if(fxrand()>0.1){
+        nPlants= fxrand()*100
+      }
+      for(let i = 0 ; i  < nPlants ; i++){
+        let px = w - mw/2 + mw*fxrand()
+        let py = h+ mh/2 -(s/30*fxrand())//- mw/2 + mw*fxrand()
+      leaf(px,py,fxrand()*s/100)
+      }
+    }
+    function leaf(_w,_h,_s){
+
+
+      let nPatoms = 5 +fxrand()*5
+      let step = int(360 / nPatoms)
+      let ptr = _s/2
+
+
+      beginShape()
+      fill(c_horizonf)
+
+      stroke(c_horizonb)
+      if(darksky == true){
+        fill(c_leaves)
+        stroke(c_branch)
+      }
+      strokeWeight(sw*1)
+      //curveTightness(0)
+      for (let i = 0 ; i < 360 ; i += step){
+        let px = _w + cos(radians(i)) *ptr
+        let py = _h+ sin(radians(i)) *ptr
+        curveVertex(px, py)
+        strokeWeight(sw*2)
+        if(i > 270 && i<=300){
+      line(px,py,px,py+s/50)
+        }
+      }
+
+
+      endShape(CLOSE)
+      let nPetals =4 +fxrand()*2
+      let sst = int(360/nPetals)
+      let r = ptr
+    for (let k = 0 ; k < 360 ; k += sst){
+      beginShape()
+      for (let i = 0 ; i < 360 ; i += step){
+        let px = _w + cos(radians(i)) *ptr/2
+        let py = _h+ sin(radians(i)) *ptr/2
+        curveVertex(px+cos(radians(k))*r, py+sin(radians(k))*r)
+        strokeWeight(sw*2)
+        fill(c_face)
+
+      }
+      endShape(CLOSE)
+    }
+
+
+    }
+
+    function keyPressed() {
+  if (key == "s" || key == "S") {
+   
+    saveCanvas(`Moai Hills (` +fxhash+`)`,"png");
+  }
+  
+}
+
+
+          let f1 = bigface ? bigface.toString().toUpperCase() : bigface  ;
+          let f1flag = bigface ?  String.fromCodePoint(0x1F5FF) : '';
+
+          let f2 = hasstars ? hasstars.toString().toUpperCase() : hasstars ;
+          let f2flag = hasstars ?  String.fromCodePoint(0x1F31F) : ''; 
+
+          let f3 = darksky ? darksky.toString().toUpperCase() : darksky ;
+          let f3flag = darksky ?  String.fromCodePoint(0x1F31A) : '';
+
+         
+
+          window.$fxhashFeatures = {
+          "Giant": `${f1flag+` `+f1+` `+f1flag}`,
+          "Starry Sky": `${f2flag+` `+f2+` `+f2flag}`,
+          "Night Sky": `${f3flag+` `+f3+` `+f3flag}`
+        
+          }</script><script>window.onresize = function() {
+      location.reload()
+    }</script></head><body><script defer="defer" src="./bundle.js"></script><script defer="defer" src="./bundle.js"></script></body></html>

@@ -1,0 +1,4 @@
+id: 10867
+name: Magneto
+mint_opens_at: 2022-03-18T12:32:44+00:00
+generative_uri: ipfs://QmXmTYmf6deETENSNR4Ctc8fmPDTiJxBkG9Fc1nmXsoNzh

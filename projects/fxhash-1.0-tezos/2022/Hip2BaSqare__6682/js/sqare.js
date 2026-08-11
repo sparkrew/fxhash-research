@@ -1,0 +1,1 @@
+class Sqare{constructor(o,s,t,h,i,e,r,l,u,c,a,m){this.facecolor=o,this.strokecolor=s,this.eyecolor=t,this.focus=h,this.focusColor=i,this.noseSize=e,this.noseColor=r,this.mouthStyle=l,this.mouthColor1=u,this.mouthColor2=c,this.mouthVariables=a,this.glasses=m}}const mouthStyles=["Smile","Frown","ZigZag","Vampire","Tongue","LoudMouth"];

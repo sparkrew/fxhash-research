@@ -1,0 +1,4 @@
+id: 19386
+name: hAMBURGER
+mint_opens_at: 2022-09-14T17:42:29+00:00
+generative_uri: ipfs://Qmdt95JcEZk8iQLbYKgM9JJTRz2VLeELSMygaFRuxEzXN8

@@ -1,0 +1,4 @@
+id: 7585
+name: Meteor shower
+mint_opens_at: 2022-01-20T14:41:30+00:00
+generative_uri: ipfs://QmcbaedP6CU9D4zriV5VtXkfe7hQDtFPeJGaNXF22MxmBM

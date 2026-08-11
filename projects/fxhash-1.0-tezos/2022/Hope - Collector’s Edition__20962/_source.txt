@@ -1,0 +1,4 @@
+id: 20962
+name: Hope - Collector’s Edition
+mint_opens_at: 2022-11-05T18:00:00+00:00
+generative_uri: ipfs://QmPoxE6LQMJoNCMjdjVBfpDKj757tF9HFT3rqZdHBTRVkG

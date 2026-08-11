@@ -1,0 +1,4 @@
+id: 21371
+name: Kush Buddies
+mint_opens_at: 2022-11-15T21:20:00+00:00
+generative_uri: ipfs://QmPLLhmcCQVrGtEJ21J8NdVCeak1BG4K7XqkSLbA7itKBy

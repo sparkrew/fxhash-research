@@ -1,0 +1,4 @@
+id: 8328
+name: Isom
+mint_opens_at: 2022-01-31T17:05:58+00:00
+generative_uri: ipfs://QmWGjuGLTZvVXVat1DsJUQZ1Ys4H5p1p2jY3uKGMvRphvw

@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Background:$BG,"Flowers Color":`RGB(${colorR_ROSE},${colorG_ROSE},${colorB_ROSE})`,"Tree Color":$wood};

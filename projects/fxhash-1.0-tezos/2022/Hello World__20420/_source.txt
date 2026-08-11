@@ -1,0 +1,4 @@
+id: 20420
+name: Hello World
+mint_opens_at: 2022-10-16T20:54:44+00:00
+generative_uri: ipfs://QmTsXEP3wyvNhw7tTmDPXATxgzFmT9H5dL2A9BA7nGDfHN

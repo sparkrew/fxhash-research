@@ -1,0 +1,4 @@
+id: 10273
+name: Lovely shoes
+mint_opens_at: 2022-03-04T18:36:54+00:00
+generative_uri: ipfs://QmfPvyt7q1kBDXKmdsihN79gAtkHqinetktJkRM9dAfzYM

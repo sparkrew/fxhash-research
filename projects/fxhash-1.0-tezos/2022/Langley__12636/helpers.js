@@ -1,0 +1,1 @@
+function randomBoolean(){return random(fxrand())>.5}function hexagon(n,o,e){beginShape();for(let t=0;t<6;t++){const r=pointOnCircle(n,o,e,60*t);vertex(r.x,r.y)}endShape(CLOSE)}function pointOnCircle(n,o,e,t){const r=n+e*cos(t),c=o+e*sin(t);return createVector(r,c)}function getRandomFromPalette(){const n=floor(random(0,PALETTE.length));return PALETTE[n]}

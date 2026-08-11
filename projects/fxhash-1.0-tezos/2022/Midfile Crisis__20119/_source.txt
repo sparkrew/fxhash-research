@@ -1,0 +1,4 @@
+id: 20119
+name: Midfile Crisis
+mint_opens_at: 2022-10-07T16:30:00+00:00
+generative_uri: ipfs://QmPqTgfmNYTYTbqnc21fXytLUgYpGbcmkqimXmQ8mvpPjx

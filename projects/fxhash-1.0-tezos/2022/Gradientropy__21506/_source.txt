@@ -1,0 +1,4 @@
+id: 21506
+name: Gradientropy
+mint_opens_at: 2022-11-17T15:05:00+00:00
+generative_uri: ipfs://QmdwskKZp5cprHzduB2UxWURangB9Uh95UVZPVLFFiknNs

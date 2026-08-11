@@ -1,0 +1,4 @@
+id: 6811
+name: Meta Flower 3
+mint_opens_at: 2022-01-13T07:29:50+00:00
+generative_uri: ipfs://QmZNK1a2dsD2UNfpt2XTJXmFQedxaCaZoXBnFCKKK1Uy8B

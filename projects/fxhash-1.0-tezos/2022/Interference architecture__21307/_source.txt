@@ -1,0 +1,4 @@
+id: 21307
+name: Interference architecture
+mint_opens_at: 2022-11-14T06:33:59+00:00
+generative_uri: ipfs://QmRGneKCQG31YsL5f2KAr7jGbP7jyFo85v9cYFkRspS2Z8

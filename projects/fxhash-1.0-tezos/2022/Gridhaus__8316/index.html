@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Gridhaus by Professor-Wrecks</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta itemprop="name" content="Gridhaus">
+    <meta itemprop="description" content="made by Wrecks">
+    <meta itemprop="image" content="screenshot.png">
+    <meta name="description" content="made by Wrecks" >
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+</head>
+
+<body>
+    <canvas id="glcanvas"></canvas>
+    <footer>
+    </footer>
+
+    <libs></libs>
+    <script type="text/javascript" src="patch.js" async></script>
+    <corelibs></corelibs>
+
+    <script>
+
+        // disable rubberband effect on mobile devices
+        document.getElementById('glcanvas').addEventListener('touchmove', (e)=>{ e.preventDefault(); }, false);
+
+
+        function patchInitialized(patch) {
+            // You can now access the patch object (patch), register variable watchers and so on
+        }
+
+        function patchFinishedLoading(patch) {
+            // The patch is ready now, all assets have been loaded
+        }
+
+        document.addEventListener('CABLES.jsLoaded', function (event) {
+            CABLES.patch = new CABLES.Patch({
+                patch: CABLES.exportedPatch,
+                prefixAssetPath: '',
+                glCanvasId: 'glcanvas',
+                glCanvasResizeToWindow: true,
+                onPatchLoaded: patchInitialized,
+                onFinishedLoading: patchFinishedLoading,
+
+                canvas:{preserveDrawingBuffer:true}
+                // webgl clears its buffer after the piece loads
+                //causing the black screen
+                //preserveDrawingBuffer will stop it from doing that
+            });
+        });
+    </script>
+</body>
+
+</html>

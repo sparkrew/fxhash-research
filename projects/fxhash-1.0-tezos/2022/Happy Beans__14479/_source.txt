@@ -1,0 +1,4 @@
+id: 14479
+name: Happy Beans
+mint_opens_at: 2022-06-09T17:43:14+00:00
+generative_uri: ipfs://QmPjHvNRkHzRF6XCmikF4zZruWJ2ZmE6DLWZJQ3EFSzNep

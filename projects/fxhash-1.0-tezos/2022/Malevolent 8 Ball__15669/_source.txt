@@ -1,0 +1,4 @@
+id: 15669
+name: Malevolent 8 Ball
+mint_opens_at: 2022-06-30T21:31:59+00:00
+generative_uri: ipfs://QmbZxmZrWkSUQ4zejHtpzne492QxKMePJGZ1bwY5xVJkht

@@ -1,0 +1,4 @@
+id: 11045
+name: Hokusai
+mint_opens_at: 2022-04-16T17:00:00+00:00
+generative_uri: ipfs://QmeXvqLpR7S4JogPy2VNMWSzk1EQDg9EbAmhxJVPK3PPfk

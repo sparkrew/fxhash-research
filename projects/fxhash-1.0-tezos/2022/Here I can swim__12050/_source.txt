@@ -1,0 +1,4 @@
+id: 12050
+name: Here I can swim
+mint_opens_at: 2022-04-27T11:01:59+00:00
+generative_uri: ipfs://QmP3K392PBi14zzS8pjeMaFtqnis6Jqcw2wCAmV3ZmfxJN

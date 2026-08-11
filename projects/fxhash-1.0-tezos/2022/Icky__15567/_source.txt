@@ -1,0 +1,4 @@
+id: 15567
+name: Icky
+mint_opens_at: 2022-06-30T15:04:44+00:00
+generative_uri: ipfs://QmeV77C6CaFaXcg17rEGyVf3p6CdmLrSBcoZZw5byebRHW

@@ -1,0 +1,4 @@
+id: 12008
+name: Japanese Wave Pattern 2.0
+mint_opens_at: 2022-04-26T21:51:29+00:00
+generative_uri: ipfs://QmcQR19y1gCY5oyYsLRvTV6jPbXk9Heyi9jWYRgnf4owe4

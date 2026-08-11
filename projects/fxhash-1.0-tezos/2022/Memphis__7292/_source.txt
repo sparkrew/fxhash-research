@@ -1,0 +1,4 @@
+id: 7292
+name: Memphis
+mint_opens_at: 2022-01-18T15:42:00+00:00
+generative_uri: ipfs://QmUkLkZQEVWThbcSwB2jXFfPiqKjZBJC6d1vcd5vfwYDHk

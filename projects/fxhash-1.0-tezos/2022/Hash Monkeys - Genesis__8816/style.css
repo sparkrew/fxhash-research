@@ -1,0 +1,57 @@
+body {
+  background-color: lightblue;
+}
+
+#container {
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color:purple;
+}
+
+#container div, #container svg {
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+}
+
+#container svg {
+  -webkit-animation: fade 5s;
+  animation: fade 5s;
+  -moz-animation: fade 5s;
+  -o-animation: fade 5s;
+}
+
+@-webkit-keyframes fade {
+0% {opacity: 0} 
+100% {opacity:1}
+}
+
+@-moz-keyframes fade{
+    0% {opacity: 0} 
+  100% {opacity: 1}
+}
+
+@keyframes fade {
+  0% {opacity: 0} 
+  100%{opacity: 1}
+}
+
+@-o-keyframes fade {
+	0% {opacity: 0} 
+  100%{opacity: 1}
+}
+
+
+
+#bgCanvas {
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+}

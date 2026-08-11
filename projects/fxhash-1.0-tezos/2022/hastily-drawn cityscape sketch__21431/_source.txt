@@ -1,0 +1,4 @@
+id: 21431
+name: hastily-drawn cityscape sketch
+mint_opens_at: 2022-11-16T04:11:44+00:00
+generative_uri: ipfs://QmaNWKcRczTizpjtfsswNQ1hR9BS5EjmWx6gKfuGzBVtxw

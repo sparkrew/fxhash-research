@@ -1,0 +1,4 @@
+id: 11812
+name: grey fungi wisdom
+mint_opens_at: 2022-04-25T15:01:14+00:00
+generative_uri: ipfs://QmccgwFWGZzdPJ38AwV5Z3QKbZ7eRsQ1zF93qr1vnYAvdb

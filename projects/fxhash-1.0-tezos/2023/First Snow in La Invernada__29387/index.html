@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>simple</title>
+    <meta charset="utf-8" />
+    <script src="./fxhash.js"></script>
+ 
+    <style type="text/css">
+      *{
+          margin: 0;
+          padding: 0;
+        }
+        body{
+          margin: 0 ;
+          padding: 0;
+          height: 100vh;
+          text-align: center;
+         background:#f8f8f8;  
+      
+      }
+      
+      
+        #canvas{
+          display: block;
+          margin: auto;
+          padding: 0 ;
+          max-width: 100vh;
+          max-height: 100vh;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+        #loading-message{
+          position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color:#e7cbb1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999; /* Asegura que el div esté en la parte superior */
+  }
+   #text{
+    color: rgb(32, 32, 32);
+    font-size: 20px;
+    font-family:'Times New Roman', Times, serif
+   }     
+     
+      </style>
+      
+  </head>
+  <body>
+    <div id="loading-message" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; ; display: flex; align-items: center; justify-content: center;">
+      <p id="text" >Creating Artwork...</p>
+    </div>
+
+    <script>
+      // Función para ocultar el mensaje de carga
+      function hideLoadingMessage() {
+        const loadingMessage = document.getElementById("loading-message");
+        if (loadingMessage) {
+          loadingMessage.style.display = "none";
+        }
+      }
+    
+      // Oculta el mensaje de carga después de 5 segundos
+      setTimeout(hideLoadingMessage, 6000); // 5 segundos (5000 milisegundos)
+    </script>
+    <canvas id="canvas"></canvas>
+    <script src="./index.js"></script>
+    <script src="./js.js"></script>
+  
+ 
+  </body>
+</html>

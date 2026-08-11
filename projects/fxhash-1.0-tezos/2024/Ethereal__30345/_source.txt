@@ -1,0 +1,4 @@
+id: 30345
+name: Ethereal
+mint_opens_at: 2024-02-20T04:00:00+00:00
+generative_uri: ipfs://QmX6umN84TvuH1y3CfA3f3pMAEPvnhoSkCaB9Swn4LU15D

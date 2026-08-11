@@ -1,0 +1,4 @@
+id: 16960
+name: Triangulatria v.3.0.11 Glassamatz-Kerhobiz
+mint_opens_at: 2022-07-24T13:28:29+00:00
+generative_uri: ipfs://QmQPPunbybbnf6ZzH6MWjDbNeZ6xLaddDopqhJ6HWm7sid

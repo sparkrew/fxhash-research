@@ -1,0 +1,4 @@
+id: 21486
+name: wallabye
+mint_opens_at: 2022-11-16T22:59:29+00:00
+generative_uri: ipfs://QmafX4feFAhbL5vF7peDehTekMHBGEd9x846rmV57gc5iF

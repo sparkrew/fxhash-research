@@ -1,0 +1,4 @@
+id: 22026
+name: wertis
+mint_opens_at: 2022-12-01T18:54:44+00:00
+generative_uri: ipfs://QmaHmg7XPe2eWEBENHqbx1b97iKVHkArqiA3fTEuRRbcXK

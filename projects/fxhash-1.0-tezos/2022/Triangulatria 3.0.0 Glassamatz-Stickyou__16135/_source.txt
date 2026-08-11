@@ -1,0 +1,4 @@
+id: 16135
+name: Triangulatria 3.0.0 Glassamatz-Stickyou
+mint_opens_at: 2022-07-08T21:29:14+00:00
+generative_uri: ipfs://QmWsMwmLPGtovAxDuw6xbc2XQEwoVZ1zeRKd63oeMmEK1E

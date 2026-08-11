@@ -1,0 +1,4 @@
+id: 23519
+name: 0004_random generator
+mint_opens_at: 2023-01-11T05:14:59+00:00
+generative_uri: ipfs://QmZLHLVeHchzZ3idbCDjYeuYUNJTCfPK8fWBHyBMC1KC43

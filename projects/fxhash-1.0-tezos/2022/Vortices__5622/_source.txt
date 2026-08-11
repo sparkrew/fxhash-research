@@ -1,0 +1,4 @@
+id: 5622
+name: Vortices 
+mint_opens_at: 2022-01-05T13:47:00+00:00
+generative_uri: ipfs://QmaNuCnTBY3YcM9s3Ki5Gia6oZZ56oGSPEL5LjwtDHMpgS

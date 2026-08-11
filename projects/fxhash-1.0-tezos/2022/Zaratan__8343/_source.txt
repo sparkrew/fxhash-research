@@ -1,0 +1,4 @@
+id: 8343
+name: Zaratan
+mint_opens_at: 2022-01-31T18:05:38+00:00
+generative_uri: ipfs://QmdDnyRbxRpPef4i61jKmtXgB3SgekY3mLBkxtzkAXTVs2

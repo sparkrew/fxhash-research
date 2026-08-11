@@ -1,0 +1,4 @@
+id: 12815
+name: Walking through the city of Famailla
+mint_opens_at: 2022-05-12T03:15:14+00:00
+generative_uri: ipfs://QmWTvTSct9hgAKibyBMo6HDLjRg9Ja3ArJnWaUXuryV8Ws

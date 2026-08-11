@@ -1,0 +1,4 @@
+id: 19427
+name: Triatez
+mint_opens_at: 2022-09-15T00:11:59+00:00
+generative_uri: ipfs://Qmb7px4RouxFk9UL4wh4kgaKjkgxu4BQSoWrfHyfcvGvNW

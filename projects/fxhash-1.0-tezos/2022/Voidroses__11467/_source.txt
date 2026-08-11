@@ -1,0 +1,4 @@
+id: 11467
+name: Voidroses
+mint_opens_at: 2022-04-19T02:16:59+00:00
+generative_uri: ipfs://QmNzM4qtJxbxJUNxzbUZATLZatNCFasKUdwgiyag1wt5Li

@@ -1,0 +1,4 @@
+id: 24479
+name: android shadows
+mint_opens_at: 2023-01-31T15:01:44+00:00
+generative_uri: ipfs://QmTXM31MbwKu7GN23uwuqbteYSxMeg6e7TLjwZhTGimTqD

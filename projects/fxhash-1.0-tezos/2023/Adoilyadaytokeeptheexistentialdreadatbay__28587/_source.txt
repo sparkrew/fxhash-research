@@ -1,0 +1,4 @@
+id: 28587
+name: Adoilyadaytokeeptheexistentialdreadatbay 
+mint_opens_at: 2023-08-21T06:10:20+00:00
+generative_uri: ipfs://Qmey3p7pXLNUfzsT4cbhj5yLp5zU3ns18XN23hVfLrEU4C

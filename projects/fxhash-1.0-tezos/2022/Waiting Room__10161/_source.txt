@@ -1,0 +1,4 @@
+id: 10161
+name: Waiting Room
+mint_opens_at: 2022-03-01T06:56:14+00:00
+generative_uri: ipfs://QmXMWGhNN5m7FFSJagcXMwg3U5jzU8ejUf5hH69utDnYWC

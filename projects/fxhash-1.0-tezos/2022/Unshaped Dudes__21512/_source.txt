@@ -1,0 +1,4 @@
+id: 21512
+name: Unshaped Dudes
+mint_opens_at: 2022-11-17T06:22:14+00:00
+generative_uri: ipfs://QmcjKhGrmQxZdxwMF8wHHuNuY9QDDmEV6vmtZwoL9oaZx7

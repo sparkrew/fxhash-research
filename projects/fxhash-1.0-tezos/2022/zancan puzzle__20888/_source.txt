@@ -1,0 +1,4 @@
+id: 20888
+name: zancan puzzle
+mint_opens_at: 2022-11-01T11:23:44+00:00
+generative_uri: ipfs://QmY5vkTa7uKWthrntc3e3Li4otBeKjaZBi2GKA6DVVig1g

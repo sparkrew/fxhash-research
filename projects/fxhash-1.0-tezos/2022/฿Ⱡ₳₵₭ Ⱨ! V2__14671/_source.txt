@@ -1,0 +1,4 @@
+id: 14671
+name: ฿Ⱡ₳₵₭ Ⱨ! V2
+mint_opens_at: 2022-06-11T16:13:14+00:00
+generative_uri: ipfs://Qma9me4Xb9B2CDsapDwVYt8f95nxd95ajtTAvXFtGDJ8BC

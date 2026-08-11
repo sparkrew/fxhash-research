@@ -1,0 +1,4 @@
+id: 18505
+name: Uprise / Go on
+mint_opens_at: 2022-08-22T19:43:44+00:00
+generative_uri: ipfs://QmW8mL8Pc2inPFtHDpasxA9YrH6ynHb94tRytu2nkKPTZi

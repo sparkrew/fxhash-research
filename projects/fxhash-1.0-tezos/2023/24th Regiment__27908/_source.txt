@@ -1,0 +1,4 @@
+id: 27908
+name: 24th Regiment
+mint_opens_at: 2023-07-03T23:33:57+00:00
+generative_uri: ipfs://QmS4nZ4bhZVXvfE9bj8dvGmXiyPBAXzyEDVCXqnDvhZy9s

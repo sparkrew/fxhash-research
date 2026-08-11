@@ -1,0 +1,4 @@
+id: 13553
+name: Wubblum
+mint_opens_at: 2022-05-25T00:01:14+00:00
+generative_uri: ipfs://QmeNn98bWjmifa4p7CitunPRiJe6tQKozhBd2ExpJSvSNt

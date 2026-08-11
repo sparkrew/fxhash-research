@@ -1,0 +1,4 @@
+id: 26228
+name: Architype
+mint_opens_at: 2023-03-25T08:00:00+00:00
+generative_uri: ipfs://QmdVL81yqxRstk1AaZCr26NkzKKhbB9KRyLqV4sMtWpDRy

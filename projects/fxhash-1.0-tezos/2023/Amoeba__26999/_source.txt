@@ -1,0 +1,4 @@
+id: 26999
+name: Amoeba
+mint_opens_at: 2023-05-03T21:47:39+00:00
+generative_uri: ipfs://QmQ16eWqwjrzRjD5kGKCGn3rXiaLKt9B4d2JiJACMJ9Hcq

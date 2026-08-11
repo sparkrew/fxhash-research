@@ -1,0 +1,4 @@
+id: 13329
+name: TV Noise
+mint_opens_at: 2022-05-22T11:40:29+00:00
+generative_uri: ipfs://QmVWATVCEcviJ9CRmUcK1svfgGBehKrhjRNc6B5yLYMLXU

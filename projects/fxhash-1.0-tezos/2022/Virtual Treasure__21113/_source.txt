@@ -1,0 +1,4 @@
+id: 21113
+name: Virtual Treasure
+mint_opens_at: 2022-11-08T17:05:00+00:00
+generative_uri: ipfs://QmTj89N7Yp6p39ttj5ePS13Caxed9xRb3AbppoFqobPWwZ

@@ -1,0 +1,4 @@
+id: 12913
+name: 𝙣𝙚𝙩𝙬𝙤𝙧𝙠 𝙫𝙞𝙡𝙡𝙖𝙞𝙣𝙨
+mint_opens_at: 2022-05-14T22:23:59+00:00
+generative_uri: ipfs://QmRzJNL17MaAUhxFmF91MpsD9wZztAvJP6NULKZj4DcbXB

@@ -1,0 +1,4 @@
+id: 13426
+name: VOYAGERS
+mint_opens_at: 2022-05-25T16:00:00+00:00
+generative_uri: ipfs://QmYR9FFuRvksuReEJzrfvb7DRRYjTd4q1izLvM2McbNQh5

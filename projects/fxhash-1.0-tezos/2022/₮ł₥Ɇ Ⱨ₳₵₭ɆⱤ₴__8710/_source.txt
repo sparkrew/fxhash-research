@@ -1,0 +1,4 @@
+id: 8710
+name:  ₮ł₥Ɇ Ⱨ₳₵₭ɆⱤ₴ 
+mint_opens_at: 2022-02-07T00:38:24+00:00
+generative_uri: ipfs://QmeuqyK46kjxW3kmqoLyiW1Tf3NWRvG2Lrb4XVLfjEM7RD

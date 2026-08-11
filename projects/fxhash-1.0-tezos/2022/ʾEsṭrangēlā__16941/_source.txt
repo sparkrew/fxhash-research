@@ -1,0 +1,4 @@
+id: 16941
+name: ʾEsṭrangēlā
+mint_opens_at: 2022-07-24T14:12:29+00:00
+generative_uri: ipfs://QmUZFJbrfHRzuPbzhmUoc2ucLPbR33Da62YHPYD5EXym7F

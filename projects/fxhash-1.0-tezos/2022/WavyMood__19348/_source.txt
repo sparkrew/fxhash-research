@@ -1,0 +1,4 @@
+id: 19348
+name: WavyMood
+mint_opens_at: 2022-09-14T11:30:00+00:00
+generative_uri: ipfs://QmV2VETdicVVTeLb5DH8AVVE37cuDsDKRVtKLhuh4acAmd

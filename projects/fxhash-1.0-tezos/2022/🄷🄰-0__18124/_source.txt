@@ -1,0 +1,4 @@
+id: 18124
+name: 🄷🄰-0
+mint_opens_at: 2022-08-15T20:00:00+00:00
+generative_uri: ipfs://QmecGYwJMsGTsxjcUWjBSwXHyhhfAjFZUcmHLtUyXWV1HG

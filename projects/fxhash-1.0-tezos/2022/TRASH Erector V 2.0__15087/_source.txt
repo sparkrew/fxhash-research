@@ -1,0 +1,4 @@
+id: 15087
+name: TRASH Erector V 2.0
+mint_opens_at: 2022-06-18T00:43:14+00:00
+generative_uri: ipfs://QmZubKMLuGqHC8QYuyMe54bn3BbXiftyheszBtKAGM8FvU

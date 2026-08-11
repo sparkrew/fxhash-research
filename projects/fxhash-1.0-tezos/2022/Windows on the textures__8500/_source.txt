@@ -1,0 +1,4 @@
+id: 8500
+name: Windows on the textures
+mint_opens_at: 2022-02-02T12:54:56+00:00
+generative_uri: ipfs://QmadCUCFC2Geos27yQj8nQdnvA9SHE6xvVjsszWhWM3Znn

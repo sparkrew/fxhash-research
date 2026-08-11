@@ -1,0 +1,4 @@
+id: 24343
+name: AI Mucaso
+mint_opens_at: 2023-01-28T17:10:00+00:00
+generative_uri: ipfs://QmXjXQLBcwrf1dFtqGvUgzHaREjGJ5JgdUHBEso9su4iZu

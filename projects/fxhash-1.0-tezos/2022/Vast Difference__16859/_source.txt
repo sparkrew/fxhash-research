@@ -1,0 +1,4 @@
+id: 16859
+name: Vast Difference
+mint_opens_at: 2022-07-21T20:30:00+00:00
+generative_uri: ipfs://QmNTXqQHF8hYUhPLST8mpUBANJ9yC8b6JMj7AztKqXQZtJ

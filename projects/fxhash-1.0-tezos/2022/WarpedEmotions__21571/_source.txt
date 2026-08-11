@@ -1,0 +1,4 @@
+id: 21571
+name: WarpedEmotions 
+mint_opens_at: 2022-11-18T02:00:00+00:00
+generative_uri: ipfs://QmSKfEeYRoRCMMxv41r7CYsvXbviT5WyFZY6217U7G3ZCS

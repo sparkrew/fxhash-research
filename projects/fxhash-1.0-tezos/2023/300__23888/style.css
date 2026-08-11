@@ -1,0 +1,37 @@
+body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    background: #2c2c2c;
+}
+
+#main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    --cw: calc(100vw - 20px);
+    --ch: calc(100vh - 20px);
+}
+
+#main > canvas {
+    max-width: var(--cw);
+    max-height: var(--ch);
+}
+
+#status {
+    font-family: sans-serif;
+    font-size: 2vh;
+    color: black;
+    z-index: 100;
+    display: block;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 2%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 0.5em 1em;
+    border-radius: 1px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0 2px 4px;
+}

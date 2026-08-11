@@ -1,0 +1,22 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  touch-action: none;
+  /* Keyword value */
+max-zoom: auto;
+
+/* <number> values */
+max-zoom: 0.8;
+max-zoom: 2.0;
+
+/* <percentage> value */
+max-zoom: 150%;
+}
+
+main {
+  margin:auto;
+}

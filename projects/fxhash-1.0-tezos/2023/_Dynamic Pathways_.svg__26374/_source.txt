@@ -1,0 +1,4 @@
+id: 26374
+name: "Dynamic Pathways".svg
+mint_opens_at: 2023-08-04T06:00:00+00:00
+generative_uri: ipfs://QmS9ugaCKxUDk3knNGiXFwP5ZFe8Q5FEmvPDfeQdQvVNCP

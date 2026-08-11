@@ -1,0 +1,4 @@
+id: 13065
+name: Tree Oddity
+mint_opens_at: 2022-05-17T16:36:59+00:00
+generative_uri: ipfs://QmY6gC4XSkx5hMcp36S2jUdSqrq4aQ6bLKqF1Cpq1Ps9t4

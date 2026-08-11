@@ -1,0 +1,4 @@
+id: 21852
+name: AI Gold
+mint_opens_at: 2023-01-09T09:30:00+00:00
+generative_uri: ipfs://QmToaGxkU3aqGm7KhwYPGKc4BrDqiErwShurU2rcrKpTYQ

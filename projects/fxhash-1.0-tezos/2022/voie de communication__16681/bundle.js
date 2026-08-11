@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Background:$BG_Name,"Color Palette":varianceName,"Main Color Hue":mainCol};

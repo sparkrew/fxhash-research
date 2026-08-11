@@ -1,0 +1,4 @@
+id: 7487
+name: Unfinished
+mint_opens_at: 2022-01-19T17:04:50+00:00
+generative_uri: ipfs://QmXQGAaCY3Z8ywptF9kKmtSFSP1jjvVtFq5ZtySaSAxXTK

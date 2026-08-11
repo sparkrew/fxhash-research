@@ -1,0 +1,4 @@
+id: 18871
+name: Translucent
+mint_opens_at: 2022-09-02T00:27:44+00:00
+generative_uri: ipfs://Qmc6g7NeKNJbWvVBp17LkrbdzHAZys2nGvpQdkuD2DAwLo

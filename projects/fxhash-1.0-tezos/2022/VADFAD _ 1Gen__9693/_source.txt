@@ -1,0 +1,4 @@
+id: 9693
+name: VADFAD : 1Gen
+mint_opens_at: 2022-02-20T15:08:00+00:00
+generative_uri: ipfs://QmNr9yZAxmmfxBZ1rNVoJGxNZ9wVmP1Nzh2wTDLKGx6pnF

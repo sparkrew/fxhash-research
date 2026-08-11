@@ -1,0 +1,4 @@
+id: 29606
+name: 3D Object part#1
+mint_opens_at: 2023-12-03T18:30:00+00:00
+generative_uri: ipfs://QmQskbXxrNqgHiJWPTqAWSR3PdzrqtKqY5ycFxATHAL6tR

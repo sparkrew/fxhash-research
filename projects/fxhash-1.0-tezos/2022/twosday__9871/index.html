@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>twosday</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+    <style>
+      @font-face {
+        font-family: 'Fira Code';
+        src: url('font/FiraCode-Regular.woff2') format('woff2'),
+          url("font/FiraCode-Regular.woff") format("woff");
+        font-weight: 400;
+      }
+
+      html, body {
+        height: 100%;
+      }
+
+      body {
+        background-color: #000;
+        color: #FFF;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      pre {
+        font-size: 1.2vmin;
+        font-family: 'Fira Code', monospace;
+        font-weight: 400;
+        padding: 1em;
+        text-align: center;
+        margin: auto;
+      }
+    </style>
+
+  </head>
+  <body>
+    <pre id="pre"></pre>
+    <script>
+
+      function random(array) {
+        return array[Math.floor(fxrand() * array.length)];
+      }
+
+      // color variations
+      const colors = ['#FF0', '#0FF', '#F0F'];
+
+      const color = [
+        random(colors),
+        random(colors)
+      ]
+
+      
+      const code = `
+22222  22222  00000  22222  22222  00000  22222  22222
+    2      2  0   0      2      2  0   0      2      2
+22222  22222  0   0  22222  22222  0   0  22222  22222
+2      2      0   0  2      2      0   0  2      2    
+22222  22222  00000  22222  22222  00000  22222  22222
+      `;
+
+      
+      let character = "2 0";
+      
+      if (fxrand() < 0.5){
+        character = random([
+          "2", "#", "$", "@"
+        ]);
+      }
+
+
+      // pre.innerHTML = code;
+      pre.innerHTML = [... code]
+        .map((c, i) => {
+
+          if (c.match(/[02]/) && character != "2 0") {
+            c = character;
+          }
+          return c.fontcolor(color[1*!!(1*c)])
+        })
+        .join('');
+;
+      // pre.innerHTML = [... code[0]]
+      //   .map((c, i) => c.fontcolor(colors[1*code[1][i]]))
+      //   .join('');
+
+      window.$fxhashFeatures = {
+        'Colors': color[0] == color[1] ? color[0] : color.join(' '),
+        'Character': character
+      };
+
+      console.log($fxhashFeatures);
+
+      fxpreview();
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+id: 20260
+name: Wigglenza
+mint_opens_at: 2022-10-13T17:00:00+00:00
+generative_uri: ipfs://QmNNQoRvaWBjhGHGBQkbp9PX4wL1b3diouB4ZN9WXD3Ga1

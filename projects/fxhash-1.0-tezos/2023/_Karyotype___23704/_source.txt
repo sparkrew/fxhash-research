@@ -1,0 +1,4 @@
+id: 23704
+name: "Karyotype"
+mint_opens_at: 2023-01-16T16:30:00+00:00
+generative_uri: ipfs://QmQdNQdSBWg2MiuzWpS7u82hNfhebVFfhenvUCoNe4PYNY

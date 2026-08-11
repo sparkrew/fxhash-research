@@ -1,0 +1,4 @@
+id: 21077
+name: tWO OF US
+mint_opens_at: 2022-11-07T19:01:14+00:00
+generative_uri: ipfs://QmVJnPYwKdmWYwaEtgtw1ZdMbj7PUFxLhtLFUN9EKKGz3a

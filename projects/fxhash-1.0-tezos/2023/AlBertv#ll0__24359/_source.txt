@@ -1,0 +1,4 @@
+id: 24359
+name: AlBertv#ll0
+mint_opens_at: 2023-01-28T15:25:29+00:00
+generative_uri: ipfs://QmY8MKMCu6ADtFYQmeBMpixVeZjs5Fu7qbMDXTF9pQxUKc

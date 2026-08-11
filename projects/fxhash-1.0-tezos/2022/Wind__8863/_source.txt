@@ -1,0 +1,4 @@
+id: 8863
+name: Wind
+mint_opens_at: 2022-02-08T00:18:14+00:00
+generative_uri: ipfs://QmQhy8bSVueweY4LX6F774afjhgT8KXfshHCwnKBxjsZSw

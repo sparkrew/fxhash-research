@@ -1,0 +1,4 @@
+id: 8904
+name: Vestige
+mint_opens_at: 2022-02-08T17:03:04+00:00
+generative_uri: ipfs://QmPT5Jh3dzGSWcZUfYbtZW7qUhWBwpWwpiJHsfTRrNEBgU

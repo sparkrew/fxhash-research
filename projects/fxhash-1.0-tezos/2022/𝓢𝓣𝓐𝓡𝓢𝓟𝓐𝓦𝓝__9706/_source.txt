@@ -1,0 +1,4 @@
+id: 9706
+name: 𝓢𝓣𝓐𝓡𝓢𝓟𝓐𝓦𝓝
+mint_opens_at: 2022-02-20T18:38:00+00:00
+generative_uri: ipfs://QmSWK9nnixBdtZLCYsvZgida2NXtpbtqxQo5YwXVLMRo6c

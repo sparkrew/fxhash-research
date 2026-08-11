@@ -1,0 +1,28 @@
+{
+  "box0": {
+    "dir": "shaders/generative/simplequads.frag",
+    "name": "simplequads.frag",
+    "sc1": 0.9027922993152941,
+    "speed": 0.6437009658864186,
+    "rd": 0.10100583455521117,
+    "rdamp": 0.5603225465802131
+  },
+  "box1": {
+    "dir": "shaders/imageprocessing/edges.frag",
+    "name": "edges.frag",
+    "effect_mix": 0.4192937603153719,
+    "effect_exp": 0.44333333333333336,
+    "color_mix": 0.06,
+    "sample_size": 0.4166666666666667,
+    "brightness": 0.34
+  },
+  "box2": {
+    "dir": "shaders/imageprocessing/feedback3.frag",
+    "name": "feedback3.frag",
+    "sc": 0.61,
+    "limit": 0.46,
+    "speedx": 0.8263876930508702,
+    "speedy": 0.8330352575659004,
+    "force": 0.19333333333333333
+  }
+}

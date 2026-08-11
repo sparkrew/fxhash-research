@@ -1,0 +1,4 @@
+id: 26762
+name: Another
+mint_opens_at: 2023-04-20T18:00:00+00:00
+generative_uri: ipfs://QmcoN1MTEE3Em1vw2fDHbwMNFzy2gR5PdeyD2UoWF6GZe5

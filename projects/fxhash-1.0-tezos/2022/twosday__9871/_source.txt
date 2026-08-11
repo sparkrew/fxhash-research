@@ -1,0 +1,4 @@
+id: 9871
+name: twosday
+mint_opens_at: 2022-02-22T16:20:20+00:00
+generative_uri: ipfs://QmUnuRNbwv7CaYNRBfc2C6PoQNjCRkUz51yfNoN4WduVT7

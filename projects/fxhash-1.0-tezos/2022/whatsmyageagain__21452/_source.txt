@@ -1,0 +1,4 @@
+id: 21452
+name: whatsmyageagain
+mint_opens_at: 2022-11-16T20:45:00+00:00
+generative_uri: ipfs://QmXiCK99ZptZagfgT46WJYAonWgvUuwwqj4npCVvVA3Nct

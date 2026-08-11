@@ -1,0 +1,4 @@
+id: 6098
+name: TriFocal Point
+mint_opens_at: 2022-01-07T16:30:00+00:00
+generative_uri: ipfs://QmVkhn7pstnzPfKfkx6DjNzJzSM6NqMAF1cmUUHEjD7jpM

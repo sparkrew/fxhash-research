@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={"Background Color":$BG,"Plane Color":`HSB(${randomColorForPlane})`};

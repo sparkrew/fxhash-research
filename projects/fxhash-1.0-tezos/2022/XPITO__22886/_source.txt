@@ -1,0 +1,4 @@
+id: 22886
+name: XPITO
+mint_opens_at: 2022-12-31T13:00:00+00:00
+generative_uri: ipfs://QmcfSEczi5NpjauU9CDfm6tPAnGfo33hhF8639UGWKh3Vb

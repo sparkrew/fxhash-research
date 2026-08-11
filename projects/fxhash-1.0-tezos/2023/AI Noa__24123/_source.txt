@@ -1,0 +1,4 @@
+id: 24123
+name: AI Noa
+mint_opens_at: 2023-01-23T03:05:59+00:00
+generative_uri: ipfs://QmdHS4jx4hwPmnABqV8yyMXTGb5vv8cyfrEJTzHaU7THbz

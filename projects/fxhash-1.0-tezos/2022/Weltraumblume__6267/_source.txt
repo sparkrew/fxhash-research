@@ -1,0 +1,4 @@
+id: 6267
+name: Weltraumblume
+mint_opens_at: 2022-01-08T20:00:30+00:00
+generative_uri: ipfs://QmT622HJuX7i4xJCTiyzpjt8s2zfhVYvfmnrgha1k77rid

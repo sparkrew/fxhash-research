@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html style="background:#697999;">
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+            cursor: crosshair;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        svg {
+            pointer-events: all;
+        }
+    </style>
+    <script src="two.min.js"></script>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+</head>
+
+<body>
+    <a id="downloader" style="display: none;"></a>
+    <script>
+
+        const selectRandomValue = (values, probabilities) => {
+            if (!probabilities) return values[Math.floor(fxrand() * values.length)]
+
+            const sum = probabilities.reduce((s, p) => s + p, 0)
+            let probabilityOffset = 0
+            const normalizedProbabilities = probabilities.map(p => {
+                let probabilityStep = p / sum + probabilityOffset
+                probabilityOffset = probabilityStep
+                return probabilityStep
+            })
+            const randomValue = fxrand()
+            for (let p = 0; p < normalizedProbabilities.length; p++) {
+                if (randomValue < normalizedProbabilities[p]) {
+                    return values[p]
+                }
+            }
+        }
+
+        var rendered = false;
+        var entered = false;
+        var warped = false;
+        var lastCircle = false;
+        const pearl = fxrand() < .3;
+        const flower = pearl && fxrand() < .4;
+        const perfectCircles = !flower && fxrand() < .069;
+
+        var two = new Two({
+            type: Two.Types.svg,
+            fullscreen: true
+        }).appendTo(document.body);
+        const H = two.height;
+        const W = two.width;
+
+        const distances = []
+
+        const colorPools = [[
+            'rgb(255, 64, 64)',
+            'rgb(255, 128, 0)',
+            'rgb(255, 228, 0)',
+            'rgb(255, 244, 95)',
+            'rgb(255, 244, 195)',
+            'rgb(253, 202, 255)',
+            'rgb(153, 102, 255)',
+            'rgb(0, 200, 255)',
+            'rgb(120, 200, 255)',
+            'rgb(0, 291, 168)',
+            'rgb(0, 191, 168)',
+            'rgb(0, 101, 108)',
+            'rgb(0, 41, 48)',
+        ], [
+            'rgb(253,253,253)',
+            'rgb(253,253,253)',
+            'rgb(153,153,153)',
+            'rgb(0,0,0)',
+            'rgb(120,120,120)',
+            'rgb(0,0,0)',
+            'rgb(0,0,0)',
+        ]];
+        colorPools.push([...colorPools[0], ...colorPools[1], ...colorPools[1]]);
+        const colorPoolId = selectRandomValue([0, 1, 2], [10, 2, 4]);
+        const Palette = [
+            'Vivid',
+            'Bleak',
+            'Mixture',
+        ][colorPoolId]
+        const colors = colorPools[colorPoolId];
+
+        const paletteColorsAmount = 3;
+        let palette1 = [];
+        let palette2 = [];
+        let colorIds = [];
+        let colorIds2 = [];
+        let randomColorId;
+        for (let c = 0; c < paletteColorsAmount; c++) {
+            while (colorIds.includes(randomColorId = Math.floor(fxrand() * colors.length)));
+            colorIds.push(randomColorId)
+            palette1.push(colors[randomColorId])
+            while (colorIds2.includes(randomColorId = Math.floor(fxrand() * colors.length)));
+            colorIds2.push(randomColorId)
+            palette2.push(colors[randomColorId])
+        }
+
+        if (palette1[0] === palette1[1] && palette1[1] === palette1[2]) {
+            colorIds = [];
+            palette1 = [];
+            for (let c = 0; c < paletteColorsAmount; c++) {
+                while (colorIds.includes(randomColorId = Math.floor(fxrand() * colors.length)));
+                colorIds.push(randomColorId)
+                palette1.push(colors[randomColorId])
+            }
+        }
+        if (palette2[0] === palette2[1] && palette2[1] === palette2[2]) {
+            colorIds2 = [];
+            palette2 = [];
+            for (let c = 0; c < paletteColorsAmount; c++) {
+                while (colorIds2.includes(randomColorId = Math.floor(fxrand() * colors.length)));
+                colorIds2.push(randomColorId)
+                palette2.push(colors[randomColorId])
+            }
+        }
+
+        const dualFill = fxrand() < .5;
+        const maxColorsAmount = 2
+
+        const getRandomGradient = () => {
+            let steps = [];
+            let colorIds = [];
+            let randomColorId;
+            for (let c = 0; c < maxColorsAmount; c++) {
+                while (colorIds.includes(randomColorId = Math.floor(fxrand() * palette1.length)));
+                colorIds.push(randomColorId)
+                steps.push(new Two.Stop(c * 2, palette1[randomColorId]));
+            }
+            let gAngle = fxrand() * Math.PI * 2
+            let gX = (1 + Math.cos(gAngle)) / 2
+            let gY = (1 + Math.sin(gAngle)) / 2
+            return two.makeLinearGradient(gX, gY, 1 - gX, 1 - gY, ...steps);
+        }
+        const getRandomGradientSecondFill = () => {
+            let steps = [];
+            let colorIds = [];
+            let randomColorId;
+            for (let c = 0; c < maxColorsAmount; c++) {
+                while (colorIds.includes(randomColorId = Math.floor(fxrand() * palette2.length)));
+                colorIds.push(randomColorId)
+                steps.push(new Two.Stop(c * 2, palette2[randomColorId]));
+            }
+            let gAngle = fxrand() * Math.PI * 2
+            let gX = (1 + Math.cos(gAngle)) / 2
+            let gY = (1 + Math.sin(gAngle)) / 2
+            return two.makeLinearGradient(gX, gY, 1 - gX, 1 - gY, ...steps);
+        }
+
+        const backgroundColor = getRandomGradient();
+        var background = two.makeRectangle(W / 2, H / 2, W, H);
+        background.noStroke();
+        background.fill = backgroundColor;
+
+        two.renderer.domElement.style.background = backgroundColor;
+
+        // var radius = H / 3;
+        const variableVertices = fxrand() < .3;
+        const maxVertices = selectRandomValue([80, 180, 365], [5, 10, 1]);
+        var circleVerticesAmount = Math.ceil(fxrand() * maxVertices);
+
+        // todo caso particolare, 365 disks explosion
+        let maxRings = Math.ceil(7 + fxrand() * 35);
+        const ultraDensity = !perfectCircles && fxrand() < .05
+        const outline = selectRandomValue([0, 1, 2], [3, 2, 2])
+        const outlineSize = ultraDensity ? 0 : selectRandomValue([0, 1])
+        if (ultraDensity) maxRings = 234;
+        let rings = maxRings - 1;
+        let iteration = 0;
+        let isNew = true;
+        var circle
+        var blob
+        const blobbiness = .25 + fxrand() / 2;
+        const draw = () => {
+
+            two.bind('update', update).play();
+
+            function update() {
+                if (!entered) {
+                    if (isNew) {
+                        isNew = false;
+                        initNewBlob();
+                    }
+                    for (var i = 0; i < blob.vertices.length; i++) {
+                        var v = blob.vertices[i];
+                        var d = v.destination2;
+
+                        if (v.equals(d)) {
+                            entered = true;
+                            blob.opacity = 1;
+                            break;
+                        }
+                        if (ultraDensity) {
+                            v.x += (d.x - v.x) * .5;
+                            v.y += (d.y - v.y) * .5;
+                        } else {
+                            v.x += (d.x - v.x) * .125;
+                            v.y += (d.y - v.y) * .125;
+                        }
+                        let a = v.x - d.x
+                        let b = v.y - d.y
+                        const distance = Math.hypot(a, b)
+                        blob.opacity = 1 - distance / distances[i] * 10
+                    }
+
+                    return;
+                } else {
+
+                    if (!warped) {
+                        if (isNew) {
+                            isNew = false;
+                            initNewBlob();
+                        }
+                        for (var i = 0; i < blob.vertices.length; i++) {
+                            var v = blob.vertices[i];
+                            var d = v.destination;
+
+                            if (v.equals(d)) {
+                                warped = true;
+                                break;
+                            }
+
+                            v.x += (d.x - v.x) * .125;
+                            v.y += (d.y - v.y) * .125;
+                        }
+
+                        return;
+                    } else {
+
+                        if (rings > 3) {
+                            entered = false;
+                            warped = false;
+                            isNew = true;
+                            rings -= 3;
+                            iteration++;
+                            if (rings <= 3) { lastCircle = true }
+                        } else {
+                            if (!rendered) {
+                                rendered = true;
+                                console.log('renderend')
+                                fxpreview()
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            function initNewBlob() {
+                if (variableVertices) circleVerticesAmount = fxrand() * maxVertices;
+                if (lastCircle) {
+                    circleVerticesAmount = selectRandomValue([3, 4])
+                }
+                circle = new Two.Circle(0, 0, 10, circleVerticesAmount);
+                blob = new Two.Path(circle.vertices);
+                blob.fill = dualFill ? iteration % 2 === 0 ? getRandomGradientSecondFill() : getRandomGradient() : getRandomGradient();
+
+                if (outline > 0) {
+                    blob.stroke = outline === 1 ? '#000' : '#fff';
+                    blob.linewidth = outlineSize === 0 ? 1.0 : 2.0;
+                } else {
+                    blob.noStroke();
+                }
+
+                blob.closed = true;
+                blob.curved = true;
+                blob.automatic = true;
+
+                two.add(blob);
+
+                blob.translation.set(W / 2, H / 2);
+
+                entered = false;
+                warped = false;
+                let size = Math.min(H, W);
+                let flatRadius = (rings * (size / maxRings) / 2);
+                for (let i = 0; i < blob.vertices.length; i++) {
+                    let vit = (1 + i) / blob.vertices.length;
+                    let theta = 2 * Math.PI * vit;
+                    let radius = (size * (rings / maxRings) / 2 + (.5 - fxrand()) * (blobbiness * (size / maxRings)));
+                    if (flower) radius = (size * (rings / maxRings) / 2 + (.5 - fxrand()) * (size * blobbiness * (rings / maxRings)));
+                    let x = radius * Math.cos(theta);
+                    let y = radius * Math.sin(theta);
+                    let vertex = blob.vertices[i];
+                    vertex.set(0 * Math.cos(theta), 0 * Math.sin(theta));
+                    vertex.destination = new Two.Vector(x, y);
+                    vertex.destination2 = new Two.Vector(flatRadius * Math.cos(theta), flatRadius * Math.sin(theta));
+                    var a = W / 2 - vertex.destination2.x;
+                    var b = H / 2 - vertex.destination2.y;
+                    let d = Math.hypot(a, b)
+                    distances.push(d)
+                    if (lastCircle && pearl) vertex.destination = new Two.Vector(flatRadius * Math.cos(theta), flatRadius * Math.sin(theta));
+                    if (perfectCircles) vertex.destination = vertex.destination2;
+                    vertex.step = Math.sqrt(fxrand()) + 2;
+                }
+
+            }
+        }
+
+        draw();
+        let outlineFeature = 'Invisible';
+        if (outline > 0) {
+            if (outline === 1) {
+                outlineFeature = 'Dark & '
+            } else if (outline === 2) {
+                outlineFeature = 'Light & '
+            }
+            if (outlineSize === 0) {
+                outlineFeature += 'thin'
+            } else {
+                outlineFeature += 'thick'
+            }
+        }
+        // add perfect circles when dualFill === false
+        const features = {
+            'Variable Vertices': variableVertices,
+            'Max Vertices': maxVertices,
+            'Ultra Density': ultraDensity,
+            'Dual Fill': dualFill,
+            'Pearl': pearl,
+            'Blast': flower,
+            'Palette': Palette,
+            'C': perfectCircles,
+            'Outline': outlineFeature,
+        }
+        window.$fxhashFeatures = features
+        console.table({ fxhash, ...features })
+
+        const exportSVG = () => {
+            let svg = document.querySelector('svg').outerHTML;
+
+            if (!svg.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) svg = svg.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+            if (!svg.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) svg = svg.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+            svg = '<?xml version="1.0" standalone="no"?>\r\n' + svg;
+            const blob = new Blob([svg.toString()]);
+            const element = document.createElement("a");
+            element.download = `${fxhash}_${new Date().getTime()}.svg`;
+            element.href = window.URL.createObjectURL(blob);
+            element.click();
+            element.remove();
+        }
+
+        const renderer = document.querySelector('svg');
+        renderer.onclick = exportSVG;
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+id: 9961
+name: Vandals PFP Club
+mint_opens_at: 2022-02-26T06:01:54+00:00
+generative_uri: ipfs://QmdkkgWiUQ3ctAk3awQVyTSqYpmPwhuERk4WNNxzCg4WH1

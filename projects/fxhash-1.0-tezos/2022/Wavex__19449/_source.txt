@@ -1,0 +1,4 @@
+id: 19449
+name: Wavex
+mint_opens_at: 2022-09-15T17:13:14+00:00
+generative_uri: ipfs://QmQ1rjuyGeRc3vtXqrE5rsM6E2HgdYvdgrwSHKSn4nptZe

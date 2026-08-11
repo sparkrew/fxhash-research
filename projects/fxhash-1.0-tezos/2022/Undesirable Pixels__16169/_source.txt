@@ -1,0 +1,4 @@
+id: 16169
+name: Undesirable Pixels
+mint_opens_at: 2022-07-11T15:12:14+00:00
+generative_uri: ipfs://QmRAUGjaUY3AP1BeWTKWM5vmfScMhTmbfZipgZXa3SpGbH

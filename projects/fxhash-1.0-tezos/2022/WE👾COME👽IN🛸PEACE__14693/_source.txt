@@ -1,0 +1,4 @@
+id: 14693
+name: WE👾COME👽IN🛸PEACE
+mint_opens_at: 2022-06-12T08:04:59+00:00
+generative_uri: ipfs://QmQs5MaMHPMCeZPRhkmaWTnTWbdHK2VqWK3Mc3RbxuDxzw

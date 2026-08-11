@@ -1,0 +1,4 @@
+id: 24017
+name: AI Coline
+mint_opens_at: 2023-01-21T17:30:00+00:00
+generative_uri: ipfs://QmTV4EkxVRVdbHRQZqUhXGreVg5KrCWrdGeMr5vAZjDvNL

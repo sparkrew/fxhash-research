@@ -1,0 +1,4 @@
+id: 10706
+name: Wolf-soldier
+mint_opens_at: 2022-03-14T18:23:44+00:00
+generative_uri: ipfs://QmU3APoGmi4J68EEfWw14BjBhFtMZjU3jRF1C8rowGRbh6

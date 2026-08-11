@@ -1,0 +1,4 @@
+id: 26713
+name: A Simple Test
+mint_opens_at: 2023-04-20T15:05:00+00:00
+generative_uri: ipfs://QmZaeEy5CJztpz9ckdYruD7W4QqBykAxQccBXLwMxVEvAD

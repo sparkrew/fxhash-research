@@ -1,0 +1,4 @@
+id: 8559
+name: 💀ACID SKULL🌈
+mint_opens_at: 2022-02-03T08:58:16+00:00
+generative_uri: ipfs://QmaESgYtiSfvkG6HDsYJPTt6oai9YzDJ91QggCwWxTdF8s

@@ -1,0 +1,4 @@
+id: 12694
+name: Verse-Hill
+mint_opens_at: 2022-05-09T13:00:00+00:00
+generative_uri: ipfs://QmcKEzJbWHP8aLKvVGHLuLa7qLdMsMD6aFiuGkXk94Cmto

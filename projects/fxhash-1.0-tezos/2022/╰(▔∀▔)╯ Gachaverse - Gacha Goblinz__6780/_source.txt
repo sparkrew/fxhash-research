@@ -1,0 +1,4 @@
+id: 6780
+name: ╰(▔∀▔)╯ Gachaverse - Gacha Goblinz
+mint_opens_at: 2022-01-13T06:04:20+00:00
+generative_uri: ipfs://QmZRnCkPd5TNskkQosYvrdypW6s2haUq4Ac54to4pPKjsm

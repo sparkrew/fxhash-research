@@ -1,0 +1,4 @@
+id: 9453
+name: 𝕘𝕣𝕒𝕕𝕦𝕒𝕥𝕚𝕠𝕟
+mint_opens_at: 2022-02-16T04:09:44+00:00
+generative_uri: ipfs://Qmbnjfw1VYP4AN6Lc8jkPtRmA63WDJnMzJh7XAwi7Avd9P

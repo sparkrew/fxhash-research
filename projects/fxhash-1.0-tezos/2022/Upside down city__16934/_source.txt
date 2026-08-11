@@ -1,0 +1,4 @@
+id: 16934
+name: Upside down city
+mint_opens_at: 2022-07-24T13:26:14+00:00
+generative_uri: ipfs://QmWLiDagZAYd2wEUEMH1mNoud4Gq17SpgGGiwQs1wW8Wbj

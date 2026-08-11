@@ -1,0 +1,4 @@
+id: 10202
+name: VANDAL SKULL
+mint_opens_at: 2022-03-02T01:15:34+00:00
+generative_uri: ipfs://QmYsmWhoxwda6DpoKqeeS6UEVkxDoysLFa2dVmWbJA73Lg

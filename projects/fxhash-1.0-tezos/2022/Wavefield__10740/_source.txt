@@ -1,0 +1,4 @@
+id: 10740
+name: Wavefield
+mint_opens_at: 2022-03-14T21:27:14+00:00
+generative_uri: ipfs://QmNhJz616ytFw4mVQjC4JtXuBaRajJNDuzQgDf39rRKrMh

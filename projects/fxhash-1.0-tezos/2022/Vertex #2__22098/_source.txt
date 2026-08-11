@@ -1,0 +1,4 @@
+id: 22098
+name: Vertex #2
+mint_opens_at: 2022-12-22T13:40:00+00:00
+generative_uri: ipfs://QmW6PGV4orKaCgcSxqAiZuU4aTvgWonoLsQ1XY8c8Mux6G

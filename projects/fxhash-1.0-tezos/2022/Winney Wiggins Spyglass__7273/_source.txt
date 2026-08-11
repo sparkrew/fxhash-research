@@ -1,0 +1,4 @@
+id: 7273
+name: Winney Wiggins Spyglass
+mint_opens_at: 2022-01-18T15:23:30+00:00
+generative_uri: ipfs://Qma7GZzs1L8mRNKvnQx317TZLnAhwdoGNv5cW1T2S5C1K8

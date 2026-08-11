@@ -1,0 +1,4 @@
+id: 11809
+name: último día de verano
+mint_opens_at: 2022-04-23T01:20:14+00:00
+generative_uri: ipfs://QmRzPiEg4sWJ6cd9zyMFY7YPGYdiNMazZ1NmB7WQrUuYyt

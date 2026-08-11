@@ -1,0 +1,32 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(10, 10, 10);
+}
+
+body > svg {
+  overflow: hidden;
+}
+
+@media (max-width: 1060px) {
+  body > svg {
+    width: 100vw;
+    height: auto;
+  }
+}
+
+@media (min-width: 1061px) {
+  body > svg {
+    width: auto;
+    height: 100vh;
+  }
+}

@@ -1,0 +1,4 @@
+id: 20598
+name: ᑮՕᗯ𝒆𝘳 ⵏﺂꞑ𝒆Ś 𝜶𝘳𝔱ﺂẝ𝜶Ҫ𝔱 nīn℮ߙ𝒆𝒆ꞑ
+mint_opens_at: 2022-10-23T03:37:14+00:00
+generative_uri: ipfs://QmURtesFjWtgMRVRwfdSMeJLs7npF8tziR15ye5SaEReTY

@@ -1,0 +1,4 @@
+id: 10465
+name: ∞_ET3RNAL_∞
+mint_opens_at: 2022-03-08T10:10:14+00:00
+generative_uri: ipfs://Qmbj58kAzYcEXc3XZ6rr9oEEgtE3bC3VJsPuivS3VQ6wib

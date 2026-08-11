@@ -1,0 +1,4 @@
+id: 7769
+name: Watch Collector
+mint_opens_at: 2022-01-22T14:03:00+00:00
+generative_uri: ipfs://QmT6AjSFUBSemLKAem7TBRashxaScPUzAebiDGKkwL6FzJ

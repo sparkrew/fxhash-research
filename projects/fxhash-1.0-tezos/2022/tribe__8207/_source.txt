@@ -1,0 +1,4 @@
+id: 8207
+name: tribe
+mint_opens_at: 2022-01-29T00:31:58+00:00
+generative_uri: ipfs://Qme4tpAnNuMrLJZWphUA2kLV4VstzBHkV89BypPcUmDbUA

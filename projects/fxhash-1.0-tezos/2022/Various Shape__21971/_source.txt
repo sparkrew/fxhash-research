@@ -1,0 +1,4 @@
+id: 21971
+name: Various Shape
+mint_opens_at: 2022-11-30T18:55:14+00:00
+generative_uri: ipfs://QmY4ESxZDAT1HGVy1RQEtQaGms8FGw72cnS78WgSQDZN4g

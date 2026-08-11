@@ -1,0 +1,4 @@
+id: 14232
+name: Witch Doctor
+mint_opens_at: 2022-06-05T18:07:44+00:00
+generative_uri: ipfs://QmWj5qbUZeNABNVEhuhtLz2k7opQdvE91net9iiQG74aZ1

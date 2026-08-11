@@ -1,0 +1,14 @@
+body {
+  background-color: grey;
+
+  /* leave it to hide the scrollbars */
+  position:absolute;
+  left:0px;
+  top:0px;
+
+  overflow: hidden;
+  margin: 0;
+  justify-content: center;
+  align-content: center;
+  display: flex
+}

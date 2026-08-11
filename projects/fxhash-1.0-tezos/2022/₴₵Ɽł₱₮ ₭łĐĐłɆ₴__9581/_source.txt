@@ -1,0 +1,4 @@
+id: 9581
+name: ₴₵Ɽł₱₮ ₭łĐĐłɆ₴
+mint_opens_at: 2022-02-17T09:57:40+00:00
+generative_uri: ipfs://QmeMgCDCkFZq5ntmy5WNLGSc63uC3innS8YoBE9MWxGYse

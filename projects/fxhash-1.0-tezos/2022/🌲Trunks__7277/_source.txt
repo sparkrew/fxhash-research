@@ -1,0 +1,4 @@
+id: 7277
+name: 🌲Trunks
+mint_opens_at: 2022-01-18T18:28:00+00:00
+generative_uri: ipfs://QmQjMNNtyqH21om8Gurjyg15MTQWAGyEjS3hrVwJBCJULt

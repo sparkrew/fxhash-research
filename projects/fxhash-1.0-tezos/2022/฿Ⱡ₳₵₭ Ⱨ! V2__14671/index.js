@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Places:backgroundRare,"Black Hat":bodyRare,Vision:eyeRare,"Hair Style":hairRare};

@@ -1,0 +1,23 @@
+body {
+  
+
+  overflow: hidden;
+    margin: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    
+}
+
+
+
+canvas {
+  min-width: min(100vw, 100vh);
+  min-height: min(100vw, 100vh);
+  max-width: min(100vw, 100vh);
+  max-height: min(100vw, 100vh);
+
+}
+
+
+

@@ -1,0 +1,4 @@
+id: 21679
+name: Whale
+mint_opens_at: 2022-11-20T19:09:00+00:00
+generative_uri: ipfs://QmR5KQADbcaZfUJPNxE2VKwVWa6kTWbqJZDfoCx1Ztauhz

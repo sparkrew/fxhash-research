@@ -1,0 +1,4 @@
+id: 16681
+name: voie de communication
+mint_opens_at: 2022-07-20T10:00:00+00:00
+generative_uri: ipfs://QmPyejKKy1h8aE14fQaMfbsYNipdhVkqXTqhmsbtG5yNiu

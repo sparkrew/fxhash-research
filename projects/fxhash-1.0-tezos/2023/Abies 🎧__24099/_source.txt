@@ -1,0 +1,4 @@
+id: 24099
+name: Abies 🎧
+mint_opens_at: 2023-01-23T00:30:00+00:00
+generative_uri: ipfs://QmRbWtNF7p5WRNzFU4mj32t3m2E5shsBHebG7rypNwHg7K

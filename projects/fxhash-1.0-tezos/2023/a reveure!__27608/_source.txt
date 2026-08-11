@@ -1,0 +1,4 @@
+id: 27608
+name: a reveure!
+mint_opens_at: 2023-07-17T09:05:00+00:00
+generative_uri: ipfs://QmPBPeyRmnr5ZDJy8UJt7ZbmRX7sD82utiYK31g5ohAKEe

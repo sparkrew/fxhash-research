@@ -1,0 +1,4 @@
+id: 7062
+name: Very Large Array
+mint_opens_at: 2022-01-15T00:45:00+00:00
+generative_uri: ipfs://QmWuZxiU9GkWoH5dLXef2xZZudkGMpQoLezqpdpW4fPRfW

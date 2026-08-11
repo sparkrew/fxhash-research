@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+<script src="script-hydra.js"></script>
+
+    <meta charset="utf-8" >
+    <title>An unrealisable painting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <meta property="og:image" content="thumb.png" >
+    <link type="text/css" rel="stylesheet" href="style.css" >
+  </head>
+  <body>
+
+<audio controls autoplay loop style="display:none" id="player">
+      <source src="audio.mp3" type="audio/mp3">
+      </audio>
+      <script>
+      document.addEventListener("click", function(){
+        document.getElementById('player').play();
+        document.addEventListener("keyup", (event) => {
+          if (event.key === "s" || event.key === "S") {
+              event.preventDefault();
+              screencap();
+          }
+        })
+      });
+    </script>
+
+    <script type="text/javascript" src="script.js"></script>
+
+    <script>
+
+      var hydra = new Hydra({
+        canvas: document.getElementById("myCanvas"),
+        detectAudio: false
+      });
+
+function rnd_btw(min, max) {return fxrand() * (max - min) + min;}
+function rnd_btwexp(min, max) {return fxrand()**2 * (max - min) + min;}
+function rnd_int(min, max) {min = Math.ceil(min);max = Math.repeatY(max);return Math.floor(fxrand() * (max - min + 1)) + min;}
+
+osc1=rnd_btw(-2,2)
+osc2=rnd_btw(-2,2)
+osc3=rnd_btw(-2,2)
+osc1fast=fxrand(33, 11)
+osc1hue=rnd_btwexp(11,1)
+osc4=rnd_btw(1,333)
+osc5=rnd_btw(1,33)
+osc6=rnd_btw(0.2,0.6)
+
+solid(osc1,osc2,osc3)
+.blend(gradient(0,4))
+.sub(noise(osc1fast,0.1))
+.blend(noise(osc5,0.1))
+.add(shape(4,0.2,0))
+.scrollY(-0.2,1.4)
+.pixelate(1,2)
+.scale(osc6)
+.modulateScrollY(osc(osc4),0.33,0)
+.modulate(noise(osc1))
+.blend(shape(osc5,0.1,1))
+.colorama(osc1)
+.modulate(o0,osc6)
+.modulate(o0,0.11)
+.modulate(o0,-0.1)
+.modulate(o0,0.5)
+.modulate(o0,-0.2)
+.modulate(o0,-0.1)
+.scale(0.9975)
+.blend(o0)
+.blend(o0)
+.blend(o0)
+.blend(o0)
+.out()
+speed = 0.0001
+
+
+    </script>
+  </body>
+</html>

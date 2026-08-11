@@ -1,0 +1,4 @@
+id: 21273
+name: Unrealistic Wiring Plans
+mint_opens_at: 2022-11-14T18:10:00+00:00
+generative_uri: ipfs://QmbNJDNTpDyfJZxtM4E8M5yffshjPpjQ7o8dhVLnRYMVe1

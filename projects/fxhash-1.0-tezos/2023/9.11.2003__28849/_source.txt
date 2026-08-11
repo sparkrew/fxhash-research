@@ -1,0 +1,4 @@
+id: 28849
+name: 9.11.2003
+mint_opens_at: 2023-09-11T12:11:00+00:00
+generative_uri: ipfs://QmfLUkSAYYMFqtcudSymRP9EbZVDqAPUjHwLynqhfL34c7

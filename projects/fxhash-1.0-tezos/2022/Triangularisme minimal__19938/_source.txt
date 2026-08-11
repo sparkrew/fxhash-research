@@ -1,0 +1,4 @@
+id: 19938
+name: Triangularisme minimal
+mint_opens_at: 2022-09-29T16:44:14+00:00
+generative_uri: ipfs://QmNX7WW2gEkaRmR6PYtHiYBHUy2TL5azAmAGxyzvzQyAAE

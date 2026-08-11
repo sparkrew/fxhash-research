@@ -1,0 +1,4 @@
+id: 29161
+name: ArtBud
+mint_opens_at: 2023-10-11T16:00:00+00:00
+generative_uri: ipfs://QmUKWs6vPnVE6weZEuVnZrTsM6QfzzLiFVbXUZ5cxXCPNQ

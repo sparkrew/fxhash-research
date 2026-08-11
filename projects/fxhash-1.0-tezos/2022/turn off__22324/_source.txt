@@ -1,0 +1,4 @@
+id: 22324
+name: turn off
+mint_opens_at: 2022-12-10T01:10:14+00:00
+generative_uri: ipfs://QmfFGAUQL6tVpaUbXTbifv68bQVSPqyvEMn7ECixSyeUQU

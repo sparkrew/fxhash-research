@@ -1,0 +1,59 @@
+html, body {
+  width:100%;
+  height:100%;
+  margin:0;
+}
+body {
+  background-color: #FFFFFF;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+  text-align:center;
+}
+#container{
+  max-width:1024px;
+  max-height:1024px;
+  margin:0 auto;
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+#backgrnd{
+  position:absolute;
+  background-repeat:no-repeat;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  background-size: cover;
+}
+#backalpha{
+  position:absolute;
+  background-repeat:no-repeat;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  background-size: cover;
+  opacity:0.5;
+}
+#backmask{
+  position:absolute;
+  background-repeat:no-repeat;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  background-size: cover;
+  opacity:0.5;
+}
+.object{
+  position:absolute;
+  background-repeat:no-repeat;
+  width:25%;
+  height:25%;/**/
+  background-size: contain;
+}

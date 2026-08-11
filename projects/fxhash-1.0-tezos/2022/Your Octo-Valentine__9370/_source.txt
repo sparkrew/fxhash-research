@@ -1,0 +1,4 @@
+id: 9370
+name: Your Octo-Valentine
+mint_opens_at: 2022-02-14T12:09:34+00:00
+generative_uri: ipfs://QmPbZWzWxo8z6wqoJJaZzKprtkSDWZ7p5KW9byaCuWhyjV

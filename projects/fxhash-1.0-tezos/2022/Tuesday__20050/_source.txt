@@ -1,0 +1,4 @@
+id: 20050
+name: Tuesday
+mint_opens_at: 2022-10-04T18:03:29+00:00
+generative_uri: ipfs://QmaX5YZ6UEs8Hp53NPmTjbZZV83heBDGmVKGPjC3iGMTPe

@@ -1,0 +1,4 @@
+id: 7396
+name: tz - one
+mint_opens_at: 2022-01-18T22:10:00+00:00
+generative_uri: ipfs://QmZLfXDz8qYHnJJNyCof3PX7s31M91JY2LvLp7ZuyuoJQT

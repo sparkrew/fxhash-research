@@ -1,0 +1,4 @@
+id: 7995
+name: V A P O R W A V E DREAM GENERATOR
+mint_opens_at: 2022-01-27T00:44:58+00:00
+generative_uri: ipfs://QmSVvj1Cu45rYRuYjWqQcKWcAge2c4LH9t2jQeeZFZQdSV

@@ -1,0 +1,4 @@
+id: 9388
+name: Void Wind
+mint_opens_at: 2022-02-15T06:02:24+00:00
+generative_uri: ipfs://QmefVCcasQazKbsAoqooF5mn2NPjaDnT4yfg6LvTZ4G2SM

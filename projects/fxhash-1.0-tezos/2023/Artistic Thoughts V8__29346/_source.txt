@@ -1,0 +1,4 @@
+id: 29346
+name: Artistic Thoughts V8
+mint_opens_at: 2023-10-31T02:28:12+00:00
+generative_uri: ipfs://QmXv1TYGQ8pAAkhbZXrRV1Vc8ayPS98FbqtZ7DpF5P79Ar

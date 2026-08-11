@@ -1,0 +1,4 @@
+id: 19338
+name: Weaver
+mint_opens_at: 2022-09-14T13:22:00+00:00
+generative_uri: ipfs://QmUeCLVUAzZomw5rGsVrHFNAHFxSxnoQH9D4cLieaXsik3

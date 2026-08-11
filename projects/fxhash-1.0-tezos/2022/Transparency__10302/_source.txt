@@ -1,0 +1,4 @@
+id: 10302
+name: Transparency
+mint_opens_at: 2022-03-04T20:41:54+00:00
+generative_uri: ipfs://QmQjt2BEKN2uHnnRB1UMthxJCS2PKTZQ3eSL38sc9opovb

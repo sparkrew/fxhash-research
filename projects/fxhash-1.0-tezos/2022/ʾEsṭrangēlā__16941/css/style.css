@@ -1,0 +1,32 @@
+html, body {
+  width:100vw;
+  height:100vh;
+  margin:0;
+  padding:0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #080808;
+}
+
+@font-face {
+  font-family: "talada-unifont";
+  src: url("./fonts/SyrCOMTalada.otf") format("opentype");
+  unicode-range: U+0700-074F;
+}
+
+@font-face {
+  font-family: "talada-unifont";
+  src: url("./fonts/unifont-14.0.04.otf") format("opentype");
+  unicode-range: U+2190-21FF, U+27F0-27FF, U+2900-297F;
+}
+
+span {
+  font-family: 'talada-unifont';
+  font-size: 240px;
+}
+
+.z-layer:not(:first-child) {
+  color: #080808;
+}

@@ -1,0 +1,4 @@
+id: 6076
+name:   Voice of life
+mint_opens_at: 2022-01-07T15:17:50+00:00
+generative_uri: ipfs://QmV2GTVZ5qpFie8sVgDUVvK9byYv1HXc5iuW85h6mtdjgw

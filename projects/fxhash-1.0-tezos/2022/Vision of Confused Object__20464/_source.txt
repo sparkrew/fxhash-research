@@ -1,0 +1,4 @@
+id: 20464
+name: Vision of Confused Object
+mint_opens_at: 2022-10-17T23:01:59+00:00
+generative_uri: ipfs://QmcaKJ7ujP2jmSD6whX65Ux1g78D4SLRccLbV5r8kMtAQu

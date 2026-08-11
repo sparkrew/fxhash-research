@@ -1,0 +1,4 @@
+id: 11249
+name: WindowGrill
+mint_opens_at: 2022-04-17T00:18:59+00:00
+generative_uri: ipfs://QmQ86AD3i7AyfzbJorKnJ491iHP3fG91xaEcnwxxAy1Yhe

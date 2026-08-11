@@ -1,0 +1,4 @@
+id: 19038
+name: Trying to Express Myself
+mint_opens_at: 2022-09-13T20:20:00+00:00
+generative_uri: ipfs://QmSzLTZyDbAgE6UMoFQfari2tAmXrsng2JtCVTm783wZYV

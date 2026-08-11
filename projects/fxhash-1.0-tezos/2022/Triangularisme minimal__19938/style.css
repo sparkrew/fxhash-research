@@ -1,0 +1,73 @@
+html,
+body {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: rgb(22, 22, 22);
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8em;
+}
+
+canvas {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#fullScreen {
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+#fullScreen canvas {
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#progress {
+  color: rgb(249, 249, 249);
+  opacity: 0.75;
+  background-color: rgb(23, 23, 23);
+  border-radius: 25px;
+  padding-top: 0%;
+  width: 33.3%;
+  height: auto;
+  position: fixed;
+  text-align: center;
+  /* justify-content: center; */
+  /* align-items: center; */
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#progress h2 {
+  display: block;
+  color: rgb(239, 239, 239);
+  margin: 5%
+}
+
+#progress p {
+  display: block;
+  margin: 5%
+}
+
+#progress hr {
+  width: 100%;
+  margin-bottom:10%
+}

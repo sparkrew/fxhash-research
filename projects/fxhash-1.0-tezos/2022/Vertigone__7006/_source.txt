@@ -1,0 +1,4 @@
+id: 7006
+name: Vertigone
+mint_opens_at: 2022-01-15T02:02:50+00:00
+generative_uri: ipfs://QmYXdV39NxUCHJf5FmpyyvHdKt6NvtFuTJKRZo3fFGodvW

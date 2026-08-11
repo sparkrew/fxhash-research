@@ -1,0 +1,4 @@
+id: 12423
+name: Voxel Temple
+mint_opens_at: 2022-05-04T23:00:00+00:00
+generative_uri: ipfs://QmXps9jzSDDFS578e4n3KM6iWKx7s56CHfhNzJLgcAxyLZ

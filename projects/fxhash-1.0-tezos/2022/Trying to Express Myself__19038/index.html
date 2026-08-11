@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" >
+	<title>Trying to Express Myself</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" >
+	<link type="text/css" rel="stylesheet" href="style.css" >
+	<script src="svg.min.js"></script>
+	<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+	<style>
+		body {
+		  background-color: #eee;
+		  overflow: hidden;
+		}
+		body:before {
+			content: "";
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 10;
+			width: 100%;
+			height: 100%;
+			mix-blend-mode: screen;
+			opacity: 0.25;
+			background: linear-gradient(115deg, transparent 75%, rgba(0, 0, 0,.8) 75%) 0 0,
+						linear-gradient(245deg, transparent 75%, rgba(0, 0, 0,.8) 75%) 0 0,
+						linear-gradient(115deg, transparent 75%, rgba(0, 0, 0,.8) 75%) 3px -6px,
+						linear-gradient(245deg, transparent 75%, rgba(0, 0, 0,.8) 75%) 3px -6px, #333;
+						background-size: 6px 12px;
+		}
+		body:after {
+			content: "";
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 10;
+			width: 100%;
+			height: 100%;
+			mix-blend-mode: soft-light;
+			opacity: 0.34;
+			filter: grayscale(1);
+			background: linear-gradient(115deg, rgb(211, 255, 215) 0%, rgb(0, 0, 0) 100%), radial-gradient(90% 100% at 50% 0%, rgb(200, 200, 200) 0%, rgb(22, 0, 45) 100%), radial-gradient(100% 100% at 80% 0%, rgb(250, 255, 0) 0%, rgb(36, 0, 0) 100%), radial-gradient(150% 210% at 100% 0%, rgb(112, 255, 0) 0%, rgb(20, 175, 125) 0%, rgb(0, 10, 255) 100%), radial-gradient(100% 100% at 100% 30%, rgb(255, 77, 0) 0%, rgba(0, 200, 255, 1) 100%), linear-gradient(60deg, rgb(255, 0, 0) 0%, rgb(120, 86, 255) 100%);
+		background-blend-mode: multiply, screen, difference, difference, difference, normal;
+		}
+		svg {
+		  background-color: #fcfcfc;
+		  transform: scale(0.25) translate(-200%, -200%);
+		  position: absolute;
+		  left: 50%;
+		  top: 50%;
+		  border: 24px solid #f7f7f7;
+		}
+		@media (min-width: 720px) {
+			svg {
+			  transform: scale(0.34) translate(-150%, -150%);
+			}
+		}
+		@media (min-width: 960px) {
+			svg {
+			  transform: scale(0.67) translate(-75%, -75%);
+			}
+		}
+		@media (min-width: 1200px) {
+			svg {
+			  transform: scale(0.5) translate(-100%, -100%);
+			}
+		}
+		
+	</style>
+</head>
+<body oncontextmenu="download(draw.svg(), 'svg', 'between-the-lines.svg')">
+	<script>
+
+		switch ( randomBetween(0, 2) ) {
+			case 0:
+				var width = 1200
+				var height = 1600
+			break
+			case 1:
+				var width = 1600
+				var height = 1200
+			break
+			default:
+				var width = 1200
+				var height = 1200
+		}
+
+		var gap = 8*randomBetween(4, 8)
+		var grid = 12
+		var col = (width-gap*(grid-1))/grid
+		var row = (height-gap*(grid-1))/grid
+		var colors = [
+			{
+				primary: '#A74235', 
+				secondary: '#99AFCC' 
+			}, 
+			{
+				primary: '#3566A7', 
+				secondary: '#CD9E98' 
+			}, 
+			{
+				primary: '#e9e9e9', 
+				secondary: '#797979' 
+			}, 
+			{
+				primary: '#797979', 
+				secondary: '#e9e9e9' 
+			}
+		]
+		var ver = randomBetween(0, colors.length-1)
+		
+		function rows (rows) { return rows*row + (rows-1)*gap + gap }
+		function cols (cols) { return cols*col + (cols-1)*gap + gap }
+		function randomBetween (min, max) { return Math.floor(fxrand() * (max - min + 1)) + min }
+		function randomPlusMinus () { return fxrand() < 0.5 ? -1 : 1 }
+		function download(text, fileType, fileName) {
+			var blob = new Blob([text], { type: fileType })
+			var a = document.createElement('a')
+			a.download = fileName
+			a.href = URL.createObjectURL(blob)
+			a.dataset.downloadurl = [fileType, a.download, a.href].join(':')
+			a.style.display = "none"
+			document.body.appendChild(a)
+			a.click()
+			document.body.removeChild(a)
+			setTimeout( function() { URL.revokeObjectURL(a.href) }, 1500)
+		}	
+
+		var draw = SVG().addTo('body').size(width, height)
+		var background = draw.rect(width, height).fill(colors[ver].secondary)
+		
+		var sun = draw.circle(cols(2)).fill(colors[ver].primary)
+		sun.move(cols(randomBetween(1, 3)*3)-sun.width()/2-gap/2, rows(9)-sun.height()/2-gap/2)
+
+		var moon = draw.path('M 62.8 18 c -6.9 3.9 -13.3 8.7 -19.2 14.5 c -34.2 34.2 -34.2 89.7 0 123.9 s 89.7 34.2 123.9 0 c 5.8 -5.8 10.7 -12.3 14.5 -19.2 c -33.4 18.7 -76.3 13.9 -104.7 -14.5 c -28.4 -28.4 -33.2 -71.3 -14.5 -104.7 z').fill(colors[ver].primary)
+		moon.move(cols(randomBetween(1, 3)*3)-moon.width()/2-gap/2, rows(3)-moon.height()/2-gap/2)
+
+		var birds = draw.path('M 26.5 45 L 22.7 17.7 L 1 0.7 L 26.5 11.1 L 52 0.8 L 30.3 17.7 L 26.5 45 Z').fill(colors[ver].primary)
+
+		birds.move(cols(randomBetween(3, 9))-birds.width()/2-gap/2, rows(randomBetween(3, 9))-birds.height()/2-gap/2)
+		for(var i = 0; i < randomBetween(gap/4, gap); i++) {
+		  draw.use(birds).move(randomPlusMinus()*cols(randomBetween(0, 6)), randomPlusMinus()*rows(randomBetween(0, 6))).transform({ scale: randomBetween(1, 3)*.25 })
+		}
+ 
+		var ground = draw.circle(cols(randomBetween(12, 24))).fill('transparent').stroke(colors[ver].primary).attr('stroke-width', 2)
+			ground.move(randomPlusMinus()*ground.width()/2-gap/2, randomPlusMinus()*ground.height()/2-gap/2)			
+			for(var i = 0; i < gap; i++) {
+			  draw.use(ground).fill('transparent').move(
+			  	randomPlusMinus()*cols(randomBetween(0, 12)), 
+			  	randomPlusMinus()*rows(randomBetween(0, 12))
+			  ).transform({ scale: randomBetween(1, 1)*1 })
+			}
+
+		var flower = draw.group()
+			flower.path('M 24 41 L 37.9 25 L 44.8 5 L 24 0.9 L 3.2 5 L 10.1 25 L 24 41 Z')
+			flower.line(24, 24, 24, 128).stroke(colors[ver].primary)
+			flower.path('M34 80L38.5 85.32L41 92L34 93.5L27 92L29.5 85L34 80Z').fill(colors[ver].primary)
+			flower.path('M14 56L18.5 61.32L21 68L14 69.5L7 68L9.5 61L14 56Z')
+			flower.move(cols(randomBetween(3, 9))-flower.width()/2-gap/2, rows(randomBetween(0, 12))-flower.height()/2-gap/2).fill(colors[ver].primary).attr('stroke-width', 4).transform({ rotate: randomBetween(0, 360) })
+
+		var flower2 = draw.group()
+			flower2.path('M 24 0 L 33.5 11 L 47 16.5 L 39.5 29 L 38 43.5 L 24 40.1 L 10 43.5 L 8.5 29 L 1 16.5 L 14.5 11 L 24 0 Z')
+			flower2.line(24, 24, 24, 128).stroke(colors[ver].primary)
+			flower2.path('M34 80L38.5 85.32L41 92L34 93.5L27 92L29.5 85L34 80Z').fill(colors[ver].primary)
+			flower2.path('M14 56L18.5 61.32L21 68L14 69.5L7 68L9.5 61L14 56Z')
+			flower2.move(cols(randomBetween(3, 9))-flower2.width()/2-gap/2, rows(randomBetween(0, 12))-flower2.height()/2-gap/2).fill(colors[ver].primary).attr('stroke-width', 4).transform({ rotate: randomBetween(0, 360) })
+
+		var flower3 = draw.group()
+			flower3.path('M 24 0 L 30.2 9.1 L 41 7 L 38.9 17.8 L 48 24 L 38.9 30.2 L 41 41 L 30.2 38.9 L 24 48 L 17.8 38.9 L 7 41 L 9.1 30.2 L 0 24 L 9.1 17.8 L 7 7 L 17.8 9.1 L 24 0 Z')
+			flower3.line(24, 24, 24, 128).stroke(colors[ver].primary)
+			flower3.path('M34 80L38.5 85.32L41 92L34 93.5L27 92L29.5 85L34 80Z').fill(colors[ver].primary)
+			flower3.path('M14 56L18.5 61.32L21 68L14 69.5L7 68L9.5 61L14 56Z')
+			flower3.move(cols(randomBetween(3, 9))-flower3.width()/2-gap/2, rows(randomBetween(0, 12))-flower3.height()/2-gap/2).fill(colors[ver].primary).attr('stroke-width', 4).transform({ rotate: randomBetween(0, 360) })
+
+		for(var i = 0; i < randomBetween(gap/4, gap); i++) {
+		  draw.use(flower).move(randomPlusMinus()*cols(randomBetween(0, 6)), randomPlusMinus()*rows(randomBetween(0, 6))).transform({ scale: randomBetween(1, 3)*.25, rotate: randomBetween(0, 360) })
+		}
+		for(var i = 0; i < randomBetween(gap/4, gap); i++) {
+		  draw.use(flower2).move(randomPlusMinus()*cols(randomBetween(0, 6)), randomPlusMinus()*rows(randomBetween(0, 6))).transform({ scale: randomBetween(1, 3)*.25, rotate: randomBetween(0, 360) })
+		}
+		for(var i = 0; i < randomBetween(gap/4, gap); i++) {
+		  draw.use(flower3).move(randomPlusMinus()*cols(randomBetween(0, 6)), randomPlusMinus()*rows(randomBetween(0, 6))).transform({ scale: randomBetween(1, 3)*.25, rotate: randomBetween(0, 360) })
+		}
+
+	</script>
+</body>
+</html>

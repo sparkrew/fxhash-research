@@ -1,0 +1,4 @@
+id: 16754
+name: Triangulatria v.3.0.8 Glassamatz-Balabjot
+mint_opens_at: 2022-07-20T16:28:29+00:00
+generative_uri: ipfs://QmSZUtQYVm2XNnJWXPh58JDzwTZ2A2wiz2rN2Hgd4C9JNE

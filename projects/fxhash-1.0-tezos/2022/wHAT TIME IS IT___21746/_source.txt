@@ -1,0 +1,4 @@
+id: 21746
+name: wHAT TIME IS IT?
+mint_opens_at: 2022-11-23T16:59:29+00:00
+generative_uri: ipfs://QmeWL5qKFpDz7qEBWvtJgbHfBWbFsQwHXxQGccSc7RZjz7

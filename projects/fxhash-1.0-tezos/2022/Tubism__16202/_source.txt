@@ -1,0 +1,4 @@
+id: 16202
+name: Tubism
+mint_opens_at: 2022-07-11T13:56:59+00:00
+generative_uri: ipfs://QmZGdcdjVXRcDfbkx6ZASaFGpcLGxk9v3N8LyDaiyQQJ4Z

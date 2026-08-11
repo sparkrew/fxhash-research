@@ -1,0 +1,4 @@
+id: 16573
+name: When The Nature Calls
+mint_opens_at: 2022-07-18T13:00:00+00:00
+generative_uri: ipfs://QmVytHURptZgBekKaAc4toz56CZFy2w7LsRXFNBm2iNnAm

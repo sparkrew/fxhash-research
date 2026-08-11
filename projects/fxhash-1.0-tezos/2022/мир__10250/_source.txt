@@ -1,0 +1,4 @@
+id: 10250
+name: мир
+mint_opens_at: 2022-03-04T16:55:04+00:00
+generative_uri: ipfs://QmbqSSHt2V72g9qJ1i8Qm7a6k3t25gsapwVs768RVYhsDM

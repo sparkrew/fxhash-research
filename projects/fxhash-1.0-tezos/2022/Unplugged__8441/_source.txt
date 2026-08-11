@@ -1,0 +1,4 @@
+id: 8441
+name: Unplugged
+mint_opens_at: 2022-02-01T19:28:36+00:00
+generative_uri: ipfs://QmNXPAMTmuZHkXJVRRuwdr3ffNu7xWc6TQVvQrQaYPEFX6

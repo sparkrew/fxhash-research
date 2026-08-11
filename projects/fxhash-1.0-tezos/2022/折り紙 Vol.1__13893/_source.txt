@@ -1,0 +1,4 @@
+id: 13893
+name: 折り紙 Vol.1
+mint_opens_at: 2022-05-30T18:28:29+00:00
+generative_uri: ipfs://QmcbUbZ87nQXtf8eiCXJnVhJ4BRugAux1MYW7rDyS1oMbw

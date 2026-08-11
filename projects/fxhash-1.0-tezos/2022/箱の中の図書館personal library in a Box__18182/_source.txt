@@ -1,0 +1,4 @@
+id: 18182
+name: 箱の中の図書館personal library in a Box
+mint_opens_at: 2022-08-16T09:06:44+00:00
+generative_uri: ipfs://QmWNCnKaWkMbsEcWLbMz2F1YobbS6H4LLwSP8rJPj36xj4

@@ -1,0 +1,4 @@
+id: 29591
+name: 1x2 Tower Study
+mint_opens_at: 2023-12-03T16:00:00+00:00
+generative_uri: ipfs://QmTVNv6Pfd4VzVNXuXk82Kzw1jCxx4zNLXv4GTHA4Trijj

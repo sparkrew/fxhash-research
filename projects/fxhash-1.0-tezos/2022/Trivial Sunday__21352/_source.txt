@@ -1,0 +1,4 @@
+id: 21352
+name: Trivial Sunday
+mint_opens_at: 2022-11-15T03:07:29+00:00
+generative_uri: ipfs://QmWaMb9WHRrPvSms5U5fZ3cGqfvVhSs1d2oG17pBWbDM3s

@@ -1,0 +1,4 @@
+id: 12273
+name: What's in the room?
+mint_opens_at: 2022-05-02T05:26:29+00:00
+generative_uri: ipfs://QmXuUpCYFoLBTtV193yJ3PKy9CvLvZ5tfVSb6x25m4QcsL

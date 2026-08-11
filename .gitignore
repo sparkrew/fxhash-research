@@ -1,0 +1,9 @@
+# Downloaded project source code (tens of GB) — regenerate with download_projects.py
+projects/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/

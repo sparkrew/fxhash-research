@@ -21,6 +21,11 @@ It covers **both versions** of the platform:
    one large dataset file: **`data/fxhash_tokens.csv`**.
 2. **`analysis.ipynb`** — a Jupyter notebook: open it, run the cells top to
    bottom, and it reads the dataset and draws the charts right in the notebook.
+3. **`download_projects.py`** — a separate tool that downloads the actual
+   generative **source code** of fxhash projects (either version), saving a
+   sample of N per year into
+   `projects/<version>/<year>/<name>__<id>/`. See
+   [docs/05-downloading-code.md](docs/05-downloading-code.md).
 
 ## What data is collected
 
@@ -70,6 +75,7 @@ cell) — the charts will appear.
 ```
 fxhash-research/
 ├── fxhash_scraper.py     # data collection from the v2 API -> CSV
+├── download_projects.py  # download project source code from IPFS, by year
 ├── analysis.ipynb        # analysis and 3 charts (Jupyter)
 ├── requirements.txt      # Python dependencies
 ├── README.md
@@ -77,9 +83,13 @@ fxhash-research/
 │   ├── 01-overview.md
 │   ├── 02-getting-started.md
 │   ├── 03-how-it-works.md
-│   └── 04-trends.md
-└── data/
-    └── fxhash_tokens.csv # dataset (created by the scraper)
+│   ├── 04-trends.md
+│   └── 05-downloading-code.md
+├── data/
+│   └── fxhash_tokens.csv # dataset (created by the scraper)
+└── projects/             # downloaded project code (created by download_projects.py)
+    ├── fxhash-1.0-tezos/<year>/<name>__<id>/
+    └── fxhash-2.0-evm/<year>/<name>__<id>/
 ```
 
 ## API notes

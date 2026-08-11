@@ -1,0 +1,4 @@
+id: 17364
+name: Elders of Genesis
+mint_opens_at: 2022-07-31T17:21:59+00:00
+generative_uri: ipfs://QmWQg2CJy1KFnkSgk34oE6hYXTgKiqpnqXJc37SRFHFq3Y

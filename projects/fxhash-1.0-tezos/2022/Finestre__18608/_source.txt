@@ -1,0 +1,4 @@
+id: 18608
+name: Finestre
+mint_opens_at: 2022-08-29T16:00:00+00:00
+generative_uri: ipfs://QmNn22TnmW5pcT8qhjz2zvBiWWoWkeCgBThsEb37AcnAeT

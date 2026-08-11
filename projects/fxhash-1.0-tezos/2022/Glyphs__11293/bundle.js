@@ -1,0 +1,1 @@
+window.$fxhashFeatures={"Color Palette":getBgColorOption(n),"Glyph Count":glyphCount,Faded:getFadedFeature(tintProbability)},document.createElement("div").innerText=`\n  Color Palette: ${window.$fxhashFeatures["Color Palette"]}\n\n  Glyph Count: ${window.$fxhashFeatures["Glyph Count"]}\n\n  Faded: ${window.$fxhashFeatures.Faded}\n\n`;

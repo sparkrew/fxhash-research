@@ -1,0 +1,1 @@
+function myFrame(e,o,d,t,n,r){_seed=floor(999999*fxrand()),randomSeed(_seed),noiseSeed(_seed),push(),drawingContext.shadowColor=color(0,0,0),drawingContext.shadowBlur=0,drawingContext.shadowOffsetX=0,drawingContext.shadowOffsetY=0,noFill(),stroke(r),strokeWeight(width/d),rect(e,o,t,n),pop()}

@@ -1,0 +1,2 @@
+- "Ethereal Realm And What Lies Within" visual code Copyright (c) 2022 Rangga Purnama Aji
+- Hydra.js MIT license GNU Affero General Public License v3.0

@@ -1,0 +1,1 @@
+let palette={n:fxrand(),clr:[],bgClr:[],extraClr:"",name:""};palette.n<.5?(palette.bgClr=["#0D0D0D","#262626"],palette.clr=["#F2F2F0","#D9D2D0"],palette.name="B"):(palette.bgClr=["#F2F2F2","#D9D2D0"],palette.clr=["#262626","#0D0D0D"],palette.name="A");

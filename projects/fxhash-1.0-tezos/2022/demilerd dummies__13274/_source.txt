@@ -1,0 +1,4 @@
+id: 13274
+name: demilerd dummies
+mint_opens_at: 2022-05-22T05:03:29+00:00
+generative_uri: ipfs://QmY5JPr5ey6uPvn5o7A6aEjVgaYXToJKpF1L5DbkCQS2Zo

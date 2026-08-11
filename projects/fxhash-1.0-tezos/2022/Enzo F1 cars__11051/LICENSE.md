@@ -1,0 +1,2 @@
+# license.md
+//generative work

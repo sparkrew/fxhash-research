@@ -1,0 +1,1 @@
+function grainy(e){_seed=floor(999999*fxrand()),randomSeed(_seed),noiseSeed(_seed),loadPixels();let i=pixelDensity(),n=width*i*4*(height*i);for(let i=0;i<n;i+=4)grainAmount=random(-e,e),pixels[i]=pixels[i]+grainAmount,pixels[i+1]=pixels[i+1]+grainAmount,pixels[i+2]=pixels[i+2]+grainAmount,pixels[i+3]=pixels[i+3]+grainAmount;updatePixels()}

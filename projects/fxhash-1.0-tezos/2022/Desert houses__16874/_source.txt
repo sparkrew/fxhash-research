@@ -1,0 +1,4 @@
+id: 16874
+name: Desert houses
+mint_opens_at: 2022-07-22T15:30:00+00:00
+generative_uri: ipfs://Qmaz7MgBKxuiXpGK2CqG1o2TKoSNYaVAF3F6uX28NU4iH5

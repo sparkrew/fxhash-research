@@ -1,0 +1,4 @@
+id: 19369
+name: Dream Room
+mint_opens_at: 2022-09-14T02:07:44+00:00
+generative_uri: ipfs://QmT5uahBwdNBozsx5XGsP7rpkocwtRS2mP4gvMWWkkNdcZ

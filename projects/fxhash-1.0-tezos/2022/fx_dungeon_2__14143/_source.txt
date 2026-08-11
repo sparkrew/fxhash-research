@@ -1,0 +1,4 @@
+id: 14143
+name: fx_dungeon_2
+mint_opens_at: 2022-06-04T20:30:00+00:00
+generative_uri: ipfs://QmPtHQj3EWSFZJP6Fj1PhM5Bf2ahtEqoG7AWe7MtxpdHso

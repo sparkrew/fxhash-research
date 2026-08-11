@@ -1,0 +1,4 @@
+id: 5786
+name: Froth
+mint_opens_at: 2022-01-05T22:27:50+00:00
+generative_uri: ipfs://QmVk2WHA8iFjZnzHjiJ44Yxq9qkJBNAZuEr3cXC1qiheHs

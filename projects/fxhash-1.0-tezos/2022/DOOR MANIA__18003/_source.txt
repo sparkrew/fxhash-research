@@ -1,0 +1,4 @@
+id: 18003
+name: DOOR MANIA
+mint_opens_at: 2022-08-13T10:00:00+00:00
+generative_uri: ipfs://QmVYxBYc6netct4GrGhvPg2UxcXAB6U2tBDDY761xyurwR

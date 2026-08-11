@@ -1,0 +1,4 @@
+id: 9700
+name: Glitchling
+mint_opens_at: 2022-02-20T15:20:00+00:00
+generative_uri: ipfs://QmVVmCG6puD7Wr151RgV4uAcDSRK31hE1ie8m3R5jYmfYb

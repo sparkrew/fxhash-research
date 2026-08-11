@@ -1,0 +1,4 @@
+id: 19400
+name: eASY PUNK
+mint_opens_at: 2022-09-14T19:36:29+00:00
+generative_uri: ipfs://QmT4UaTH3h2s6zooyjhYLgSV75bUufPyZe4rZNPL4njX3a

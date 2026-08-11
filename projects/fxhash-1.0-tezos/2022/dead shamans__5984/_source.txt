@@ -1,0 +1,4 @@
+id: 5984
+name: dead shamans
+mint_opens_at: 2022-01-06T21:45:30+00:00
+generative_uri: ipfs://QmXL451BFVoAmvRJZtt3FEbLV2A79XKS6dSUVRQFwZp1Se

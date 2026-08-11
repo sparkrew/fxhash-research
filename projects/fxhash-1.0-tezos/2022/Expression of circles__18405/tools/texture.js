@@ -1,0 +1,1 @@
+function myTexture(e,i,l,t,p,s){let o=createGraphics(e,i);o.noiseDetail(l,t);let x=0;o.loadPixels();for(let e=0;e<height*pD;e++){let i=0;for(let l=0;l<width*pD;l++){let t=4*(l+e*width*pD),s=255*noise(i,x),a=255*noise(i,x),n=255*noise(i,x);o.pixels[t+0]=s,o.pixels[t+1]=a,o.pixels[t+2]=n,o.pixels[t+3]=255,i+=p}x+=s}o.updatePixels(),image(o,0,0,e*pD,i*pD)}

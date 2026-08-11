@@ -1,0 +1,4 @@
+id: 21716
+name: Fractal World
+mint_opens_at: 2022-11-23T12:41:14+00:00
+generative_uri: ipfs://QmdkkR9KMG1aqPmYDRuKUHPWiC9xLHcT5QysQ17n7oDXWa

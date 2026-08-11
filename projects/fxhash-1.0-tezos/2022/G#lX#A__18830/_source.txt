@@ -1,0 +1,4 @@
+id: 18830
+name: G#lX#A
+mint_opens_at: 2022-09-01T21:00:44+00:00
+generative_uri: ipfs://QmWU9CsH7ovaNXu3K8odjXpPtGngLL3soceUsLHT6stedG

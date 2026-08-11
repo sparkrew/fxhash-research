@@ -1,0 +1,4 @@
+id: 5522
+name: FARRAGO
+mint_opens_at: 2022-01-05T12:15:10+00:00
+generative_uri: ipfs://QmcctLEptxXgG4ZHjDDxKywcbxRfpuyUB4nCsaDwGRibWj

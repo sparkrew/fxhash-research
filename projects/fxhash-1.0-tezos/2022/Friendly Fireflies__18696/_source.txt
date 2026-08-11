@@ -1,0 +1,4 @@
+id: 18696
+name: Friendly Fireflies
+mint_opens_at: 2022-08-28T15:14:04+00:00
+generative_uri: ipfs://QmQKKHAKaqijpuG2R9u4Bf48V6obdzD3bAUjo7ceWrX2HD

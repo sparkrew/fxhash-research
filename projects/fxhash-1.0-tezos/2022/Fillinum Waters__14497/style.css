@@ -1,0 +1,19 @@
+body { background-color: #555;
+    font-family: sans-serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --bodymargin: 5px;
+    --wContent: calc(100vw - 2*var(--bodymargin));
+    --hContent: calc(100vh - 2*var(--bodymargin));
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+     }
+canvas { 
+    max-width: var(--wContent);
+    max-height: var(--hContent);
+    box-shadow: 1px 1px 2px 1px rgb(0 0 0 / 20%);
+}
+#p5_loading { display: flex; justify-content: center; align-items: center; height: 98vh !important; width: 98vh !important;  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif; color: #eee; font-size: 12px; text-align: center; }

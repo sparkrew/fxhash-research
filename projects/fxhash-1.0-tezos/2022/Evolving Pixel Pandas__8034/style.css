@@ -1,0 +1,49 @@
+div {
+  display: flex;
+  justify-content: center;
+}
+.props{
+	position: absolute;
+    z-index: -1;
+	width:auto;
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
+	object-fit: contain;
+  }
+  .mouth{
+	position: absolute;
+    z-index: -2;
+	width:auto;
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
+	object-fit: contain;
+  }
+  .eyes{
+	position: absolute;
+    z-index: -3;
+	width:auto;
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
+	object-fit: contain;
+  }
+  .skin{
+    position: absolute;
+	z-index: -4;
+	width:auto;
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
+	object-fit: contain;
+  }
+  .background{
+    position: absolute;
+	z-index: -5;
+	width:auto;
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
+	object-fit: contain;
+  }

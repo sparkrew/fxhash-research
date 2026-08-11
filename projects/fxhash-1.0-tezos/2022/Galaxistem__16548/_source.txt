@@ -1,0 +1,4 @@
+id: 16548
+name: Galaxistem
+mint_opens_at: 2022-07-18T02:20:44+00:00
+generative_uri: ipfs://QmQTz6uxaCoyJniyaVV9RTMVdc8yJUH4HXYLqcb5MePNyL

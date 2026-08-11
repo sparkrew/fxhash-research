@@ -1,0 +1,4 @@
+id: 13975
+name: Crooked Kenzan
+mint_opens_at: 2022-06-03T03:01:14+00:00
+generative_uri: ipfs://QmPoQihajbHBUXD4y31G5uokjBzWYese761SFVju3Gbx2L

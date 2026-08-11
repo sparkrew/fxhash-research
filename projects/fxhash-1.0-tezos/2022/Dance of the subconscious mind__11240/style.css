@@ -1,0 +1,13 @@
+body {
+  background-color: lightgrey;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+  color: white;
+  
+  height: 100vh;
+}
+
+.p5Canvas {
+  margin: 0px auto;
+}

@@ -1,0 +1,4 @@
+id: 6112
+name: Destroy
+mint_opens_at: 2022-01-07T18:07:00+00:00
+generative_uri: ipfs://QmQcnX97k6FXBd7Ui2p9j5jgSQRQ3KqjsFVEiUGyYUfyMM

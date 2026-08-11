@@ -1,0 +1,4 @@
+id: 19205
+name: Flict
+mint_opens_at: 2022-09-12T15:00:00+00:00
+generative_uri: ipfs://QmNdiXKESeffPfEa36kzHU1D2LmeNWGzVaLijeKnjrHfKL

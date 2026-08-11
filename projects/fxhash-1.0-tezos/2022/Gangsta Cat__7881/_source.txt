@@ -1,0 +1,4 @@
+id: 7881
+name: Gangsta Cat
+mint_opens_at: 2022-01-25T11:56:10+00:00
+generative_uri: ipfs://QmXFWwor9kgFDihgudcBAV4pYJ1sn8eBEPWiKp15GCRxdT

@@ -1,0 +1,4 @@
+id: 7711
+name: fm.
+mint_opens_at: 2022-01-22T10:19:40+00:00
+generative_uri: ipfs://QmQdsgR74GSvskf1jSXZJPBkNwSvt5BZaTHTXfQF1WcTkf

@@ -1,0 +1,4 @@
+id: 6963
+name: Cube Cities
+mint_opens_at: 2022-01-14T07:48:50+00:00
+generative_uri: ipfs://QmcBQuo3jYqBWFdVrDfAKa7PdGWF4VL3F92nScsh9RDLiB

@@ -1,0 +1,4 @@
+id: 14497
+name: Fillinum Waters
+mint_opens_at: 2022-06-09T17:30:00+00:00
+generative_uri: ipfs://QmczmrJDHCfvwizDvWzgWynnhPeTJ56DWuXT7uQuKX1atr

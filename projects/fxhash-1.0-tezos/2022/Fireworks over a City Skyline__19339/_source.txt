@@ -1,0 +1,4 @@
+id: 19339
+name: Fireworks over a City Skyline
+mint_opens_at: 2022-09-15T19:30:00+00:00
+generative_uri: ipfs://QmNoPaNCSfv299DJ9RB3CsEHkTPPQkmHmHNsuEDwSyt9zC

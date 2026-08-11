@@ -1,0 +1,4 @@
+id: 13622
+name: dancing fxhash logo
+mint_opens_at: 2022-05-27T21:00:00+00:00
+generative_uri: ipfs://QmXsuMNdFM25rZKtN5DkLTBHoiRJDgqfAGuoG2L8ykm5yy

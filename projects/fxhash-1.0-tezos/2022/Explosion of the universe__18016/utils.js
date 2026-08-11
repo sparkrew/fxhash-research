@@ -1,0 +1,1 @@
+function fxRandRanged(n,a){let d=a-n;return fxrand()*d+n}

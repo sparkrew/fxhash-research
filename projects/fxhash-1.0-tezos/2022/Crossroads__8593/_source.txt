@@ -1,0 +1,4 @@
+id: 8593
+name: Crossroads
+mint_opens_at: 2022-02-03T12:47:16+00:00
+generative_uri: ipfs://QmT84yJ1P1NWXcc9Hrt2SuwanR9eQ6wQzKVeMBJ3J4G2Bz

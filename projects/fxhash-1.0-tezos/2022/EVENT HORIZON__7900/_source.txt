@@ -1,0 +1,4 @@
+id: 7900
+name: EVENT HORIZON
+mint_opens_at: 2022-01-25T23:20:00+00:00
+generative_uri: ipfs://QmYaZE8Ji7DEM7w5onuVwuXtc9fuP7ySXNAXh12YmyRWDW

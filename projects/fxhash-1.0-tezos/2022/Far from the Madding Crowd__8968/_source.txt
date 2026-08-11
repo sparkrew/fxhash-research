@@ -1,0 +1,4 @@
+id: 8968
+name: Far from the Madding Crowd
+mint_opens_at: 2022-02-08T20:36:34+00:00
+generative_uri: ipfs://QmeMBGWJobw53s4FKupQozvxLYS3bWpYDk5F9RpxnN15H4

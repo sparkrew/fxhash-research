@@ -1,0 +1,1 @@
+function birds(e,t,r,l,o){push();let n=.1;for(let i=1;i<=o;i++)for(let o=1;o<=l;o++){let l=e,o=t,i=r+fxrand()*r;stroke(random(palette.clr)),strokeWeight(1*i/100),noFill();let a=-width/3;beginShape(),curveVertex(l+10*i,o-10*i*noise(n)),curveVertex(l-a,o),curveVertex(l+a,o),curveVertex(l-10*i,o-10*i*noise(n)),endShape(),fill(random(palette.mount)),n+=.1}pop()}

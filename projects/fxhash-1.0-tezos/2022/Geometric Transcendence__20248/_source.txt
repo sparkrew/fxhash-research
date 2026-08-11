@@ -1,0 +1,4 @@
+id: 20248
+name: Geometric Transcendence
+mint_opens_at: 2022-10-14T16:00:00+00:00
+generative_uri: ipfs://QmSJ5iCMq2mH77CkYnxcqdg85c448ttJCYZynT3t4uYG1m

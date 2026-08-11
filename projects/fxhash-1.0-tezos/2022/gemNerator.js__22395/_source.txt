@@ -1,0 +1,4 @@
+id: 22395
+name: gemNerator.js
+mint_opens_at: 2022-12-12T14:23:29+00:00
+generative_uri: ipfs://QmaTtEHV1djWtLPUPyTP5MqYP1TKGRrjvsqmbdVe1XHcgV

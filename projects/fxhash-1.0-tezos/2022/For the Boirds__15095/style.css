@@ -1,0 +1,36 @@
+body {
+  background-color: black;
+  margin:0;
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+
+#controls {
+  position:absolute;
+  top:0;
+  right:0;
+  padding:4px;
+  width: 185px;
+  font-family: "Open Sans Light";
+  font-size: 0.8em;
+  color: white;
+  background: rgba(0,0,0,0.25);
+}
+
+.controlButton {
+  background: black;
+  text-align: center;
+  padding: 3px;
+  margin: 2px;
+  cursor: pointer;
+}
+
+.controlButton a {
+  color: lightsalmon;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,4 @@
+id: 16713
+name: fx(plane)
+mint_opens_at: 2022-07-20T18:30:00+00:00
+generative_uri: ipfs://QmfEQGmaN98YnjSsVxda99zVGmvuSiYUkaPHKwd5vkE7HM

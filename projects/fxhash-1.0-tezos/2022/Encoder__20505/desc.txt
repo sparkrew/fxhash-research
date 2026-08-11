@@ -1,0 +1,10 @@
+Encoder
+
+Sketched studies using dithering algorithms and worley noise patterns. Varying arrangements of background lines, points, and foreground marks combine to represent compositions from minimal to very complex. 
+
+Viewing in desktop Chrome is recommended for the best results.
+Press ’s’ to save a screenshot. Image size is 2318x3000px
+
+Copyright (c) 2022 Matt Perkins, hello@mattperkins.me, @nudoru on Twitter. Licensed under CC BY-NC-SA 4.0, see LICENSE.txt for more information.
+
+GN! Just minted ...  3 $xtz 256 ed. #generative #creativecoding #generativeart #fxhash #tezosart #nft #nftart #nftdrop #cleannft #cryptoart

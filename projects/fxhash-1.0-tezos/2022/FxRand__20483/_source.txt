@@ -1,0 +1,4 @@
+id: 20483
+name: FxRand
+mint_opens_at: 2022-10-21T12:02:00+00:00
+generative_uri: ipfs://QmbrSeBstEpXefkZCxJFMRbw8j8pukApYLLAWzEDmqYihu

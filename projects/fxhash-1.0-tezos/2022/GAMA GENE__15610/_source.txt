@@ -1,0 +1,4 @@
+id: 15610
+name: GAMA GENE
+mint_opens_at: 2022-06-30T16:49:59+00:00
+generative_uri: ipfs://QmPu9Mz5yaciiBWZ7Pp8PmkaKLUZ1eM3eT78rw2b6aFF7W

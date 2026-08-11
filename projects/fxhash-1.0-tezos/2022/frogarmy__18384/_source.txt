@@ -1,0 +1,4 @@
+id: 18384
+name: frogarmy
+mint_opens_at: 2022-08-20T23:51:14+00:00
+generative_uri: ipfs://QmNTgkbZ9kBCs5nUf8eiurrqXZDvrDse12BrguQWVXdn1k

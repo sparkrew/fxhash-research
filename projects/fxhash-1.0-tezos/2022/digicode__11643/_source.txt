@@ -1,0 +1,4 @@
+id: 11643
+name: digicode
+mint_opens_at: 2022-04-21T06:10:44+00:00
+generative_uri: ipfs://QmPukQD7HboLsbMYkT776osK37fsKtyPo7FTCvbskoewiy

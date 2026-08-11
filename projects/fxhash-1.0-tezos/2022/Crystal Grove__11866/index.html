@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+            cursor: crosshair;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html,
+        body {
+            font-family: 'courier';
+            font-size: 16px;
+            background: #222222;
+            color: #999999;
+            min-width: 100vw;
+            max-width: 100vw;
+            min-height: 100vh;
+            max-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        :root {
+            --wasd: min(100vw, 100vh);
+        }
+
+        #cd_canvas,
+        #animated_canvas {
+            background-color: transparent;
+            position: absolute;
+            z-index: 1;
+            min-width: var(--wasd);
+            min-height: var(--wasd);
+            max-width: var(--wasd);
+            max-height: var(--wasd);
+            /* border-radius: var(--wasd); */
+            pointer-events: all;
+        }
+
+        #animated_canvas {
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+</head>
+
+<body>
+    <canvas id="cd_canvas" width="4096" height="4096"></canvas>
+    <canvas id="animated_canvas" width="4096" height="4096"></canvas>
+    <script>
+        console.log(fxhash)
+        const selectRandomValue = (values, probabilities) => {
+            if (!probabilities) return values[Math.floor(fxrand() * values.length)]
+
+            const sum = probabilities.reduce((s, p) => s + p, 0)
+            let probabilityOffset = 0
+            const normalizedProbabilities = probabilities.map(p => {
+                let probabilityStep = p / sum + probabilityOffset
+                probabilityOffset += probabilityStep
+                return probabilityStep
+            })
+            const randomValue = fxrand()
+            for (let p = 0; p < normalizedProbabilities.length; p++) {
+                if (randomValue < normalizedProbabilities[p]) {
+                    return values[p]
+                }
+            }
+        }
+        const scale = 1
+        const csize = { x: 4096 * scale, y: 4096 * scale }
+        const middle = { x: csize.x / 2, y: csize.y / 2 }
+
+        let cdCanvas = document.querySelector('#cd_canvas')
+        cdCanvas.width = csize.x
+        cdCanvas.height = csize.y
+        const ctx = cdCanvas.getContext("2d")
+        let animatedCanvas = document.querySelector('#animated_canvas')
+        animatedCanvas.width = csize.x
+        animatedCanvas.height = csize.y
+        const ani = animatedCanvas.getContext("2d")
+
+        const lineWidth = (4 + fxrand() * 4) * scale
+        ctx.lineWidth = lineWidth
+        // DO CANVAS STUFF
+        var sat = fxrand() * 100
+        var featSat = sat < 20 ? 'D' : sat > 80 ? 'B' : 'V'
+        if (sat < 10) {
+            sat = 0
+            featSat = 'G'
+        }
+
+        var lum = fxrand() * 30 + (fxrand() < .5 ? 10 : 60)
+        var featLum = lum < 30 ? 'D' : lum > 70 ? 'B' : 'V'
+
+        if (sat < 10 && fxrand() < .5) {
+            lum = fxrand() < .5 ? 5 : 95
+            featLum = '§'
+        }
+
+        var hue = fxrand() * 360
+        const backgroundColor = `hsl(${hue},${sat}%,${lum}%)`
+        ctx.fillStyle = backgroundColor
+        ctx.fillRect(0, 0, csize.x, csize.y)
+
+        var head = { x: csize.x / 2, y: csize.y / 2, angle: fxrand() * Math.PI / 2 }
+        const speed = 4
+        const symmetry = fxrand() < .35
+        const symmetryKind = Math.floor(fxrand() * 4)
+
+        var pieces = Math.floor(3 + fxrand() * 4)
+        const crystal = fxrand() < .5
+        const voidRadius = (400 + fxrand() * 400) * scale
+        var bubbles = crystal ? [{ x: csize.x / 2, y: csize.y / 2, radius: voidRadius }] : []
+
+        var nextBubbleRadius = 0
+        const sameFrameIterations = 200
+        let frame = 0
+        const maxFrame = 1000
+        var maxRadius = 100 * scale
+
+        const darkOPs = [
+            'lighter',
+            'screen',
+        ]
+        const lightOPs = [
+            'color-burn',
+            'multiply',
+        ]
+
+        const op = selectRandomValue([
+            'source-over',
+            'source-over',
+            'source-over',
+            'source-over',
+            'source-over',
+            'source-over',
+            'color-dodge',
+            'luminosity',
+            'hard-light',
+            ...(lum < 20 ? darkOPs : lum > 80 ? lightOPs : [])
+        ]);
+        if (op === 'color-dodge' && sat > 80) {
+            sat = 50
+            lum = 0
+        }
+        ctx.globalCompositeOperation = op
+        const fade1 = fxrand() < .3
+        const fade2 = fxrand() < .3
+        const hueIncrementer = fade1 * (1.5 + 6 * fxrand())
+        const hueIncrementer2 = fade2 * (1.5 + fxrand() * .8)
+        var densityAmount = fxrand() * .2
+        var density = 'H'
+        var densityStart = .8
+        if (fxrand() < .5) {
+            densityStart = 0
+            densityAmount = fxrand() * .4
+            density = 'L'
+        } else if (fxrand() < .75) {
+            densityStart = .4
+            densityAmount = fxrand() * .4
+            density = 'M'
+        }
+
+        hue += 180 + (fxrand() - .5) * 270
+
+        const otherA = fxrand() < .3
+        const otherB = fxrand() < .3
+        const otherC = fxrand() < .3
+        const plain = otherA && otherB && otherC
+
+
+        var limit = 50000 + (densityStart + densityAmount) * 60000
+        if (plain) {
+            limit /= 2
+        }
+        if (symmetry) {
+            if (symmetryKind === 1) {
+                limit /= 2
+            } else if (symmetryKind === 3) {
+                limit /= 1.5 + (pieces - 2) / 2
+            }
+            else {
+                limit /= 1.5
+            }
+        }
+        var counter = 0
+        var accepted = 0
+
+        const minAcceptedIncrementer = 0.001 + fxrand() * (otherA ? 0.001 : 100)
+        const maxAcceptedExtension = fxrand() * (otherB ? 0.1 : 140)
+        const fluence = selectRandomValue([0, 1, 2])
+        var currentProgress = 0
+        const frameIncrementer = 8 + fxrand() * 4
+
+        const style = fxrand() < .2 ? 'ink' : fxrand() < .6 ? 'bound' : 'distant'
+
+        const freq = plain ? 0.1 : selectRandomValue([0.5, 0.5, 1, 1, 2, 2, 4, 8, 16])
+        const angularVelocity = plain ? 0.1 : selectRandomValue([0.2, 0.4, 0.6, 0.8, 1, 1, 1, 1.5, 2])
+        const coarseness = plain ? 0 : selectRandomValue([0, .5, 1, 2, 0, .5, 1, 2, 10, 50, 100])
+
+        const pathStyle = selectRandomValue([0, 1, 2])
+        const engorged = fxrand() < .5
+        const radiusForFragment = (v, r) => v + r / 2 + r / 2 * fxrand()
+        const initialFixedAngle = fxrand() * Math.PI * 2
+        var amnt = 3 + Math.floor(fxrand() * 4)
+        const irregular = fxrand() < .5
+        const initialAngle = fxrand() * Math.PI * 2
+
+        const featPathStyle = pathStyle === 0 ? 'molecule' : pathStyle === 2 ? 'halved' : irregular ? 'fragment' : 'poly'
+
+        const engravePath = pathStyle === 0
+            ? (x, y, r) => {
+                ctx.moveTo(x + r, y)
+                ctx.arc(x, y, r, 0, 7)
+            } : pathStyle === 2 ? (x, y, r) => {
+                ctx.moveTo(x + r * (1 + engorged * .5), y)
+                ctx.arc(x, y, r * (1 + engorged * .5), Math.PI, 2 * Math.PI)
+            } : (x, y, r) => {
+                var asd = undefined
+                for (let v = 0; v < amnt; v++) {
+                    let angle = v * Math.PI * 2 / amnt + irregular * fxrand() * Math.PI * 2 / amnt + initialAngle
+                    let cryRad = r * (1 + engorged * .5)
+                    let X = x + cryRad * Math.cos(angle)
+                    let Y = y + cryRad * Math.sin(angle)
+                    if (!asd) {
+                        asd = { X, Y }
+                        ctx.moveTo(X, Y)
+                    } else {
+                        ctx.lineTo(X, Y)
+                    }
+                }
+                ctx.lineTo(asd.X, asd.Y)
+            }
+        const draw = (t) => {
+            for (let i = 0; i < sameFrameIterations; i++) {
+                // single iteration
+                let color = `hsla(${hue + hueIncrementer2 * 360 * frame / maxFrame},${sat}%,${100 - lum}%,${Math.floor(1000 * frame / maxFrame / 1.5) / 1000})`
+                ctx.fillStyle = color
+                ctx.strokeStyle = style === 'ink' ? '#333' : style === 'distant' ? backgroundColor : color
+                // ctx.strokeStyle = ''
+                if (frame > maxFrame) {
+                    frame = 0
+                    // bubbles = []
+                    hue += hueIncrementer
+
+                    maxRadius += 10 * scale
+                }
+
+                head.x += speed * scale * Math.cos(head.angle)
+                head.y -= speed * scale * Math.sin(head.angle)
+
+                if (head.x < 0) head.x = csize.x
+                else if (head.x > csize.x) head.x = 0
+                if (head.y < 0) head.y = csize.y
+                else if (head.y > csize.y) head.y = 0
+
+                // draw bubbles
+                let placeable = true
+                let positions = [{ x: head.x, y: head.y }]
+                if (symmetry) {
+                    if (symmetryKind === 0) {
+                        // single
+                        positions.push({ x: csize.x - head.x, y: head.y })
+                    } else if (symmetryKind === 2) {
+                        // diagonal
+                        positions.push({ x: csize.x - head.x, y: csize.y - head.y })
+                    } else if (symmetryKind === 1) {
+                        // bothAxis
+                        positions.push({ x: csize.x - head.x, y: head.y })
+                        positions.push({ x: head.x, y: csize.y - head.y })
+                        positions.push({ x: csize.x - head.x, y: csize.y - head.y })
+                    } else {
+                        for (let a = 0; a < pieces; a++) {
+                            angle = a * 2 * Math.PI / pieces
+                            let x = Math.cos(angle) * (head.x - middle.x) - Math.sin(angle) * (head.y - middle.y) + middle.x
+                            let y = Math.sin(angle) * (head.x - middle.x) + Math.cos(angle) * (head.y - middle.y) + middle.y
+                            positions.push({ x, y })
+                        }
+                    }
+                }
+
+                // placeable = !bubbles.some(b => positions.some(p => Math.hypot(p.x - b.x, p.y - b.y) < nextBubbleRadius + b.radius))
+                placeable = !bubbles.some(b => Math.hypot(head.x - b.x, head.y - b.y) < nextBubbleRadius + b.radius)
+
+                if (placeable) {
+                    bubbles.push({
+                        x: head.x,
+                        y: head.y,
+                        radius: nextBubbleRadius,
+                        color
+                    })
+
+                    ctx.beginPath()
+
+                    engravePath(head.x, head.y, nextBubbleRadius)
+
+                    if (symmetry) {
+                        if (symmetryKind === 0) {
+                            // single
+                            let { x, y } = positions[1]
+                            bubbles.push({ x, y, radius: nextBubbleRadius, color })
+                            engravePath(x, y, nextBubbleRadius)
+                        } else if (symmetryKind === 2) {
+                            // diagonal
+                            let { x, y } = positions[1]
+                            bubbles.push({ x, y, radius: nextBubbleRadius, color })
+                            engravePath(x, y, nextBubbleRadius)
+                        } else if (symmetryKind === 1) {
+                            // bothAxis
+                            let { x, y } = positions[1]
+                            bubbles.push({ x, y, radius: nextBubbleRadius, color })
+                            engravePath(x, y, nextBubbleRadius)
+                            x = positions[2].x
+                            y = positions[2].y
+                            bubbles.push({ x, y, radius: nextBubbleRadius, color })
+                            engravePath(x, y, nextBubbleRadius)
+                            x = positions[3].x
+                            y = positions[3].y
+                            bubbles.push({ x, y, radius: nextBubbleRadius, color })
+                            engravePath(x, y, nextBubbleRadius)
+                        } else {
+                            // radial
+                            for (let a = 1; a <= pieces; a++) {
+                                let x = positions[a].x
+                                let y = positions[a].y
+                                bubbles.push({ x, y, radius: nextBubbleRadius, color })
+                                engravePath(x, y, nextBubbleRadius)
+                            }
+                        }
+                    }
+
+                    ctx.fill()
+                    ctx.stroke()
+
+                    nextBubbleRadius = maxRadius * frame / maxFrame / 10 //+ fxrand() * 10
+                    frame += frameIncrementer
+                    // console.log(t - prevT, accepted - prevAccepted)
+                    // prevT = t
+                    // prevAccepted = accepted
+
+                    var flu = (accepted * freq)
+                    if (fluence === 1) flu = Math.sin(accepted * freq)
+                    if (fluence === 2) flu = Math.cos(accepted * freq)
+
+                    head.angle += flu * angularVelocity + coarseness * 0.02 * fxrand()
+
+
+                    // head.angle += Math.sin(t * freq) * angularVelocity + coarseness * 0.02 * fxrand()
+
+                }
+                // accepted += Math.sin(acceptedIncrementer)
+                counter++
+                // end iteration
+            }
+            accepted += minAcceptedIncrementer + fxrand() * maxAcceptedExtension
+            // console.log(t)
+
+            // const progress = Math.floor(100 * counter / limit)
+            // if (progress !== currentProgress) {
+            //     currentProgress = progress
+            //     console.log('Progress', progress)
+            // }
+
+            // end render
+            if (counter < limit)
+                window.requestAnimationFrame(draw)
+            else if (crystal)
+                drawCrystal()
+            else
+                fxpreview()
+        }
+        window.requestAnimationFrame(draw)
+
+
+
+        var canAnimateCrystal = false
+        var crystalMiddle = { x: middle.x, y: middle.y }
+        const outerVertices = 3 + Math.floor(fxrand() * 4)
+        const progressCryIncrementer = 1 / outerVertices
+        const regualr = fxrand() < .4
+        const regualrRad = fxrand() < .4
+        const perfCry = regualr && regualrRad
+        const crystalPoints = []
+        let crystalMinRadius = 125
+        let crystalMaxRadius = voidRadius - 150 - crystalMinRadius
+        const fixedRadz = fxrand() * crystalMaxRadius
+        const initialNAGFNL = fxrand() * Math.PI * 2
+        const drawCrystal = () => {
+            let progressCry = progressCryIncrementer
+            let color = `hsla(${hue + hueIncrementer2 * 360 * progressCry},${sat}%,${100 - lum}%,${progressCry / 3})`
+            ctx.fillStyle = color
+            ctx.strokeStyle = style === 'ink' ? '#333' : style === 'distant' ? backgroundColor : color
+
+            ctx.beginPath()
+            for (let ov = 0; ov < outerVertices; ov++) {
+                let angle = initialNAGFNL + ov * Math.PI * 2 / outerVertices + (!regualr) * fxrand() * Math.PI * 2 / outerVertices / 4
+                let cryRad = (crystalMinRadius + (regualrRad ? fixedRadz : fxrand() * crystalMaxRadius))
+                let x = middle.x + cryRad * Math.cos(angle)
+                let y = middle.y + cryRad * Math.sin(angle)
+                crystalPoints.push({ x, y })
+                // crystalPoints.push({ x: csize - x, y })
+            }
+            for (let ov = 0; ov < outerVertices; ov++) {
+                let { x, y } = crystalPoints[ov]
+                ctx.lineTo(x, y)
+            }
+            ctx.lineTo(crystalPoints[0].x, crystalPoints[0].y)
+            ctx.fill()
+            ctx.stroke()
+            if (fxrand() < .5)
+                crystalMiddle = { x: middle.x, y: middle.y /*+ (fxrand() - .5) * 150 */ }
+            for (let ov = 0; ov < outerVertices - 1; ov++) {
+                progressCry += progressCryIncrementer
+                color = `hsla(${hue + hueIncrementer2 * 360 * progressCry},${sat}%,${100 - lum}%,${progressCry / 3})`
+                ctx.fillStyle = color
+                ctx.strokeStyle = style === 'ink' ? '#333' : style === 'distant' ? backgroundColor : color
+                ctx.beginPath()
+                ctx.lineTo(crystalPoints[ov].x, crystalPoints[ov].y)
+                ctx.lineTo(crystalMiddle.x, crystalMiddle.y)
+                ctx.lineTo(crystalPoints[ov + 1].x, crystalPoints[ov + 1].y)
+                ctx.fill()
+                ctx.stroke()
+            }
+            fxpreview()
+            canAnimateCrystal = true
+        }
+
+        const crystalSpeed = fxrand() * 1.5
+        var animationStarted = false
+        var firstTimestamp = undefined
+        const startCrystalAnimation = () => {
+            animationStarted = true
+            ctx.globalCompositeOperation = 'source-over'
+            ctx.fillStyle = backgroundColor
+            ctx.beginPath()
+            ctx.moveTo(middle.x, middle.y)
+            ctx.arc(middle.x, middle.y, voidRadius - 10, 0, 7)
+            ctx.fill()
+            ctx.globalCompositeOperation = op
+            const animateCrystal = (time) => {
+                if (firstTimestamp === undefined) firstTimestamp = time
+                let ttime = time - firstTimestamp
+                // t = Math.sin(ttime / 1000)
+                t = ttime / 1000
+                const movingX = (x) => middle.x + (x - middle.x) * Math.cos(t * (.5 + crystalSpeed) * x * x / middle.x / middle.x)
+
+                animatedCanvas.width |= 1
+                ani.globalCompositeOperation = 'source-over'
+                ani.fillStyle = backgroundColor
+                ani.beginPath()
+                ani.moveTo(middle.x, middle.y)
+                ani.arc(middle.x, middle.y, voidRadius, 0, 7)
+                ani.fill()
+                ani.globalCompositeOperation = op
+                ani.lineWidth = lineWidth
+                progressCry = progressCryIncrementer
+                let color = `hsla(${hue + hueIncrementer2 * 360 * progressCry},${sat}%,${100 - lum}%,${progressCry / 3})`
+                ani.fillStyle = color
+                ani.strokeStyle = style === 'ink' ? '#333' : style === 'distant' ? backgroundColor : color
+
+                ani.beginPath()
+                crystalPoints.forEach(({ x, y }) => {
+                    ani.lineTo(movingX(x), y)
+                })
+                ani.lineTo(movingX(crystalPoints[0].x), crystalPoints[0].y)
+                ani.fill()
+                ani.stroke()
+
+                for (let ov = 0; ov < outerVertices - 1; ov++) {
+                    progressCry += progressCryIncrementer
+                    color = `hsla(${hue + hueIncrementer2 * 360 * progressCry},${sat}%,${100 - lum}%,${progressCry / 3})`
+                    ani.fillStyle = color
+                    ani.strokeStyle = style === 'ink' ? '#333' : style === 'distant' ? backgroundColor : color
+                    ani.beginPath()
+                    ani.lineTo(movingX(crystalPoints[ov].x), crystalPoints[ov].y)
+                    ani.lineTo(movingX(crystalMiddle.x), crystalMiddle.y)
+                    ani.lineTo(movingX(crystalPoints[ov + 1].x), crystalPoints[ov + 1].y)
+                    ani.fill()
+                    ani.stroke()
+                }
+
+                window.requestAnimationFrame(animateCrystal)
+            }
+            window.requestAnimationFrame(animateCrystal)
+        }
+
+        if (crystal) {
+            cdCanvas.addEventListener('click', () => {
+                if (canAnimateCrystal && !animationStarted) {
+                    startCrystalAnimation()
+                }
+            })
+        }
+        const getO = (oper) => {
+            switch (oper) {
+                case 'lighter':
+                case 'color-burn': return 'LCB';
+                case 'screen':
+                case 'multiply': return 'SML';
+                case 'source-over': return 'SO';
+                case 'color-dodge': return 'CD';
+                case 'luminosity': return 'LM';
+                case 'hard-light': return 'HL';
+            }
+        }
+        const features = {
+            "D": density,
+            "F": (fade1 ? 1 : 0) + '' + (fade2 ? 1 : 0),
+            "O": getO(op),
+            "S": featSat,
+            "L": featLum,
+            "style": style,
+            "symmetry": symmetry,
+            "crystal": crystal ? perfCry ? 'perfect' : true : false,
+            "freq": freq,
+            "ang": angularVelocity,
+            "coarseness": coarseness,
+            "unit": featPathStyle,
+        }
+
+        // todo
+        // title: ravine
+        // wild crystals
+        // thicket
+        window.$fxhashFeatures = features
+        console.table(features)
+    </script>
+</body>
+
+</html>

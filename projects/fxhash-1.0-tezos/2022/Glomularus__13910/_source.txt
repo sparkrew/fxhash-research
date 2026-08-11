@@ -1,0 +1,4 @@
+id: 13910
+name: Glomularus
+mint_opens_at: 2022-05-31T20:00:00+00:00
+generative_uri: ipfs://QmeegyqkDMTS1nM8LeahAaBmvonovax7CaAra6baTcksh5

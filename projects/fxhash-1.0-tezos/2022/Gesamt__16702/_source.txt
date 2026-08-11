@@ -1,0 +1,4 @@
+id: 16702
+name: Gesamt 
+mint_opens_at: 2022-07-19T19:58:59+00:00
+generative_uri: ipfs://QmVAQd4Qmxn8d8dnBdcXE4ZFtf6kWMppzoHoe229kjPYvE

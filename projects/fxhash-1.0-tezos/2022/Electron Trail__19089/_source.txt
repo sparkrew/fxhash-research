@@ -1,0 +1,4 @@
+id: 19089
+name: Electron Trail
+mint_opens_at: 2022-09-07T13:30:59+00:00
+generative_uri: ipfs://QmXdYkJj9oo8krMUYC1L7fhnxk1251qam5JHxTNwW53ApN

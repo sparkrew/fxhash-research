@@ -1,0 +1,4 @@
+id: 21390
+name: Geo
+mint_opens_at: 2022-11-19T20:00:00+00:00
+generative_uri: ipfs://QmXwDHHQAFwsBnWHXBkshyZpnt8abd6yvremxXKPY1poLb

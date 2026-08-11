@@ -1,0 +1,4 @@
+id: 6891
+name: Fish Abstraction
+mint_opens_at: 2022-01-13T10:56:00+00:00
+generative_uri: ipfs://QmZKEb44iJb543aqB2Ztor8Zu1DwAD9NnzRZeK4YiuTTyY

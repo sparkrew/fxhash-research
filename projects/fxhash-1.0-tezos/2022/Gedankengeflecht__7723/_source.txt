@@ -1,0 +1,4 @@
+id: 7723
+name: Gedankengeflecht
+mint_opens_at: 2022-01-22T11:17:40+00:00
+generative_uri: ipfs://QmfQMscJs2KMc9iwoVtWqs1zDmX8wS7ZK37DwQoxpM2kYA

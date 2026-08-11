@@ -1,0 +1,4 @@
+id: 8885
+name: Dance with Trigonometry.
+mint_opens_at: 2022-02-08T04:05:44+00:00
+generative_uri: ipfs://QmUzBz54pTpkTyPpF8azZ43c4BDLMPEbXch3m6k9zUwJ3g

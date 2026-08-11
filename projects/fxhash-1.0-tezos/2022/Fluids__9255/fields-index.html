@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PETSCII Magazine</title>
+    <meta name="author" content="jambonbill">
+    <meta name="description" content="64x64 PETSCII characters">
+    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      //---- /do not edit the following code
+    </script>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- if you need to import js scripts do it here -->
+    <script type="text/javascript" src="./psp-fx.js"></script>
+<script type="text/pspscript" canvas=screen>resize(64,64);setFps(60);t(0);
+let pals=[];
+
+pals.push(["#000000","#111111","#222222","#333333","#444444","#555555","#666666","#777777","#888888","#999999","#aaaaaa","#bbbbbb","#CCCCCC","#DDDDDD","#EEEEEE","#FFFFFF"]);//Greyscale
+pals.push(["#000000","#4a4a4a","#7b7b7b","#b2b2b2","#ffffff","#813338","#c46c71","#553800","#8e5029","#edf171","#a9ff9f","#56ac4d","#75cec8","#706deb","#2e2c9b","#8e3c97"]);//Colodore
+pals.push(["#030625","#0000e8","#077c35","#028566","#9f2441","#6b03ca","#4b7432","#81899e","#1c2536","#0e59f0","#2cc64e","#0bc3a9","#e85685","#c137ff","#a7c251","#ced9ed"]);//Jr-Comp
+pals.push(["#000000","#555555","#AAAAAA","#FFFFFF","#0000AA","#5555FF","#00AA00","#55FF55","#00AAAA","#55FFFF","#AA0000","#FF5555","#AA00AA","#FF55FF","#AA5500","#FFFF55"]);//Color Graphics Adapter
+pals.push(["#000000","#ffffff","#ff0000","#00ffff","#ff00ff","#00ff00","#0000ff","#ffff00","#ff8000","#ff0000","#ff00ff","#808080","#808080","#00ff00","#00ffff","#ffffff"]);//Brutal
+pals.push(["#000000","#FFF1E8","#FF004D","#29ADFF","#7E2553","#008751","#1D2B53","#FFEC27","#FFA300","#AB5236","#FF77A8","#5F574F","#FFCCAA","#00E436","#83769C","#C2C3C7"]);//Pico8
+pals.push(["#00033c","#005260","#009d4a","#0aff52","#003884","#008ac5","#00f7ff","#ff5cff","#ac29ce","#600088","#b10585","#ff004e","#2a2e79","#4e6ea8","#add4fa","#ffffff"]);//SHIDO CYBERNEON
+pals.push(["#1c1c1a","#574084","#655ec0","#5a78e3","#549fff","#4fd8ff","#7fffff","#bfffff","#ffffff","#ffdaef","#ffa8df","#ef60bf","#e716ac","#991674","#5c024a","#300020"]);//WinterFes 16
+
+
+let pid=rnd(pals.length);
+colorPalette(pals[pid]);
+let matrix=[];
+for(let i=0;i<256;i++)matrix.push(rnd(8));//each CHR is given a direction
+// Colors
+let range=2+rnd(8);
+let offset=rnd(16);
+if(rnd(64)==0){range=1;offset=1+rnd(15);}//special monochrome version
+//chars
+let chroffset=rnd(96);
+let chrrange=16+rnd(28);
+let special=rnd(64);
+
+console.log("Palette #"+pid, range, offset);
+console.log("Chr offset "+offset, ", Range " + range);
+
+function seed0(){//see only on the screen borders
+    for(let i=0;i<charNumber();i++){
+        let x=i%cols();
+        let y=Math.floor(i/cols());
+        let max=cols()-1;
+        if(x==0||y==0||x==max||y==max){
+            if(rnd(2))poke(i,[chroffset+rnd(chrrange),(offset+rnd(range))%16]);
+        }
+    }
+}
+
+function main(){
+    let page=new Array(charNumber());
+    //let page=new Uint8Array(64*64+1);//narche pas, par ce qu'on passe des [chr,color]
+    for(let i=0;i<charNumber();i++){
+
+        let p=+i;
+
+        let x=i%cols();
+        let y=Math.floor(i/cols());
+
+        let c=peek(i);
+        let chr=c[0];
+        if(chr==32)continue;
+        if(chr==96)continue;
+        if(chr==160)continue;
+        let dir=matrix[chr];
+        if(dir===undefined)continue;
+
+        //if(dir===undefined)continue;
+
+        switch(dir){
+            case 0:p=p+1;break;
+            case 1:p=p+1+cols();break;
+            case 2:p=p+cols();break;
+            case 3:if(x>0)p=p+cols()-1;break;
+            case 4:if(x>0)p=p-1;break;
+            case 5:if(x>0)p=p-cols()-1;break;
+            case 6:p=p-cols();break;
+            case 7:p=p-cols()+1;break;
+        }
+        page[p]=[chr,c[1]];
+    }
+
+    let stat={};
+    for(let i=0;i<charNumber();i++){
+        if(!page[i])continue;
+        poke(i,page[i]);//apply changes
+        stat[page[i][0]]++;//compute diversity
+    }
+
+    let keys=Object.keys(stat);
+    if(keys.length<15){
+        seed0();
+        for(let i in keys)matrix[keys[i]]=rnd(8);
+    }
+
+    matrix[rnd(256)]=rnd(8);// Alter Matrix
+
+
+    let m=mirror();
+    if(special==0)m.vertical();
+    if(special==1)m.horizontal();
+    if(special==2)m.vertical().horizontal();
+
+    //if(t()>60*5)stopAnimation();
+}
+
+hook(main);
+window.$fxhashFeatures = {
+    "Colors": 'Palette #'+(pid+1),
+    "Color range": range,
+}</script>
+
+</head>
+<body style="text-align: center">
+<canvas id=screen></canvas>
+<!-- WEBPACK will inject the bundle.js here -->
+</body>
+</html>

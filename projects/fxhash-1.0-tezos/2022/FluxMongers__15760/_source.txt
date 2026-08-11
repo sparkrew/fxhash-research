@@ -1,0 +1,4 @@
+id: 15760
+name: FluxMongers
+mint_opens_at: 2022-07-03T12:17:00+00:00
+generative_uri: ipfs://QmS9mP9m8dvwEyZH1X7jtmmPqW3vP4WC1LWMsBu6UadavG

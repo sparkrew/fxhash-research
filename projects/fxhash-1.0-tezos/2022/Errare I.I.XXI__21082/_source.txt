@@ -1,0 +1,4 @@
+id: 21082
+name: Errare I.I.XXI
+mint_opens_at: 2022-11-11T16:00:00+00:00
+generative_uri: ipfs://QmUhJwYE2mWfBMchBbsSUJCWVDpQRxBUTLQuWzCafmuUMG

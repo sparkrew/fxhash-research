@@ -1,0 +1,4 @@
+id: 12325
+name: Electric Fangs
+mint_opens_at: 2022-05-03T01:12:14+00:00
+generative_uri: ipfs://QmZpEAPnPKzWTqqpbzBsph8LrSsEJV7q4QSPMv8PEtG3Au

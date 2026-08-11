@@ -1,0 +1,4 @@
+id: 10290
+name: Distribution for Ukraine
+mint_opens_at: 2022-03-04T21:40:04+00:00
+generative_uri: ipfs://QmXwCNKb9taenCe9ejmrYRRiGPVmFoEa6jwwugwwqEkcj7

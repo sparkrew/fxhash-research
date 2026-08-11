@@ -1,0 +1,4 @@
+id: 13629
+name: fx-SkuElle
+mint_opens_at: 2022-05-27T18:33:59+00:00
+generative_uri: ipfs://QmQsewii2jRPbuLZRf2yaUY5vYexJGzi5iSiXodFVm6WXv

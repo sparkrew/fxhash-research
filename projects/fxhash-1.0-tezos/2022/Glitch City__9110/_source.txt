@@ -1,0 +1,4 @@
+id: 9110
+name: Glitch City
+mint_opens_at: 2022-02-09T22:17:04+00:00
+generative_uri: ipfs://QmPW7siK8LafcZyjHMspBSJUpuCqfrBzW3RHA8f2ee4FLk

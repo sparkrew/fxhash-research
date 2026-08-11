@@ -1,0 +1,4 @@
+id: 8250
+name: geopop-explor
+mint_opens_at: 2022-01-31T14:36:58+00:00
+generative_uri: ipfs://QmUTctgpSDrnA31mf6sShjM4v1Acd8pbLZLWajgj1GrLTQ

@@ -1,0 +1,4 @@
+id: 14420
+name: fxZombies
+mint_opens_at: 2022-06-09T15:00:00+00:00
+generative_uri: ipfs://Qma7JCV2ttNAzNAWjioXzVvhwj3XCspj6qsskK7m5kiTV5

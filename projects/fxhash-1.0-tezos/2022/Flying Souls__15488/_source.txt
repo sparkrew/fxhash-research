@@ -1,0 +1,4 @@
+id: 15488
+name: Flying Souls
+mint_opens_at: 2022-06-25T10:00:00+00:00
+generative_uri: ipfs://QmaRhoL7CXzC8K3kUSkpZePnZ2thodpSadY2GDzo1arPqq

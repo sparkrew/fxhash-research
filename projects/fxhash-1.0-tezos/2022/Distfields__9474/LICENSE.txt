@@ -1,0 +1,1 @@
+p5.js is available under GNU LGPL v2.1 https://github.com/processing/p5.js/blob/main/license.txt

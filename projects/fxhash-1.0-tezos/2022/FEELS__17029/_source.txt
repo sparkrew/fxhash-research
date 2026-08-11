@@ -1,0 +1,4 @@
+id: 17029
+name: FEELS
+mint_opens_at: 2022-07-27T15:00:00+00:00
+generative_uri: ipfs://QmTQ5yBVQy4Z6qt2EaoXzFzykRbFbm6baxYNDQ8KdTGJ96

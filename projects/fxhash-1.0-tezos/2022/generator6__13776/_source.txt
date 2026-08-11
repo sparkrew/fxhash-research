@@ -1,0 +1,4 @@
+id: 13776
+name: generator6
+mint_opens_at: 2022-05-29T10:01:59+00:00
+generative_uri: ipfs://QmSNa2fAqfahYHzmFZmgHFNJLU5cnfqzwMHVNeU1GU7LBQ

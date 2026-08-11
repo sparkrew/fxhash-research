@@ -1,0 +1,4 @@
+id: 17576
+name: fierce
+mint_opens_at: 2022-08-03T17:00:44+00:00
+generative_uri: ipfs://QmdhDPSqbWPw3BVNaCbfAgupe8CcpzCXwo3dSRjp7Rw19k

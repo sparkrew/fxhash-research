@@ -1,0 +1,4 @@
+id: 21222
+name: Garota de Ipanema
+mint_opens_at: 2022-11-12T13:15:59+00:00
+generative_uri: ipfs://QmYrwoZKyKkLLWcQprkMmE8A3raKQcRLs2RDK5pNmKkgtj

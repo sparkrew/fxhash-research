@@ -1,0 +1,4 @@
+id: 20115
+name: Fur Spot
+mint_opens_at: 2022-10-06T01:03:59+00:00
+generative_uri: ipfs://QmUgE2WNTvTcARTpLxfrFqFihRY2TMTwWEJ56f1Goui4Wr

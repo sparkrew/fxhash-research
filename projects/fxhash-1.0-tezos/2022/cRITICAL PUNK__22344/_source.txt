@@ -1,0 +1,4 @@
+id: 22344
+name: cRITICAL PUNK
+mint_opens_at: 2022-12-11T12:00:00+00:00
+generative_uri: ipfs://QmaXpUP1gY6gnWaDBu1D64VzoPiUyc7HbvoD33ybdWgYDC

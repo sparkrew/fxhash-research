@@ -1,0 +1,4 @@
+id: 13245
+name: Ex Mobius (Camouflage)
+mint_opens_at: 2022-05-21T19:00:00+00:00
+generative_uri: ipfs://QmNg7wcpE5rSmn7zq7vnX8nWpwazCuQhhemYoo81Y9dVsS

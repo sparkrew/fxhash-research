@@ -1,0 +1,4 @@
+id: 8225
+name: Curtain
+mint_opens_at: 2022-01-29T03:38:28+00:00
+generative_uri: ipfs://QmeeTQyzTYRFKuAuPg5ndKggQSCzfSUomGRUs2nw8v6DDW

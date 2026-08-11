@@ -1,0 +1,4 @@
+id: 13137
+name: Geometry lessons
+mint_opens_at: 2022-05-18T16:15:59+00:00
+generative_uri: ipfs://QmcEpG4Mp1VkmJpZ1bz4Cs2wGuCT6jmuCGZ1PCF73B629T

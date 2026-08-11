@@ -1,0 +1,4 @@
+id: 11475
+name: fx(neuron)
+mint_opens_at: 2022-04-19T02:43:59+00:00
+generative_uri: ipfs://Qmboe1yzpJCUbbwzEcZr42K5G29GSxnmXBdVyHC485qoRD

@@ -1,0 +1,4 @@
+id: 17658
+name: Encoded-Paraty-1
+mint_opens_at: 2022-08-06T10:25:14+00:00
+generative_uri: ipfs://QmQt5JgP2YHvSqiaBcyshyHhDJW1LAMj8N6Ruqpmuj9Kzy

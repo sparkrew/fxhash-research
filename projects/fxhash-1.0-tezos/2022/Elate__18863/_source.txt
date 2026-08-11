@@ -1,0 +1,4 @@
+id: 18863
+name: Elate
+mint_opens_at: 2022-09-02T12:02:00+00:00
+generative_uri: ipfs://QmQC2Lpe1EuCnpbWXsXTMVk6SvEjw9q1ZGh55mYygNXKBu

@@ -1,0 +1,4 @@
+id: 7036
+name: drift
+mint_opens_at: 2022-01-14T23:31:30+00:00
+generative_uri: ipfs://Qmf9XCRxueEmeQJhrL1yGVKTEfy6HnJGQWt5QYE3d3vZRx

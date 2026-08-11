@@ -1,0 +1,4 @@
+id: 7134
+name: DEBUGGERS
+mint_opens_at: 2022-01-15T21:10:10+00:00
+generative_uri: ipfs://QmPAf1xBSqXF4XYsiPXaXGys7VDw4UeuJscJ8RYAbFeqjq

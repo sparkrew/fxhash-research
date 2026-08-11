@@ -1,0 +1,4 @@
+id: 10288
+name: Dope 90s
+mint_opens_at: 2022-03-04T21:30:04+00:00
+generative_uri: ipfs://QmR1mGHkkMZy8rZ2AhZiSHcNtqgQqpomqdf2ncM7iyqvjc

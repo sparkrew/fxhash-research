@@ -1,0 +1,4 @@
+id: 21215
+name: Cosmology of oneself
+mint_opens_at: 2022-11-14T13:00:00+00:00
+generative_uri: ipfs://QmZpkXzSjVNZVHJyFdnzkf759Q7drPdRTQSXHaTudKoQ3o

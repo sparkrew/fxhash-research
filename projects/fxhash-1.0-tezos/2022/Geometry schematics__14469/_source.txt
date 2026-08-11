@@ -1,0 +1,4 @@
+id: 14469
+name: Geometry schematics
+mint_opens_at: 2022-06-10T10:00:00+00:00
+generative_uri: ipfs://QmQ5qZ9GaHK24mEud7g11vbiu8oHZR3GPmyEwruBGVtCnY

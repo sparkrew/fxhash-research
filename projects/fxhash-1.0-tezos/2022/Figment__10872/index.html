@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Figment - Noise Hllucinations - CiaccoDavide</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #FFF3E0;
+            color: #333;
+        }
+
+        :root {
+            --wasd: min(100vw, 100vh);
+        }
+
+        #output {
+            background-color: transparent;
+            position: absolute;
+            z-index: 1;
+
+            min-width: var(--wasd);
+            min-height: var(--wasd);
+            max-width: var(--wasd);
+            max-height: var(--wasd);
+            /* border-radius: var(--wasd); */
+        }
+    </style>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    <script>
+        var randomValueIndex = 0
+        const randomPool=[]
+        for(let r=0;r<999999;r++){
+            randomPool.push(fxrand())
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="output" width="256" height="256"></canvas>
+    <script src="./tf.min.js" type="text/javascript"></script>
+
+    <script>
+        randomValueIndex = 0
+        const csize = 256
+
+        const selectRandomValue = (values, probabilities) => {
+            if (!probabilities) return values[Math.floor(randomPool[randomValueIndex++] * values.length)]
+
+            const sum = probabilities.reduce((s, p) => s + p, 0)
+            let probabilityOffset = 0
+            const normalizedProbabilities = probabilities.map(p => {
+                let probabilityStep = p / sum + probabilityOffset
+                probabilityOffset += probabilityStep
+                return probabilityStep
+            })
+            const randomValue = randomPool[randomValueIndex++]
+            for (let p = 0; p < normalizedProbabilities.length; p++) {
+                if (randomValue < normalizedProbabilities[p]) {
+                    return values[p]
+                }
+            }
+        }
+
+        const origsim = selectRandomValue(['o', 'q', 'p', 'b'])
+        const neuralCoordsDisplacement = selectRandomValue([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        const combo = selectRandomValue([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        const vectorShuffle = selectRandomValue(
+            ['uvs', 'bn', 'rg', 'rb', 'gb'],
+            [100, 5, 20, 20, 20]
+        )
+        const sm = selectRandomValue([0, 1, 2])
+        const overlay = selectRandomValue([0, 1, 2, 3])
+        const eporc = 74
+        const epoch = 74
+
+        function randomNoise(canvas, x, y, width, height, alpha) {
+            x = x || 0
+            y = y || 0
+            width = width || canvas.width
+            height = height || canvas.height
+            alpha = alpha || 255
+            let g = canvas.getContext("2d")
+            let imageData = g.getImageData(x, y, width, height)
+            let pixels = imageData.data
+            let n = pixels.length
+            let i = 0
+
+            const maxR = randomPool[randomValueIndex++] * 250
+            const maxG = randomPool[randomValueIndex++] * 250
+            const maxB = randomPool[randomValueIndex++] * 250
+
+            while (i < n) {
+                let col = randomPool[randomValueIndex++] * maxR
+                pixels[i++] = col
+                col = randomPool[randomValueIndex++] * maxG
+                pixels[i++] = col
+                col = randomPool[randomValueIndex++] * maxB
+                pixels[i++] = col
+                pixels[i++] = alpha
+            }
+            g.putImageData(imageData, x, y)
+
+            return canvas
+        }
+
+        function perlinNoise(canvas, noise) {
+            let g = canvas.getContext("2d")
+            g.save()
+            for (let size = 4; size <= noise.width; size *= 2) {
+                let x = (randomPool[randomValueIndex++] * (noise.width - size)) | 0
+                let y = (randomPool[randomValueIndex++] * (noise.height - size)) | 0
+                g.globalAlpha = 4 / size;
+                g.drawImage(noise, x, y, size, size, 0, 0, canvas.width, canvas.height)
+            }
+            g.restore();
+            return canvas;
+        }
+
+
+        const canvas = document.querySelector('canvas#output')
+        const noiseCanvas = document.createElement('canvas')
+        const seedCanvas = document.createElement('canvas')
+        seedCanvas.width = seedCanvas.height = noiseCanvas.width = noiseCanvas.height = canvas.width = canvas.height = csize
+        const ctx = canvas.getContext('2d')
+        const seedctx = seedCanvas.getContext('2d')
+
+        perlinNoise(seedCanvas, randomNoise(noiseCanvas, 0, 0, csize, csize, 255))
+
+        if (origsim === 'q' || origsim === 'b') {
+            seedctx.save();
+            seedctx.translate(csize / 4, 0);
+            seedctx.scale(-1, 1);
+            seedctx.drawImage(seedCanvas,
+                csize / 2, 0, csize / 2, csize,
+                -csize / 4, 0, csize / 2, csize);
+            seedctx.restore();
+        }
+
+        if (origsim === 'p' || origsim === 'b') {
+            seedctx.save();
+            seedctx.translate(0, csize / 4);
+            seedctx.scale(1, -1);
+            seedctx.drawImage(seedCanvas,
+                0, csize / 2, csize, csize / 2,
+                0, -csize / 4, csize, csize / 2);
+            seedctx.restore();
+        }
+
+        const imageData_noise = seedctx.getImageData(0, 0, csize, csize)
+        const data_noise = [...imageData_noise.data]
+        const noiseR = []
+        const noiseG = []
+        const noiseB = []
+        for (let p = 0; p < data_noise.length; p += 4) {
+            noiseR.push(data_noise[p] / 255)
+            noiseG.push(data_noise[p + 1] / 255)
+            noiseB.push(data_noise[p + 2] / 255)
+        }
+
+
+        ctx.fillStyle = '#FFF3E0'
+        ctx.fillRect(0, 0, csize, csize)
+
+        const resultImageData = ctx.getImageData(0, 0, csize, csize)
+        const pixels = resultImageData.data
+
+        const tensorData = []
+        const risulatatiAttesiForseTensorData = []
+
+        var coords = (x, y) => [x / csize, y / csize]
+        switch (neuralCoordsDisplacement) {
+            case 1: coords = (x, y) => [
+                (x - y) / csize,
+                (y - x) / csize,
+            ]; break;
+            case 2: coords = (x, y) => [
+                (csize - x) / csize,
+                (csize - y) / csize,
+            ]; break;
+            case 3: coords = (x, y) => [
+                (csize - x / y) / csize,
+                (csize - y) / csize,
+            ]; break;
+            case 4: coords = (x, y) => [
+                (x + y) / 2 / csize,
+                x / csize,
+            ]; break;
+            case 5: coords = (x, y) => [
+                (csize - x) / csize,
+                (csize - y / x) / csize,
+            ]; break;
+            case 6: coords = (x, y) => [
+                x / 2 / csize,
+                (x + y) / csize,
+            ]; break;
+            case 7: coords = (x, y) => [
+                y / csize,
+                x / csize,
+            ]; break;
+            case 8: coords = (x, y) => [
+                (csize - y) / csize,
+                (csize - x) / csize,
+            ]; break;
+            case 9: coords = (x, y) => [
+                x / csize,
+                x / csize,
+            ]; break;
+            case 10: coords = (x, y) => [
+                y / csize,
+                y / csize,
+            ]; break;
+        }
+        for (let y = 8; y < csize - 8; y++) {
+            for (let x = 8; x < csize - 8; x++) {
+                tensorData.push(
+                    [
+                        ...(coords(x, y)),
+
+                        noiseR[(y - 2) * csize + x],
+                        noiseR[(y + 2) * csize + x],
+                        noiseR[y * csize + x - 2],
+                        noiseR[y * csize + x + 2],
+                        noiseR[(y - 8) * csize + x],
+                        noiseR[(y + 8) * csize + x],
+                        noiseR[y * csize + x - 8],
+                        noiseR[y * csize + x + 8],
+                        noiseR[(y - 4) * csize + x - 4],
+                        noiseR[(y - 4) * csize + x + 4],
+                        noiseR[(y + 4) * csize + x + 4],
+                        noiseR[(y + 4) * csize + x - 4],
+                        noiseR[(y - 8) * csize + x - 8],
+                        noiseR[(y - 8) * csize + x + 8],
+                        noiseR[(y + 8) * csize + x + 8],
+                        noiseR[(y + 8) * csize + x - 8],
+
+                        noiseG[(y - 2) * csize + x],
+                        noiseG[(y + 2) * csize + x],
+                        noiseG[y * csize + x - 2],
+                        noiseG[y * csize + x + 2],
+                        noiseG[(y - 8) * csize + x],
+                        noiseG[(y + 8) * csize + x],
+                        noiseG[y * csize + x - 8],
+                        noiseG[y * csize + x + 8],
+                        noiseG[(y - 4) * csize + x - 4],
+                        noiseG[(y - 4) * csize + x + 4],
+                        noiseG[(y + 4) * csize + x + 4],
+                        noiseG[(y + 4) * csize + x - 4],
+                        noiseG[(y - 8) * csize + x - 8],
+                        noiseG[(y - 8) * csize + x + 8],
+                        noiseG[(y + 8) * csize + x + 8],
+                        noiseG[(y + 8) * csize + x - 8],
+
+                        noiseB[(y - 2) * csize + x],
+                        noiseB[(y + 2) * csize + x],
+                        noiseB[y * csize + x - 2],
+                        noiseB[y * csize + x + 2],
+                        noiseB[(y - 8) * csize + x],
+                        noiseB[(y + 8) * csize + x],
+                        noiseB[y * csize + x - 8],
+                        noiseB[y * csize + x + 8],
+                        noiseB[(y - 4) * csize + x - 4],
+                        noiseB[(y - 4) * csize + x + 4],
+                        noiseB[(y + 4) * csize + x + 4],
+                        noiseB[(y + 4) * csize + x - 4],
+                        noiseB[(y - 8) * csize + x - 8],
+                        noiseB[(y - 8) * csize + x + 8],
+                        noiseB[(y + 8) * csize + x + 8],
+                        noiseB[(y + 8) * csize + x - 8],
+                    ]
+                )
+
+            }
+        }
+        
+        var model
+        const testModel = async () => {
+            model = await tf.loadLayersModel(`./neural_nets/${epoch}/model-comb${combo}-epoch-${eporc}.json`);
+            console.log('neural net model loaded!')
+        }
+
+        testModel()
+
+        const vectors = []
+
+        for (let y = 8; y < csize - 8; y++) {
+            for (let x = 8; x < csize - 8; x++) {
+                let i = y * csize + x
+                let ip = (y - 8) * (csize - 16) + x - 8
+                vectors.push({ i, ip })
+            }
+
+            if (y % 10 === 0) console.log('loadingVectors: ', (Math.floor(10000 * y / csize) / 100) + '%')
+        }
+
+        function shuffle(a) {
+            var j, x, i;
+            for (i = a.length - 1; i > 0; i--) {
+                j = Math.round(randomPool[randomValueIndex++] * (i + 1));
+                x = a[i];
+                a[i] = a[j];
+                a[j] = x;
+            }
+            return a;
+        }
+
+        if (!isFxpreview && randomPool[randomValueIndex++] < .5) {
+            shuffle(vectors);
+            console.log('shuffled vectors')
+        }
+
+        const chunks = []
+        const chunkSize = 1
+        let c
+        for (c = 0; c < vectors.length;) {
+            chunks.push(vectors.slice(c, c += chunkSize))
+        }
+        // console.log(vectors.length, chunks.length * chunkSize, chunkSize, chunks[0].length)
+
+        var vR = 0
+        var vG = 1
+        var vB = 2
+        switch (vectorShuffle) {
+            case 'bn':
+                vR = sm
+                vG = sm
+                vB = sm
+                break;
+            case 'rg': vR = 1; vG = 0; break;
+            case 'rb': vR = 2; vB = 0; break;
+            case 'gb': vG = 2; vB = 1; break;
+        }
+
+        const render = (chunk) => {
+            chunk.forEach(({ i, ip }) => {
+
+                const noiseInput = tf.tensor([tensorData[ip]])
+                const pt = model.predict(noiseInput)
+                const prediction = pt.dataSync()
+                const predictedValueR = prediction[vR]
+                const predictedValueG = prediction[vG]
+                const predictedValueB = prediction[vB]
+
+                pixels[i * 4] = predictedValueR * 255
+                pixels[i * 4 + 1] = predictedValueG * 255
+                pixels[i * 4 + 2] = predictedValueB * 255
+            })
+            chunksProcessed++
+            ctx.putImageData(resultImageData, 0, 0)
+        }
+        var chunksProcessed = 0
+        const checkModel = () => {
+            if (!model) {
+                console.log('not yet')
+                window.requestAnimationFrame(checkModel)
+            } else {
+                console.log('the model is indeed loaded')
+                if (isFxpreview) {
+                    console.log('building preview')
+                    chunks.forEach((chunk, key) => {
+                        render(chunk)
+                    })
+                } else {
+                    chunks.forEach((chunk, key) => {
+                        setTimeout(() => {
+                            render(chunk)
+                        }, 0)
+                    })
+                }
+            }
+        }
+        checkModel()
+
+        ctx.fillStyle = '#E5D7C0'
+        const progressBarLength = csize - 16
+        const showProgress = () => {
+            if (chunksProcessed < chunks.length) {
+                let progress = progressBarLength * chunksProcessed / chunks.length
+                ctx.fillRect((csize - progress) / 2, csize - 5, progress, 1)
+                ctx.fillRect((csize - progress) / 2, 4, progress, 1)
+                ctx.fillRect(csize - 5, (csize - progress) / 2, 1, progress)
+                ctx.fillRect(4, (csize - progress) / 2, 1, progress)
+                window.requestAnimationFrame(showProgress)
+            } else {
+                console.log('NN render completed')
+                ctx.fillRect(8, csize - 5, progressBarLength, 1)
+                ctx.fillRect(8, 4, progressBarLength, 1)
+                ctx.fillRect(csize - 5, 8, 1, progressBarLength)
+                ctx.fillRect(4, 8, 1, progressBarLength)
+
+                if (fxhash === 'oopV1R9HrEg5kHKt6y8gvExfEynf7YS7zRscQ7FB8kZZEiDytgn') overlay = 0
+                if (overlay === 1) {
+                    for (tx = 0; tx < csize; tx += 1) {
+                        for (ty = 0; ty < csize; ty += 1) {
+                            let opa = randomPool[randomValueIndex++] * 0.05
+                            ctx.fillStyle = 'rgba(255,245,235,' + opa + ')'
+                            ctx.fillRect(tx, ty, 1, 1)
+                        }
+                    }
+                } else if (overlay === 2) {
+                    for (tx = 0; tx < csize; tx += 2) {
+                        for (ty = 0; ty < csize; ty += 3) {
+                            let opa = randomPool[randomValueIndex++] * 0.05
+                            ctx.fillStyle = 'rgba(255,245,235,' + opa + ')'
+                            ctx.fillRect(tx, ty, 1, 1 + Math.floor(randomPool[randomValueIndex++] * 4))
+                        }
+                    }
+                } else if (overlay === 3) {
+                    for (ty = 0; ty < csize; ty += 3) {
+                        ctx.fillStyle = 'rgba(255,245,235,.025)'
+                        ctx.fillRect(0, ty, csize, 1)
+                    }
+                }
+
+                fxpreview()
+            }
+        }
+        showProgress()
+
+        const features = {
+            'NEURAL-NET': combo,
+            // 'EPOCH': epoch,
+            'COORDS-DISPLACEMENT': neuralCoordsDisplacement,
+            'ORIGSYM': origsim,
+            'VECTOR-SHUFFLE': vectorShuffle,
+        }
+        console.table(features)
+        window.$fxhashFeatures = features
+    </script>
+</body>
+

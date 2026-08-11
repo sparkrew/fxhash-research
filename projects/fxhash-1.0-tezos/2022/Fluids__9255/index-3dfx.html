@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>3dfx</title>
+    <meta name="author" content="jambonbill">
+    <meta name="description" content="PETSCII 3D machine">
+    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      //---- /do not edit the following code
+    </script>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- if you need to import js scripts do it here -->
+    <script type="text/javascript" src="./psp-fx.js"></script>
+<script type="text/pspscript" canvas=screen>setFps(60);resize(64,64);t(0);let width=cols();let height=rows();let distance=0;let pals=[];pals.push(['#000000','#111111','#222222','#333333','#444444','#555555','#666666','#777777','#888888','#999999','#aaaaaa','#bbbbbb','#CCCCCC','#DDDDDD','#EEEEEE','#FFFFFF']);pals.push(["#000000","#4a4a4a","#7b7b7b","#b2b2b2","#ffffff","#813338","#c46c71","#553800","#8e5029","#edf171","#a9ff9f","#56ac4d","#75cec8","#706deb","#2e2c9b","#8e3c97"]);pals.push(["#000001","#880000","#FF0000","#FF6600","#FF9400","#FEC500","#FFFF00","#8CC700","#0FAD00","#00A3C7","#0064B5","#0010A5","#6300A5","#C5007C","#9F00BF","#4C005C"]);pals.push(["#000000","#ffffff","#ff0000","#00ffff","#ff00ff","#00ff00","#0000ff","#ffff00","#ff8000","#ff0000","#ff00ff","#808080","#808080","#00ff00","#00ffff","#ffffff"]);let pid=rnd(4);colorPalette(pals[pid]);let oxx=2+rnd(20)/10;let oxy=2+rnd(20)/10;let bga=64+rnd(64);let bgb=rnd(16);function Point3D(x,y,z,a,b){this.x=x;this.y=y;this.z=z;this.a=a;this.b=b;}
+function rotX(p,r){let y=p.y;p.y=(y*Math.cos(r))+(p.z*Math.sin(r)*-1.0);p.z=(y*Math.sin(r))+(p.z*Math.cos(r))}
+function rotY(p,r){let x=p.x;p.x=(x*Math.cos(r))+(p.z*Math.sin(r)*-1.0);p.z=(x*Math.sin(r))+(p.z*Math.cos(r))}
+function rotZ(p,r){let x=p.x;p.x=(x*Math.cos(r))+(p.y*Math.sin(r)*-1.0);p.y=(x*Math.sin(r))+(p.y*Math.cos(r))}
+const projection=(xy,z,xyOff,zOff,d)=>((d*xy)/(z-zOff))+xyOff;const W={objects:[],rotate:function(x,y,z){this.objects.forEach((o)=>{this.rotateObj(o,x,y,z)});return this},rotateObj:function(obj,x,y,z){obj.points.forEach((P)=>{rotX(P,x);rotY(P,y);rotZ(P,z)})},render:function(){let data=[];this.objects.forEach((obj)=>{obj.points.forEach((P)=>data.push(P))});data.sort((a,b)=>(a.z>b.z)?1:-1).forEach((P)=>{let x = projection(P.x,P.z,width/oxx,100.0,distance);let y = projection(P.y,P.z,height/oxy,100.0,distance);if(x>=0&&x<width&&y>=0&&y<height)poke(Math.floor(x)+Math.floor(y)*cols(),[P.a,P.b])})}};var rotation=0;let stripe=rnd(2);if(pid==3)stripe=0;let mono=0;if(rnd(9)==0)mono=1+rnd(15);let range=rnd(2);
+function window(size){this.points=[];let chr=range*64+rnd(64);let color=1+rnd(15);for(let y=-size;y<size;y++){for(let x=-size;x<size;x++){if(Math.abs(x)>=size-2||Math.abs(y)>=size-2){if(stripe)color=x;if(mono)color=mono;this.points.push(new Point3D(x,y,-1,chr,color));this.points.push(new Point3D(x,y,0,chr,color));this.points.push(new Point3D(x,y,1,chr,color));}}}}
+let density=5+rnd(6);for(let i=0;i<density;i++){W.objects.push(new window(10+i*3));W.rotate(fxrand(),fxrand(),fxrand());}
+let rx=-0.01+fxrand()/40;let ry=-0.01+fxrand()/40;let rz=-0.01+fxrand()/40;
+hook(()=>{frame().clear();fill(bga,bgb);if(distance<60)distance++;W.rotate(rx,-ry,rz).render();mirror().vertical().horizontal();distance+=Math.cos(t()/30)*0.128;});function bgstr(){if(bgb)return bga+","+bgb;else return null}
+
+let ff={"Colors":"Palette #"+pid,"Striped":stripe||false,"Density":density,"Unicolor":mono||false,"BG":bgstr()}
+//console.table(ff);
+window.$fxhashFeatures={"Colors":"Palette #"+pid,"Striped":stripe||false,"Density":density,"Unicolor":mono||false,"BG":bgstr()};
+</script>
+</head>
+<body style="text-align: center">
+<canvas id=screen></canvas>
+<!-- WEBPACK will inject the bundle.js here -->
+</body>
+</html>

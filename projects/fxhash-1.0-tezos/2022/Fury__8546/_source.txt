@@ -1,0 +1,4 @@
+id: 8546
+name: Fury
+mint_opens_at: 2022-02-03T05:48:06+00:00
+generative_uri: ipfs://QmT9xNnAL25HAo5Z9pCekqrk9DvXhd9wGh72F3tcQZZX4u

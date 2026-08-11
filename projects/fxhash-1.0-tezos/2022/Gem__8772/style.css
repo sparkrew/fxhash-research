@@ -1,0 +1,10 @@
+body {
+    background: white;
+    margin: 0;
+    overflow: hidden;
+}
+#canvas {
+    display:block;
+    min-height: 300px;
+    min-width: 300px;
+}

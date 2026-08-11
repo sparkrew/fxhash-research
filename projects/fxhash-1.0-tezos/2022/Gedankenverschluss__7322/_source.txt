@@ -1,0 +1,4 @@
+id: 7322
+name: Gedankenverschluss
+mint_opens_at: 2022-01-18T19:17:10+00:00
+generative_uri: ipfs://QmaAFDbUhvV16Y9FtZARo4XMAoSmtYSVMduSJvGjxHb6F4

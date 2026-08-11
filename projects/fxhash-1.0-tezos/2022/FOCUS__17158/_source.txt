@@ -1,0 +1,4 @@
+id: 17158
+name: FOCUS
+mint_opens_at: 2022-07-27T12:45:29+00:00
+generative_uri: ipfs://QmPd2TAMq6FM8nicpZefMKguW5ixLKCqhfvQiAgJm82Thc

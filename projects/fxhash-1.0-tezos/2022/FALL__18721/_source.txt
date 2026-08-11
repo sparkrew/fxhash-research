@@ -1,0 +1,4 @@
+id: 18721
+name: FALL
+mint_opens_at: 2022-08-29T14:30:00+00:00
+generative_uri: ipfs://QmY9wZgchTs7WL85GV67p6gE61P1Xp1m3jQsXv2A6Dr7Mr

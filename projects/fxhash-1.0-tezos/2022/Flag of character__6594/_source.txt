@@ -1,0 +1,4 @@
+id: 6594
+name: Flag of character
+mint_opens_at: 2022-01-11T14:42:20+00:00
+generative_uri: ipfs://QmRFit5Lyk8cijzgzVSinsG5mDNXsSEHcoQEoL4PUYBukE

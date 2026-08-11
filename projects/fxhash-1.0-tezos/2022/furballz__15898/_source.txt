@@ -1,0 +1,4 @@
+id: 15898
+name: furballz
+mint_opens_at: 2022-07-05T01:06:14+00:00
+generative_uri: ipfs://QmWedszGvYkYS4xN9dJhWzLJFnXCiFdz36f7ZrK3tiAc7R

@@ -1,0 +1,4 @@
+id: 21130
+name: fx(hash) birds
+mint_opens_at: 2022-11-10T13:16:44+00:00
+generative_uri: ipfs://QmfG4gjnVTNw5EchuKiSsD8ucFyA9yiXdw7G9dZ7hiN13s

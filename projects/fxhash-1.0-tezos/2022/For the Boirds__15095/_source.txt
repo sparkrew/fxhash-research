@@ -1,0 +1,4 @@
+id: 15095
+name: For the Boirds
+mint_opens_at: 2022-06-18T02:25:14+00:00
+generative_uri: ipfs://QmS6PXmSpatPJxw9fSGzq1EuA6f6xPxiPaXkEuhLaWLGU2

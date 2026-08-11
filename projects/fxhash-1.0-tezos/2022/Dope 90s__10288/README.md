@@ -1,0 +1,3 @@
+I started the 90s as a dorky-looking kid with giant glasses playing with MacPaint on my dad’s Apple Macintosh. I went on to learn how to program on TI-80 calculators where I made my first generative art... a single line bouncing around the screen. Later I did my first audio visualization using the unforgettable Winamp software. This project is inspired by and dedicated to those amazing times in the 90s.
+
+This project was written by Dean Cheesman using p5js.

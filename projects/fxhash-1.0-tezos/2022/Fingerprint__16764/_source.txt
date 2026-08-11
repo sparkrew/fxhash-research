@@ -1,0 +1,4 @@
+id: 16764
+name: Fingerprint
+mint_opens_at: 2022-07-22T21:00:00+00:00
+generative_uri: ipfs://Qmbvs83FdMEvDRWHb5yRyJqY3uxea86cnz79zkUEEaRax3

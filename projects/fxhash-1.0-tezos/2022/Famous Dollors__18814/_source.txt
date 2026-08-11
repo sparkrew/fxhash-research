@@ -1,0 +1,4 @@
+id: 18814
+name: Famous Dollors
+mint_opens_at: 2022-09-01T16:08:00+00:00
+generative_uri: ipfs://QmPQdy97b7Wjd1qWRRfYZS4J2uzENKnXUHC6pVJJPh38Pn

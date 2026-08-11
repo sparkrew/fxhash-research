@@ -1,0 +1,4 @@
+id: 13825
+name: Flashback time!
+mint_opens_at: 2022-05-29T20:03:59+00:00
+generative_uri: ipfs://QmWMku1E7hNuu4VoQZJzkTNnpU3DnPoBvS2JEygX2Qq5nB

@@ -1,0 +1,4 @@
+id: 13387
+name: Degeneration
+mint_opens_at: 2022-05-23T05:43:59+00:00
+generative_uri: ipfs://QmR9rzgjasw6FnX872xqFzgzTqmmM9ReJtC7fRNAeMgAnm

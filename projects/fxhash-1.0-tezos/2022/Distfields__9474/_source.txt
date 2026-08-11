@@ -1,0 +1,4 @@
+id: 9474
+name: Distfields
+mint_opens_at: 2022-02-16T01:53:54+00:00
+generative_uri: ipfs://QmV7r4xzd6Bs9caD2QS36NYs1GLz6d9qwYh1TzfyBT4WyJ

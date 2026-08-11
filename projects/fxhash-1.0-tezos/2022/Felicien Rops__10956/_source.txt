@@ -1,0 +1,4 @@
+id: 10956
+name: Felicien Rops
+mint_opens_at: 2022-03-19T15:50:14+00:00
+generative_uri: ipfs://QmTpE2paYkbuARSLifYxAtjo63hmGSsEuXz5ybbayQXRGQ

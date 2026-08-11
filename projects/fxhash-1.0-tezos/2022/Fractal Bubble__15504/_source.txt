@@ -1,0 +1,4 @@
+id: 15504
+name: Fractal Bubble
+mint_opens_at: 2022-06-25T22:17:44+00:00
+generative_uri: ipfs://Qmbxyq7izy3LNk8HpEY5VnCLKvhXS8oHSFVLvQcXQnNc99

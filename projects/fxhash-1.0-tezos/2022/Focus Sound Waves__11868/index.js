@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand());const container=document.createElement("div");container.innerText=`\n  random hash: ${fxhash}\n\n  some pseudo random values: [ ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()}, ${fxrand()},... ]\n\n`,document.body.prepend(container);

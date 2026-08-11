@@ -1,0 +1,4 @@
+id: 7312
+name: CrossCube
+mint_opens_at: 2022-01-18T16:07:30+00:00
+generative_uri: ipfs://QmTVj6hEuNAe7j36sf9yDU9WXoQ3BJLuUdCUjEThKbECLR

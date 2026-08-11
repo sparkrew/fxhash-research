@@ -1,0 +1,4 @@
+id: 20180
+name: fx(Unit of truth) II
+mint_opens_at: 2022-10-09T12:36:29+00:00
+generative_uri: ipfs://QmU1MCxJaNgtrUDZ91Kpmk2wk8ghMBSP6fxQJhroYGWUjt

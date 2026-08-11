@@ -1,0 +1,4 @@
+id: 20227
+name: gate portal
+mint_opens_at: 2022-10-10T14:50:59+00:00
+generative_uri: ipfs://QmPvhZXTwgcSikVbfC8hVVx5vFefhpWgiKzveyG31y9TFC

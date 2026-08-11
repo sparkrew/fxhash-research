@@ -1,0 +1,4 @@
+id: 22439
+name: Glitch Acuarela
+mint_opens_at: 2022-12-13T19:01:59+00:00
+generative_uri: ipfs://QmQ15inee5jkXhgPg1ZM5wPj5fnD9hQuGoQ86feHn4tk2L

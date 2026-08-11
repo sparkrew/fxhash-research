@@ -1,0 +1,4 @@
+id: 19883
+name: GM.GEN.MATH
+mint_opens_at: 2022-09-30T16:00:00+00:00
+generative_uri: ipfs://QmZAJxNDfev6JbP5bbX6j85AqXiRzszjSpF1tmqvAJYGBb

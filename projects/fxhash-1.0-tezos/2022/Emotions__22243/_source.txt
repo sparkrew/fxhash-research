@@ -1,0 +1,4 @@
+id: 22243
+name: Emotions
+mint_opens_at: 2022-12-08T20:40:00+00:00
+generative_uri: ipfs://QmepExEktowcxqMcto4qyk2njEFSoY16debuECfgsyU2cP

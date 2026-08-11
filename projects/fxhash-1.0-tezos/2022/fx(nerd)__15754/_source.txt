@@ -1,0 +1,4 @@
+id: 15754
+name: fx(nerd)
+mint_opens_at: 2022-07-02T14:00:00+00:00
+generative_uri: ipfs://QmWAnZVVr7E3RjXR8EP2nSzW5DGsBSYDfa9Y87YWhkJze6

@@ -1,0 +1,4 @@
+id: 20765
+name: DOS DECAL
+mint_opens_at: 2022-10-28T20:05:29+00:00
+generative_uri: ipfs://QmYGqjJdydr7WAx9Na22qNuidh4FYnaJ2Ryvzg12xLeJJ5

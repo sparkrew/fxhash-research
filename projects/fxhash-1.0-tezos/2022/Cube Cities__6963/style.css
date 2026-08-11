@@ -1,0 +1,21 @@
+body,
+html {
+  height: 100vh;
+}
+
+body {
+  background: #fff;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  --w: min(100vh, 100vw);
+  margin: auto;
+  height: var(--w);
+  width: var(--w);
+}

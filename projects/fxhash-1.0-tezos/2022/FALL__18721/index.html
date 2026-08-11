@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+</head>
+<body>
+<title>Fall</title>
+  <canvas id="canvas" width="400" height="400" style="border:1px solid rgb(0, 0, 0);"></canvas>
+
+        <script>
+ 
+    document.body.style.overflow = 'hidden';
+    var p = document.createElement("canvas");
+    p = document.getElementById("canvas");   
+     
+    var ctx = p.getContext("2d");
+    var RndlistOverAll = new Array
+    var RndlistCeck
+    var bln = 0
+    var LineNumber = 0
+
+function drawRect(){ 
+  p.width = p.width
+  ctx.beginPath()
+  ctx.fillStyle= "Black"
+  ctx.fillRect(0, 0, 400, 400);
+  ctx.closePath()
+ }
+
+function LineCreate (x1 , y1 , x2 , y2 , galpha , color, width) {
+  ctx.globalAlpha = (galpha);
+  ctx.strokeStyle =  (color);
+  ctx.lineWidth = (width);
+  ctx.beginPath();
+  ctx.moveTo(x1,y1);
+  ctx.lineTo(x2,y2);
+  ctx.stroke();
+}
+
+function RndLine(){
+  
+  var RndList = new Array
+  
+  
+  var RndListLog
+  for (let i=0; i<400; ){
+      var List = new Array
+      var width = Math.floor((fxrand()*10)+1);
+      List.push(width)
+      var h= Math.floor((fxrand()*355)+1); //Math.floor((fxrand()*250)+1)
+      var w=Math.floor((fxrand()*20)+1); //Math.floor((fxrand()*250)+1)
+      var b=Math.floor((fxrand()*20)+1); //Math.floor((fxrand()*250)+1)
+      List.push('hwb(' + h + ' ' + w + '% ' + b + '%)')  //c.push('rgb(' + h + ' , ' + w + ' , ' + b + ')')
+      RndList.push(List)
+      
+      RndListLog = RndListLog +width+ 'hwb(' + h + ' ' + w + '% ' + b + '%)'//colorList = colorList + 'rgb(' + h + ' , ' + w + ' , ' + b + ')'
+      RndlistCeck = RndListLog
+      i = i+width
+    }
+   RndlistOverAll.forEach(CheckColor);
+    if (bln===0) {
+       RndlistOverAll.push(RndListLog)       
+       return RndList;
+    } else {
+  RndLine();
+    }
+}
+
+   function CheckColor(item){
+   if (item === RndlistCeck) {
+    bln = 1
+  } else {
+    bln = 0
+
+  }
+}
+
+
+function draw(){
+   
+   var RndList = RndLine();
+   var i = 0
+   LineNumber=RndList.length
+for (t=0; t< RndList.length; t++) {
+      var subRndList = RndList[t]
+      var hw = Math.floor((subRndList[0]/2))
+      //console.log(i + "  " + subRndList[0] + "  " + hw + " " + subRndList[1])
+      for (let j = 0; j<199; j++){
+          LineCreate(i+hw , (199-j) , i+hw , (200-j), ((199-j)/199), subRndList[1],subRndList[0]);
+          LineCreate(i+hw , (j+200) , i+hw , (j+201), ((199-j)/199), subRndList[1],subRndList[0]);
+      }
+     i = i+subRndList[0]
+   }
+ 
+  }
+
+
+function animate(){
+  p.width=400;
+  p.height = 400;
+  p.style.width = (window.innerWidth) + 'px';
+  p.style.height = (window.innerHeight) + 'px';
+  
+  drawRect()
+  draw()
+  setTimeout(() => {  requestAnimationFrame(animate); }, 500)
+fxpreview()
+}
+
+
+animate()
+window.$fxhashFeatures = {
+         "Line number": LineNumber        
+      }
+       </script>
+</body>
+</html>

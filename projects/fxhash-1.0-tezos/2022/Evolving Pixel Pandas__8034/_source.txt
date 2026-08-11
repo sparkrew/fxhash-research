@@ -1,0 +1,4 @@
+id: 8034
+name: Evolving Pixel Pandas
+mint_opens_at: 2022-01-27T03:03:28+00:00
+generative_uri: ipfs://Qmdyt5n3GdF93bjS3RnQE2XpHk2AJmtt8By35JQStKB1zS

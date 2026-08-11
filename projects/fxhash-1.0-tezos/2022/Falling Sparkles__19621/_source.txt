@@ -1,0 +1,4 @@
+id: 19621
+name: Falling Sparkles
+mint_opens_at: 2022-09-20T11:26:29+00:00
+generative_uri: ipfs://QmWC5UGAVif4AzNwc8jW9uMxUnqLPXtS9uFFn9yXBu6SWF

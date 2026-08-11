@@ -1,0 +1,4 @@
+id: 9768
+name: Free Flight
+mint_opens_at: 2022-02-20T22:54:00+00:00
+generative_uri: ipfs://QmUHCaSLiSCiCVoToKrnMSxMuycuVp5eZBJtJK8zEbHVSz

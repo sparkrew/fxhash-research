@@ -1,0 +1,4 @@
+id: 12006
+name: Digital abstractionism
+mint_opens_at: 2022-04-27T04:00:00+00:00
+generative_uri: ipfs://QmXDhMXK9X2i8FfEmH15XbsTfJ7Lexjs3Mg4YCb1a8YnFr

@@ -1,0 +1,4 @@
+id: 9948
+name: FELT PATCH
+mint_opens_at: 2022-02-23T16:15:40+00:00
+generative_uri: ipfs://QmNPJDZ4kPWcfLHPQyzuDKybReaiMyVY9TmPNb1UZyUnJs

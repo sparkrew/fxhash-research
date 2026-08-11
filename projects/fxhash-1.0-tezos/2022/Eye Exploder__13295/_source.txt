@@ -1,0 +1,4 @@
+id: 13295
+name: Eye Exploder
+mint_opens_at: 2022-05-22T03:58:14+00:00
+generative_uri: ipfs://Qmcx3BFTS1pt27eCQnU4Q5FtWS8VcJy3u1Ef9MUPCnynKG

@@ -1,0 +1,4 @@
+id: 9230
+name: Disintegrated Astral Artefact
+mint_opens_at: 2022-02-13T08:12:04+00:00
+generative_uri: ipfs://QmPT3qAcHm1ftTwKArpnpGnwd1EoeTfCRErsyynAoJWfCq

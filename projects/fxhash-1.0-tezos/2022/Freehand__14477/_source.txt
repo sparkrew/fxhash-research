@@ -1,0 +1,4 @@
+id: 14477
+name: Freehand
+mint_opens_at: 2022-06-10T14:00:00+00:00
+generative_uri: ipfs://QmQpwE746T4yyex45siCbKZaFVLqWGAjV6bsAttVVmHCzR

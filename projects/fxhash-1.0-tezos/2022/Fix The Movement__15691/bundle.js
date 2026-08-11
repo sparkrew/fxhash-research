@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Palette:palette.name,Brush:brush.name,Force:turb.name,Radius:rad.name,"Inner Radius":inRad.name,"Position X":circlePosX.name,"Position Y":circlePosY.name,Mode:amp.name};

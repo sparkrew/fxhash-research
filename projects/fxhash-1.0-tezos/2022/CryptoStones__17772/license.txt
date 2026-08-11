@@ -1,0 +1,3 @@
+CryptoStones is CC0. Feel free to do whatever with your mint!
+
+Created in Zimjs and GIMP.

@@ -1,0 +1,4 @@
+id: 7440
+name: Generative Gestural Abstraction 1
+mint_opens_at: 2022-01-19T00:31:00+00:00
+generative_uri: ipfs://QmaA9yDULCthBaEcF2V3hHjFatk44vnqV8HBys5gTY9KRv

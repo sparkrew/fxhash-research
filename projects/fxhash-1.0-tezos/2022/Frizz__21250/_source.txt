@@ -1,0 +1,4 @@
+id: 21250
+name: Frizz
+mint_opens_at: 2022-11-13T06:49:44+00:00
+generative_uri: ipfs://QmVxvq66Vn453hXdhAfu2Sni4YwNMHesP76zdC6BK5jvSb

@@ -1,0 +1,1 @@
+function linearGradientFill(t,a,o,l,d,e){const n=canvas.getContext("2d"),i=n.createLinearGradient(t,a,o,l);i.addColorStop(0,d),i.addColorStop(1,e),n.fillStyle=i}function radialGradientFill(t,a,o,l,d,e,n,i){const r=canvas.getContext("2d"),c=r.createRadialGradient(t,a,o,l,d,e);c.addColorStop(.5,n),c.addColorStop(1,i),r.fillStyle=c}

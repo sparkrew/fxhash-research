@@ -1,0 +1,4 @@
+id: 8482
+name: Emojies particle system
+mint_opens_at: 2022-02-02T13:50:56+00:00
+generative_uri: ipfs://QmaBuApmta4PA8eSBQWHt8YCxK8YxQNXBA8A6uzpmUYgRv

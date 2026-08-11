@@ -1,0 +1,4 @@
+id: 5899
+name: Eroded Spiralling
+mint_opens_at: 2022-01-06T14:48:30+00:00
+generative_uri: ipfs://QmTndGjmpgGSvHqpPYcmTh6kgvgdvEEuZjAcbrKpckW6Tm

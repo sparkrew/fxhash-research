@@ -1,0 +1,4 @@
+id: 17661
+name: Garden of Remains
+mint_opens_at: 2022-08-07T13:00:00+00:00
+generative_uri: ipfs://QmTL9xbaHPvZFXj8kievwmZzxatPwtrF3iE7evMwck82vo

@@ -1,0 +1,4 @@
+id: 10794
+name: Everlasting computational lab
+mint_opens_at: 2022-03-17T12:46:44+00:00
+generative_uri: ipfs://QmdTkAtGd3QtG6z2brBtRhPeHZBs6hcNsBxVaTsnggDCU9

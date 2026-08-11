@@ -1,0 +1,4 @@
+id: 12773
+name: Dithered Gradients
+mint_opens_at: 2022-05-11T02:50:29+00:00
+generative_uri: ipfs://QmashVGutaSPg5c7ag5q9YipcSU8FvWVmpGkyYuZzXYJ6m

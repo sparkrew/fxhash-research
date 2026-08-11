@@ -1,0 +1,4 @@
+id: 21040
+name: Curvature
+mint_opens_at: 2022-11-06T00:45:59+00:00
+generative_uri: ipfs://QmRLK9JMcrR3TxWZyzPtpNMSCSiVqi5bHTL3MMXpvLxVEj

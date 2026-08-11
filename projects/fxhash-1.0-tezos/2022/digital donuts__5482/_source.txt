@@ -1,0 +1,4 @@
+id: 5482
+name: digital donuts
+mint_opens_at: 2022-01-05T04:34:50+00:00
+generative_uri: ipfs://QmUfjS7LBhPLPCDAuWZyCSbXJYNchT7TDqQErhTrRVpci2

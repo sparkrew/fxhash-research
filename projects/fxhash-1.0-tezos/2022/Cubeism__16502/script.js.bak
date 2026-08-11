@@ -1,0 +1,478 @@
+let img = [];
+let imgBlends = [];
+let canvas;
+let extraCanvas;
+let scale = 1;
+let angle = 0;
+let bg = '#efdcb4';
+let boxBg = '#f5453f';
+let boxFg = '#000000';
+let palette = [
+    {
+        'bg': '#666547',
+        'box': {
+            'bg': ['#fb2e01', '#6fcb9f', '#ffe28a', '#fffeb3'],
+            'fg': ['#fb2e01', '#6fcb9f', '#ffe28a', '#fffeb3']
+        }
+    },
+    {
+        'bg': '#72d7ff',
+        'box': {
+            'bg': ['#d90429', '#ef233c', '#8d99ae', '#2b2d42'],
+            'fg': ['#d90429', '#ef233c', '#8d99ae', '#2b2d42']
+        }
+    },
+    {
+        'bg': '#c64dff',
+        'box': {
+            'bg': ['#60ff00', '#ff9bfb', '#9effae', '#5000be'],
+            'fg': ['#60ff00', '#ff9bfb', '#9effae', '#5000be']
+        }
+    },
+    {
+        'bg': '#4246ff',
+        'box': {
+            'bg': ['#ffbf42', '#ff5388', '#ffbf42', '#ff5388'],
+            'fg': ['#ffbf42', '#ff5388', '#ffbf42', '#ff5388']
+        }
+    },
+    {
+        'bg': '#ffca3a',
+        'box': {
+            'bg': ['#6a4c93', '#1982c4', '#8ac926', '#ff595e'],
+            'fg': ['#6a4c93', '#1982c4', '#8ac926', '#ff595e']
+        }
+    },
+    {
+        'bg': '#53e9ff',
+        'box': {
+            'bg': ['#ffc300', '#003566', '#001d3d', '#000814'],
+            'fg': ['#ffc300', '#003566', '#001d3d', '#000814']
+        }
+    },
+    {
+        'bg': '#ff5377',
+        'box': {
+            'bg': ['#ffbf69', '#ff9f1c', '#cbf3f0', '#2ec4b6'],
+            'fg': ['#ffbf69', '#ff9f1c', '#cbf3f0', '#2ec4b6']
+        }
+    },
+    {
+        'bg': '#003153',
+        'box': {
+            'bg': ['#08777a', '#a0d6b4', '#67074e', '#dd9933'],
+            'fg': ['#08777a', '#a0d6b4', '#67074e', '#dd9933']
+        }
+    },
+    {
+        'bg': '#ff9b54',
+        'box': {
+            'bg': ['#ff7f51', '#ce4257', '#720026', '#4f000b'],
+            'fg': ['#ff7f51', '#ce4257', '#720026', '#4f000b']
+        }
+    },
+    {
+        'bg': '#007C33',
+        'box': {
+            'bg': ['#DFAD03', '#F8DA60', '#C9328A', '#8B008B'],
+            'fg': ['#DFAD03', '#F8DA60', '#C9328A', '#8B008B']
+        }
+    },
+    {
+        'bg': '#6150ff',
+        'box': {
+            'bg': ['#222222', '#4b4e6d', '#84dcc6', '#95a3b3'],
+            'fg': ['#222222', '#ff005a', '#f0ff06', '#95a3b3'] 
+        }
+    },
+    {
+        'bg': '#ffe200',
+        'box': {
+            'bg': ['#ff8e6b', '#38c9ff', '#66ff78', '#ff49bd'],
+            'fg': ['#e0afa0', '#bcb8b1', '#8a817c', '#463f3a']
+        }
+    },
+    {
+        'bg': '#9fe83d',
+        'box': {
+            'bg': ['#fe4200', '#6a994e', '#a7c957', '#ff00e4'],
+            'fg': ['#fe4200', '#6a994e', '#a7c957', '#ff00e4']
+        }
+    },
+    {
+        'bg': '#f98aa0',
+        'box': {
+            'bg': ['#83b692', '#f9627d', '#c65b7c', '#5b3758'],
+            'fg': ['#83b692', '#f9627d', '#c65b7c', '#5b3758']
+        }
+    },
+    {
+        'bg': '#faa275',
+        'box': {
+            'bg': ['#ff8c61', '#ce6a85', '#985277', '#5c374c'],
+            'fg': ['#ff8c61', '#ce6a85', '#985277', '#5c374c']
+        }
+    },
+    {
+        'bg': '#45fffb',
+        'box': {
+            'bg': ['#780000', '#c1121f', '#003049', '#669bbc'],
+            'fg': ['#780000', '#c1121f', '#003049', '#669bbc']
+        }
+    },
+    {
+        
+       'bg': '#ff5a5a',
+        'box': {
+            'bg': ['#ffd6ba', '#bee3db', '#89b0ae', '#555b6e'],
+            'fg': ['#ffd6ba', '#bee3db', '#89b0ae', '#555b6e']
+        }
+    },
+    {'bg': '#ba02db',
+        'box': {
+            'bg': ['#7a0073', '#ff6600', '#ffd200', '#330030'],
+            'fg': ['#7a0073', '#ff6600', '#ffd200', '#330030'] 
+        }
+    },
+    {
+        'bg': '#006cff',
+        'box': {
+            'bg': ['#e8006d', '#fff000', '#ffff00', '#ff4040'],
+            'fg': ['#e8006d', '#fff000', '#ffff00', '#ff4040']
+        }
+    },
+    {
+        'bg': '#444444',
+        'box': {
+            'bg': ['#9d59d2', '#909090', '#fcf431', '#252525'],
+            'fg': ['#9d59d2', '#6000ff', '#f0ff75', '#252525']
+        }
+    },
+    {
+        'bg': '#ffbd00',
+        'box': {
+            'bg': ['#ff5400', '#ff0054', '#9e0059', '#390099'],
+            'fg': ['#ff5400', '#ff0054', '#9e0059', '#390099']
+        }
+    },
+    {
+        'bg': '#ffa800',
+        'box': {
+            'bg': ['#d8a47f', '#272932', '#0f7173', '#f05d5e'],
+            'fg': ['#d8a47f', '#272932', '#0f7173', '#f05d5e']
+        }
+    },
+    {
+        'bg': '#981FAC',
+        'box': {
+            'bg': ['#FF006A', '#ff7800', '#ff3600', '#FF006A'], 
+            'fg': ['#FF006A', '#fee937', '#fcff00', '#FF006A']
+        }
+    },
+    {
+       'bg': '#484a25',
+        'box': {
+            'bg': ['#283670', '#fe4d32', '#ff9e43', '#161b12'],
+            'fg': ['#283670', '#fe4d32', '#ff9e43', '#161b12']
+        }
+    },
+    {
+        'bg': '#ff00d8',
+        'box': {
+            'bg': ['#ccff00', '#B25068', '#774360', '#4C3A51'],
+            'fg': ['#E7AB79', '#B25068', '#774360', '#4C3A51']
+        }
+    },
+    {
+        'bg': '#0000ff',
+        'box': {
+            'bg': ['#FFC54D', '#BD4291', '#F94C66', '#53BF9D'],
+            'fg': ['#FFC54D', '#BD4291', '#F94C66', '#53BF9D']
+        }
+    },
+    {
+        'bg': '#ff0042',
+        'box': {
+            'bg': ['#FFC54D', '#BD4291', '#F94C66', '#53BF9D'],
+            'fg': ['#FFC54D', '#BD4291', '#F94C66', '#53BF9D']
+        }
+    },
+	   {
+        'bg': '#cccccc',
+        'box': {
+            'bg': ['#2c2c2c', '#adadad', '#e0e0e0', '#262626'],
+            'fg': ['#6d6d6d', '#adadad', '#e0e0e0', '#262626']
+        }
+    },
+	 {
+        'bg': '#ffd800',
+        'box': {
+            'bg': ['ff218c', '#ffd800', '#21b1ff', '#21b1ff'],
+            'fg': ['ff218c', '#ffd800', '#21b1ff', '#21b1ff']
+        }
+    },
+		 {
+        'bg': '#4898f9',
+        'box': {
+            'bg': ['ff4559', '#ff4559', '#ff4559', '#ff4559'],
+            'fg': ['ff4559', '#ff4559', '#ff4559', '#ff4559']
+        }
+    },
+	{
+        'bg': '#ffffff',
+        'box': {
+            'bg': ['#000000', '#ffffff', '#000000', '#ffffff'],
+            'fg': ['#c5c5c5', '#848484', '#c5c5c5', '#848484']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#ffa31a', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#ffa31a', '#ffffff', '#292929', '#808080']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#60ff00', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#60ff00', '#ffffff', '#292929', '#808080']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#000cff', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#000cff', '#ffffff', '#292929', '#808080']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#ff5400', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#ff5400', '#ffffff', '#292929', '#808080']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#d2ff00', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#d2ff00', '#ffffff', '#292929', '#808080']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#ff006c', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#ff006c', '#ffffff', '#292929', '#808080']
+        }
+    },
+	 {
+        'bg': '#808080',
+        'box': {
+            'bg': ['#ff0000', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#ff0000', '#ffffff', '#292929', '#808080']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#00ffba', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#00ffba', '#ffffff', '#292929', '#808080']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#ae00ff', '#ffffff', '#292929', '#1b1b1b'],
+            'fg': ['#ae00ff', '#ffffff', '#292929', '#808080']
+        }
+    },
+	{
+        'bg': '#808080',
+        'box': {
+            'bg': ['#f0443f', '#efd9b0', '#292929', '#1b1b1b'],
+            'fg': ['#f0443f', '#efd9b0', '#27221f', '#808080']
+        }
+    },
+	{
+        'bg': '#4c3b2e',
+        'box': {
+            'bg': ['#f0443f', '#efd9b0', '#292929', '#1b1b1b'],
+            'fg': ['#f0443f', '#efd9b0', '#27221f', '#f6ff00']
+        }
+    },
+	{
+        'bg': '#6768e1',
+        'box': {
+            'bg': ['#e065e1', '#e3e26a', '#265dd64', '#f26379'],
+            'fg': ['#e065e1', '#e3e26a', '#265dd64', '#f26379']
+        }
+    },
+	{
+        'bg': '#734240',
+        'box': {
+            'bg': ['#C38E4E', '#EED7B5', '#5EA8A1', '#4F3F85'],
+            'fg': ['#C38E4E', '#EED7B5', '#5EA8A1', '#4F3F85']
+        }
+		
+    },
+	{
+        'bg': '#d0ecf0',
+        'box': {
+            'bg': ['#f50062', '#00d0f5', '#2b2b2b', '#f5f201'],
+            'fg': ['#f50062', '#00d0f5', '#2b2b2b', '#f5f201']
+        }
+    },
+];
+
+palettes = [
+    {
+        'bg': '#d0ecf0',
+        'box': {
+            'bg': ['#f50062', '#00d0f5', '#2b2b2b', '#f5f201'],
+            'fg': ['#f50062', '#00d0f5', '#2b2b2b', '#f5f201']
+        }
+    },
+];
+
+let selectPalette = [];
+let translateX = 0;
+let translateY = 0;
+
+function preload() {
+    tFont = loadFont('assets/arial.ttf');
+
+    let c = 1;
+    for (let i = 1; i <= 9; i++) {
+        imgBlends[c - 1] = loadImage('assets/t' + i + '.png');
+        c++;
+    }
+
+
+    c = 1;
+    for (let i = 1; i <= 6; i++) {
+        for (let y = 1; y <= 6; y++) {
+            img[c - 1] = {
+                "id": i,
+                "img": loadImage('assets/' + i + '.png')
+            };
+            c++;
+        }
+    }
+}
+
+function setup() {
+    randomSeed(int(fxrand() * 987654321));
+    noLoop();
+    imageMode(CENTER);
+    angleMode(DEGREES);
+    frameRate(1);
+
+    canvas = createCanvas(1080, 1080);
+    canvas.position(0, 0);
+    canvas.style('z-index', '-3');
+    extraCanvas = createGraphics(1080, 1080, WEBGL);
+    extraCanvas.clear();
+}
+
+function draw() {
+    selectPalette = random(palette);
+
+    //console.log(palette);
+    //console.log(selectPalette);
+
+    bg = selectPalette.bg;
+    background(bg);
+    shuffle(img, true);
+    img.forEach(imageLoop);
+    lineLoop(4);
+    fillChar('+');
+
+    imageMode(CENTER);
+    translate (width/2, height/2);
+    rotate(random([0,90,180,270]));
+    imgBlend = random(imgBlends);
+
+    blend(imgBlend, 0, 0, 1080, 1080, -540, -540, 1080, 1080, MULTIPLY);
+
+}
+
+function imageLoop(sourceImg) {
+    boxBg = random(selectPalette.box.bg);
+    boxFg = random(selectPalette.box.fg);
+    scale = random(3, 26);
+    angle = random(0, 360);
+
+    translateX = random(-280, 280);
+    translateY = random(-280, 280);
+
+    extraCanvas.push();
+
+    extraCanvas.clear();
+    extraCanvas.translate(translateX, translateY, 0);
+    extraCanvas.rotateX(angle);
+    extraCanvas.rotateY(angle);
+    extraCanvas.rotateZ(angle);
+
+    extraCanvas.fill(boxBg);
+    extraCanvas.box(width / scale);
+
+    extraCanvas.texture(sourceImg.img);
+    extraCanvas.tint(boxFg);
+    extraCanvas.box(width / scale);
+
+    image(extraCanvas, width / 2, height / 2);
+
+    extraCanvas.pop();
+
+}
+
+function lineLoop(lineCount) {
+    let fg = selectPalette.box.bg.concat(['#ffffff', '#000000']);
+
+    for (let i = 1; i <= lineCount; i++) {
+
+        scale = random(3, 24);
+        angle = random(0, 360);
+
+        extraCanvas.translateX = random(-280, 280);
+        extraCanvas.translateY = random(-280, 280);
+
+        extraCanvas.push();
+
+        extraCanvas.translate(translateX, translateY, 0);
+        extraCanvas.rotateX(angle);
+        extraCanvas.rotateY(angle);
+        extraCanvas.rotateZ(angle);
+
+        extraCanvas.noStroke();
+        extraCanvas.fill(random(fg));
+
+        extraCanvas.cylinder(1, 10000);
+
+        image(extraCanvas, width / 2, height / 2);
+
+        extraCanvas.pop();
+
+    }
+}
+
+function fillChar(tChars) {
+    let fg = selectPalette.box.bg.concat(['#ffffff', '#000000']);
+    let textX = -800;
+    let textY = -800;
+
+    extraCanvas.textFont(tFont);
+
+    for (let x = 0; x <= 2; x++) {
+        for (let y = 0; y <= 2; y++) {
+            extraCanvas.fill(random(fg));
+            let tTextSize = random(24, 100);
+            extraCanvas.textSize(tTextSize);
+            extraCanvas.text(tChars, textX + (x + 1) * random(300, 450), textY + (y + 1) * random(300, 450));
+        }
+    }
+
+    image(extraCanvas, width / 2, height / 2);
+}

@@ -1,0 +1,1 @@
+function fxrandArray(n){for(let r=n.length-1;r>0;r--){let f=floor(fxrand()*(r+1));[n[r],n[f]]=[n[f],n[r]]}}function fxrandBetween(n,r){return r?fxrand()*(r-n)+n:fxrand()*n}

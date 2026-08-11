@@ -1,0 +1,4 @@
+id: 16415
+name: Digital Surface 2
+mint_opens_at: 2022-07-15T17:00:00+00:00
+generative_uri: ipfs://QmRJTsJTqKHKQ5UBV7Z1cBpco8Vz3okKXc5BJNbaWtXZLv

@@ -1,0 +1,4 @@
+id: 18617
+name: crumpled colored space
+mint_opens_at: 2022-08-25T20:56:29+00:00
+generative_uri: ipfs://QmY9A7q2zsLpyNkqifmo1RCu9eAihoY4iaMpCnXc6VCQdv

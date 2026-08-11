@@ -1,0 +1,4 @@
+id: 7359
+name: Exoplanet TZ
+mint_opens_at: 2022-01-18T17:15:20+00:00
+generative_uri: ipfs://QmSWxCqeYdeStPdW9PKSpLnxBgZad7i4vkJoNX5wqpXiFc

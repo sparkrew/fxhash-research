@@ -1,0 +1,4 @@
+id: 21151
+name: Galaxy
+mint_opens_at: 2022-11-10T18:05:00+00:00
+generative_uri: ipfs://QmeLsUU1oTrBfj3VYRoDVxXUaraoJkf24AiFusWJKgjSPo

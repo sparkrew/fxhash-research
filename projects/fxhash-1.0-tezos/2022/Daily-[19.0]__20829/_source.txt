@@ -1,0 +1,4 @@
+id: 20829
+name: Daily-[19.0]
+mint_opens_at: 2022-10-30T10:06:14+00:00
+generative_uri: ipfs://QmXLTqiyMQco3cnV9YSqvF5xxhFrApBHiSzcY2rj991eYy

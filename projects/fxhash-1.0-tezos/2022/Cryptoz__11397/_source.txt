@@ -1,0 +1,4 @@
+id: 11397
+name: Cryptoz
+mint_opens_at: 2022-04-17T22:11:14+00:00
+generative_uri: ipfs://QmZ3MT5CqcXW5m8av2CuoQdbWV5pny2wFVEm4nB2ihMBD5

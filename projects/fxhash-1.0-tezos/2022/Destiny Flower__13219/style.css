@@ -1,0 +1,11 @@
+body {
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+#canvas{
+  position: absolute;
+  top:0;
+  left:0;
+}
+

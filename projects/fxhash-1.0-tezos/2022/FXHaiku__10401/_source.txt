@@ -1,0 +1,4 @@
+id: 10401
+name: FXHaiku 
+mint_opens_at: 2022-03-06T19:55:04+00:00
+generative_uri: ipfs://QmSdACisQ5niRU8NHto1QeRfdqkHnWQ9jFZf3uvqSHF1LJ

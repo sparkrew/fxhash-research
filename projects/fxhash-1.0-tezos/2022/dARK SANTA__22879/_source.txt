@@ -1,0 +1,4 @@
+id: 22879
+name: dARK SANTA
+mint_opens_at: 2022-12-24T19:33:44+00:00
+generative_uri: ipfs://QmeHXe9uLEFxFGRxPLoxNmZRYKnTSBwTxNJjddS8JZm9iu

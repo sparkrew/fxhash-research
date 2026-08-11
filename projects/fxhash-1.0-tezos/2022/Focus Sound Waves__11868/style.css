@@ -1,0 +1,8 @@
+body {
+  overflow: hidden;
+  margin: 0;
+  justify-content: flex-end;
+  align-items: flex-start;
+  display: flex;
+
+}

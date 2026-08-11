@@ -1,0 +1,36 @@
+body {
+    background-color: white;
+    /* leave it to hide the scrollbars */
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#svgoutput {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.progress-disabled {
+    display: none;
+}
+
+.progress {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 100px;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+}

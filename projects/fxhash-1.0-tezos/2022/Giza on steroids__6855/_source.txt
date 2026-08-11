@@ -1,0 +1,4 @@
+id: 6855
+name: Giza on steroids
+mint_opens_at: 2022-01-13T08:33:50+00:00
+generative_uri: ipfs://QmXGLewfL5QazcbKPdQgYqfM7pKZ1hW1pQHL1L9husRNYz

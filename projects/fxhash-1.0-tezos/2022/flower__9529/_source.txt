@@ -1,0 +1,4 @@
+id: 9529
+name: flower
+mint_opens_at: 2022-02-17T02:21:20+00:00
+generative_uri: ipfs://QmbZ8muK5tTEJzAwV7Dzy2TmnJLELDgb7GAUtEFZ3mmo15

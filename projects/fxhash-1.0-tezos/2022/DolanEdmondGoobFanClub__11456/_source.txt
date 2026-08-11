@@ -1,0 +1,4 @@
+id: 11456
+name: DolanEdmondGoobFanClub
+mint_opens_at: 2022-04-19T05:00:14+00:00
+generative_uri: ipfs://QmNghuahW1GZS7nTk4Tm799HhAd5mn1dr62NDLV6Ro9YrM

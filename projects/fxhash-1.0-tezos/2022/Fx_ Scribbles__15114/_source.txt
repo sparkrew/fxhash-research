@@ -1,0 +1,4 @@
+id: 15114
+name: Fx: Scribbles
+mint_opens_at: 2022-06-18T14:25:29+00:00
+generative_uri: ipfs://QmRp9SbsmiTCHFk1PCxDboG2bwSUhnptRXm2ftDzCLhJgb

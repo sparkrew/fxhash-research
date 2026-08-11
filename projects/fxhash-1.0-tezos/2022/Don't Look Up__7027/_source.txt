@@ -1,0 +1,4 @@
+id: 7027
+name: Don't Look Up
+mint_opens_at: 2022-01-15T02:14:20+00:00
+generative_uri: ipfs://QmRB4MN6QLf54PXWSuNV4uqWbHdJBbD3dPWXUMPUi3uXnJ

@@ -1,0 +1,4 @@
+id: 17956
+name: Currency 3.0
+mint_opens_at: 2022-08-12T17:30:00+00:00
+generative_uri: ipfs://QmXrzcGYfs7Y9ZoCtQ7edtoXGH7qUFYacWpAkAMipBAv5k

@@ -1,0 +1,4 @@
+id: 8609
+name: Framez2
+mint_opens_at: 2022-02-04T06:25:46+00:00
+generative_uri: ipfs://QmRZVyhUEKuZmmkuqzWKRM1fh3jB3m9ocojgPp6PVimvgf

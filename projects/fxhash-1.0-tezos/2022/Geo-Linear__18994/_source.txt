@@ -1,0 +1,4 @@
+id: 18994
+name: Geo-Linear
+mint_opens_at: 2022-09-04T17:30:00+00:00
+generative_uri: ipfs://Qmc79G1TvJH72ecSY3QZGZ16X3briGryWCeL7DpdnESogr

@@ -1,0 +1,4 @@
+id: 16624
+name: FREE MINT !
+mint_opens_at: 2022-07-19T00:04:44+00:00
+generative_uri: ipfs://QmY6FsMDXiCQYvmKjTGdaNeUaVh2zed5seJD3h8sUV7DXC

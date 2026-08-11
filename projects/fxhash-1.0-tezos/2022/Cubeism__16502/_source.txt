@@ -1,0 +1,4 @@
+id: 16502
+name: Cubeism 
+mint_opens_at: 2022-07-15T13:38:59+00:00
+generative_uri: ipfs://QmSNAT3e6sZqQUSinpLurRarmLeJiM7m8R4rWtVyXRHg2i

@@ -1,0 +1,4 @@
+id: 12783
+name: Ghost in polaroid II
+mint_opens_at: 2022-05-11T07:22:59+00:00
+generative_uri: ipfs://QmaA9CNMtXHotYkxAk7bvvzEunmC5ofcmaWTpwSfLCSzh8

@@ -1,0 +1,1 @@
+class Tracer{constructor(t,s){this.x=t,this.y=s,this.v=createVector(),this.dead=!1}Move(){this.v.normalize(),this.x+=this.v.x,this.y+=this.v.y,(this.x<0||this.x>SIZE||this.y<0||this.y>SIZE)&&(this.dead=!0)}SetChromatic(t){var s=random(4==t||5==t||6==t?200:0,255),i=random(2==t||3==t||6==t?200:0,255),h=random(1==t||3==t||5==t?200:0,255);this.c=createVector(s,i,h)}}

@@ -1,0 +1,4 @@
+id: 8252
+name: de|growth:generations
+mint_opens_at: 2022-01-31T11:37:58+00:00
+generative_uri: ipfs://QmPndRrQqQ44UdbnmEdhcbJJH6JdvfDZUX6snV5yGshpBY

@@ -1,0 +1,4 @@
+id: 13926
+name: fx_umanos
+mint_opens_at: 2022-07-01T14:00:00+00:00
+generative_uri: ipfs://QmPZvLnjwrJhmRWVyGdxPmixwEsAtbD9VkndFQLEeNJeZE

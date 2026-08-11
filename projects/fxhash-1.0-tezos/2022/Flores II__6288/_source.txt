@@ -1,0 +1,4 @@
+id: 6288
+name: Flores II
+mint_opens_at: 2022-01-09T08:59:00+00:00
+generative_uri: ipfs://QmPsLkiCmyv2hGwqSo7Veczu6nepjoYZgKWvjMYDvchAfb

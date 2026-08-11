@@ -1,0 +1,4 @@
+id: 21554
+name: fx(haish) / the Generator
+mint_opens_at: 2022-11-18T16:45:00+00:00
+generative_uri: ipfs://QmWr5a8kBWr3Nz6U7ncUAgVhk43cbmVNB4tSgNMRnMMnYv

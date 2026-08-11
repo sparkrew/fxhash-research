@@ -1,0 +1,4 @@
+id: 21022
+name: Curviating
+mint_opens_at: 2022-11-06T00:38:29+00:00
+generative_uri: ipfs://Qmc2vSLqmbUacFoY7yNQhdYbWb3qnABXV2CYUVvzg2wHVP

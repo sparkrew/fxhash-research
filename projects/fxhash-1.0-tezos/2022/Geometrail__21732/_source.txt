@@ -1,0 +1,4 @@
+id: 21732
+name: Geometrail
+mint_opens_at: 2022-11-23T15:40:29+00:00
+generative_uri: ipfs://QmcBRg2EUveYPN6jDyi5dZFNitRrNjU7ULCtAGj3CBq4bF

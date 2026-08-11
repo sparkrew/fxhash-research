@@ -1,0 +1,4 @@
+id: 16845
+name: Cubic Fam
+mint_opens_at: 2022-07-21T18:24:29+00:00
+generative_uri: ipfs://Qmc9W6mWhu9sosgpUQipi1abM5obYSNjPMWK2G8WfLNo6N

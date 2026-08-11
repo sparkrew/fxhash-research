@@ -1,0 +1,4 @@
+id: 12031
+name: fxLady
+mint_opens_at: 2022-12-30T14:42:00+00:00
+generative_uri: ipfs://QmQ7kfwU5DYuer5fof56ZPgvjogPeD56pRsxFsFBpJHvzw

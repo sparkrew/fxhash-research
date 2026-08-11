@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Far from the Madding Crowd by Marco Aureggi</title>
+	<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    <script type="text/javascript" src="./three.js"></script>
+	<script type="text/javascript" src="./OrbitControls.js"></script>
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+		canvas {
+            display:block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="Stats-output">
+</div>
+
+<div id="WebGL-output">
+</div>
+
+<script type="text/javascript">
+    function init() {
+	
+	    var clock = new THREE.Clock();
+		window.addEventListener('resize', onWindowResize, false);
+
+        var scene = new THREE.Scene();
+        var limits = 100;
+		const aspect = window.innerWidth / window.innerHeight;
+		const size = window.innerHeight;
+
+		const camera = new THREE.OrthographicCamera( (size * aspect) / -10, (size * aspect) / 10, size / 10, size / -10, 0, 2000);
+
+        var webGLRenderer = new THREE.WebGLRenderer();
+
+        let palette1 = [0xefe9e2, 0x800000, 0x000000];
+		let palette2 = [0xefe9e2, 0x003333, 0x000000];
+		let palette3 = [0xefe9e2, 0x4d3a02, 0x000000];
+		let palette4 = [0xefe9e2, 0x3a314d, 0x000000];        
+		let palette5 = [0x787180, 0x9fb700, 0xffffff];
+		let palette6 = [0x787180, 0xdf8383, 0xffffff];
+		let palette7 = [0x37463a, 0xffba00, 0xffffff];
+		let palette8 = [0x151311, 0xd4d7c3, 0xffffff];
+		let palette9 = [0xefe9e2, 0x0b0b0b, 0x000000];
+		let palette10 = [0x17223b, 0xefc08d, 0xffffff];
+		let palette11 = [0x400000, 0xefc08d, 0xffffff];
+		let palette12 = [0xbc9b61, 0x2c4170, 0xffffff];
+		
+        let palName = [palette1, palette2, palette3, palette4, palette5, palette6, palette7, palette8, palette9, palette10, palette11, palette12];
+		var pal = getRandomInt(12);
+        var chosenPal = palName[pal];        
+
+        webGLRenderer.setClearColor(new THREE.Color(chosenPal[0]));
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+        webGLRenderer.shadowMap.enabled = false;
+		webGLRenderer.antialias = true;
+
+        // position and point the camera to the center of the scene
+        camera.position.x = 0;
+        camera.position.y = 0;
+        camera.position.z = 10;		
+        camera.lookAt(new THREE.Vector3(50, 50, 0));
+		
+		var orbitControls = new THREE.OrbitControls(camera);
+        orbitControls.enabled = false;
+        orbitControls.autoRotate = false;
+
+        // add the output of the renderer to the html element
+        document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
+
+        // call the render function
+        var step = 0;
+
+        var posx, posy;      
+        var innerRadius, outerRadius, thetaSegments, opc;
+        var phiSegments = 1;
+        var thetaStart = 0;
+        var thetaLength = Math.PI * 2;
+ 
+        for (var j = 0; j < 240; j++) {
+            innerRadius = 2 + getRandomInt(8);
+            outerRadius = innerRadius + getRandomInt(8);
+            thetaSegments = 3 + getRandomInt(10);
+            var col = chosenPal[1 + getRandomInt(2)];
+            opc = (1 + getRandomInt(7)) / 10;
+
+            var geom = new THREE.RingGeometry(innerRadius, outerRadius, thetaSegments, phiSegments, thetaStart, thetaLength);
+            const material = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: opc });
+
+            var torus = new THREE.Mesh(geom, material);
+         
+            var sign = getRandomInt(2);
+            if (sign == 1) {
+                sign = 1;
+            } else {
+                sign = -1;
+            }
+            posx = sign * getRandomInt(limits/2);
+            sign = getRandomInt(2);
+            if (sign == 1) {
+                sign = 1;
+            } else {
+                sign = -1;
+            }
+            posy = sign * getRandomInt(limits/2);
+
+            torus.position.x = posx;
+            torus.position.y = posy;
+            torus.position.z = j / 100;
+            scene.add(torus);
+        }
+
+        render();
+
+        function render() {
+            var delta = clock.getDelta();
+			orbitControls.update(delta);
+
+            scene.traverse(function (e) {
+                if (e instanceof THREE.Mesh) {
+                    var f = e.material.opacity;
+                    var rot = getRandomInt(8);
+                    if (rot == 0) {
+                        e.rotation.z += f / 20;
+                        e.position.x += f;
+                        if (Math.abs(e.position.x) > (limits - 10) || Math.abs(e.position.y) > (limits - 10) ) {
+							e.position.x = 0;
+							e.position.y = 0;
+                        }
+                    }
+                    if (rot == 1) {
+                        e.rotation.z += f / 10;
+                        e.position.y += f;
+                        if (Math.abs(e.position.x) > (limits - 10) || Math.abs(e.position.y) > (limits - 10) ) {
+							e.position.x = 0;
+							e.position.y = 0;
+                        }
+                    }
+                    if (rot == 2) {
+                        e.rotation.z += f / 5;
+                        e.position.x += f;
+                        e.position.y += f;
+                        if (Math.abs(e.position.x) > (limits - 10) || Math.abs(e.position.y) > (limits - 10) ) {
+							e.position.x = 0;
+							e.position.y = 0;
+                        }
+                    }
+                    if (rot == 3) {
+                        e.rotation.z -= f / 20;
+                        e.position.x -= f;
+                        if (Math.abs(e.position.x) > (limits - 10) || Math.abs(e.position.y) > (limits - 10) ) {
+							e.position.x = 0;
+							e.position.y = 0;
+                        }
+                    }
+                    if (rot == 4) {
+                        e.rotation.z -= f / 10;
+                        e.position.y -= f;
+                        if (Math.abs(e.position.x) > (limits - 10) || Math.abs(e.position.y) > (limits - 10) ) {
+							e.position.x = 0;
+							e.position.y = 0;
+                        }
+                    }
+                    if (rot == 5) {
+                        e.rotation.z -= f / 5;
+                        e.position.x -= f;
+                        e.position.y -= f;
+                        if (Math.abs(e.position.x) > (limits - 10) || Math.abs(e.position.y) > (limits - 10) ) {
+							e.position.x = 0;
+							e.position.y = 0;
+                        }
+                    }
+                    if (rot == 6) {
+                        e.rotation.z += f / 2;
+                        e.position.x += f;
+                        e.position.y -= f;
+                        if (Math.abs(e.position.x) > (limits - 10) || Math.abs(e.position.y) > (limits - 10) ) {
+							e.position.x = 0;
+							e.position.y = 0;
+                        }
+                    }
+                    if (rot == 7) {
+                        e.rotation.z -= f / 2;
+                        e.position.x -= f;
+                        e.position.y += f;
+                        if (Math.abs(e.position.x) > (limits - 10) || Math.abs(e.position.y) > (limits - 10) ) {
+							e.position.x = 0;
+							e.position.y = 0;
+                        }
+                    }
+                }
+            });
+            
+            // render using requestAnimationFrame
+            requestAnimationFrame(render);
+            webGLRenderer.render(scene, camera);
+        }
+		
+		function getRandomInt(max) {
+            return Math.floor(fxrand() * max);
+        }
+
+		function onWindowResize() {
+			const newAspect = window.innerWidth / window.innerHeight;
+			camera.left = (size * newAspect) / -10;
+			camera.right = (size * newAspect) / 10;
+
+			camera.updateProjectionMatrix();
+
+			webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+		}  	
+    }
+    window.onload = init;
+</script>
+</body>
+</html>

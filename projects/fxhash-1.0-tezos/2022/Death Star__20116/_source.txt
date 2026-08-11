@@ -1,0 +1,4 @@
+id: 20116
+name: Death Star
+mint_opens_at: 2022-10-06T01:08:29+00:00
+generative_uri: ipfs://QmNUPXrAk7chaHa6Ck2orsHtufENBsfcfCNpja3ufCuvnu

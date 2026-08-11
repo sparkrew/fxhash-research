@@ -1,0 +1,4 @@
+id: 5514
+name: Crépto Pankreas
+mint_opens_at: 2022-01-05T12:13:40+00:00
+generative_uri: ipfs://QmbvVW7Fudn3RrkBBzRb6gpyqYNzw8dS2eCPLhx4JNAw5c

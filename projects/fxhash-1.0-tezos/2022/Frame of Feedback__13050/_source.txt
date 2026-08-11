@@ -1,0 +1,4 @@
+id: 13050
+name: Frame of Feedback
+mint_opens_at: 2022-05-17T15:23:29+00:00
+generative_uri: ipfs://QmVs35qU8DUv7Jn9srjZ7ugwgXnEKjF6fH5YUBBLJ75Lhe

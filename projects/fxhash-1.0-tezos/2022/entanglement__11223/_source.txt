@@ -1,0 +1,4 @@
+id: 11223
+name: entanglement
+mint_opens_at: 2022-04-16T19:18:44+00:00
+generative_uri: ipfs://QmQC2ZY9bL6HQaXoV78gYoPNWw5bW4KNfL5c4L8BS568T1

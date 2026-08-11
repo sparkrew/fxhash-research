@@ -1,0 +1,4 @@
+id: 19249
+name: fUTURE FIGHTER
+mint_opens_at: 2022-09-10T10:56:44+00:00
+generative_uri: ipfs://QmdXvuHVBtHiadnTx6D2pb3ZhGo4CFvXFqQkXNdQVrwkd1

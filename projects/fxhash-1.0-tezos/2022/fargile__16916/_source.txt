@@ -1,0 +1,4 @@
+id: 16916
+name: fargile
+mint_opens_at: 2022-07-24T08:57:59+00:00
+generative_uri: ipfs://QmY29yR9QTMHXP3WVmYzi6ZmXXRs3z2ip8c4NMNqoUqFND

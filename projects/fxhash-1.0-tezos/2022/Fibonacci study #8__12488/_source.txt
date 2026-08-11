@@ -1,0 +1,4 @@
+id: 12488
+name: Fibonacci study #8
+mint_opens_at: 2022-05-05T17:10:59+00:00
+generative_uri: ipfs://QmeUs5djHayW8FR2Y5CdjYDvbHx2KznVeBx5HjPzsxkgxQ

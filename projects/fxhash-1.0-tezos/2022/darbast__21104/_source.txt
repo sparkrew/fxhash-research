@@ -1,0 +1,4 @@
+id: 21104
+name: darbast
+mint_opens_at: 2022-11-07T22:48:59+00:00
+generative_uri: ipfs://QmVYw2UHaxrg22AHEscsV8Gv7xcZAJ5VDX6krn3ZRWSPrq

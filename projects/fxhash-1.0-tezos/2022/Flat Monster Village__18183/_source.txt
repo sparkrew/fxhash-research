@@ -1,0 +1,4 @@
+id: 18183
+name: Flat Monster Village
+mint_opens_at: 2022-08-16T09:11:29+00:00
+generative_uri: ipfs://QmayiejeQGYdjHziJdXKBVkZMGwnSEiotA579kKfxNe3iU

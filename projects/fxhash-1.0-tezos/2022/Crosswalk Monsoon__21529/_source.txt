@@ -1,0 +1,4 @@
+id: 21529
+name: Crosswalk Monsoon
+mint_opens_at: 2022-11-17T19:00:00+00:00
+generative_uri: ipfs://QmcV2eUomqpt9cf983JKPq8x8F76FwwxB6BQWvB9SfjGR9

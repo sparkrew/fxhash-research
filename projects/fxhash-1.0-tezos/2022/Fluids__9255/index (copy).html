@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Network</title>
+    <meta name="author" content="jambonbill">
+    <meta name="description" content="PETSCII 3D-Ring">
+    <script id="fxhash-snippet">
+      //---- do not edit the following code (you can indent as you wish)
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = "oo" + Array(49).fill(0).map(_=>alphabet[(Math.random()*alphabet.length)|0]).join('')
+      let b58dec = (str) => str.split('').reduce((p,c,i) => p + alphabet.indexOf(c) * (Math.pow(alphabet.length, str.length-i-1)), 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhash.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      //---- /do not edit the following code
+    </script>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- if you need to import js scripts do it here -->
+    <script type="text/javascript" src="./psp-fx.js"></script>
+<script type="text/pspscript" canvas=screen>resize(40,40);setFps(30);let dynamic=rnd(2);let nodes=[];let stream=[];
+const rect=(x0,y0,x1,y1,a,b)=>{for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++)poke(x+y*cols(),[a,b])};colorExtended(rnd(2));let pals=[];pals.push(["#000000","#ffffff","#ff0000","#00ffff","#ff00ff","#00ff00","#0000ff","#ffff00","#ff8000","#ff0000","#ff00ff","#808080","#808080","#00ff00","#00ffff","#ffffff"]);pals.push(["#000000","#555555","#AAAAAA","#FFFFFF","#0000AA","#5555FF","#00AA00","#55FF55","#00AAAA","#55FFFF","#AA0000","#FF5555","#AA00AA","#FF55FF","#AA5500","#FFFF55"]);pals.push(["#000001","#880000","#FF0000","#FF6600","#FF9400","#FEC500","#FFFF00","#8CC700","#0FAD00","#00A3C7","#0064B5","#0010A5","#6300A5","#C5007C","#9F00BF","#4C005C"]);pals.push(["#000000","#4a4a4a","#7b7b7b","#b2b2b2","#ffffff","#813338","#c46c71","#553800","#8e5029","#edf171","#a9ff9f","#56ac4d","#75cec8","#706deb","#2e2c9b","#8e3c97"]);pals.push(["#000000","#ff0000","#00ff00","#0000ff","#ff0000","#00ff00","#0000ff","#ff0000","#00ff00","#0000ff","#ff0000","#00ff00","#0000ff","#ff0000","#00ff00","#0000ff"]);pals.push(["#010","#080","#090","#0a0","#0b0","#0c0","#0d0","#0e0","#0f0","#0e0","#0d0","#0c0","#0b0","#0a0","#0a0","#0a0"]);pals.push(["#ddd","#010101","#020202","#030303","#040404","#080808","#101010","#181818","#1f1f1f","#111","#111","#111","#111","#111","#111"]);let comps=['Brutal networks','CGA Telecom','Rainbow-systems','Commodore','Pixel corp.','RetroSystems','E.papa'];let pid=rnd(pals.length);colorPalette(pals[pid]);let corrupt=rnd(4);if(!corrupt){let range=128*rnd(2);for(let i=range;i<128+range;i++){charset().chr(i,new Uint8Array([rnd(256),rnd(256),rnd(256),rnd(256),rnd(256),rnd(256),rnd(256),rnd(256)]))}}function square(x,y,c){let p=x+y*cols();poke(p-cols()-1,[112,c]);poke(p-cols()+1,[110,c]);poke(p-cols(),[64,c]);poke(p+cols(),[64,c]);poke(p+cols()-1,[109,c]);poke(p+cols()+1,[125,c]);poke(p+1,[66,c]);poke(p-1,[66,c])};function node(x,y,id){this.id=id;this.x=x;this.y=y;this.chr=rnd(128);this.dest=null;this.color=1+rnd(15);this.burst=0;this.counter=0;this.received=0;this.sleep=rnd(200);this.type=rnd(3);this.u=function(){if(this.sleep>0){this.sleep--;return this};if(rnd(16)==0){let size=rnd(4);this.burst=2+size*size};if(this.burst>0)this.emit();return this};this.emit=function(){let byte=this.chr;switch(this.type){case 1:this.chr++;byte=this.chr;break;case 2:byte=rnd(32);break;};stream.push(new packet(this.x,this.y,byte%128,this.color,this.dest));square(this.x,this.y,rnd(16));this.burst--;this.counter++;if(this.burst==0){this.sleep=32;if(dynamic)this.connect()}};this.receive=function(byte){this.sleep=0;this.received++;this.chr++;this.color++};this.connect=function(){let n=rnd(nodes.length);let id=nodes[n].id;if(id==this.id){n=rnd(nodes.length);id=nodes[n].id};this.dest=id};this.d=function(){if(this.sleep>10)return;let p=this.x+this.y*cols();poke(p,[this.chr+((t()/2)%2*128)+this.counter%2*128,this.color])}};let mode=rnd(2);function packet(x,y,chr,color,dest){this.x=x;this.y=y;this.dest=dest;this.a=chr;this.b=color;this.received=false;this.u=function(){let dest=nodes.find(n=>n.id===this.dest);if(mode){if(this.x<dest.x)this.x++;if(this.y<dest.y)this.y++;if(this.x>dest.x)this.x--;if(this.y>dest.y)this.y--}else{if(this.x<dest.x)this.x++;else if(this.y<dest.y)this.y++;else if(this.x>dest.x)this.x--;else if(this.y>dest.y)this.y--};if(this.x==dest.x&&this.y==dest.y){this.received=true;dest.receive(this.a);rect(dest.x-1,dest.y-1,dest.x+2,dest.y+2,this.a,this.b|1)};let chr=this.a;if(this.a==32||this.a==96)chr=0;poke(this.x+this.y*cols(),[this.a,this.b]);return this}};let num=4+rnd(80);function setup0(){for(let i=0;i<num;i++){let spacing=4;let space=Math.floor(cols()/4);let x=1+rnd(cols()-2);let y=1+rnd(rows()-2);x=1+rnd(space)*spacing;y=1+rnd(space)*spacing;nodes.push(new node(x,y,1+i))}};function setup1(){let spacing=3;mode=1;for(let i=0;i<num;i++){let x=8+rnd(2)*22;let y=3+rnd(12)*3;nodes.push(new node(x,y,1+i))}};function setup2(){let i=0;for(let y=3;y<38;y+=4){for(let x=3;x<38;x+=4){nodes.push(new node(Math.floor(x),Math.floor(y),1+i));i++}};for(let i=0;i<81-num;i++)nodes.splice(rnd(nodes.length),1)};function setup3(){let TAU=Math.PI*2;for(let i=0;i<num;i++){let a=TAU/num*i;let x=20+Math.cos(a)*16;let y=20+Math.sin(a)*16;nodes.push(new node(Math.floor(x),Math.floor(y),1+i))}};function setup4(){let i=0;for(let y=3;y<38;y+=4){for(let x=3;x<38;x+=4){if(x==3||y==3||x==35||y==35){nodes.push(new node(Math.floor(x),Math.floor(y),1+i));i++}}};for(let i=0;i<32-num;i++)nodes.splice(rnd(nodes.length),1)};let struct=rnd(5);let structures=["Chaotic","Vertical","Grid","Circular","Peripheric"];switch(struct){case 0:setup0();break;case 1:setup1();break;case 2:setup2();break;case 3:setup3();break;case 4:setup4();break};nodes.forEach((n)=>n.connect());hook(()=>{frame().clear();stream.filter((p)=>!p.received).forEach((n)=>n.u());nodes.forEach((n)=>n.u().d())});window.$fxhashFeatures={"Company": comps[pid],"Nodes":num,"Data corruption":!corrupt,"Layout": structures[struct],"Type": dynamic?"p2p":"regular"};console.table(window.$fxhashFeatures);</script>
+</head>
+<body style="text-align: center">
+<canvas id=screen></canvas>
+<!-- WEBPACK will inject the bundle.js here -->
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html><html><head><title>Fluids</title><meta name="author" content="jambonbill"><meta name="description" content="Reading a textbook"><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script><link rel="stylesheet" href="./style.css"><script src="./psp-fx.js"></script><script type="text/pspscript" canvas="screen">resize(64,64);t(0);setFps(60);let srcs=[];let nodes=[];let pals=[];
+pals.push(["#000","#FFF1E8","#FF004D","#29ADFF","#7E2553","#008751","#1D2B53","#FFEC27","#FFA300","#AB5236","#FF77A8","#5F574F","#FFCCAA","#00E436","#83769C","#C2C3C7"]);pals.push(["#111b1e","#636fb2","#adc4ff","#ffffff","#ffccd7","#ff7fbd","#872450","#e52d40","#ef604a","#ffd877","#00cc8b","#005a75","#513ae8","#19baff","#7731a5","#b97cff"]);pals.push(["#000","#4a4a4a","#7b7b7b","#b2b2b2","#ffffff","#813338","#c46c71","#553800","#8e5029","#edf171","#a9ff9f","#56ac4d","#75cec8","#706deb","#2e2c9b","#8e3c97"]);pals.push(["#000","#555555","#AAAAAA","#FFFFFF","#0000AA","#5555FF","#00AA00","#55FF55","#00AAAA","#55FFFF","#AA0000","#FF5555","#AA00AA","#FF55FF","#AA5500","#FFFF55"]);pals.push(["#000","#f00","#f00","#0f0","#0f0","#00f","#00f","#f00","#f00","#0f0","#0f0","#00f","#00f","#f00","#f00","#0f0"]);pals.push(["#000","#ffffff","#ff2626","#2b84ff","#7d21ff","#0ba34f","#0b34ff","#f3ff00","#ff5900","#ffd70f","#ff63db","#4a425e","#8d79a8","#61ffb8","#6eccff","#d5c5e8"]);pals.push(["#000","#800","#F00","#F60","#FF9400","#FEC500","#FFFF00","#8CC700","#0FAD00","#00A3C7","#0064B5","#0010A5","#6300A5","#C5007C","#9F00BF","#4C005C"]);pals.push(["#000","#ffffff","#ff0000","#00ffff","#ff00ff","#00ff00","#0000ff","#ffff00","#ff8000","#ff0000","#ff00ff","#808080","#808080","#00ff00","#00ffff","#ffffff"]);pals.push(['#000','#151517','#232323','#1e243d','#3737b3','#5865f2','#bdd8e6','#ffffff','#bdd8e6','#5865f2','#3737b3','#1e243d','#232323','#151517','#000000']);pals.push(['#060608','#2f256b','#2f256b','#2f256b','#2f256b','#2f256b','#f42e1f','#f42e1f','#f42e1f','#f42e1f','#f42e1f','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff']);pals.push(["#232c20","#46878f","#46878f","#46878f","#46878f","#94e344","#94e344","#94e344","#94e344","#e2f3e4","#e2f3e4","#e2f3e4","#e2f3e4","#e2f3e4","#e2f3e4","#e2f3e4"]);pals.push(["#222323","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0","#f0f6f0"]);pals.push(["#000","#fff","#fff","#fff","#fff","#fff","#fff","#fff","#fff","#fff","#fff","#fff","#fff","#fff","#fff","#fff"]);pals.push(["#000","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC","#CCC"]);let pid=rnd(pals.length);colorPalette(pals[pid]);let upmode=rnd(3);let cycle=!rnd(2);if(pid>10)cycle=false;let offset=rnd(8)*32+rnd(16);let range=2+rnd(30);const rect=(x0,y0,x1,y1,a,b)=>{let c=cols();for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++)poke(x+y*c,[a,b])};function src(){let x=rnd(64);let y=rnd(64);let w=2+rnd(6);let h=2+rnd(6);let a=offset+rnd(range);if(a==32||a==96)a=0;let b=rnd(16);this.draw=function(){if(cycle)b++;rect(x,y,x+w,y+h,a,b)}};function node(){this.x=0;this.y=0;this.w=0;this.h=0;this.s=function(){this.dir=rnd(4);this.mode=rnd(2);switch(this.mode){case 0:if(this.dir%2)this.dir=0;this.y=rnd(64);this.h=2+rnd(8);this.w=64;break;case 1:if(!this.dir%2)this.dir=1;this.x=rnd(64);this.w=2+rnd(8);this.h=64;break;}return this;};this.u=function(){let ch=[];for(let i=0;i<charNumber();i++){let x=i%cols();let y=Math.floor(i/cols());if(x<this.x||x>this.x+this.w||y<this.y||y>this.y+this.h)continue;let n=0;switch(this.dir){case 0:n=i+1;if(x==63)continue;break;case 1:n=i+cols();break;case 2:n=i-1;if(x==0)n=i+63;break;case 3:n=i-cols();if(y==0)n=i+64*63;break;}ch.push([n,peek(i)])};ch.forEach((ch)=>{if(ch[1][1]==0)ch[1][1]=1;poke(ch[0],ch[1]);});if(upmode==2&&!rnd(60))this.s()}};let num=20+rnd(40);for(let i=0;i<16;i++)srcs.push(new src());for(let i=0;i<num;i++)nodes.push(new node().s());for(let i=0;i<60;i++){srcs.forEach(s=>s.draw());nodes.forEach(n=>n.u())};hook(()=>{srcs.forEach(s=>s.draw());nodes.forEach(n=>n.u());if(upmode==0&&!rnd(30))nodes.forEach(n=>n.s());if(upmode==1&&t()%60==0)nodes.forEach(n=>n.s());});window.$fxhashFeatures={"Nodes":num,"PID #":pid,"Color cycle":cycle,"Updates":["Random","Clock","Chaotic"][upmode]}</script></head><body style="text-align: center"><canvas id="screen"></canvas><script defer="defer" src="./bundle.js"></script></body></html>

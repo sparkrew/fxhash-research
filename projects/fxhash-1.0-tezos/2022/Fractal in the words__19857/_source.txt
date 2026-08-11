@@ -1,0 +1,4 @@
+id: 19857
+name: Fractal in the words
+mint_opens_at: 2022-09-30T16:00:00+00:00
+generative_uri: ipfs://QmRY9gu8Cg7LFhWo3rGmkRuni9c9j2eXaoeQiY8E5NPk8w

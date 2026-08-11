@@ -1,0 +1,4 @@
+id: 8504
+name: Favela 3
+mint_opens_at: 2022-02-02T13:29:56+00:00
+generative_uri: ipfs://QmXXXBgekuY9cxGBvYK82JCASUZTzfZvEFaJN9kkPW2C9X

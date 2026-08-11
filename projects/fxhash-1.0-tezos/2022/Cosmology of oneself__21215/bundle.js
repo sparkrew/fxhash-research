@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={"Background color":color_backDescr,"Color palette":paletteNum,"Frame size":dimBordoEsterno,"Number of symbols":num_tot_element,"Black symbols in line":riga_elementi_neri};

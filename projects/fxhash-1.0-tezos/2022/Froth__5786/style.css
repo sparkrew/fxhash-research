@@ -1,0 +1,15 @@
+/* style.css */
+
+body
+{
+  background-color: #2e1e12;
+  overflow: hidden;
+}
+
+canvas
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+}

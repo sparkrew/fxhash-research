@@ -1,0 +1,4 @@
+id: 6895
+name: Cupkitties
+mint_opens_at: 2022-01-14T04:01:30+00:00
+generative_uri: ipfs://QmdpA11TUFTmX8oKp3iZ1yZDsdbhn42GktkK67peb2zypX

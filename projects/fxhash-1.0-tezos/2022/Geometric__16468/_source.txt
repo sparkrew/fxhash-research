@@ -1,0 +1,4 @@
+id: 16468
+name: Geometric
+mint_opens_at: 2022-07-15T21:10:00+00:00
+generative_uri: ipfs://QmPjpwEsUxsFAgYvwfmbZqJ51fTGjeiukNk52oVvBWy5tg

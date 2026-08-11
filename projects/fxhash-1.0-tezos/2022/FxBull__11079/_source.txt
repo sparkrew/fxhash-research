@@ -1,0 +1,4 @@
+id: 11079
+name: FxBull
+mint_opens_at: 2022-04-16T16:23:59+00:00
+generative_uri: ipfs://QmU17kLtmy4rLr6rYeGscGyN1a2F8bydHPc7tTVjYBZfBW

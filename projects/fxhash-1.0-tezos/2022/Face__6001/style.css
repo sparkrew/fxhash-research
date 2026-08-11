@@ -1,0 +1,52 @@
+body, html{
+    background-color: #fff6ee;
+    overflow: hidden;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .Gender, .Nose, .Mouth, .Eyes {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    overflow: auto;
+    position: fixed;
+    object-fit: contain;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  
+@keyframes filter-animation {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    
+    50% {
+      filter: hue-rotate(360deg);
+    }
+    
+    100% {
+      filter: hue-rotate(0deg);
+    }
+  }
+   
+  
+  .Gender  { 
+    animation: filter-animation 1s infinite;
+  }
+  
+  .Eyes { 
+    animation: filter-animation 4s infinite;
+  }
+  
+  .Mouth { 
+    animation: filter-animation 2s infinite;
+  }
+
+  .Nose { 
+    animation: filter-animation 2s infinite;
+  }

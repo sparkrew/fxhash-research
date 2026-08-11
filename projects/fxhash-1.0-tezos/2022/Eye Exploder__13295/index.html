@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>hydra inside a webpage</title>
+    <meta charset="utf-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+
+    
+    <link rel="stylesheet" href="/style.css" >
+    
+    
+    <script src="hydra-synth.js"></script>
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+  </head>
+  <body>
+ 
+    
+  
+    <script>
+
+
+
+
+
+     
+      // create a new hydra-synth instance
+
+    var hydra = new Hydra({detectAudio: false})
+    hydra.setResolution(window.innerWidth, window.innerHeight);
+    window.addEventListener("resize",evt=>{hydra.setResolution(window.innerWidth, window.innerHeight)})
+
+
+
+
+
+
+
+
+sourceType = fxrand();
+colorChance = fxrand();
+
+
+
+
+function getFeatureString(value) {
+  if (value < 0.5) return "morpher"
+  if (value < 0.8) return "shifter"
+ if (value < 0.93) return "tripper"
+
+  else return "melter"
+}
+
+function getFeatureString2(value) {
+  if (value < 0.75) return "Black and White"
+
+
+  else return "Full Color"
+}
+
+window.$fxhashFeatures = {
+  // feature can only be "low", "medium" or "high"
+  "Image Type": getFeatureString(sourceType), "Colorway": getFeatureString2(colorChance)
+}
+
+
+if(sourceType < 0.5) {
+
+
+  if (colorChance <  0.75) {
+
+
+gradient(fxrand()*10,fxrand()).layer(
+osc(4)
+).
+
+
+layer(
+shape(1,fxrand()).r().rotate(1.7,0.05).color(fxrand(),fxrand(),fxrand()).hue(1.5,1.4).scrollY(fxrand(),fxrand()).rotate(fxrand()).repeat(fxrand()*10, 7, 0.8, 0.7).sub(
+voronoi(9,0.39,fxrand()).r().hue(1.9)
+
+)).colorama(0.7).saturate(0.0)
+
+
+
+
+
+  .out()
+
+}
+
+
+  if (colorChance >  0.75) {
+
+
+gradient(fxrand()*10,fxrand()).layer(
+osc(4)
+).
+
+
+layer(
+shape(1,fxrand()).r().rotate(1.7,0.05).color(fxrand(),fxrand(),fxrand()).hue(1.5,1.4).scrollY(fxrand(),fxrand()).rotate(fxrand()).repeat(fxrand()*10, 7, 0.8, 0.7).sub(
+voronoi(9,0.39,fxrand()).r().hue(1.9)
+
+)).colorama(0.7)
+
+
+
+
+
+  .out()
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+if(sourceType  > 0.5 && sourceType < 0.8) {
+
+
+if (colorChance < 0.75) {
+
+gradient(fxrand()*10,fxrand()).layer(
+noise(4)
+).
+
+
+layer(
+shape(1,fxrand()).r().rotate(fxrand()*10,0.05).color(0.5,0.4,0.9).hue(1.5,1.4).scrollY(fxrand(),fxrand()).rotate(fxrand()).repeat(fxrand()*10, 7, 0.8, 0.7).sub(
+shape(fxrand()*10,fxrand(),fxrand()).r().hue(1.9)
+
+)).colorama(0.7).saturate(0.0)
+
+  .out()
+
+}
+
+
+if (colorChance > 0.75) {
+
+gradient(fxrand()*10,fxrand()).layer(
+noise(4)
+).
+
+
+layer(
+shape(1,fxrand()).r().rotate(fxrand()*10,0.05).color(0.5,0.4,0.9).hue(1.5,1.4).scrollY(fxrand(),fxrand()).rotate(fxrand()).repeat(fxrand()*10, 7, 0.8, 0.7).sub(
+shape(fxrand()*10,fxrand(),fxrand()).r().hue(1.9)
+
+)).colorama(0.7)
+
+  .out()
+
+}
+
+
+
+}
+
+
+if(sourceType  > 0.8 && sourceType < 0.93  ) {
+
+if (colorChance < 0.75) {  
+
+
+gradient(fxrand()*10,fxrand()).layer(
+osc(4)
+).
+
+
+layer(
+shape(1,fxrand()).r().rotate(1.7,0.05).color(0.5,0.4,0.9).hue(1.5,1.4).scrollY(fxrand(),fxrand()).rotate(fxrand()).repeat(fxrand()*10, 7, 0.8, 0.7).sub(
+shape(9,fxrand(),fxrand()).r().hue(1.9)
+
+)).colorama(0.7).saturate(0.0)
+
+
+
+
+
+  .out()
+
+}
+
+
+if (colorChance > 0.75) {  
+
+
+gradient(fxrand()*10,fxrand()).layer(
+osc(4)
+).
+
+
+layer(
+shape(1,fxrand()).r().rotate(1.7,0.05).color(0.5,0.4,0.9).hue(1.5,1.4).scrollY(fxrand(),fxrand()).rotate(fxrand()).repeat(fxrand()*10, 7, 0.8, 0.7).sub(
+shape(9,fxrand(),fxrand()).r().hue(1.9)
+
+)).colorama(0.7)
+
+
+
+
+
+  .out()
+
+}
+
+
+
+
+
+}
+
+if(sourceType  > 0.93 ) {
+
+if (colorChance < 0.75) {
+
+gradient(fxrand()*10,fxrand()).layer(
+osc(4)
+).
+
+
+layer(
+shape(1,fxrand()).r().rotate(1.7,0.05).color(0.5,0.4,0.9).hue(1.5,1.4).scrollY(fxrand(),fxrand()).rotate(fxrand()).repeat(fxrand()*10, 7, 0.8, 0.7).sub(
+shape(fxrand()*10,fxrand(),fxrand()).r().hue(1.9)
+
+)).posterize(fxrand()*10+1).saturate(0.0) 
+
+
+
+
+
+  .out()
+}
+
+if (colorChance > 0.75) {
+
+gradient(fxrand()*10,fxrand()).layer(
+osc(4)
+).
+
+
+layer(
+shape(1,fxrand()).r().rotate(1.7,0.05).color(0.5,0.4,0.9).hue(1.5,1.4).scrollY(fxrand(),fxrand()).rotate(fxrand()).repeat(fxrand()*10, 7, 0.8, 0.7).sub(
+shape(fxrand()*10,fxrand(),fxrand()).r().hue(1.9)
+
+)).posterize(fxrand()*10+1) 
+
+
+
+
+
+  .out()
+}
+
+
+}
+console.log("source", sourceType);
+console.log("color", colorChance);
+
+
+
+    </script>
+  </body>
+</html>
+

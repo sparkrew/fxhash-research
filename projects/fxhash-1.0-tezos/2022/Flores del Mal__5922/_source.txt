@@ -1,0 +1,4 @@
+id: 5922
+name: Flores del Mal
+mint_opens_at: 2022-01-06T16:24:50+00:00
+generative_uri: ipfs://Qmdf39U6uAWdFa3yc8R5Q836JQYJ8v1RedLRB2w7trDz6U

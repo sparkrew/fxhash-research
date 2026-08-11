@@ -1,0 +1,4 @@
+id: 20505
+name: Encoder
+mint_opens_at: 2022-10-19T16:00:00+00:00
+generative_uri: ipfs://QmXJQcL15naYwR8xF8caTPmWa9zAQCjR9HscBywHUGvnZ6

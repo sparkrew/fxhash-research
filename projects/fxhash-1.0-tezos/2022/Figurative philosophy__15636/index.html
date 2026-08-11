@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>nft</title>
+    
+    
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas"></canvas>
+
+
+    </div>
+
+    <script>
+
+      var str = fxhash;
+      //var str = "oozBzZ6QeRcMT4Dw3RPXZRJukho4h1twet6ri6m6FebRESBCkAz";
+      //var str = "ooa9zZ6QeRcMT4Dw3RPXZRJukho4h1twet6ri6m6FebRESBCkAz";
+      var bytes = [];
+      var charCode;
+      var colorMult = 255.0 / 73.0;
+      var uColor = 0;
+      var summ=0;
+      var summary = 0;
+
+      for (var i = 0; i < str.length; ++i)
+      {
+        charCode = str.charCodeAt(i);
+        if(i>1)
+        {
+          bytes.push(parseInt(((charCode & 0xFF) - 49) * colorMult));
+        }
+      }
+
+      for (var i = 0; i < bytes.length; ++i)
+      {
+        summ += bytes[i];
+        if(bytes[i] == 255 && bytes[i+1] == 0 && bytes[i+2] == 0) 
+        {
+          uColor++;
+        }
+
+        if(bytes[i] == 0 && bytes[i+1] == 255 && bytes[i+2] == 0) 
+        {
+          uColor++;
+        }
+
+        if(bytes[i] == 0 && bytes[i+1] == 0 && bytes[i+2] == 255) 
+        {
+          uColor++;
+        }
+
+        if(bytes[i] == bytes[i+1] && bytes[i] == bytes[i+2]) 
+        {
+          uColor++;
+        }
+
+      }
+
+      if(summ<=1388) summary = 4;
+      if(summ>1388 && summ <=2776) summary = 3;
+      if(summ>2776 && summ <=4164) summary = 2;
+      if(summ>4164 && summ <=5552) summary = 1;
+      if(summ>5552 && summ <=6940) summary = 0;
+      if(summ>6940 && summ <=8328) summary = 1;
+      if(summ>8328 && summ <=9716) summary = 2;
+      if(summ>9716 && summ <=11104) summary = 3;
+      if(summ>11104) summary = 4;
+
+      //if(uColor>0) alert(uColor);
+      //alert(bytes.join(' '));
+      //alert(summ + " " + summary);
+
+      window.$fxhashFeatures = {
+        "Unique Colors": uColor,
+        "Summary": summary
+      }
+
+    </script>
+
+
+    <script>
+
+
+      var buildUrl = "./Build";
+      var loaderUrl = buildUrl + "/out.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/out.data",
+        frameworkUrl: buildUrl + "/out.framework.js",
+        codeUrl: buildUrl + "/out.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "AndrewS",
+        productName: "LifeIsMove",
+        productVersion: "0.1",
+      };
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+
+
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+        config.devicePixelRatio = 1;
+      } else {
+        canvas.style.width = "800px";
+        canvas.style.height = "800px";
+      }
+      
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+
+        }).then((unityInstance) => {
+          unityInstance.SendMessage('Hash', 'HashReceiver', fxhash);
+          
+
+          setTimeout(function(){
+            console.log("Executed after 1 second");
+          }, 2000);
+
+
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+
+
+
+    <script>
+      function myTestFunc(colors)
+      {
+       window.$fxhashFeatures = {
+        "Dark": true,
+        "Colors number": colors,
+        "Head size": "Big"
+      }
+    }
+
+  </script>
+
+</body>
+</html>

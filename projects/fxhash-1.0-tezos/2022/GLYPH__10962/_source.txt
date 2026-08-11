@@ -1,0 +1,4 @@
+id: 10962
+name: GLYPH
+mint_opens_at: 2022-03-19T12:58:14+00:00
+generative_uri: ipfs://QmbZ8NWXiJQrgezPeq1xNw6abEFkToWHUP8n4kARozVPf2

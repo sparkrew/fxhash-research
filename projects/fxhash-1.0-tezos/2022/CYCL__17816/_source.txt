@@ -1,0 +1,4 @@
+id: 17816
+name: CYCL
+mint_opens_at: 2022-08-20T14:00:00+00:00
+generative_uri: ipfs://QmQ9fPdHxpLncHEPzycdXR241ruHmtZmc2pCR1Wpm1GvJP

@@ -1,0 +1,4 @@
+id: 7787
+name: Framed landscape SciFy Art A.I
+mint_opens_at: 2022-01-25T04:13:10+00:00
+generative_uri: ipfs://QmPDr7tFwZjEGvW53QgXdexmf889GtxWK3FR77Bxze25uL

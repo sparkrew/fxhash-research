@@ -1,0 +1,4 @@
+id: 7890
+name: Generative Consoles
+mint_opens_at: 2022-01-25T23:10:30+00:00
+generative_uri: ipfs://QmZ8bJruoqPToY1Bpu1odUco5dnc3dK5cRo3JUeV5uMUkp

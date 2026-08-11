@@ -1,0 +1,4 @@
+id: 14211
+name: fxBots
+mint_opens_at: 2022-06-05T04:31:14+00:00
+generative_uri: ipfs://QmStGnoj8DXx22dSfjqC5JmkV4owPabHhVUnz3RkRWJyA9

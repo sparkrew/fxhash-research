@@ -1,0 +1,4 @@
+id: 20525
+name: Diyalebuka
+mint_opens_at: 2022-10-21T15:00:00+00:00
+generative_uri: ipfs://QmVzQu2SitiR2hKQmcxtkxPv9MUAsijcQCbLrZm6p65pUj

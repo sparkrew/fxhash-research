@@ -1,0 +1,4 @@
+id: 10496
+name: emit
+mint_opens_at: 2022-03-10T23:06:14+00:00
+generative_uri: ipfs://QmdNVhsyHW8fR1B2hFzKtuu4YJVur2VfX63qisyCbe4R4w

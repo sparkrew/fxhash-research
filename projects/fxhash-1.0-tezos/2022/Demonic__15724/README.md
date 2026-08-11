@@ -1,0 +1,2 @@
+- do not trigger animation repeat on resize
+- scale lineWidth with renderscale (make sure it reflects real pixels)

@@ -1,0 +1,4 @@
+id: 10872
+name: Figment
+mint_opens_at: 2022-03-18T13:17:44+00:00
+generative_uri: ipfs://QmXr2ccsqv6KfrdBaotLS4552GErasbb83CoAvjbgZexWq

@@ -1,0 +1,4 @@
+id: 9105
+name: cosas sutiles del textos surcido
+mint_opens_at: 2022-02-09T21:50:24+00:00
+generative_uri: ipfs://Qmdeu4LLiR5hNFgyzRqbV7hKa581nbv3cRTKFdy58Moqg6

@@ -1,0 +1,4 @@
+id: 10514
+name: Geobot
+mint_opens_at: 2022-03-11T02:31:04+00:00
+generative_uri: ipfs://Qmf2PaMnJXMStUpcB8KGpz2GfqvqT5cLkkUJJwfx8B9tDp

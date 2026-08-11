@@ -1,0 +1,4 @@
+id: 15636
+name: Figurative philosophy
+mint_opens_at: 2022-07-01T14:00:00+00:00
+generative_uri: ipfs://Qmca7sVuQtbuDXX4WpX8hngyfwJHu7mLfMZsADNYRjRHts

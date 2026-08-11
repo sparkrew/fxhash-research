@@ -1,0 +1,4 @@
+id: 5488
+name: filaments
+mint_opens_at: 2022-01-05T12:04:10+00:00
+generative_uri: ipfs://QmaQsZPd7nmWK9hTq44uuk6qAoNhMLNjuW1bggrTrkSWHw

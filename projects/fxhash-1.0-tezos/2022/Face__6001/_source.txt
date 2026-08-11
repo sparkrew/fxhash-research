@@ -1,0 +1,4 @@
+id: 6001
+name: Face
+mint_opens_at: 2022-01-06T23:40:20+00:00
+generative_uri: ipfs://QmWujvWuEcmohHiKnLrvG2zSxigJyXPwAh7SPMNnx4sg6m

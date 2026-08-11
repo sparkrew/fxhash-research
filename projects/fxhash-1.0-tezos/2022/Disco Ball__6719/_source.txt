@@ -1,0 +1,4 @@
+id: 6719
+name: Disco Ball
+mint_opens_at: 2022-01-12T12:01:10+00:00
+generative_uri: ipfs://Qmdmg6sZSuo8WusBUpKSGuCFsf1kxyijQxFVok5BDLziRk

@@ -1,0 +1,49 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+/* Color Theme Swatches in Hex */
+.Shaping-Spaces-1-hex { color: #AFC6CC; }
+.Shaping-Spaces-2-hex { color: #6A8E99; }
+.Shaping-Spaces-3-hex { color: #F5FFEB; }
+.Shaping-Spaces-4-hex { color: #FFA696; }
+.Shaping-Spaces-5-hex { color: #CC504B; }
+
+/* Color Theme Swatches in RGBA */
+.Shaping-Spaces-1-rgba { color: rgba(175, 197, 204, 1); }
+.Shaping-Spaces-2-rgba { color: rgba(105, 142, 153, 1); }
+.Shaping-Spaces-3-rgba { color: rgba(244, 255, 234, 1); }
+.Shaping-Spaces-4-rgba { color: rgba(255, 165, 150, 1); }
+.Shaping-Spaces-5-rgba { color: rgba(204, 79, 75, 1); }
+
+/* Color Theme Swatches in HSLA */
+.Shaping-Spaces-2-hsla { color: hsla(193, 18, 50, 1); }
+.Shaping-Spaces-1-hsla { color: hsla(192, 21, 74, 1); }
+.Shaping-Spaces-3-hsla { color: hsla(90, 100, 96, 1); }
+.Shaping-Spaces-4-hsla { color: hsla(8, 100, 79, 1); }
+.Shaping-Spaces-5-hsla { color: hsla(1, 55, 54, 1); }
+
+/* Color Theme Swatches in Hex */
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-1-hex { color: #2F2536; }
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-2-hex { color: #BDBDFF; }
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-3-hex { color: #FAF5F8; }
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-4-hex { color: #919191; }
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-5-hex { color: #1F1F1F; }
+
+/* Color Theme Swatches in RGBA */
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-1-rgba { color: rgba(47, 36, 53, 1); }
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-2-rgba { color: rgba(188, 188, 255, 1); }
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-3-rgba { color: rgba(249, 244, 247, 1); }
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-4-rgba { color: rgba(145, 145, 145, 1); }
+.Copy-of-Copy-of-Copy-of-classy-best-colors-for-bathrooms-dark-bathroom-color-scheme-modern-lighting-fixtures-cyan-wall-paint-white-bathtub-creative-red-towel-diy-small-space-decor-green-black-mat-wonderful-5-rgba { color: rgba(30, 30, 30, 1); }
+
+/* Color Theme Swatches in HSLA */
+.Copy-of{ color: hsla(276, 18, 17, 1); }
+.Copy-of{ color: hsla(240, 100, 87, 1); }
+.Copy-of{ color: hsla(323, 32, 97, 1); }
+.Copy-of{ color: hsla(0, 0, 56, 1); }
+.Copy-of{ color: hsla(0, 0, 12, 1); }
+

@@ -1,0 +1,4 @@
+id: 16141
+name: Fractal Painting
+mint_opens_at: 2022-07-10T13:00:00+00:00
+generative_uri: ipfs://QmQq4xFR1it1XVTKP1dB8YJoQTrF7YUNueunJrmAz848oH

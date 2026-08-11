@@ -1,0 +1,4 @@
+id: 31561
+name: Adderrels
+mint_opens_at: 2025-01-20T07:59:50+00:00
+generative_uri: ipfs://QmPL88R4zZLM8iiNWHZ93BPHtHmcxnv1Yu2WeQMiH6mNVB

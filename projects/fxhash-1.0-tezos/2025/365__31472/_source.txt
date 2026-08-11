@@ -1,0 +1,4 @@
+id: 31472
+name: 365
+mint_opens_at: 2025-01-01T03:07:55+00:00
+generative_uri: ipfs://QmcoL9dK2RWG1cCZ26wKD3PCdC3S48YnfHt5cZ9wUuUwru

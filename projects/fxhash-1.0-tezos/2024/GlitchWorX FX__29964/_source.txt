@@ -1,0 +1,4 @@
+id: 29964
+name: GlitchWorX FX
+mint_opens_at: 2024-01-07T14:50:28+00:00
+generative_uri: ipfs://Qmf4LeyAJnoc96oz5g17oWWgibLh6VqfnWPYzg2sfsCAZt

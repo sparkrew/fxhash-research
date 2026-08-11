@@ -1,0 +1,4 @@
+id: 0x5a4838A1771a7048Ad94beb6842F94a70528aff8
+name:  8 
+mint_opens_at: 2024-02-04T22:59:59+00:00
+generative_uri: ipfs://QmSLPBxe3iTGwSxDVVTiS7eesd4ChpC99RL2USBijCMpJ7

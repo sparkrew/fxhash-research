@@ -1,0 +1,4 @@
+id: 31745
+name: A Cidade Que Inventamos
+mint_opens_at: 2025-05-25T21:47:20+00:00
+generative_uri: ipfs://QmX1i4oDX9La2a9ZzsQP4iib29c8cQXPL3TYZCxNqGUoWq

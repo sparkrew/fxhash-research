@@ -1,0 +1,4 @@
+id: 0x5FB29AcA188ddA7C4d88c98aAA5181d3be3445d1
+name: ANIMA
+mint_opens_at: 2024-04-30T17:00:00+00:00
+generative_uri: ipfs://QmTXiAxtSCPnbYE7Pb7nQ9Xo3cn9ZYQ16ztYroDgawEvaC

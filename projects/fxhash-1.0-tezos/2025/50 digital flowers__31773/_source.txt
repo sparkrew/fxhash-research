@@ -1,0 +1,4 @@
+id: 31773
+name: 50 digital flowers
+mint_opens_at: 2025-06-16T06:39:12+00:00
+generative_uri: ipfs://QmZ21VwkysPZKyf3FVD5MwABnwt8ggFL2wvayHbPq2j6QZ

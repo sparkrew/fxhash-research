@@ -1,0 +1,62 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body
+{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: radial-gradient(
+      circle at center,
+      #1a1a1a 0%,
+      #0a0a0a 100%
+  );
+  display: flex;
+  flex-direction: column;
+}
+
+
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+.ui {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 5px;
+    max-width: 100%;
+    padding-bottom: 20px;
+    transition: opacity 0.5s ease; 
+  }
+  
+  .svg-button {
+    transition: all 0.3s ease;
+  }
+  
+  .svg-button:hover .button-element {
+    stroke: #696969;
+  }
+
+#start, #stop {
+    z-index: 100;
+}

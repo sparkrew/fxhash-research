@@ -1,0 +1,4 @@
+id: 0x612668f4ea8Ede924f88DD7f966Ab4e6Cd7DE497
+name: 1x4 Shape Study
+mint_opens_at: 2024-06-16T08:58:23+00:00
+generative_uri: ipfs://QmZNR9hic71hZ3QaWYHMFzgpRnbaXvted4Qxu9dJT3Y9nL

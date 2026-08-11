@@ -1,0 +1,4 @@
+id: 0xa94CF28DDB87413Adb91cDbbE5ddcCDF4cb2D5AC
+name: CELLUK
+mint_opens_at: 2026-04-24T14:01:00+00:00
+generative_uri: ipfs://QmYFzVoQCMMn7qGR81NWJUUKE79cRiCMciTxkQD2fHBLJC

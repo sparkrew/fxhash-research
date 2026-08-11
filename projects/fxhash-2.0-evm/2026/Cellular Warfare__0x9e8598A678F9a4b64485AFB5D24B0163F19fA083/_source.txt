@@ -1,0 +1,4 @@
+id: 0x9e8598A678F9a4b64485AFB5D24B0163F19fA083
+name: Cellular Warfare
+mint_opens_at: 2026-01-16T13:00:00+00:00
+generative_uri: ipfs://QmU7iuwkCq96PYXAke9AEwd6uPFdFdheXyTe3Jfcwpf3ja

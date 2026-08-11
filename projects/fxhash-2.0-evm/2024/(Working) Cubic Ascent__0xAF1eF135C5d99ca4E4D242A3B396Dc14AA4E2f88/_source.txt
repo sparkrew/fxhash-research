@@ -1,0 +1,4 @@
+id: 0xAF1eF135C5d99ca4E4D242A3B396Dc14AA4E2f88
+name: (Working) Cubic Ascent
+mint_opens_at: 2024-05-05T18:34:51+00:00
+generative_uri: ipfs://QmXUB5ZfyAZZZjxuqF6VHECRLkVXjiRMe3sqDPhw3My4Bi

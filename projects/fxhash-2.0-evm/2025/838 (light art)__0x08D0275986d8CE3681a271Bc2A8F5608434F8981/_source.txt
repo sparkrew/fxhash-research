@@ -1,0 +1,4 @@
+id: 0x08D0275986d8CE3681a271Bc2A8F5608434F8981
+name: 838 (light art) 
+mint_opens_at: 2025-11-26T03:30:09+00:00
+generative_uri: ipfs://QmbsbaABSFcKCy7s7XTuztodxQJzpY3AU8dypgdMtCsSTH

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <style>
+              body {
+        margin: 0;
+        padding: 0; 
+      }
+      canvas {      
+        padding: 0;
+        margin: auto;
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+    </style>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script src="fxhash.js"></script>
+<script>
+    let R = function() { return $fx.rand()};
+    let patternId = Math.floor(R() * 3);
+    let osx = R() * 4 + 2
+    let osy = R() * 50 + 2
+    let rad = R() * 50 + 2
+    var D_S = 1000;
+    var DIM = Math.min(window.innerWidth, window.innerHeight);
+    var M = DIM / D_S; // Multiplier based on window size
+    let p = {x:Math.floor(R() * 50), y:Math.floor(R() * 50)}
+    var canvas = document.getElementById('canvas');
+    canvas.width = DIM;
+    canvas.height = DIM;
+
+    var ctx = canvas.getContext('2d');
+
+    let palettes = [
+  [[249,222,89],[232,166,40],[249,131,101],[195,49,36],[161,223,251]], // phase
+  [[255,109,105],[254,204,80],[11,231,251],[1,11,139],[30,5,33]],
+  [[233,255,136],[254,10,183],[229,1,133],[17,16,16],[208,204,209]],
+  [[179,231,220],[166,180,1],[239,246,123],[213,1,2],[108,1,2]],
+  [[0,123,0],[36,224,184],[255,204,81],[255,139,118],[255,48,49]],
+  [[169,67,0],[255,176,0],[255,223,0],[91,155,55],[21,61,2]],
+  [[161,5,50],[255,111,169],[255,208,204],[0,183,204],[0,95,129]],
+  [[95,165,90],[1,180,188],[246,213,31],[250,137,37],[250,84,87]],
+  [[99,26,17],[187,96,47],[239,216,131],[203,130,20],[68,64,101]],
+  [[48,4,61],[142,31,81],[229,64,89],[222,131,127],[253,179,106]],
+  [[255,251,196],[182,190,246],[53,30,191],[16,1,93],[10,0,48]],
+  [[140,7,20],[252,64,124],[27,78,136],[5,8,30],[250,240,228]],
+  [[0,0,63],[1,0,142],[144,1,245],[254,0,234],[255,1,120]],
+  [[8,44,68],[114,234,245],[254,230,226],[255,169,76],[254,44,137]],
+  [[1,99,141],[171,206,204],[255,242,205],[255,0,76],[97,13,75]],
+  [[34,125,172],[68,57,136],[159,0,82],[255,63,32],[255,190,0]],
+  [[129,237,247],[0,164,192],[2,116,143],[247,1,16],[110,5,22]],
+  [[255,254,1],[255,134,6],[232,59,54],[96,5,56],[70,10,64]],
+  [[51,51,51],[204,204,204],[48,48,48],[221,221,221],[0,0,0]],
+  [[215,0,95],[215,215,0],[38,38,38],[175,0,95],[0,255,255]],
+  [[85,255,255],[255,85,255],[255,255,85],[170,0,0],[0,0,170]],
+  [[170,0,170],[170,0,0],[255,255,85],[170,85,0],[0,170,0]], //21
+  [[170,0,0],[170,0,0],[255,85,85],[255,255,85],[85,85,255]],
+  [[255,85,85],[85,255,85],[255,255,85],[85,85,85],[85,255,255]],
+  [[0,0,0],[255,85,255],[85,255,255],[255,0,255],[255,255,255]],
+  [[0,0,0],[0,170,0],[170,0,0],[170,85,0],[0,85,0]],
+  [[15,139,141],[168,32,26],[236,154,41],[218,210,216],[20,54,66]], // Parade
+
+  [[116,2,17],[208,169,160],[143,58,96],[195,90,102],[36,0,4]], // ensemble
+  [[175,212,204],[133,186,106],[26,119,73],[11,46,47],[1,18,28]],
+  [[0,18,68],[0,80,134],[49,143,181],[176,202,199],[247,214,191]],
+  [[140,66,25],[243,149,88],[238,200,176],[241,236,231],[247,217,109]],
+
+  [[191,135,9],[234,197,125],[185,187,222],[128,116,144],[82,56,87]], // undergrowth
+  [[44,48,57],[107,54,56],[254,108,58],[254,219,209],[158,172,183]], // traveler
+  [[61,82,32],[183,203,153],[119,143,210],[42,55,89],[67,29,50]], // diverged
+  [[91,91,91],[195,214,211],[217,201,167],[248,233,214],[244,163,142]] // frost
+]
+
+let pId = Math.floor(R() * palettes.length);
+let palette = palettes[pId];
+
+function DG() {
+        var gridSize = 50; // 50x50 grid
+        var squareSize = (D_S - (5 * M)) / gridSize;
+
+        for (var x = 0; x < gridSize; x++) {
+            for (var y = 0; y < gridSize; y++) {
+                var sTT = rST();
+                var tLX = x * squareSize + (2.5 * M);
+                var tLY = y * squareSize + (2.5 * M);
+                var colors = [randomColor(x,y,tLX,tLY), randomColor(x,y,tLX,tLY), randomColor(x,y,tLX,tLY), randomColor(x,y,tLX,tLY)];
+                sT[sTT](ctx, tLX, tLY, squareSize, colors);
+            }
+        }
+    }
+
+const sT = {
+    tr: function(ctx, x, y, size, colors) {
+        var centerX = x + size / 2;
+        var centerY = y + size / 2;
+
+        palette.forEach(paletteColor => {
+            var cS = `rgb(${paletteColor[0]}, ${paletteColor[1]}, ${paletteColor[2]})`;
+            var cM = colors.map(c => c === cS);
+
+            if (cM.some(v => v)) {
+                ctx.beginPath();
+
+                // Check and draw each triangle that matches the current color
+                cM.forEach((match, index) => {
+                    if (match) {
+                        switch (index) {
+                            case 0: // Top left triangle
+                                ctx.moveTo(Math.ceil(x * M), Math.ceil(y * M));
+                                ctx.lineTo(Math.ceil((x + size) * M), Math.ceil(y * M));
+                                ctx.lineTo(Math.ceil(centerX * M), Math.ceil(centerY * M));
+                                break;
+                            case 1: // Bottom left triangle
+                                ctx.moveTo(Math.ceil(x * M), Math.ceil(y * M));
+                                ctx.lineTo(Math.ceil(x * M), Math.ceil((y + size) * M));
+                                ctx.lineTo(Math.ceil(centerX * M), Math.ceil(centerY * M));
+                                break;
+                            case 2: // Top right triangle
+                                ctx.moveTo(Math.ceil((x + size) * M), Math.ceil(y * M));
+                                ctx.lineTo(Math.ceil((x + size) * M), Math.ceil((y + size) * M));
+                                ctx.lineTo(Math.ceil(centerX * M), Math.ceil(centerY * M));
+                                break;
+                            case 3: // Bottom right triangle
+                                ctx.moveTo(Math.ceil(x * M), Math.ceil((y + size) * M));
+                                ctx.lineTo(Math.ceil((x + size) * M), Math.ceil((y + size) * M));
+                                ctx.lineTo(Math.ceil(centerX * M), Math.ceil(centerY * M));
+                                break;
+                        }
+                    }
+                });
+
+                ctx.closePath();
+                ctx.fillStyle = cS;
+                ctx.fill();
+            }
+        });
+    },
+    hr: function(ctx, x, y, size, colors) {
+        var rectHeight = size / 4;
+        for (var i = 0; i < 4; i++) {
+            ctx.beginPath();
+            ctx.rect(Math.ceil(x * M), Math.ceil((y + i * rectHeight) * M), Math.ceil(size * M), Math.ceil(rectHeight * M));
+            ctx.fillStyle = colors[i];
+            ctx.fill();
+        }
+    },
+    vr: function(ctx, x, y, size, colors) {
+        var rectWidth = size / 4;
+        for (var i = 0; i < 4; i++) {
+            ctx.beginPath();
+            ctx.rect(Math.ceil((x + i * rectWidth) * M), Math.ceil(y * M), Math.ceil(rectWidth * M), Math.ceil(size * M));
+            ctx.fillStyle = colors[i];
+            ctx.fill();
+        }
+    },
+    sq: function(ctx, x, y, size, colors) {
+        var SSS = size / 2; // Each small square is half the size of the large square
+for (var i = 0; i < 2; i++) {
+    for (var j = 0; j < 2; j++) {
+        ctx.beginPath();
+        // Calculate the top-left corner of each small square
+        var sX = x + i * SSS;
+        var sY = y + j * SSS;
+        ctx.rect(Math.ceil(sX * M), Math.ceil(sY * M), Math.ceil(SSS * M), Math.ceil(SSS * M));
+        ctx.fillStyle = colors[i * 2 + j]; // Assumes colors array has at least 4 colors
+        ctx.fill();
+    }
+}
+
+    }
+};
+
+
+function randomColor(x,y) {
+    // Select a random color from the palette
+    var cII;
+    switch(patternId) { 
+        case 0:
+            cII = Math.abs(Math.floor((((x + 10) / (y + 10)) + (R() * 3))) % palette.length);
+            break;
+        case 1:
+            var wv = (x/osx) + Math.cos(y/osy) + (R() * 3);
+            cII = Math.abs(Math.floor(wv/2) % palette.length);
+            break;
+        case 2:
+            var aX = x - p.x;
+            var aY = y - p.y;
+            var distance = Math.sqrt(aX * aX + aY * aY)/rad;
+            
+            cII = Math.abs(Math.floor(distance + (R() * 3)) % palette.length);
+            break;
+    }
+    
+    var color = palette[cII];
+    
+    // Convert the [r, g, b] array to an RGB string
+    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+}
+
+function rST() {
+    const types = Object.keys(sT);
+    const randomIndex = Math.floor(R() * types.length);
+    return types[randomIndex];
+}
+
+DG();
+</script>
+
+</body>
+</html>
+

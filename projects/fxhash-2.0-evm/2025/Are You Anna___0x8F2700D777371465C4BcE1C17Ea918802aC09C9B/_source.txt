@@ -1,0 +1,4 @@
+id: 0x8F2700D777371465C4BcE1C17Ea918802aC09C9B
+name: Are You Anna?
+mint_opens_at: 2025-11-12T18:40:00+00:00
+generative_uri: ipfs://QmYZ7PAmzHVL1yn4ZVXiTU6CH58tKgVzJmJTz54jKFXjo4

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arte ASCII Generativo</title>
+    <style>
+        body {
+            background-color: white;
+            color: rgb(0, 0, 170);
+            font-family: monospace;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #container {
+            width: 700px;
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 0px solid rgb(0, 0, 170); /* Borde del contenedor principal */
+        }
+        #ascii-art {
+            font-size: 12px;
+            line-height: 12px;
+            white-space: pre;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup {
+            position: absolute;
+            background-color: white;
+            border: 1px solid rgb(0, 0, 170);
+            padding: 10px;
+            font-size: 14px;
+            display: none;
+            z-index: 10;
+            text-align: center;
+            width: auto; /* Ajuste automático al contenido */
+            height: auto; /* Ajuste automático al contenido */
+            max-width: 300px; /* Límite de ancho máximo */
+            word-wrap: break-word; /* Asegura que el texto no se desborde */
+            box-shadow: -5px 9px 0px rgba(0, 0, 170); /* Sombra dura a 120 grados */
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="ascii-art"></div>
+    </div>
+    <script>
+        const asciiArt = document.getElementById('ascii-art');
+        const phrases = [
+            "Sizzle... POP! The kitchen of ideas is alive!",
+            "Clatter-clatter, plates of inspiration served here.",
+            "Tap-tap-click, the coworking lab hums with energy.",
+            "Shh... the gallery whispers stories of art.",
+            "Buzzzzz... the sidewalk buzzes with excitement.",
+            "Rustle-rustle, the green area breathes creativity.",
+            "Chirp-chirp, connections bloom in the plaza.",
+            "Whisk-whisk, blending dreams into reality.",
+            "Ding-ding, fresh ideas straight out of the oven.",
+            "Clang-clang, forging new paths together.",
+            "Whoosh... the wind carries whispers of innovation.",
+            "Splash-splash, colors collide in a creative storm.",
+            "Tick-tock, time flows where creativity blooms.",
+            "Bzzt-bzzt, circuits spark with shared brilliance.",
+            "Click-clack, keyboards dance to the rhythm of progress.",
+            "Swish-swish, brushes sweep across digital canvases.",
+            "Boom-boom, big ideas echo through the halls.",
+            "Pitter-patter, raindrops of thought water the seeds of change.",
+            "Crackle-crackle, the fire of collaboration burns bright.",
+            "Ping-pong, bouncing ideas back and forth.",
+            "Zoom-zoom, minds race toward new horizons.",
+            "Flip-flap, turning pages of collective imagination.",
+            "Hum-hum, the melody of teamwork fills the air.",
+            "Snap-snap, moments of clarity captured in an instant.",
+            "Gurgle-gurgle, the stream of creativity never stops flowing.",
+            "Thump-thump, hearts beat as one in the creative space.",
+            "Flicker-flicker, lightbulbs of inspiration illuminate the room.",
+            "Bang-bang, breaking barriers with bold strokes.",
+            "Whisper-whisper, secrets of art shared among friends.",
+            "Clap-clap, celebrating every step of the journey.",
+            "Drum-drum, the heartbeat of the community grows stronger.",
+            "Bubble-bubble, ideas simmering in the cauldron of thought.",
+            "Pop-pop, bursts of genius light up the room.",
+            "Flutter-flutter, wings of creativity take flight.",
+            "Zap-zap, lightning strikes of innovation everywhere.",
+            "Hiss-hiss, steam rises from the engine of creation.",
+            "Tinkle-tinkle, small sounds of progress add up.",
+            "Roar-roar, the voice of art shakes the world.",
+            "Drip-drip, drops of wisdom fall into the pool of knowledge."
+        ];
+        const kaomojis = ['(╯°□°）╯︵ ┻━┻', '¯\\_(ツ)_/¯', '(づ｡◕‿‿◕｡)づ', 'ヽ(´▽`)/', '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧', 'ヾ(⌐■_■)ノ♪', 'ಠ_ಠ', '(•̀ᴗ•́)و ̑̑', '(ノಠ益ಠ)ノ彡┻━┻', '(✿◠‿◠)'];
+        const characters = ['@', '#', '&', '*', '+', '=', '-', ':', '.', ' '];
+
+        // Función para generar arte ASCII
+        function generateAsciiArt() {
+            let art = '';
+            const rows = 90;
+            const cols = 90;
+
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    if (Math.random() < 0.1) {
+                        art += `${kaomojis[Math.floor(Math.random() * kaomojis.length)]} `;
+                    } else {
+                        art += characters[Math.floor(Math.random() * characters.length)];
+                    }
+                }
+                art += '\n';
+            }
+
+            asciiArt.textContent = art;
+
+            // Mostrar ventanas emergentes generativas después de generar el arte ASCII
+            showRandomPopups();
+        }
+
+        // Función para mostrar ventanas emergentes aleatorias en posiciones aleatorias
+        function showRandomPopups() {
+            const popupCount = Math.floor(Math.random() * 10) + 1; // Número aleatorio de ventanas emergentes (1 a 10)
+
+            for (let i = 0; i < popupCount; i++) {
+                const popup = document.createElement('div');
+                popup.className = 'popup';
+
+                // Contenido aleatorio
+                const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                const randomKaomoji = kaomojis[Math.floor(Math.random() * kaomojis.length)];
+                popup.textContent = `${randomPhrase} ${randomKaomoji}`;
+
+                // Posición aleatoria dentro de la pantalla
+                popup.style.left = `${Math.random() * (window.innerWidth - 320)}px`; // Evitar desbordamiento horizontal
+                popup.style.top = `${Math.random() * (window.innerHeight - 100)}px`; // Evitar desbordamiento vertical
+
+                // Añadir la ventana emergente al cuerpo del documento
+                document.body.appendChild(popup);
+                popup.style.display = 'block';
+
+                // Eliminar la ventana emergente después de 3 segundos
+                setTimeout(() => {
+                    popup.remove();
+                }, 3000);
+            }
+        }
+
+        // Función para mostrar ventanas emergentes al mover el mouse
+        function showPopupOnMouseMove(event) {
+            const popupCount = Math.floor(Math.random() * 5); // Número aleatorio de ventanas emergentes (0 a 4)
+
+            for (let i = 0; i < popupCount; i++) {
+                const popup = document.createElement('div');
+                popup.className = 'popup';
+
+                // Contenido aleatorio
+                const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                const randomKaomoji = kaomojis[Math.floor(Math.random() * kaomojis.length)];
+                popup.textContent = `${randomPhrase} ${randomKaomoji}`;
+
+                // Posición cerca del cursor
+                popup.style.left = `${event.clientX + Math.random() * 100 - 50}px`;
+                popup.style.top = `${event.clientY + Math.random() * 100 - 50}px`;
+
+                // Añadir la ventana emergente al cuerpo del documento
+                document.body.appendChild(popup);
+                popup.style.display = 'block';
+
+                // Eliminar la ventana emergente después de 2 segundos
+                setTimeout(() => {
+                    popup.remove();
+                }, 2000);
+            }
+        }
+
+        // Eventos para mostrar ventanas emergentes al mover el mouse
+        asciiArt.addEventListener('mousemove', showPopupOnMouseMove);
+
+        // Generar arte ASCII inicialmente y mostrar ventanas emergentes generativas al cargar la página
+        generateAsciiArt();
+
+        // Opcional: Cambiar el arte ASCII periódicamente
+        setInterval(generateAsciiArt, 10000); // Cambiar el arte ASCII cada 10 segundos
+    </script>
+</body>
+</html>

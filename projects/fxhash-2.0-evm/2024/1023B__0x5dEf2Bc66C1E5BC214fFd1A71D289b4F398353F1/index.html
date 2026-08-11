@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        background-color: #B3B3B3;
+    }
+    canvas {     
+        padding: 0;
+        margin: auto;
+        position: absolute;
+        inset: 0;
+    }
+</style>
+<body>
+<canvas id="c"></canvas>
+<script src="fxhash.js"></script>
+<script>
+let R=function(){return $fx.rand()};var Z=1e3;let e=Math.floor(40*R())+20;const OO=e,V=document.getElementById("c");var D=Math.min(window.innerWidth,window.innerHeight),M=D/Z;V.width=D,V.height=D;const T=V.getContext("2d");T.fillStyle="#B3B3B3",T.fillRect(0,0,V.width,V.height),T.fillStyle="#1A1A1A";const X=R()*Z,Y=R()*Z;let a=1.75*R()+.01,b=1.75*R()+.01,c=20*R()+10,d=50*R()+5,f=20*(Math.floor(2*R())+.04);function gr(){return Math.floor(20*R())+2.5}for(let t=0;t<Z;t+=OO)for(let e=0;e<Z;e+=OO){T.save(),T.translate((t+OO/2)*M,(e+OO/2)*M);let n=Math.sqrt((t-X)**2+(e-Y)**2)/f/Z*Math.PI;T.rotate(n),T.fillRect(-OO/gr()*M,-OO*M,OO/gr()*c*M,OO/gr()*a*M),T.fillRect(-OO/gr()*M,-OO*M,OO/gr()*b*M,OO/gr()*d*M),T.restore()}
+</script>
+</body>
+</html>

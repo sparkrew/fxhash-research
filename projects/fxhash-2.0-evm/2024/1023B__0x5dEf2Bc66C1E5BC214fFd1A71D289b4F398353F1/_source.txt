@@ -1,0 +1,4 @@
+id: 0x5dEf2Bc66C1E5BC214fFd1A71D289b4F398353F1
+name: 1023B
+mint_opens_at: 2024-02-04T22:41:47+00:00
+generative_uri: ipfs://QmWYtLzFD9XAEehjH6Di7YbwTrx2PKJH9HaLRQWCqdCgzW

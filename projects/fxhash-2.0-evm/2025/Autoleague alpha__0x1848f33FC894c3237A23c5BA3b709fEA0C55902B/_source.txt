@@ -1,0 +1,4 @@
+id: 0x1848f33FC894c3237A23c5BA3b709fEA0C55902B
+name: Autoleague alpha
+mint_opens_at: 2025-11-04T11:42:15+00:00
+generative_uri: ipfs://QmbmZGthyf7QgissktyR3LkWQcZUg7VM6E78mvDDJ18ErS

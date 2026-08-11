@@ -1,0 +1,4 @@
+id: 31537
+name: AKIRA
+mint_opens_at: 2025-01-15T22:42:25+00:00
+generative_uri: ipfs://QmWNraYLp23itYe4ZLRm4YuaEkXgJVR3gjHHv5Zc3JTC5h

@@ -1,0 +1,4 @@
+id: 30219
+name: GeoTulip
+mint_opens_at: 2024-12-31T20:59:00+00:00
+generative_uri: ipfs://QmX5kMDUE4cmfH8eckkramGWu9QB4MJmowtq9PPx7nJPe6

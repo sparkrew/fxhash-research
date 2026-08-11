@@ -1,0 +1,4 @@
+id: 0xDAdcFD744D8312E568991401A7900bf4e95d9630
+name: (Un)melted
+mint_opens_at: 2025-11-09T16:00:00+00:00
+generative_uri: ipfs://QmVUmkvy58XBJoud4msBJXgigfytenV17FMMfw4E2gk3DC

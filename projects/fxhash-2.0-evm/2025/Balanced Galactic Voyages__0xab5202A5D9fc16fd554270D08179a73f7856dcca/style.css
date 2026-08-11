@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Kaydırma çubuklarını gizler */
+  background-color: #000; /* Sayfa yüklenirken siyah görünsün */
+  display: flex;
+  justify-content: center; /* Yatay ortalama */
+  align-items: center; /* Dikey ortalama */
+  height: 100vh; /* Tam ekran yüksekliği */
+}
+
+canvas {
+  /* Tuvalin etrafına hafif bir gölge ekleyerek derinlik katalım */
+  box-shadow: 0 0 50px rgba(0,0,0,0.7);
+}

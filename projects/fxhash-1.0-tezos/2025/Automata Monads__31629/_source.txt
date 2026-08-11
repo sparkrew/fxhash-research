@@ -1,0 +1,4 @@
+id: 31629
+name: Automata Monads
+mint_opens_at: 2025-03-05T19:00:00+00:00
+generative_uri: ipfs://QmPhbcazEPqmYTaxPx2Qfgd2u1BXJY3d2bmSyqYC44atTh

@@ -1,0 +1,4 @@
+id: 31732
+name: Being a crook
+mint_opens_at: 2025-05-10T22:47:36+00:00
+generative_uri: ipfs://QmS4HmYVcviuYhyKTiL5zNBy5XDk4hfMbALF6S6Aj2gw1s

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Farol</title>
+	  
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta property="og:image" content="thumb.png" />
+	  
+	<link type="text/css" rel="stylesheet" href="style.css" />
+	  
+    <script src="./fxhash.js"></script>	  
+	<script src="./script-hydra.js"></script>
+    <script type="text/javascript" src="./script.js"></script> 
+	  
+  </head>
+	
+  <body>
+	  
+    <script>
+  
+		
+		document.addEventListener("keyup", (event) => {
+     if (event.key === "s" || event.key === "S") {
+         event.preventDefault();
+         screencap();
+     }
+   })
+		
+		document.addEventListener("keyup", (event) => {
+    if (event.key === "a") {
+        event.preventDefault();
+        setResolution(3000, 4000);
+    }
+			
+			
+});
+		
+      var hydra = new Hydra({
+        canvas: document.getElementById("myCanvas"),
+        detectAudio: false
+      });
+
+
+function rnd_btw(min, max) {return $fx.rand() * (max - min) + min;}
+function rnd_btwexp(min, max) {return $fx.rand()**2 * (max - min) + min;}
+function rnd_int(min, max) {min = Math.ceil(min);max = Math.d(max);return Math.floor($fx.rand() * (max - min + 1)) + min;}
+
+
+		    setResolution(1080,1480)
+            osc1=rnd_btw(3,0.2)
+            osc1fast=$fx.rand(-0.004,-0.014)
+            osc1hue=rnd_btwexp(1,2)
+            osc2=rnd_btw(-3,3)
+            osc3=rnd_btw(1.00051,1.006)
+            osc4=rnd_btw(10,1)
+            osc5=rnd_btw(0.5,3)
+            osc6=rnd_btw(0.4,0.3)
+            osc7=rnd_btw(0.9,1)
+            osc8=rnd_btw(1.5,-1.5)
+            osc9=rnd_btw(3,5)
+            osc10=rnd_btw(3,2)
+            osc11=rnd_btw(-0.01,-0.01)
+            osc12=rnd_btw(1.1,1.2)
+            osc13=rnd_btw(1,16)
+            osc14=rnd_btw(-0.008,-0.001)
+            osc15=rnd_btw(0.003,0.01)
+            osc16=rnd_btw(1,5)
+            osc17=rnd_btw(3,3.4)
+            osc18=rnd_btw(250,100)
+            osc19=rnd_btw(-3,3)
+            osc20=rnd_btw(1,-1)
+		
+
+              solid(-1,-1,-1)
+              s0.initCam()
+              src(s0).saturate(0,osc1fast)
+              .add(voronoi([osc4,osc9,osc13],osc11))
+              .color([osc1,osc5,osc10],[osc2,osc20,osc19],[osc3,osc2,osc20])
+			  .brightness([osc17,osc10,osc9])
+              .hue([osc2,osc9,osc19])
+              .colorama([osc9,osc16,osc10])
+			  .contrast(osc10)
+			  .saturate(osc12)
+              .modulateScale(o0,[osc13,osc1,osc4,osc2])
+              .modulateScrollX(voronoi(osc2,osc14,osc19),osc16,osc19)
+			  .modulateScrollY(voronoi(osc18,osc10,osc19))
+              .modulate(o0,-0.001)
+			  .modulate(o0,[0.01,-0.05])
+			  .modulate(o0,0.01)
+              .modulate(o0,-0.01)
+			  .modulate(o0,0.003)
+			  .modulate(o0,-0.001)
+			  .scale(osc12).blend(o0)
+              .blend(o0)
+			  .add(o0,osc15)	
+			  .blend(o0)
+			  .blend(o0).blend(o0).blend(o0)	
+              .out(o0)
+              speed = 0.1
+
+// ''you are here'' 
+		
+    </script>
+	  
+  </body>
+	
+</html>

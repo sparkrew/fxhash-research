@@ -1,0 +1,4 @@
+id: 31785
+name: 2_wavepool
+mint_opens_at: 2025-06-20T22:45:00+00:00
+generative_uri: ipfs://QmWcxafNXidS9SHULcY5viPVjBGozKWSabULCG5ieZvjcD

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+	<script src="./fxhash.js"></script>
+  <title>A Strange Dream - Metamorphose - by Florian Zumbrunn</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #a9a790;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container canvas {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; 
+      display: none;
+    }
+
+    .container canvas.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  </div>
+  <script>
+    const img = new Image();
+    img.src = './a-strange-dream_metamorphose_florian-zumbrunn_sd.jpg';
+    img.alt = 'A Strange Dream - Metamorphose - by Florian Zumbrunn';
+    
+    const canvas = document.createElement('canvas');
+    canvas.id = 'asd';
+    canvas.onclick = () => {
+      window.open(img.src, '_blank');
+    }
+    document.querySelector('.container').appendChild(canvas);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'h') {
+        const link = document.createElement('a');
+        link.href = './a-strange-dream_metamorphose_florian-zumbrunn.jpg';
+        link.download = 'a-strange-dream_metamorphose_florian-zumbrunn_hd.jpg';
+        link.click();
+      }
+      else if (e.key.toLowerCase() === 's') {
+        const link = document.createElement('a');
+        link.href = img.src
+        link.download = 'a-strange-dream_metamorphose_florian-zumbrunn_sd.jpg';
+        link.click();
+      }
+      else if (e.key.toLowerCase() === 'd') {
+        window.open('./a-strange-dream_metamorphose_florian-zumbrunn.jpg', '_blank');
+      }
+    });
+    
+    img.addEventListener('load', () => {
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      canvas.className = 'active';
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, canvas.height, canvas.width, -canvas.height);
+
+      setTimeout(() => {
+        $fx.preview();
+      }, 100);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+id: 31613
+name: Aleacity alpha
+mint_opens_at: 2025-02-15T22:39:00+00:00
+generative_uri: ipfs://QmPFreBgjPpt9shM6CUdtHAwLcNgQELqfHBjDBUjaJkxxN

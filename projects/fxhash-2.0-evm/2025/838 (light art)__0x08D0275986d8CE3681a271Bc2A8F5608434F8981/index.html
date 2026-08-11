@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="./p5.min.js"></script>
+    <script src="./fxhash.min.js"></script>
+    <meta charset="utf-8" />
+  </head>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      display: block;
+    }
+    #window_ {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #canvas-container {
+      width: min(100%, 100vh);
+      height: min(100%, 100vh);
+    }
+
+    #canvas-container canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  </style>
+  <body>
+    <main></main>
+    <div id="window_"><div id="canvas-container"></div></div>
+    <script src="./sketch.js"></script>
+  </body>
+</html>

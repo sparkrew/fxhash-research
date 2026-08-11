@@ -1,0 +1,4 @@
+id: 31624
+name: ASCII Symphony of Ideas
+mint_opens_at: 2025-02-25T01:42:08+00:00
+generative_uri: ipfs://QmQfFFWGryALEapbXKWsM1oNqhLSKHEt6MkeaYqwVggL1Y

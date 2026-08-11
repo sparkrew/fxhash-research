@@ -1,0 +1,4 @@
+id: 0x63f5F3B83a6f1407c5De183225E3d6CE19951D21
+name: A#3UR#A
+mint_opens_at: 2024-03-05T22:20:05+00:00
+generative_uri: ipfs://Qmf9BvefkuK4vRYJnN1n661Lt7T6k7MEzChaNENaTE3hgP

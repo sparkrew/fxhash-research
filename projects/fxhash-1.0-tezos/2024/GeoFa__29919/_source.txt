@@ -1,0 +1,4 @@
+id: 29919
+name: GeoFa
+mint_opens_at: 2024-01-02T16:00:00+00:00
+generative_uri: ipfs://QmVLjfnwJkbfMvrwYF5TVpPanXYbv8LZdQPZCtjW9dVBPd

@@ -1,0 +1,29 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #e6e6e6;
+	font-family: "Inter", "Helvetica Neue", system-ui, -apple-system, sans-serif;
+	color: #111;
+	padding: 24px;
+}
+
+#app {
+	padding: 5px;
+	background: #000;
+}
+
+canvas {
+	display: block;
+	width: min(95vw, 1800px);
+	height: auto;
+	border: 3px solid #000;
+	background: #111;
+	image-rendering: crisp-edges;
+}

@@ -1,0 +1,4 @@
+id: 0xa1A1c3a989f317c497945d03C402a63645238563
+name: Abstract Swirl
+mint_opens_at: 2024-06-25T04:48:29+00:00
+generative_uri: ipfs://QmSdt15ap57CTSLRFLnvoYvxa5AyUsfXJYzMGPwmYPvu3S

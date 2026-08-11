@@ -1,0 +1,4 @@
+id: 0xcDC4913692e3c46D507613d71fDFaE5f048E855d
+name: @base Elementes
+mint_opens_at: 2024-10-03T19:49:25+00:00
+generative_uri: ipfs://QmRo4ac51TFw7X3dqLiupLpVX2k4jQ1ZdqLxq6XLsEgaro

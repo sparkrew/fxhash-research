@@ -1,0 +1,4 @@
+id: 31701
+name: Averno
+mint_opens_at: 2025-04-28T17:30:00+00:00
+generative_uri: ipfs://QmXtqcRQKQFqirtcK4zBdhqQRggRNF69qU8kdRMdGt4LpW

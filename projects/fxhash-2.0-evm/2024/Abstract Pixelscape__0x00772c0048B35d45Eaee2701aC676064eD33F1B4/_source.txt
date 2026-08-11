@@ -1,0 +1,4 @@
+id: 0x00772c0048B35d45Eaee2701aC676064eD33F1B4
+name: Abstract Pixelscape
+mint_opens_at: 2024-12-12T16:32:33+00:00
+generative_uri: ipfs://QmVsynqD4brLxmiWViRkheNT9VhEDMpmQvx2Mg6Vm13Mr5

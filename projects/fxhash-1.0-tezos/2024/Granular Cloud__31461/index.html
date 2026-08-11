@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Granular Cloud</title>
+	  
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta property="og:image" content="thumb.png" />
+	  
+	<link type="text/css" rel="stylesheet" href="style.css" />
+	  
+    <script src="./fxhash.js"></script>	  
+	<script src="./script-hydra.js"></script>
+    <script type="text/javascript" src="./script.js"></script> 
+	  
+  </head>
+	
+  <body>
+  <script>
+  
+	
+      
+      var hydra = new Hydra({
+        canvas: document.getElementById("myCanvas"),
+        detectAudio: false
+      });
+
+document.addEventListener("keyup", (event) => {
+     if (event.key === "s" || event.key === "S") {
+         event.preventDefault();
+         screencap();
+     }
+   })
+		
+		document.addEventListener("keyup", (event) => {
+    if (event.key === "a") {
+        event.preventDefault();
+        setResolution(2000, 2000);
+    }
+			
+			
+});	
+		
+function rnd_btw(min, max) {return $fx.rand() * (max - min) + min;}
+function rnd_btwexp(min, max) {return $fx.rand()**2 * (max - min) + min;}
+function rnd_int(min, max) {min = Math.ceil(min);max = Math.d(max);return Math.floor($fx.rand() * (max - min + 1)) + min;}
+
+
+osc1 = rnd_btw(-23, 22);
+osc1fast = $fx.rand(-2, 8);
+osc1hue = rnd_btwexp(-1, 10);
+osc2 = rnd_btw(-1, 7);
+osc2fast = $fx.rand(-2, 2);
+osc2hue = rnd_btwexp(100, 800);
+osc4 = rnd_btw(222, 10.001);
+osc = rnd_btw(3, 0.8);
+gradient(3, 1)
+
+
+  .rotate(osc1, osc4)
+  .colorama([0.1,0.2,0.3,0.4,0.5])
+  .hue([osc1, osc2, osc])
+  .add(voronoi(osc4, 1, 0))
+  .brightness(-0.6)
+  .scrollY([osc1,osc1fast,osc1hue,osc2,osc2fast,osc2hue,osc4,osc], osc2fast)
+  .scrollX([osc2,osc2fast,osc2hue,osc,osc1,osc1fast,osc1hue], osc1)
+  .scale([osc,osc2,osc2fast,osc1fast])
+  .rotate(osc1)
+  .modulateScale(noise(osc1,0,0))
+  .modulate(o0, [-0.0052,-0.0042,-0.0032])
+  .saturate([1.3,-1.3])
+  .contrast([2.26,-2.26])
+  .pixelate([12,4,8,16,32,64,128,256,512,1080],16)
+  .modulate(o0, 0.001)
+  .modulate(o0, -2)
+  .blend(o0,0.96) 
+  .scale(1.000001)
+  .rotate(-0.001)
+  .modulate(o0, 0.001)
+  .mask(shape(4,0.98,0))
+  .out();
+
+speed = 0.001;
+
+		
+    </script>
+  </body>
+	
+</html>

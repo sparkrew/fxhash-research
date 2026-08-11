@@ -1,0 +1,4 @@
+id: 0x914cf2d92b087C9C01a062111392163c3B35B60e
+name: Allegro
+mint_opens_at: 2024-05-10T16:20:00+00:00
+generative_uri: ipfs://QmVkd6aQ2vVxiKurmMCzisB12ogtZVRaZEpMR9rcBM4LgS

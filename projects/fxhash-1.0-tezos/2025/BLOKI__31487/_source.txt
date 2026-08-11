@@ -1,0 +1,4 @@
+id: 31487
+name: BLOKI
+mint_opens_at: 2025-01-03T22:24:25+00:00
+generative_uri: ipfs://QmZ2MFRKqqLpVXPF99B2GTwshpU4uLUxXE4bVfLy3vhSkx

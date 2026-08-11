@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "./static/js/main.5de0f393.js",
+    "static/media/Plate.stl": "./static/media/Plate.b558e44b4f733155e066.stl",
+    "index.html": "./index.html"
+  },
+  "entrypoints": [
+    "static/js/main.5de0f393.js"
+  ]
+}

@@ -1,0 +1,4 @@
+id: 0x1fFeA17cA6A6eA7162dEb62e017DE87bB85A30e3
+name: Analog Static Study No. 3
+mint_opens_at: 2025-12-05T20:30:00+00:00
+generative_uri: ipfs://QmWvpzHJ7JuWT1ESj2MsDjMQQ5hF5trkMADRDTiiUQA3Sx

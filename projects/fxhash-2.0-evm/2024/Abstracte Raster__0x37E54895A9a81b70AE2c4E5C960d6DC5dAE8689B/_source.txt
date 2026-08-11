@@ -1,0 +1,4 @@
+id: 0x37E54895A9a81b70AE2c4E5C960d6DC5dAE8689B
+name: Abstracte Raster
+mint_opens_at: 2024-08-04T17:30:00+00:00
+generative_uri: ipfs://QmXdJRELT1Dk8UQi6GAeVQcEk47UgLmK2WTJz7FBGMxfxY

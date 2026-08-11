@@ -1,0 +1,4 @@
+id: 0x1e4F0f36c8A57e1a257463f9E96310eA858fCAC9
+name: Algorbit
+mint_opens_at: 2024-08-06T14:08:33+00:00
+generative_uri: ipfs://QmbiLXCwCNBCmyVqXYAKcqmtfbrWcHrA7jtjgdZx2tdX4t

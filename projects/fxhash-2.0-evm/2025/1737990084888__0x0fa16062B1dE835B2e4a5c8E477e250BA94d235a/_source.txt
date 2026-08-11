@@ -1,0 +1,4 @@
+id: 0x0fa16062B1dE835B2e4a5c8E477e250BA94d235a
+name: 1737990084888
+mint_opens_at: 2025-01-27T17:00:00+00:00
+generative_uri: ipfs://QmdMCTr8ZpGRp2y4WQjwqQmViQPgES598EnGDeNbEnGzzw

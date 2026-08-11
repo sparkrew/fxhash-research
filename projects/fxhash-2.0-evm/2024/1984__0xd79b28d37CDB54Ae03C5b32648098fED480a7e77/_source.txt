@@ -1,0 +1,4 @@
+id: 0xd79b28d37CDB54Ae03C5b32648098fED480a7e77
+name: 1984
+mint_opens_at: 2024-03-06T20:47:33+00:00
+generative_uri: ipfs://QmdE1qjwGhYDZbfHb2vJ1kyGEv893LURh4MN5AjS8FH1XH

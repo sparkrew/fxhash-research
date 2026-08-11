@@ -1,0 +1,38 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" width="6000" height="6000" viewBox="0 0 6000 6000" >
+  <defs>
+
+    <!-- Ciel gris -->
+    <linearGradient id="skyOvercast" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#8996a2"/>
+      <stop offset="100%" stop-color="#c1c7cd42"/>
+    </linearGradient>
+
+    <!-- Gazon -->
+    <linearGradient id="grassGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#062b1011"/>
+      <stop offset="50%" stop-color="#0a481b"/>
+      <stop offset="100%" stop-color="#0a481b"/>
+
+    </linearGradient>
+
+    <pattern id="mowStripes2" width="60" height="600" patternUnits="userSpaceOnUse">
+      <rect width="60" height="300" fill="rgba(255,255,255,.06)"/>
+      <rect y="300" width="60" height="300" fill="rgba(0,0,0,.06)"/>
+    </pattern>
+
+
+  </defs>
+
+  <!-- Ciel -->
+  <rect width="6000" height="3500" fill="url(#skyOvercast)"/>
+
+  <!-- Terrain -->
+  <g>
+    <rect y="3500"  width="6000" height="3500" fill="url(#grassGrad2)"/>
+    <rect y="3500" width="6000" height="3500" fill="url(#mowStripes2)"/>
+  </g>
+
+
+
+</svg>

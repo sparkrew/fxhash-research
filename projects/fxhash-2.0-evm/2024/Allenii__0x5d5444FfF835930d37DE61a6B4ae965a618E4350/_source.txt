@@ -1,0 +1,4 @@
+id: 0x5d5444FfF835930d37DE61a6B4ae965a618E4350
+name: Allenii
+mint_opens_at: 2024-04-21T01:39:59+00:00
+generative_uri: ipfs://QmbsYzUsowcm3SkpedKsAUY2f1mTy285gZi2o6VLm1UShX

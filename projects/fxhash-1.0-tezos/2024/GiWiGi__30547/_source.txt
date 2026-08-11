@@ -1,0 +1,4 @@
+id: 30547
+name: GiWiGi
+mint_opens_at: 2024-03-12T16:00:00+00:00
+generative_uri: ipfs://QmZ8Y3wCJE3s68C2r27pNDmfvymmo5fwzmmt9GZZYnmNxa

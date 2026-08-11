@@ -1,0 +1,4 @@
+id: 0xcC8DFCb064192C9FF4F143223f7438aD80429879
+name: AID
+mint_opens_at: 2025-03-24T15:23:33+00:00
+generative_uri: ipfs://Qmdj35pJw9TDXbyk3YKc5fCuo8cbZzzucvhSVMbUbgjunk

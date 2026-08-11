@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--ooEFicu8p8cfMNMNQ7HXdD9eGciLpRAznCFwdvDvVSLr5SH1YAR-->
+<!-- ooTAS8t4x52vxiNTqe4rTcb6mEbp5uEXWoRb9uBTNyPbYBW1yqR -->
+<!-- ooQmF7W8qZMArV22vgYitzoBErpjyAcLJeb3aamJuRhqSyPUK9A -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <script src="./fxhash.js"></script>
+  <script src="./index.js"></script>
+
+  <link rel="stylesheet" href="./styles.css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubic Ascent</title>
+    <script src="./p5.js"></script>
+    <script src="./easycam.js"></script>
+
+</head>
+<body>
+
+    <script>
+
+    const Mooving = $fx.rand();
+    const urlParams = new URLSearchParams(window.location.search);
+    const GoodHash = Math.floor($fx.rand()*10000);
+
+
+    var paramcolor = '';
+    var paramMoove = '';
+
+    var comptPreview = 0;
+    let compteur = 0;
+    let faces = [];
+  let frames = [];
+  let cam;
+
+  var FaceCol = [];
+  var FrameCol = [];
+
+  if ((Mooving <= 0.5)&& (Mooving>0.25)){
+    paramcolor = 'Fixed';
+    paramMoove = 'Moving';
+  }
+  else if (Mooving <= 0.25){
+    paramcolor = 'Random color change';
+    paramMoove = 'Moving';
+  }
+  else {
+
+      paramcolor = 'Fixed';
+      paramMoove = 'Motionless';
+    }
+
+
+  $fx.features({
+      'Colors' : paramcolor,
+      'Scalability' : paramMoove,
+  })
+
+function Colorier(){
+
+  for (let u = 1; u <=3; u++){
+    FaceCol[u] = Math.floor($fx.rand()*255);
+    FrameCol[u] = Math.floor($fx.rand()*255);
+  }
+}
+
+
+let gradientDirection = 'vertical'; // 'vertical' pour un dégradé de haut en bas, 'horizontal' pour un dégradé de droite à gauche
+
+function setup() {
+  Colorier();
+  createCanvas(2048, 2048, WEBGL);
+  cam = createEasyCam();
+  noiseSeed(GoodHash);
+
+  let span = 10;
+  let len = 300;
+  let numColors =  Math.floor($fx.rand()*5);
+
+  let gradientColors = generateGradientColors(numColors, gradientDirection);
+
+  for (let x = len * -0.5; x <= len * 0.5; x += span) {
+      for (let y = len * -2; y <= len * 0.5; y += span) {
+          for (let z = len * -0.5; z <= len * 0.5; z += span) {
+              if ((-110 <= x && x <= 110) && (-110 <= z && z <= 110)) {
+                  continue;
+              }
+
+              let noise_value = noise(x * 0.015, z * 0.015, y * 0.0025 + frameCount * 0.025);
+
+              if (y > len * 0.4) {
+                  noise_value = 1;
+              }
+
+              if (noise_value > 0.55) {
+                  let colorIndex = Math.floor(Math.random() * numColors);
+
+                  let faceColor = gradientColors[colorIndex];
+                  let frameColor = color(FrameCol[1], FrameCol[2],FrameCol[3]);
+                  setBoxToMesh(faces, frames, createVector(x, y, z), span, faceColor, frameColor);
+              }
+          }
+      }
+  }
+}
+
+function generateGradientColors(numColors, direction) {
+  let gradientColors = [];
+  let step = Math.floor(255 / numColors);
+
+  if (direction === 'vertical') {
+      for (let i = 0; i < 255; i++) {
+
+          gradientColors.push(color(FrameCol[1], step, FrameCol[3]));
+      }
+  } else if (direction === 'horizontal') {
+      for (let i = 0; i < numColors; i++) {
+          gradientColors.push(color(i * step, 0, 255));
+      }
+  }
+
+  return gradientColors;
+}
+
+  function update() {
+    if ((Mooving <= 0.5)&& (Mooving>0.25)){
+
+      faces = [];
+      frames = [];
+
+      let span = 10;
+      let len = 300;
+      let numColors =  Math.floor($fx.rand()*10);
+
+      let gradientColors = generateGradientColors(numColors, gradientDirection);
+
+      for (let x = len * -0.5; x <= len * 0.5; x += span) {
+          for (let y = len * -2; y <= len * 0.5; y += span) {
+              for (let z = len * -0.5; z <= len * 0.5; z += span) {
+                  if ((-110 <= x && x <= 110) && (-110 <= z && z <= 110)) {
+                      continue;
+                  }
+
+                  let noise_value = noise(x * 0.015, z * 0.015, y * 0.0025 + frameCount * 0.025);
+
+                  if (y > len * 0.4) {
+                      noise_value = 1;
+                  }
+
+                  if (noise_value > 0.55) {
+                      let colorIndex = Math.floor(Math.random() * numColors);
+                      let faceColor = color(FaceCol[1], FaceCol[2], FaceCol[3]);// gradientColors[colorIndex];
+                      let frameColor = color(FrameCol[2],FrameCol[2],FrameCol[3]);
+                      setBoxToMesh(faces, frames, createVector(x, y, z), span, faceColor, frameColor);
+                  }
+              }
+          }
+      }
+    }
+    else if (Mooving <= 0.25){
+
+      faces = [];
+      frames = [];
+
+      let span = 10;
+      let len = 300;
+      let numColors = Math.floor($fx.rand()*10);
+
+      let gradientColors = generateGradientColors(numColors, gradientDirection);
+
+
+      for (let x = len * -0.5; x <= len * 0.5; x += span) {
+          for (let y = len * -2; y <= len * 0.5; y += span) {
+              for (let z = len * -0.5; z <= len * 0.5; z += span) {
+                  if ((-110 <= x && x <= 110) && (-110 <= z && z <= 110)) {
+                      continue;
+                  }
+
+                  let noise_value = noise(x * 0.015, z * 0.015, y * 0.0025 + frameCount * 0.025);
+
+                  if (y > len * 0.4) {
+                      noise_value = 1;
+                  }
+
+                  if (noise_value > 0.55) {
+                      let colorIndex = Math.floor($fx.rand()*numColors)
+          let directColor = $fx.rand();
+          let faceColor = color(0, 0, 0);//color(Math.floor(colorIndex*125), Math.floor(colorIndex*180), Math.floor(colorIndex*255));
+          let frameColor =gradientColors[colorIndex];//color(Math.floor($fx.rand()*255), Math.floor($fx.rand()*255), Math.floor($fx.rand()*255));
+          setBoxToMesh(faces, frames, createVector(x, y, z), span, faceColor, frameColor);
+      }
+    }
+}
+}
+}
+    else {
+      {
+        console.log("Not Mooving")
+      }
+    }
+
+  }
+
+
+
+  function draw() {
+    if (comptPreview <= 50){
+      background(0);
+      update();
+      comptPreview = comptPreview + 1;
+
+      for (let i = 0; i < faces.length; i++) {
+          let face = faces[i];
+          let frame = frames[i];
+
+          // Dessiner la face
+          fill(face.color);
+          beginShape();
+          for (let v of face.vertices) {
+              vertex(v.x, v.y, v.z);
+          }
+          endShape(CLOSE);
+
+          // Dessiner le cadre
+          stroke(frame.color);
+          beginShape(LINES);
+          for (let v of frame.vertices) {
+              vertex(v.x, v.y, v.z);
+          }
+          endShape();
+      }
+    }
+    if (comptPreview == 50){
+      $fx.preview()
+    }
+
+  }
+
+  function setBoxToMesh(face_target, frame_target, location, size, face_color, frame_color) {
+      let vertices = [];
+      let index = face_target.length;
+
+      vertices.push(location.copy().add(createVector(size * -0.5 * 0.99, size * 0.5 * 0.99, size * -0.5 * 0.99)));
+      vertices.push(location.copy().add(createVector(size * 0.5 * 0.99, size * 0.5 * 0.99, size * -0.5 * 0.99)));
+      vertices.push(location.copy().add(createVector(size * 0.5 * 0.99, size * 0.5 * 0.99, size * 0.5 * 0.99)));
+      vertices.push(location.copy().add(createVector(size * -0.5 * 0.99, size * 0.5 * 0.99, size * 0.5 * 0.99)));
+
+      vertices.push(location.copy().add(createVector(size * -0.5 * 0.99, size * -0.5 * 0.99, size * -0.5 * 0.99)));
+      vertices.push(location.copy().add(createVector(size * 0.5 * 0.99, size * -0.5 * 0.99, size * -0.5 * 0.99)));
+      vertices.push(location.copy().add(createVector(size * 0.5 * 0.99, size * -0.5 * 0.99, size * 0.5 * 0.99)));
+      vertices.push(location.copy().add(createVector(size * -0.5 * 0.99, size * -0.5 * 0.99, size * 0.5 * 0.99)));
+
+      face_target.push({ vertices: vertices, color: face_color });
+
+      frame_target.push({ vertices: vertices, color: frame_color });
+  }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+id: 31584
+name: alignment
+mint_opens_at: 2025-01-29T23:00:00+00:00
+generative_uri: ipfs://QmTkZtkEib6mebrYFhNaMpQ7xpVALSvbtH7ZNRv34gWs1y

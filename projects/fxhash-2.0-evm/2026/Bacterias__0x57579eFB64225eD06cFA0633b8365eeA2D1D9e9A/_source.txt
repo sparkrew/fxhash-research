@@ -1,0 +1,4 @@
+id: 0x57579eFB64225eD06cFA0633b8365eeA2D1D9e9A
+name: Bacterias
+mint_opens_at: 2026-01-12T10:39:17+00:00
+generative_uri: ipfs://QmWt6SoeUZk5vfvGXVaqcQtG9LPg5tYKTHagdqzLeFXAmJ

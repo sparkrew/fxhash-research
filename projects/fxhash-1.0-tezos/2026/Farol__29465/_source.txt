@@ -1,0 +1,4 @@
+id: 29465
+name: Farol
+mint_opens_at: 2026-04-12T15:44:00+00:00
+generative_uri: ipfs://QmWZ5X3DyTE4cBocU3WE9EzKfbekaEfpdtwQtLtKenCAMa

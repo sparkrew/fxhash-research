@@ -1,0 +1,4 @@
+id: 0x190De6FD9D3a7C85B728056bEC2Bd07C3a414D3f
+name: 50x50x4
+mint_opens_at: 2024-02-04T22:55:35+00:00
+generative_uri: ipfs://QmWrrJdoKEwcWbDWwfqTXY3cHcHhcjMXfQnqN41NnRMyg1

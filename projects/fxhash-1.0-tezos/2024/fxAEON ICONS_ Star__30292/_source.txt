@@ -1,0 +1,4 @@
+id: 30292
+name: fxAEON ICONS: Star
+mint_opens_at: 2024-02-13T17:00:00+00:00
+generative_uri: ipfs://QmY4JCQeWPB8ZShAFumveATcSCiXQXDNr8ha8NubK6LBwi

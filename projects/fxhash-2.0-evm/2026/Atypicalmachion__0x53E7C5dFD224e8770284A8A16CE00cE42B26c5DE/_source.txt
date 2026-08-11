@@ -1,0 +1,4 @@
+id: 0x53E7C5dFD224e8770284A8A16CE00cE42B26c5DE
+name: Atypicalmachion
+mint_opens_at: 2026-04-03T17:30:00+00:00
+generative_uri: ipfs://QmW3tSfNP6SCCGUENyzD6omZrWaCQto6PX6dcUGbsEtghN

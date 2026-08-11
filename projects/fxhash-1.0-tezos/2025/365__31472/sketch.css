@@ -1,0 +1,57 @@
+/*!****************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./assets/styles/sketch.css ***!
+  \****************************************************************************/
+/*
+ * Copyright (C) 2023-2024 brittni and the polar bear LLC.
+ *
+ * This file is a part of azurepolarbear's 365 algorithmic art project,
+ * which is released under the GNU Affero General Public License, Version 3.0.
+ * You may not use this file except in compliance with the license.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. See LICENSE or go to
+ * https://www.gnu.org/licenses/agpl-3.0.en.html for full license details.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Affero General Public License for more details.
+ *
+ * The visual outputs of this source code are licensed under the
+ * Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) License.
+ * You should have received a copy of the CC BY-NC-ND 4.0 License with this program.
+ * See OUTPUT-LICENSE or go to https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * for full license details.
+ */
+
+/*
+ * To remove borders and scroll bars from the sketch page,
+ * and to keep canvas in the center of the browser window at all times.
+ */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+main {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2tldGNoLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0VBcUJFOztBQUVGOzs7RUFHRTs7QUFFRjtJQUNJLFNBQVM7SUFDVCxVQUFVO0lBQ1YsWUFBWTtBQUNoQjs7QUFFQTtJQUNJLFlBQVk7SUFDWixhQUFhO0FBQ2pCOztBQUVBO0lBQ0ksYUFBYTtJQUNiLHVCQUF1QjtJQUN2QixtQkFBbUI7SUFDbkIsV0FBVztJQUNYLFlBQVk7QUFDaEI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsY0FBYztBQUNsQiIsInNvdXJjZXMiOlsid2VicGFjazovLzM2NS8uL2Fzc2V0cy9zdHlsZXMvc2tldGNoLmNzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogQ29weXJpZ2h0IChDKSAyMDIzLTIwMjQgYnJpdHRuaSBhbmQgdGhlIHBvbGFyIGJlYXIgTExDLlxuICpcbiAqIFRoaXMgZmlsZSBpcyBhIHBhcnQgb2YgYXp1cmVwb2xhcmJlYXIncyAzNjUgYWxnb3JpdGhtaWMgYXJ0IHByb2plY3QsXG4gKiB3aGljaCBpcyByZWxlYXNlZCB1bmRlciB0aGUgR05VIEFmZmVybyBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlLCBWZXJzaW9uIDMuMC5cbiAqIFlvdSBtYXkgbm90IHVzZSB0aGlzIGZpbGUgZXhjZXB0IGluIGNvbXBsaWFuY2Ugd2l0aCB0aGUgbGljZW5zZS5cbiAqXG4gKiBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2ZWQgYSBjb3B5IG9mIHRoZSBHTlUgQWZmZXJvIEdlbmVyYWwgUHVibGljIExpY2Vuc2VcbiAqIGFsb25nIHdpdGggdGhpcyBwcm9ncmFtLiBTZWUgTElDRU5TRSBvciBnbyB0b1xuICogaHR0cHM6Ly93d3cuZ251Lm9yZy9saWNlbnNlcy9hZ3BsLTMuMC5lbi5odG1sIGZvciBmdWxsIGxpY2Vuc2UgZGV0YWlscy5cbiAqXG4gKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3aWxsIGJlIHVzZWZ1bCxcbiAqIGJ1dCBXSVRIT1VUIEFOWSBXQVJSQU5UWTsgd2l0aG91dCBldmVuIHRoZSBpbXBsaWVkIHdhcnJhbnR5IG9mXG4gKiBNRVJDSEFOVEFCSUxJVFkgb3IgRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UuXG4gKiBTZWUgdGhlIEdOVSBBZmZlcm8gR2VuZXJhbCBQdWJsaWMgTGljZW5zZSBmb3IgbW9yZSBkZXRhaWxzLlxuICpcbiAqIFRoZSB2aXN1YWwgb3V0cHV0cyBvZiB0aGlzIHNvdXJjZSBjb2RlIGFyZSBsaWNlbnNlZCB1bmRlciB0aGVcbiAqIENyZWF0aXZlIENvbW1vbnMgQXR0cmlidXRpb24tTm9uQ29tbWVyY2lhbC1Ob0Rlcml2YXRpdmVzIDQuMCBJbnRlcm5hdGlvbmFsIChDQyBCWS1OQy1ORCA0LjApIExpY2Vuc2UuXG4gKiBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2ZWQgYSBjb3B5IG9mIHRoZSBDQyBCWS1OQy1ORCA0LjAgTGljZW5zZSB3aXRoIHRoaXMgcHJvZ3JhbS5cbiAqIFNlZSBPVVRQVVQtTElDRU5TRSBvciBnbyB0byBodHRwczovL2NyZWF0aXZlY29tbW9ucy5vcmcvbGljZW5zZXMvYnktbmMtbmQvNC4wL1xuICogZm9yIGZ1bGwgbGljZW5zZSBkZXRhaWxzLlxuICovXG5cbi8qXG4gKiBUbyByZW1vdmUgYm9yZGVycyBhbmQgc2Nyb2xsIGJhcnMgZnJvbSB0aGUgc2tldGNoIHBhZ2UsXG4gKiBhbmQgdG8ga2VlcCBjYW52YXMgaW4gdGhlIGNlbnRlciBvZiB0aGUgYnJvd3NlciB3aW5kb3cgYXQgYWxsIHRpbWVzLlxuICovXG5cbmh0bWwsIGJvZHkge1xuICAgIG1hcmdpbjogMDtcbiAgICBwYWRkaW5nOiAwO1xuICAgIGJvcmRlcjogbm9uZTtcbn1cblxuYm9keSB7XG4gICAgd2lkdGg6IDEwMHZ3O1xuICAgIGhlaWdodDogMTAwdmg7XG59XG5cbm1haW4ge1xuICAgIGRpc3BsYXk6IGdyaWQ7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG5cbmNhbnZhcyB7XG4gICAgZ3JpZC1yb3c6IDE7XG4gICAgZ3JpZC1jb2x1bW46IDE7XG59XG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=*/

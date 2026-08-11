@@ -1,0 +1,4 @@
+id: 0xDc7F9eE5E134EA7FE5DDCE10Bc7B7C71759b461F
+name: Anomaly
+mint_opens_at: 2024-05-03T17:00:00+00:00
+generative_uri: ipfs://QmWhKPH2xDq3k51TtEGetEBqromfvG1oiZcwwpxV64L8rJ

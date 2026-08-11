@@ -1,0 +1,47 @@
+<html><head>
+  <meta property="og:image" content="drifter.jpeg">
+
+    <meta charset="utf-8">
+    <title>  Abstract Swirl | DANIEL OROPEZA </title>
+    <meta name="viewport" content="width=device-width, height=device-height">
+    <script src="./fxhash.js"></script>
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- import the latest version of hydra synth-->
+    <script src="hydra-synth.js"></script>
+
+        </head>
+
+
+        <body>
+
+
+<script>
+
+ // create a new hydra-synth instance
+ var hydra = new Hydra({
+     detectAudio: false
+   });
+
+
+   //make canvas resize with browser
+   hydra.setResolution(window.innerWidth, window.innerHeight);
+  console.log(hydra);
+
+  window.addEventListener("resize", evt => {
+    hydra.setResolution(window.innerWidth, window.innerHeight);
+  });
+
+
+document.addEventListener('keydown', function(e) {
+if (e.keyCode == 83) {
+screencap() ;}
+});
+
+</script><canvas width="1358" height="1175" style="width: 100%; height: 100%; image-rendering: pixelated;"></canvas>
+
+<script src="sketch.js"></script>
+
+</body></html>

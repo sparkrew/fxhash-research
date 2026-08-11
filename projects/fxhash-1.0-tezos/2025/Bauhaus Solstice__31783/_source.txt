@@ -1,0 +1,4 @@
+id: 31783
+name: Bauhaus Solstice
+mint_opens_at: 2025-06-21T02:42:00+00:00
+generative_uri: ipfs://QmY18ffr4nyKLZwDExZCpye5bgkMpt9E7iPSzWCBca5drF

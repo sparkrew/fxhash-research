@@ -1,0 +1,4 @@
+id: 0x15bE0B9f690d0Df1D195d3D8db6F54A108Ef1A47
+name: AMONG THE INFINITE
+mint_opens_at: 2025-01-12T01:00:00+00:00
+generative_uri: ipfs://QmNgcZtScmFDwLnMXGFUEBGDtHYAzeAwjp94QftWQJeEvi

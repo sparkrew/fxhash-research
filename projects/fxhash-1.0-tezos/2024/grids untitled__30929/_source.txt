@@ -1,0 +1,4 @@
+id: 30929
+name: grids untitled
+mint_opens_at: 2024-06-14T14:47:00+00:00
+generative_uri: ipfs://QmYiWjW4J3ndkTuuxZBAJVoPTGA4dEQVDekYdmM4Zn7enE

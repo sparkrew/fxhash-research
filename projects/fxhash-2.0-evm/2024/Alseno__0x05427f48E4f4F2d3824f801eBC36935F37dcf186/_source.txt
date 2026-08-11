@@ -1,0 +1,4 @@
+id: 0x05427f48E4f4F2d3824f801eBC36935F37dcf186
+name: Alseno
+mint_opens_at: 2024-08-30T17:30:00+00:00
+generative_uri: ipfs://QmRedggfxEsyYuNHvaPjRmZn7nnjkGzQuuUQKBw54Gr2mk

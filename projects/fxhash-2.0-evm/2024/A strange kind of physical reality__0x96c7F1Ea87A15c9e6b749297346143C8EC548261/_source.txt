@@ -1,0 +1,4 @@
+id: 0x96c7F1Ea87A15c9e6b749297346143C8EC548261
+name: A strange kind of physical reality
+mint_opens_at: 2024-01-12T18:05:35+00:00
+generative_uri: ipfs://QmeYvicgWPiaPe6x2PUo9kwmkAhUonZDtBrUcR6WDLwrsK

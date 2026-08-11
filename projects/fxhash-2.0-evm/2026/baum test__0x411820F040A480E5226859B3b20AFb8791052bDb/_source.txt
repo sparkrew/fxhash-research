@@ -1,0 +1,4 @@
+id: 0x411820F040A480E5226859B3b20AFb8791052bDb
+name: baum test
+mint_opens_at: 2026-02-16T16:28:53+00:00
+generative_uri: ipfs://QmRvLH8ituQ8LdPHFLYkb7VtuhknGFFc6f6xgz49N4YMBb

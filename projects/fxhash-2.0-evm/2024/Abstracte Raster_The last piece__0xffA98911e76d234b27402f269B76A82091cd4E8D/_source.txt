@@ -1,0 +1,4 @@
+id: 0xffA98911e76d234b27402f269B76A82091cd4E8D
+name: Abstracte Raster:The last piece
+mint_opens_at: 2024-10-30T20:11:31+00:00
+generative_uri: ipfs://QmYHkv3M7HWuru1qKEUf1XA5VrPWB9q4uRnqHPF8xADZx4

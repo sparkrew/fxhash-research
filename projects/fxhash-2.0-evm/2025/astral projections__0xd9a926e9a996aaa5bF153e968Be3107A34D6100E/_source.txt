@@ -1,0 +1,4 @@
+id: 0xd9a926e9a996aaa5bF153e968Be3107A34D6100E
+name: astral projections 
+mint_opens_at: 2025-01-03T08:10:43+00:00
+generative_uri: ipfs://QmcnL2Z7GSXXhdnrupeLoNfgYUYLw77mKgHsLPUy4fdNs9

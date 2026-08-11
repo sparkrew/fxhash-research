@@ -1,0 +1,54 @@
+body {
+    background-color: white;
+    color: rgb(0, 0, 170);
+    font-family: monospace;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#container {
+    width: 700px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    border: 0px solid rgb(0, 0, 170); /* Borde del contenedor principal */
+}
+
+#ascii-art {
+    font-size: 12px;
+    line-height: 12px;
+    white-space: pre;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    position: absolute;
+    background-color: white;
+    border: 1px solid rgb(0, 0, 170);
+    padding: 10px;
+    font-size: 14px;
+    display: none;
+    z-index: 10;
+    text-align: center;
+    width: auto; /* Ajuste automático al contenido */
+    height: auto; /* Ajuste automático al contenido */
+    max-width: 300px; /* Límite de ancho máximo */
+    word-wrap: break-word; /* Asegura que el texto no se desborde */
+    box-shadow: -5px 9px 0px rgba(0, 0, 170); /* Sombra dura a 120 grados */
+}

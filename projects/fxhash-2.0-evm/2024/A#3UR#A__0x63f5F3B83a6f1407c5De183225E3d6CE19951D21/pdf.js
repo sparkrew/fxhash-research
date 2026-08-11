@@ -1,0 +1,77 @@
+function memoizeFactorials(n) {
+    if (F = [1],
+    len = F.length,
+    n < len)
+        return F;
+    for (; len <= n; )
+        len = F.push(F[len - 1] * len);
+    return F
+}
+function memoizeA(n, t, r, e) {
+    var i = Math.pow(n, -(2 + t))
+      , a = e[n + t] * e[n - t - 1] * e[2 * t + 1] * e[t - r];
+    return a /= e[t + r] * Math.PI,
+    A = i * Math.sqrt(a),
+    A
+}
+function calculateB(n, t, r, e) {
+    return Math.pow(-2 / n, r) / (e[r] * e[n - t - 1 - r] * e[2 * t + 1 + r])
+}
+function memoizeB(n, t, r) {
+    B = [];
+    for (var e = 0; e <= n - t - 1; e++)
+        B.push(calculateB(n, t, e, r));
+    return B
+}
+function fallingFactorial(n, t) {
+    if (t <= 0)
+        return 1;
+    for (var r = 1, e = 0; e < t; e++)
+        r *= n - e;
+    return r
+}
+function calculateC(n, t, r, e) {
+    if (n - 2 * r - t < 0)
+        return 0;
+    var i = Math.pow(-1, r);
+    return (i /= e[r] * e[n - r]) * fallingFactorial(2 * (n - r), n + t)
+}
+function memoizeC(n, t, r) {
+    C = [];
+    for (var e = 0; e <= n; e++)
+        C.push(calculateC(n, t, e, r));
+    return C
+}
+function initializePDF(t, r, e) {
+    return res = {},
+    n = t,
+    l = r,
+    m = e,
+    res.F = memoizeFactorials(3 * n),
+    res.A = memoizeA(n, l, m, F),
+    res.B = memoizeB(n, l, F),
+    res.C = memoizeC(l, m, F),
+    res
+}
+function PDF(n, t, r, e, i, a) {
+    return init = initializePDF(e, i, a),
+    A = init.A,
+    B = init.B,
+    C = init.C,
+    Math.pow(Math.abs(psi(n, t, r, A, B, C)), 2)
+}
+function psi(t, r, e, i, a, o) {
+    var u, c;
+    u = i,
+    u *= Math.pow(Math.E, -t / n),
+    u *= Math.pow(t, l),
+    c = 0;
+    for (var f = 0; f <= n - l - 1; f++)
+        c += a[f] * Math.pow(t, f);
+    for (u *= c,
+    u *= Math.pow(Math.sin(r), m),
+    c = 0,
+    f = 0; f <= l; f++)
+        c += o[f] * Math.pow(Math.cos(r), l - 2 * f - m);
+    return (u *= c) * Math.cos(m * e)
+}

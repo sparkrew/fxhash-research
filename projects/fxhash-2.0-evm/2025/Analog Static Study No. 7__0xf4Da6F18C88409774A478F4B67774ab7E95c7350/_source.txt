@@ -1,0 +1,4 @@
+id: 0xf4Da6F18C88409774A478F4B67774ab7E95c7350
+name: Analog Static Study No. 7
+mint_opens_at: 2025-11-20T11:00:00+00:00
+generative_uri: ipfs://QmcUKcu2Pp3aibSTwpvKDFsnQ5ML3sdLNuz1vFSuVAN1jy

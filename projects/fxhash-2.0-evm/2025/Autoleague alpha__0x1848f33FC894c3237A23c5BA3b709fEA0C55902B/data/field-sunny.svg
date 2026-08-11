@@ -1,0 +1,36 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" width="6000" height="6000" viewBox="0 0 6000 6000" >
+  <defs>
+    <!-- Ciel bleu -->
+    <linearGradient id="skySun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#5fb2ff"/>
+      <stop offset="75%" stop-color="#9fd5ff80"/>
+      <stop offset="100%" stop-color="#e9f6ff42"/>
+    </linearGradient>
+
+    <!-- Gazon -->
+    <linearGradient id="grassGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#17521f11"/>
+      <stop offset="50%" stop-color="#00b834ff"/>
+      <stop offset="100%" stop-color="#00b834ff"/>
+    </linearGradient>
+
+    <!-- Rayures de tonte -->
+    <pattern id="mowStripes" width="60" height="600" patternUnits="userSpaceOnUse">
+      <rect width="60" height="300" fill="rgba(255,255,255,.06)"/>
+      <rect y="300" width="60" height="300" fill="rgba(0,0,0,.06)"/>
+    </pattern>
+  </defs>
+
+
+  <!-- Horizon du terrain (bas 40%) -->
+  <g>
+    <rect y="3500" width="6000" height="3000" fill="url(#grassGrad)"/>
+    <rect y="3500" width="6000" height="3000" fill="url(#mowStripes)"/>
+  </g>
+
+  <!-- Ciel -->
+  <rect width="6000" height="3500" fill="url(#skySun)"/>
+
+
+</svg>

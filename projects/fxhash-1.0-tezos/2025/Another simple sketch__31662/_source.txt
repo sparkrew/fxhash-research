@@ -1,0 +1,4 @@
+id: 31662
+name: Another simple sketch
+mint_opens_at: 2025-03-27T13:06:48+00:00
+generative_uri: ipfs://QmVxc5EWPgsTxDEgnfe3PKwuAvPDPxeys64quBjyNk3S3Z

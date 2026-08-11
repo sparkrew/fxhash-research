@@ -1,0 +1,4 @@
+id: 0x688325b34d9285B65f7F2cC428d68698d9Fa9ad4
+name: Algorithmic Choices
+mint_opens_at: 2024-10-22T18:30:00+00:00
+generative_uri: ipfs://QmSsbrHt9HPJywYFnDv5ZaWeKNsDqo8BqnaajKREHjfdEj

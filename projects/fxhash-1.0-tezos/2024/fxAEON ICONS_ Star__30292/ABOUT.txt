@@ -1,0 +1,10 @@
+
+This fxhash project was compiled using the FROSTxHASH fxhash project builder, version: 0.57.
+The tool is available for use at https://frostxhash.clxn.art/ .
+Unless this is a charitable NFT, a minimum of 10% of primary royalties should have been split with tz1NoYMQaZa9Pz6Hwfx6B2x1TaGU3fSiBbW8.
+Tool created by Matthew Seremet
+  *  frostbitten.tez
+  *  eatpoopart.tez,
+  *  twitter: @frostbitten
+  *  instagram: @eatpoopart
+  *  tz1NoYMQaZa9Pz6Hwfx6B2x1TaGU3fSiBbW8

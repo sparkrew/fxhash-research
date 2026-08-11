@@ -1,0 +1,4 @@
+id: 0x995544a11860BD811D969852380Ad8e7a8941f00
+name: Bitcoin Genesis Pizza 10K
+mint_opens_at: 2026-05-22T13:10:00+00:00
+generative_uri: ipfs://Qme5GpzjPYjaFyvkeGtfa2srHrGE9dzcRhx65h2ZAzy7HB

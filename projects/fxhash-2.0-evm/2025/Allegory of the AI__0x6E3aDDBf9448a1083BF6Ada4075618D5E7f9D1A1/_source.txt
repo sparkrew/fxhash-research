@@ -1,0 +1,4 @@
+id: 0x6E3aDDBf9448a1083BF6Ada4075618D5E7f9D1A1
+name: Allegory of the AI
+mint_opens_at: 2025-11-21T09:21:33+00:00
+generative_uri: ipfs://QmQZMRCUEsRfhbwm8RFkBXgXig2y7oDZyNfBMSbxDqUtwf

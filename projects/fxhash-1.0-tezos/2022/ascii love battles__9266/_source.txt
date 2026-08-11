@@ -1,0 +1,4 @@
+id: 9266
+name: ascii love battles
+mint_opens_at: 2022-02-13T14:18:04+00:00
+generative_uri: ipfs://QmbdiE5PLLaxpeaCEq9EPQz9tS6ASKx8atFnWd9eq6nSSx

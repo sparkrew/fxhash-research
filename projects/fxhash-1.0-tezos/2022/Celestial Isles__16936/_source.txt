@@ -1,0 +1,4 @@
+id: 16936
+name: Celestial Isles
+mint_opens_at: 2022-07-24T14:00:00+00:00
+generative_uri: ipfs://QmT7BsRWpxpb2dLsi85KU1Q7qihPTBsRrTj4nZ66vadiVa

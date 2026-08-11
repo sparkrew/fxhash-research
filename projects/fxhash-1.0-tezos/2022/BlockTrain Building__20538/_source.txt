@@ -1,0 +1,4 @@
+id: 20538
+name: BlockTrain Building
+mint_opens_at: 2022-10-21T15:00:00+00:00
+generative_uri: ipfs://QmUWrr6YZ2ognVXLvw4CgHBiJvhNbpYKXY2dQCe6HNRbXU

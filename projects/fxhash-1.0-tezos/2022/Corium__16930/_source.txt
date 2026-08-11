@@ -1,0 +1,4 @@
+id: 16930
+name: Corium
+mint_opens_at: 2022-07-24T22:00:00+00:00
+generative_uri: ipfs://QmeEQxZkQVsMdH2AmYPYaXkbwjgwPrHqf3eJkW7a3msbaw

@@ -1,0 +1,4 @@
+id: 8060
+name: Burger
+mint_opens_at: 2022-01-27T19:05:18+00:00
+generative_uri: ipfs://QmY9HW3RGPg6QZyZo9jv51hwEPs2wZxz8J6DwPM9KfVPPS

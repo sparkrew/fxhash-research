@@ -1,0 +1,4 @@
+id: 14003
+name: antechambers
+mint_opens_at: 2022-06-03T00:59:59+00:00
+generative_uri: ipfs://QmbWRAb3Td8uXLubzNzCfqAkp9xVJ2dt5jAXfHk6FvUdHr

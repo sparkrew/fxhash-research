@@ -1,0 +1,4 @@
+id: 16188
+name: Appliqué
+mint_opens_at: 2022-07-11T16:10:29+00:00
+generative_uri: ipfs://QmUtyxm1CmXFH7mi3nKNYwwedzUN9JHJ9g8cQs3xohhSVv

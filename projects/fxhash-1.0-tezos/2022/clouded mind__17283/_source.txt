@@ -1,0 +1,4 @@
+id: 17283
+name: clouded mind
+mint_opens_at: 2022-08-02T16:00:00+00:00
+generative_uri: ipfs://QmdnGeTGsvzju6QFweoTu1LGhAt7LaTqfDYHZrWpsB9X4c

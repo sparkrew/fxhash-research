@@ -1,0 +1,4 @@
+id: 7387
+name: City in the Wind
+mint_opens_at: 2022-01-18T21:47:30+00:00
+generative_uri: ipfs://Qmap2eEmm8hPdv2Hi8XGtTiFZ785j6rD7Fv7NrGKep3m7d

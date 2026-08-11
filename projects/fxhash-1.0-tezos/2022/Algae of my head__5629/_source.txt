@@ -1,0 +1,4 @@
+id: 5629
+name: Algae of my head
+mint_opens_at: 2022-01-05T14:59:30+00:00
+generative_uri: ipfs://QmP9TtNxAPRsd3MyUi4DtEEUPnZzVhGprASrM48Q8KY86a

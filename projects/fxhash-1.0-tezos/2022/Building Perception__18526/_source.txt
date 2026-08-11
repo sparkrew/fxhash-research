@@ -1,0 +1,4 @@
+id: 18526
+name: Building Perception
+mint_opens_at: 2022-08-23T17:20:00+00:00
+generative_uri: ipfs://QmNnV3mRrNx7jTCUDRWLLAN8NycYMAF6iH6NZ4nVFmXNh9

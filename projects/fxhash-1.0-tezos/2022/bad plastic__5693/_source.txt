@@ -1,0 +1,4 @@
+id: 5693
+name: bad plastic
+mint_opens_at: 2022-01-05T17:09:10+00:00
+generative_uri: ipfs://Qmb57ZrF2L7z5ZSrEaw89Uhp7zDfQpTXJBb5vyWiYBiu6z

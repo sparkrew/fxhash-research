@@ -1,0 +1,22 @@
+/* style.css */
+
+html, body, div, canvas {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  html, body {
+      background-color: rgb(29,29,27);
+      height: 100%;
+    }
+    
+    body {
+      display: flex;
+    
+      /* This centers our sketch horizontally. */
+      justify-content: center;
+    
+      /* This centers our sketch vertically. */
+      align-items: center;
+    }

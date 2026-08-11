@@ -1,0 +1,4 @@
+id: 22884
+name: AI Psychedelic Garden
+mint_opens_at: 2022-12-29T20:00:00+00:00
+generative_uri: ipfs://QmRBpFqfhYP6DQH7XvMyCUpt4jqErwQLBd9uxKegYzZn2S

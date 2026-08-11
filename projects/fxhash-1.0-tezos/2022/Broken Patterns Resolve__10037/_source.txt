@@ -1,0 +1,4 @@
+id: 10037
+name: Broken Patterns Resolve
+mint_opens_at: 2022-02-27T04:26:34+00:00
+generative_uri: ipfs://QmUBdMDQCd5JCC4KV11ryuuJMcX8AAsabUgYdf7gCiGLVM

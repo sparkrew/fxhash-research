@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cascade</title>
+    <meta property="og:image" content="cover.gif" >
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            overflow: hidden;
+        }
+        canvas {
+            min-width: 200vw;
+            min-height: 200vh;
+            aspect-ratio: 1/1;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%,-50%,0) scale(0.5);
+        }
+    </style>
+    <script src="webgl-utils.js"></script>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+  </head>
+  <body>
+	<div class="divcanvas">
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <script>
+
+        // WebGL - Shadertoy
+  // from https://webglfundamentals.org/webgl/webgl-shadertoy.html
+  
+  
+  "use strict";
+  
+  function main() {
+    // Get A WebGL context
+    /** @type {HTMLCanvasElement} */
+    const canvas = document.querySelector("#canvas");
+    const gl = canvas.getContext("webgl");
+    if (!gl) {
+      return;
+    }
+  
+    const vs = `
+      // an attribute will receive data from a buffer
+      attribute vec4 a_position;
+  
+      // all shaders have a main function
+      void main() {
+  
+        // gl_Position is a special variable a vertex shader
+        // is responsible for setting
+        gl_Position = a_position;
+      }
+    `;
+  
+    const fs = `
+      precision highp float;
+  
+      uniform vec2 iResolution;
+      uniform vec2 iMouse;
+      uniform float iTime;
+      uniform float iPixels;
+
+      uniform float iR;
+      uniform float iG;
+      uniform float iB;
+  
+      //	Classic Perlin 3D Noise 
+  //	by Stefan Gustavson
+  //
+  vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
+  vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
+  vec3 fade(vec3 t) {return t*t*t*(t*(t*6.0-15.0)+10.0);}
+  
+  float cnoise(vec3 P){
+    vec3 Pi0 = floor(P); // Integer part for indexing
+    vec3 Pi1 = Pi0 + vec3(1.0); // Integer part + 1
+    Pi0 = mod(Pi0, 289.0);
+    Pi1 = mod(Pi1, 289.0);
+    vec3 Pf0 = fract(P); // Fractional part for interpolation
+    vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0
+    vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+    vec4 iy = vec4(Pi0.yy, Pi1.yy);
+    vec4 iz0 = Pi0.zzzz;
+    vec4 iz1 = Pi1.zzzz;
+  
+    vec4 ixy = permute(permute(ix) + iy);
+    vec4 ixy0 = permute(ixy + iz0);
+    vec4 ixy1 = permute(ixy + iz1);
+  
+    vec4 gx0 = ixy0 / 7.0;
+    vec4 gy0 = fract(floor(gx0) / 7.0) - 0.5;
+    gx0 = fract(gx0);
+    vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);
+    vec4 sz0 = step(gz0, vec4(0.0));
+    gx0 -= sz0 * (step(0.0, gx0) - 0.5);
+    gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+  
+    vec4 gx1 = ixy1 / 7.0;
+    vec4 gy1 = fract(floor(gx1) / 7.0) - 0.5;
+    gx1 = fract(gx1);
+    vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);
+    vec4 sz1 = step(gz1, vec4(0.0));
+    gx1 -= sz1 * (step(0.0, gx1) - 0.5);
+    gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+  
+    vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);
+    vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);
+    vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);
+    vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);
+    vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);
+    vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);
+    vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);
+    vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);
+  
+    vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));
+    g000 *= norm0.x;
+    g010 *= norm0.y;
+    g100 *= norm0.z;
+    g110 *= norm0.w;
+    vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));
+    g001 *= norm1.x;
+    g011 *= norm1.y;
+    g101 *= norm1.z;
+    g111 *= norm1.w;
+  
+    float n000 = dot(g000, Pf0);
+    float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));
+    float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));
+    float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));
+    float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));
+    float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));
+    float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));
+    float n111 = dot(g111, Pf1);
+  
+    vec3 fade_xyz = fade(Pf0);
+    vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
+    vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
+    float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x); 
+    return 2.2 * n_xyz;
+  }
+
+  float random (in vec2 _st) {
+      return fract(sin(dot(_st.xy,
+                          vec2(12.9898,78.233)))*
+          43758.5453123);
+  }
+
+  float noise (in vec2 _st) {
+    vec2 i = floor(_st);
+    vec2 f = fract(_st);
+
+    // Four corners in 2D of a tile
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
+
+    vec2 u = f * f * (3.0 - 2.0 * f);
+
+    return mix(a, b, u.x) +
+            (c - a)* u.y * (1.0 - u.x) +
+            (d - b) * u.x * u.y;
+}
+
+float fbm ( in vec2 _st) {
+    float v = 0.0;
+    float a = 0.5;
+    vec2 shift = vec2(100.0);
+    // Rotate to reduce axial bias
+    mat2 rot = mat2(cos(0.5), sin(0.5),
+                    -sin(0.5), cos(0.50));
+    for (int i = 0; i < 5; ++i) {
+        v += a * noise(_st);
+        _st = rot * _st * 2.0 + shift;
+        a *= 0.5;
+    }
+    return v;
+}
+  
+  
+  void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
+
+    
+
+    vec2 st = gl_FragCoord.xy/iResolution.xy*2.0;
+  
+    float time = iTime * 0.24;
+    vec2 uv = 2.0 * fragCoord/iResolution.xy - 1. / 1.;
+
+    float Pixels = iPixels;
+        float dx = 10. * (2.0 / Pixels);
+        float dy = 10. * (2.0 / Pixels);
+        vec2 Coord = vec2(dx * ceil(uv.x / dx),
+                          dy * ceil(uv.y / dy));
+    
+    float c=length(Coord)/5.;
+  
+    float r,g,b;
+    
+    float d=2.0+sin(time*.01)*3.;
+
+    float f = fbm(st+r)*.5;
+    
+    float noise = cnoise(vec3(Coord.x/20.0, Coord.y/20.0, sin(uv.x/30.0 + uv.y/10.0 + time/10.)));
+    
+    vec3 color = vec3(0.0);
+
+    uv.y += noise/5.;
+  
+    c=smoothstep(.1, 0.5 * noise, c / 1.5 + 0.75 * sin(time*0.5 + gl_FragCoord.y / 500.) * 0.1) * 5.0;
+
+    for(float i = 0.; i <= 20.; i++) {
+      uv.y += 12. + sin(i + time*0.2) * i;
+      uv.x += 2. + cos(3.1456 / 2.0 + i + time*0.1) * 5.0;
+    }
+  
+    r= iR/100. * sin(uv.x/4.5 + 100. + time*.2) + sin(noise + 100. + time*0.1+(c-sin(500.+time*0.2+uv.x*noise))*d) + sin(gl_FragCoord.x);
+  
+    g= iG/100. * cos(noise / 2. + 250. + time*0.3+(c-cos(100.75+time*0.1+uv.y*.2*noise))*d) + sin(gl_FragCoord.y + noise);
+  
+    b= iB/100. * sin(noise * 0.25 + 40. + time*0.1+(c-sin(20.25+time*0.1+uv.y*0.1*noise))*d) + cos(gl_FragCoord.x + noise);
+  
+    fragColor = vec4(vec3(r,g,b)+(noise/2.0-.5+sin(noise + time*.1)*.1),1.0);
+  
+  }
+      void main() {
+        mainImage(gl_FragColor, gl_FragCoord.xy);
+      }
+    `;
+  
+  
+    let requestId;
+    // setup GLSL program
+    const program = webglUtils.createProgramFromSources(gl, [vs, fs]);
+  
+    // look up where the vertex data needs to go.
+    const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  
+    // look up uniform locations
+    const resolutionLocation = gl.getUniformLocation(program, "iResolution");
+    const mouseLocation = gl.getUniformLocation(program, "iMouse");
+    const timeLocation = gl.getUniformLocation(program, "iTime");
+
+    const rLocation = gl.getUniformLocation(program, "iR");
+    const gLocation = gl.getUniformLocation(program, "iG");
+    const bLocation = gl.getUniformLocation(program, "iB");
+
+    const pixelsLocation = gl.getUniformLocation(program, "iPixels");
+  
+    // Create a buffer to put three 2d clip space points in
+    const positionBuffer = gl.createBuffer();
+  
+    // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  
+    // fill it with a 2 triangles that cover clipspace
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1, -1,  // first triangle
+       1, -1,
+      -1,  1,
+      -1,  1,  // second triangle
+       1, -1,
+       1,  1,
+    ]), gl.STATIC_DRAW);
+  
+    const playpauseElem = document.querySelector('.playpause');
+    const inputElem = document.querySelector('.divcanvas');
+    //inputElem.addEventListener('mouseover', requestFrame);
+    //inputElem.addEventListener('mouseout', cancelFrame);
+  
+    let mouseX = 0;
+    let mouseY = 0;
+  
+    function setMousePosition(e) {
+      const rect = inputElem.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = rect.height - (e.clientY - rect.top) - 1;  // bottom is 0 in WebGL
+    }
+    
+    function requestFrame() {
+      requestAnimationFrame(render);
+    }
+    function cancelFrame() {
+      if (requestId) {
+        cancelAnimationFrame(requestId);
+        requestId = undefined;
+      }
+    }
+  
+    let then = 0;
+    
+    let now = new Date();
+  
+    var secs = now.getSeconds() + (60 * now.getMinutes()) + (60 * 60 * now.getHours());
+  
+    let time = 10000 * fxrand();
+
+    let iR = 255 * fxrand();
+    let iG = 255 * fxrand();
+    let iB = 255 * fxrand();
+
+    let Time = time;
+
+    let pixels = 5 + Math.round(16 * fxrand());
+
+    pixels = Math.ceil(window.innerWidth/pixels);
+  
+    resize();
+  
+    function resize() {
+      webglUtils.resizeCanvasToDisplaySize(gl.canvas);
+    }
+  
+    function render() {
+
+
+      //console.log(time);
+
+      requestId = undefined;
+
+      Time += 0.05;
+  
+      let time = Time;
+  
+      // Tell WebGL how to convert from clip space to pixels
+      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  
+      // Tell it to use our program (pair of shaders)
+      gl.useProgram(program);
+  
+      // Turn on the attribute
+      gl.enableVertexAttribArray(positionAttributeLocation);
+  
+      // Bind the position buffer.
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  
+      // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
+      gl.vertexAttribPointer(
+          positionAttributeLocation,
+          2,          // 2 components per iteration
+          gl.FLOAT,   // the data is 32bit floats
+          false,      // don't normalize the data
+          0,          // 0 = move forward size * sizeof(type) each iteration to get the next position
+          0,          // start at the beginning of the buffer
+      );
+  
+      gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
+      gl.uniform2f(mouseLocation, mouseX, mouseY);
+      gl.uniform1f(timeLocation, time);
+      gl.uniform1f(pixelsLocation, pixels);
+
+      gl.uniform1f(rLocation, iR);
+      gl.uniform1f(gLocation, iG);
+      gl.uniform1f(bLocation, iB);
+      
+  
+      gl.drawArrays(
+          gl.TRIANGLES,
+          0,     // offset
+          6,     // num vertices to process
+      );
+  
+      requestFrame();
+    }
+  
+    requestFrame();
+    requestAnimationFrame(cancelFrame);
+  }
+  
+  main();
+
+  fxpreview();
+  
+  
+    </script>
+  </body>
+</html>
+  

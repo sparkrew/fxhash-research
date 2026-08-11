@@ -1,0 +1,4 @@
+id: 21191
+name: apophenia
+mint_opens_at: 2022-11-11T15:59:00+00:00
+generative_uri: ipfs://Qmchh3yUq7fN2TqZ84KfWJS3omZbdpHQr9dQXnJ38xSPg4

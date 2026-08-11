@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+            cursor: crosshair;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        html,
+        body {
+            font-family: 'courier';
+            font-size: 16px;
+            background: black;
+            color: #999999;
+            min-width: 100vw;
+            max-width: 100vw;
+            min-height: 100vh;
+            max-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        :root {
+            --wasd: min(100vw, 100vh);
+        }
+
+        #cd_canvas,
+        #cd_canvas2 {
+            background-color: transparent;
+            position: absolute;
+            z-index: 1;
+
+            min-width: var(--wasd);
+            min-height: var(--wasd);
+            max-width: var(--wasd);
+            max-height: var(--wasd);
+            /* border-radius: var(--wasd); */
+        }
+
+        #tr {
+            display: none;
+        }
+
+        .trapunta {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 69;
+        }
+    </style>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+</head>
+
+<body>
+    <canvas id="noise_canvas" width="1080" height="1080" style="display:none;"></canvas>
+    <canvas id="cd_canvas" width="1080" height="1080"></canvas>
+    <canvas id="cd_canvas2" width="1080" height="1080"></canvas>
+    <canvas id="tr" width="540" height="540" style="display:none;"></canvas>
+
+    <div class="trapunta"></div>
+    <script>
+
+        tr = document.querySelector('#tr')
+        trx = tr.getContext(`2d`)
+        trx.clearRect(0, 0, 540, 540)
+        for (ty = 0; ty < 540; ty += 1) {
+            for (tx = 0; tx < 540; tx += 1) {
+                let opa = fxrand() * 0.05
+                trx.fillStyle = 'rgba(255,255,255,' + opa + ')'
+                trx.fillRect(tx, ty, 1, 1)
+            }
+        }
+        trapunta = document.querySelector('.trapunta')
+        trapunta.style.backgroundImage = "url('" + tr.toDataURL() + "')"
+
+        const csize = 1080
+        const raysOrigins = []
+        var brightness = fxrand()
+
+        function randomNoise(canvas, x, y, width, height, alpha) {
+            x = x || 0
+            y = y || 0
+            width = width || canvas.width
+            height = height || canvas.height
+            alpha = alpha || 255
+            let g = canvas.getContext("2d")
+            let imageData = g.getImageData(x, y, width, height)
+            let pixels = imageData.data
+            let n = pixels.length
+            let i = 0
+
+            const maxR = 50 + fxrand() * 200
+            const maxG = fxrand() * 200
+            const maxB = 50 + fxrand() * 200
+
+            while (i < n) {
+                let col = fxrand() * fxrand() * fxrand() * (1256)
+                pixels[i++] = col
+                pixels[i++] = col
+                pixels[i++] = col// * i / (pixels.length / 4)
+                pixels[i++] = alpha
+            }
+            g.putImageData(imageData, x, y)
+
+            return canvas
+        }
+
+        function perlinNoise(canvas, noise) {
+            let g = canvas.getContext("2d")
+            g.save()
+
+            /* Scale random iterations onto the canvas to generate Perlin noise. */
+            for (let size = 4; size <= noise.width; size *= 2) {
+                let x = (fxrand() * (noise.width - size)) | 0
+                let y = (fxrand() * (noise.height - size)) | 0
+                g.globalAlpha = 4 / size;
+                g.drawImage(noise, x, y, size, size, 0, 0, canvas.width, canvas.height)
+            }
+            g.restore();
+
+            return canvas;
+        }
+
+        let cdCanvas = document.querySelector('#cd_canvas')
+        let cdCanvas2 = document.querySelector('#cd_canvas2')
+        let noiseCanvas = document.querySelector('#noise_canvas')
+        let perlinCanvas = document.createElement('canvas')
+        perlinCanvas.width = csize
+        perlinCanvas.height = csize
+
+        perlinNoise(perlinCanvas, randomNoise(noiseCanvas, 0, 0, csize, csize, 255))
+        let pimageData = perlinCanvas.getContext('2d').getImageData(0, 0, csize, csize)
+        let perlinData = pimageData.data
+
+
+        const ctx = cdCanvas.getContext("2d")
+        const foreground = cdCanvas2.getContext("2d")
+
+
+        ctx.drawImage(perlinCanvas, 0, 0, csize, csize, 0, 0, csize, csize)
+
+        var frame = 0
+        const perlins = new Array(csize).fill(new Array(csize).fill(0))
+        const offsets = new Array(csize).fill(0)
+        for (let n = 0; n < perlinData.length; n += 4) {
+            let i = Math.floor(n / 4)
+            let x = i % csize
+            let y = Math.floor(i / csize)
+            perlins[x][y] = 4 * perlinData[n] / 255 - 2
+        }
+
+        const hue = fxrand() * 360
+        const luminosity = fxrand() * 54
+
+        // stats 
+        // luminosity
+        // multiple line, better use variance amount (distance from center)
+        // rgb?
+        // hue fade?
+
+        const fbl = fxrand() < .5
+        const fadeBasedLuminosity = fbl ? 1.5 - luminosity / 54 : 1
+
+        const iBasedFade = fxrand() < .5
+        const frameBasedFade = iBasedFade && fxrand() < .5
+
+        let backgroundColor = `hsl(${hue + fadeBasedLuminosity * (iBasedFade * (540 / 10) + frameBasedFade * (540 / 10))},20%,${10 + 540 / (54 + luminosity)}%)`
+        ctx.fillStyle = backgroundColor
+        ctx.fillRect(0, 0, 2e3, 2e3)
+
+        const csizeHalf = csize / 2
+
+        const reboundLimit = 600
+        var rebound = 0
+        var reboundDirection = 0
+
+        const startingMid = csizeHalf - fxrand() * csizeHalf / 2
+
+        var moonPosition = undefined
+
+        var SKY = 'CLEAR'
+        var moon = false
+
+        const asdfsets = [...offsets]
+        while (frame < csize) {
+            for (let i = 0; i < csize; i++) {
+
+                let off = i + asdfsets[i] - startingMid
+
+                if (off < 0) {
+                    while (off < 0) off = csize + off
+                } else {
+                    off = off % csize
+                }
+
+                asdfsets[i] += perlins[i][frame]
+            }
+            if (asdfsets[csizeHalf] < -csizeHalf + 90) {
+                SKY = 'MOON'
+                moon = true
+                break;
+            }
+            frame++
+        }
+const starry = fxrand() < .8
+        if (!moon) {
+            if (starry) {
+                SKY = 'STARRY'
+            } else {
+                SKY = 'CLEAR'
+            }
+        }
+
+
+        frame = 0
+        const render = () => {
+            for (let j = 0; j < 10; j++) {
+                for (let i = 0; i < csize; i++) {
+                    ctx.fillStyle = foreground.fillStyle = `hsl(${hue + fadeBasedLuminosity * (iBasedFade * (i / 10) + frameBasedFade * (frame / 10))},20%,${10 + i / (54 + luminosity)}%)`
+
+
+                    let off = i + offsets[i] - startingMid
+
+                    let fore = off < 0
+
+                    if (off < 0) {
+                        while (off < 0) off = csize + off
+                    } else {
+                        off = off % csize
+                    }
+
+
+                    ctx.fillRect(frame, off, 2, 2)
+                    if (fore) {
+                        foreground.fillRect(frame, off, 2, 2)
+                    }
+                    if (rebound > 0) {
+                        offsets[i] += Math.abs(perlins[i][frame]) * reboundDirection * (1.2 - rebound / reboundLimit)
+                    } else {
+                        offsets[i] += perlins[i][frame]
+                    }
+
+                }
+                if (rebound > 0) {
+                    rebound--
+                } else
+                    if (offsets[csizeHalf] < -csizeHalf + 90) {
+                        rebound = reboundLimit
+                        reboundDirection = 1
+                        moonPosition = {
+                            x: frame, y: csizeHalf + offsets[csizeHalf]
+                        }
+                    } else if (offsets[csizeHalf] > csizeHalf - 90) {
+                        rebound = reboundLimit
+                        reboundDirection = -1
+                    }
+                frame++
+            }
+            if (frame < csize) {
+                window.requestAnimationFrame(render)
+            } else {
+
+                if (moonPosition) {
+                    ctx.fillStyle = '#CDCDCD33'
+                    ctx.beginPath()
+                    ctx.arc(moonPosition.x, moonPosition.y + 45, 90, 0, 7)
+                    ctx.fill()
+                } else {
+                    if (starry) {
+                        for (let s = 0; s < 10000; s++) {
+                            ctx.fillStyle = '#CDCDCD33'
+                            ctx.beginPath()
+                            ctx.arc(fxrand() * csize, fxrand() * csize, fxrand(), 0, 7)
+                            ctx.fill()
+                        }
+                        let yStart = 100
+                        let incrementer = fxrand() - .5
+                        let radius = 100 + 480 * fxrand()
+                        for (let i = 0; i < csize; i++) {
+                            for (let s = 0; s < 4; s++) {
+                                ctx.fillStyle = '#CDCDCD33'
+                                ctx.beginPath()
+                                let yrad = (fxrand() - .5) * radius * 2
+                                ctx.arc(i + fxrand() * radius, yStart + yrad, fxrand() * (2.4 - 2 * Math.abs(yrad / radius)), 0, 7)
+                                ctx.fill()
+                            }
+                            yStart += incrementer
+                            radius += incrementer / 2
+                        }
+                    }
+                }
+                fxpreview()
+            }
+        }
+
+        const features = {
+            'SKY': SKY,
+            'FADE': iBasedFade ? frameBasedFade ? 'DOUBLE' : 'SINGLE' : 'NONE'
+        }
+        window.$fxhashFeatures = features
+        console.table(features)
+
+        window.requestAnimationFrame(render)
+    </script>
+</body>
+
+</html>

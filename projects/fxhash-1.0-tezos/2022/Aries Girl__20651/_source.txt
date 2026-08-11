@@ -1,0 +1,4 @@
+id: 20651
+name: Aries Girl
+mint_opens_at: 2022-10-24T18:00:00+00:00
+generative_uri: ipfs://QmVGeU5K8qhhRasAR5f8vDUVYCv1xz5FZbNKjVyEVRM7Jm

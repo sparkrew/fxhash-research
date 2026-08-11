@@ -1,0 +1,4 @@
+id: 18742
+name: Botanical Gardens
+mint_opens_at: 2022-08-29T11:29:00+00:00
+generative_uri: ipfs://QmSQt1YdVYtX4PxYrm6pRidG2BJKYZXLzLj2wKywAgQZ8k

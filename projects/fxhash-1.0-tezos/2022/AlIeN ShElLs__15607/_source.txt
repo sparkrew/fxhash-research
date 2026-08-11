@@ -1,0 +1,4 @@
+id: 15607
+name: AlIeN ShElLs 
+mint_opens_at: 2022-06-30T13:37:29+00:00
+generative_uri: ipfs://QmXUnUgKUzhhzQLXqofHWtKFMrnk3dygNUut2vsAt4kuQa

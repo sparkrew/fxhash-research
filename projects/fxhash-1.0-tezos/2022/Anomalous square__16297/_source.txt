@@ -1,0 +1,4 @@
+id: 16297
+name: Anomalous square
+mint_opens_at: 2022-07-12T17:50:14+00:00
+generative_uri: ipfs://Qmd54qqed3mhH1cq7NMqNCUA4PNcYDMXEXbP4rDYa2xK8h

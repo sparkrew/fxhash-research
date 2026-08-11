@@ -1,0 +1,1 @@
+(()=>{window.$fxhashFeatures={Background:bg,tena,pal,cosinus_rand,rando,signe1,alea};const n=document.createElement("div");document.body.prepend(n)})();

@@ -1,0 +1,4 @@
+id: 21779
+name: Blockheads
+mint_opens_at: 2022-11-25T05:07:29+00:00
+generative_uri: ipfs://QmRXZWhDDRYShsQc5iaPb5K9B985KbGHmZqyLCiHjTHRrE

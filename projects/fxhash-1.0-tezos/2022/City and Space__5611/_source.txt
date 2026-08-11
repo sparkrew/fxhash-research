@@ -1,0 +1,4 @@
+id: 5611
+name: City and Space
+mint_opens_at: 2022-01-05T14:32:50+00:00
+generative_uri: ipfs://QmZcDGijba33TsA6GN2Gm1xgUKbgvEanvdRSw7ZsWB9tLk

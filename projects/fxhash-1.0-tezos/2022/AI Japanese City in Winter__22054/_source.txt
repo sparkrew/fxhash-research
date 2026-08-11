@@ -1,0 +1,4 @@
+id: 22054
+name: AI Japanese City in Winter
+mint_opens_at: 2022-12-03T06:15:00+00:00
+generative_uri: ipfs://QmUBGGSrfqMJiBw3SaD5E8NThiRp3evfps9LpUY1GaYpii

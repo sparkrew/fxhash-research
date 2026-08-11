@@ -1,0 +1,1 @@
+(()=>{const e=document.createElement("main");e.setAttribute("id","main"),document.body.prepend(e);var t=document.createElement("script");t.type="text/javascript",t.src="./script.js",document.body.prepend(t)})();

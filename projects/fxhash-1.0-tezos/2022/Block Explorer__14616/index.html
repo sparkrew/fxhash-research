@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Block Explorer</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+<script>
+  function FxhashRandom() {
+    return fxrand();
+  }
+</script>
+
+<script>
+  function NFTSeed() {
+    return fxhash;
+  }
+</script>
+
+<script>
+  function IsPreview() {
+    return isFxpreview;
+  }
+</script>
+
+<script>
+
+  const InitialSpeedArray = new Array("9", "10", "11", "12", "13");
+  let InitialSpeed = InitialSpeedArray[Math.floor(fxrand() * InitialSpeedArray.length)];
+
+  let Threshold = "" + (fxrand() * 0.8).toFixed(1);
+  let Range = "" + (3 + Math.floor(fxrand() * 7));
+
+  const BackgroundColorsArray = new Array("Red", "Green", "Yellow", "Black", "Black");
+  let BackgroundColor = BackgroundColorsArray[Math.floor(fxrand() * BackgroundColorsArray.length)];
+
+  const MainLightColorsArray = new Array("Red", "Yellow", "Green", "Blue", "Purple", "White");
+  let MainLightColor = MainLightColorsArray[Math.floor(fxrand() * MainLightColorsArray.length)];
+  let MainLight = (fxrand() > 0.3 ? MainLightColor : 'Disabled');
+
+  const PatternArray = new Array("1", "2", "3", "4", "5");
+  let Pattern = PatternArray[Math.floor(fxrand() * PatternArray.length)];
+
+  const TrackArray = new Array("Genesis block", "Endless chain", "Hash rate");
+  let Track = TrackArray[Math.floor(fxrand() * TrackArray.length)];
+
+  let AnimationType = "" + (1 + Math.floor(fxrand() * 3));
+
+  let SplitToning = (fxrand() > 0.3 ? 'Enabled' : 'Disabled');
+
+  const SplitToningColorsArray = new Array("Red", "Yellow", "Green", "Blue", "Purple", "Black", "Light blue");
+  let Shadows = SplitToningColorsArray[Math.floor(fxrand() * SplitToningColorsArray.length)];
+  let Highlights = SplitToningColorsArray[Math.floor(fxrand() * SplitToningColorsArray.length)];
+
+  const MainEffectArray = new Array("Natural", "Natural", "Natural", "Drawing", "Pixelated", "Scanlines", "Colorize");
+  let MainEffect = MainEffectArray[Math.floor(fxrand() * MainEffectArray.length)];
+
+  const ExtraEffectArray = new Array("Disabled", "Caustics", "Chromatic aberration", "Hue shift");
+  let ExtraEffect = ExtraEffectArray[Math.floor(fxrand() * ExtraEffectArray.length)];
+
+  const ExtraExtraEffectArray = new Array("Disabled", "Lens distortion", "Split toning");
+  let ExtraExtraEffect = ExtraExtraEffectArray[Math.floor(fxrand() * ExtraExtraEffectArray.length)];
+
+  window.$fxhashFeatures = {
+    "Initial speed" : InitialSpeed,
+    "Audio track" : Track,
+    "Background color" : BackgroundColor,
+    "Main light" : MainLight,
+    "Pattern" : Pattern,
+    "Animation type" : AnimationType,
+    "Threshold" : Threshold,
+    "Range" : Range,
+    "Layer one effect" : MainEffect,
+    "Layer two effect" : ExtraEffect,
+    "Layer three effect" : ExtraExtraEffect
+  }
+
+  function GetFeatures(FeatureName) {
+
+    let FeatureResult = "";
+
+    switch(FeatureName){
+
+      case"InitialSpeed":
+        FeatureResult = InitialSpeed;
+      break;
+
+      case"AudioTrack":
+        FeatureResult = Track;
+      break;
+
+      case"BackgroundColor":
+        FeatureResult = BackgroundColor;
+      break;
+
+      case"MainLight":
+        FeatureResult = MainLight;
+      break;
+
+      case"Pattern":
+        FeatureResult = Pattern;
+      break;
+
+      case"AnimationType":
+        FeatureResult = AnimationType;
+      break;
+
+      case"Threshold":
+        FeatureResult = Threshold;
+      break;
+
+      case"Range":
+        FeatureResult = Range;
+      break;
+
+      case"MainEffect":
+        FeatureResult = MainEffect;
+      break;
+
+      case"ExtraEffect":
+        FeatureResult = ExtraEffect;
+      break;
+
+      case"ExtraExtraEffect":
+        FeatureResult = ExtraExtraEffect;
+      break;
+
+      case"Shadows":
+        FeatureResult = Shadows;
+      break;
+
+      case"Highlights":
+        FeatureResult = Highlights;
+      break;
+
+    }
+    return FeatureResult;
+  }
+
+</script>
+
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body class="dark">
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;">
+      <div id="unity-loading-bar">
+        <div id="unity-progress-bar-empty" style="display: none;">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <div id="unity-fullscreen-button" style="display: none;"></div>
+    <script>
+      const hideFullScreenButton = "true";
+      const buildUrl = "Build";
+      const loaderUrl = buildUrl + "/BlockExplorer.loader.js";
+      const config = {
+        dataUrl: buildUrl + "/BlockExplorer.data",
+        frameworkUrl: buildUrl + "/BlockExplorer.framework.js",
+        codeUrl: buildUrl + "/BlockExplorer.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Ferdi",
+        productName: "Block Explorer",
+        productVersion: "1.0",
+      };
+
+      const container = document.querySelector("#unity-container");
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingCover = document.querySelector("#loading-cover");
+      const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+      const progressBarFull = document.querySelector("#unity-progress-bar-full");
+      const fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      const spinner = document.querySelector('.spinner');
+
+      const canFullscreen = (function() {
+        for (const key of [
+            'exitFullscreen',
+            'webkitExitFullscreen',
+            'webkitCancelFullScreen',
+            'mozCancelFullScreen',
+            'msExitFullscreen',
+          ]) {
+          if (key in document) {
+            return true;
+          }
+        }
+        return false;
+      }());
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+        config.devicePixelRatio = 1;
+      }
+      loadingCover.style.display = "";
+
+      const script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          spinner.style.display = "none";
+          progressBarEmpty.style.display = "";
+          progressBarFull.style.width = `${100 * progress}%`;
+        }).then((unityInstance) => {
+          loadingCover.style.display = "none";
+          if (canFullscreen) {
+            if (!hideFullScreenButton) {
+              fullscreenButton.style.display = "";
+            }
+            fullscreenButton.onclick = () => {
+              unityInstance.SetFullscreen(1);
+            };
+          }
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+
+  </body>
+</html>

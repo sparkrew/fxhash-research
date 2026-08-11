@@ -1,0 +1,4 @@
+id: 12988
+name: Block of Grid Vol 2
+mint_opens_at: 2022-05-15T22:36:59+00:00
+generative_uri: ipfs://QmNUAk7i64RXnBf8uJuCvTHdSeQhixQTe4RuaCJ9wSVFNv

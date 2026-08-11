@@ -1,0 +1,4 @@
+id: 10442
+name: Birth of a Star
+mint_opens_at: 2022-03-07T17:56:54+00:00
+generative_uri: ipfs://QmSgck4YXnrH7SC7JK1eU4VhUh18c9PRc2gieMBirHgKLF

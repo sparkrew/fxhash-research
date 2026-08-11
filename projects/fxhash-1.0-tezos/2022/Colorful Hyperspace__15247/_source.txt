@@ -1,0 +1,4 @@
+id: 15247
+name: Colorful Hyperspace
+mint_opens_at: 2022-06-22T22:00:00+00:00
+generative_uri: ipfs://QmQUWqfhjHUzsD38sA1TKZiW48pBddJrxrw9ceiY2KWX5E

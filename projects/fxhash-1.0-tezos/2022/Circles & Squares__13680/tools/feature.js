@@ -1,0 +1,1 @@
+let format={n:fxrand(),name:""},choice={n:fxrand(),name:""};choice.n<.5?choice.name="A":choice.name="B";let choice2={n:fxrand(),name:""};choice2.n<.5?choice2.name="OFF":choice2.name="ON";let grd={n:fxrand(),name:""};grd.n<.5?grd.name="Radial":grd.name="Linear";

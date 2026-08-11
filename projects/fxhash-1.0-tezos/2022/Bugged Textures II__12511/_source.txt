@@ -1,0 +1,4 @@
+id: 12511
+name: Bugged Textures II
+mint_opens_at: 2022-05-05T19:34:59+00:00
+generative_uri: ipfs://QmSwEVd6FtfbivithQRVLDABMnYnykbVw2o1oanq7YtJAt

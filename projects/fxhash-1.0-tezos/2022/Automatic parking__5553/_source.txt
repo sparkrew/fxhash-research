@@ -1,0 +1,4 @@
+id: 5553
+name: Automatic parking
+mint_opens_at: 2022-01-05T13:35:50+00:00
+generative_uri: ipfs://QmeYzegzfgS8jgGj3yQVjWbp6vwNuqS29sLUQeswb2FSQ9

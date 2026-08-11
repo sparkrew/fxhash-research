@@ -1,0 +1,4 @@
+id: 8487
+name: Beauty in Cubism
+mint_opens_at: 2022-02-02T11:10:26+00:00
+generative_uri: ipfs://QmVV3WMdyToEHA6RkhoZFivVX8EoqLvcnPxMLTgWGct6kz

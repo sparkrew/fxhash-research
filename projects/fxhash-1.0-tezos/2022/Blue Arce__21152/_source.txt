@@ -1,0 +1,4 @@
+id: 21152
+name: Blue Arce
+mint_opens_at: 2022-11-10T18:00:00+00:00
+generative_uri: ipfs://QmUs4x9XdBEQbxfXGENJWXtEkyeZEF8JDon6BQM3as1jGe

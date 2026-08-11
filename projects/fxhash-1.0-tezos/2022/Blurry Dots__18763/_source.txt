@@ -1,0 +1,4 @@
+id: 18763
+name: Blurry Dots
+mint_opens_at: 2022-08-29T16:00:00+00:00
+generative_uri: ipfs://Qmcqghf1Vp4eXeAqqRxcR41Xgi7Xy5P7ePeydasFFbW8zS

@@ -1,0 +1,4 @@
+id: 19120
+name: Column
+mint_opens_at: 2022-09-08T07:33:44+00:00
+generative_uri: ipfs://QmdXbSwBRMqwDEy29vsTLgEJvLzJFJjPHdyz2Mpy2vWWPm

@@ -1,0 +1,4 @@
+id: 15999
+name: AzuriteFootPrint
+mint_opens_at: 2022-07-07T01:24:14+00:00
+generative_uri: ipfs://QmNTduvP3zbxE45gA2qjpS8UK5qh5zJDhARWe7X1yFHPM2

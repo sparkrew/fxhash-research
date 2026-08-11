@@ -1,0 +1,4 @@
+id: 15736
+name: Call me later
+mint_opens_at: 2022-07-01T19:27:59+00:00
+generative_uri: ipfs://QmNZXEZWY6WdmY5kS2HRxfuR3p38U8BQ9nEUNeUi1TtbzV

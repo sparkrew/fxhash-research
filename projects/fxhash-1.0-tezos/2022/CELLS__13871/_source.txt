@@ -1,0 +1,4 @@
+id: 13871
+name: CELLS
+mint_opens_at: 2022-05-30T15:31:59+00:00
+generative_uri: ipfs://QmUb7pzWVzdERR5zacMHHxnTu5XpwFkjAmQ5ajhMAACs3y

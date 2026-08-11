@@ -1,0 +1,2 @@
+- "Black Hollow Tension" visual code Copyright (c) 2022 Linxirwengi
+- Hydra.js MIT license GNU Affero General Public License v3.0

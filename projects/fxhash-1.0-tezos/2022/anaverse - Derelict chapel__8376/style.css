@@ -1,0 +1,17 @@
+body {
+  background-color: white;
+  overflow: hidden;
+  user-select: none;
+  cursor: crosshair;
+  margin: 0px;
+}
+
+#cont {
+  display: block;
+  position: absolute;
+  margin: auto;
+}
+
+#barcode {
+  z-index: 9999;
+}

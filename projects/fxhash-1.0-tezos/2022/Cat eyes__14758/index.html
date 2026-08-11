@@ -1,0 +1,311 @@
+<html>
+      <head>
+            <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>      
+      </head>          
+<script src="./p5.min.js"></script>
+<style>
+    canvas {
+        position: fixed;
+        left: 0; top: 0;
+        right: 0; bottom: 0;
+        object-fit: contain;
+        max-width: 100vw;
+        max-height: 100vh;
+        margin: auto;
+        overflow: auto; 
+    }
+    </style>
+    
+<script>
+let pallet=[[[355,100,62], [15,99,80], [38,99,62], [64,80,30], [198,80,52], [302,77,49]],
+          [[45,44,35], [19,81,76], [357,100,50], [259,62,22], [221,88,22], [0,88,27]],
+          [[32,100,59], [1,80,70], [328,92,33], [246,62,39], [207,100,18], [357,100,24]],
+          [[22,73,20], [41,76,63], [11,71,52], [358,82,34], [69,68,39], [316,74,38]],
+          [[211,79,29], [210,100,40], [210,100,54], [165,88,44], [43,94,53], [36,86,51]],
+          [[15,82,71], [13,100,83], [185,87,38], [182,46,40], [28,100,55], [175,50,35]],
+          [[225,45,50], [239,99,88], [213,98,56], [224,95,61], [225,82,46], [225,94,32]],
+          [[30,11,68], [92,11,56], [83,8,85], [111,12,46], [15,67,69], [18,95,80]],
+          [[323,84,37], [349,99,60], [11,100,100], [21,100,79], [193,83,36], [215,96,45]]]
+    
+    function getPallet(value) {
+          if      (value < .11) return 0
+          else if (value < .22) return 1
+          else if (value < .33) return 2
+          else if (value < .44) return 3
+          else if (value < .55) return 4
+          else if (value < .66) return 5
+          else if (value < .77) return 6
+          else if (value < .88) return 7
+          else return 8
+          }  
+    function getSubPallete(value) {
+          if (value < .16) return 0
+          else if (value < .32) return 1
+          else if (value < .48) return 2
+          else if (value < .64) return 3
+          else if (value < .8) return 4
+          else  return 5
+          }
+    function getSeed(value) {
+          if (value < .16) return 7
+          else if (value < .32) return 15
+          else if (value < .48) return 17
+          else if (value < .64) return 29
+          else if (value < .8) return 33
+          else  return 43
+          }
+    function getOctaves(value) {
+          if      (value < .08) return 4
+          else if (value < .16) return 5
+          else if (value < .24) return 6
+          else if (value < .32) return 7
+          else if (value < .4) return 8
+          else if (value < .48) return 9
+          else if (value < .56) return 10
+          else if (value < .64) return 11
+          else if (value < .72) return 12
+          else return 13
+          }              
+    function getStrength(value) {
+          if (value < .16) return .1
+          else if (value < .32) return .2
+          else if (value < .48) return .35
+          else if (value < .64) return .4
+          else if (value < .8) return .45
+          else  return .5
+          }
+
+    function getbkc(value) {
+          if (value < .25) return 220 //square
+          else if (value < .5) return 200 //circle1
+          else if (value < .75) return 50 // circle2
+          else return 0 //ellipse
+          }
+    function getTickness(value) {
+          if (value < .50) return 150 
+          else return 250 
+          }
+    window.$fxhashFeatures = {
+          "_bkcolor": getbkc(fxrand()),
+          "_subPallete": getSubPallete(fxrand()),
+          "_tickness": getTickness(fxrand()),
+          "_pallet_ind": getPallet(fxrand()),
+          "_octaves": getOctaves(fxrand()),
+          "_strength": getStrength(fxrand()),
+          "_seed": getSeed(fxrand())
+    }
+let canv, _seed, _strength, _octaves, _tw=50, _th=70, _shape, _tickness, _subPallete, _bkcolor
+let objs=[], cols,rows,scl=20, w, h, _pallet_ind, flying = 0, _yOff=.005, _flying=.005
+let rainbow=0, rainbowd=1, pgs=[], maxRing=30
+
+function setup() {
+    _bkcolor=window.$fxhashFeatures._bkcolor
+    _subPallete=window.$fxhashFeatures._subPallete
+    _tickness=window.$fxhashFeatures._tickness
+    _pallet_ind=window.$fxhashFeatures._pallet_ind
+    _strength=window.$fxhashFeatures._strength
+    _octaves=window.$fxhashFeatures._octaves
+    _seed=window.$fxhashFeatures._seed
+    ww=800
+    wh=800
+    canv = createCanvas(ww, wh)
+    colorMode(HSB)
+    frameRate(60)
+    blendMode(BLEND)
+    let z=0
+    noiseSeed(_seed);
+    noiseDetail(_octaves, _strength);
+    smooth()
+    maxRing = (3*_tickness/4)
+    let cnt=0
+    cy = -100*noise(_tickness, _subPallete)
+    for (let i=-ww/2; i<ww; i+=maxRing){
+          cx = i + _tickness/4
+          objs[i] = new objsC(cnt, cx, cy)
+          if (cnt % 2 == 0)
+                cy = cy + _tickness + _tickness/10
+          else
+                cy = cy - (_tickness + _tickness/10)
+          cnt++
+    }
+    noLoop()
+}
+
+function draw(){
+    //background(0)
+    background(color(_bkcolor, 100, 100))
+    cnt=0
+    for (let i=-ww/2; i<ww; i+=maxRing){
+      cx = i + _tickness/4
+      if (cnt%2 == 0){
+            for(let y=0; y<ww; y+=(1.5*_tickness+2*_tickness/3)){//back circles
+                  noStroke()
+                  fill(color(pallet[_pallet_ind][_subPallete][0], pallet[_pallet_ind][_subPallete][1], pallet[_pallet_ind][_subPallete][2]))
+                  rect(cx+_tickness*1.9, y+_tickness-20 - 2*_tickness+1.5*_tickness/2, _tickness/5, ww)
+                  }
+            }
+      cnt++
+      }
+
+    for(let c in objs){
+          push()
+          objs[c].draw(0)
+          pop()
+    }
+    for(let c in objs){
+          push()
+          objs[c].draw(1)
+          pop()
+    }
+}
+let clmn=0
+class objsC{
+    constructor(i, cx, cy){
+          this.no = i
+          this.cx=cx
+          this.cy=cy
+    }
+    draw(layer){
+        this.drawCircle2(layer)
+    }
+    drawCircle2(layer){
+          noStroke()
+          if (layer==0){
+              if (this.no%2 == 0){
+                for(let y=0; y<ww; y+=(1.5*_tickness+2*_tickness/3)){//back circles
+                      fill(color(pallet[_pallet_ind][_subPallete][0], pallet[_pallet_ind][_subPallete][1], pallet[_pallet_ind][_subPallete][2]))
+                      clmn=1
+                        for(let t=_tickness; t>0; t-=2){
+                              fill(color(pallet[_pallet_ind][_subPallete][0], pallet[_pallet_ind][_subPallete][1], map(t,10,_tickness,40,pallet[_pallet_ind][_subPallete][2])))
+                              ellipse(this.cx+_tickness/2, this.cy+y+_tickness/2, t, t)
+                        }
+                }
+            }
+            else{
+                push()
+                strokeWeight(1)
+                for (let r=0; r<_tickness/4; r+=20){
+                    fill(color(pallet[_pallet_ind][_subPallete][0], pallet[_pallet_ind][_subPallete][1], pallet[_pallet_ind][_subPallete][2]+r))
+                    if((r+20)>=_tickness/4)
+                        fill(color(_bkcolor, 100, 100))
+                    stroke(color(pallet[_pallet_ind][_subPallete][0], pallet[_pallet_ind][_subPallete][1], pallet[_pallet_ind][_subPallete][2]-r))
+                    noStroke()
+                    beginShape()
+                    curveVertex(this.cx+_tickness/2, -50)
+                    curveVertex(this.cx+_tickness/2, -50)
+                    for(let y=0; y<ww; y+=(1.5*_tickness+2*_tickness/3)){//back circles
+                        curveVertex(this.cx+_tickness/2+_tickness/10-r, this.cy+y-_tickness/2)
+                        curveVertex(this.cx+_tickness/2+_tickness/2-r, this.cy+y+_tickness/2)
+                        curveVertex(this.cx+_tickness/2+_tickness/10-r, this.cy+y+3*_tickness/2)
+                    }
+                    curveVertex(this.cx+_tickness/2, ww)
+                    curveVertex(this.cx+_tickness/2, ww)
+                    endShape()
+                    beginShape()
+                    curveVertex(this.cx+_tickness/2, ww)
+                    curveVertex(this.cx+_tickness/2, ww)
+                    for(let y=ww; y>=0; y-=(1.5*_tickness+2*_tickness/3)){//back circles
+                        curveVertex(this.cx+_tickness/2-_tickness/10+r, this.cy+y+_tickness/2)
+                        curveVertex(this.cx+_tickness/2-_tickness/2+r, this.cy+y-_tickness/2)
+                        curveVertex(this.cx+_tickness/2-_tickness/10+r, this.cy+y-3*_tickness/2)
+                    }
+                    curveVertex(this.cx+_tickness/2, -50)
+                    curveVertex(this.cx+_tickness/2, -50)
+                    endShape()
+                }
+                pop()
+            }
+          }
+          else{
+                for(let y=0; y<ww; y+=(1.5*_tickness+2*_tickness/3)){
+                      noStroke()
+                      fill(color(pallet[_pallet_ind][_subPallete][0], pallet[_pallet_ind][_subPallete][1], pallet[_pallet_ind][_subPallete][2]))
+                      //ellipse(this.cx+_tickness/2, this.cy+y+_tickness/2, _tickness, _tickness)
+                      let _c2
+                      if (this.no%2 == 0){
+                            let deltax=0, deltay=0
+                            if ((round(10*noise(this.no))%3 == 0) || (round(10*noise(this.no)+this.no)%3 == 2) ){
+                                deltax-=_tickness/5
+                                deltay-=_tickness/10
+                            }
+
+                            _c2 = (_subPallete+1)%5
+                            fill(color(pallet[_pallet_ind][_c2][0], pallet[_pallet_ind][_c2][1], pallet[_pallet_ind][_c2][2]))
+                            push()
+                            stroke(0)
+                            strokeWeight(1)
+                            ellipse(deltax+this.cx+_tickness/5+_tickness/10+1.3*_tickness/4, deltay+this.cy+y+_tickness/10+_tickness/20+1.2*_tickness/3, 1*_tickness/3, 2*_tickness/3)
+                            for(let v=0; v<50; v++){
+                                let xx = .5*_tickness/3 * sin(v)
+                                let yy = 1*_tickness/3 * cos(v)
+                                stroke(0)
+                                line (deltax+this.cx+_tickness/5+_tickness/10+1.3*_tickness/4, deltay+this.cy+y+_tickness/10+_tickness/20+1.2*_tickness/3, deltax+this.cx+xx+_tickness/5+_tickness/10+1.3*_tickness/4, deltay+ this.cy+y+yy+_tickness/10+_tickness/20+1.2*_tickness/3)
+                                ellipse(deltax+this.cx+_tickness/5+_tickness/10+1.3*_tickness/4, deltay+this.cy+y+_tickness/10+_tickness/20+1.2*_tickness/3,10, 20)
+                            }
+                            pop()
+                      }
+                      else{
+                            _c2 = (_subPallete+3)%5
+                            fill(color(pallet[_pallet_ind][_c2][0], pallet[_pallet_ind][_c2][1], pallet[_pallet_ind][_c2][2]))
+                            strokeWeight(1.5)
+                              stroke(color(pallet[_pallet_ind][_c2][0], pallet[_pallet_ind][_c2][1]-50, pallet[_pallet_ind][_c2][2]+20))
+                            ellipse(this.cx+_tickness/5+1.2*_tickness/4, this.cy+y+_tickness/10+_tickness/20+1.2*_tickness/3, 1*_tickness/3, 2*_tickness/3)
+                            for(let v=0; v<50; v++){
+                                let xx = .6 * .8*_tickness/3 * sin(v)
+                                let yy = .6 * 1.6*_tickness/3 * cos(v)
+                                line (this.cx+_tickness/5+1.2*_tickness/4, this.cy+y+_tickness/10+_tickness/20+1.2*_tickness/3, this.cx+xx+_tickness/5+1.2*_tickness/4, this.cy+y+yy+_tickness/10+_tickness/20+1.2*_tickness/3)
+                                circle(this.cx+_tickness/5+1.2*_tickness/4, this.cy+y+_tickness/10+_tickness/20+1.2*_tickness/3,10)
+                            }
+                            //ellipse(this.cx+.4*_tickness, this.cy+y+.4*_tickness, 2*_tickness/3, 2*_tickness/3)
+                      }
+                      if (this.no%2 == 0)
+                            _c2 = (_subPallete+2)%5
+                      else
+                            _c2 = (_subPallete+4)%5
+                      strokeWeight(2)
+                      stroke(color(360-pallet[_pallet_ind][_c2][0], pallet[_pallet_ind][_c2][1], pallet[_pallet_ind][_c2][2]))
+                      fill(color(pallet[_pallet_ind][_c2][0], pallet[_pallet_ind][_c2][1], pallet[_pallet_ind][_c2][2]))
+                      //ellipse(this.cx+_tickness/2-_tickness/12+_tickness/12, this.cy+y+_tickness/2-_tickness/12+_tickness/12, _tickness/6, _tickness/6)
+                }
+          }
+
+    }      
+ 
+}
+
+</script>
+</html>

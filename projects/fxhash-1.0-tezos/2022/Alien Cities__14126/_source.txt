@@ -1,0 +1,4 @@
+id: 14126
+name: Alien Cities
+mint_opens_at: 2022-06-04T13:00:00+00:00
+generative_uri: ipfs://QmSCMDvNLqkJEH4EMgRugEmhMs4ve826hT6X1V9gdjGBnC

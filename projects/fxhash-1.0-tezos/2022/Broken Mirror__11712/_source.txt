@@ -1,0 +1,4 @@
+id: 11712
+name: Broken Mirror
+mint_opens_at: 2022-04-22T00:21:29+00:00
+generative_uri: ipfs://QmV5WkPaiT5B2WF6RnrKcJwAhpYCpSWJGzBMck3KVB2QdH

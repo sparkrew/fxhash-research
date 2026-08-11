@@ -1,0 +1,4 @@
+id: 22469
+name: bezierSweep(color studies)
+mint_opens_at: 2022-12-14T15:41:44+00:00
+generative_uri: ipfs://QmeMWyiHZFVEt2Lh6gA1P2ae3VPtXHpdyCUMDWC4JH1vzQ

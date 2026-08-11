@@ -1,0 +1,4 @@
+id: 6316
+name: Bubbles
+mint_opens_at: 2022-01-09T11:38:20+00:00
+generative_uri: ipfs://QmPbLT4pC28apBZMAfDpGXTwxoLsZ6i9J2L855siFmPQ1Z

@@ -1,0 +1,48 @@
+body{
+  width: 100vw;
+  height: auto;
+  background-color: #000000;
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100vh;
+}
+
+.bg{
+  position: absolute;
+  image-rendering: pixelated;
+  width: 100vh;
+  height: 100vh;
+  z-index: 1;
+}
+
+.fg{
+  position: absolute;
+  image-rendering: pixelated;
+  width: 100vh;
+  height: 100vh;
+  z-index: 10;
+}
+
+.light{
+  position: absolute;
+  image-rendering: pixelated;
+  width: 100vh;
+  height: 100vh;
+  z-index: 20;
+  transition: 5000ms;
+}
+
+.img{
+  position: absolute;
+  image-rendering: pixelated;
+  width: 100vh;
+  height: 100vh;
+  z-index: 5;
+}

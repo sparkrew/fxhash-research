@@ -1,0 +1,4 @@
+id: 11972
+name: BlubBuddies
+mint_opens_at: 2022-04-30T00:00:00+00:00
+generative_uri: ipfs://QmXk7yNX5V949NWqCb2t8vC4BMt5swjtYQVtbpkKog1q1i

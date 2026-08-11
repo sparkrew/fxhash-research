@@ -1,0 +1,4 @@
+id: 21804
+name: AI Snakes
+mint_opens_at: 2022-11-26T03:26:59+00:00
+generative_uri: ipfs://QmdsFNwBciPBz1vDFFvBZGAJU2GRB9cx3mFTi76xvPf8wM

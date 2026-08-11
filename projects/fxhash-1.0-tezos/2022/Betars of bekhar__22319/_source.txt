@@ -1,0 +1,4 @@
+id: 22319
+name: Betars of bekhar
+mint_opens_at: 2022-12-10T00:46:14+00:00
+generative_uri: ipfs://QmaRa2rkqGdtBwHbkoAo7LaYYBNZfvw9UKTZTdyCxg2CJE

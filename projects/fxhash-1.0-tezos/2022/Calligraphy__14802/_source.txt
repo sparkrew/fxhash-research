@@ -1,0 +1,4 @@
+id: 14802
+name: Calligraphy
+mint_opens_at: 2022-06-15T20:01:14+00:00
+generative_uri: ipfs://QmNfr3yTS9yU7UA8FXBCV3YmfEetsoWgtkneUoEd4EtCoZ

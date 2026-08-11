@@ -1,0 +1,4 @@
+id: 12673
+name: Anchors
+mint_opens_at: 2022-05-09T12:52:00+00:00
+generative_uri: ipfs://QmZW7PvCVpcb4Jqj3eQVsoPAT93WeZDmcudrG2RyjSMJUL

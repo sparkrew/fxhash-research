@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Control the Simulation</title>
+    <link rel="stylesheet" href="style.css">
+
+
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+<script> 
+fs = fxrand()*20
+
+</script>
+    <style>
+
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: lightblue;
+  margin-top: 20px;
+  height:  50px;
+}
+
+#myDIV2 {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: red;
+  margin-top: 20px;
+  height:  50px;
+}
+
+
+#myDIV3 {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: purple;
+  margin-top: 20px;
+  height:  50px;
+}
+
+
+#myDIV4 {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: blue;
+  margin-top: 20px;
+  height:  50px;
+}
+
+#myDIV5 {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: yellow;
+  margin-top: 20px;
+  height:  50px;
+}
+
+
+#myDIV6 {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: yellow;
+  margin-top: 20px;
+  height:  50px;
+}
+
+
+#myDIV7 {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: yellow;
+  margin-top: 20px;
+  height:  50px;
+}
+
+#myDIV8 {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: yellow;
+  margin-top: 20px;
+  height:  50px;
+}
+
+
+
+
+#pic {
+  margin: auto;
+  width: 500px;
+
+ 
+}
+
+#gif {
+  margin: auto;
+  width: 500px;
+  display : none
+
+ 
+}
+
+#add_to_me {
+
+height: 300px;
+
+padding: fxrand()*10;
+
+width: 100%;
+  line-height: fxrand()*10;
+z-index: -1;
+position: absolute;
+top:  0;
+
+}
+
+    </style>
+
+
+
+  </head>
+  <body>
+    
+
+
+
+<div id = "pic">
+    <div class = "pic">
+<img src="vcv-pic.jpeg" width = "500"px >
+
+</div>
+</div>
+
+
+<div id = "gif">
+    <div class = "gif">
+<img src="vcv-pic.gif" width = "500"px >
+
+</div>
+</div>
+    <div id ="myDIV2" style= "background-color: grey">
+<div id="myDiv">Common Song <br> Control the Simulation fx1 <br>
+    <audio controls>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="cTSFx1-short.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</div>
+
+</div>
+    <div id ="myDIV3" style= "background-color: grey;">
+<div id="myDiv">Common Song <br> Control the simulation fx2 <br>
+    <audio controls>
+  <source src="horse2.ogg" type="audio/ogg">
+  <source src="cTSFx2-short.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</div>
+</div>
+
+
+    <div id ="myDIV4" style= "background-color: grey">
+<div id="myDiv">Commmon song <br> Control the Simulation fx3 <br>
+    <audio controls>
+  <source src="sumn-cool3.ogg" type="audio/ogg">
+  <source src="cTSFx3-short.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</div>
+</div>
+
+
+    <div id ="myDIV5" style= "background-color: grey">
+<div id="myDiv">Common song<br> Control the simulation fx4 <br>
+    <audio controls>
+  <source src="sumn-cool3.ogg" type="audio/ogg">
+  <source src="cTSFx4-short.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</div>
+</div>
+
+ 
+    <div id ="myDIV6" style= "background-color: red;">
+<div id="myDiv"> Rare Song <br> Control the Simulation fx5 <br>
+    <audio controls>
+  <source src="sumn-cool3.ogg" type="audio/ogg">
+  <source src="cTSFx5-mid.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</div>
+</div>
+
+    <div id ="myDIV7" style= "background-color: red;">
+<div id="myDiv"> Rare Song<br> Control the Simulation fx6 <br>
+    <audio controls>
+  <source src="sumn-cool3.ogg" type="audio/ogg">
+  <source src="cTSFx6-mid.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</div>
+</div>
+
+    <div id ="myDIV8" style= "background-color: blue;">
+<div id="myDiv"> Ultra Rare <br> Control the Simulation fx7 <br> 
+    <audio controls>
+  <source src="sumn-cool3.ogg" type="audio/ogg">
+  <source src="cTSFx7-long.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+
+</div>
+</div>
+
+   <div id="add_to_me">
+      
+    </div>
+  </body>
+
+     <script>
+
+      songChance = fxrand()
+      console.log(songChance)
+      
+          function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+if (songChance < 0.25 ) {
+
+
+  var s1 = document.getElementById("myDIV2");
+
+
+     s1.style.display = "block";
+
+
+ var s2 = document.getElementById("myDIV3");
+ var s3 = document.getElementById("myDIV4");
+ var s4 = document.getElementById("myDIV5");
+ var s5 = document.getElementById("myDIV6");
+ var s6 = document.getElementById("myDIV7");
+ var s7 = document.getElementById("myDIV8");
+
+    s2.style.display = "none";
+    s3.style.display = "none";
+    s4.style.display = "none";
+    s5.style.display = "none";
+    s6.style.display = "none";
+    s7.style.display = "none";
+
+
+}
+
+if (songChance > 0.25 && songChance < 0.65 ) {
+
+
+
+
+
+     
+ var s1 = document.getElementById("myDIV2");
+ var s2 = document.getElementById("myDIV3");
+ var s3 = document.getElementById("myDIV4");
+ var s4 = document.getElementById("myDIV5");
+ var s5 = document.getElementById("myDIV6");
+ var s6 = document.getElementById("myDIV7");
+ var s7 = document.getElementById("myDIV8");
+
+
+
+
+    s1.style.display = "none";
+    s3.style.display = "none";
+    s4.style.display = "none";
+    s5.style.display = "none";
+    s6.style.display = "none";
+    s7.style.display = "none";
+
+
+
+ var s2 = document.getElementById("myDIV3");
+
+
+    s2.style.display = "block";
+  
+}
+
+
+if (songChance > 0.25 && songChance < 0.65 ) {
+
+
+
+
+
+     
+ var s1 = document.getElementById("myDIV2");
+ var s2 = document.getElementById("myDIV3");
+ var s3 = document.getElementById("myDIV4");
+ var s4 = document.getElementById("myDIV5");
+ var s5 = document.getElementById("myDIV6");
+ var s6 = document.getElementById("myDIV7");
+ var s7 = document.getElementById("myDIV8");
+
+    s1.style.display = "none";
+    s2.style.display = "none";
+    s4.style.display = "none";
+    s5.style.display = "none";
+    s6.style.display = "none";
+    s7.style.display = "none";
+
+
+
+ var s3 = document.getElementById("myDIV4");
+
+
+    s3.style.display = "block";
+  
+}
+
+
+
+
+
+
+
+if (songChance > 0.65 && songChance < 0.75 ) {
+
+var s1 = document.getElementById("myDIV2");
+ var s2 = document.getElementById("myDIV3");
+ var s3 = document.getElementById("myDIV4");
+ var s4 = document.getElementById("myDIV5");
+ var s5 = document.getElementById("myDIV6");
+ var s6 = document.getElementById("myDIV7");
+ var s7 = document.getElementById("myDIV8");
+
+
+
+
+    s1.style.display = "none";
+    s2.style.display = "none";
+    s3.style.display = "none";
+    s5.style.display = "none";
+    s6.style.display = "none";
+    s7.style.display = "none";
+
+
+ var s4 = document.getElementById("myDIV5");
+
+    s4.style.display = "block";
+  
+}
+
+if (songChance > 0.75 && songChance < 0.86 ) {
+
+var s1 = document.getElementById("myDIV2");
+ var s2 = document.getElementById("myDIV3");
+ var s3 = document.getElementById("myDIV4");
+ var s4 = document.getElementById("myDIV5");
+ var s5 = document.getElementById("myDIV6");
+ var s6 = document.getElementById("myDIV7");
+ var s7 = document.getElementById("myDIV8");
+
+
+
+
+    s1.style.display = "none";
+    s2.style.display = "none";
+    s3.style.display = "none";
+    s4.style.display = "none";
+    s6.style.display = "none";
+    s7.style.display = "none";
+
+
+ var s5 = document.getElementById("myDIV6");
+
+    s5.style.display = "block";
+  
+}
+
+
+if (songChance > 0.86 && songChance < 0.95 ) {
+
+ var s1 = document.getElementById("myDIV2");
+ var s2 = document.getElementById("myDIV3");
+ var s3 = document.getElementById("myDIV4");
+ var s4 = document.getElementById("myDIV5");
+ var s5 = document.getElementById("myDIV6");
+ var s6 = document.getElementById("myDIV7");
+ var s7 = document.getElementById("myDIV8");
+
+
+
+
+    s1.style.display = "none";
+    s2.style.display = "none";
+    s3.style.display = "none";
+    s4.style.display = "none";
+    s5.style.display = "none";
+    s7.style.display = "none";
+
+
+
+
+ var s6 = document.getElementById("myDIV7");
+
+    s6.style.display = "block";
+  
+}
+ 
+
+ if (songChance > 0.95 && songChance < 1 ) {
+
+ var s1 = document.getElementById("myDIV2");
+ var s2 = document.getElementById("myDIV3");
+ var s3 = document.getElementById("myDIV4");
+ var s4 = document.getElementById("myDIV5");
+ var s5 = document.getElementById("myDIV6");
+ var s6 = document.getElementById("myDIV7");
+ var s7 = document.getElementById("myDIV8");
+
+
+
+
+    s1.style.display = "none";
+    s2.style.display = "none";
+    s3.style.display = "none";
+    s4.style.display = "none";
+    s5.style.display = "none";
+    s6.style.display = "none";
+   
+
+
+
+
+
+ var s7 = document.getElementById("myDIV8");
+
+    s7.style.display = "block";
+  
+}
+
+ if (songChance > 0.86) {
+
+ var picDiv = document.getElementById("pic");
+  var gifDiv = document.getElementById("gif");
+
+
+    picDiv.style.display = "none";
+     gifDiv.style.display = "block";
+
+  
+}
+
+function getFeatureString(value) {
+  if (value < 0.5) return "common"
+  if (value < 0.95) return "rare"
+  else return "ulra rare"
+}
+
+window.$fxhashFeatures = {
+  // feature can only be "low", "medium" or "high"
+  "rarity": getFeatureString(songChance)
+}
+
+   const addme = document.getElementById("add_to_me");
+var fs = fxrand()*40
+var fw = fxrand()*10
+var fsl = fxrand()
+var fsle = fxrand()*10;
+
+var fst = "fs + px"
+ addme.style.fontSize = fs + "px"
+  addme.style.wordSpacing = fw + "px"
+   addme.style.lineSpacing = fsl 
+     addme.style.letterSpacing = fsle + "px"
+
+for (let i = 0; i < fxrand()*10000; i++) { 
+ 
+      
+            document.getElementById("add_to_me").innerHTML += 
+              "Control the Simulation... a generative song...by Inspire Encrypt ";
+
+}
+
+              const newDiv = document.createElement("div");
+
+              const newContent = document.createTextNode("");
+
+
+
+
+
+newDiv.style.margin = '100px';              
+newDiv.style.margin = '100px';
+              newDiv.appendChild(newContent);
+
+
+
+                const currentDiv = document.getElementById("div1");
+  document.body.insertBefore(newDiv, currentDiv);
+      
+    </script>
+
+    
+</html>

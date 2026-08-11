@@ -1,0 +1,4 @@
+id: 15923
+name: Bézier Aquarium 🦑
+mint_opens_at: 2022-07-05T13:00:00+00:00
+generative_uri: ipfs://QmT5eLzupNrWoWXAqusgjtdAS44Afq3G33Zt3vJNnfBeDZ

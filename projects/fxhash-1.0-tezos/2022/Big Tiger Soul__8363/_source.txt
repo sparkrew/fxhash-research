@@ -1,0 +1,4 @@
+id: 8363
+name: Big Tiger Soul
+mint_opens_at: 2022-01-31T18:56:08+00:00
+generative_uri: ipfs://QmNxs3ut3bR6zX1MMZGRG2DFn2HFd3Mxs2eqAYwQhPAWDN

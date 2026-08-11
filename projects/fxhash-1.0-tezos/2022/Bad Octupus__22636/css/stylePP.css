@@ -1,0 +1,3 @@
+body {width: 100vw;height: 100vh;padding: 0;margin: 0;background: #fff;box-sizing:border-box;}
+.p5Canvas {width: 100%!important;height: 100%!important;}
+.wrapper {display: none;}

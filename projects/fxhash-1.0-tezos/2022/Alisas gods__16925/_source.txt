@@ -1,0 +1,4 @@
+id: 16925
+name: Alisas gods
+mint_opens_at: 2022-07-24T18:30:11+00:00
+generative_uri: ipfs://QmQUDrP5KVna1QAY4XJYdPh1CJR4owkMAuRyzaNWNCkATq

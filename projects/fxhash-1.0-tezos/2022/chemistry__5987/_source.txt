@@ -1,0 +1,4 @@
+id: 5987
+name: chemistry
+mint_opens_at: 2022-01-06T20:58:30+00:00
+generative_uri: ipfs://QmaEQYuXeyU8WwiLnvbt4mHD46KsUAigQpwRP2nzfCLWfD

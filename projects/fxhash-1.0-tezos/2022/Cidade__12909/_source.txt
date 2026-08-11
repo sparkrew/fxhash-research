@@ -1,0 +1,4 @@
+id: 12909
+name: Cidade
+mint_opens_at: 2022-05-14T19:12:00+00:00
+generative_uri: ipfs://QmaTnxDLeJtKfFroUSJFZs1hXAqAov6o9n4UtQqT723xeN

@@ -1,0 +1,4 @@
+id: 17449
+name: Cellular Arrangement 
+mint_opens_at: 2022-08-01T21:48:29+00:00
+generative_uri: ipfs://QmSd7Uio1mL4K6Ahp4Qwk5NBp7DmCXQbgV7Zg6HC2mLwFW

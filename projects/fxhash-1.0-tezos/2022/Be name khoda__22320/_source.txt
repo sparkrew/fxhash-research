@@ -1,0 +1,4 @@
+id: 22320
+name: Be name khoda
+mint_opens_at: 2022-12-10T00:49:44+00:00
+generative_uri: ipfs://QmRs83m3FYhsT38PWC32nZgfzhrQufR9pxooFPiN1LhDrJ

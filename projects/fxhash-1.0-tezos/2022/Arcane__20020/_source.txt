@@ -1,0 +1,4 @@
+id: 20020
+name: Arcane
+mint_opens_at: 2022-10-04T08:00:00+00:00
+generative_uri: ipfs://QmYjhDhPJCfp3LuB7WHpSVYdFmEZsM7PEZg7bU3bWQGaFQ

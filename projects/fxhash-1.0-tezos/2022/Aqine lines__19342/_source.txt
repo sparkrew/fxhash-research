@@ -1,0 +1,4 @@
+id: 19342
+name: Aqine lines
+mint_opens_at: 2022-09-13T22:18:59+00:00
+generative_uri: ipfs://QmVjWNEj5hJ3TrbpAn6g7e2rLPMadX1vun1AqtxfxEpTyP

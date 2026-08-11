@@ -1,0 +1,4 @@
+id: 21724
+name: Arce and Cat
+mint_opens_at: 2022-11-23T19:00:00+00:00
+generative_uri: ipfs://QmWkgKbnaiQCComHg9d8goFQEnRL3f8agDzqx7ctoaF784

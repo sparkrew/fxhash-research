@@ -1,0 +1,4 @@
+id: 18123
+name: ALIEN FOREST
+mint_opens_at: 2022-08-15T14:00:00+00:00
+generative_uri: ipfs://QmXJRNymBuz24vkgxWuKB898BYzGqgFd6QrMwLcRsjXzdP

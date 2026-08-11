@@ -1,0 +1,4 @@
+id: 12737
+name: CD Cover generator
+mint_opens_at: 2022-05-10T09:18:14+00:00
+generative_uri: ipfs://QmeEDKp7ieyBYtKLUiJB9BpXKVipYZ33xjJw4fgnUkDtQq

@@ -1,0 +1,4 @@
+id: 6565
+name: Art Glasses
+mint_opens_at: 2022-01-11T10:22:00+00:00
+generative_uri: ipfs://QmY65iDiGqwRo4yQUofd7PpGAQZHVPpiDXwWUgKtAP1M6n

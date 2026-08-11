@@ -1,0 +1,4 @@
+id: 16462
+name: ascension of the builders
+mint_opens_at: 2022-07-15T07:52:44+00:00
+generative_uri: ipfs://QmTdCu4zcYQuqhgweUTqWF41mJ2jRLx5Peup2E7n5XzidV

@@ -1,0 +1,1 @@
+window.$fxhashFeatures={Power:landUno,Division:points};

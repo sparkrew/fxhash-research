@@ -1,0 +1,4 @@
+id: 9946
+name: Coarse
+mint_opens_at: 2022-02-23T19:09:10+00:00
+generative_uri: ipfs://QmSZsqCrQHVroiQsc7V6mvMKECobwNwjhEUdgpcqVCVGFc

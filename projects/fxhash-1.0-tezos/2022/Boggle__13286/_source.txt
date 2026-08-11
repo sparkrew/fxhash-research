@@ -1,0 +1,4 @@
+id: 13286
+name: Boggle
+mint_opens_at: 2022-05-22T04:00:00+00:00
+generative_uri: ipfs://QmXx9DUHRV9S8HPTeJTTpZcgX7aFgfkY1HhR14NhJqXGei

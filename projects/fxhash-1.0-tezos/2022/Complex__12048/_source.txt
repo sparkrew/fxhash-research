@@ -1,0 +1,4 @@
+id: 12048
+name: Complex
+mint_opens_at: 2022-04-27T10:57:59+00:00
+generative_uri: ipfs://QmVKRd7FcuuXkPdaaKVRtHB2ZaGGkMZ6L48DEvNE4ypQ9P

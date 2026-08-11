@@ -1,0 +1,1 @@
+console.log(fxhash),console.log(fxrand()),window.$fxhashFeatures={Palette:palette.name,"BG Gradient":grd.name,Mode:choice.name,"BG Ellipse":choice2.name};

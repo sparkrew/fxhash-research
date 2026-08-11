@@ -1,0 +1,4 @@
+id: 8812
+name: Atypical Lands
+mint_opens_at: 2022-02-07T19:11:14+00:00
+generative_uri: ipfs://QmWwt7BVcagoXC7L2H28YjtuCgoA7Fi5FEXkYCxricaGwL

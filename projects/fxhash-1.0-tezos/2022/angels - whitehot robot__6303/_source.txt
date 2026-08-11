@@ -1,0 +1,4 @@
+id: 6303
+name: angels - whitehot robot
+mint_opens_at: 2022-01-09T12:59:40+00:00
+generative_uri: ipfs://QmTwzSFb1jBsymRB7RYxEMcaYbf97JgdxAbTJRjUNYRqpm

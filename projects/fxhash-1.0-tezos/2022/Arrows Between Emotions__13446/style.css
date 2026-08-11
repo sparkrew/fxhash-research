@@ -1,0 +1,12 @@
+body {
+  background-color: black;
+  color: aliceblue;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}

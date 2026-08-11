@@ -1,0 +1,4 @@
+id: 13230
+name: Analog Grid Burn
+mint_opens_at: 2022-05-21T07:18:29+00:00
+generative_uri: ipfs://QmbswJ7xzx9ZdfUXzSvyh1ce5DFboxgAZK38A2Qb13EWvS

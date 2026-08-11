@@ -1,0 +1,4 @@
+id: 6181
+name: Aquarium Mea Culpa
+mint_opens_at: 2022-01-08T13:41:50+00:00
+generative_uri: ipfs://QmYN2R9EEh3GpyBakZ7GEzQKsUTCgETJRwEk234LR4DVrZ

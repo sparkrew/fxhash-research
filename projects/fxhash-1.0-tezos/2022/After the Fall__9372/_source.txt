@@ -1,0 +1,4 @@
+id: 9372
+name: After the Fall
+mint_opens_at: 2022-02-14T12:20:34+00:00
+generative_uri: ipfs://QmVK6oQ88NtFnNP4JT336si4iZBeutthsNUnugoBpAkeyr

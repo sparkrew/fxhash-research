@@ -1,0 +1,4 @@
+id: 22246
+name: Artifice
+mint_opens_at: 2022-12-09T19:00:00+00:00
+generative_uri: ipfs://QmRQSNzzh7uMetcP6ZykZ7df6jeKyftD5w1CfBQYhnW62P

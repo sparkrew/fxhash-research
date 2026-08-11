@@ -1,0 +1,4 @@
+id: 20957
+name: Building of abstraction
+mint_opens_at: 2022-11-04T18:00:00+00:00
+generative_uri: ipfs://QmNT3pDzLCMwSZthBqZAxgGBFVfZKfcma2wU8oEzEWWtXk

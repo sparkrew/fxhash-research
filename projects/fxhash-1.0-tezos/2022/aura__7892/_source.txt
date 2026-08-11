@@ -1,0 +1,4 @@
+id: 7892
+name: aura
+mint_opens_at: 2022-01-25T23:12:30+00:00
+generative_uri: ipfs://QmaRSBFdoJDp1Dfb7zspmqrmHf4PamMEkSt3rhH79up8jM

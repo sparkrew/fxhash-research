@@ -1,0 +1,4 @@
+id: 22803
+name: Conceptor
+mint_opens_at: 2022-12-29T17:00:00+00:00
+generative_uri: ipfs://QmZtbc7DTVx82bgpr6YfooHmDeidDJD4zLPGs3wV9RDzcG

@@ -1,0 +1,4 @@
+id: 11068
+name: chaos memory
+mint_opens_at: 2022-04-16T13:11:44+00:00
+generative_uri: ipfs://QmSsGpDggV6uFUtu6pfR4dy3hZBMU9Rsu1xzTznD9DgMWT

@@ -1,0 +1,4 @@
+id: 22768
+name: christmas tree
+mint_opens_at: 2022-12-22T19:06:44+00:00
+generative_uri: ipfs://QmVjCfDixPgDV2NKE62V6X6Q11P8g2AkSTkpjX9EquPgUf

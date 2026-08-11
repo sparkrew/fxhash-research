@@ -1,0 +1,4 @@
+id: 21711
+name: barcode(fxhash)
+mint_opens_at: 2022-11-23T15:02:00+00:00
+generative_uri: ipfs://QmZQAL3L61GygY9xcGxsb51btu5WAS1grWMZ3RUndjAoXw

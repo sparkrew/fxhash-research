@@ -1,0 +1,4 @@
+id: 12941
+name: Bountiful Desire
+mint_opens_at: 2022-05-15T02:31:44+00:00
+generative_uri: ipfs://Qmd5VmBf97D21CtJa5z39hSaTc574tiy13kxtTwvEZeG6A

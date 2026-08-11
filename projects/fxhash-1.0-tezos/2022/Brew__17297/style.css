@@ -1,0 +1,14 @@
+body {
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+
+  /* leave it to hide the scrollbars */
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  padding: 0px;
+  margin: auto;
+}

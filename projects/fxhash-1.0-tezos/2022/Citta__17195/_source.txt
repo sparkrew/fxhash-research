@@ -1,0 +1,4 @@
+id: 17195
+name: Citta
+mint_opens_at: 2022-07-30T14:00:00+00:00
+generative_uri: ipfs://QmNrFNCnSuAuKLnwMMX723oKdSrHoYkwi4RBchCvNTwQPr

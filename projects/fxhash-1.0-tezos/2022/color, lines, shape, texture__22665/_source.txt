@@ -1,0 +1,4 @@
+id: 22665
+name: color, lines, shape, texture
+mint_opens_at: 2022-12-20T02:38:44+00:00
+generative_uri: ipfs://Qmd5fLz4LyXhUaKvQMRChbGfoRDSfuD3HPfSjuxirZ3KNC

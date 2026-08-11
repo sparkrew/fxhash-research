@@ -1,0 +1,4 @@
+id: 19012
+name: Bundles | Protobyte Series
+mint_opens_at: 2022-09-04T15:17:14+00:00
+generative_uri: ipfs://QmQ5KcQX3fLSKeVkPaExetSSyx8UKsRvggN565wVaPECNH

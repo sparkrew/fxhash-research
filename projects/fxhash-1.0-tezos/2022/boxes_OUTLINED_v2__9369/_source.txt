@@ -1,0 +1,4 @@
+id: 9369
+name: boxes_OUTLINED_v2
+mint_opens_at: 2022-02-14T12:05:34+00:00
+generative_uri: ipfs://QmWBcjB17Nahm9tE35oXpHLWpp4wo2qFcMczFBohBzqRCF

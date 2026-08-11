@@ -1,0 +1,4 @@
+id: 19758
+name: Consequences
+mint_opens_at: 2022-09-24T08:00:00+00:00
+generative_uri: ipfs://QmagHEyR3iRjLaBPCqynnyKipwdFoiztoHkz3ugCir3EcR

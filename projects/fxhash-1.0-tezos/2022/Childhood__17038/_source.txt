@@ -1,0 +1,4 @@
+id: 17038
+name: Childhood
+mint_opens_at: 2022-07-25T15:53:44+00:00
+generative_uri: ipfs://QmPaA3cKzENu36KV6vioxrcv6Mbi8MaVdCe1jJhqFdChCg

@@ -1,0 +1,4 @@
+id: 20342
+name: CONFINED SPACES #1
+mint_opens_at: 2022-10-25T17:00:00+00:00
+generative_uri: ipfs://Qmf4TDQmNsyAjXuUdfHK82kdE6A7t1zdcxUxheVzqJpqD8

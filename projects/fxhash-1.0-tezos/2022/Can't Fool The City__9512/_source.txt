@@ -1,0 +1,4 @@
+id: 9512
+name: Can't Fool The City
+mint_opens_at: 2022-02-16T11:56:30+00:00
+generative_uri: ipfs://QmQVX9bVcryV8GvT1bzux3Ky5iDnFszPVcPe59em2GmNuc

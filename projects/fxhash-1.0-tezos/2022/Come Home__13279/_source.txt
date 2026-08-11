@@ -1,0 +1,4 @@
+id: 13279
+name: Come Home
+mint_opens_at: 2022-05-22T05:07:59+00:00
+generative_uri: ipfs://Qme1RjpJgugL8jSPMyx9TYn5NFTdnpDMvJkRDvbp2t4E6W

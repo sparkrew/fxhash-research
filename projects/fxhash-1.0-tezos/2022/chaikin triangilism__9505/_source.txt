@@ -1,0 +1,4 @@
+id: 9505
+name: chaikin triangilism
+mint_opens_at: 2022-02-16T07:59:00+00:00
+generative_uri: ipfs://QmfXshjG9LvwrGfSm3wQB3kNeKRoRVABchnVvhUMrQs4WZ

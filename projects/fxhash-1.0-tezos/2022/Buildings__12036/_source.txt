@@ -1,0 +1,4 @@
+id: 12036
+name: Buildings
+mint_opens_at: 2022-04-27T14:30:00+00:00
+generative_uri: ipfs://QmUvUjVA5ujmWFgopuWR8EifgEnyDV1YckddbEhXCsUNRF

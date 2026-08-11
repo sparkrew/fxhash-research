@@ -1,0 +1,4 @@
+id: 9691
+name: Bird Tales
+mint_opens_at: 2022-02-20T15:04:00+00:00
+generative_uri: ipfs://QmRjRkHy7nEtg2Kve9tCLnsnxnPKaQPcJmDXG91xBqCQrq

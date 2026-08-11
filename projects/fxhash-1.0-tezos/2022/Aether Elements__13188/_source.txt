@@ -1,0 +1,4 @@
+id: 13188
+name: Aether Elements 
+mint_opens_at: 2022-05-21T07:02:59+00:00
+generative_uri: ipfs://QmSvWrk68i4GLfpYLWuGreVABGiod3NiWrnJGWLfsiqTVu

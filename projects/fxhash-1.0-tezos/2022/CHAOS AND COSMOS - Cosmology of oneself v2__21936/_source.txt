@@ -1,0 +1,4 @@
+id: 21936
+name: CHAOS AND COSMOS - Cosmology of oneself v2
+mint_opens_at: 2022-12-01T13:00:00+00:00
+generative_uri: ipfs://QmQWNcZmDTKkY7rufw6wm2TuC6yNKY6zVoTa1j8EnMXEK9

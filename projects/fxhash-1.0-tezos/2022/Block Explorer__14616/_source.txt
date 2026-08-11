@@ -1,0 +1,4 @@
+id: 14616
+name: Block Explorer
+mint_opens_at: 2022-06-13T18:00:00+00:00
+generative_uri: ipfs://QmPFTHVF5DdXF8KQH47zbHyGLqGmkoqcqg24tvdRvuYHA4

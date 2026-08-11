@@ -1,0 +1,4 @@
+id: 11152
+name: Avatar
+mint_opens_at: 2022-04-16T15:35:59+00:00
+generative_uri: ipfs://QmVBvWxzJboQpjfqFAB5fziqCbSGJ8VyZQeUYc3piCXQWb

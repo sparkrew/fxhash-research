@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Cages by Marco Aureggi</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    <script type="text/javascript" src="./three.js"></script>
+    <script type="text/javascript" src="./TrackballControls.js"></script>
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display:block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="Stats-output">
+</div>
+
+<div id="WebGL-output">
+</div>
+
+
+<script type="text/javascript">
+
+    function init() {
+
+        var clock = new THREE.Clock();
+        window.addEventListener('resize', onWindowResize, false);
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // create palettes for colors and renderer
+        var renderer = new THREE.WebGLRenderer();
+
+        let palette1 = [0xdddddd, 0xdd0000, 0x000000]; 
+		let palette2 = [0x333333, 0xdd0000, 0xdddddd]; 
+		let palette3 = [0x06224b, 0xff8b2e, 0xdddddd]; 
+		let palette4 = [0x2c284a, 0x99ff00, 0xcfcbb7]; 	
+		let palette5 = [0x352a2a, 0xffaf03, 0xcfcbb7]; 
+		let palette6 = [0xA07DCD, 0x3E38A6, 0xD7DEFB]; 
+        let palette7 = [0xc56b39, 0xd3d929, 0xffffff];      
+        let palette8 = [0xE09EA3, 0x67705B, 0xAFDFD1];  	
+		let palette9 = [0x695B4E, 0x60AD2C, 0xeeeeee]; 
+		let palette10 = [0x1D484E, 0xF6E3E9, 0xCEAE8A];	
+		let palette11 = [0xB59C73, 0x695B50, 0x6C4B16];		
+		let palette12 = [0xE38F61, 0x937354, 0xFFD7BB]; 
+		
+        let palName = [palette1, palette2, palette3, palette4, palette5, palette6, palette7, palette8, palette9, palette10, palette11, palette12];
+		var pal = getRandomInt(12);
+		console.log(1 + pal);
+        var chosenPal = palName[pal];
+
+        renderer.setClearColor(new THREE.Color(chosenPal[0]));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.antialias = true;
+
+
+        // CAMERA
+        camera.position.x = -50;
+        camera.position.y = 60;
+        camera.position.z = 40;
+        camera.lookAt(scene.position);
+
+        var trackballControls = new THREE.TrackballControls(camera);
+        trackballControls.rotateSpeed = 1;
+        trackballControls.staticMoving = false;
+        trackballControls.dynamicDampingFactor = 0.3;
+
+        // LIGHTS
+        var ambientLight = new THREE.AmbientLight(0x0c0c0c);
+        scene.add(ambientLight);
+
+        // add the output of the renderer to the html element
+        document.getElementById("WebGL-output").appendChild(renderer.domElement);
+
+        // call the render function
+        var step = 0;
+        
+        var count = 1000;
+        var lx = 0;
+        var ly = 0;
+        var lz = 0;
+        var orient;
+
+
+        var planemat = new THREE.MeshBasicMaterial( {color: chosenPal[1], side: THREE.DoubleSide} );
+        const material1 = new THREE.LineBasicMaterial( { color: chosenPal[1] } );
+        var points1 = [];
+        points1.push( new THREE.Vector3( 0, 0, 0 ) );
+        const groupA = new THREE.Group();
+        for (var i = 0; i < count; i++) {
+			orient = getRandomInt(31);
+            if (orient < 10) {
+                lx = getRandomInt(40) - 20;
+                points1.push( new THREE.Vector3( lx, ly, lz ) );
+            }
+            if (orient >= 10 && orient < 20) {
+                ly = getRandomInt(40) - 20;
+                points1.push( new THREE.Vector3( lx, ly, lz ) );
+            }
+            if (orient >= 20 && orient < 30) {
+                lz = getRandomInt(40) - 20;
+                points1.push( new THREE.Vector3( lx, ly, lz ) );
+            }           
+            if (orient == 30) {
+                var planegeometry = new THREE.PlaneGeometry( 3, 3 );
+                var planeA = new THREE.Mesh( planegeometry, planemat );
+                planeA.position.x = lx;
+                planeA.position.y = ly;
+                planeA.position.z = lz;
+                orient = getRandomInt(3);
+                if (orient == 0) {
+                    rotateObject(planeA, 0, 90, 0);
+                }
+                if (orient == 1) {
+                    rotateObject(planeA, 0, 0, 90);
+                }
+                if (orient == 2) {
+                    rotateObject(planeA, 90, 0, 0);
+                }
+                groupA.add( planeA );
+                count++;
+            }  	
+		}
+        var geometry1 = new THREE.BufferGeometry().setFromPoints( points1 );
+        var line1 = new THREE.Line( geometry1, material1 );
+        groupA.add(line1);
+        scene.add(groupA);
+		
+        planemat = new THREE.MeshBasicMaterial( {color: chosenPal[2], side: THREE.DoubleSide} );
+        const material2 = new THREE.LineBasicMaterial( { color: chosenPal[2] } );
+        var points2 = [];
+        points2.push( new THREE.Vector3( 0, 0, 0 ) );
+        const groupB = new THREE.Group();
+        for (var i = 0; i < count; i++) {
+			orient = getRandomInt(31);
+            if (orient < 10) {
+                lx = getRandomInt(40) - 20;
+                points2.push( new THREE.Vector3( lx, ly, lz ) );
+            }
+            if (orient >= 10 && orient < 20) {
+                ly = getRandomInt(40) - 20;
+                points2.push( new THREE.Vector3( lx, ly, lz ) );
+            }
+            if (orient >= 20 && orient < 30) {
+                lz = getRandomInt(40) - 20;
+                points2.push( new THREE.Vector3( lx, ly, lz ) );
+            }           
+            if (orient == 30) {
+                var planegeometry = new THREE.PlaneGeometry( 3, 3 );
+                var planeB = new THREE.Mesh( planegeometry, planemat );
+                planeB.position.x = lx;
+                planeB.position.y = ly;
+                planeB.position.z = lz;
+                orient = getRandomInt(3);
+                if (orient == 0) {
+                    rotateObject(planeB, 0, 90, 0);
+                }
+                if (orient == 1) {
+                    rotateObject(planeB, 0, 0, 90);
+                }
+                if (orient == 2) {
+                    rotateObject(planeB, 90, 0, 0);
+                }
+                groupB.add( planeB );
+                count++;
+            }  	
+		}
+        var geometry2 = new THREE.BufferGeometry().setFromPoints( points2 );
+        var line2 = new THREE.Line( geometry2, material2 );
+        groupB.add(line2);
+        scene.add(groupB);
+
+        render();
+
+        function render() {
+            var delta = clock.getDelta();
+            trackballControls.update(delta);
+			
+			groupA.rotation.x += 0.002;
+			groupA.rotation.y -= 0.002;
+			groupB.rotation.z += 0.002;
+
+            requestAnimationFrame(render);
+            renderer.render(scene, camera);
+        }
+
+        function rotateObject(object, degreeX=0, degreeY=0, degreeZ=0) {
+            object.rotateX(THREE.Math.degToRad(degreeX));
+            object.rotateY(THREE.Math.degToRad(degreeY));
+            object.rotateZ(THREE.Math.degToRad(degreeZ));
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(fxrand() * max);
+        }
+        
+        function onWindowResize() {
+            w = window.innerWidth;
+            h = window.innerHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+        }  
+    }
+
+    window.onload = init;
+
+</script>
+</body>
+</html>

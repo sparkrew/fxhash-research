@@ -1,0 +1,4 @@
+id: 16957
+name: Chipped Dogtooth
+mint_opens_at: 2022-07-24T14:00:00+00:00
+generative_uri: ipfs://QmfAPGhZkFtgYTVinanvgCdwCDxeoBTGMHWLa173iYEWiQ

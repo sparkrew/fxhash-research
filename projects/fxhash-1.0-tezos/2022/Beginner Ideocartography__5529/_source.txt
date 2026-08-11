@@ -1,0 +1,4 @@
+id: 5529
+name: Beginner Ideocartography
+mint_opens_at: 2022-01-05T12:18:10+00:00
+generative_uri: ipfs://QmV7C8QtpeyzJzAfh2Y6b3Y9AdeRsbDqLsE6ykva4GZ6f7

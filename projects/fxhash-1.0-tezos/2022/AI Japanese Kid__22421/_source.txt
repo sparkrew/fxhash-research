@@ -1,0 +1,4 @@
+id: 22421
+name: AI Japanese Kid
+mint_opens_at: 2022-12-13T14:01:29+00:00
+generative_uri: ipfs://QmcmLqhgjFFoja5n24u4Ep8W5tHKGRKC3MjdcPDU1T6TwD

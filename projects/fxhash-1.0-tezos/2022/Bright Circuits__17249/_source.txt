@@ -1,0 +1,4 @@
+id: 17249
+name: Bright Circuits
+mint_opens_at: 2022-07-30T21:16:00+00:00
+generative_uri: ipfs://QmaV8txrVjdHzqehsAeypa4QPPssrgTdaNNmQNWewk42b1

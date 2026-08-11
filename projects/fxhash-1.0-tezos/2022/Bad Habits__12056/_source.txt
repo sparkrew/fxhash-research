@@ -1,0 +1,4 @@
+id: 12056
+name: Bad Habits
+mint_opens_at: 2022-04-27T12:33:44+00:00
+generative_uri: ipfs://QmVuefxByeJ153WG8rEjVHsZV4ftuBHe7e6dRmk83sYMYa

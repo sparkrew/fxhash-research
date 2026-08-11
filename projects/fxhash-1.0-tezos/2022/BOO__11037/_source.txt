@@ -1,0 +1,4 @@
+id: 11037
+name: BOO
+mint_opens_at: 2022-04-16T12:57:29+00:00
+generative_uri: ipfs://QmNZmVb6HVj1CGvkrryLgL9E3ipyTcHJ2vA8zp9q7FokoA

@@ -1,0 +1,4 @@
+id: 18556
+name:  Black Hollow Tension
+mint_opens_at: 2022-08-25T13:40:59+00:00
+generative_uri: ipfs://QmWo8BQ54FXFvTrJzj7jeww3rf3EdaDFbK5gEMfdLHeNL1

@@ -1,0 +1,4 @@
+id: 21864
+name: Brutalsy
+mint_opens_at: 2022-11-27T13:08:00+00:00
+generative_uri: ipfs://QmdR6KTXpoAZNURB1n2S6DdtZ7XB6yCZoLSyvfp3a4Fnmy

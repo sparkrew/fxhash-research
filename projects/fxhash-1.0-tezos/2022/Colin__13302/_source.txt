@@ -1,0 +1,4 @@
+id: 13302
+name: Colin
+mint_opens_at: 2022-05-22T08:04:44+00:00
+generative_uri: ipfs://QmZDYorPj6gcigcoJoZ3Z84Gt21ibbm5iG2CvgxyVcS1iF

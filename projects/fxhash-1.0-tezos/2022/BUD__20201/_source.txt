@@ -1,0 +1,4 @@
+id: 20201
+name: BUD
+mint_opens_at: 2022-10-10T18:30:00+00:00
+generative_uri: ipfs://Qmbgz1vTvFgjiEqNUCayJCWadgsbyU3Xfya7uU4D9Wu6Ef

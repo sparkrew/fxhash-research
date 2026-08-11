@@ -1,0 +1,4 @@
+id: 6259
+name: ConectionX
+mint_opens_at: 2022-01-08T18:21:00+00:00
+generative_uri: ipfs://QmP4kjMH86cJWwok74UzYm4qPtvuqn5C1sCCbeBNqwrumS

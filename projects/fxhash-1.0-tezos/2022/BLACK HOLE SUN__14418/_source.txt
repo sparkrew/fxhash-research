@@ -1,0 +1,4 @@
+id: 14418
+name: BLACK HOLE SUN
+mint_opens_at: 2022-06-09T10:59:14+00:00
+generative_uri: ipfs://QmQXpxUCFuEnfAwpbUmd8qnXDsj8M5fZ8PACSiQ99hZT16

@@ -1,0 +1,4 @@
+id: 9829
+name: Bubble field
+mint_opens_at: 2022-02-22T14:08:10+00:00
+generative_uri: ipfs://QmfF6qvVL3CjoWpk1RmECr6vEKUhF5k8ZSrSFuWmTNu6kC

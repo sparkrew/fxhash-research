@@ -1,0 +1,4 @@
+id: 16933
+name: Beauté Féminine
+mint_opens_at: 2022-07-24T13:17:14+00:00
+generative_uri: ipfs://QmQpzoevUSA3XPZVyESbKVs8QHQKSA4eiZ4DtqevewMiUE

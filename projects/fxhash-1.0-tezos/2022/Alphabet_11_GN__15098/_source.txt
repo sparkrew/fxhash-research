@@ -1,0 +1,4 @@
+id: 15098
+name: Alphabet_11_GN
+mint_opens_at: 2022-06-18T02:33:44+00:00
+generative_uri: ipfs://QmSuMNAdpLeyFGKp2VbM7saX4yDUycRRUR3JeKAPX6JmLj

@@ -1,0 +1,4 @@
+id: 19745
+name: Bubblish
+mint_opens_at: 2022-09-23T19:04:14+00:00
+generative_uri: ipfs://QmNrZX6mGAGkKQ2yYzo1So2jznZBEKTeu5Y58me59AKfSA

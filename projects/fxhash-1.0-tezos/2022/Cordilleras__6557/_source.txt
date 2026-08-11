@@ -1,0 +1,4 @@
+id: 6557
+name: Cordilleras
+mint_opens_at: 2022-01-11T07:00:30+00:00
+generative_uri: ipfs://QmegVQ7aKH8oS3SX4nZxtR3ErnHxcCTpaSuS9eGDNqKyZN

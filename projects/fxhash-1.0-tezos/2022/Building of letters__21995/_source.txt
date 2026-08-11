@@ -1,0 +1,4 @@
+id: 21995
+name: Building of letters
+mint_opens_at: 2022-12-01T16:00:00+00:00
+generative_uri: ipfs://QmfKtvFkwjrzaFDRZBGbDAF5WRCbK8DYZRZ7jrw8xAbjVw

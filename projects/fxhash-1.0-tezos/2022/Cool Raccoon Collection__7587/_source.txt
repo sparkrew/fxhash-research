@@ -1,0 +1,4 @@
+id: 7587
+name: Cool Raccoon Collection
+mint_opens_at: 2022-01-20T17:56:00+00:00
+generative_uri: ipfs://QmSs8BisNTgyb5fgdVDEUSARkmHvZAAsbFvYP9JN31jsvr

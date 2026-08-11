@@ -1,0 +1,4 @@
+id: 6184
+name: Automata cotton fabrics
+mint_opens_at: 2022-01-08T10:54:30+00:00
+generative_uri: ipfs://QmaQREeV6mCWXDqT4uhVBiKh26hDnj4r2hSToZBxpYPWdy

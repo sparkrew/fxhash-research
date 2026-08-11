@@ -1,0 +1,4 @@
+id: 20884
+name: AI Kainalu
+mint_opens_at: 2022-11-02T04:00:00+00:00
+generative_uri: ipfs://QmNwNKoPUssQPam2Uxv49hRmMGE212tesGQaCzVwuhD56Q

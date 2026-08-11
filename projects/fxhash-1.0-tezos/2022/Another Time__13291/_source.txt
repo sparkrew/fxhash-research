@@ -1,0 +1,4 @@
+id: 13291
+name: Another Time
+mint_opens_at: 2022-05-22T04:00:00+00:00
+generative_uri: ipfs://QmU7e33pk3yD6iQdb7aHuJFeeCbdpB6h6fr6jSNcMaJNug

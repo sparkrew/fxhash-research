@@ -1,0 +1,4 @@
+id: 20414
+name: Brushed Rectangles
+mint_opens_at: 2022-10-21T10:00:00+00:00
+generative_uri: ipfs://QmXVzF9S2e1zj8AWG689866vTfCrd6bh11uwVhT2Fx3MK2

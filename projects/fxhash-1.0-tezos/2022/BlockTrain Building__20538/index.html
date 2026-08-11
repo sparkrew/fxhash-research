@@ -1,0 +1,35 @@
+<!doctype html><html><head><title>FXHASH project</title><meta charset="utf-8"><script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script><link rel="stylesheet" href="./style.css"><script src="p5.min.js"></script><script src="addScreenPositionFunction.js"></script><script src="Bill.js"></script><script src="Block.js"></script><script src="BlockMiniVer.js"></script><script src="Bridge.js"></script><script src="Card.js"></script><script src="FOG.js"></script><script src="FS.js"></script><script src="Firework.js"></script><script src="Gazebo.js"></script><script src="House.js"></script><script src="House_Block.js"></script><script src="House_CastleTower.js"></script><script src="House_Cat.js"></script><script src="House_Constr.js"></script><script src="House_Dotted.js"></script><script src="House_Firewatch.js"></script><script src="House_UnderGround.js"></script><script src="House_orient.js"></script><script src="LightRail.js"></script><script src="Mountain.js"></script><script src="PTTower.js"></script><script src="Paifang.js"></script><script src="PopupTent.js"></script><script src="Rain.js"></script><script src="River.js"></script><script src="RoadHor.js"></script><script src="RoadVer.js"></script><script src="Sea.js"></script><script src="Skerry.js"></script><script src="Stall.js"></script><script src="Sunbeam.js"></script><script src="Tornado.js"></script><script src="Train.js"></script><script src="Tree.js"></script><script src="UdgPoster.js"></script><script src="UdgStation.js"></script><script src="WaterDrop.js"></script><script src="info.js"></script><script src="io.js"></script><script src="loading.js"></script><script src="winFrame.js"></script><script src="metro_221018_phase02.js"></script></head><body><script defer="defer" src="./bundle.js"></script></body></html>

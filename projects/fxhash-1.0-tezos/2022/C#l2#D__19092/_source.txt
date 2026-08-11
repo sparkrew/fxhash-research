@@ -1,0 +1,4 @@
+id: 19092
+name: C#l2#D
+mint_opens_at: 2022-09-07T13:51:14+00:00
+generative_uri: ipfs://QmWoSMsjLdADR7eQX5z3xx5QD1M5LhdCX59sQe1yfBjVRc

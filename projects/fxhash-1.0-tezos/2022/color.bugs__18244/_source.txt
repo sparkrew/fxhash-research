@@ -1,0 +1,4 @@
+id: 18244
+name: color.bugs
+mint_opens_at: 2022-08-19T00:05:14+00:00
+generative_uri: ipfs://QmWyUCsegAS6SxRUfPdXvmGFSzb8Q4yDRzMrutUd5QhBLS

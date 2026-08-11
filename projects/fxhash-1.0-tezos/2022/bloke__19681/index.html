@@ -1,0 +1,1612 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<title> 2022 - elout de kok</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+
+<link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5gkVFTcg15p2hAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABSklEQVQ4y32SsVHEMBREnw8PFEBAeG2QUAg10AMtUAIJM3RBHYRUAETASf/vEkg+G+M5xfLz210N94+fvtzD3TXz+XiDlwfY3wDvAMjGEvIVfn3Ct89IZlQEJDgXgCxQfyAOwAEAW0jGLrh8oazYZrTAAnkBsCEDJKCRLWEbK1EGdrs2Kip0yGxQ/xmoA6SC6zfOQDYjbj/SEiA3SC4MjhESR6DZIHGuDBQQtXVBWUWoKIwVrQNJLcKygxRE74FYRBBS4lBfxIxIONcRBKEOmA0kIxdcQZkNkBEbJQqqIQpQjx1YBkeDI4ZpRq0j2JC93R4BYDcAww7OdnB+AcDoqJCg5UOKgKo2ZZ9xPgc4ZFsJGO0NA4aFQa4AAg3Q728/5ckgyrZBnRaidYDXT5lukNsG4dnAGSjWK5wyKA2gbiA12p8OpugnDdoHv3p6c6GvE8KOAAAAAElFTkSuQmCC" >
+
+<style type="text/css">
+body{margin:	0;padding: 0; background-color: #f5f5f5;
+font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #ffffff; }
+A:link		{ color:#fff; text-decoration: underline;}
+A:visited	{ color:#fff; text-decoration: underline;}
+A:hover		{ color:#fff; text-decoration: underline;}
+A:active	{ color:#fff; text-decoration: underline;}
+
+.infobot{
+top: 0px;left: 0px; background-color: #558; font-size: 14px;
+border-style:none; border-width:0px; margin:0px 0px 0px 0px; 
+padding:2px 2px 2px 2px;color: #fff;  z-index:21;border-width:4px;
+position: fixed;}
+
+.img1{top: 20px; left:20px; position: absolute; z-index:20; 
+border-style:solid; border-width:0px;margin:0px 0px 0px 0px; padding:0px 0px 0px 0px; 
+cursor: crosshair;
+/*   cursor: url(../pix/cursor.cur),auto.*/
+image-rendering:optimizeSpeed;             /* Legal fallback */
+image-rendering:-moz-crisp-edges;          /* Firefox        */
+image-rendering:-o-crisp-edges;            /* Opera          */
+image-rendering:-webkit-optimize-contrast; /* Safari / chrome just fixed this in chrome canary 42+>?! */
+image-rendering:optimize-contrast;         /* CSS3 Proposed  */
+image-rendering:crisp-edges;               /* CSS4 Proposed  */
+image-rendering:pixelated;                 /* CSS4 Proposed  */
+-ms-interpolation-mode:nearest-neighbor;   /* IE8+           */
+}
+</style>
+
+
+
+<script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+
+<script type="text/javascript">
+
+
+// Elout de Kok  2022
+// 
+var cversion="bloke";
+var lastupdate=" - last update [Sept, 2022]";
+document.title =cversion+lastupdate;
+
+// globale variabelen
+//var fullscreen = true;//false;// true;
+//var im_scale = 1;//16; // image scale
+
+var show_fps =  false;  //true; //false;  
+
+var win_w, win_h;
+var center_w, center_h;
+
+
+//image - width/ height
+var im_w=40;
+var im_h=40;
+
+var aspi=my_random(3); // have different random screen ratios
+if(aspi==0)
+{
+	im_w=3072;
+	im_h=5120;
+}
+if(aspi==1)
+{
+	im_w=5120;
+	im_h=3072;
+}
+if(aspi==2)
+{
+	im_w=4096;//2048; // 2048 1024  /8:512
+	im_h=4096;//2048;
+}
+
+
+
+// pixel buffer screen
+var pix_r = new Uint8ClampedArray(im_w*im_h); 
+var pix_g = new Uint8ClampedArray(im_w*im_h);
+var pix_b = new Uint8ClampedArray(im_w*im_h);
+
+
+
+// smaller one!
+var i_deel=4;
+
+var i_w= (im_w/i_deel)<<0;
+var i_h= (im_h/i_deel)<<0;
+var pixi_r = new Array(i_w*i_h);
+var pixi_g = new Array(i_w*i_h);
+var pixi_b = new Array(i_w*i_h);
+
+
+var show_buff=1;
+
+//(from high-res) to the screen rendering
+var pix_screen_r = new Uint8ClampedArray(); 
+var pix_screen_g = new Uint8ClampedArray(); 
+var pix_screen_b = new Uint8ClampedArray();
+var pix_screen_z = new Uint8ClampedArray();
+
+var pix_screen_w = 0;
+var pix_screen_h = 0;
+var pix_screen_top=0;
+var pix_screen_left=0;
+
+// highres to low screen rendering
+var x_step = new Array();
+var y_step = new Array();
+var renderstepper=0;
+var yline_pos=0;
+var c_rendermode=0;
+var c_timesrendered=0;
+
+var allrendered=0;
+var waittimer=0;
+var doonce=0;
+
+var logita=0;
+var iteration = 0;
+
+
+// muis
+var xOffset,yOffset
+var mx, my;
+var omx, omy;
+var sx, sy;
+var mid_x, mid_y;
+
+var mouse_pressed=false;
+var mouse_released=false;
+
+
+var tx,ty; // touch
+
+//----------- show fps------------
+var my_timer=setInterval(function(){timer_fps()},1000);//1000
+var data_fps=0;
+var counter_fps=0;
+var timeCurrent, timeLast = Date.now();
+
+//-------------math------------ 
+
+var ytable_im_w = new Array(im_h);
+
+// pre-calculated random buffer // faster then calling math.random all the time
+var	rnd_bufsize=10000;
+var	rnd_buf = new Uint8ClampedArray(rnd_bufsize);
+var	rnd_pos=0;
+var	rnd_step=1;
+
+//-----------------------
+
+// palette
+var pal_num=3;
+var pal_r = new Array();  
+var pal_g = new Array();
+var pal_b = new Array();
+
+var r,g,b;
+var my_nimz=0;
+var x_times=0;
+
+
+var bx1=new Array(blokes);
+var by1=new Array(blokes);
+var bx2=new Array(blokes);
+var by2=new Array(blokes);
+
+var bcr=new Array(blokes);
+var bcg=new Array(blokes);
+var bcb=new Array(blokes);
+
+var bmx=new Array(blokes);
+var bmy=new Array(blokes);
+
+//var bloke_div=11000; // divider no of blokes based on resolution
+var blokes = 0; //number
+var blokew=0;
+var blokespeed=1;
+
+var fade_loop=0;
+
+var draw_loop=0;
+
+var b_pal=2;
+var b_r=new Array(b_pal);
+var b_g=new Array(b_pal);
+var b_b=new Array(b_pal);
+
+var mycol_x2=new Array();
+var mycol_x3=new Array();
+
+
+var colchance=2;
+var better_times=3;
+
+var ybigstepper=0;
+
+
+
+
+
+
+//-----------------------------------------------
+if ( !window.requestAnimationFrame ) 
+{
+	window.requestAnimationFrame = ( function() {
+		return window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function(callback, element ) {window.setTimeout( callback, 1000 / 60 );};
+	} )();
+}
+
+function init()
+{
+	set_msg('infoblock', "");
+	
+	math_init_rnd(rnd_buf); // random buffer
+
+	test="0__.";
+	// precalculated: y table for im_w    --> y*width + x .. (faster) buffer if you need to draw a (xy) point
+	for (var j= 0; j< im_h; j++){  ytable_im_w[j] = (j*im_w);}
+	
+		
+	//clear screen / zbuffer
+	fill_array(pix_r, im_h*im_w, 50);
+	fill_array(pix_g, im_h*im_w, 50);
+	fill_array(pix_b, im_h*im_w, 50);
+	
+	//---mouse check and input
+	var c=document.getElementById('my_image');
+	
+	c.addEventListener("mousemove", function (evt) 
+	{
+		//var tempx=mx;
+		//var tempy=my;
+		/*
+		if (fullscreen==true)
+		{
+			mx=( (im_w/win_w)* evt.clientX )<<0;
+			my=( (im_h/win_h)* evt.clientY )<<0;
+		}
+		else
+		{		
+			xOffset=Math.max(document.documentElement.scrollLeft,document.body.scrollLeft);
+			yOffset=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+			mx=Math.round((evt.clientX-center_w+xOffset )/ im_scale);//-16;
+			my=Math.round((evt.clientY-center_h+yOffset )/ im_scale);//-16;
+		}*/
+		
+		//if( tempx!= mx || tempy!=  my){omx=tempx; omy=tempy;}
+		
+		
+		
+	}, false);
+	
+	c.addEventListener("mouseup", function (evt) 
+	{
+	/*
+		if (fullscreen==true)
+		{
+			mx=( (im_w/win_w)* evt.clientX )<<0;
+			my=( (im_h/win_h)* evt.clientY )<<0;
+		}
+		else
+		{		
+			xOffset=Math.max(document.documentElement.scrollLeft,document.body.scrollLeft);
+			yOffset=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+			mx=Math.round((evt.clientX-center_w+xOffset )/ im_scale);//-16;
+			my=Math.round((evt.clientY-center_h+yOffset )/ im_scale);//-16;
+		}*/
+		
+		//alert('up'); //mouse released
+		//if( mouse_released==true){mouse_released=false;}else{mouse_released=true;}
+		 if(show_buff==1){show_buff=0;}else{show_buff=1;} 
+		
+	}, false);
+	
+	c.addEventListener("mousedown", function (evt) 
+	{
+	/*
+		if (fullscreen==true)
+		{
+			mx=( (im_w/win_w)* evt.clientX )<<0;
+			my=( (im_h/win_h)* evt.clientY )<<0;
+		}
+		else
+		{		
+			xOffset=Math.max(document.documentElement.scrollLeft,document.body.scrollLeft);
+			yOffset=Math.max(document.documentElement.scrollTop,document.body.scrollTop);
+			mx=Math.round((evt.clientX-center_w+xOffset )/ im_scale);//-16;
+			my=Math.round((evt.clientY-center_h+yOffset )/ im_scale);//-16;
+		}
+		*/
+		//alert('down'); //mouse pressed
+		
+		//mouse_pressed=true;
+		
+
+	}, false);
+	
+	
+	// touch event .. phone etc finger movement
+	c.addEventListener('touchmove', function (evt)   // 'touchstart' 'touchmove' 'touchend'
+	{
+		var touch = evt.touches[0] || evt.changedTouches[0];
+		
+		var tx = touch.pageX;
+		var ty = touch.pageY;
+		if(tx>0 && ty>0)  // check if there screen is touched.. if not tx/ty is undefined
+		{
+			mx=( (im_w/win_w)* tx )<<0;
+			my=( (im_h/win_h)* ty )<<0;
+		}
+		evt.preventDefault();// disable unwanted page scrolling; if you touch/swipe
+	}, false);
+
+	//---------------------------windows check on resize
+	window.addEventListener( 'resize', onWindowResize, false );
+	
+	win_w=window.innerWidth;
+	win_h=window.innerHeight;
+	
+	var img_ratio=im_w/im_h;
+	var win_ratio=win_w/win_h;
+
+	//center screen image based on aspect-ratio 
+	var newratio=0;	
+	pix_screen_w=win_w;
+	newratio= (win_w/im_w);
+	pix_screen_h = (im_h * newratio)<<0;			
+	if (pix_screen_h > win_h)
+	{
+		pix_screen_h = win_h;
+		newratio=(win_h/im_h);
+		pix_screen_top=0;
+		pix_screen_w=(im_w * newratio)<<0;
+		pix_screen_left=((win_w - pix_screen_w)/2) <<0;
+	}
+	else
+	{
+		pix_screen_left=0;
+		pix_screen_top=((win_h - pix_screen_h)/2) <<0;
+	}
+	
+	pix_screen_r = new Uint8ClampedArray(pix_screen_w*pix_screen_h); 
+	pix_screen_g = new Uint8ClampedArray(pix_screen_w*pix_screen_h); 
+	pix_screen_b = new Uint8ClampedArray(pix_screen_w*pix_screen_h);
+	
+	
+	// hide info text block when showfps is  false
+	if(show_fps==false){document.getElementById('infoblock').style.visibility = "hidden";}
+	else {document.getElementById('infoblock').style.visibility = "visible";}
+	
+	animate();
+	
+}
+
+function animate() 
+{
+	requestAnimationFrame( animate );
+	if (show_fps==true){counter_fps++;}
+	draw();
+}
+
+function draw()
+{
+	
+	go_draw_animz();
+
+			
+
+	
+			
+
+	// render to screen
+	if(show_buff==1)
+	{
+		
+		toscreen_render();
+		
+		var c=document.getElementById('my_image');
+		var ctx=c.getContext("2d");
+			c.width = pix_screen_w; 
+			c.height = pix_screen_h;
+	
+			document.getElementById('my_image').style.width=pix_screen_w+'px'; 
+			document.getElementById('my_image').style.height=pix_screen_h+'px';
+		
+			document.getElementById('my_image').style.left=pix_screen_left+'px';
+			document.getElementById('my_image').style.top=pix_screen_top+'px';
+		
+			//update image buffer
+			 
+				var img1 = ctx.createImageData(pix_screen_w, pix_screen_h); //var
+				for (var p=0, j = 0; j < pix_screen_w*pix_screen_h; j++)
+				{		
+					img1.data[p++] =  pix_screen_r[j];
+					img1.data[p++] =  pix_screen_g[j];
+					img1.data[p++] =  pix_screen_b[j];
+					img1.data[p++] =  255;
+				}
+			 
+			ctx.putImageData(img1, 0, 0);
+	}
+	else
+	{
+		var c=document.getElementById('my_image');
+		var ctx=c.getContext("2d");
+		c.width = im_w; 
+		c.height = im_h;
+		
+		document.getElementById('my_image').style.width=im_w+'px'; 
+		document.getElementById('my_image').style.height=im_h+'px';
+		
+		document.getElementById('my_image').style.left=0+'px';
+		document.getElementById('my_image').style.top=0+'px';
+			
+		//update image buffer - screen
+		var img1 = ctx.createImageData(im_w, im_h); //var
+		for (var p=0, j = 0; j < im_h*im_w; j++)
+		{		
+			//pix_r[j]=math_get_rnd(); // just dump a random color in r-channel
+		
+			img1.data[p++] = pix_r[j];	// r
+			img1.data[p++] = pix_g[j];	// g
+			img1.data[p++] = pix_b[j];//;	// b
+			img1.data[p++] = 255;//pix_a[j]; // alpha
+		}	
+		ctx.putImageData(img1, 0, 0);	
+	}
+		
+		
+	
+}
+
+// text and random
+function set_msg(div, msg){document.getElementById(div).innerHTML=msg;}
+function go_msg(div, msg){document.getElementById(div).innerHTML += msg;}
+
+function timer_fps() // dirty fps counter
+{
+	if (show_fps==true)
+	{
+		timeCurrent = Date.now();
+		var fpsThisFrame = 1000 / (timeCurrent - timeLast);
+		
+		var ntxt ="";
+		
+		set_msg('infoblock', ntxt +'fps:' + counter_fps+' '+test);
+
+		if(timeCurrent > timeLast) 
+		{
+			timeLast = timeCurrent;
+			counter_fps=0;
+		}
+	}	
+}
+
+//---window stuff
+function onWindowResize() 
+{
+	win_w=window.innerWidth;
+	win_h=window.innerHeight;
+	
+		renderstepper=0; // refresh render lines
+
+	//center screen image based on aspect-ratio 
+	var img_ratio=im_w/im_h;
+	var win_ratio=win_w/win_h;
+
+	//center screen image based on aspect-ratio 
+	var newratio=0;	
+	pix_screen_w=win_w;
+	newratio= (win_w/im_w);
+	pix_screen_h = (im_h * newratio)<<0;			
+	if (pix_screen_h > win_h)
+	{
+		pix_screen_h = win_h;
+		newratio=(win_h/im_h);
+		pix_screen_top=0;
+		pix_screen_w=(im_w * newratio)<<0;
+		pix_screen_left=((win_w - pix_screen_w)/2) <<0;
+	}
+	else
+	{
+		pix_screen_left=0;
+		pix_screen_top=((win_h - pix_screen_h)/2) <<0;
+	}
+	
+	pix_screen_r = new Uint8ClampedArray(pix_screen_w*pix_screen_h); 
+	pix_screen_g = new Uint8ClampedArray(pix_screen_w*pix_screen_h); 
+	pix_screen_b = new Uint8ClampedArray(pix_screen_w*pix_screen_h);
+	
+}
+
+//----------------
+
+
+
+//---------------------------------------------
+function fx_7b_init(imw,imh)
+{
+	loop=0;
+
+	bx1=new Array(blokes);
+	by1=new Array(blokes);
+	bx2=new Array(blokes);
+	by2=new Array(blokes);
+
+	bcr=new Array(blokes);
+	bcg=new Array(blokes);
+	bcb=new Array(blokes);
+
+	bmx=new Array(blokes);
+	bmy=new Array(blokes);
+	fx_7b_reset(imw,imh);
+}
+
+function fx_7b_reset(imw,imh)
+{
+	
+	
+	for (var i=0;i< blokes ;i++ )
+	{
+		bcr[i]=  1;
+		bcg[i]=bcr[i];
+		bcb[i]=bcr[i];
+		 
+		if( my_random(colchance)==0) //colors
+		{
+			
+			var gg=my_random(b_pal);
+			bcr[i]= b_r[gg];// +1;
+			bcg[i]= b_g[gg];// +1;
+			bcb[i]= b_b[gg];// +1;
+		}
+
+		
+		
+		
+	}
+
+	for (var i=0;i<blokes ;i++ )
+	{
+		bx1[i]=my_random(imw);
+		by1[i]=my_random(imh);
+		bx2[i]=bx1[i]+ ((my_random(imw)/blokew)<<0)+1;
+		by2[i]=by1[i]+ ((my_random(imh)/blokew)<<0)+1;
+		
+		if (my_random(2)==0)
+		{
+			bx2[i]=bx1[i]+ ((my_random(imw)/(blokew*2))<<0)+1;
+			by2[i]=by1[i]+ ((my_random(imh)/(blokew*2))<<0)+1;			
+		}
+		
+		if (my_random(2)==0)
+		{
+			bmx[i]=0;
+			bmy[i]=my_random_half_minus(blokespeed);	//speed	
+		}
+		else
+		{
+			bmx[i]=my_random_half_minus(blokespeed); //speed	
+			bmy[i]=0;						
+		}
+
+		if (bmx[i]==0 && bmy[i]==0)
+		{	
+			if (my_random(2)==0){bmx[i]=1;}
+			else{bmy[i]=1;}
+		}
+	}
+}
+
+function fx_7b(imw,imh,px_r,px_g,px_b)
+{
+	
+	for (var i=0;i<blokes ;i++ )
+	{
+		
+		if(my_random(100)==0 && bmx[i] > 0)
+		{
+			bmx[i]++;			
+			if(bmx[i]<1){bmx[i]=1;}
+		}
+		if(my_random(100)==0 && bmx[i]<0)
+		{
+			bmx[i]--;			
+			if(bmx[i]>-1){bmx[i]=-1;}
+		}
+		if(my_random(100)==0 && bmy[i]>0)
+		{
+			bmy[i]++;			
+			if(bmy[i]<1){bmy[i]=1;}
+		}
+		if(my_random(100)==0 && bmy[i]<0)
+		{
+			bmy[i]--;			
+			if(bmy[i]>-1){bmy[i]=-1;}
+		}
+
+		bx1[i]=bx1[i]+bmx[i];
+		by1[i]=by1[i]+bmy[i];
+		bx2[i]=bx2[i]+bmx[i];
+		by2[i]=by2[i]+bmy[i];
+		
+		if (bx1[i]>(imw-1) && bx2[i]>(imw-1))	{bmx[i]=-bmx[i];}
+		if (bx1[i]<1 && bx2[i]<1)				{bmx[i]=-bmx[i];}
+		if (by1[i]>(imh-1) && by2[i]>(imh-1))	{bmy[i]=-bmy[i];}
+		if (by1[i]<1 && by2[i]<1)				{bmy[i]=-bmy[i];}
+		drawbloke_sub(bx1[i],by1[i],bx2[i], by2[i], imw,imh,  bcr[i], bcg[i],bcb[i],px_r,px_g,px_b);
+	}
+	//filter_creatematrix_01(pix_buf_r, pix_buf_g, pix_buf_b, pix_r,pix_g,pix_b, 1); //filter_creatematrix_01(pix_r, pix_g,pix_b,  pix_r,pix_g,pix_b, 1); //filter image
+	
+	
+}
+
+function drawbloke_sub(x1,y1, x2, y2, w, h, r, g, b, px_r,px_g,px_b)
+{
+	var a1=0,a2=0,b1=0,b2=0,posi=0,rr=0,gg=0,bb=0;
+
+	if (x1<0){x1=0;}
+	if (x2<0){x2=0;}
+	if (x1>(w-1)){x1=w-1;}
+	if (x2>(w-1)){x2=w-1;}
+
+	if (y1<0){y1=0;}
+	if (y2<0){y2=0;}
+	if (y1>(h-1)){y1=h-1;}
+	if (y2>(h-1)){y2=h-1;}
+		
+	if (x1>=x2){a1=x2; a2=x1;}
+	else {a1=x1; a2=x2;}
+
+	if (y1>y2){b1=y2; b2=y1;}
+	else {b1=y1; b2=y2;}
+
+	//g_drawline_min_01(a1,b1, a2, b1, 	w,h, r,g,b, 	px_r, px_g, px_b, true);
+	//g_drawline_min_01(a1,b2-1, a2, b2-1,w,h, r,g,b, 	px_r, px_g, px_b, true);
+	//g_drawline_min_01(a1,b1, a1, b2,	w,h, r,g,b, 	px_r, px_g, px_b, true);
+	//g_drawline_min_01(a2-1,b1, a2-1, b2,w,h, r,g,b, 	px_r, px_g, px_b, true);
+	
+
+	for (var j=b1;j<b2 ;j++)
+	{
+		for (var ii=a1; ii<a2 ;ii++)
+		{
+				posi=ii+(j*w);			
+				px_r[posi]-=r;
+				px_g[posi]-=g;
+				px_b[posi]-=b;
+		}
+	}
+	
+	
+	for (var ii=a1, j=b1;j<b2 ;j++)
+	{
+				posi=ii+(j*w);			
+				px_r[posi]-=r;
+				px_g[posi]-=g;
+				px_b[posi]-=b;
+		
+	}
+	
+	for (var ii=a2-1, j=b1;j<b2 ;j++)
+	{
+				posi=ii+(j*w);			
+				px_r[posi]-=r;
+				px_g[posi]-=g;
+				px_b[posi]-=b;
+		
+	}
+	 
+	for (var ii=a1+1, j=b1;j<b2 ;j++)
+	{
+				posi=ii+(j*w);			
+				px_r[posi]+= (r/2)<<0;
+				px_g[posi]+= (g/2)<<0;
+				px_b[posi]+= (b/2)<<0;
+	}
+	for (var ii=a2-2, j=b1;j<b2 ;j++)
+	{
+				posi=ii+(j*w);			
+				px_r[posi]+= (r/2)<<0;
+				px_g[posi]+= (g/2)<<0;
+				px_b[posi]+= (b/2)<<0;
+	} 
+
+
+
+	
+	for (var j=b1, ii=a1; ii<a2 ;ii++)
+	{
+		posi=ii+(j*w);			
+		px_r[posi]-=r;
+		px_g[posi]-=g;
+		px_b[posi]-=b;
+	}
+	
+	for (var j=b2-1, ii=a1; ii<a2 ;ii++)
+	{
+		posi=ii+(j*w);			
+		px_r[posi]-=r;
+		px_g[posi]-=g;
+		px_b[posi]-=b;
+	}
+	 
+	for (var j=b1+1, ii=a1; ii<a2 ;ii++)
+	{
+		posi=ii+(j*w);			
+		px_r[posi]+=(r/2)<<0;
+		px_g[posi]+=(g/2)<<0;
+		px_b[posi]+=(b/2)<<0;
+	}
+	
+	for (var j=b2-2, ii=a1; ii<a2 ;ii++)
+	{
+		posi=ii+(j*w);			
+		px_r[posi]+=(r/2)<<0;
+		px_g[posi]+=(g/2)<<0;
+		px_b[posi]+=(b/2)<<0;
+	} 
+	
+	
+//	g_drawline_plus_01(a1,b1+1, a2, b1+1, w,h, r,g,b, 	px_r, px_g, px_b, true);
+	//g_drawline_plus_01(a1,b2-2, a2, b2-2, w,h, r,g,b,	px_r, px_g, px_b, true);
+	//g_drawline_plus_01(a1+1,b1, a1+1, b2, w,h, r,g,b, 	px_r, px_g, px_b, true);
+	//g_drawline_plus_01(a2-2,b1, a2-2, b2, w,h, r,g,b,	px_r, px_g, px_b, true);		
+}
+
+function fastfader_white_01(ii_w,ii_h,buf_r,buf_g,buf_b,step)
+{
+	for(var i=0;i<ii_w*ii_h;i++)
+	{	
+		buf_r[i]+=step; 
+		buf_g[i]+=step;  
+		buf_b[i]+=step; 
+	}
+}
+
+function fastfader_white_02(start,size,ii_w,ii_h,buf_r,buf_g,buf_b,step)
+{
+	var done=false;
+	
+	var end=start+size;
+	if( end > ii_h-1){end=ii_h-1; done=true;}
+		
+	for(var j=start; j<end;j++)
+	{	
+		var p0= j*ii_w;
+		for(var i=0;i<ii_w;i++)
+		{	
+			var p=p0+i
+			buf_r[p]+=step; 
+			buf_g[p]+=step;  
+			buf_b[p]+=step; 
+		}
+	}
+	return(done);
+}
+
+// Bresenham //
+//function g_drawline3(x1, y1, x2, y2, r,g,b, imw, imh, p_r, p_g, p_b)
+function g_drawline_min_01(x1, y1, x2, y2, w,h, r, g, b, pixels_r, pixels_g, pixels_b, add)
+{
+	var dx = Math.abs(x2 - x1);
+	var dy = Math.abs(y2 - y1);
+	var sx = (x1 < x2) ? 1 : -1; 
+	var	sy = (y1 < y2) ? 1 : -1; 
+	var er = (dx>dy ? dx : -dy)/2;
+	while (true)
+	{
+		if(x1>-1 && x1<w-1 && y1>-1 && y1<h-1)
+		{
+			g_drawpoint_addmin_01(x1<<0, y1<<0,w, r, g, b, pixels_r, pixels_g, pixels_b);
+		}
+ 
+		if (x1 === x2 && y1 === y2) break;
+		var e2 = er;
+		if (e2 > -dx){er -= dy; x1 += sx;}
+		if (e2 < dy){er += dx; y1 += sy;}
+	}
+}
+/*
+{
+	var dx = x2 - x1; var sx = 1;
+	var dy = y2 - y1; var sy = 1; 
+	if (dx < 0)
+	{
+		sx = -1;
+		dx = -dx;
+	}
+	if (dy < 0)
+	{
+		sy = -1;
+		dy = -dy;
+	}
+	dx = dx << 1;
+	dy = dy << 1;
+	
+	g_drawpoint_addmin_01(x1, y1,w, r, g, b, pixels_r, pixels_g, pixels_b);
+	
+	if (dy < dx)
+	{    
+		var fraction = dy - (dx>>1);
+		while (x1 != x2)
+		{
+			if (fraction >= 0)
+			{
+				y1 += sy;
+				fraction -= dx;
+			}
+			fraction += dy;
+			x1 += sx;
+			if(x1>-1 && x1<w-1 && y1>-1 && y1<h-1)
+			{
+				g_drawpoint_addmin_01(x1, y1,w, r, g, b, pixels_r, pixels_g, pixels_b);				
+			}
+		}
+	} 
+	else 
+	{
+		var fraction = dx - (dy>>1);        
+		while (y1 != y2)
+		{
+			if (fraction >= 0)
+			{
+				x1 += sx;
+					fraction -= dy;
+			}
+			fraction += dx;
+			y1 += sy;
+			if(x1>-1 && x1<w-1 && y1>-1 && y1<h-1)
+			{
+				g_drawpoint_addmin_01(x1, y1,w, r, g, b, pixels_r, pixels_g, pixels_b);
+			}
+		}    
+	}
+	
+	*/
+//}
+
+function g_drawpoint_addmin_01(x1, y1, r, g, b,w, pixels_r,pixels_g,pixels_b )
+{
+	var p=(y1 * w)+x1;
+	pixels_r[p]-=r;
+	pixels_g[p]-=g;
+	pixels_b[p]-=b;
+}
+
+function g_drawline_plus_01(x1, y1, x2, y2, w, h, r, g, b, pixels_r, pixels_g, pixels_b, add)
+{
+	var dx = Math.abs(x2 - x1);
+	var dy = Math.abs(y2 - y1);
+	var sx = (x1 < x2) ? 1 : -1; 
+	var	sy = (y1 < y2) ? 1 : -1; 
+	var er = (dx>dy ? dx : -dy)/2;
+	while (true)
+	{
+		if(x1>-1 && x1<w-1 && y1>-1 && y1<h-1)
+		{	
+			g_drawpoint_addplus_01(x1<<0, y1<<0, w, r, g, b, pixels_r, pixels_g, pixels_b);
+		}	 
+		if (x1 === x2 && y1 === y2) break;
+		var e2 = er;
+		if (e2 > -dx){er -= dy; x1 += sx;}
+		if (e2 < dy){er += dx; y1 += sy;}
+	}	
+}
+
+function g_drawpoint_addplus_01(x1, y1, w, r, g, b, pixels_r,pixels_g,pixels_b )
+{
+	var p=(y1*w)+x1;
+	pixels_r[p]=pixels_r[p]+r;
+	pixels_g[p]=pixels_g[p]+g;
+	pixels_b[p]=pixels_b[p]+b;
+}
+
+
+//----------------------------math-----------------------------------------
+function my_random(nummer){return ( ((fxrand()*nummer) << 0) );}
+function my_random_dub(nummer){return ( fxrand()*nummer );}
+function my_random_half_minus(nummer){return  (  ( (fxrand() * (nummer*2)) - nummer) << 0 );} //return betweeb -num +num
+function my_random_dub_half_minus(nummer){return  ( (fxrand() * (nummer*2)) - nummer)  ;} //return betweeb -num +num
+
+
+// random noise buffer 256 col
+function math_init_rnd(buf)
+{	
+	for (var i=0; i < rnd_bufsize; i++)
+	{
+		buf[i]=(fxrand()*256)<<0;
+	}
+}
+
+function math_get_rnd()
+{	
+  rnd_pos=rnd_pos+rnd_step;
+  if (rnd_pos>=rnd_bufsize)
+  {
+    rnd_step=((fxrand()*20)<<0)+1;
+    rnd_pos=(fxrand()*20)<<0;
+  }
+  return (rnd_buf[rnd_pos]);
+}
+
+// cos/sin buffer
+function set_cossinbuffer(n,mcos,msin)
+{
+	for(var i=0; i<n; i++) 
+	{
+		mcos[i]=( Math.cos ( i*360/n * Math.PI / 180));
+		msin[i]=( Math.sin ( i*360/n * Math.PI / 180));
+	}
+}
+
+
+
+
+
+function fill_array(buf,size,value)
+{	
+	for (var i=0; i < size; i++)
+	{
+		buf[i]=value;
+	}
+}
+
+
+// graph
+//---- graph-pix
+
+function graph_drawpoint1(x,y, w, h, r,g,b, buf_r,buf_g,buf_b)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+		var p= ytable_im_w[y]+x; // using a faster precalculated ytable now instead of (y*w)+x
+		buf_r[p]=r;
+		buf_g[p]=g;
+		buf_b[p]=b;
+	}
+}
+
+
+
+
+
+
+
+
+// -----------------------------------render larger image to screen!----------------------------
+// now top to bottom // you can make all kinds of variations ofcourse!
+function toscreen_render()
+{	
+	if(renderstepper==0)
+	{
+		var stepr_x =(im_w / pix_screen_w);  
+		var stepr_y =(im_h / pix_screen_h);
+	
+		//sampling org texture
+		x_step = new Array(pix_screen_w*pix_screen_h);
+		y_step = new Array(pix_screen_w*pix_screen_h);
+			
+		for (var j = 0; j < pix_screen_h; j++)  
+		{
+			for (var i = 0; i <pix_screen_w; i++) 
+			{
+				var p1=(j*pix_screen_w)+i;
+
+				var ii =(i*stepr_x)<<0;
+				var ii2=((i+1)*stepr_x)<<0;
+
+				var jj=(j*stepr_y)<<0;
+				var jj2=((j+1)*stepr_y)<<0;
+				
+				x_step[p1] = ii2-ii;
+				y_step[p1] = jj2-jj;	
+			}
+		}
+		renderstepper=1;
+	}	
+	if(renderstepper==1)
+	{	
+			
+		var stepr_x =(im_w/pix_screen_w);
+		var stepr_y =(im_h/pix_screen_h);
+			
+		//yline_pos=0;
+		var newy=yline_pos+4; // render now in steps of 8
+		var lastlines=false;
+		if( newy > pix_screen_h-1)
+		{
+			newy = pix_screen_h;
+			lastlines=true;
+		}
+			
+		for (var j = yline_pos; j < newy; j++) // 
+		{
+			for (var i = 0; i < pix_screen_w; i++) 
+			{
+
+					var p0=(j*pix_screen_w)+i; // step buff			
+					//var p1=(j*pix_screen_w)+i;
+				
+					var ii=(i*stepr_x)<<0;
+					var jj=(j*stepr_y)<<0;
+					var p2=(jj*im_w)+ii;
+				
+					var r1=pix_r[p2];
+					var g1=pix_g[p2];
+					var b1=pix_b[p2];
+					var dc=1;
+
+					for (var cj = 0; cj < (y_step[p0]); cj++) 
+					{				
+						for (var ci = 0; ci < (x_step[p0]); ci++) 
+						{
+							var tpos=(p2+ci) +ytable_im_w[cj]; 
+							r1 += pix_r[tpos];
+							g1 += pix_g[tpos];
+							b1 += pix_b[tpos];
+							dc++;
+						}
+					}
+				
+					pix_screen_r[p0]= (r1/dc)<<0;
+					pix_screen_g[p0]= (g1/dc)<<0;
+					pix_screen_b[p0]= (b1/dc)<<0;
+
+			}
+		} 
+		if(lastlines==true)	
+		{		
+				yline_pos=0;
+				c_timesrendered++;
+				
+				//test=c_timesrendered;
+				
+				if(allrendered==1)
+				{
+					if(logita==0)
+					{
+						console.log("Iteration "+iteration+ " drawn");
+						iteration++;
+						logita=1;
+					} 
+					waittimer++;
+				}
+				if(allrendered==1 && waittimer==3) // !!!! 55
+				{
+					if(doonce==0){fxpreview();doonce=1;} 
+				}
+				if(allrendered==1 && waittimer>7) // !!!! res e t
+				{ 
+					my_nimz=0;
+					c_timesrendered=0;
+					allrendered=0;
+					waittimer=0;
+					logita=0;
+				} // reset drawing
+				
+				
+				
+		}
+		else{yline_pos=newy;}			
+			
+	}
+}
+
+
+
+
+
+
+// --------------palet----------------------------------------------------
+
+
+function palet_init() // old one
+{
+	var go = 0 * my_random(27);
+	var mycolz=	[
+		200, 40, 9,     187, 219, 187, // orange greenish
+	56, 128, 254 ,    248, 249, 165,   // blu light-mat yellow
+	];
+
+			pal_num=0;
+
+			pal_r[pal_num] = mycolz[go];
+			pal_g[pal_num] = mycolz[go+1];
+			pal_b[pal_num] = mycolz[go+2];
+			
+			var tt=pal_num;
+			
+			for (var i = 1; i < 6; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}
+			
+			
+			pal_r[pal_num] = mycolz[go+3];
+			pal_g[pal_num] = mycolz[go+4];
+			pal_b[pal_num] = mycolz[go+5];
+
+			tt=pal_num;
+			
+			pal_num++;
+			
+			for (var i = 1; i < 6; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}			
+			
+
+			//grey
+			pal_r[pal_num] =  210;
+			pal_g[pal_num] =  pal_r[pal_num];
+			pal_b[pal_num] =  pal_r[pal_num];
+			tt=pal_num;
+			pal_num++;					
+			
+			for (var i = 1; i < 4; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]-(i*20);
+				pal_g[pal_num] = pal_g[tt]-(i*20);
+				pal_b[pal_num] = pal_b[tt]-(i*20);
+				pal_num++;	
+			}
+			
+			pal_r[pal_num] =  20;
+			pal_g[pal_num] =  pal_r[pal_num];
+			pal_b[pal_num] =  pal_r[pal_num];
+			tt=pal_num;
+			pal_num++;					
+			
+			for (var i = 1; i < 4; i++)
+			{
+				pal_r[pal_num] = pal_r[tt]+(i*16);
+				pal_g[pal_num] = pal_g[tt]+(i*16);
+				pal_b[pal_num] = pal_b[tt]+(i*16);
+				pal_num++;	
+			}	
+		 	
+}
+
+function palet_init_x2() // 2x
+{
+	var go = 6 * my_random(44);
+	var mycolz=	[
+3, 4, 1, 1, 4, 3, // 
+1, 3, 5, 1, 5, 3, // orange red
+2, 2, 1, 1, 2, 2, // red blue
+3, 0, 1, 1, 0, 3, //
+2, 1, 0, 0, 1, 2, // orange blue
+
+1, 3, 3, 3, 3, 1, // red blue
+3, 0, 0, 2, 0, 0, // cyaan
+0, 1, 0, 0, 2, 0, // pink
+0, 3, 2, 0, 0, 2, // red yellow
+1, 0, 2, 2, 0, 1,  // greenish
+
+0, 0, 1, 1, 0, 0, // green cyaa
+1, 2, 3, 0, 1, 1, //brownred
+1, 1, 0, 2, 1, 3, //greeblu
+1, 0, 0, 0, 0, 1, // yel cya
+1, 1, 0, 0, 1, 1, // redblu
+
+0, 1, 0, 1, 0, 0, //cyapink
+2, 0, 0, 2, 0, 0, //mcya
+3, 0, 0, 3, 0, 0, //dcya
+0, 2, 2, 2, 2, 0, //mblured
+2, 0, 0, 0, 2, 0, //mpinkicya
+
+1, 0, 2, 0, 1, 2, //oragreen
+0, 0, 2, 2, 0, 0, //mcyayell
+2, 1, 3, 0, 2, 2, //dredgreen
+1, 1, 2, 0, 0, 1, //yelblee
+1, 0, 1, 0, 1, 1, //redgree
+
+3, 1, 3, 3, 3, 1, //dgreeblu
+0, 1, 3, 1, 0, 3, //greeora
+1, 0, 0, 0, 0, 1, //cyasome
+3, 2, 2, 2, 2, 3, //dcyayel
+0, 2, 0, 2, 1, 1, //dcyapinki
+
+2, 1, 1, 0, 0, 1, //yeldcya
+0, 2, 0, 0, 1, 0, //pinky
+3, 1, 2, 2, 1, 3, //dgreecya
+3, 0, 1, 0, 3, 1, //dcyapin
+0, 2, 2, 0, 1, 1, // red
+
+0, 1, 1, 2, 3, 3, //reddbro
+0, 0, 2, 0, 0, 2, //yel
+1, 3, 2, 1, 1, 2, //dyelred
+3, 2, 2, 2, 1, 1, //dcya
+1, 1, 0, 0, 1, 3, //bluoran
+
+2, 2, 0, 1, 1, 0, //blue
+2, 0, 2, 1, 0, 1, //gree
+0, 1, 1, 0, 0, 1, //redyel
+1, 1, 1, 2, 2, 2, //grey
+1, 1, 1, 2, 2, 2, //grey
+1, 1, 1, 2, 2, 2 //grey
+	]
+	
+	for (var i = 0; i < 6; i++)
+	{
+		mycol_x2[i]=mycolz[go+i];
+	}
+
+	pal_num=6;	
+	
+	if(my_random(2)==0) // chance for 3 col palette
+	{
+		palet_init_x3();
+	}
+	
+}
+
+function palet_init_x3() // 2x
+{
+	var go = 9 * my_random(33);
+	var mycolz=	[
+	
+1, 1, 1, 1, 1, 1, 2, 1, 0, // blue
+2, 1, 0, 0, 1, 2, 0, 2, 2, //
+2, 0, 0, 0, 2, 2, 1, 0, 0, // red cyaan
+2, 0, 1, 3, 1, 0, 2, 0, 0, // green cyaan
+0, 1, 2, 2, 0, 2, 3, 1, 3, // green orange
+
+0, 1, 0, 1, 2, 0, 0, 1, 0, // pink purple
+3, 1, 2, 0, 0, 1, 1, 0, 1, // green yellow
+0, 1, 1, 1, 2, 2, 0, 1, 2, // orange reddish
+2, 1, 0, 0, 0, 3, 0, 1, 1, // red yel blue
+3, 2, 0, 1, 2, 2, 2, 2, 1, // red blue
+
+2, 2, 0, 0, 2, 1, 0, 1, 3, // orange blu
+3, 3, 1, 1, 0, 1, 3, 1, 1, // bluegreenish
+0, 0, 2, 0, 1, 2, 3, 3, 0, //orange yel blu
+2, 0, 0, 0, 1, 1, 2, 3, 3, // redcyaan
+1, 0, 0, 0, 0, 2, 2, 3, 0, // strangecombi 1
+
+2, 1, 1, 0, 0, 2, 0, 1, 0, //yello cyaa
+2, 1, 1, 0, 0, 2, 0, 1, 0, // bluyel
+2, 0, 0, 1, 1, 0, 1, 0, 1, //greecyaa
+2, 2, 0, 1, 2, 2, 0, 1, 1, //redblu
+3, 1, 1, 1, 0, 0, 2, 1, 1, //cyaaa
+
+1, 2, 0, 0, 1, 1, 1, 2, 2, //oranpurp
+1, 0, 1, 1, 0, 1, 1, 0, 0, //strangecombi 2
+0, 2, 1, 0, 3, 0, 1, 0, 0, //pinkcya
+1, 0, 0, 0, 1, 1, 1, 2, 2, //redcya
+0, 1, 3, 1, 1, 0, 0, 0, 1, //bluoranyel
+
+3, 1, 2, 0, 0, 1, 0, 1, 2, //greenorangeyel
+1, 0, 0, 2, 0, 0, 2, 2, 1, //blucya
+0, 0, 1, 0, 0, 2, 0, 1, 1, //yelred
+1, 0, 0, 0, 0, 1, 2, 1, 2, //greeee
+1, 0, 0, 0, 0, 1, 1, 0, 1, //yelgrecya
+
+1, 0, 2, 2, 0, 1, 2, 1, 0, //somt
+1, 1, 1, 2, 2, 2, 3, 3, 3, //grey
+1, 1, 1, 2, 2, 2, 3, 3, 3, //grey
+1, 1, 1, 2, 2, 2, 3, 3, 3, //grey
+1, 1, 1, 2, 2, 2, 3, 3, 3  //grey
+
+	]
+	
+	for (var i = 0; i < 9; i++)
+	{
+		mycol_x3[i]=mycolz[go+i];
+	}
+ 
+	pal_num=9;	
+}
+
+
+ function go_draw_animz()
+{
+	//init
+	
+	if(my_nimz==0)
+	{
+		palet_init_x2();  
+		
+		//clear screen
+		//var gg = my_random(pal_num); 
+ 
+
+		fill_array(pix_r, im_h*im_w, 255);  
+		fill_array(pix_g, im_h*im_w, 255); 
+		fill_array(pix_b, im_h*im_w, 255); 
+		
+		fill_array(pixi_r, i_h*im_w, 255);  
+		fill_array(pixi_g, i_h*im_w, 255); 
+		fill_array(pixi_b, i_h*im_w, 255); 
+ 	
+		
+		
+		//bloke_div=11000;
+		blokes = 0;//Math.round((im_w*im_h)/bloke_div);
+		
+		blokew= 2 + my_random(5); // blokes width  100/4*5 25  100/10 10*5 
+		
+		blokes =  ((blokew*blokew)  * 6) <<0;//(blokew + (my_random(90) / blokew))<<0 ;//Math.round((im_w*im_h)/bloke_div);
+		blokespeed=2+my_random(6);
+		blokecol= 1 + my_random(2);
+		
+		colchance= 2 + my_random(6);
+		
+		better_times=3+my_random(3);
+
+		draw_loop=0;
+		fade_loop=0;
+		
+
+//alert(pal_num)
+
+	if(pal_num==6)
+	{
+		b_pal=2; // stored palettes
+		b_r[0] = mycol_x2[0];
+		b_g[0] = mycol_x2[1];
+		b_b[0] = mycol_x2[2];
+		
+		b_r[1] = mycol_x2[3];
+		b_g[1] = mycol_x2[4];
+		b_b[1] = mycol_x2[5];
+	}
+	else if(pal_num==9)
+	{
+		b_pal=3; // stored  palettes
+		b_r[0] = mycol_x3[0];
+		b_g[0] = mycol_x3[1];
+		b_b[0] = mycol_x3[2];
+		
+		b_r[1] = mycol_x3[3];
+		b_g[1] = mycol_x3[4];
+		b_b[1] = mycol_x3[5];
+		
+		b_r[2] = mycol_x3[6];
+		b_g[2] = mycol_x3[7];
+		b_b[2] = mycol_x3[8];
+	}
+	
+		
+	if(doonce==1 && my_random(6)==0) // random palette
+	{
+		pal_num= 9; //9
+		b_pal=3; //2 3 random palettes
+		for (var i = 0; i < b_pal; i++)
+		{	
+			blokecol=2  + my_random(3);
+			b_r[i] = my_random(blokecol); 
+			b_g[i] = my_random(blokecol); 
+			b_b[i] = my_random(blokecol); 
+			
+			while(b_r[i]==b_g[i] && b_r[i]==b_b[i])
+			{
+				blokecol=2  + my_random(3);
+				b_r[i] = my_random(blokecol); 
+				b_g[i] = my_random(blokecol); 
+				b_b[i] = my_random(blokecol); 				
+			}
+			
+		}
+		var gg=my_random(4);
+		if(gg==1)
+		{
+			b_r[1] = b_g[0]; 
+			b_g[1] = b_r[0]; 
+			b_b[1] = b_b[0]; 
+		}
+		else if(gg==2)
+		{
+			b_r[1] = b_r[0]; 
+			b_g[1] = b_b[0]; 
+			b_b[1] = b_g[0]; 
+		}
+		else if(gg==3)
+		{
+			b_r[1] = b_b[0]; 
+			b_g[1] = b_g[0]; 
+			b_b[1] = b_r[0]; 
+		}
+		if(b_r[0]==0 && b_g[0]==0 & b_b[0]==0)
+		{
+			b_r[0]=1;
+			b_g[0]=0;
+			b_b[0]=1;			
+		}
+		if(b_r[1]==0 && b_g[1]==0 & b_b[1]==0)
+		{
+			b_r[1]=0;
+			b_g[1]=1;
+			b_b[1]=1;			
+		}
+		if(b_r[2]==0 && b_g[2]==0 & b_b[2]==0)
+		{
+			b_r[2]=1;
+			b_g[2]=1;
+			b_b[2]=0;			
+		}
+	}		 
+		
+		
+		fx_7b_init(i_w,i_h);
+		ybigstepper=0;
+		
+		/*
+		if(pal_num==6)
+		{
+		test="<br><br> "+b_r[0]+", "+b_g[0]+", "+b_b[0]+", <nbsp>  <nbsp>  "
+						+b_r[1]+", "+b_g[1]+", "+b_b[1]+", <nbsp>  <nbsp>  //<br><br>";
+							
+		}
+		else if(pal_num==9)
+		{
+		test="<br><br> "+b_r[0]+", "+b_g[0]+", "+b_b[0]+", <nbsp>  <nbsp>  "
+						+b_r[1]+", "+b_g[1]+", "+b_b[1]+", <nbsp>  <nbsp>  " 
+						+b_r[2]+", "+b_g[2]+", "+b_b[2]+", <nbsp>   // <nbsp> <br><br>";
+			
+		}*/
+	
+		allrendered=0;			
+						
+		my_nimz=1; // go next in the anim loop
+	}
+	
+	else if(my_nimz==1)
+	{
+	 	my_nimz=2;		
+	}
+		
+	else if(my_nimz==2)
+	{
+			
+		// fastfader_white_01(i_w,i_h,pixi_r,pixi_g,pixi_b, 1);
+	
+		var ff=fastfader_white_02(fade_loop,64,i_w,i_h,pixi_r,pixi_g,pixi_b, 1);
+		fade_loop+=64;
+			
+		if(ff==true)
+		{
+			fade_loop=0;
+			my_nimz=3;	
+		} 
+		//my_nimz=3;
+	}
+	
+	
+	else if(my_nimz==3)
+	{
+		fx_7b(i_w,i_h,pixi_r,pixi_g,pixi_b);
+
+		x_times++;
+		if(x_times>better_times)
+		{
+			x_times=0;
+			my_nimz=4;			
+		}		
+	}
+	
+	else if(my_nimz==4)
+	{ 
+
+		// draw bigger
+		
+		var ybigstep=ybigstepper+64;
+		if (ybigstep>i_h-1){ ybigstep=i_h-1; }
+		
+		for (var j=ybigstepper; j < ybigstep ; j++ )
+		{
+			var jj=((j*i_deel)*im_w)<<0;//j*im_w;//
+			for (var i=0; i< i_w-1 ; i++ )
+			{		
+				var p1= ((i_w*j)+i)<<0;
+				var p2= (jj +  (i*i_deel))<<0; //(j*im_w)
+				for (var y=0; y < i_deel ; y++ )
+				{
+					for (var x=0; x < i_deel ; x++ )
+					{
+						var p3= (p2 + (y*im_w))<<0; 
+						pix_r[p3+x] = pixi_r[p1];
+						pix_g[p3+x] = pixi_g[p1];
+						pix_b[p3+x] = pixi_b[p1];				
+					}
+				}
+			}
+		}
+		ybigstepper+=64;
+		
+		if (ybigstep==i_h-1 || ybigstepper>(i_h-1))
+		{
+			ybigstepper=0;
+			my_nimz=2;	
+			draw_loop++;
+			if(draw_loop>15)
+			{
+				draw_loop=0;
+				my_nimz=5;	
+			}			
+		}
+
+		
+	}
+		 
+	else if(my_nimz==5)
+	{
+		allrendered=1;
+	}
+
+}
+ 
+function g_drawline3(x1, y1, x2, y2, r,g,b, imw, imh, p_r, p_g, p_b)
+{
+	var dx = Math.abs(x2 - x1);
+	var dy = Math.abs(y2 - y1);
+	var sx = (x1 < x2) ? 1 : -1; 
+	var	sy = (y1 < y2) ? 1 : -1; 
+	var er = (dx>dy ? dx : -dy)/2;
+	while (true)
+	{
+		var p=x1+(y1* imw);
+		
+		//if(pix_zcheck[p]==1)
+		//{
+			graph_drawpoint3(x1,y1, imw, imh, r,g,b, p_r, p_g, p_b);
+		//}
+ 
+		if (x1 === x2 && y1 === y2) break;
+		var e2 = er;
+		if (e2 > -dx){er -= dy; x1 += sx;}
+		if (e2 < dy){er += dx; y1 += sy;}
+	}
+}
+
+function graph_drawpoint3(x,y, w, h, r,g,b, buf_r, buf_g, buf_b)
+{
+	if(x>-1 && y>-1 && x<w && y<h)
+	{
+			buf_r[(y*w)+x]=r;
+			buf_g[(y*w)+x]=g;
+			buf_b[(y*w)+x]=b;
+	}	
+}
+
+
+
+</script>
+
+</head>
+
+<body onload="init()">
+
+<div id="infoblock" class="infobot">0__.</div>
+<div><canvas class="img1" id="my_image" >the image area - needs a javascript enabled browser to see - best on Chrome atm.</canvas></div>
+
+</body>
+</html>

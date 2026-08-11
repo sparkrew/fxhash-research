@@ -1,0 +1,4 @@
+id: 8615
+name: Astronomic Comics
+mint_opens_at: 2022-02-04T04:07:56+00:00
+generative_uri: ipfs://QmeXMcPBqFaygKH34RjUZ3RqRBeRuzNCDF5XEd8i1if2kR

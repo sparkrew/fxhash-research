@@ -1,0 +1,4 @@
+id: 12132
+name: Another Rectangle
+mint_opens_at: 2022-04-29T12:00:00+00:00
+generative_uri: ipfs://QmUoSJkh7YamP6uG6DouSxjo1tURRbEtge5BRiNrzGb3cS

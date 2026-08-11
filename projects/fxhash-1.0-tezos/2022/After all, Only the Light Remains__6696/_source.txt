@@ -1,0 +1,4 @@
+id: 6696
+name: After all, Only the Light Remains
+mint_opens_at: 2022-01-12T06:51:10+00:00
+generative_uri: ipfs://QmRNYzB1B7KbNgBmBvRQQNp6bPtvJtwzchrSGJbgbZyXjd

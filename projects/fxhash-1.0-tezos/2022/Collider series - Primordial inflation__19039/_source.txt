@@ -1,0 +1,4 @@
+id: 19039
+name: Collider series - Primordial inflation
+mint_opens_at: 2022-09-05T17:01:00+00:00
+generative_uri: ipfs://QmTiadsijqmNjWouDnTHQrNEFZJjZ5nDR6AYJcNiWZdazo

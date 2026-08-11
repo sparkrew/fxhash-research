@@ -1,0 +1,4 @@
+id: 7888
+name: Classic Rock Concert Ticket Stub Generator
+mint_opens_at: 2022-01-25T23:07:00+00:00
+generative_uri: ipfs://QmXCHGsUJs7cYf2ewTLPrg7GoG5w7guWvuajaoEZboUxya

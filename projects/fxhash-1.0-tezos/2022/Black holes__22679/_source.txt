@@ -1,0 +1,4 @@
+id: 22679
+name: Black holes
+mint_opens_at: 2022-12-20T21:09:14+00:00
+generative_uri: ipfs://QmR2D6FaB6Gyxq5YFYDbnkqfL7cUGVQhcA9remUsxxE6TB

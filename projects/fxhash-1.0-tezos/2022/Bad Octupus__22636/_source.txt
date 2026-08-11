@@ -1,0 +1,4 @@
+id: 22636
+name: Bad Octupus
+mint_opens_at: 2022-12-19T23:36:59+00:00
+generative_uri: ipfs://QmR81AMskW59WASRRGwBq3TkDnZ4rdV1r63jAedMKc3bC8

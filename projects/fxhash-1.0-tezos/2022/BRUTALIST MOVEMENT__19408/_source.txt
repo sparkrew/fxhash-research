@@ -1,0 +1,4 @@
+id: 19408
+name: BRUTALIST MOVEMENT
+mint_opens_at: 2022-09-16T12:00:00+00:00
+generative_uri: ipfs://QmcjxmS5zZEtTzkAn3VT9NoVJ2PXKbBPi5GgxisfyiWevj

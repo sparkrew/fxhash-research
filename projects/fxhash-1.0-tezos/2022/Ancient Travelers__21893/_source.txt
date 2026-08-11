@@ -1,0 +1,4 @@
+id: 21893
+name: Ancient Travelers
+mint_opens_at: 2022-11-29T16:15:59+00:00
+generative_uri: ipfs://QmUwPCfJYRuoNyevzFMzrS177c5sQ2nS7sdEqAm64cddPi

@@ -1,0 +1,4 @@
+id: 8376
+name: anaverse - Derelict chapel
+mint_opens_at: 2022-02-01T09:16:58+00:00
+generative_uri: ipfs://QmaEdJ8Lwcvp8dQuTD7RGLG2e5oZe6YoV3QPGALjbFQKCb

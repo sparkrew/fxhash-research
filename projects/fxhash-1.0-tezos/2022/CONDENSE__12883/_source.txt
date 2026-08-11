@@ -1,0 +1,4 @@
+id: 12883
+name: CONDENSE
+mint_opens_at: 2022-05-15T19:00:00+00:00
+generative_uri: ipfs://QmXbrTknXtmTc6woomoyCmqLeSkkEQM1RY5tcSDhJo7bZK

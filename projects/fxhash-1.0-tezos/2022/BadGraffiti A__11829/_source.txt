@@ -1,0 +1,4 @@
+id: 11829
+name: BadGraffiti A
+mint_opens_at: 2022-04-25T15:22:29+00:00
+generative_uri: ipfs://Qmd2yWeMxgEeFopkvcSg2z1QqWgsVCSk6dAPu6xy9iThAK

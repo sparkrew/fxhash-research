@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Avatar by Marco Aureggi</title>
+    <script id="fxhash-snippet">
+      let alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+      var fxhash = new URLSearchParams(window.location.search).get('fxhash')
+      let b58dec = str=>[...str].reduce((p,c)=>p*alphabet.length+alphabet.indexOf(c)|0, 0)
+      let fxhashTrunc = fxhash.slice(2)
+      let regex = new RegExp(".{" + ((fxhashTrunc.length/4)|0) + "}", 'g')
+      let hashes = fxhashTrunc.match(regex).map(h => b58dec(h))
+      let sfc32 = (a, b, c, d) => {
+        return () => {
+          a |= 0; b |= 0; c |= 0; d |= 0
+          var t = (a + b | 0) + d | 0
+          d = d + 1 | 0
+          a = b ^ b >>> 9
+          b = c + (c << 3) | 0
+          c = c << 21 | c >>> 11
+          c = c + t | 0
+          return (t >>> 0) / 4294967296
+        }
+      }
+      var fxrand = sfc32(...hashes)
+      // used to get features during token mint
+      window.addEventListener("message", (event) => {
+        if (event.data === "fxhash_getFeatures") {
+          parent.postMessage({
+            id: "fxhash_getFeatures",
+            data: window.$fxhashFeatures
+          }, "*")
+        }
+      })
+      var isFxpreview = new URLSearchParams(window.location.search).get('preview') === "1"
+      function fxpreview() {
+        window.dispatchEvent(new Event("fxhash-preview"))
+        setTimeout(() => fxpreview(), 500)
+      }
+</script>
+    <script type="text/javascript" src="./three_v69.js"></script>
+    <script type="text/javascript" src="./ConvexGeometry.js"></script>
+	<script type="text/javascript" src="./OrbitControls.js"></script>
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display:block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="Stats-output">
+</div>
+
+<div id="WebGL-output">
+</div>
+
+
+<script type="text/javascript">
+
+    function init() {
+
+        var clock = new THREE.Clock();
+		window.addEventListener('resize', onWindowResize, false);
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000);
+
+        var webGLRenderer = new THREE.WebGLRenderer();
+		
+		let palette1 = [0xddddcc, 0xdd0000, 0x000000];  // lgray | red | black
+		let palette2 = [0x333333, 0xdd0000, 0xdddddd];  // dgray | red | white
+		let palette3 = [0x06224b, 0xff8b2e, 0xdddddd];  // blue | orange | lgray
+		let palette4 = [0x2c284a, 0x99ff00, 0xcfcbb7]; 	// purple | green | lgray
+		let palette5 = [0x352a2a, 0xffaf03, 0xcfcbb7];  // wdgray | yellow | lgray
+		let palette6 = [0x9b8dcd, 0x3E38A6, 0xffffff];  // lilac | blue | white
+        let palette7 = [0xfda33a, 0xd62303, 0x114a78];  // yellow | red | blue
+        let palette8 = [0xddddcc, 0xffffff, 0x000000];  // lgray | white | black	
+		let palette9 = [0x695B4E, 0x60AD2C, 0xeeeeee];  // wdgray | green | white
+		let palette10 = [0x1D484E, 0xF6E3E9, 0xCEAE8A];	// aqua | cream | white
+		let palette11 = [0xB59C73, 0x695B50, 0x6C4B16];	// beige | brown | dgray	
+		let palette12 = [0xe3a6a6, 0x2c284a, 0x880000]; // lred | purple | red
+		
+        let palName = [palette1, palette2, palette3, palette4, palette5, palette6, palette7, palette8, palette9, palette10, palette11, palette12];
+		var pal = getRandomInt(12);
+		console.log(1 + pal);
+        var chosenPal = palName[pal];
+		
+        webGLRenderer.setClearColor(new THREE.Color(chosenPal[0]));
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+        webGLRenderer.shadowMapEnabled = false;
+        webGLRenderer.antialias = true;
+       
+        // position and point the camera to the center of the scene
+        camera.position.x = -20;
+        camera.position.y = 50;
+        camera.position.z = -160;
+        camera.lookAt(0, 10, 0);
+		
+		var orbitControls = new THREE.OrbitControls(camera);
+        orbitControls.autoRotate = false;
+		orbitControls.enableDamping = true;
+		orbitControls.dampingFactor = 0.6;    
+        
+        var hullArray = [];
+		var hullMesh;
+        var size;
+        var orient; // vert | horz | sqr
+        var mirror, group; // true | false
+        var name1;
+        var hax, hay, haz;
+        var moved = false;
+        const groupHead = new THREE.Group();
+
+		//HEAD
+		const headpoint = new THREE.Vector3(0, 40, 0);
+        size = 54;
+        orient = "vert";
+        mirror = false;
+        name1 = "head";
+        group = true;
+        createHull(headpoint, size, orient, mirror, name1, group);
+
+        // EYES
+        var eyedist = getRandomArbitrary(16, 25);
+        var eyedim = getRandomArbitrary(12, 16);
+        console.log("eye dist = " + eyedist + " | eye dim = " + eyedim);  
+        const eye1a = new THREE.Vector3(-eyedist/2, 50, -25);
+        size = 18;
+        orient = "horz";
+        mirror = true;
+        name1 = "eyebrows1";
+        group = true;
+        createHull(eye1a, size, orient, mirror, name1, group);
+
+        const eye1b = new THREE.Vector3(-eyedist/2, 50 - eyedim/2, -25);
+        size = eyedim;
+        orient = "sqr";
+        mirror = true;
+        name1 = "eye1";
+        group = true;
+        createHull(eye1b, size, orient, mirror, name1, group);
+		
+        // NOSE
+        var nosedim = getRandomArbitrary(eyedim/1.5, eyedim*1.2);
+        const nosepoint = new THREE.Vector3(0, 40 - eyedim/2, -25);
+        size = nosedim;
+        orient = "vert";
+        mirror = false;
+        name1 = "nose";
+        group = true;
+        createHull(nosepoint, size, orient, mirror, name1, group);
+
+        // MOUTH
+        var mouthdim = getRandomArbitrary(nosedim, nosedim*1.7);
+        const mouthpoint = new THREE.Vector3(0, 30 - nosedim, -20);
+        size = mouthdim;
+        orient = "horz";
+        mirror = false;
+        name1 = "mouth";
+        group = true;
+        createHull(mouthpoint, size, orient, mirror, name1, group);
+
+		// NECK
+		const neckpoint = new THREE.Vector3(0, -5, 0);
+        size = 22;
+        orient = "vert";
+        mirror = false;
+        name1 = "neck";
+        group = false;
+        createHull(neckpoint, size, orient, mirror, name1, group);
+
+        // CHEST
+        const chestpoint1 = new THREE.Vector3(-20, -35, 0);
+        size = 50;
+        orient = "sqr";
+        mirror = true;
+        name1 = "chest1";
+        group = false;
+        createHull(chestpoint1, size, orient, mirror, name1, group);
+
+        scene.add(groupHead);
+
+        // add the output of the renderer to the html element
+        document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
+
+        // call the render function
+        var rotHead = false;
+        var probability;
+        
+        render();
+
+        function createHull(point, size, orient, mirror, namePart, group) {
+            var i;
+            switch(orient) {
+                case 'vert':
+                    for (i = 0; i < size; i++) {
+                        hax = point.x + getRandomArbitrary(-size/2, size/2);
+                        hay = point.y + getRandomArbitrary(-size/1.4, size/1.4);
+                        haz = point.z + getRandomArbitrary(-size/2, size/2);                
+                        hullArray.push(new THREE.Vector3(hax, hay, haz));
+                    }
+                    break;
+                case 'horz':
+                    for (i = 0; i < size; i++) {
+                        hax = point.x + getRandomArbitrary(-size/2, size/2);
+                        hay = point.y + getRandomArbitrary(-size/4, size/4);
+                        haz = point.z + getRandomArbitrary(-size/4, size/4);                
+                        hullArray.push(new THREE.Vector3(hax, hay, haz));
+                    }
+                    break;
+                case 'sqr':
+                    for (i = 0; i < size; i++) {
+                        hax = point.x + getRandomArbitrary(-size/2, size/2);
+                        hay = point.y + getRandomArbitrary(-size/2, size/2);
+                        haz = point.z + getRandomArbitrary(-size/2, size/2);                
+                        hullArray.push(new THREE.Vector3(hax, hay, haz));
+                    }
+            }
+          
+            var hullGeometry = new THREE.ConvexGeometry(hullArray);
+            hullMesh = createMesh(hullGeometry);
+            hullMesh.name = namePart;
+            if (group) { groupHead.add(hullMesh); } else { scene.add(hullMesh); }
+            if (mirror) {
+                var hullMesh2 = hullMesh.clone();
+                hullMesh2.scale.x *= -1;
+                hullMesh2.name = namePart.replace("1", "2");
+                if (group) { groupHead.add(hullMesh2); } else { scene.add(hullMesh2); }
+            }
+            hullArray.splice(0, size);
+        }
+
+        function createMesh(geom) {
+            // assign two materials
+            var meshMaterial = new THREE.MeshBasicMaterial({color: chosenPal[1], transparent: true, opacity: 0.3});
+            meshMaterial.side = THREE.DoubleSide;
+            var wireFrameMat = new THREE.MeshBasicMaterial({color: chosenPal[2]});
+            wireFrameMat.wireframe = true;
+            // create a multimaterial
+            var mesh = THREE.SceneUtils.createMultiMaterialObject(geom, [meshMaterial, wireFrameMat]);
+            return mesh;
+        }
+        
+        function render() {
+            var delta = clock.getDelta();
+			orbitControls.update(delta);
+
+            react();
+
+            // render using requestAnimationFrame
+            requestAnimationFrame(render);
+            webGLRenderer.render(scene, camera);
+        }
+        
+        function react() {
+            probability = getRandomInt(600);
+            if (probability == 1) {
+                if (rotHead == false) {
+                    groupHead.rotation.x = 0;
+                    groupHead.rotation.y += 0.5;
+                    rotHead = true;
+                } else {
+                    groupHead.rotation.x = 0;
+                    groupHead.rotation.y -= 0.5;
+                    rotHead = false;
+                }
+            }
+            if (probability == 2) {
+                if (rotHead == false) {
+                    groupHead.rotation.x = 0;
+                    groupHead.rotation.y -= 0.5;
+                    rotHead = true;
+                } else {
+                    groupHead.rotation.x = 0;
+                    groupHead.rotation.y += 0.5;
+                    rotHead = false;
+                }
+            }
+            if (probability == 3) {
+                if (rotHead == false) {
+                    groupHead.rotation.y = 0;
+                    groupHead.rotation.x += 0.25;
+                    rotHead = true;
+                } else {
+                    groupHead.rotation.y = 0;
+                    groupHead.rotation.x -= 0.25;
+                    rotHead = false;
+                }
+            }
+            if (probability == 4) {
+                if (rotHead == false) {
+                    groupHead.rotation.y = 0;
+                    groupHead.rotation.x -= 0.25;
+                    rotHead = true;
+                } else {
+                    groupHead.rotation.y = 0;
+                    groupHead.rotation.x += 0.25;
+                    rotHead = false;
+                }
+            }
+			if (probability == 5) {
+                groupHead.getObjectByName("mouth").scale.x *= 1.5;
+				setTimeout(() => { groupHead.getObjectByName("mouth").scale.x /= 1.5; }, 400);
+            }
+			if (probability == 6) {
+                groupHead.getObjectByName("eyebrows1").position.y += 3;
+				setTimeout(() => { groupHead.getObjectByName("eyebrows1").position.y -= 3; }, 300);
+            }
+			if (probability == 7) {
+                groupHead.getObjectByName("eyebrows2").position.y += 3;
+				setTimeout(() => { groupHead.getObjectByName("eyebrows2").position.y -= 3; }, 300);
+            }
+			if (probability >= 596) {
+                groupHead.getObjectByName("eye1").scale.x *= 0.2;
+				groupHead.getObjectByName("eye2").scale.x *= 0.2;
+				setTimeout(() => { groupHead.getObjectByName("eye1").scale.x /= 0.2; }, 100);
+				setTimeout(() => { groupHead.getObjectByName("eye2").scale.x /= 0.2; }, 100);
+            }			
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(fxrand() * max);
+        }
+
+        function getRandomArbitrary(min, max) {
+			return Math.floor(fxrand() * (max - min) + min);
+		}
+		
+		function rotateObject(object, degreeX=0, degreeY=0, degreeZ=0) {
+            object.rotateX(THREE.Math.degToRad(degreeX));
+            object.rotateY(THREE.Math.degToRad(degreeY));
+            object.rotateZ(THREE.Math.degToRad(degreeZ));
+        }
+
+        function onWindowResize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        webGLRenderer.setSize(w, h);
+        }        
+    }
+    window.onload = init;
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+id: 17339
+name: chromadynamics
+mint_opens_at: 2022-07-31T02:30:00+00:00
+generative_uri: ipfs://QmS7A93DHkfhgsJEtr8m7KcrHbotBURXHj7gEEwoWDsrSH

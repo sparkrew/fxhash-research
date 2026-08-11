@@ -1,0 +1,4 @@
+id: 7685
+name: Bubble Monster
+mint_opens_at: 2022-01-21T18:54:10+00:00
+generative_uri: ipfs://QmTuLg9UzE7HwW7NAZo5SVSESp2QYVeXUoJ2sDrXhvv8Uo

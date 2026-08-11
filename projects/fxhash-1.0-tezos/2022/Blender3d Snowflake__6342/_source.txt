@@ -1,0 +1,4 @@
+id: 6342
+name: Blender3d Snowflake
+mint_opens_at: 2022-01-09T16:39:30+00:00
+generative_uri: ipfs://QmUSrpkTUKvgqbhipqCVcMMB4vS1zCQDV4N55Btmdji9cy

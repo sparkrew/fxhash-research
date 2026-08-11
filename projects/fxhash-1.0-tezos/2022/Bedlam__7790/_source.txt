@@ -1,0 +1,4 @@
+id: 7790
+name: Bedlam
+mint_opens_at: 2022-01-25T01:13:40+00:00
+generative_uri: ipfs://QmaX9vf2uJA1xiv3ih6vn2Z88SDhZ79U8uRtxGZzgMFhpR

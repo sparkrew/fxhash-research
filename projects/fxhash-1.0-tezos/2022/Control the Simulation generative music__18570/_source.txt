@@ -1,0 +1,4 @@
+id: 18570
+name: Control the Simulation generative music
+mint_opens_at: 2022-08-25T11:53:44+00:00
+generative_uri: ipfs://QmUo1neXrqFzTRogqvgCG5FJp45pFiV6M4xCGV7DJ8xavx

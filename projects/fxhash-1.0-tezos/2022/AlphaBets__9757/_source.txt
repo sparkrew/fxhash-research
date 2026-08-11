@@ -1,0 +1,4 @@
+id: 9757
+name: AlphaBets
+mint_opens_at: 2022-02-21T01:11:50+00:00
+generative_uri: ipfs://QmQvLKdSXkov8YqrqC6ZcyaTzejA6zZYW2WNtmbX1D2E5a

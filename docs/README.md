@@ -10,7 +10,8 @@ Read the documents in order:
 | 2 | [Getting started](02-getting-started.md) | Requirements, installing dependencies, collecting the dataset, opening the notebook. |
 | 3 | [How the code works](03-how-it-works.md) | The GraphQL API, the scraper, the dataset schema, and how the notebook builds the charts. |
 | 4 | [Trends & findings](04-trends.md) | How the number of projects changed over time and what the charts reveal. |
-| 5 | [Downloading project code](05-downloading-code.md) | Downloading the actual generative source code of fxhash 1.0 projects, organised by year. |
+| 5 | [Downloading project code](05-downloading-code.md) | Downloading the actual generative source code of fxhash projects, organised by version and year. |
+| 6 | [Code statistics](06-code-statistics.md) | Stats over the downloaded code: files per project, file types, most common `.js` files, license files. |
 
 For a quick start, jump straight to [Getting started](02-getting-started.md).
 The top-level [`../README.md`](../README.md) has the short version.

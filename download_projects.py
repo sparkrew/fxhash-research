@@ -208,7 +208,6 @@ def run_version(version_key, per_year=None, pct=None, dry=False, sync=False):
     print("Listing projects...")
     projects = fetch_project_list(chains)
 
-    # onchfs projects are skipped: their on-chain resolver is unreliable.
     fetchable = [p for p in projects
                  if str(p.get("generative_uri", "")).startswith("ipfs://")]
     n_onchfs = len(projects) - len(fetchable)

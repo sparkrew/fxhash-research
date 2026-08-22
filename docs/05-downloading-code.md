@@ -104,28 +104,8 @@ project is included.
 
 Re-run `download_projects.py 10% all --sync` to reproduce this exact sample.
 
-### Projects with a license file
-
-**832 of the 2,762 downloaded projects (30.1%) ship a license file** in their
-folder (a file named `LICENSE`, `LICENSE.md`, `license.txt`, `LICENCE`, and
-similar variants). The other ~70% include no explicit license, meaning their
-code is "all rights reserved" by default — a useful signal when deciding what may
-be reused or redistributed.
-
-| Year | fxhash 1.0 (Tezos) | fxhash 2.0 (EVM) |
-|------|-------------------:|-----------------:|
-| 2021 | 30 | — |
-| 2022 | 466 | — |
-| 2023 | 239 | — |
-| 2024 | 66 | 6 |
-| 2025 | 11 | 10 |
-| 2026 | — | 4 |
-| **Total** | **812** | **20** |
-
-Count license files yourself with:
-
-```bash
-find projects -type f -iname "licen[cs]e*" | wc -l
-```
+For statistics about the downloaded code (file types, `.js` files) see
+[06 — Code statistics](06-code-statistics.md); for licenses see
+[07 — Licenses](07-licenses.md).
 
 Back to the [documentation index](README.md).

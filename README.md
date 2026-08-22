@@ -26,6 +26,13 @@ It covers **both versions** of the platform:
    sample of N per year into
    `projects/<version>/<year>/<name>__<id>/`. See
    [docs/05-downloading-code.md](docs/05-downloading-code.md).
+4. **`js_libraries.ipynb`** and **`file_composition.ipynb`** — notebooks that
+   analyse the downloaded code: the most common `.js` files, and the file-type
+   composition of each project (interactive). See
+   [docs/06-code-statistics.md](docs/06-code-statistics.md).
+5. **`analyze_licenses.py`** — classifies each project's license file into types
+   (MIT, Creative Commons, LGPL, ...). See
+   [docs/07-licenses.md](docs/07-licenses.md).
 
 ## What data is collected
 
@@ -74,20 +81,29 @@ cell) — the charts will appear.
 
 ```
 fxhash-research/
-├── fxhash_scraper.py     # data collection from the v2 API -> CSV
-├── download_projects.py  # download project source code from IPFS, by year
-├── analysis.ipynb        # analysis and 3 charts (Jupyter)
-├── requirements.txt      # Python dependencies
+├── fxhash_scraper.py       # data collection from the v2 API -> CSV
+├── download_projects.py    # download project source code from IPFS, by year
+├── analyze_licenses.py     # classify each project's license file into types
+├── analysis.ipynb          # project-growth analysis and 3 charts (Jupyter)
+├── js_libraries.ipynb      # most common .js files across projects
+├── file_composition.ipynb  # interactive file-type composition per project
+├── requirements.txt        # Python dependencies
 ├── README.md
-├── docs/                 # full documentation (start at docs/README.md)
+├── docs/                   # full documentation (start at docs/README.md)
 │   ├── 01-overview.md
 │   ├── 02-getting-started.md
 │   ├── 03-how-it-works.md
 │   ├── 04-trends.md
-│   └── 05-downloading-code.md
-├── data/
-│   └── fxhash_tokens.csv # dataset (created by the scraper)
-└── projects/             # downloaded project code (created by download_projects.py)
+│   ├── 05-downloading-code.md
+│   ├── 06-code-statistics.md
+│   └── 07-licenses.md
+├── data/                   # datasets and stats (created by the scripts/notebooks)
+│   ├── fxhash_tokens.csv
+│   ├── js_file_counts.csv
+│   ├── project_file_types.csv
+│   └── license_types.csv
+├── charts/                 # standalone interactive HTML charts
+└── projects/               # downloaded project code (created by download_projects.py)
     ├── fxhash-1.0-tezos/<year>/<name>__<id>/
     └── fxhash-2.0-evm/<year>/<name>__<id>/
 ```

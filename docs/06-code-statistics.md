@@ -66,11 +66,6 @@ variants) is by far the most reused dependency; **three.js**, **hydra-synth**,
 **tone.js** and others form a much smaller long tail. Full ranking:
 `data/js_file_counts.csv`.
 
-## License files
-
-**832 of 2,761 projects (30.1%)** ship an explicit license file (`LICENSE`,
-`LICENSE.md`, `license.txt`, `LICENCE`, and similar). The remaining ~70% include
-no license, i.e. their code is "all rights reserved" by default. Per-year
-breakdown is in [05 → Projects with a license file](05-downloading-code.md).
+Licenses are covered separately in [07 — Licenses](07-licenses.md).
 
 Back to the [documentation index](README.md).

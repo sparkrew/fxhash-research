@@ -142,4 +142,19 @@ The notebook reads the CSV and builds the charts. Its logic, cell by cell:
   bucket — that is the "new projects per month" bar chart. `'MS'` means
   *month-start*.
 
+## 3.5 The other tools
+
+Beyond the growth pipeline above, the project has tools that work on the
+**downloaded source code** (see [05](05-downloading-code.md)):
+
+| Tool | What it does | Docs |
+|------|--------------|------|
+| `download_projects.py` | Downloads project source code from IPFS, by version and year. | [05](05-downloading-code.md) |
+| `js_libraries.ipynb` | Counts and charts the most common `.js` files across projects. | [06](06-code-statistics.md) |
+| `file_composition.ipynb` | Interactive stacked charts of each project's file types. | [06](06-code-statistics.md) |
+| `analyze_licenses.py` | Classifies each project's license file into license types. | [07](07-licenses.md) |
+
+Each writes its results to a CSV under `data/` and (for the notebooks) renders
+charts inline.
+
 Continue with [4. Trends & findings](04-trends.md).

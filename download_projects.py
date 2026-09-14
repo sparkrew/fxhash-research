@@ -1,4 +1,7 @@
+# Downloads fxhash project source code from IPFS (and best-effort ONCHFS),
+# organised as <version>/<year>/<name>__<id>/. Resumable and rate-limit aware.
 import io
+import os
 import re
 import shutil
 import sys
@@ -14,9 +17,10 @@ import requests
 API_URL = "https://api.v2.fxhash.xyz/v1/graphql"
 PER_YEAR_DEFAULT = 10
 PAGE_SIZE = 100
-WORKERS = 5
-MAX_RETRIES = 2
-TIMEOUT = 30
+WORKERS = 3            # small pool: a shared IP hits IPFS 429 rate limits easily
+MAX_RETRIES = 5
+TIMEOUT = 60
+RATE_LIMIT_WAIT = 20   # seconds to back off when a gateway returns HTTP 429
 
 VERSIONS = {
     "1": {"label": "fxhash-1.0-tezos", "chains": ["TEZOS"]},
@@ -26,10 +30,13 @@ VERSIONS = {
 IPFS_GATEWAYS = [
     "https://ipfs.io",
     "https://dweb.link",
+    "https://trustless-gateway.link",
 ]
 ONCHFS_HOST = "onchfs.fxhash2.xyz"
 
-OUTPUT_DIR = Path(__file__).parent / "projects"
+# Overridable output dir so the archive can live off-repo (e.g. NFS on DIRO).
+OUTPUT_DIR = Path(os.environ.get("FXHASH_PROJECTS_DIR",
+                                 Path(__file__).parent / "projects"))
 
 LIST_QUERY = """
 query Projects($chains: [String!], $limit: Int!, $offset: Int!) {
@@ -111,12 +118,17 @@ def fetch_ipfs(cid, folder):
             try:
                 resp = requests.get(f"{gateway}/ipfs/{cid}",
                                     params={"format": "tar"}, timeout=TIMEOUT)
+                # Rate limited: honour Retry-After, then fall through to the next gateway.
+                if resp.status_code == 429:
+                    wait = int(resp.headers.get("Retry-After") or RATE_LIMIT_WAIT)
+                    time.sleep(min(max(wait, RATE_LIMIT_WAIT), 90))
+                    continue
                 resp.raise_for_status()
                 folder.mkdir(parents=True, exist_ok=True)
                 extract_tar(resp.content, folder)
                 return True
             except Exception:
-                time.sleep(attempt)
+                time.sleep(attempt * 3)
     return False
 
 
@@ -142,6 +154,7 @@ def fetch_onchfs(hash_, folder):
 
 
 def fetch_code(uri, folder):
+    # Route by URI scheme: ipfs:// downloads reliably; onchfs:// is best-effort.
     if not uri:
         return False, "none"
     scheme, _, rest = uri.partition("://")
@@ -178,6 +191,7 @@ def download_project(version_dir, year, project):
 
 
 def even_pick(items, k):
+    # Pick k items evenly spread across the list (not just the first k).
     if k >= len(items):
         return list(items)
     if k <= 1:
@@ -229,6 +243,7 @@ def run_version(version_key, per_year=None, pct=None, dry=False, sync=False):
     for year in sorted(groups):
         group = groups[year]
         on_disk = have.get(year, {})
+        # Two sampling modes: a percentage of the year, or N more per year.
         if pct is not None:
             target = max(1, round(len(group) * pct / 100))
         else:
@@ -272,11 +287,16 @@ def run_version(version_key, per_year=None, pct=None, dry=False, sync=False):
             done += 1
             if status == "ok":
                 counts["ok"] += 1
+                mark = "ok"
             elif status.startswith("skipped"):
                 counts["skipped"] += 1
+                mark = "skip"
             else:
                 counts["failed"] += 1
-                print(f"  [{done}/{len(to_download)}] FAIL  {name}: {status}")
+                mark = "FAIL"
+            print(f"  [{done}/{len(to_download)}] {mark:4} "
+                  f"(ok {counts['ok']}, fail {counts['failed']})  {name[:42]}",
+                  flush=True)
 
     print(f"\n{label}: ok={counts['ok']}, skipped={counts['skipped']}, "
           f"failed={counts['failed']}")

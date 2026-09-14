@@ -21,6 +21,25 @@ New projects per year and version:
 | 2025 | 289 | 256 | 545 |
 | 2026 | 1 | 110 | 111 |
 
+## Charts
+
+These are produced by `analysis.ipynb` (run it to regenerate them).
+
+**Combined — cumulative projects, fxhash 1.0 vs 2.0.** EVM is ~35× smaller than
+Tezos, so it is drawn on its own right-hand axis; each curve keeps its own scale.
+
+![Cumulative projects: fxhash 1.0 (Tezos) vs 2.0 (EVM)](img/growth_combined.png)
+
+**fxhash 1.0 (Tezos).** Cumulative growth (top) and new projects per month
+(bottom) — the steep 2021–22 rise, then the long decline into dormancy.
+
+![fxhash 1.0 growth](img/growth_tezos.png)
+
+**fxhash 2.0 (EVM).** Cumulative growth and monthly releases, split by chain —
+a later, smaller, but steadier stream, led by Base.
+
+![fxhash 2.0 growth](img/growth_evm.png)
+
 ## How the tendency changed
 
 ### fxhash 1.0 (Tezos): explosive launch, then a long decline

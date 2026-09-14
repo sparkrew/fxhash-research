@@ -83,29 +83,17 @@ IPFS share of each version downloads cleanly, while some fxhash 2.0 ONCHFS
 projects may be skipped. Re-running later, or from a network where the resolver
 is reachable, will pick up the ones that failed.
 
-## Download statistics
+## How much was actually downloaded
 
-A sample of **10% of the projects per year** was downloaded for each version
-(IPFS projects only — see the ONCHFS limitation above). Counts per release year:
+This page covers the *tool*. For the results — how many projects were saved, how
+many could not be (and why), and the two tiers of the archive (the full 94 GB
+mirror vs the 10% GitHub sample) — see [06 — Archive coverage](06-archive-coverage.md).
 
-| Year | fxhash 1.0 (Tezos) | fxhash 2.0 (EVM) |
-|------|-------------------:|-----------------:|
-| 2021 | 483 | — |
-| 2022 | 1,526 | — |
-| 2023 | 558 | 2 |
-| 2024 | 114 | 24 |
-| 2025 | 26 | 19 |
-| 2026 | 1 | 9 |
-| **Total** | **2,708** | **54** |
-
-Grand total: **2,762 projects** (~12 GB of code on disk). One project's 136 MB
-ONNX model weight is excluded (over GitHub's 100 MB file limit); the rest of that
-project is included.
-
-Re-run `download_projects.py 10% all --sync` to reproduce this exact sample.
+In short: **27,596 of 28,194 projects (~97.9%) were saved**; the remaining **591
+(~2.1%) are on ONCHFS** and cannot be downloaded offline.
 
 For statistics about the downloaded code (file types, `.js` files) see
-[06 — Code statistics](06-code-statistics.md); for licenses see
-[07 — Licenses](07-licenses.md).
+[07 — Code statistics](07-code-statistics.md); for licenses see
+[08 — Licenses](08-licenses.md).
 
 Back to the [documentation index](README.md).

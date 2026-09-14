@@ -1,6 +1,9 @@
 # Single file over GitHub's 100MB hard limit (an ONNX model weight) — needs Git LFS
 projects/fxhash-2.0-evm/2025/Allegory of the AI__0x6E3aDDBf9448a1083BF6Ada4075618D5E7f9D1A1/models/HeadlineId1/onnx/model_uint8.onnx
 
+# Local handoff / working notes (contains infra details) — keep out of the repo
+HANDOFF.md
+
 # Python
 __pycache__/
 *.pyc

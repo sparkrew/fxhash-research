@@ -1,4 +1,4 @@
-# 7. Licenses
+# 8. Licenses
 
 Which licenses the downloaded projects actually use. Computed by
 **`analyze_licenses.py`**, which reads the license file at each project's root

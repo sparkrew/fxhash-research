@@ -150,9 +150,10 @@ Beyond the growth pipeline above, the project has tools that work on the
 | Tool | What it does | Docs |
 |------|--------------|------|
 | `download_projects.py` | Downloads project source code from IPFS, by version and year. | [05](05-downloading-code.md) |
-| `js_libraries.ipynb` | Counts and charts the most common `.js` files across projects. | [06](06-code-statistics.md) |
-| `file_composition.ipynb` | Interactive stacked charts of each project's file types. | [06](06-code-statistics.md) |
-| `analyze_licenses.py` | Classifies each project's license file into license types. | [07](07-licenses.md) |
+| `js_libraries.ipynb` | Counts and charts the most common `.js` files across projects. | [07](07-code-statistics.md) |
+| `file_composition.ipynb` | Interactive stacked charts of each project's file types. | [07](07-code-statistics.md) |
+| `analyze_licenses.py` | Classifies each project's license file into license types. | [08](08-licenses.md) |
+| `run_artworks.py` | Runs each artwork headless (offline) and records whether it executes. | [09](09-execution.md) |
 
 Each writes its results to a CSV under `data/` and (for the notebooks) renders
 charts inline.

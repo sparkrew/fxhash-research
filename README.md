@@ -36,6 +36,9 @@ It covers **both versions** of the platform:
 6. **`run_artworks.py`** — runs each artwork in a headless browser (offline) to
    check whether it still executes, and records a verdict per project. See
    [docs/09-execution.md](docs/09-execution.md).
+7. **`editions.ipynb`** — charts how many editions (`iterations_count`) were
+   minted per project: distribution, top projects, and per-version totals. See
+   [docs/10-editions.md](docs/10-editions.md).
 
 ## What data is collected
 
@@ -91,6 +94,7 @@ fxhash-research/
 ├── analysis.ipynb          # project-growth analysis and 3 charts (Jupyter)
 ├── js_libraries.ipynb      # most common .js files across projects
 ├── file_composition.ipynb  # interactive file-type composition per project
+├── editions.ipynb          # editions minted per project (iterations_count)
 ├── requirements.txt        # Python dependencies
 ├── README.md
 ├── docs/                   # full documentation (start at docs/README.md)
@@ -103,6 +107,7 @@ fxhash-research/
 │   ├── 07-code-statistics.md
 │   ├── 08-licenses.md
 │   ├── 09-execution.md
+│   ├── 10-editions.md
 │   └── img/                # chart images embedded in the docs
 ├── data/                   # datasets and stats (created by the scripts/notebooks)
 │   ├── fxhash_tokens.csv

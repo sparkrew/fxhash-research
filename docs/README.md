@@ -16,6 +16,7 @@ Read the documents in order:
 | 8 | [Licenses](08-licenses.md) | How many projects declare a license and the breakdown of license types (MIT, Creative Commons, LGPL, ...). |
 | 9 | [Executing the artworks](09-execution.md) | Running each artwork headless to check whether it still executes, offline; verdicts and results. |
 | 10 | [Editions per project](10-editions.md) | How many artworks (editions) were minted per project: distribution, top projects, sell-through, and per-version totals. |
+| 11 | [Artists](11-artists.md) | How many different artists published on fxhash, projects-per-artist distribution, and the most prolific / most collected. |
 
 For a quick start, jump straight to [Getting started](02-getting-started.md).
 The top-level [`../README.md`](../README.md) has the short version.

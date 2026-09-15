@@ -39,6 +39,8 @@ It covers **both versions** of the platform:
 7. **`editions.ipynb`** — charts how many editions (`iterations_count`) were
    minted per project: distribution, top projects, and per-version totals. See
    [docs/10-editions.md](docs/10-editions.md).
+8. **`artists.ipynb`** — charts how many different artists published and how many
+   projects each released. See [docs/11-artists.md](docs/11-artists.md).
 
 ## What data is collected
 
@@ -95,6 +97,7 @@ fxhash-research/
 ├── js_libraries.ipynb      # most common .js files across projects
 ├── file_composition.ipynb  # interactive file-type composition per project
 ├── editions.ipynb          # editions minted per project (iterations_count)
+├── artists.ipynb           # distinct artists and projects-per-artist spread
 ├── requirements.txt        # Python dependencies
 ├── README.md
 ├── docs/                   # full documentation (start at docs/README.md)
@@ -108,6 +111,7 @@ fxhash-research/
 │   ├── 08-licenses.md
 │   ├── 09-execution.md
 │   ├── 10-editions.md
+│   ├── 11-artists.md
 │   └── img/                # chart images embedded in the docs
 ├── data/                   # datasets and stats (created by the scripts/notebooks)
 │   ├── fxhash_tokens.csv

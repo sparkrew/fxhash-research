@@ -155,6 +155,7 @@ Beyond the growth pipeline above, the project has tools that work on the
 | `analyze_licenses.py` | Classifies each project's license file into license types. | [08](08-licenses.md) |
 | `run_artworks.py` | Runs each artwork headless (offline) and records whether it executes. | [09](09-execution.md) |
 | `editions.ipynb` | Charts how many editions were minted per project (`iterations_count`). | [10](10-editions.md) |
+| `artists.ipynb` | Charts how many artists published and the projects-per-artist spread. | [11](11-artists.md) |
 
 Each writes its results to a CSV under `data/` and (for the notebooks) renders
 charts inline.

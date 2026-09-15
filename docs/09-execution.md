@@ -82,17 +82,64 @@ are reproducible and don't depend on external services being up. The `fxhash`
 value is fixed by a seed, so re-runs give the same results (only `heavy` pieces
 can vary with machine load).
 
-### Viewing one artwork yourself
+### Viewing one artwork yourself (step by step)
+
+You can open any downloaded artwork in a normal browser and watch it run — fully
+**offline**, no internet needed. Double-clicking `index.html` will **not** work:
+a browser refuses to let a `file://` page load its neighbouring files
+(`bundle.js`, images, …), so the piece stays blank. The fix is a tiny **local
+server** that hands the folder to the browser. It does not touch the internet —
+everything stays on your machine.
+
+**1. Open a terminal.** On Windows: press the **Windows** key, type `powershell`,
+and press **Enter**.
+
+**2. Go to the project folder:**
+
+```bash
+cd D:\KPI\canada\intership
+```
+
+**3. Start the local server** (serves the `projects/` folder):
 
 ```bash
 python -m http.server 8000 --directory projects
 ```
 
-Then open, in any browser (localhost, still offline):
+When you see `Serving HTTP on ... port 8000`, it is running. **Leave this window
+open** — the server lives only as long as the window is open. (If `python` is not
+found, try `py -m http.server 8000 --directory projects`.)
+
+**4. Open the listing in a browser** (Chrome, Edge, …):
+
+```
+http://localhost:8000/
+```
+
+Then just **click through the folders** — `fxhash-1.0-tezos/` → a year → an
+artwork folder → `index.html` — and the piece renders. No path typing needed.
+
+**5. If a piece looks blank,** add an fxhash seed to the end of its address and
+press Enter:
 
 ```
 http://localhost:8000/fxhash-1.0-tezos/2021/Charcoal%20Landscapes__148/index.html?fxhash=ooTest123&fxiteration=1
 ```
+
+The artwork reads `fxhash` from the URL as its random seed (spaces in a folder
+name become `%20`). A different value gives a different image — this is the same
+seed the automated runner injects.
+
+**6. Stop the server** when you are done: click the terminal window and press
+**Ctrl + C** (or just close it).
+
+**Troubleshooting**
+
+| Message | Fix |
+|---------|-----|
+| `python is not recognized` | Use `py` instead of `python`. |
+| `No such file or directory: projects` | You are in the wrong folder — redo step 2, then check `projects/` exists with `dir`. |
+| `http://localhost:8000/` won't open | The server isn't running (window closed) — redo step 3. |
 
 ## Prototype results (50-project sample)
 

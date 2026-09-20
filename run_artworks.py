@@ -1,9 +1,15 @@
-# Runs each downloaded artwork in a headless browser (offline) and records
-# whether it still executes. Verdicts: executes / external-dependency / broken.
+# Runs downloaded artworks in a browser, offline, and records whether they still
+# execute. Three ways to use it:
+#   * batch    - check many projects and log a verdict each (resumable, chunked);
+#   * --browse - open ONE window with the project list; you click what to run;
+#   * --open   - open ONE named project in a visible window to inspect by hand.
+# Resumable: results accumulate in the CSV and checked projects are skipped.
+# Verdicts: executes / external-dependency / broken / no-html / needs-params.
 import csv
 import functools
 import io
 import random
+import re
 import sys
 import threading
 import urllib.parse
@@ -19,18 +25,33 @@ RESULTS = BASE / "data" / "execution_results.csv"
 FAILS_DIR = BASE / "charts" / "execution_fails"
 
 NAV_TIMEOUT = 15000
-RENDER_WAIT = 6000
+RENDER_WAIT = 10000
 SHOT_TIMEOUT = 20000
 VIEWPORT = {"width": 900, "height": 900}
 MIN_COLORS = 8
 
 ALPHABET = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
-# A fixed fake fxhash hash so every run is deterministic and reproducible.
 _rng = random.Random(42)
+# A fixed fake fxhash hash so every run is deterministic and reproducible.
 FXHASH = "oo" + "".join(_rng.choice(ALPHABET) for _ in range(49))
 
-FIELDS = ["relpath", "name", "version", "year", "verdict", "signal",
-          "blocked_hosts", "error"]
+FIELDS = ["relpath", "name", "version", "year", "verdict", "reason",
+          "kind", "interactive", "sound", "signal", "blocked_hosts", "error"]
+
+# Error text that points to the browser lacking a feature the artwork needs.
+BROWSER_INCOMPAT = re.compile(
+    r"webgpu|requestdevice|navigator\.gpu|webgl2?|not supported|unsupported|"
+    r"securityerror|is not defined|is not a function", re.I)
+
+# Non-essential hosts (analytics, trackers, fonts): blocking these must not, by
+# itself, count as the reason a piece failed.
+IGNORE_HOSTS = re.compile(
+    r"googletagmanager|google-analytics|analytics|doubleclick|gstatic|"
+    r"fonts\.googleapis|facebook|twitter|sentry|hotjar|cloudflareinsights", re.I)
+
+
+def essential_hosts(blocked):
+    return sorted(h for h in blocked if not IGNORE_HOSTS.search(h))
 
 # Reads the largest canvas' pixels in-page and returns its colour range, so we
 # can tell "something rendered" even when a screenshot cannot be captured.
@@ -69,21 +90,28 @@ def start_server():
     return server, server.server_address[1]
 
 
-def all_projects():
-    projects = []
-    for src in PROJECTS.rglob("_source.txt"):
-        folder = src.parent
-        if (folder / "index.html").exists():
-            projects.append(folder.relative_to(PROJECTS))
-    projects.sort(key=lambda p: str(p))
-    return projects
+def all_project_folders():
+    # Every downloaded project folder (marked by _source.txt), whether or not it
+    # has an index.html — the missing-html ones must be reported, not skipped.
+    folders = [src.parent.relative_to(PROJECTS)
+               for src in PROJECTS.rglob("_source.txt")]
+    folders.sort(key=lambda p: str(p))
+    return folders
 
 
-def sample(projects, limit):
-    if limit and len(projects) > limit:
-        step = (len(projects) - 1) / (limit - 1)
-        return [projects[round(i * step)] for i in range(limit)]
-    return projects
+def load_done(path):
+    # relpaths already in the CSV, so a re-run continues where it left off.
+    done = set()
+    if path.exists():
+        with path.open(newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                if row.get("relpath"):
+                    done.add(row["relpath"])
+    return done
+
+
+def rel_key(relpath):
+    return str(relpath).replace("\\", "/")
 
 
 def meta_from(relpath):
@@ -96,6 +124,8 @@ def meta_from(relpath):
 
 
 def is_nonblank(png_bytes):
+    # "Non-blank" = more than a handful of distinct colours; a solid black or
+    # white screen collapses to ~1 colour and counts as blank.
     im = Image.open(io.BytesIO(png_bytes)).convert("RGB")
     im.thumbnail((256, 256))
     colors = im.getcolors(maxcolors=1 << 20)
@@ -103,8 +133,62 @@ def is_nonblank(png_bytes):
     return n > MIN_COLORS, n
 
 
-def run_one(context, port, relpath):
-    name, version, year = meta_from(relpath)
+def frame(page):
+    # A plain screenshot (animations NOT frozen), for motion comparison.
+    try:
+        return page.screenshot(timeout=SHOT_TIMEOUT)
+    except Exception:
+        return None
+
+
+def frames_differ(a, b, thresh=0.01):
+    # True if the two frames differ in more than `thresh` of pixels.
+    if not a or not b:
+        return False
+    da = Image.open(io.BytesIO(a)).convert("L").resize((64, 64)).tobytes()
+    db = Image.open(io.BytesIO(b)).convert("L").resize((64, 64)).tobytes()
+    changed = sum(1 for x, y in zip(da, db) if abs(x - y) > 16)
+    return changed > 64 * 64 * thresh
+
+
+def detect_kind(page):
+    # For a running piece: still or moving? interactive? has sound?
+    f1 = frame(page)
+    page.wait_for_timeout(1200)
+    f2 = frame(page)
+    moving = frames_differ(f1, f2)
+
+    # Actively move the mouse and click, then see if a still frame reacts.
+    try:
+        cx, cy = VIEWPORT["width"] // 2, VIEWPORT["height"] // 2
+        page.mouse.move(cx, cy)
+        page.mouse.move(cx // 2, cy // 2, steps=6)
+        page.mouse.click(cx, cy)
+    except Exception:
+        pass
+    page.wait_for_timeout(600)
+    reacted = frames_differ(f2, frame(page))
+
+    try:
+        info = page.evaluate("window.__kind || {audio:false, interact:false}")
+    except Exception:
+        info = {}
+    try:
+        has_media = bool(page.evaluate("!!document.querySelector('audio,video')"))
+    except Exception:
+        has_media = False
+
+    kind = "moving-image" if moving else "still-image"
+    # Interactive = it registered input listeners, or a still frame changed after
+    # our click (for moving pieces the frame always changes, so we trust listeners).
+    interactive = bool(info.get("interact")) or (not moving and reacted)
+    sound = bool(info.get("audio")) or has_media
+    return kind, interactive, sound
+
+
+def prepare_page(context, port, relpath):
+    # Build the fxhash URL for this project and a page that runs fully offline.
+    _, version, _ = meta_from(relpath)
     chain = "TEZOS" if "tezos" in version else "BASE"
     minter = "tz1burnburnburnburnburnburnburjAYjjX" if chain == "TEZOS" \
         else "0x0000000000000000000000000000000000000000"
@@ -139,15 +223,32 @@ def run_one(context, port, relpath):
         "window.fxpreview=function(){window.__fxpreviewCalled=true;};"
         "window.isFxpreview=false;"
     )
+    # Instrument the page so we can tell later if it uses sound or interaction.
+    page.add_init_script("""
+    (() => {
+      const K = window.__kind = { audio: false, interact: false, evts: {} };
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) {
+        const Wrapped = class extends AC { constructor(){ super(...arguments); K.audio = true; } };
+        window.AudioContext = Wrapped; window.webkitAudioContext = Wrapped;
+      }
+      try {
+        const play = HTMLMediaElement.prototype.play;
+        HTMLMediaElement.prototype.play = function(){ K.audio = true; return play.apply(this, arguments); };
+      } catch (e) {}
+      const add = EventTarget.prototype.addEventListener;
+      const RX = /^(mousemove|mousedown|mouseup|click|dblclick|pointer|touch|wheel|keydown|keyup|keypress|drag)/i;
+      EventTarget.prototype.addEventListener = function(type){
+        try { if (typeof type === 'string' && RX.test(type)) { K.interact = true; K.evts[type] = (K.evts[type]||0)+1; } } catch (e) {}
+        return add.apply(this, arguments);
+      };
+    })();
+    """)
+    return page, url, errors, blocked, chain
 
-    verdict = signal = ""
-    try:
-        page.goto(url, wait_until="domcontentloaded", timeout=NAV_TIMEOUT)
-    except Exception as exc:
-        errors.append(f"nav: {str(exc).splitlines()[0][:150]}")
 
-    page.wait_for_timeout(RENDER_WAIT)
-
+def probe(page):
+    # After the render wait, gather the signals that tell us if anything drew.
     try:
         fxpreview = bool(page.evaluate("window.__fxpreviewCalled === true"))
     except Exception:
@@ -166,38 +267,267 @@ def run_one(context, port, relpath):
     except Exception:
         delta = None
     js_nonblank = isinstance(delta, (int, float)) and delta > 30
+    return fxpreview, png, shot_nonblank, shot_failed, js_nonblank
 
-    # Decide the verdict from the runtime signals, in priority order.
+
+def decide(fxpreview, shot_nonblank, js_nonblank, shot_failed, errors, blocked, chain):
+    # Turn the signals into one verdict, in priority order.
     if fxpreview or shot_nonblank or js_nonblank:
-        verdict = "executes"
-        signal = ("fxpreview" if fxpreview else
-                  "canvas" if shot_nonblank else "canvas-js")
-    elif shot_failed and not errors:
-        verdict = "executes"
-        signal = "heavy"
-    elif blocked:
-        verdict = "external-dependency"
-        signal = "blocked"
-    elif any("param" in e.lower() for e in errors) and chain != "TEZOS":
-        verdict = "needs-params"
-        signal = "error"
-    else:
-        verdict = "broken"
-        signal = "error" if errors else "blank"
+        return "executes", ("fxpreview" if fxpreview else
+                            "canvas" if shot_nonblank else "canvas-js")
+    if shot_failed and not errors:
+        return "executes", "heavy"
+    if essential_hosts(blocked):
+        return "external-dependency", "blocked"
+    if any("param" in e.lower() for e in errors) and chain != "TEZOS":
+        return "needs-params", "error"
+    # Nothing rendered: a blank (black/white) screen or a thrown error.
+    return "broken", ("error" if errors else "blank")
 
-    if verdict != "executes" and png is not None:
+
+def classify_reason(verdict, signal, errors, blocked):
+    # A clear, human-readable "why it didn't run" (empty when it works).
+    if verdict == "executes":
+        return ""
+    if verdict == "no-html":
+        return "file is missing (no index.html)"
+    if verdict == "external-dependency":
+        hosts = ", ".join(essential_hosts(blocked)) or "an external host"
+        return f"api/resource unaccessible: needs {hosts}"
+    if verdict == "needs-params":
+        return "needs fx(params) to render"
+    if signal == "blank":
+        return "blank screen: nothing rendered, no error"
+    first = errors[0] if errors else "unknown error"
+    low = " ".join(errors).lower()
+    # A 404 offline means a file the piece needs was not in the download.
+    if "404" in low or "failed to load resource" in low:
+        return f"missing resource: {first}"
+    if BROWSER_INCOMPAT.search(" ".join(errors)):
+        return f"browser incompatible: {first}"
+    return f"runtime error: {first}"
+
+
+def run_one(context, port, relpath):
+    name, version, year = meta_from(relpath)
+    page, url, errors, blocked, chain = prepare_page(context, port, relpath)
+
+    try:
+        page.goto(url, wait_until="domcontentloaded", timeout=NAV_TIMEOUT)
+    except Exception as exc:
+        errors.append(f"nav: {str(exc).splitlines()[0][:150]}")
+    page.wait_for_timeout(RENDER_WAIT)
+
+    fxpreview, png, shot_nonblank, shot_failed, js_nonblank = probe(page)
+    verdict, signal = decide(fxpreview, shot_nonblank, js_nonblank,
+                             shot_failed, errors, blocked, chain)
+    reason = classify_reason(verdict, signal, errors, blocked)
+
+    # For pieces that run, classify what they are (still/moving/interactive/sound).
+    kind = interactive = sound = ""
+    if verdict == "executes":
+        k, it, sd = detect_kind(page)
+        kind, interactive, sound = k, ("yes" if it else "no"), ("yes" if sd else "no")
+    # Save a screenshot only for pieces that did NOT execute, to inspect later.
+    elif png is not None:
         FAILS_DIR.mkdir(parents=True, exist_ok=True)
         safe = str(relpath).replace("/", "__").replace("\\", "__")[:120]
         (FAILS_DIR / f"{safe}.png").write_bytes(png)
 
     page.close()
     return {
-        "relpath": str(relpath).replace("\\", "/"),
+        "relpath": rel_key(relpath),
         "name": name, "version": version, "year": year,
-        "verdict": verdict, "signal": signal,
+        "verdict": verdict, "reason": reason,
+        "kind": kind, "interactive": interactive, "sound": sound,
+        "signal": signal,
         "blocked_hosts": ";".join(sorted(blocked))[:200],
         "error": (errors[0] if errors else ""),
     }
+
+
+def block_external(route, request):
+    # Offline: let local/data URLs through, block everything else.
+    u = request.url
+    if u.startswith(("http://127.0.0.1", "http://localhost",
+                     "data:", "blob:", "about:")):
+        route.continue_()
+    else:
+        route.abort()
+
+
+def browse_mode():
+    # Open ONE visible window at the project listing; you click through the
+    # folders to any index.html and it runs, offline. Nothing is auto-opened.
+    server, port = start_server()
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=False,
+                                     args=["--use-gl=angle",
+                                           "--use-angle=swiftshader"])
+        context = browser.new_context(viewport=VIEWPORT)
+        context.route("**/*", block_external)
+        context.add_init_script(
+            "window.__fxpreviewCalled=false;"
+            "window.fxpreview=function(){window.__fxpreviewCalled=true;};"
+            "window.isFxpreview=false;"
+        )
+        page = context.new_page()
+        page.goto(f"http://127.0.0.1:{port}/", wait_until="domcontentloaded")
+        print("A browser window is open at the project listing.")
+        print("Click through the folders to any index.html to run it (offline).")
+        print("If a piece looks blank, add ?fxhash=ooTest123&fxiteration=1 to its URL.")
+        try:
+            input("\nPress Enter here to close the window...")
+        except EOFError:
+            pass
+        context.close()
+        browser.close()
+    server.shutdown()
+
+
+def open_one(browser, port, relpath):
+    # Interactive single-project mode: open a visible window and keep it open.
+    print(f"opening: {rel_key(relpath)}")
+    context = browser.new_context(viewport=VIEWPORT)
+    page, url, errors, blocked, chain = prepare_page(context, port, relpath)
+    print(f"url: {url}")
+
+    try:
+        page.goto(url, wait_until="domcontentloaded", timeout=NAV_TIMEOUT)
+    except Exception as exc:
+        errors.append(f"nav: {str(exc).splitlines()[0][:150]}")
+    page.wait_for_timeout(RENDER_WAIT)
+
+    fxpreview, _, shot_nonblank, shot_failed, js_nonblank = probe(page)
+    verdict, signal = decide(fxpreview, shot_nonblank, js_nonblank,
+                             shot_failed, errors, blocked, chain)
+    reason = classify_reason(verdict, signal, errors, blocked)
+
+    print(f"\nverdict: {verdict}  (signal: {signal})")
+    if verdict == "executes":
+        kind, interactive, sound = detect_kind(page)
+        print(f"type: {kind}"
+              f"{', interactive' if interactive else ''}"
+              f"{', sound' if sound else ''}")
+    if reason:
+        print(f"reason: {reason}")
+    if blocked:
+        print("blocked (external) hosts:", ", ".join(sorted(blocked)))
+    if errors:
+        print("logs / errors:")
+        for e in errors[:5]:
+            print("  -", e)
+
+    try:
+        input("\nLook at the window. Press Enter here to close it...")
+    except EOFError:
+        pass
+    context.close()
+
+
+def pick(folders, query):
+    # Find project folders whose path contains the query (case-insensitive).
+    q = query.lower()
+    return [p for p in folders if q in rel_key(p).lower()]
+
+
+def open_mode(query):
+    folders = all_project_folders()
+    matches = pick(folders, query) if query else folders
+    if not matches:
+        print(f"no project matches '{query}'")
+        return
+    if len(matches) > 1:
+        print(f"{len(matches)} matches; opening the first. A few others:")
+        for p in matches[1:6]:
+            print("  ", rel_key(p))
+    relpath = matches[0]
+
+    server, port = start_server()
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=False,
+                                     args=["--use-gl=angle",
+                                           "--use-angle=swiftshader"])
+        open_one(browser, port, relpath)
+        browser.close()
+    server.shutdown()
+
+
+def batch_mode(pos, headed):
+    folders = all_project_folders()
+    done = load_done(RESULTS)
+    todo = [p for p in folders if rel_key(p) not in done]
+    if pos:
+        todo = todo[:int(pos[0])]
+    print(f"{len(folders)} projects, {len(done)} already done, "
+          f"{len(todo)} to check this run")
+    if not todo:
+        print("nothing to do (all projects already checked)")
+        return
+
+    RESULTS.parent.mkdir(parents=True, exist_ok=True)
+    need_header = not RESULTS.exists() or RESULTS.stat().st_size == 0
+    counts = {}
+
+    server, port = start_server()
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=not headed,
+                                     args=["--use-gl=angle",
+                                           "--use-angle=swiftshader"])
+        # Append so results from earlier chunks are kept.
+        with RESULTS.open("a", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=FIELDS)
+            if need_header:
+                writer.writeheader()
+            for i, relpath in enumerate(todo, 1):
+                # No index.html -> record it and move on, no browser needed.
+                if not (PROJECTS / relpath / "index.html").exists():
+                    name, version, year = meta_from(relpath)
+                    row = {"relpath": rel_key(relpath), "name": name,
+                           "version": version, "year": year,
+                           "verdict": "no-html",
+                           "reason": "file is missing (no index.html)",
+                           "kind": "", "interactive": "", "sound": "",
+                           "signal": "missing-file",
+                           "blocked_hosts": "", "error": "no index.html in folder"}
+                else:
+                    context = browser.new_context(viewport=VIEWPORT)
+                    try:
+                        row = run_one(context, port, relpath)
+                    except Exception as exc:
+                        name, version, year = meta_from(relpath)
+                        err = str(exc).splitlines()[0][:200]
+                        row = {"relpath": rel_key(relpath), "name": name,
+                               "version": version, "year": year,
+                               "verdict": "broken",
+                               "reason": f"crashed: {err}",
+                               "kind": "", "interactive": "", "sound": "",
+                               "signal": "crash",
+                               "blocked_hosts": "", "error": err}
+                    context.close()
+
+                writer.writerow(row)
+                f.flush()
+                counts[row["verdict"]] = counts.get(row["verdict"], 0) + 1
+                # Executes -> show what it is; failures -> show the clear reason.
+                if row["verdict"] == "executes":
+                    bits = [row["kind"]]
+                    if row["interactive"] == "yes":
+                        bits.append("interactive")
+                    if row["sound"] == "yes":
+                        bits.append("sound")
+                    tail = "  | " + ", ".join(b for b in bits if b)
+                else:
+                    tail = f"  | {row['reason']}"
+                print(f"  [{i}/{len(todo)}] {row['verdict']:20} "
+                      f"{row['name'][:40]}{tail}", flush=True)
+        browser.close()
+    server.shutdown()
+
+    print("\nsummary (this run):")
+    for v, n in sorted(counts.items()):
+        print(f"  {v}: {n}")
+    print(f"saved {RESULTS}")
 
 
 def main():
@@ -207,48 +537,24 @@ def main():
         pass
 
     args = sys.argv[1:]
-    projects = all_projects()
-    if args and args[0] == "--path":
-        query = args[1].lower() if len(args) > 1 else ""
-        projects = [p for p in projects if query in str(p).lower()]
-    else:
-        projects = sample(projects, int(args[0]) if args else 50)
-    print(f"testing {len(projects)} projects (fxhash={FXHASH[:8]}...)")
+    flags = {a for a in args if a.startswith("--")}
+    pos = [a for a in args if not a.startswith("--")]
 
-    server, port = start_server()
-    RESULTS.parent.mkdir(parents=True, exist_ok=True)
-    counts = {}
+    if "--fresh" in flags and RESULTS.exists():
+        RESULTS.unlink()
 
-    with sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=True,
-                                     args=["--use-gl=angle",
-                                           "--use-angle=swiftshader"])
-        with RESULTS.open("w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=FIELDS)
-            writer.writeheader()
-            for i, relpath in enumerate(projects, 1):
-                context = browser.new_context(viewport=VIEWPORT)
-                try:
-                    row = run_one(context, port, relpath)
-                except Exception as exc:
-                    name, version, year = meta_from(relpath)
-                    row = {"relpath": str(relpath).replace("\\", "/"),
-                           "name": name, "version": version, "year": year,
-                           "verdict": "broken", "signal": "crash",
-                           "blocked_hosts": "",
-                           "error": str(exc).splitlines()[0][:200]}
-                context.close()
-                writer.writerow(row)
-                f.flush()
-                counts[row["verdict"]] = counts.get(row["verdict"], 0) + 1
-                print(f"  [{i}/{len(projects)}] {row['verdict']:20} {row['name'][:40]}")
-        browser.close()
-    server.shutdown()
+    # --browse: open one window with the project list; you click what to run.
+    if "--browse" in flags:
+        browse_mode()
+        return
 
-    print("\nsummary:")
-    for v, n in sorted(counts.items()):
-        print(f"  {v}: {n}")
-    print(f"saved {RESULTS}")
+    # --open "<name>": open one specific project (by name) in a visible window.
+    if "--open" in flags:
+        open_mode(pos[0] if pos else "")
+        return
+
+    # otherwise: batch. optional positional = how many to check this run (a chunk).
+    batch_mode(pos, headed="--headed" in flags)
 
 
 if __name__ == "__main__":

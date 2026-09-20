@@ -4,6 +4,12 @@ projects/fxhash-2.0-evm/2025/Allegory of the AI__0x6E3aDDBf9448a1083BF6Ada407561
 # Local handoff / working notes (contains infra details) — keep out of the repo
 HANDOFF.md
 
+# Node / Playwright
+node_modules/
+test-results/
+playwright-report/
+.playwright/
+
 # Python
 __pycache__/
 *.pyc

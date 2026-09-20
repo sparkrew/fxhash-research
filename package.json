@@ -1,0 +1,13 @@
+{
+  "name": "fxhash-artwork-runner",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Playwright UI runner to open and inspect downloaded fxhash artworks",
+  "scripts": {
+    "ui": "playwright test --ui",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0"
+  }
+}

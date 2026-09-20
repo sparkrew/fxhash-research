@@ -45,6 +45,7 @@ by the harness:
 | `executes` | the artwork rendered / is running |
 | `external-dependency` | it failed because a blocked external resource (CDN, `ipfs://`) was required |
 | `broken` | the code threw an error, or nothing rendered |
+| `no-html` | the folder has no `index.html` to run |
 | `needs-params` | an fxhash 2.0 piece that needs `fxparams` to run |
 
 ## Detection signals
@@ -65,22 +66,101 @@ A piece counts as `executes` on any of these, provided there is no fatal error:
 
 ## How to run
 
-```bash
-# a representative sample spread across years/versions (default 50)
-python run_artworks.py 50
+The runner is **resumable and works in chunks**: results accumulate in the CSV and
+already-checked projects are skipped, so a large archive can be run a bit at a time.
 
-# a single artwork by name or path fragment (headless verdict)
-python run_artworks.py --path "Charcoal Landscapes"
+```bash
+python run_artworks.py              # check every project not yet done
+python run_artworks.py 100          # check the next 100 (a chunk)
+python run_artworks.py --headed 20  # same, but show the browser window
+python run_artworks.py --fresh      # start over (clear previous results)
 ```
 
-Results are written incrementally to **`data/execution_results.csv`**
-(`name, version, year, verdict, signal, blocked_hosts, error`); failure
-screenshots go to **`charts/execution_fails/`**.
+Two interactive modes let you inspect by hand:
 
-The runner is **offline** — it blocks all non-local requests — so the verdicts
-are reproducible and don't depend on external services being up. The `fxhash`
-value is fixed by a seed, so re-runs give the same results (only `heavy` pieces
-can vary with machine load).
+```bash
+python run_artworks.py --browse       # one window with the project list; click what to run
+python run_artworks.py --open "Sea"   # open one project (by name) in a visible window
+```
+
+For the full clickable UI see [the Playwright UI runner](#the-playwright-ui-runner)
+below.
+
+Results are written incrementally to **`data/execution_results.csv`**:
+
+| column | meaning |
+|--------|---------|
+| `relpath, name, version, year` | which project |
+| `verdict` | executes / broken / external-dependency / no-html / needs-params |
+| `reason` | for failures, a clear "why" (see below) |
+| `kind` | for pieces that run: `still-image` or `moving-image` |
+| `interactive` | `yes`/`no` — reacts to mouse / touch / keyboard |
+| `sound` | `yes`/`no` — uses audio |
+| `signal, blocked_hosts, error` | the raw detection detail |
+
+Failure screenshots go to **`charts/execution_fails/`**. The runner is **offline**
+— it blocks all non-local requests — and the `fxhash` seed is fixed, so re-runs are
+reproducible (only `heavy` pieces can vary with machine load).
+
+## Why a piece failed (the `reason` column)
+
+When a piece does not run, `reason` says why, in plain words:
+
+| reason | meaning |
+|--------|---------|
+| `file is missing (no index.html)` | the folder has no entry point to run |
+| `missing resource: <error>` | a file the piece needs returned 404 (not in the download) |
+| `api/resource unaccessible: needs <hosts>` | it required a blocked external resource |
+| `browser incompatible: <error>` | it needs a browser feature that isn't available (WebGL / WebGPU / …) |
+| `runtime error: <error>` | the code threw an error (the error text is the log) |
+| `blank screen: nothing rendered, no error` | nothing drew, and nothing errored |
+
+**Analytics don't count.** Requests to trackers, analytics, and font CDNs
+(Google Tag Manager, Google Analytics, `gstatic`, `fonts.googleapis`, …) are
+blocked like any other external host, but they are **ignored** when deciding the
+reason: a piece that renders fine while merely pinging Google Analytics is
+`executes`, not `external-dependency`.
+
+## What kind of piece (for the ones that run)
+
+For every artwork that executes, the runner also records **what it is**, by
+watching it for a couple of seconds and poking it:
+
+- **still-image vs moving-image** — two frames ~1.2 s apart are compared; if they
+  differ, the piece animates.
+- **interactive** — the piece registered mouse / touch / keyboard listeners, or a
+  still frame changed after the runner moved the mouse and clicked.
+- **sound** — the piece created an `AudioContext`, called `.play()`, or has an
+  `<audio>` / `<video>` element.
+
+These are heuristics: audio usually needs a user gesture to actually start, so
+`sound` means "audio is present", not "audio was heard".
+
+## The Playwright UI runner
+
+For hands-on inspection there is a second runner built on the **Node.js Playwright
+test UI**. It lists every project as a test; you click one to run it in an embedded
+browser and see the full **Log / Console / Network / Errors** panels. A green test
+rendered; a red test shows the failure reason.
+
+```bash
+npm install                      # first time only (installs @playwright/test)
+npx playwright install chromium  # first time only (downloads the browser)
+npm run ui                       # open the UI
+```
+
+Filter the list with environment variables when it is large:
+
+```bash
+FX_FILTER=pipes npm run ui   # only projects whose path contains "pipes"
+FX_LIMIT=200 npm run ui      # only the first 200
+```
+
+Click a test to run it. A **green** test rendered; a **red** one did not, and its
+error message is the failure reason. The **conclusion** — for a green test what it
+is (`still-image` / `moving-image`, `interactive`, `sound`), for a red one why it
+failed — is shown in three places: the **Annotations** tab, a labelled step in the
+**Actions** list, and the page **Console** tab (`[fxhash] executes — …`).
 
 ### Viewing one artwork yourself (step by step)
 
@@ -169,7 +249,8 @@ and heavy animations whose screenshot timed out (fixed with the canvas-pixel and
 
 ## Status
 
-The runner and its verdict logic are calibrated on the 50-project sample. The
-full run over all 2,761 projects (with added concurrency) is the next step.
+The runner is resumable and records, per project, the verdict, the failure
+`reason`, and — for pieces that run — whether they are still/moving, interactive,
+and have sound. The full run over the whole archive (on DIRO) is done in chunks.
 
 Back to the [documentation index](README.md).

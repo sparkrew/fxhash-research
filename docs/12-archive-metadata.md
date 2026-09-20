@@ -18,27 +18,40 @@ python archive_report.py ~/projects     # the full archive (on DIRO)
 
 ### Total size
 
-| Archive | Projects | Size |
-|---------|---------:|-----:|
-| Full archive (DIRO) | 27,596 | **94 GB** |
-| 10% sample (GitHub) | 2,761 | 12.2 GB |
+Size is the sum of all file sizes (logical bytes), the figure that matters for
+archival. Measured on the full archive on 2026-09-20.
 
-### File types (10% sample)
+| Archive | Projects | Files | Size |
+|---------|---------:|------:|-----:|
+| Full archive (DIRO) | 27,595 | 635,480 | **120 GB** (112 GiB) |
+| 10% sample (GitHub) | 2,761 | 62,444 | 12.2 GB |
 
-Images dominate by volume; JavaScript is the largest *code* type.
+(`du -sh` reports ~94 GiB of disk *blocks* for the full archive; the 120 GB above
+is the sum of actual file sizes.)
 
-| Type | Size |
-|------|-----:|
-| `.png` | 6.7 GB |
-| `.js` | 3.3 GB |
-| `.jpg` | 744 MB |
-| `.mp3` | 390 MB |
-| `.onnx` (ML weights) | 184 MB |
-| `.wasm` | 183 MB |
-| `.webp` | 110 MB |
-| `.html` | 45 MB (every project has an `index.html`) |
+### File types (full archive)
 
-Plus `.gif`, `.json`, `.ttf`, and a long tail. Full per-project composition is in
+Images dominate by volume; JavaScript is the largest *code* type. Every project
+has an `index.html`.
+
+| Type | Files | Size |
+|------|------:|-----:|
+| `.png` | 347,355 | 60.5 GB |
+| `.js` | 86,162 | 32.0 GB |
+| `.jpg` | 29,387 | 6.0 GB |
+| `.mp3` | 4,248 | 3.0 GB |
+| `.wasm` | 332 | 1.6 GB |
+| `.gif` | 5,963 | 1.1 GB |
+| `.webp` | 18,970 | 752 MB |
+| `.svg` | 7,982 | 640 MB |
+| `.ttf` | 2,190 | 562 MB |
+| `.obj` (3D models) | 571 | 534 MB |
+| `.onnx` (ML weights) | 49 | 455 MB |
+| `.html` | 28,102 | 446 MB |
+| `.glb` (3D models) | 1,531 | 442 MB |
+
+Plus `.data`, `.json`, and a long tail. Full breakdown in
+`data/file_type_totals.csv`; per-project composition in
 [07 — Code statistics](07-code-statistics.md).
 
 ## Economic metadata (mints and money)

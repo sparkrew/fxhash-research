@@ -41,6 +41,11 @@ It covers **both versions** of the platform:
    [docs/10-editions.md](docs/10-editions.md).
 8. **`artists.ipynb`** — charts how many different artists published and how many
    projects each released. See [docs/11-artists.md](docs/11-artists.md).
+9. **`collect_metadata.py`** — collects per-project mints and cryptocurrency
+   volume (primary / secondary / total, in XTZ / ETH and USD) into
+   `data/project_metadata.csv`. See [docs/12-archive-metadata.md](docs/12-archive-metadata.md).
+10. **`archive_report.py`** — reports the on-disk archive: total size, size per
+    artwork, and file types. See [docs/12-archive-metadata.md](docs/12-archive-metadata.md).
 
 ## What data is collected
 
@@ -92,7 +97,9 @@ fxhash-research/
 ├── fxhash_scraper.py       # data collection from the v2 API -> CSV
 ├── download_projects.py    # download project source code from IPFS, by year
 ├── analyze_licenses.py     # classify each project's license file into types
-├── run_artworks.py         # run each artwork headless (offline) and check it executes
+├── run_artworks.py         # run each artwork (offline) and check it executes
+├── collect_metadata.py     # per-project mints + cryptocurrency volume -> CSV
+├── archive_report.py       # archive size, per-artwork size, and file types
 ├── analysis.ipynb          # project-growth analysis and 3 charts (Jupyter)
 ├── js_libraries.ipynb      # most common .js files across projects
 ├── file_composition.ipynb  # interactive file-type composition per project
@@ -112,13 +119,17 @@ fxhash-research/
 │   ├── 09-execution.md
 │   ├── 10-editions.md
 │   ├── 11-artists.md
+│   ├── 12-archive-metadata.md
 │   └── img/                # chart images embedded in the docs
 ├── data/                   # datasets and stats (created by the scripts/notebooks)
 │   ├── fxhash_tokens.csv
 │   ├── js_file_counts.csv
 │   ├── project_file_types.csv
 │   ├── license_types.csv
-│   └── execution_results.csv
+│   ├── execution_results.csv
+│   ├── project_metadata.csv    # mints + cryptocurrency volume per project
+│   ├── folder_sizes.csv        # size per artwork folder
+│   └── file_type_totals.csv    # bytes/files per file type
 ├── charts/                 # standalone interactive HTML charts + fail screenshots
 └── projects/               # downloaded project code (created by download_projects.py)
     ├── fxhash-1.0-tezos/<year>/<name>__<id>/

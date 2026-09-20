@@ -156,6 +156,8 @@ Beyond the growth pipeline above, the project has tools that work on the
 | `run_artworks.py` | Runs each artwork headless (offline) and records whether it executes. | [09](09-execution.md) |
 | `editions.ipynb` | Charts how many editions were minted per project (`iterations_count`). | [10](10-editions.md) |
 | `artists.ipynb` | Charts how many artists published and the projects-per-artist spread. | [11](11-artists.md) |
+| `collect_metadata.py` | Collects per-project mints and cryptocurrency volume from the API. | [12](12-archive-metadata.md) |
+| `archive_report.py` | Reports archive size, per-artwork size, and file types on disk. | [12](12-archive-metadata.md) |
 
 Each writes its results to a CSV under `data/` and (for the notebooks) renders
 charts inline.

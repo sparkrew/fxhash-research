@@ -1,4 +1,4 @@
-# fxhash-research
+# fx(hash) documentation and archiving
 
 A Python system that collects data about projects (images) from
 [fxhash](https://www.fxhash.xyz/) via its public GraphQL API and plots how their

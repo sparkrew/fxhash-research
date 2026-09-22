@@ -98,10 +98,19 @@ def start_server():
 
 
 def all_project_folders():
-    # Every downloaded project folder (marked by _source.txt), whether or not it
-    # has an index.html — the missing-html ones must be reported, not skipped.
-    folders = [src.parent.relative_to(PROJECTS)
-               for src in PROJECTS.rglob("_source.txt")]
+    # Project folders live at <version>/<year>/<name__id>. List just those
+    # directories (fast on a network disk: no walking into every file, unlike
+    # an rglob over the whole archive).
+    folders = []
+    for version in PROJECTS.iterdir():
+        if not version.is_dir():
+            continue
+        for year in version.iterdir():
+            if not year.is_dir():
+                continue
+            for proj in year.iterdir():
+                if proj.is_dir():
+                    folders.append(proj.relative_to(PROJECTS))
     folders.sort(key=lambda p: str(p))
     return folders
 
@@ -598,6 +607,7 @@ def progress_line(done, total, start, counts, row):
 
 
 def batch_mode(pos, headed, workers=1):
+    print("scanning the projects folder...", flush=True)
     folders = all_project_folders()
     done = load_done(RESULTS)
     todo = [p for p in folders if rel_key(p) not in done]
@@ -605,7 +615,7 @@ def batch_mode(pos, headed, workers=1):
         todo = todo[:int(pos[0])]
     print(f"{len(folders)} projects, {len(done)} already done, "
           f"{len(todo)} to check this run"
-          + (f", {workers} workers" if workers > 1 else ""))
+          + (f", {workers} workers" if workers > 1 else ""), flush=True)
     if not todo:
         print("nothing to do (all projects already checked)")
         return

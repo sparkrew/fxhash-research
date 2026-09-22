@@ -96,11 +96,40 @@ Results are written incrementally to **`data/execution_results.csv`**:
 | `kind` | for pieces that run: `still-image` or `moving-image` |
 | `interactive` | `yes`/`no` — reacts to mouse / touch / keyboard |
 | `sound` | `yes`/`no` — uses audio |
+| `nb_files, size` | file count and total bytes of the project folder on disk |
 | `signal, blocked_hosts, error` | the raw detection detail |
 
 Failure screenshots go to **`charts/execution_fails/`**. The runner is **offline**
 — it blocks all non-local requests — and the `fxhash` seed is fixed, so re-runs are
-reproducible (only `heavy` pieces can vary with machine load).
+reproducible (only `heavy` pieces can vary with machine load). While running it
+logs progress per project — position, %, running tally, elapsed time and ETA.
+
+### The JSON report
+
+At the end of every run the runner also rebuilds **`data/results.json`** — one
+merged record per project, combining the execution result with the on-disk stats
+and the API metadata:
+
+```json
+{
+  "name": "fxhash-1.0-tezos/2021/(open_) Sea__5097",
+  "date": "2021-12-27T22:31:30+00:00",
+  "nb_files": 5,
+  "nb_mints": 11,
+  "size": 4257953,
+  "execute": true,
+  "type": ["moving-image", "interactive"],
+  "error": [],
+  "log": ""
+}
+```
+
+`type` is empty when the piece fails, otherwise it lists `still-image` /
+`moving-image` plus `interactive` and `sound` when present; `error` holds the
+failure reason(s) and `log` the raw browser log. `date` and `nb_mints` come from
+`data/project_metadata.csv` (run `collect_metadata.py` first to populate them).
+Because it is rebuilt from the resumable CSV, a chunked run's `results.json`
+always reflects everything checked so far.
 
 ## Why a piece failed (the `reason` column)
 

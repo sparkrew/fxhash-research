@@ -8,10 +8,12 @@
 import csv
 import functools
 import io
+import json
 import random
 import re
 import sys
 import threading
+import time
 import urllib.parse
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -22,6 +24,8 @@ from playwright.sync_api import sync_playwright
 BASE = Path(__file__).parent
 PROJECTS = BASE / "projects"
 RESULTS = BASE / "data" / "execution_results.csv"
+RESULTS_JSON = BASE / "data" / "results.json"
+METADATA_CSV = BASE / "data" / "project_metadata.csv"
 FAILS_DIR = BASE / "charts" / "execution_fails"
 
 NAV_TIMEOUT = 15000
@@ -36,7 +40,8 @@ _rng = random.Random(42)
 FXHASH = "oo" + "".join(_rng.choice(ALPHABET) for _ in range(49))
 
 FIELDS = ["relpath", "name", "version", "year", "verdict", "reason",
-          "kind", "interactive", "sound", "signal", "blocked_hosts", "error"]
+          "kind", "interactive", "sound", "nb_files", "size",
+          "signal", "blocked_hosts", "error"]
 
 # Error text that points to the browser lacking a feature the artwork needs.
 BROWSER_INCOMPAT = re.compile(
@@ -112,6 +117,69 @@ def load_done(path):
 
 def rel_key(relpath):
     return str(relpath).replace("\\", "/")
+
+
+def id_from(rel):
+    # The project id is the part after the last "__" in the folder name.
+    leaf = rel.rsplit("/", 1)[-1]
+    return leaf.rsplit("__", 1)[1] if "__" in leaf else ""
+
+
+def folder_stats(folder):
+    # Count files and sum their bytes for one project folder (macOS junk excluded).
+    n = b = 0
+    for p in folder.rglob("*"):
+        if p.is_file() and "__MACOSX" not in p.parts and not p.name.startswith("._"):
+            n += 1
+            b += p.stat().st_size
+    return n, b
+
+
+def load_metadata():
+    # id -> release date and mint count, from the API metadata CSV (for the JSON).
+    meta = {}
+    if METADATA_CSV.exists():
+        with METADATA_CSV.open(newline="", encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                meta[str(r["id"])] = {"date": r.get("mint_opens_at"),
+                                      "mints": r.get("minted")}
+    return meta
+
+
+def write_results_json():
+    # Merge the execution CSV with the API metadata into one JSON report:
+    # {name, date, nb_files, nb_mints, size, execute, type[], error[], log}.
+    if not RESULTS.exists():
+        return
+    meta = load_metadata()
+    out = []
+    with RESULTS.open(newline="", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            execute = r["verdict"] == "executes"
+            kinds = []
+            if execute:
+                if r.get("kind"):
+                    kinds.append(r["kind"])
+                if r.get("interactive") == "yes":
+                    kinds.append("interactive")
+                if r.get("sound") == "yes":
+                    kinds.append("sound")
+            m = meta.get(id_from(r["relpath"]), {})
+            mints = m.get("mints")
+            out.append({
+                "name": r["relpath"],
+                "date": m.get("date"),
+                "nb_files": int(r["nb_files"]) if r.get("nb_files") else None,
+                "nb_mints": int(mints) if (mints or "").isdigit() else None,
+                "size": int(r["size"]) if r.get("size") else None,
+                "execute": execute,
+                "type": kinds,
+                "error": [] if execute else ([r["reason"]] if r.get("reason") else []),
+                "log": r.get("error", ""),
+            })
+    RESULTS_JSON.write_text(json.dumps(out, ensure_ascii=False, indent=2),
+                            encoding="utf-8")
+    print(f"wrote {RESULTS_JSON} ({len(out)} projects)")
 
 
 def meta_from(relpath):
@@ -335,11 +403,13 @@ def run_one(context, port, relpath):
         (FAILS_DIR / f"{safe}.png").write_bytes(png)
 
     page.close()
+    nb_files, size = folder_stats(PROJECTS / relpath)
     return {
         "relpath": rel_key(relpath),
         "name": name, "version": version, "year": year,
         "verdict": verdict, "reason": reason,
         "kind": kind, "interactive": interactive, "sound": sound,
+        "nb_files": nb_files, "size": size,
         "signal": signal,
         "blocked_hosts": ";".join(sorted(blocked))[:200],
         "error": (errors[0] if errors else ""),
@@ -479,15 +549,18 @@ def batch_mode(pos, headed):
             writer = csv.DictWriter(f, fieldnames=FIELDS)
             if need_header:
                 writer.writeheader()
+            start = time.time()
             for i, relpath in enumerate(todo, 1):
                 # No index.html -> record it and move on, no browser needed.
                 if not (PROJECTS / relpath / "index.html").exists():
                     name, version, year = meta_from(relpath)
+                    nb_files, size = folder_stats(PROJECTS / relpath)
                     row = {"relpath": rel_key(relpath), "name": name,
                            "version": version, "year": year,
                            "verdict": "no-html",
                            "reason": "file is missing (no index.html)",
                            "kind": "", "interactive": "", "sound": "",
+                           "nb_files": nb_files, "size": size,
                            "signal": "missing-file",
                            "blocked_hosts": "", "error": "no index.html in folder"}
                 else:
@@ -497,11 +570,13 @@ def batch_mode(pos, headed):
                     except Exception as exc:
                         name, version, year = meta_from(relpath)
                         err = str(exc).splitlines()[0][:200]
+                        nb_files, size = folder_stats(PROJECTS / relpath)
                         row = {"relpath": rel_key(relpath), "name": name,
                                "version": version, "year": year,
                                "verdict": "broken",
                                "reason": f"crashed: {err}",
                                "kind": "", "interactive": "", "sound": "",
+                               "nb_files": nb_files, "size": size,
                                "signal": "crash",
                                "blocked_hosts": "", "error": err}
                     context.close()
@@ -516,11 +591,21 @@ def batch_mode(pos, headed):
                         bits.append("interactive")
                     if row["sound"] == "yes":
                         bits.append("sound")
-                    tail = "  | " + ", ".join(b for b in bits if b)
+                    tail = ", ".join(b for b in bits if b)
                 else:
-                    tail = f"  | {row['reason']}"
-                print(f"  [{i}/{len(todo)}] {row['verdict']:20} "
-                      f"{row['name'][:40]}{tail}", flush=True)
+                    tail = row["reason"]
+                # Progress log: position, %, running tally, elapsed and ETA.
+                elapsed = time.time() - start
+                pct = 100 * i / len(todo)
+                per = elapsed / i
+                eta = time.strftime("%H:%M:%S", time.gmtime(per * (len(todo) - i)))
+                ok = counts.get("executes", 0)
+                bad = i - ok
+                print(f"  [{i}/{len(todo)} {pct:4.0f}%] "
+                      f"{time.strftime('%H:%M:%S', time.gmtime(elapsed))} "
+                      f"(ok {ok}, other {bad}, eta {eta})  "
+                      f"{row['verdict']:18} {row['name'][:38]}  | {tail}",
+                      flush=True)
         browser.close()
     server.shutdown()
 
@@ -528,6 +613,8 @@ def batch_mode(pos, headed):
     for v, n in sorted(counts.items()):
         print(f"  {v}: {n}")
     print(f"saved {RESULTS}")
+    # Rebuild the merged JSON report from everything checked so far.
+    write_results_json()
 
 
 def main():

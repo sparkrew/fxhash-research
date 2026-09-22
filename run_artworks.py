@@ -15,6 +15,7 @@ import sys
 import threading
 import time
 import urllib.parse
+from concurrent.futures import ProcessPoolExecutor
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -33,6 +34,7 @@ RENDER_WAIT = 10000
 SHOT_TIMEOUT = 20000
 VIEWPORT = {"width": 900, "height": 900}
 MIN_COLORS = 8
+LAUNCH_ARGS = ["--use-gl=angle", "--use-angle=swiftshader"]
 
 ALPHABET = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
 _rng = random.Random(42)
@@ -416,6 +418,57 @@ def run_one(context, port, relpath):
     }
 
 
+def crash_row(relpath, exc):
+    # A result row for a project that threw before we got a verdict.
+    name, version, year = meta_from(relpath)
+    err = str(exc).splitlines()[0][:200]
+    nb_files, size = folder_stats(PROJECTS / relpath)
+    return {"relpath": rel_key(relpath), "name": name, "version": version,
+            "year": year, "verdict": "broken", "reason": f"crashed: {err}",
+            "kind": "", "interactive": "", "sound": "",
+            "nb_files": nb_files, "size": size, "signal": "crash",
+            "blocked_hosts": "", "error": err}
+
+
+def process_one(browser, port, relpath):
+    # Check one project (no browser needed if it has no index.html).
+    if not (PROJECTS / relpath / "index.html").exists():
+        name, version, year = meta_from(relpath)
+        nb_files, size = folder_stats(PROJECTS / relpath)
+        return {"relpath": rel_key(relpath), "name": name, "version": version,
+                "year": year, "verdict": "no-html",
+                "reason": "file is missing (no index.html)",
+                "kind": "", "interactive": "", "sound": "",
+                "nb_files": nb_files, "size": size, "signal": "missing-file",
+                "blocked_hosts": "", "error": "no index.html in folder"}
+    context = browser.new_context(viewport=VIEWPORT)
+    try:
+        return run_one(context, port, relpath)
+    except Exception as exc:
+        return crash_row(relpath, exc)
+    finally:
+        context.close()
+
+
+# Parallel workers run in separate PROCESSES (sync Playwright can't be shared
+# across threads), each owning its own browser. _W holds this process's state.
+_W = {}
+
+
+def _worker_init(port, headed):
+    _W["port"] = port
+    _W["pw"] = sync_playwright().start()
+    _W["browser"] = _W["pw"].chromium.launch(headless=not headed, args=LAUNCH_ARGS)
+
+
+def _worker_task(relpath_str):
+    relpath = Path(relpath_str)
+    try:
+        return process_one(_W["browser"], _W["port"], relpath)
+    except Exception as exc:
+        return crash_row(relpath, exc)
+
+
 def block_external(route, request):
     # Offline: let local/data URLs through, block everything else.
     u = request.url
@@ -523,14 +576,36 @@ def open_mode(query):
     server.shutdown()
 
 
-def batch_mode(pos, headed):
+def progress_line(done, total, start, counts, row):
+    # One progress line: position, %, elapsed, running tally, ETA, and result.
+    if row["verdict"] == "executes":
+        bits = [row["kind"]]
+        if row["interactive"] == "yes":
+            bits.append("interactive")
+        if row["sound"] == "yes":
+            bits.append("sound")
+        tail = ", ".join(b for b in bits if b)
+    else:
+        tail = row["reason"]
+    elapsed = time.time() - start
+    per = elapsed / done if done else 0
+    eta = time.strftime("%H:%M:%S", time.gmtime(per * (total - done)))
+    ok = counts.get("executes", 0)
+    return (f"  [{done}/{total} {100 * done / total:4.0f}%] "
+            f"{time.strftime('%H:%M:%S', time.gmtime(elapsed))} "
+            f"(ok {ok}, other {done - ok}, eta {eta})  "
+            f"{row['verdict']:18} {row['name'][:38]}  | {tail}")
+
+
+def batch_mode(pos, headed, workers=1):
     folders = all_project_folders()
     done = load_done(RESULTS)
     todo = [p for p in folders if rel_key(p) not in done]
     if pos:
         todo = todo[:int(pos[0])]
     print(f"{len(folders)} projects, {len(done)} already done, "
-          f"{len(todo)} to check this run")
+          f"{len(todo)} to check this run"
+          + (f", {workers} workers" if workers > 1 else ""))
     if not todo:
         print("nothing to do (all projects already checked)")
         return
@@ -538,76 +613,50 @@ def batch_mode(pos, headed):
     RESULTS.parent.mkdir(parents=True, exist_ok=True)
     need_header = not RESULTS.exists() or RESULTS.stat().st_size == 0
     counts = {}
+    total = len(todo)
+    lock = threading.Lock()
+    state = {"done": 0}
+    start = time.time()
 
     server, port = start_server()
-    with sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=not headed,
-                                     args=["--use-gl=angle",
-                                           "--use-angle=swiftshader"])
-        # Append so results from earlier chunks are kept.
-        with RESULTS.open("a", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=FIELDS)
-            if need_header:
-                writer.writeheader()
-            start = time.time()
-            for i, relpath in enumerate(todo, 1):
-                # No index.html -> record it and move on, no browser needed.
-                if not (PROJECTS / relpath / "index.html").exists():
-                    name, version, year = meta_from(relpath)
-                    nb_files, size = folder_stats(PROJECTS / relpath)
-                    row = {"relpath": rel_key(relpath), "name": name,
-                           "version": version, "year": year,
-                           "verdict": "no-html",
-                           "reason": "file is missing (no index.html)",
-                           "kind": "", "interactive": "", "sound": "",
-                           "nb_files": nb_files, "size": size,
-                           "signal": "missing-file",
-                           "blocked_hosts": "", "error": "no index.html in folder"}
-                else:
-                    context = browser.new_context(viewport=VIEWPORT)
-                    try:
-                        row = run_one(context, port, relpath)
-                    except Exception as exc:
-                        name, version, year = meta_from(relpath)
-                        err = str(exc).splitlines()[0][:200]
-                        nb_files, size = folder_stats(PROJECTS / relpath)
-                        row = {"relpath": rel_key(relpath), "name": name,
-                               "version": version, "year": year,
-                               "verdict": "broken",
-                               "reason": f"crashed: {err}",
-                               "kind": "", "interactive": "", "sound": "",
-                               "nb_files": nb_files, "size": size,
-                               "signal": "crash",
-                               "blocked_hosts": "", "error": err}
-                    context.close()
+    # Append so results from earlier chunks are kept.
+    f = RESULTS.open("a", newline="", encoding="utf-8")
+    writer = csv.DictWriter(f, fieldnames=FIELDS)
+    if need_header:
+        writer.writeheader()
+        f.flush()
 
-                writer.writerow(row)
-                f.flush()
-                counts[row["verdict"]] = counts.get(row["verdict"], 0) + 1
-                # Executes -> show what it is; failures -> show the clear reason.
-                if row["verdict"] == "executes":
-                    bits = [row["kind"]]
-                    if row["interactive"] == "yes":
-                        bits.append("interactive")
-                    if row["sound"] == "yes":
-                        bits.append("sound")
-                    tail = ", ".join(b for b in bits if b)
-                else:
-                    tail = row["reason"]
-                # Progress log: position, %, running tally, elapsed and ETA.
-                elapsed = time.time() - start
-                pct = 100 * i / len(todo)
-                per = elapsed / i
-                eta = time.strftime("%H:%M:%S", time.gmtime(per * (len(todo) - i)))
-                ok = counts.get("executes", 0)
-                bad = i - ok
-                print(f"  [{i}/{len(todo)} {pct:4.0f}%] "
-                      f"{time.strftime('%H:%M:%S', time.gmtime(elapsed))} "
-                      f"(ok {ok}, other {bad}, eta {eta})  "
-                      f"{row['verdict']:18} {row['name'][:38]}  | {tail}",
-                      flush=True)
-        browser.close()
-    server.shutdown()
+    def record(row):
+        # Thread-safe: write the row, update the tally, print progress.
+        with lock:
+            writer.writerow(row)
+            f.flush()
+            counts[row["verdict"]] = counts.get(row["verdict"], 0) + 1
+            state["done"] += 1
+            print(progress_line(state["done"], total, start, counts, row),
+                  flush=True)
+
+    def run_serial():
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(headless=not headed, args=LAUNCH_ARGS)
+            for relpath in todo:
+                record(process_one(browser, port, relpath))
+            browser.close()
+
+    def run_parallel():
+        # N separate processes, each with its own browser (true parallelism).
+        todo_strs = [rel_key(p) for p in todo]
+        with ProcessPoolExecutor(max_workers=workers,
+                                 initializer=_worker_init,
+                                 initargs=(port, headed)) as ex:
+            for row in ex.map(_worker_task, todo_strs):
+                record(row)
+
+    try:
+        (run_serial if workers <= 1 else run_parallel)()
+    finally:
+        f.close()
+        server.shutdown()
 
     print("\nsummary (this run):")
     for v, n in sorted(counts.items()):
@@ -640,8 +689,17 @@ def main():
         open_mode(pos[0] if pos else "")
         return
 
+    # --workers=N: run N browsers in parallel (default 1).
+    workers = 1
+    for a in flags:
+        if a.startswith("--workers="):
+            try:
+                workers = max(1, int(a.split("=", 1)[1]))
+            except ValueError:
+                pass
+
     # otherwise: batch. optional positional = how many to check this run (a chunk).
-    batch_mode(pos, headed="--headed" in flags)
+    batch_mode(pos, headed="--headed" in flags, workers=workers)
 
 
 if __name__ == "__main__":

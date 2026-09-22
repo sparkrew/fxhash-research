@@ -70,11 +70,19 @@ The runner is **resumable and works in chunks**: results accumulate in the CSV a
 already-checked projects are skipped, so a large archive can be run a bit at a time.
 
 ```bash
-python run_artworks.py              # check every project not yet done
-python run_artworks.py 100          # check the next 100 (a chunk)
-python run_artworks.py --headed 20  # same, but show the browser window
-python run_artworks.py --fresh      # start over (clear previous results)
+python run_artworks.py                 # check every project not yet done
+python run_artworks.py 100             # check the next 100 (a chunk)
+python run_artworks.py 2000 --workers=6  # next 2000, 6 browsers in parallel
+python run_artworks.py --headed 20     # same, but show the browser window
+python run_artworks.py --fresh         # start over (clear previous results)
 ```
+
+`--workers=N` runs N browsers in **parallel processes** — a big speed-up on a
+**many-core machine** (e.g. the DIRO work machine: `--workers=6` or `8`). Match N
+to the available CPU cores: because rendering is CPU-bound (software GL), running
+more browsers than cores starves each one, which is both slower and can make the
+motion/interactive detection less reliable. On a laptop, keep the default
+(`--workers=1`).
 
 Two interactive modes let you inspect by hand:
 

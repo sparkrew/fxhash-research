@@ -158,40 +158,66 @@ def load_metadata():
     return meta
 
 
-def write_results_json():
-    # Merge the execution CSV with the API metadata into one JSON report:
+def read_rows(path):
+    if not path.exists():
+        return []
+    with path.open(newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def build_json(rows):
+    # Turn CSV rows + API metadata into the JSON report:
     # {name, date, nb_files, nb_mints, size, execute, type[], error[], log}.
-    if not RESULTS.exists():
-        return
     meta = load_metadata()
     out = []
-    with RESULTS.open(newline="", encoding="utf-8") as f:
-        for r in csv.DictReader(f):
-            execute = r["verdict"] == "executes"
-            kinds = []
-            if execute:
-                if r.get("kind"):
-                    kinds.append(r["kind"])
-                if r.get("interactive") == "yes":
-                    kinds.append("interactive")
-                if r.get("sound") == "yes":
-                    kinds.append("sound")
-            m = meta.get(id_from(r["relpath"]), {})
-            mints = m.get("mints")
-            out.append({
-                "name": r["relpath"],
-                "date": m.get("date"),
-                "nb_files": int(r["nb_files"]) if r.get("nb_files") else None,
-                "nb_mints": int(mints) if (mints or "").isdigit() else None,
-                "size": int(r["size"]) if r.get("size") else None,
-                "execute": execute,
-                "type": kinds,
-                "error": [] if execute else ([r["reason"]] if r.get("reason") else []),
-                "log": r.get("error", ""),
-            })
+    for r in rows:
+        execute = r["verdict"] == "executes"
+        kinds = []
+        if execute:
+            if r.get("kind"):
+                kinds.append(r["kind"])
+            if r.get("interactive") == "yes":
+                kinds.append("interactive")
+            if r.get("sound") == "yes":
+                kinds.append("sound")
+        m = meta.get(id_from(r["relpath"]), {})
+        mints = m.get("mints")
+        out.append({
+            "name": r["relpath"],
+            "date": m.get("date"),
+            "nb_files": int(r["nb_files"]) if r.get("nb_files") else None,
+            "nb_mints": int(mints) if (mints or "").isdigit() else None,
+            "size": int(r["size"]) if r.get("size") else None,
+            "execute": execute,
+            "type": kinds,
+            "error": [] if execute else ([r["reason"]] if r.get("reason") else []),
+            "log": r.get("error", ""),
+        })
     RESULTS_JSON.write_text(json.dumps(out, ensure_ascii=False, indent=2),
                             encoding="utf-8")
-    print(f"wrote {RESULTS_JSON} ({len(out)} projects)")
+    return len(out)
+
+
+def write_results_json(src=RESULTS):
+    n = build_json(read_rows(src))
+    print(f"wrote {RESULTS_JSON} ({n} projects)")
+
+
+def merge_mode():
+    # Combine every execution_results*.csv shard into the main CSV + results.json.
+    shards = sorted(RESULTS.parent.glob("execution_results*.csv"))
+    combined = {}
+    for s in shards:
+        for r in read_rows(s):
+            combined[r["relpath"]] = r
+    rows = list(combined.values())
+    with RESULTS.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=FIELDS, extrasaction="ignore")
+        w.writeheader()
+        w.writerows(rows)
+    n = build_json(rows)
+    print(f"merged {len(shards)} file(s) -> {RESULTS} ({len(rows)} projects) "
+          f"and {RESULTS_JSON} ({n})")
 
 
 def meta_from(relpath):
@@ -607,22 +633,33 @@ def progress_line(done, total, start, counts, row):
             f"{row['verdict']:18} {row['name'][:38]}  | {tail}")
 
 
-def batch_mode(pos, headed, workers=1):
+def batch_mode(pos, headed, workers=1, shard=None, fresh=False):
     print("scanning the projects folder...", flush=True)
     folders = all_project_folders()
-    done = load_done(RESULTS)
+    if shard is not None:
+        k, n = shard
+        folders = [p for idx, p in enumerate(folders) if idx % n == k]
+        results_path = RESULTS.with_name(f"execution_results.s{k}of{n}.csv")
+        workers = 1  # each slice is one serial process; parallelism = many slices
+    else:
+        results_path = RESULTS
+    if fresh and results_path.exists():
+        results_path.unlink()
+
+    done = load_done(results_path)
     todo = [p for p in folders if rel_key(p) not in done]
     if pos:
         todo = todo[:int(pos[0])]
-    print(f"{len(folders)} projects, {len(done)} already done, "
+    label = f" (slice {shard[0]}/{shard[1]})" if shard else ""
+    print(f"{len(folders)} projects{label}, {len(done)} already done, "
           f"{len(todo)} to check this run"
           + (f", {workers} workers" if workers > 1 else ""), flush=True)
     if not todo:
         print("nothing to do (all projects already checked)")
         return
 
-    RESULTS.parent.mkdir(parents=True, exist_ok=True)
-    need_header = not RESULTS.exists() or RESULTS.stat().st_size == 0
+    results_path.parent.mkdir(parents=True, exist_ok=True)
+    need_header = not results_path.exists() or results_path.stat().st_size == 0
     counts = {}
     total = len(todo)
     lock = threading.Lock()
@@ -631,7 +668,7 @@ def batch_mode(pos, headed, workers=1):
 
     server, port = start_server()
     # Append so results from earlier chunks are kept.
-    f = RESULTS.open("a", newline="", encoding="utf-8")
+    f = results_path.open("a", newline="", encoding="utf-8")
     writer = csv.DictWriter(f, fieldnames=FIELDS)
     if need_header:
         writer.writeheader()
@@ -675,9 +712,12 @@ def batch_mode(pos, headed, workers=1):
     print("\nsummary (this run):")
     for v, n in sorted(counts.items()):
         print(f"  {v}: {n}")
-    print(f"saved {RESULTS}")
-    # Rebuild the merged JSON report from everything checked so far.
-    write_results_json()
+    print(f"saved {results_path}")
+    if shard is None:
+        # Rebuild the JSON report from everything checked so far.
+        write_results_json(results_path)
+    else:
+        print("(slice done; run 'python run_artworks.py --merge' for results.json)")
 
 
 def main():
@@ -690,8 +730,10 @@ def main():
     flags = {a for a in args if a.startswith("--")}
     pos = [a for a in args if not a.startswith("--")]
 
-    if "--fresh" in flags and RESULTS.exists():
-        RESULTS.unlink()
+    # --merge: combine slice CSVs into the main CSV + results.json, then exit.
+    if "--merge" in flags:
+        merge_mode()
+        return
 
     # --browse: open one window with the project list; you click what to run.
     if "--browse" in flags:
@@ -703,17 +745,26 @@ def main():
         open_mode(pos[0] if pos else "")
         return
 
-    # --workers=N: run N browsers in parallel (default 1).
+    # --workers=N: N parallel browsers (one process each). --slice=k/N: run only
+    # this slice of projects to its own CSV (run several slices for parallelism).
     workers = 1
+    shard = None
     for a in flags:
         if a.startswith("--workers="):
             try:
                 workers = max(1, int(a.split("=", 1)[1]))
             except ValueError:
                 pass
+        elif a.startswith("--slice="):
+            try:
+                k, n = a.split("=", 1)[1].split("/")
+                shard = (int(k), int(n))
+            except Exception:
+                pass
 
     # otherwise: batch. optional positional = how many to check this run (a chunk).
-    batch_mode(pos, headed="--headed" in flags, workers=workers)
+    batch_mode(pos, headed="--headed" in flags, workers=workers,
+               shard=shard, fresh="--fresh" in flags)
 
 
 if __name__ == "__main__":

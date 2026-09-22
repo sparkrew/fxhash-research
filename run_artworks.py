@@ -9,6 +9,7 @@ import csv
 import functools
 import io
 import json
+import multiprocessing
 import random
 import re
 import sys
@@ -655,8 +656,11 @@ def batch_mode(pos, headed, workers=1):
 
     def run_parallel():
         # N separate processes, each with its own browser (true parallelism).
+        # Force "spawn": forking after the HTTP-server thread starts breaks
+        # Playwright (the default on Linux is fork), so use fresh processes.
         todo_strs = [rel_key(p) for p in todo]
-        with ProcessPoolExecutor(max_workers=workers,
+        ctx = multiprocessing.get_context("spawn")
+        with ProcessPoolExecutor(max_workers=workers, mp_context=ctx,
                                  initializer=_worker_init,
                                  initargs=(port, headed)) as ex:
             for row in ex.map(_worker_task, todo_strs):

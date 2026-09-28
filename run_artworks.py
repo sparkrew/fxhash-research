@@ -12,6 +12,7 @@ import json
 import multiprocessing
 import random
 import re
+import signal
 import sys
 import threading
 import time
@@ -33,6 +34,7 @@ FAILS_DIR = BASE / "charts" / "execution_fails"
 NAV_TIMEOUT = 15000
 RENDER_WAIT = 10000
 SHOT_TIMEOUT = 20000
+PROJECT_TIMEOUT = 120  # hard wall-clock cap per project (s); a hung piece is skipped
 VIEWPORT = {"width": 900, "height": 900}
 MIN_COLORS = 8
 LAUNCH_ARGS = ["--use-gl=angle", "--use-angle=swiftshader"]
@@ -466,6 +468,26 @@ def crash_row(relpath, exc):
             "blocked_hosts": "", "error": err}
 
 
+class _Timeout(Exception):
+    pass
+
+
+def _on_alarm(signum, frame):
+    raise _Timeout()
+
+
+def timeout_row(relpath):
+    # A result row for a project that hung past PROJECT_TIMEOUT and was skipped.
+    name, version, year = meta_from(relpath)
+    nb_files, size = folder_stats(PROJECTS / relpath)
+    return {"relpath": rel_key(relpath), "name": name, "version": version,
+            "year": year, "verdict": "broken",
+            "reason": f"timed out (skipped after {PROJECT_TIMEOUT}s)",
+            "kind": "", "interactive": "", "sound": "",
+            "nb_files": nb_files, "size": size, "signal": "timeout",
+            "blocked_hosts": "", "error": "timeout"}
+
+
 def process_one(browser, port, relpath):
     # Check one project (no browser needed if it has no index.html).
     if not (PROJECTS / relpath / "index.html").exists():
@@ -685,10 +707,38 @@ def batch_mode(pos, headed, workers=1, shard=None, fresh=False):
                   flush=True)
 
     def run_serial():
+        # A hung project can freeze the whole run, so cap each one with a hard
+        # wall-clock timeout (SIGALRM, Linux) and skip it if it overruns.
+        use_alarm = hasattr(signal, "SIGALRM")
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=not headed, args=LAUNCH_ARGS)
+            if use_alarm:
+                signal.signal(signal.SIGALRM, _on_alarm)
             for relpath in todo:
-                record(process_one(browser, port, relpath))
+                try:
+                    if use_alarm:
+                        signal.alarm(PROJECT_TIMEOUT)
+                    row = process_one(browser, port, relpath)
+                except _Timeout:
+                    row = timeout_row(relpath)
+                except Exception as exc:
+                    row = crash_row(relpath, exc)
+                finally:
+                    if use_alarm:
+                        signal.alarm(0)
+                record(row)
+                if row["signal"] == "timeout":
+                    # the browser may be wedged; reset it before the next project
+                    try:
+                        if use_alarm:
+                            signal.alarm(20)
+                        browser.close()
+                    except Exception:
+                        pass
+                    finally:
+                        if use_alarm:
+                            signal.alarm(0)
+                    browser = pw.chromium.launch(headless=not headed, args=LAUNCH_ARGS)
             browser.close()
 
     def run_parallel():
